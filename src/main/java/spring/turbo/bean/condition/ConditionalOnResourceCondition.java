@@ -20,13 +20,11 @@ import spring.turbo.io.ResourceOptions;
  */
 class ConditionalOnResourceCondition implements Condition {
 
-    private final Class<ConditionalOnResource> annotationType = ConditionalOnResource.class;
-
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
 
         final AnnotationAttributes annotationAttributes =
-                AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(annotationType.getName()));
+                AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnResource.class.getName()));
 
         if (annotationAttributes == null) {
             return false;
