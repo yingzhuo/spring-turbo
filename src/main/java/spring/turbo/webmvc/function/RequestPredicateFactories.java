@@ -167,6 +167,12 @@ public final class RequestPredicateFactories {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    private static boolean matchMethods(HttpServletRequest request, HttpMethod[] methodArray) {
+        return Stream.of(methodArray).anyMatch(m -> m.matches(request.getMethod()));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     private static class Not implements RequestPredicate {
         private final Predicate<HttpServletRequest> predicate;
 
@@ -212,6 +218,8 @@ public final class RequestPredicateFactories {
         }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     private static class Delegating implements RequestPredicate {
         private final Predicate<HttpServletRequest> predicate;
 
@@ -223,12 +231,6 @@ public final class RequestPredicateFactories {
         public boolean test(HttpServletRequest request) {
             return predicate.test(request);
         }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private static boolean matchMethods(HttpServletRequest request, HttpMethod[] methodArray) {
-        return Stream.of(methodArray).anyMatch(m -> m.matches(request.getMethod()));
     }
 
 }

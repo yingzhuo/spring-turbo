@@ -27,6 +27,7 @@ public final class TempFile implements Serializable {
 
     private TempFile(Path path) {
         super();
+        Assert.notNull(path, "path is null");
         this.path = path;
     }
 
@@ -153,7 +154,7 @@ public final class TempFile implements Serializable {
             }
 
             if (inputStream != null) {
-                FileCopyUtils.copy(inputStream, new BufferedOutputStream(new FileOutputStream(tmp.toFile())));
+                FileCopyUtils.copy(inputStream, new FileOutputStream(tmp.toFile()));
             }
 
             if (reader != null) {

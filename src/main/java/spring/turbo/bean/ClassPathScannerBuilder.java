@@ -26,14 +26,14 @@ import java.util.stream.Collectors;
  */
 public final class ClassPathScannerBuilder {
 
-    ClassPathScannerBuilder() {
-        super();
-    }
-
     private final List<TypeFilter> includeFilters = new LinkedList<>();
     private final List<TypeFilter> excludeFilters = new LinkedList<>();
     private Environment environment = new StandardEnvironment();
     private ResourceLoader resourceLoader = new DefaultResourceLoader();
+
+    ClassPathScannerBuilder() {
+        super();
+    }
 
     public ClassPathScannerBuilder includeFilter(TypeFilter... typeFilters) {
         Collections.addAll(this.includeFilters, typeFilters);
