@@ -6,24 +6,27 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.core;
+package spring.turbo.bean.condition;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.util.Assert;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.core.annotation.AliasFor;
+
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public final class SpringContexts {
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Conditional(ConditionalOnResourceCondition.class)
+public @interface ConditionalOnResource {
 
-    private SpringContexts() {
-        super();
-    }
+    @AliasFor("value")
+    public String[] locations() default {};
 
-    public static SpringContext of(ApplicationContext ctx) {
-        Assert.notNull(ctx, "ctx is null");
-        return new SpringContext(ctx);
-    }
+    @AliasFor("locations")
+    public String[] value() default {};
 
 }

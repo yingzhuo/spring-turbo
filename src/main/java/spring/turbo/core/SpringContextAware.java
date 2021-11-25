@@ -8,22 +8,22 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.Aware;
 import org.springframework.context.ApplicationContext;
-import org.springframework.util.Assert;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public final class SpringContexts {
+public interface SpringContextAware extends ApplicationContextAware, Aware {
 
-    private SpringContexts() {
-        super();
-    }
+    public void setSpringContext(SpringContext springContext);
 
-    public static SpringContext of(ApplicationContext ctx) {
-        Assert.notNull(ctx, "ctx is null");
-        return new SpringContext(ctx);
+    @Override
+    public default void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.setSpringContext(SpringContexts.of(applicationContext));
     }
 
 }
