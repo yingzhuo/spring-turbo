@@ -23,20 +23,20 @@ import java.util.stream.Stream;
  * @author 应卓
  * @since 1.0.0
  */
-public final class RequestPredicates {
+public final class RequestPredicateFactories {
 
     private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
 
     /**
      * 私有构造方法
      */
-    private RequestPredicates() {
+    private RequestPredicateFactories() {
         super();
     }
 
     public static RequestPredicate methodMatches(final HttpMethod... methods) {
         Assert.noNullElements(methods, "methods is null or has null element(s)");
-        return request -> RequestPredicates.matchMethods(request, methods);
+        return request -> RequestPredicateFactories.matchMethods(request, methods);
     }
 
     public static RequestPredicate hasParameter(final String parameterName) {

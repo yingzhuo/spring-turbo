@@ -159,12 +159,52 @@ public final class TypeFilterFactories {
     }
 
     /**
+     * 逻辑或
+     *
+     * @param f1 实例1
+     * @param f2 实例2
+     * @return 装饰后的TypeFilter实例
+     */
+    public static TypeFilter or(TypeFilter f1, TypeFilter f2) {
+        Assert.notNull(f1, "f1 is null");
+        Assert.notNull(f2, "f2 is null");
+        return any(f1, f2);
+    }
+
+    /**
+     * 逻辑与
+     *
+     * @param f1 实例1
+     * @param f2 实例2
+     * @return 装饰后的TypeFilter实例
+     */
+    public static TypeFilter and(TypeFilter f1, TypeFilter f2) {
+        Assert.notNull(f1, "f1 is null");
+        Assert.notNull(f2, "f2 is null");
+        return all(f1, f2);
+    }
+
+    /**
+     * 逻辑异或
+     *
+     * @param f1 实例1
+     * @param f2 实例2
+     * @return 装饰后的TypeFilter实例
+     */
+    public static TypeFilter xor(TypeFilter f1, TypeFilter f2) {
+        Assert.notNull(f1, "f1 is null");
+        Assert.notNull(f2, "f2 is null");
+        return (reader, readerFactory) -> f1.match(reader, readerFactory) ^ f2.match(reader, readerFactory);
+    }
+
+    /**
      * 被装饰的所有TypeFilter任意一个返回true，整体返回true，否则返回false
      *
      * @param filters 代理的TypeFilter实例
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter any(TypeFilter... filters) {
+        Assert.noNullElements(filters, "filters is null or has null element(s)");
         return new Any(Arrays.asList(filters));
     }
 
@@ -175,6 +215,7 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter all(TypeFilter... filters) {
+        Assert.noNullElements(filters, "filters is null or has null element(s)");
         return new All(Arrays.asList(filters));
     }
 
