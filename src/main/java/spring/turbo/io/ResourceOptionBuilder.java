@@ -25,7 +25,7 @@ public final class ResourceOptionBuilder {
 
     private final List<Resource> list = new LinkedList<>();
     private ResourceLoader resourceLoader = new DefaultResourceLoader(ClassUtils.getDefaultClassLoader());
-    private ResourceOptionDiscriminator discriminator = resource -> resource != null && resource.isReadable();
+    private ResourceOptionDiscriminator discriminator = ResourceOptionDiscriminator.getDefault();
 
     ResourceOptionBuilder() {
         super();

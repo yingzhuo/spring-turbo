@@ -14,10 +14,11 @@ import org.springframework.util.StreamUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.zip.CRC32;
+import java.util.zip.CheckedInputStream;
 
 /**
  * @author 应卓
@@ -42,6 +43,11 @@ final class ResourceOptionImpl implements ResourceOption {
     }
 
     @Override
+    public boolean isPresent() {
+        return true;
+    }
+
+    @Override
     public String toString(Charset charset) {
         try {
             return StreamUtils.copyToString(resource.getInputStream(), charset);
@@ -52,7 +58,7 @@ final class ResourceOptionImpl implements ResourceOption {
 
     @Override
     public String toString() {
-        return toString(StandardCharsets.UTF_8);
+        return resource.toString();
     }
 
     @Override
@@ -95,6 +101,20 @@ final class ResourceOptionImpl implements ResourceOption {
             return null;
         }
         return props;
+    }
+
+    @Override
+    public long getChecksumCRC32(int buffSize) {
+        try {
+            CheckedInputStream checkedInputStream = new CheckedInputStream(resource.getInputStream(), new CRC32());
+            final byte[] buffer = new byte[buffSize];
+            while (checkedInputStream.read(buffer, 0, buffer.length) >= 0) {
+                // nop
+            }
+            return checkedInputStream.getChecksum().getValue();
+        } catch (IOException e) {
+            return -1;
+        }
     }
 
 }

@@ -38,13 +38,18 @@ final class ResourceOptionEmpty implements ResourceOption {
     }
 
     @Override
+    public boolean isPresent() {
+        return false;
+    }
+
+    @Override
     public String toString(Charset charset) {
         return null;
     }
 
     @Override
     public String toString() {
-        return null;
+        return "Empty ResourceOption";
     }
 
     @Override
@@ -65,6 +70,21 @@ final class ResourceOptionEmpty implements ResourceOption {
     @Override
     public Properties toProperties(boolean xmlFormat) {
         return null;
+    }
+
+    @Override
+    public Properties toProperties() {
+        return null;
+    }
+
+    @Override
+    public long getChecksumCRC32(int buffSize) {
+        return -1;
+    }
+
+    @Override
+    public long getChecksumCRC32() {
+        return -1;
     }
 
 }

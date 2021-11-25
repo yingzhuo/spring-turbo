@@ -19,6 +19,10 @@ import java.util.function.Predicate;
 @FunctionalInterface
 public interface ResourceOptionDiscriminator extends Predicate<Resource> {
 
+    public static ResourceOptionDiscriminator getDefault() {
+        return resource -> resource != null && resource.isReadable();
+    }
+
     public boolean isExists(Resource resource);
 
     @Override

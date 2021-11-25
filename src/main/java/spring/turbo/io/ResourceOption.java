@@ -33,9 +33,6 @@ public interface ResourceOption extends Serializable {
 
     public String toString(Charset charset);
 
-    @Override
-    public String toString();
-
     public byte[] toByteArray();
 
     public File toFile();
@@ -43,6 +40,12 @@ public interface ResourceOption extends Serializable {
     public Path toPath();
 
     public Properties toProperties(boolean xmlFormat);
+
+    public long getChecksumCRC32(int buffSize);
+
+    public default long getChecksumCRC32() {
+        return getChecksumCRC32(1024);
+    }
 
     public default Properties toProperties() {
         return toProperties(false);
