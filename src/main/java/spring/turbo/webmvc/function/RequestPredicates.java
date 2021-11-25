@@ -44,12 +44,45 @@ public final class RequestPredicates {
         return request -> methodSet.stream().anyMatch(method -> method.matches(request.getMethod()));
     }
 
-    public static RequestPredicate antStylePathMatches(final String pattern) {
+    public static RequestPredicate hasParameter(final String parameterName) {
+        Assert.hasText(parameterName, "parameterName is blank");
+        return request -> request.getParameterMap().containsKey(parameterName);
+    }
+
+    public static RequestPredicate parameterValueMatches(final String parameterName, final String parameterValueRegex) {
+        Assert.hasText(parameterName, "parameterName is blank");
+        Assert.hasText(parameterValueRegex, "parameterValueRegex is blank");
+
+        return request -> {
+            String value = request.getParameter(parameterName);
+            if (!StringUtils.hasText(value)) return false;
+            return value.matches(parameterValueRegex);
+        };
+    }
+
+    public static RequestPredicate parameterValueMatches(final String parameterName, final String parameterValueRegex, final HttpMethod... methods) {
+        Assert.hasText(parameterName, "parameterName is blank");
+        Assert.hasText(parameterValueRegex, "parameterValueRegex is blank");
+        Assert.noNullElements(methods, "methods is null or has null element(s)");
+
+        final Set<HttpMethod> methodSet = Stream.of(methods)
+                .collect(Collectors.toSet());
+
+        return request -> {
+            String value = request.getParameter(parameterName);
+            if (!StringUtils.hasText(value)) return false;
+            return value.matches(parameterValueRegex)
+                    &&
+                    methodSet.stream().anyMatch(method -> method.matches(request.getMethod()));
+        };
+    }
+
+    public static RequestPredicate pathAntStyleMatches(final String pattern) {
         Assert.hasText(pattern, "pattern is blank");
         return request -> ANT_PATH_MATCHER.match(pattern, request.getRequestURI());
     }
 
-    public static RequestPredicate antStylePathMatches(final String pattern, final HttpMethod... methods) {
+    public static RequestPredicate pathAntStyleMatches(final String pattern, final HttpMethod... methods) {
         Assert.hasText(pattern, "pattern is blank");
         Assert.noNullElements(methods, "methods is null or has null element(s)");
 
@@ -61,12 +94,12 @@ public final class RequestPredicates {
                 methodSet.stream().anyMatch(method -> method.matches(request.getMethod()));
     }
 
-    public static RequestPredicate regexPathMatches(final String regex) {
+    public static RequestPredicate pathRegexMatches(final String regex) {
         Assert.hasText(regex, "regex is blank");
         return request -> request.getRequestURI().matches(regex);
     }
 
-    public static RequestPredicate regexPathMatches(final String regex, final HttpMethod... methods) {
+    public static RequestPredicate pathRegexMatches(final String regex, final HttpMethod... methods) {
         Assert.hasText(regex, "regex is blank");
         Assert.noNullElements(methods, "methods is null or has null element(s)");
 
@@ -92,6 +125,10 @@ public final class RequestPredicates {
             if (!StringUtils.hasText(value)) return false;
             return value.matches(headerValueRegex);
         };
+    }
+
+    public static RequestPredicate isSecure() {
+        return HttpServletRequest::isSecure;
     }
 
     public static RequestPredicate delegating(final Predicate<HttpServletRequest> predicate) {
