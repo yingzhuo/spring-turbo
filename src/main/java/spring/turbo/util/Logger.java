@@ -11,13 +11,14 @@ package spring.turbo.util;
 import org.slf4j.LoggerFactory;
 import spring.turbo.string.StringFormatter;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public class Logger {
+public class Logger implements Serializable {
 
     private final org.slf4j.Logger log;
     private final LogLevel level;
@@ -46,7 +47,6 @@ public class Logger {
             case STDOUT:
                 return true;
             case OFF:
-                return false;
             default:
                 return false;
         }
