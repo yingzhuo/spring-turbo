@@ -40,7 +40,7 @@ public abstract class AbstractSkippableFilter extends OncePerRequestFilter {
         return skipPredicates.shouldSkip(request);
     }
 
-    public void setSkipPredicates(RequestPredicate predicate, RequestPredicate... others) {
+    public final void addSkipPredicates(RequestPredicate predicate, RequestPredicate... others) {
         if (predicate != null) {
             skipPredicates.add(predicate);
         }
