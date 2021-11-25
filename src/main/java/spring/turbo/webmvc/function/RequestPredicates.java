@@ -44,15 +44,6 @@ public final class RequestPredicates {
         return request -> request.getParameterMap().containsKey(parameterName);
     }
 
-    public static RequestPredicate hasParameter(final String parameterName, final HttpMethod... methods) {
-        Assert.hasText(parameterName, "parameterName is blank");
-        Assert.noNullElements(methods, "methods is null or has null element(s)");
-
-        return request -> request.getParameterMap().containsKey(parameterName)
-                &&
-                RequestPredicates.matchMethods(request, methods);
-    }
-
     public static RequestPredicate parameterValueRegexMatches(final String parameterName, final String parameterValueRegex) {
         Assert.hasText(parameterName, "parameterName is blank");
         Assert.hasText(parameterValueRegex, "parameterValueRegex is blank");
@@ -64,32 +55,9 @@ public final class RequestPredicates {
         };
     }
 
-    public static RequestPredicate parameterValueRegexMatches(final String parameterName, final String parameterValueRegex, final HttpMethod... methods) {
-        Assert.hasText(parameterName, "parameterName is blank");
-        Assert.hasText(parameterValueRegex, "parameterValueRegex is blank");
-        Assert.noNullElements(methods, "methods is null or has null element(s)");
-
-        return request -> {
-            String value = request.getParameter(parameterName);
-            if (!StringUtils.hasText(value)) return false;
-            return value.matches(parameterValueRegex)
-                    &&
-                    RequestPredicates.matchMethods(request, methods);
-        };
-    }
-
     public static RequestPredicate hasAttribute(final String attributeName) {
         Assert.hasText(attributeName, "attributeName is blank");
         return request -> request.getAttribute(attributeName) != null;
-    }
-
-    public static RequestPredicate hasAttribute(final String attributeName, final HttpMethod... methods) {
-        Assert.hasText(attributeName, "attributeName is blank");
-        Assert.noNullElements(methods, "methods is null or has null element(s)");
-
-        return request -> request.getAttribute(attributeName) != null
-                &&
-                RequestPredicates.matchMethods(request, methods);
     }
 
     public static RequestPredicate attributeValueRegexMatches(final String attributeName, final String attributeValueRegex) {
@@ -98,26 +66,13 @@ public final class RequestPredicates {
 
         return request -> {
             Object valueObj = request.getAttribute(attributeName);
+            if (valueObj == null) {
+                return false;
+            }
             if (!(valueObj instanceof CharSequence)) {
                 return false;
             }
             return valueObj.toString().matches(attributeValueRegex);
-        };
-    }
-
-    public static RequestPredicate attributeValueRegexMatches(final String attributeName, final String attributeValueRegex, final HttpMethod... methods) {
-        Assert.hasText(attributeName, "attributeName is blank");
-        Assert.hasText(attributeValueRegex, "attributeValueRegex is blank");
-        Assert.noNullElements(methods, "methods is null or has null element(s)");
-
-        return request -> {
-            Object valueObj = request.getAttribute(attributeName);
-            if (!(valueObj instanceof CharSequence)) {
-                return false;
-            }
-            return valueObj.toString().matches(attributeValueRegex)
-                    &&
-                    RequestPredicates.matchMethods(request, methods);
         };
     }
 
@@ -126,27 +81,9 @@ public final class RequestPredicates {
         return request -> ANT_PATH_MATCHER.match(pattern, request.getRequestURI());
     }
 
-    public static RequestPredicate pathAntStyleMatches(final String pattern, final HttpMethod... methods) {
-        Assert.hasText(pattern, "pattern is blank");
-        Assert.noNullElements(methods, "methods is null or has null element(s)");
-
-        return request -> ANT_PATH_MATCHER.match(pattern, request.getRequestURI())
-                &&
-                RequestPredicates.matchMethods(request, methods);
-    }
-
     public static RequestPredicate pathRegexMatches(final String regex) {
         Assert.hasText(regex, "regex is blank");
         return request -> request.getRequestURI().matches(regex);
-    }
-
-    public static RequestPredicate pathRegexMatches(final String regex, final HttpMethod... methods) {
-        Assert.hasText(regex, "regex is blank");
-        Assert.noNullElements(methods, "methods is null or has null element(s)");
-
-        return request -> request.getRequestURI().matches(regex)
-                &&
-                RequestPredicates.matchMethods(request, methods);
     }
 
     public static RequestPredicate hasHeader(final String headerName) {
@@ -165,9 +102,20 @@ public final class RequestPredicates {
         };
     }
 
+    public static RequestPredicate contextPathRegexMatches(final String contextPathPattern) {
+        Assert.hasText(contextPathPattern, "contextPathPattern is blank");
+        return request -> {
+            String contextPath = request.getContextPath();
+            if (contextPath == null) return false;
+            return contextPath.matches(contextPathPattern);
+        };
+    }
+
     public static RequestPredicate isSecure() {
         return HttpServletRequest::isSecure;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static RequestPredicate delegating(final Predicate<HttpServletRequest> predicate) {
         Assert.notNull(predicate, "predicate is null");
