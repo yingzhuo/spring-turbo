@@ -156,7 +156,7 @@ public final class RequestPredicates {
     public static RequestPredicate and(final RequestPredicate p1, final RequestPredicate p2) {
         Assert.notNull(p1, "p1 is null");
         Assert.notNull(p2, "p2 is null");
-        return any(p1, p2);
+        return all(p1, p2);
     }
 
     public static RequestPredicate xor(final RequestPredicate p1, final RequestPredicate p2) {
