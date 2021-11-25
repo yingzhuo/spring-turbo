@@ -16,9 +16,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -36,12 +34,9 @@ public final class RequestPredicates {
         super();
     }
 
-    public static RequestPredicate method(final HttpMethod... methods) {
+    public static RequestPredicate methodMatches(final HttpMethod... methods) {
         Assert.noNullElements(methods, "methods is null or has null element(s)");
-
-        final Set<HttpMethod> methodSet = Stream.of(methods)
-                .collect(Collectors.toSet());
-        return request -> methodSet.stream().anyMatch(method -> method.matches(request.getMethod()));
+        return request -> RequestPredicates.matchMethods(request, methods);
     }
 
     public static RequestPredicate hasParameter(final String parameterName) {
@@ -49,7 +44,16 @@ public final class RequestPredicates {
         return request -> request.getParameterMap().containsKey(parameterName);
     }
 
-    public static RequestPredicate parameterValueMatches(final String parameterName, final String parameterValueRegex) {
+    public static RequestPredicate hasParameter(final String parameterName, final HttpMethod... methods) {
+        Assert.hasText(parameterName, "parameterName is blank");
+        Assert.noNullElements(methods, "methods is null or has null element(s)");
+
+        return request -> request.getParameterMap().containsKey(parameterName)
+                &&
+                RequestPredicates.matchMethods(request, methods);
+    }
+
+    public static RequestPredicate parameterValueRegexMatches(final String parameterName, final String parameterValueRegex) {
         Assert.hasText(parameterName, "parameterName is blank");
         Assert.hasText(parameterValueRegex, "parameterValueRegex is blank");
 
@@ -60,20 +64,60 @@ public final class RequestPredicates {
         };
     }
 
-    public static RequestPredicate parameterValueMatches(final String parameterName, final String parameterValueRegex, final HttpMethod... methods) {
+    public static RequestPredicate parameterValueRegexMatches(final String parameterName, final String parameterValueRegex, final HttpMethod... methods) {
         Assert.hasText(parameterName, "parameterName is blank");
         Assert.hasText(parameterValueRegex, "parameterValueRegex is blank");
         Assert.noNullElements(methods, "methods is null or has null element(s)");
-
-        final Set<HttpMethod> methodSet = Stream.of(methods)
-                .collect(Collectors.toSet());
 
         return request -> {
             String value = request.getParameter(parameterName);
             if (!StringUtils.hasText(value)) return false;
             return value.matches(parameterValueRegex)
                     &&
-                    methodSet.stream().anyMatch(method -> method.matches(request.getMethod()));
+                    RequestPredicates.matchMethods(request, methods);
+        };
+    }
+
+    public static RequestPredicate hasAttribute(final String attributeName) {
+        Assert.hasText(attributeName, "attributeName is blank");
+        return request -> request.getAttribute(attributeName) != null;
+    }
+
+    public static RequestPredicate hasAttribute(final String attributeName, final HttpMethod... methods) {
+        Assert.hasText(attributeName, "attributeName is blank");
+        Assert.noNullElements(methods, "methods is null or has null element(s)");
+
+        return request -> request.getAttribute(attributeName) != null
+                &&
+                RequestPredicates.matchMethods(request, methods);
+    }
+
+    public static RequestPredicate attributeValueRegexMatches(final String attributeName, final String attributeValueRegex) {
+        Assert.hasText(attributeName, "attributeName is blank");
+        Assert.hasText(attributeValueRegex, "attributeValueRegex is blank");
+
+        return request -> {
+            Object valueObj = request.getAttribute(attributeName);
+            if (!(valueObj instanceof CharSequence)) {
+                return false;
+            }
+            return valueObj.toString().matches(attributeValueRegex);
+        };
+    }
+
+    public static RequestPredicate attributeValueRegexMatches(final String attributeName, final String attributeValueRegex, final HttpMethod... methods) {
+        Assert.hasText(attributeName, "attributeName is blank");
+        Assert.hasText(attributeValueRegex, "attributeValueRegex is blank");
+        Assert.noNullElements(methods, "methods is null or has null element(s)");
+
+        return request -> {
+            Object valueObj = request.getAttribute(attributeName);
+            if (!(valueObj instanceof CharSequence)) {
+                return false;
+            }
+            return valueObj.toString().matches(attributeValueRegex)
+                    &&
+                    RequestPredicates.matchMethods(request, methods);
         };
     }
 
@@ -86,12 +130,9 @@ public final class RequestPredicates {
         Assert.hasText(pattern, "pattern is blank");
         Assert.noNullElements(methods, "methods is null or has null element(s)");
 
-        final Set<HttpMethod> methodSet = Stream.of(methods)
-                .collect(Collectors.toSet());
-
         return request -> ANT_PATH_MATCHER.match(pattern, request.getRequestURI())
                 &&
-                methodSet.stream().anyMatch(method -> method.matches(request.getMethod()));
+                RequestPredicates.matchMethods(request, methods);
     }
 
     public static RequestPredicate pathRegexMatches(final String regex) {
@@ -103,12 +144,9 @@ public final class RequestPredicates {
         Assert.hasText(regex, "regex is blank");
         Assert.noNullElements(methods, "methods is null or has null element(s)");
 
-        final Set<HttpMethod> methodSet = Stream.of(methods)
-                .collect(Collectors.toSet());
-
         return request -> request.getRequestURI().matches(regex)
                 &&
-                methodSet.stream().anyMatch(method -> method.matches(request.getMethod()));
+                RequestPredicates.matchMethods(request, methods);
     }
 
     public static RequestPredicate hasHeader(final String headerName) {
@@ -138,6 +176,14 @@ public final class RequestPredicates {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    public static RequestPredicate alwaysTrue() {
+        return request -> true;
+    }
+
+    public static RequestPredicate alwaysFalse() {
+        return request -> false;
+    }
+
     public static RequestPredicate not(final RequestPredicate predicate) {
         Assert.notNull(predicate, "predicate is null");
         return new Not(predicate);
@@ -151,6 +197,24 @@ public final class RequestPredicates {
     public static RequestPredicate all(final RequestPredicate... predicates) {
         Assert.noNullElements(predicates, "predicates is null or has null element");
         return new All(predicates);
+    }
+
+    public static RequestPredicate or(final RequestPredicate p1, final RequestPredicate p2) {
+        Assert.notNull(p1, "p1 is null");
+        Assert.notNull(p2, "p2 is null");
+        return any(p1, p2);
+    }
+
+    public static RequestPredicate and(final RequestPredicate p1, final RequestPredicate p2) {
+        Assert.notNull(p1, "p1 is null");
+        Assert.notNull(p2, "p2 is null");
+        return any(p1, p2);
+    }
+
+    public static RequestPredicate xor(final RequestPredicate p1, final RequestPredicate p2) {
+        Assert.notNull(p1, "p1 is null");
+        Assert.notNull(p2, "p2 is null");
+        return request -> p1.test(request) ^ p2.test(request);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -211,6 +275,12 @@ public final class RequestPredicates {
         public boolean test(HttpServletRequest request) {
             return predicate.test(request);
         }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private static boolean matchMethods(HttpServletRequest request, HttpMethod[] methodArray) {
+        return Stream.of(methodArray).anyMatch(m -> m.matches(request.getMethod()));
     }
 
 }
