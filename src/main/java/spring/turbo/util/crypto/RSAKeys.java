@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
@@ -19,7 +20,7 @@ import static spring.turbo.util.crypto.Base64.encode;
  * @author 应卓
  * @since 1.0.0
  */
-public final class RSAKeys implements KeyPair {
+public final class RSAKeys implements Keys {
 
     public static final int KEY_SIZE_1024 = 1024;
     public static final int KEY_SIZE_2048 = 2048;
@@ -40,7 +41,7 @@ public final class RSAKeys implements KeyPair {
         try {
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
             generator.initialize(keySize);
-            java.security.KeyPair keyPair = generator.generateKeyPair();
+            KeyPair keyPair = generator.generateKeyPair();
             RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
             RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
 
@@ -64,6 +65,5 @@ public final class RSAKeys implements KeyPair {
     public String getBase64PrivateKey() {
         return this.base64PrivateKey;
     }
-
 
 }

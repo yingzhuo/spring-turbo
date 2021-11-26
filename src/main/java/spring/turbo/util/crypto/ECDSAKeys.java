@@ -17,7 +17,7 @@ import static spring.turbo.util.crypto.Base64.encode;
  * @author 应卓
  * @since 1.0.0
  */
-public final class ECDSAKeys implements KeyPair {
+public final class ECDSAKeys implements Keys {
 
     private final String base64PublicKey;
     private final String base64PrivateKey;
@@ -31,7 +31,7 @@ public final class ECDSAKeys implements KeyPair {
         try {
             final KeyPairGenerator generator = KeyPairGenerator.getInstance("EC");
             generator.initialize(new ECGenParameterSpec("secp256r1"), new SecureRandom());
-            java.security.KeyPair keyPair = generator.generateKeyPair();
+            KeyPair keyPair = generator.generateKeyPair();
             PublicKey publicKey = keyPair.getPublic();
             PrivateKey privateKey = keyPair.getPrivate();
 

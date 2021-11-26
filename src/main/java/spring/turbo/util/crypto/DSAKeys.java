@@ -8,10 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.*;
 
 import static spring.turbo.util.crypto.Base64.encode;
 
@@ -19,7 +16,7 @@ import static spring.turbo.util.crypto.Base64.encode;
  * @author 应卓
  * @since 1.0.0
  */
-public final class DSAKeys implements KeyPair {
+public final class DSAKeys implements Keys {
 
     public static final int KEY_SIZE_512 = 512;
 
@@ -39,7 +36,7 @@ public final class DSAKeys implements KeyPair {
         try {
             KeyPairGenerator generator = KeyPairGenerator.getInstance("DSA");
             generator.initialize(keySize);
-            java.security.KeyPair keyPair = generator.generateKeyPair();
+            KeyPair keyPair = generator.generateKeyPair();
             PublicKey publicKey = keyPair.getPublic();
             PrivateKey privateKey = keyPair.getPrivate();
 

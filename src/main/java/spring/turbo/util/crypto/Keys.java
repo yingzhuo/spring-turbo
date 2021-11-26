@@ -16,7 +16,7 @@ import static spring.turbo.util.crypto.Base64.decode;
  * @author 应卓
  * @since 1.0.0
  */
-public interface KeyPair extends Serializable {
+public interface Keys extends Serializable {
 
     public String getBase64PublicKey();
 
