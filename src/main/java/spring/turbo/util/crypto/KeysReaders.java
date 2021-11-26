@@ -24,24 +24,24 @@ public final class KeysReaders {
         super();
     }
 
-    public static RSAKeys readRSAKeys(String publicKey, String privateKey) {
+    public static RSAKeys readRSAKeys(String publicKeyLocation, String privateKeyLocation) {
         return RSAKeys.fromString(
-                getText(publicKey),
-                getText(privateKey)
+                getText(publicKeyLocation),
+                getText(privateKeyLocation)
         );
     }
 
-    public static ECDSAKeys readECDSAKeys(String publicKey, String privateKey) {
+    public static ECDSAKeys readECDSAKeys(String publicKeyLocation, String privateKeyLocation) {
         return ECDSAKeys.fromString(
-                getText(publicKey),
-                getText(privateKey)
+                getText(publicKeyLocation),
+                getText(privateKeyLocation)
         );
     }
 
-    public static DSAKeys readDSAKeys(String publicKey, String privateKey) {
+    public static DSAKeys readDSAKeys(String publicKeyLocation, String privateKeyLocation) {
         return DSAKeys.fromString(
-                getText(publicKey),
-                getText(privateKey)
+                getText(publicKeyLocation),
+                getText(privateKeyLocation)
         );
     }
 

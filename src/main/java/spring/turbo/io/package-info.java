@@ -7,3 +7,18 @@
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
+
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
+import org.springframework.context.annotation.Bean;
+
+class SpringBootAutoConfiguration {
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationPropertiesBinding
+    ResourceOptionConverter resourceOptionConverter() {
+        return new ResourceOptionConverter();
+    }
+
+}
