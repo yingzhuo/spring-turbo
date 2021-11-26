@@ -9,7 +9,6 @@
 package spring.turbo.util;
 
 import org.slf4j.LoggerFactory;
-import spring.turbo.string.StringFormatter;
 
 import java.io.Serializable;
 import java.util.Objects;

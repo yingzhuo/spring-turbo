@@ -26,4 +26,12 @@ public final class Base64 {
         return new String(java.util.Base64.getUrlEncoder().encode(key));
     }
 
+    public static byte[] toBytes(String key) {
+        return decode(key);
+    }
+
+    public static String toString(byte[] bytes) {
+        return encode(bytes);
+    }
+
 }
