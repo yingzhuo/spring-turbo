@@ -122,7 +122,7 @@ public final class RSABuilder {
                     signature.update(data);
                     return signature.verify(sign);
                 } catch (Exception e) {
-                    throw new IllegalArgumentException(e.getMessage(), e);
+                    return false;
                 }
             }
         };

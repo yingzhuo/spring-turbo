@@ -8,10 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.*;
+import java.security.spec.ECGenParameterSpec;
 
 import static spring.turbo.util.crypto.Base64.encode;
 
@@ -19,52 +17,46 @@ import static spring.turbo.util.crypto.Base64.encode;
  * @author 应卓
  * @since 1.0.0
  */
-public final class DSAKeys implements KeyPair {
-
-    public static final int KEY_SIZE_512 = 512;
+public final class ECDSAKeys implements KeyPair {
 
     private final String base64PublicKey;
     private final String base64PrivateKey;
 
-    private DSAKeys(String base64PublicKey, String base64PrivateKey) {
+    public ECDSAKeys(String base64PublicKey, String base64PrivateKey) {
         this.base64PublicKey = base64PublicKey;
         this.base64PrivateKey = base64PrivateKey;
     }
 
-    public static DSAKeys create() {
-        return create(KEY_SIZE_512);
-    }
-
-    public static DSAKeys create(int keySize) {
+    public static ECDSAKeys create() {
         try {
-            KeyPairGenerator generator = KeyPairGenerator.getInstance("DSA");
-            generator.initialize(keySize);
+            final KeyPairGenerator generator = KeyPairGenerator.getInstance("EC");
+            generator.initialize(new ECGenParameterSpec("secp256r1"), new SecureRandom());
             java.security.KeyPair keyPair = generator.generateKeyPair();
             PublicKey publicKey = keyPair.getPublic();
             PrivateKey privateKey = keyPair.getPrivate();
 
-            return new DSAKeys(
+            return new ECDSAKeys(
                     encode(publicKey.getEncoded()),
                     encode(privateKey.getEncoded())
             );
 
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException e) {
             throw new AssertionError();
         }
     }
 
-    public static DSAKeys fromString(String publicKey, String privateKey) {
-        return new DSAKeys(publicKey, privateKey);
+    public static ECDSAKeys fromString(String publicKey, String privateKey) {
+        return new ECDSAKeys(publicKey, privateKey);
     }
 
     @Override
     public String getBase64PublicKey() {
-        return this.base64PublicKey;
+        return base64PublicKey;
     }
 
     @Override
     public String getBase64PrivateKey() {
-        return this.base64PrivateKey;
+        return base64PrivateKey;
     }
 
 }

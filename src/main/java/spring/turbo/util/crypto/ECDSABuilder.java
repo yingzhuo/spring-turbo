@@ -18,41 +18,42 @@ import java.security.spec.X509EncodedKeySpec;
  * @author 应卓
  * @since 1.0.0
  */
-public final class DSABuilder {
+public final class ECDSABuilder {
 
     private byte[] publicKey;
     private byte[] privateKey;
 
-    DSABuilder() {
+    ECDSABuilder() {
         super();
     }
 
-    public DSABuilder keyPair(DSAKeys keyPair) {
+    public ECDSABuilder keyPair(ECDSAKeys keyPair) {
         Assert.notNull(keyPair, "keyPair is null");
-        this.privateKey = keyPair.getPrivateKey();
         this.publicKey = keyPair.getPublicKey();
+        this.privateKey = keyPair.getPrivateKey();
         return this;
     }
 
-    public DSA build() {
-        return new DSA() {
+    public ECDSA build() {
+        return new ECDSA() {
             @Override
             public byte[] sign(byte[] data) {
                 try {
                     // 构造PKCS8EncodedKeySpec对象
                     PKCS8EncodedKeySpec pkcs = new PKCS8EncodedKeySpec(privateKey);
                     // 指定的加密算法
-                    KeyFactory factory = KeyFactory.getInstance("DSA");
+                    KeyFactory factory = KeyFactory.getInstance("EC");
                     // 取私钥对象
                     java.security.PrivateKey key = factory.generatePrivate(pkcs);
                     // 用私钥对信息生成数字签名
-                    java.security.Signature dsa = java.security.Signature.getInstance("SHA1withDSA", "SUN");
+                    java.security.Signature dsa = java.security.Signature.getInstance("SHA1withECDSA");
                     dsa.initSign(key);
                     dsa.update(data);
                     return dsa.sign();
                 } catch (Exception e) {
                     throw new IllegalArgumentException(e.getMessage(), e);
                 }
+
             }
 
             @Override
@@ -61,14 +62,14 @@ public final class DSABuilder {
                     // 构造X509EncodedKeySpec对象
                     X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKey);
                     // 指定的加密算法
-                    KeyFactory factory = KeyFactory.getInstance("DSA");
+                    KeyFactory factory = KeyFactory.getInstance("EC");
                     // 取公钥对象
                     java.security.PublicKey key = factory.generatePublic(keySpec);
                     // 用公钥验证数字签名
-                    java.security.Signature dsa = java.security.Signature.getInstance("SHA1withDSA", "SUN");
-                    dsa.initVerify(key);
-                    dsa.update(data);
-                    return dsa.verify(sign);
+                    java.security.Signature ecdsa = java.security.Signature.getInstance("SHA1withECDSA");
+                    ecdsa.initVerify(key);
+                    ecdsa.update(data);
+                    return ecdsa.verify(sign);
                 } catch (Exception e) {
                     return false;
                 }
