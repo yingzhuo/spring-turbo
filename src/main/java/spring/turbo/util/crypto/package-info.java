@@ -21,8 +21,8 @@ class SpringBootAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     @ConfigurationPropertiesBinding
-    CryptoConverter cryptoConverter() {
-        return new CryptoConverter();
+    CryptorConverter cryptorConverter() {
+        return new CryptorConverter();
     }
 
 }

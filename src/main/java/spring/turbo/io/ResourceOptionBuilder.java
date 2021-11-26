@@ -50,7 +50,7 @@ public final class ResourceOptionBuilder {
         return this;
     }
 
-    public ResourceOptionBuilder loader(ResourceLoader resourceLoader) {
+    public ResourceOptionBuilder resourceLoader(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
         return this;
     }

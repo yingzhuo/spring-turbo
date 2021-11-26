@@ -16,7 +16,7 @@ import static spring.turbo.util.crypto.Base64.encode;
  * @author 应卓
  * @since 1.0.0
  */
-public interface ECDSA {
+public interface ECDSA extends Cryptor {
 
     public static ECDSABuilder builder() {
         return new ECDSABuilder();

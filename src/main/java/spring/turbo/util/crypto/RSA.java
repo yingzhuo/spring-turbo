@@ -16,7 +16,7 @@ import static spring.turbo.util.crypto.Base64.encode;
  * @author 应卓
  * @since 1.0.0
  */
-public interface RSA {
+public interface RSA extends Cryptor {
 
     public static RSABuilder builder() {
         return new RSABuilder();

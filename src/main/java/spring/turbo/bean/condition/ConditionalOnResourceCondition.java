@@ -37,6 +37,7 @@ class ConditionalOnResourceCondition implements Condition {
         }
 
         return ResourceOptions.builder()
+                .resourceLoader(context.getResourceLoader())
                 .add(locations)
                 .build()
                 .isPresent();

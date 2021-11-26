@@ -8,32 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static spring.turbo.util.crypto.Base64.decode;
-import static spring.turbo.util.crypto.Base64.encode;
-
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public interface DSA extends Cryptor {
+@FunctionalInterface
+public interface PasswordAndSaltProvider {
 
-    public static DSABuilder builder() {
-        return new DSABuilder();
-    }
+    public PasswordAndSalt getPasswordAndSalt();
 
-    public byte[] sign(byte[] data);
-
-    public default String sign(String data) {
-        return encode(sign(data.getBytes(UTF_8)));
-    }
-
-    public boolean verify(byte[] data, byte[] sign);
-
-    public default boolean verify(String data, String sign) {
-        return verify(
-                data.getBytes(UTF_8),
-                decode(sign)
-        );
-    }
 }
