@@ -8,19 +8,23 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-class SpringBootAutoConfiguration {
+class SpringApplicationAware implements ApplicationContextAware {
 
-    @ConditionalOnMissingBean
-    @Bean("__applicationContextProvider__")
-    SpringApplicationAware applicationContextProvider() {
-        return new SpringApplicationAware();
+    static ApplicationContext AC = null;
+    static SpringContext SC = null;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        AC = applicationContext;
+        SC = SpringContexts.of(applicationContext);
     }
 
 }

@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+spring.turbo.core.SpringBootAutoConfiguration,\
 spring.turbo.io.SpringBootAutoConfiguration,\
 spring.turbo.util.crypto.SpringBootAutoConfiguration
