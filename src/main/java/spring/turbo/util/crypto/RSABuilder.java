@@ -22,24 +22,24 @@ import java.security.spec.X509EncodedKeySpec;
  * @author 应卓
  * @since 1.0.0
  */
-public final class RSACryptorBuilder {
+public final class RSABuilder {
 
     private byte[] publicKey;
     private byte[] privateKey;
 
-    RSACryptorBuilder() {
+    RSABuilder() {
         super();
     }
 
-    public RSACryptorBuilder keyPair(RSAKeyPair keyPair) {
+    public RSABuilder keyPair(RSAKeys keyPair) {
         Assert.notNull(keyPair, "keyPair is null");
         this.publicKey = keyPair.getPublicKey();
         this.privateKey = keyPair.getPrivateKey();
         return this;
     }
 
-    public RSACryptor build() {
-        return new RSACryptor() {
+    public RSA build() {
+        return new RSA() {
             @Override
             public byte[] encryptByPublicKey(byte[] data) {
                 try {

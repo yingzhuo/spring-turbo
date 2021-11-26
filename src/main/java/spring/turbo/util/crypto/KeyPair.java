@@ -8,51 +8,26 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import java.io.Serializable;
+
+import static spring.turbo.util.crypto.Base64.decode;
+
 /**
- * AES模式
- *
  * @author 应卓
+ * @since 1.0.0
  */
-public enum AESMode {
+public interface KeyPair extends Serializable {
 
-    /**
-     * Cipher Block Chaining (推荐)
-     */
-    CBC("AES/CBC/PKCS5Padding"),
+    public String getBase64PublicKey();
 
-    /**
-     * Electronic Code Book
-     */
-    ECB("AES/ECB/PKCS5Padding"),
+    public String getBase64PrivateKey();
 
-    /**
-     * Cipher FeedBack
-     */
-    CFB("AES/CFB/PKCS5Padding"),
-
-    /**
-     * Output FeedBack
-     */
-    OFB("AES/OFB/PKCS5Padding"),
-
-    /**
-     * Count
-     */
-    CTR("AES/CTR/PKCS5Padding");
-
-    private final String algorithm;
-
-    /**
-     * 构造方法
-     *
-     * @param algorithm 算法
-     */
-    AESMode(String algorithm) {
-        this.algorithm = algorithm;
+    public default byte[] getPublicKey() {
+        return decode(getBase64PublicKey());
     }
 
-    public String getAlgorithm() {
-        return algorithm;
+    public default byte[] getPrivateKey() {
+        return decode(getBase64PrivateKey());
     }
 
 }

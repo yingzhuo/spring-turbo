@@ -17,16 +17,16 @@ import javax.crypto.spec.IvParameterSpec;
  * @author 应卓
  * @since 1.0.0
  */
-public final class AESCryptorBuilder {
+public final class AESBuilder {
 
     private final IvParameterSpec ivParameterSpec = AESUtils.generateIv();
-    private AESMode mode = AESMode.CBC;
+    private AES.Mode mode = AES.Mode.CBC;
     private SecretKey secretKey;
 
-    AESCryptorBuilder() {
+    AESBuilder() {
     }
 
-    public AESCryptorBuilder passwordAndSalt(String password, String salt) {
+    public AESBuilder passwordAndSalt(String password, String salt) {
         Assert.hasText(password, "password is blank");
         Assert.hasText(salt, "salt is blank");
 
@@ -38,16 +38,16 @@ public final class AESCryptorBuilder {
         }
     }
 
-    public AESCryptorBuilder mode(AESMode mode) {
+    public AESBuilder mode(AES.Mode mode) {
         Assert.notNull(mode, "mode is null");
         this.mode = mode;
         return this;
     }
 
-    public AESCryptor build() {
+    public AES build() {
         Assert.notNull(secretKey, "secretKey is null");
 
-        return new AESCryptor() {
+        return new AES() {
             @Override
             public String encrypt(String input) {
                 try {

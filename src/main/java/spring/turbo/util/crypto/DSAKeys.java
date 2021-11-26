@@ -8,71 +8,59 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import java.io.Serializable;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
-import static spring.turbo.util.crypto.Base64.decode;
 import static spring.turbo.util.crypto.Base64.encode;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public final class RSAKeyPair implements Serializable {
+public class DSAKeys implements KeyPair {
 
-    public static final int KEY_SIZE_1024 = 1024;
-    public static final int KEY_SIZE_2048 = 2048;
+    public static final int KEY_SIZE_512 = 512;
 
     private final String base64PublicKey;
     private final String base64PrivateKey;
 
-    private RSAKeyPair(String publicKey, String privateKey) {
-        this.base64PublicKey = publicKey;
-        this.base64PrivateKey = privateKey;
+    private DSAKeys(String base64PublicKey, String base64PrivateKey) {
+        this.base64PublicKey = base64PublicKey;
+        this.base64PrivateKey = base64PrivateKey;
     }
 
-    public static RSAKeyPair create() {
-        return create(KEY_SIZE_2048);
+    public static DSAKeys create() {
+        return create(KEY_SIZE_512);
     }
 
-    public static RSAKeyPair create(int keySize) {
+    public static DSAKeys create(int keySize) {
         try {
-            KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
+            KeyPairGenerator generator = KeyPairGenerator.getInstance("DSA");
             generator.initialize(keySize);
             java.security.KeyPair keyPair = generator.generateKeyPair();
-            RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-            RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+            PublicKey publicKey = keyPair.getPublic();
+            PrivateKey privateKey = keyPair.getPrivate();
 
-            return new RSAKeyPair(
+            return new DSAKeys(
                     encode(publicKey.getEncoded()),
                     encode(privateKey.getEncoded())
             );
+
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError();
         }
     }
 
-    public static RSAKeyPair fromString(String publicKey, String privateKey) {
-        return new RSAKeyPair(publicKey, privateKey);
-    }
-
+    @Override
     public String getBase64PublicKey() {
         return this.base64PublicKey;
     }
 
+    @Override
     public String getBase64PrivateKey() {
         return this.base64PrivateKey;
-    }
-
-    public byte[] getPublicKey() {
-        return decode(getBase64PublicKey());
-    }
-
-    public byte[] getPrivateKey() {
-        return decode(getBase64PrivateKey());
     }
 
 }

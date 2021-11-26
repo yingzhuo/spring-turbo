@@ -56,12 +56,12 @@ public final class AESUtils {
         return new IvParameterSpec(iv);
     }
 
-    public static String encrypt(AESMode mode, String input, SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException, NoSuchAlgorithmException,
+    public static String encrypt(AES.Mode mode, String input, SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
 
         Cipher cipher = Cipher.getInstance(mode.getAlgorithm());
-        if (mode == AESMode.ECB) {
+        if (mode == AES.Mode.ECB) {
             // iv is not supported for ECB
             cipher.init(Cipher.ENCRYPT_MODE, key);
         } else {
@@ -72,13 +72,13 @@ public final class AESUtils {
                 .encodeToString(cipherText);
     }
 
-    public static String decrypt(AESMode mode, String cipherText, SecretKey key,
+    public static String decrypt(AES.Mode mode, String cipherText, SecretKey key,
                                  IvParameterSpec iv) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
 
         Cipher cipher = Cipher.getInstance(mode.getAlgorithm());
-        if (mode == AESMode.ECB) {
+        if (mode == AES.Mode.ECB) {
             // iv is not supported for ECB
             cipher.init(Cipher.DECRYPT_MODE, key);
         } else {
