@@ -16,6 +16,10 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.OrderComparator;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.support.DefaultConversionService;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
@@ -23,6 +27,7 @@ import java.util.*;
 
 /**
  * @author 应卓
+ * @see ApplicationContext
  * @since 1.0.0
  */
 public final class SpringContext {
@@ -49,6 +54,14 @@ public final class SpringContext {
 
     public ResourcePatternResolver getResourcePatternResolver() {
         return applicationContext;
+    }
+
+    public ConversionService getConversionService() {
+        return getBean(ConversionService.class).orElse(new DefaultConversionService());
+    }
+
+    public Environment getEnvironment() {
+        return getBean(Environment.class).orElse(new StandardEnvironment());
     }
 
     // -----------------------------------------------------------------------------------------------------------------

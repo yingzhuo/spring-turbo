@@ -11,6 +11,8 @@ package spring.turbo.core;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
@@ -19,6 +21,7 @@ import java.util.Optional;
 
 /**
  * @author 应卓
+ * @see org.springframework.context.ApplicationContext
  * @since 1.0.0
  */
 public final class SpringUtils {
@@ -41,6 +44,14 @@ public final class SpringUtils {
 
     public static ResourcePatternResolver getResourcePatternResolver() {
         return SpringApplicationAware.SC.getResourcePatternResolver();
+    }
+
+    public static ConversionService getConversionService() {
+        return SpringApplicationAware.SC.getConversionService();
+    }
+
+    public static Environment getEnvironment() {
+        return SpringApplicationAware.SC.getEnvironment();
     }
 
     // -----------------------------------------------------------------------------------------------------------------

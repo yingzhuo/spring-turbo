@@ -14,30 +14,31 @@ import org.springframework.lang.Nullable;
 
 /**
  * @author 应卓
+ * @see ConversionService
  * @since 1.0.0
  */
-public final class ConversionServiceUtils {
+public final class ConversionUtils {
 
-    private ConversionServiceUtils() {
+    private ConversionUtils() {
         super();
     }
 
     public static boolean canConverter(@Nullable Class<?> sourceType, Class<?> targetType) {
-        return SpringApplicationAware.AC.getBean(ConversionService.class).canConvert(sourceType, targetType);
+        return SpringUtils.getConversionService().canConvert(sourceType, targetType);
     }
 
     public static boolean canConvert(@Nullable TypeDescriptor sourceType, TypeDescriptor targetType) {
-        return SpringApplicationAware.AC.getBean(ConversionService.class).canConvert(sourceType, targetType);
+        return SpringUtils.getConversionService().canConvert(sourceType, targetType);
     }
 
     @Nullable
     public static <T> T convert(@Nullable Object source, Class<T> targetType) {
-        return SpringApplicationAware.AC.getBean(ConversionService.class).convert(source, targetType);
+        return SpringUtils.getConversionService().convert(source, targetType);
     }
 
     @Nullable
     public static Object convert(@Nullable Object source, @Nullable TypeDescriptor sourceType, TypeDescriptor targetType) {
-        return SpringApplicationAware.AC.getBean(ConversionService.class).convert(source, sourceType, targetType);
+        return SpringUtils.getConversionService().convert(source, sourceType, targetType);
     }
 
 }
