@@ -26,6 +26,7 @@ public final class RSACryptorBuilder {
 
     private byte[] publicKey;
     private byte[] privateKey;
+
     RSACryptorBuilder() {
         super();
     }

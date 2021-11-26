@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
+import static spring.turbo.util.crypto.Base64.decode;
 import static spring.turbo.util.crypto.Base64.encode;
 
 /**
@@ -21,6 +22,9 @@ import static spring.turbo.util.crypto.Base64.encode;
  * @since 1.0.0
  */
 public final class RSAKeyPair implements Serializable {
+
+    public static final int KEY_SIZE_1024 = 1024;
+    public static final int KEY_SIZE_2048 = 2048;
 
     private final String base64PublicKey;
     private final String base64PrivateKey;
@@ -30,7 +34,11 @@ public final class RSAKeyPair implements Serializable {
         this.base64PrivateKey = privateKey;
     }
 
-    public static RSAKeyPair createRandom(int keySize) {
+    public static RSAKeyPair create() {
+        return create(KEY_SIZE_2048);
+    }
+
+    public static RSAKeyPair create(int keySize) {
         try {
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
             generator.initialize(keySize);
@@ -60,11 +68,11 @@ public final class RSAKeyPair implements Serializable {
     }
 
     public byte[] getPublicKey() {
-        return Base64.decode(getBase64PublicKey());
+        return decode(getBase64PublicKey());
     }
 
     public byte[] getPrivateKey() {
-        return Base64.decode(getBase64PrivateKey());
+        return decode(getBase64PrivateKey());
     }
 
 }
