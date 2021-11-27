@@ -12,10 +12,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.core.convert.converter.GenericConverter;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -24,34 +21,39 @@ import java.util.stream.Collectors;
  */
 public final class SubModules {
 
-    private SubModules() {
-        super();
-    }
-
     /**
      * 所有子模块名称
      */
-    public static final List<String> ALL_MODULE_NAMES;
+    public static final SortedSet<String> ALL_MODULE_NAMES;
 
-    static {
-        final List<String> list = ServiceLoaderUtils.loadQuietly(ModuleNameProvider.class)
-                .stream()
-                .map(ModuleNameProvider::getModuleName)
-                .sorted()
-                .collect(Collectors.toList());
+    /**
+     * Converter(s)
+     */
+    public static final List<Converter<?, ?>> ALL_CONVERTERS_CONVERTERS;
 
-        ALL_MODULE_NAMES = Collections.unmodifiableList(list);
-    }
+    /**
+     * GenericConverter(s)
+     */
+    public static final List<GenericConverter> ALL_GENERIC_CONVERTERS;
+
+    /**
+     * ConverterFactory(S)
+     */
+    public static final List<ConverterFactory<?, ?>> ALL_CONVERTER_FACTORIES;
 
     /**
      * Provider(s)
      */
     private static final List<ModuleConvertersProvider> ALL_CONVERTERS_PROVIDERS = ServiceLoaderUtils.loadQuietly(ModuleConvertersProvider.class);
 
-    /**
-     * Converter(s)
-     */
-    public static final List<Converter<?, ?>> ALL_CONVERTERS_CONVERTERS;
+    static {
+        final Set<String> set = ServiceLoaderUtils.loadQuietly(ModuleNameProvider.class)
+                .stream()
+                .map(ModuleNameProvider::getModuleName)
+                .collect(Collectors.toSet());
+
+        ALL_MODULE_NAMES = Collections.unmodifiableSortedSet(new TreeSet<>(set));
+    }
 
     static {
         List<Converter<?, ?>> list = new LinkedList<>();
@@ -66,11 +68,6 @@ public final class SubModules {
         ALL_CONVERTERS_CONVERTERS = Collections.unmodifiableList(list);
     }
 
-    /**
-     * GenericConverter(s)
-     */
-    public static final List<GenericConverter> ALL_GENERIC_CONVERTERS;
-
     static {
         List<GenericConverter> list = new LinkedList<>();
 
@@ -84,11 +81,6 @@ public final class SubModules {
         ALL_GENERIC_CONVERTERS = Collections.unmodifiableList(list);
     }
 
-    /**
-     * ConverterFactory(S)
-     */
-    public static final List<ConverterFactory<?, ?>> ALL_CONVERTER_FACTORIES;
-
     static {
         List<ConverterFactory<?, ?>> list = new LinkedList<>();
 
@@ -100,6 +92,10 @@ public final class SubModules {
         }
 
         ALL_CONVERTER_FACTORIES = Collections.unmodifiableList(list);
+    }
+
+    private SubModules() {
+        super();
     }
 
 }
