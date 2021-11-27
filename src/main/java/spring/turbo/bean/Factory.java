@@ -8,16 +8,19 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.beans.factory.annotation.Value;
-
-import java.lang.annotation.*;
+import org.springframework.lang.Nullable;
 
 /**
+ * 工厂
+ *
+ * @param <T> 产品类型
+ * @author 应卓
  * @since 1.0.0
  */
-@Documented
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Value("#{environment.getProperty('spring.application.name')}")
-public @interface ApplicationName {
+@FunctionalInterface
+public interface Factory<T> {
+
+    @Nullable
+    public T create();
+
 }

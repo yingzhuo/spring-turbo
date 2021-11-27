@@ -21,7 +21,7 @@ import java.util.Set;
  */
 public class CryptorConverter implements GenericConverter {
 
-    private static final Set<ConvertiblePair> CONVERTIBLE_TYPES;
+    public static final Set<ConvertiblePair> CONVERTIBLE_TYPES;
 
     static {
         final Set<ConvertiblePair> set = new HashSet<>();

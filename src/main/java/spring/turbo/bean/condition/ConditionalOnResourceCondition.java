@@ -11,8 +11,15 @@ package spring.turbo.bean.condition;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotatedTypeMetadata;
-import spring.turbo.io.ResourceOptions;
+import spring.turbo.Logic;
+
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -36,11 +43,16 @@ class ConditionalOnResourceCondition implements Condition {
             return false;
         }
 
-        return ResourceOptions.builder()
-                .resourceLoader(context.getResourceLoader())
-                .add(locations)
-                .build()
-                .isPresent();
+        final Logic logic = annotationAttributes.getEnum("logic");
+        final ResourceLoader resourceLoader = context.getResourceLoader();
+        final List<Resource> resources = Stream.of(locations).map(resourceLoader::getResource).collect(Collectors.toList());
+        final Predicate<Resource> discriminator = resource -> resource != null && resource.exists();
+
+        if (logic == Logic.ANY) {
+            return resources.stream().anyMatch(discriminator);
+        } else {
+            return resources.stream().allMatch(discriminator);
+        }
     }
 
 }
