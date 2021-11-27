@@ -9,15 +9,21 @@
 package spring.turbo.core;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.StandardEnvironment;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import spring.turbo.io.ResourceOptionConverter;
+import spring.turbo.util.crypto.CryptorConverter;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author 应卓
@@ -26,60 +32,106 @@ import java.util.Optional;
  */
 public final class SpringUtils {
 
+    private static final Supplier<? extends RuntimeException> UNSUPPORTED =
+            () -> new UnsupportedOperationException("this operation not supported without ApplicationContext instance");
+
     private SpringUtils() {
         super();
     }
 
     public static BeanDefinitionRegistry getBeanDefinitionRegistry() {
-        return SpringApplicationAware.SC.getBeanDefinitionRegistry();
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(SpringContext::getBeanDefinitionRegistry)
+                .orElseThrow(UNSUPPORTED);
     }
 
-    public static <T> ObjectProvider<T> getObjectProvider(Class<T> beanType) {
-        return SpringApplicationAware.SC.getObjectProvider(beanType);
+    public static <T> ObjectProvider<T> getObjectProvider(final Class<T> beanType) {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(sc -> sc.getObjectProvider(beanType))
+                .orElseThrow(UNSUPPORTED);
     }
 
     public static ResourceLoader getResourceLoader() {
-        return SpringApplicationAware.SC.getResourceLoader();
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(SpringContext::getResourceLoader)
+                .orElse(new DefaultResourceLoader());
     }
 
     public static ResourcePatternResolver getResourcePatternResolver() {
-        return SpringApplicationAware.SC.getResourcePatternResolver();
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(SpringContext::getResourcePatternResolver)
+                .orElse(new PathMatchingResourcePatternResolver());
     }
 
     public static ConversionService getConversionService() {
-        return SpringApplicationAware.SC.getConversionService();
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(SpringContext::getConversionService)
+                .orElseGet(new BackupConversionServiceSupplier());
     }
 
     public static Environment getEnvironment() {
-        return SpringApplicationAware.SC.getEnvironment();
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(SpringContext::getEnvironment)
+                .orElseGet(new BackupEnvironmentSupplier());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static void registerBean(BeanDefinition beanDefinition, String beanName, String... aliases) {
-        SpringApplicationAware.SC.registerBean(beanDefinition, beanName, aliases);
+    public static <T> Optional<T> getBean(final Class<T> beanType) {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(sc -> sc.getBean(beanType))
+                .orElseThrow(UNSUPPORTED);
+    }
+
+    public static <T> Optional<T> getBean(final Class<T> beanType, final String beanName) {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(sc -> sc.getBean(beanType, beanName))
+                .orElseThrow(UNSUPPORTED);
+    }
+
+    public static <T> List<T> getBeanList(final Class<T> beanType) {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(sc -> sc.getBeanList(beanType))
+                .orElseThrow(UNSUPPORTED);
+    }
+
+    public static <T> boolean containsBean(final String beanName) {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(sc -> sc.containsBean(beanName))
+                .orElseThrow(UNSUPPORTED);
+    }
+
+    public boolean containsBean(final Class<?> beanType) {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(sc -> sc.containsBean(beanType))
+                .orElseThrow(UNSUPPORTED);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static <T> Optional<T> getBean(Class<T> beanType) {
-        return SpringApplicationAware.SC.getBean(beanType);
+    private static class BackupConversionServiceSupplier implements Supplier<ConversionService> {
+
+        private final static DefaultConversionService CONVERSION_SERVICE = new DefaultConversionService();
+
+        static {
+            CONVERSION_SERVICE.addConverter(new CryptorConverter());
+            CONVERSION_SERVICE.addConverter(new ResourceOptionConverter());
+        }
+
+        @Override
+        public ConversionService get() {
+            return CONVERSION_SERVICE;
+        }
     }
 
-    public static <T> Optional<T> getBean(Class<T> beanType, String beanName) {
-        return SpringApplicationAware.SC.getBean(beanType, beanName);
-    }
+    private static class BackupEnvironmentSupplier implements Supplier<Environment> {
 
-    public static <T> List<T> getBeanList(Class<T> beanType) {
-        return SpringApplicationAware.SC.getBeanList(beanType);
-    }
+        private final static StandardEnvironment ENVIRONMENT = new StandardEnvironment();
 
-    public static <T> boolean containsBean(String beanName) {
-        return SpringApplicationAware.SC.containsBean(beanName);
-    }
-
-    public boolean containsBean(Class<?> beanType) {
-        return SpringApplicationAware.SC.containsBean(beanType);
+        @Override
+        public Environment get() {
+            return ENVIRONMENT;
+        }
     }
 
 }

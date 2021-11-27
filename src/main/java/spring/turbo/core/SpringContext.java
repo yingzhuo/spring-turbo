@@ -12,7 +12,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.OrderComparator;
@@ -23,7 +22,10 @@ import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 应卓
@@ -62,16 +64,6 @@ public final class SpringContext {
 
     public Environment getEnvironment() {
         return getBean(Environment.class).orElse(new StandardEnvironment());
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    public void registerBean(BeanDefinition beanDefinition, String beanName, String... aliases) {
-        final BeanDefinitionRegistry registry = getBeanDefinitionRegistry();
-        registry.registerBeanDefinition(beanName, beanDefinition);
-        if (aliases != null) {
-            Arrays.stream(aliases).forEach(alias -> registry.registerAlias(beanName, alias));
-        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
