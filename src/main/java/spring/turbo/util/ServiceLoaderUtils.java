@@ -6,7 +6,7 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.integration;
+package spring.turbo.util;
 
 import org.springframework.core.OrderComparator;
 import org.springframework.util.Assert;
@@ -24,22 +24,30 @@ public final class ServiceLoaderUtils {
         super();
     }
 
+    public static <T> List<T> load(Class<T> targetType) {
+        return load(targetType, ClassUtils.getDefaultClassLoader());
+    }
+
+    public static <T> List<T> load(Class<T> targetType, ClassLoader classLoader) {
+        Assert.notNull(targetType, "targetType is null");
+        Assert.notNull(classLoader, "classLoader is null");
+
+        final ServiceLoader<T> loader = ServiceLoader.load(targetType, classLoader);
+        List<T> list = new LinkedList<>();
+        for (T it : loader) {
+            list.add(it);
+        }
+        OrderComparator.sort(list);
+        return Collections.unmodifiableList(list);
+    }
+
     public static <T> List<T> loadQuietly(Class<T> targetType) {
         return loadQuietly(targetType, ClassUtils.getDefaultClassLoader());
     }
 
     public static <T> List<T> loadQuietly(Class<T> targetType, ClassLoader classLoader) {
         try {
-            Assert.notNull(targetType, "targetType is null");
-            Assert.notNull(classLoader, "classLoader is null");
-
-            final ServiceLoader<T> loader = ServiceLoader.load(targetType, classLoader);
-            List<T> list = new LinkedList<>();
-            for (T it : loader) {
-                list.add(it);
-            }
-            OrderComparator.sort(list);
-            return Collections.unmodifiableList(list);
+            return load(targetType, classLoader);
         } catch (ServiceConfigurationError e) {
             return Collections.emptyList();
         }
