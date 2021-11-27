@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptions;
 
-import java.nio.charset.StandardCharsets;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author 应卓
@@ -52,7 +52,7 @@ public final class KeysReaders {
                 .build();
 
         Assert.state(option.isPresent(), "location is not able to open");
-        return option.toString(StandardCharsets.UTF_8);
+        return option.toString(UTF_8);
     }
 
 }

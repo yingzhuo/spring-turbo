@@ -11,6 +11,9 @@ package spring.turbo.core;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.convert.converter.ConverterFactory;
+import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.StandardEnvironment;
@@ -18,8 +21,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import spring.turbo.io.ResourceOptionConverter;
-import spring.turbo.util.crypto.CryptorConverter;
+import spring.turbo.integration.SubModules;
 
 import java.util.List;
 import java.util.Optional;
@@ -114,8 +116,15 @@ public final class SpringUtils {
         private final static DefaultConversionService CONVERSION_SERVICE = new DefaultConversionService();
 
         static {
-            CONVERSION_SERVICE.addConverter(new CryptorConverter());
-            CONVERSION_SERVICE.addConverter(new ResourceOptionConverter());
+            for (Converter<?, ?> it : SubModules.ALL_CONVERTERS_CONVERTERS) {
+                CONVERSION_SERVICE.addConverter(it);
+            }
+            for (GenericConverter it : SubModules.ALL_GENERIC_CONVERTERS) {
+                CONVERSION_SERVICE.addConverter(it);
+            }
+            for (ConverterFactory<?, ?> it : SubModules.ALL_CONVERTER_FACTORIES) {
+                CONVERSION_SERVICE.addConverterFactory(it);
+            }
         }
 
         @Override
