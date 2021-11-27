@@ -14,7 +14,7 @@ package spring.turbo.util.crypto;
  * @author 应卓
  * @since 1.0.0
  */
-public interface AES extends Cryptor {
+public interface AES extends Crypto {
 
     public static AESBuilder builder() {
         return new AESBuilder();
