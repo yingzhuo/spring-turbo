@@ -9,13 +9,11 @@
 package spring.turbo.core;
 
 /**
+ * 逻辑
+ *
  * @author 应卓
  * @since 1.0.0
  */
 public enum Logic {
-
-    ANY,
-
-    ALL
-
+    ANY, ALL
 }

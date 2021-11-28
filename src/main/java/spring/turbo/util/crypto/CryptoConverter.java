@@ -19,7 +19,7 @@ import java.util.Set;
  * @author 应卓
  * @since 1.0.0
  */
-public class CryptorConverter implements GenericConverter {
+public class CryptoConverter implements GenericConverter {
 
     public static final Set<ConvertiblePair> CONVERTIBLE_TYPES;
 

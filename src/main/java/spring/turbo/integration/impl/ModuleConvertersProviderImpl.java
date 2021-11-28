@@ -11,7 +11,7 @@ package spring.turbo.integration.impl;
 import org.springframework.core.convert.converter.GenericConverter;
 import spring.turbo.integration.ModuleConvertersProvider;
 import spring.turbo.io.ResourceOptionConverter;
-import spring.turbo.util.crypto.CryptorConverter;
+import spring.turbo.util.crypto.CryptoConverter;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,7 +30,7 @@ public final class ModuleConvertersProviderImpl implements ModuleConvertersProvi
     public Collection<GenericConverter> getGenericConverters() {
         return Arrays.asList(
                 new ResourceOptionConverter(),
-                new CryptorConverter()
+                new CryptoConverter()
         );
     }
 
