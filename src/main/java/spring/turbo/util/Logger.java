@@ -30,14 +30,22 @@ public final class Logger implements Serializable {
         Assert.notNull(level, "level is null");
         Assert.notNull(loggerName, "loggerName is null");
         this.level = level;
-        this.log = level != LogLevel.STDOUT ? LoggerFactory.getLogger(loggerName) : null;
+        if (level == LogLevel.STDOUT || level == LogLevel.STDERR) {
+            this.log = null;
+        } else {
+            this.log = LoggerFactory.getLogger(loggerName);
+        }
     }
 
     public Logger(Class<?> loggerName, LogLevel level) {
         Assert.notNull(level, "level is null");
         Assert.notNull(loggerName, "loggerName is null");
         this.level = level;
-        this.log = level != LogLevel.STDOUT ? LoggerFactory.getLogger(loggerName) : null;
+        if (level == LogLevel.STDOUT || level == LogLevel.STDERR) {
+            this.log = null;
+        } else {
+            this.log = LoggerFactory.getLogger(loggerName);
+        }
     }
 
     public boolean isEnabled() {
@@ -53,6 +61,7 @@ public final class Logger implements Serializable {
             case ERROR:
                 return log.isErrorEnabled();
             case STDOUT:
+            case STDERR:
                 return true;
             case OFF:
             default:
@@ -80,6 +89,8 @@ public final class Logger implements Serializable {
                     break;
                 case STDOUT:
                     stdout(format, (Object[]) args);
+                case STDERR:
+                    stderr(format, (Object[]) args);
                 default:
                     // nop
             }
@@ -88,6 +99,10 @@ public final class Logger implements Serializable {
 
     private void stdout(String format, Object... args) {
         System.out.println(StringFormatter.format(format, args));
+    }
+
+    private void stderr(String format, Object... args) {
+        System.err.println(StringFormatter.format(format, args));
     }
 
     private void trace(String format, Object... args) {
