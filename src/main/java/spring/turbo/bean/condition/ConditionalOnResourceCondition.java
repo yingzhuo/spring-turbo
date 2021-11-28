@@ -23,9 +23,10 @@ import java.util.stream.Stream;
 
 /**
  * @author 应卓
+ * @see ConditionalOnResource
  * @since 1.0.0
  */
-class ConditionalOnResourceCondition implements Condition {
+final class ConditionalOnResourceCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {

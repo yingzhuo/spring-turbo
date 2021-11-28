@@ -23,6 +23,7 @@ import java.util.Collection;
 public final class ModuleConvertersProviderImpl implements ModuleConvertersProvider {
 
     public ModuleConvertersProviderImpl() {
+        super();
     }
 
     @Override

@@ -16,7 +16,7 @@ import org.springframework.context.ApplicationContextAware;
  * @author 应卓
  * @since 1.0.0
  */
-class SpringApplicationAware implements ApplicationContextAware {
+final class SpringApplicationAware implements ApplicationContextAware {
 
     static ApplicationContext AC = null;
     static SpringContext SC = null;

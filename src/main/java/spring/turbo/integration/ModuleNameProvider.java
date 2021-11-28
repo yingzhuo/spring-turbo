@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.integration;
 
+import org.springframework.lang.NonNull;
+
 /**
  * @author 应卓
  * @since 1.0.0
@@ -15,6 +17,7 @@ package spring.turbo.integration;
 @FunctionalInterface
 public interface ModuleNameProvider {
 
+    @NonNull
     public String getModuleName();
 
 }

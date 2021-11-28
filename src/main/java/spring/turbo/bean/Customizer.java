@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.Nullable;
+
 /**
  * @param <T> 类型
  * @author 应卓
@@ -15,6 +17,6 @@ package spring.turbo.bean;
  */
 public interface Customizer<T> {
 
-    public T customize(T customize);
+    public T customize(@Nullable T customize);
 
 }

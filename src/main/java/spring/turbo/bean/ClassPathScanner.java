@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.NonNull;
+
 /**
  * ClassPath扫描器
  *
@@ -23,6 +25,6 @@ public interface ClassPathScanner {
      * @param basePackages 扫描报起点
      * @return 扫描结果
      */
-    public ScannedResultSet scan(Iterable<String> basePackages);
+    public ScannedResultSet scan(@NonNull Iterable<String> basePackages);
 
 }

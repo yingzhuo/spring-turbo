@@ -20,9 +20,10 @@ import java.util.Objects;
 
 /**
  * @author 应卓
+ * @see ConditionalOnModule
  * @since 1.0.0
  */
-class ConditionalOnModuleCondition implements Condition {
+final class ConditionalOnModuleCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
