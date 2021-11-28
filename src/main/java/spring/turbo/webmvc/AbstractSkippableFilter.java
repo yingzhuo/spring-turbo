@@ -28,13 +28,16 @@ public abstract class AbstractSkippableFilter extends OncePerRequestFilter {
 
     @Override
     protected final void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        boolean next = true;
         if (!shouldSkip(request)) {
-            doFilter(request, response);
+            next = doFilter(request, response);
         }
-        filterChain.doFilter(request, response);
+        if (next) {
+            filterChain.doFilter(request, response);
+        }
     }
 
-    protected abstract void doFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    protected abstract boolean doFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
     private boolean shouldSkip(HttpServletRequest request) {
         return skipPredicates.shouldSkip(request);

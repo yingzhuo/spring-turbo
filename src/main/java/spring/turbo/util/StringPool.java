@@ -15,15 +15,31 @@ package spring.turbo.util;
 public final class StringPool {
 
     public static final String NULL = (String) null;
+
     public static final String EMPTY = "";
+
     public static final String DOT = ".";
+
     public static final String SLASH = "/";
+
     public static final String LINE_SEPARATOR = "\n";
+
     public static final String QUESTION_MARK = "?";
-    public static final String QUESTION_MARK_x_3 = "???";
+    public static final String QUESTION_MARK_X_3 = repeat(QUESTION_MARK, 3);
+
+    public static final String HYPHEN = "-";
+    public static final String HYPHEN_X_80 = repeat(HYPHEN, 80);
 
     private StringPool() {
         super();
+    }
+
+    private static String repeat(String string, int n) {
+        StringBuilder builder = new StringBuilder();
+        while (n-- != 0) {
+            builder.append(string);
+        }
+        return builder.toString();
     }
 
 }

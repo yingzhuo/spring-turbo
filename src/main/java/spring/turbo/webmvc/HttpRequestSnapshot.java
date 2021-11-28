@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import static spring.turbo.util.StringPool.LINE_SEPARATOR;
-import static spring.turbo.util.StringPool.QUESTION_MARK_x_3;
+import static spring.turbo.util.StringPool.QUESTION_MARK_X_3;
 
 /**
  * @author 应卓
@@ -34,10 +34,6 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
 
     private final List<String> lines = new LinkedList<>();
     private final String text;
-
-    public static HttpRequestSnapshot of(HttpServletRequest request) {
-        return new HttpRequestSnapshot(request);
-    }
 
     private HttpRequestSnapshot(HttpServletRequest request) {
         Assert.notNull(request, "request is null");
@@ -68,8 +64,12 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
         text = String.join(LINE_SEPARATOR, lines).trim();
     }
 
+    public static HttpRequestSnapshot of(HttpServletRequest request) {
+        return new HttpRequestSnapshot(request);
+    }
+
     private String getSessionId(HttpServletRequest request) {
-        return Optional.ofNullable(request.getSession(false)).map(HttpSession::getId).orElse(QUESTION_MARK_x_3);
+        return Optional.ofNullable(request.getSession(false)).map(HttpSession::getId).orElse(QUESTION_MARK_X_3);
     }
 
     @Override
