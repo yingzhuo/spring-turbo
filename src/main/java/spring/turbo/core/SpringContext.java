@@ -36,7 +36,11 @@ public final class SpringContext {
 
     private final ApplicationContext applicationContext;
 
-    SpringContext(ApplicationContext applicationContext) {
+    public static SpringContext of(ApplicationContext applicationContext) {
+        return new SpringContext(applicationContext);
+    }
+
+    private SpringContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 

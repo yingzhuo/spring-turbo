@@ -23,7 +23,7 @@ public interface SpringContextAware extends ApplicationContextAware, Aware {
 
     @Override
     public default void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.setSpringContext(SpringContexts.of(applicationContext));
+        this.setSpringContext(SpringContext.of(applicationContext));
     }
 
 }

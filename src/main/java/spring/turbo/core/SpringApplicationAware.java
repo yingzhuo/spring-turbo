@@ -24,7 +24,7 @@ class SpringApplicationAware implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         AC = applicationContext;
-        SC = SpringContexts.of(applicationContext);
+        SC = SpringContext.of(applicationContext);
     }
 
 }

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
-import spring.turbo.Logic;
+import spring.turbo.core.Logic;
 import spring.turbo.integration.SubModules;
 
 import java.util.Arrays;
