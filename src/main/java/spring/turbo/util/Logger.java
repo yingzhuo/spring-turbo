@@ -9,15 +9,18 @@
 package spring.turbo.util;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
+import spring.turbo.lang.Immutable;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
+@Immutable
 public final class Logger implements Serializable {
 
     private final org.slf4j.Logger log;
@@ -27,14 +30,14 @@ public final class Logger implements Serializable {
         Assert.notNull(level, "level is null");
         Assert.notNull(loggerName, "loggerName is null");
         this.level = level;
-        this.log = LoggerFactory.getLogger(loggerName);
+        this.log = level != LogLevel.STDOUT ? LoggerFactory.getLogger(loggerName) : null;
     }
 
     public Logger(Class<?> loggerName, LogLevel level) {
         Assert.notNull(level, "level is null");
         Assert.notNull(loggerName, "loggerName is null");
         this.level = level;
-        this.log = LoggerFactory.getLogger(loggerName);
+        this.log = level != LogLevel.STDOUT ? LoggerFactory.getLogger(loggerName) : null;
     }
 
     public boolean isEnabled() {
@@ -76,14 +79,14 @@ public final class Logger implements Serializable {
                     error(format, args);
                     break;
                 case STDOUT:
-                    stdout(format, (Objects[]) args);
+                    stdout(format, (Object[]) args);
                 default:
                     // nop
             }
         }
     }
 
-    private void stdout(String format, Objects... args) {
+    private void stdout(String format, Object... args) {
         System.out.println(StringFormatter.format(format, args));
     }
 
@@ -105,6 +108,16 @@ public final class Logger implements Serializable {
 
     private void error(String format, Object... args) {
         log.warn(format, args);
+    }
+
+    @Nullable
+    public org.slf4j.Logger getLog() {
+        return log;
+    }
+
+    @NonNull
+    public LogLevel getLevel() {
+        return level;
     }
 
 }

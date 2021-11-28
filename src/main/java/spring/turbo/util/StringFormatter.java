@@ -27,11 +27,15 @@ public final class StringFormatter {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    public static String format(String messagePattern) {
+        return messagePattern;
+    }
+
     public static String format(String messagePattern, Object arg) {
         return format(messagePattern, new Object[]{arg});
     }
 
-    public static String format(String messagePattern, Object[] argArray) {
+    public static String format(String messagePattern, Object... argArray) {
         Throwable throwableCandidate = StringFormatter.getThrowableCandidate(argArray);
         Object[] args = argArray;
         if (throwableCandidate != null) {
