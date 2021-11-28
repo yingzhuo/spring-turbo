@@ -19,6 +19,8 @@ public final class StringPool {
     public static final String DOT = ".";
     public static final String SLASH = "/";
     public static final String LINE_SEPARATOR = "\n";
+    public static final String QUESTION_MARK = "?";
+    public static final String QUESTION_MARK_x_3 = "???";
 
     private StringPool() {
         super();

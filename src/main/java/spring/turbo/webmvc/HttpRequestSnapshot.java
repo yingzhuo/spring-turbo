@@ -13,6 +13,7 @@ import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringFormatter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import static spring.turbo.util.StringPool.LINE_SEPARATOR;
+import static spring.turbo.util.StringPool.QUESTION_MARK_x_3;
 
 /**
  * @author 应卓
@@ -40,7 +42,6 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
     private HttpRequestSnapshot(HttpServletRequest request) {
         Assert.notNull(request, "request is null");
 
-        lines.add("--------------------");
         lines.add(StringFormatter.format("Time: {}", DATE_FORMAT.format(new Date())));
         lines.add(StringFormatter.format("Method: {}", request.getMethod()));
         lines.add(StringFormatter.format("Path: {}", request.getRequestURI()));
@@ -60,9 +61,15 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
             String requestHeaderValue = request.getHeader(requestHeaderName);
             lines.add(StringFormatter.format("\t\t{} = {}", requestHeaderName, requestHeaderValue));
         }
-        lines.add("--------------------");
+
+        lines.add(StringFormatter.format("Remote Address: {}", request.getRemoteAddr()));
+        lines.add(StringFormatter.format("Session ID: {}", getSessionId(request)));
 
         text = String.join(LINE_SEPARATOR, lines).trim();
+    }
+
+    private String getSessionId(HttpServletRequest request) {
+        return Optional.ofNullable(request.getSession(false)).map(HttpSession::getId).orElse(QUESTION_MARK_x_3);
     }
 
     @Override
