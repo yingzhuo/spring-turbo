@@ -9,6 +9,7 @@
 package spring.turbo.util;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -17,18 +18,23 @@ import java.util.Objects;
  * @author 应卓
  * @since 1.0.0
  */
-public class Logger implements Serializable {
+public final class Logger implements Serializable {
 
     private final org.slf4j.Logger log;
     private final LogLevel level;
 
-    private Logger(String loggerName, LogLevel level) {
-        this.level = Objects.requireNonNull(level);
-        this.log = LoggerFactory.getLogger(Objects.requireNonNull(loggerName));
+    public Logger(String loggerName, LogLevel level) {
+        Assert.notNull(level, "level is null");
+        Assert.notNull(loggerName, "loggerName is null");
+        this.level = level;
+        this.log = LoggerFactory.getLogger(loggerName);
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public Logger(Class<?> loggerName, LogLevel level) {
+        Assert.notNull(level, "level is null");
+        Assert.notNull(loggerName, "loggerName is null");
+        this.level = level;
+        this.log = LoggerFactory.getLogger(loggerName);
     }
 
     public boolean isEnabled() {
@@ -101,33 +107,4 @@ public class Logger implements Serializable {
         log.warn(format, args);
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
-
-    public final static class Builder {
-
-        private LogLevel level = LogLevel.DEBUG;
-        private String loggerName = Logger.class.getName();
-
-        private Builder() {
-        }
-
-        public Builder level(LogLevel level) {
-            this.level = level;
-            return this;
-        }
-
-        public Builder name(String loggerName) {
-            this.loggerName = loggerName;
-            return this;
-        }
-
-        public Builder name(Class<?> loggerName) {
-            this.loggerName = loggerName.getName();
-            return this;
-        }
-
-        public Logger build() {
-            return new Logger(loggerName, level);
-        }
-    }
 }
