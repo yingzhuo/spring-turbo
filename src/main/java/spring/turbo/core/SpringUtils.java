@@ -14,15 +14,17 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.core.convert.converter.GenericConverter;
-import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.format.AnnotationFormatterFactory;
+import org.springframework.format.support.DefaultFormattingConversionService;
 import spring.turbo.integration.Modules;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -113,7 +115,7 @@ public final class SpringUtils {
 
     private static class BackupConversionServiceSupplier implements Supplier<ConversionService> {
 
-        private final static DefaultConversionService CONVERSION_SERVICE = new DefaultConversionService();
+        private final static DefaultFormattingConversionService CONVERSION_SERVICE = new DefaultFormattingConversionService();
 
         static {
             for (Converter<?, ?> it : Modules.ALL_CONVERTERS_CONVERTERS) {
@@ -124,6 +126,9 @@ public final class SpringUtils {
             }
             for (ConverterFactory<?, ?> it : Modules.ALL_CONVERTER_FACTORIES) {
                 CONVERSION_SERVICE.addConverterFactory(it);
+            }
+            for (AnnotationFormatterFactory<? extends Annotation> it : Modules.ALL_ANNOTATION_FORMATTER_FACTORIES) {
+                CONVERSION_SERVICE.addFormatterForFieldAnnotation(it);
             }
         }
 

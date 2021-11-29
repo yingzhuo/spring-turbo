@@ -52,8 +52,8 @@ public final class NamedArrayBuilder<T> {
         return build(false);
     }
 
-    public NamedArray<T> build(boolean indexAsName) {
-        if (indexAsName) {
+    public NamedArray<T> build(boolean zipWithIndex) {
+        if (zipWithIndex) {
             names.clear();
             for (int i = 0; i < array.size(); i++) {
                 names.add(Integer.toString(i));

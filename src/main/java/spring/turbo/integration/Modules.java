@@ -11,8 +11,10 @@ package spring.turbo.integration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.core.convert.converter.GenericConverter;
+import org.springframework.format.AnnotationFormatterFactory;
 import spring.turbo.util.ServiceLoaderUtils;
 
+import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,6 +47,11 @@ public final class Modules {
      * ConverterFactory(S)
      */
     public static final List<ConverterFactory<?, ?>> ALL_CONVERTER_FACTORIES;
+
+    /**
+     * AnnotationFormatterFactory(s)
+     */
+    public static final List<AnnotationFormatterFactory<? extends Annotation>> ALL_ANNOTATION_FORMATTER_FACTORIES;
 
     /**
      * Provider(s)
@@ -97,6 +104,19 @@ public final class Modules {
         }
 
         ALL_CONVERTER_FACTORIES = Collections.unmodifiableList(list);
+    }
+
+    static {
+        List<AnnotationFormatterFactory<? extends Annotation>> list = new LinkedList<>();
+
+        for (ModuleConvertersProvider provider : ALL_CONVERTERS_PROVIDERS) {
+            Collection<AnnotationFormatterFactory<? extends Annotation>> cs = provider.getAnnotationFormatterFactories();
+            if (cs != null) {
+                list.addAll(cs);
+            }
+        }
+
+        ALL_ANNOTATION_FORMATTER_FACTORIES = Collections.unmodifiableList(list);
     }
 
     private Modules() {

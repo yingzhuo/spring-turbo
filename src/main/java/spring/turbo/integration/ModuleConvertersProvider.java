@@ -11,8 +11,10 @@ package spring.turbo.integration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.core.convert.converter.GenericConverter;
+import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.lang.Nullable;
 
+import java.lang.annotation.Annotation;
 import java.util.Collection;
 
 /**
@@ -33,6 +35,11 @@ public interface ModuleConvertersProvider {
 
     @Nullable
     public default Collection<ConverterFactory<?, ?>> getConverterFactories() {
+        return null;
+    }
+
+    @Nullable
+    public default Collection<AnnotationFormatterFactory<? extends Annotation>> getAnnotationFormatterFactories() {
         return null;
     }
 

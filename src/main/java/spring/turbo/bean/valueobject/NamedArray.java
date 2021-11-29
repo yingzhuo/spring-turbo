@@ -8,8 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.valueobject;
 
+import org.springframework.beans.MutablePropertyValues;
 import org.springframework.util.Assert;
-import spring.turbo.lang.Immutable;
+import spring.turbo.lang.Mutable;
 
 import java.util.*;
 
@@ -17,7 +18,7 @@ import java.util.*;
  * @author 应卓
  * @since 1.0.0
  */
-@Immutable
+@Mutable
 public class NamedArray<T> implements Iterable<T> {
 
     public static <T> NamedArrayBuilder<T> builder() {
@@ -51,6 +52,14 @@ public class NamedArray<T> implements Iterable<T> {
             map.put(names.get(i), array.get(i));
         }
         return Collections.unmodifiableMap(map);
+    }
+
+    public MutablePropertyValues toMutablePropertyValues() {
+        final MutablePropertyValues mpv = new MutablePropertyValues();
+        for (int i = 0; i < array.size(); i++) {
+            mpv.add(names.get(i), array.get(i));
+        }
+        return mpv;
     }
 
 }
