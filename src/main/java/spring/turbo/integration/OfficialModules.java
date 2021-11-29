@@ -6,17 +6,20 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
-
-import org.springframework.lang.Nullable;
+package spring.turbo.integration;
 
 /**
- * @param <T> 类型
  * @author 应卓
  * @since 1.0.0
  */
-public interface Customizer<T> {
+public final class OfficialModules {
 
-    public T customize(@Nullable T obj);
+    public static final String SPRING_TURBO = "spring.turbo";
+    public static final String SPRING_TURBO_SECURITY = "spring.turbo.security";
+    public static final String SPRING_TURBO_SECURITY_JWT = "spring.turbo.security-jwt";
+
+    private OfficialModules() {
+        super();
+    }
 
 }

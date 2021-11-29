@@ -8,15 +8,29 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.lang.Nullable;
+import spring.turbo.lang.Mutable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * @param <T> 类型
  * @author 应卓
  * @since 1.0.0
  */
-public interface Customizer<T> {
+@Mutable
+public final class Payload extends HashMap<String, Object> implements Map<String, Object> {
 
-    public T customize(@Nullable T obj);
+    private Payload() {
+        super();
+    }
+
+    public static Payload newInstance() {
+        return new Payload();
+    }
+
+    public Payload add(String name, Object value) {
+        this.put(name, value);
+        return this;
+    }
 
 }

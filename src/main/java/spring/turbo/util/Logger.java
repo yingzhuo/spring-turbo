@@ -25,31 +25,47 @@ public final class Logger implements Serializable {
 
     private final org.slf4j.Logger log;
     private final LogLevel level;
+    private final boolean enabled;
 
     public Logger(String loggerName, LogLevel level) {
         Assert.notNull(level, "level is null");
         Assert.notNull(loggerName, "loggerName is null");
+
         this.level = level;
+
         if (level == LogLevel.STDOUT || level == LogLevel.STDERR) {
             this.log = null;
         } else {
             this.log = LoggerFactory.getLogger(loggerName);
         }
+
+        this.enabled = this.checkEnabled();
     }
 
     public Logger(Class<?> loggerName, LogLevel level) {
         Assert.notNull(level, "level is null");
         Assert.notNull(loggerName, "loggerName is null");
+
         this.level = level;
+
         if (level == LogLevel.STDOUT || level == LogLevel.STDERR) {
             this.log = null;
         } else {
             this.log = LoggerFactory.getLogger(loggerName);
         }
+
+        this.enabled = this.checkEnabled();
     }
 
     public boolean isEnabled() {
+        return enabled;
+    }
+
+    private boolean checkEnabled() {
         switch (level) {
+            case STDOUT:
+            case STDERR:
+                return true;
             case TRACE:
                 return log.isTraceEnabled();
             case DEBUG:
@@ -60,9 +76,6 @@ public final class Logger implements Serializable {
                 return log.isWarnEnabled();
             case ERROR:
                 return log.isErrorEnabled();
-            case STDOUT:
-            case STDERR:
-                return true;
             case OFF:
             default:
                 return false;
@@ -88,9 +101,9 @@ public final class Logger implements Serializable {
                     error(format, args);
                     break;
                 case STDOUT:
-                    stdout(format, (Object[]) args);
+                    stdout(format, args);
                 case STDERR:
-                    stderr(format, (Object[]) args);
+                    stderr(format, args);
                 default:
                     // nop
             }
