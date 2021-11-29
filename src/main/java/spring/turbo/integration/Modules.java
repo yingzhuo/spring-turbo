@@ -20,7 +20,11 @@ import java.util.stream.Collectors;
  * @author 应卓
  * @since 1.0.0
  */
-public final class SubModules {
+public final class Modules {
+
+    public static final String SPRING_TURBO = "spring.turbo";
+    public static final String SPRING_TURBO_SECURITY = "spring.turbo.security";
+    public static final String SPRING_TURBO_SECURITY_JWT = "spring.turbo.security-jwt";
 
     /**
      * 所有子模块名称
@@ -95,7 +99,7 @@ public final class SubModules {
         ALL_CONVERTER_FACTORIES = Collections.unmodifiableList(list);
     }
 
-    private SubModules() {
+    private Modules() {
         super();
     }
 

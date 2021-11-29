@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import spring.turbo.core.Logic;
-import spring.turbo.integration.SubModules;
+import spring.turbo.integration.Modules;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -43,7 +43,7 @@ final class ConditionalOnModuleCondition implements Condition {
         final Logic logic = annotationAttributes.getEnum("logic");
 
         if (logic == Logic.ANY) {
-            for (String actual : SubModules.ALL_MODULE_NAMES) {
+            for (String actual : Modules.ALL_MODULE_NAMES) {
                 for (String moduleName : moduleNames) {
                     if (Objects.equals(actual, moduleName)) {
                         return true;
@@ -52,7 +52,7 @@ final class ConditionalOnModuleCondition implements Condition {
             }
             return false;
         } else {
-            return SubModules.ALL_MODULE_NAMES.containsAll(Arrays.asList(moduleNames));
+            return Modules.ALL_MODULE_NAMES.containsAll(Arrays.asList(moduleNames));
         }
     }
 

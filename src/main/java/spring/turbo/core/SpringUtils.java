@@ -21,7 +21,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import spring.turbo.integration.SubModules;
+import spring.turbo.integration.Modules;
 
 import java.util.List;
 import java.util.Optional;
@@ -116,13 +116,13 @@ public final class SpringUtils {
         private final static DefaultConversionService CONVERSION_SERVICE = new DefaultConversionService();
 
         static {
-            for (Converter<?, ?> it : SubModules.ALL_CONVERTERS_CONVERTERS) {
+            for (Converter<?, ?> it : Modules.ALL_CONVERTERS_CONVERTERS) {
                 CONVERSION_SERVICE.addConverter(it);
             }
-            for (GenericConverter it : SubModules.ALL_GENERIC_CONVERTERS) {
+            for (GenericConverter it : Modules.ALL_GENERIC_CONVERTERS) {
                 CONVERSION_SERVICE.addConverter(it);
             }
-            for (ConverterFactory<?, ?> it : SubModules.ALL_CONVERTER_FACTORIES) {
+            for (ConverterFactory<?, ?> it : Modules.ALL_CONVERTER_FACTORIES) {
                 CONVERSION_SERVICE.addConverterFactory(it);
             }
         }
