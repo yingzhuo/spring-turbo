@@ -68,7 +68,7 @@ final class ResourceOptionEmpty implements ResourceOption {
     }
 
     @Override
-    public Properties toProperties(boolean xmlFormat) {
+    public Properties toProperties(PropertiesFormat propertiesFormat) {
         return null;
     }
 

@@ -8,47 +8,30 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.Resource;
+import org.springframework.util.Assert;
 
-import java.io.File;
-import java.io.Serializable;
-import java.nio.charset.Charset;
-import java.nio.file.Path;
-import java.util.Optional;
 import java.util.Properties;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public interface ResourceOption extends Serializable {
+public final class YamlUtils {
 
-    public Optional<Resource> toOptional();
-
-    public boolean isAbsent();
-
-    public default boolean isPresent() {
-        return !isAbsent();
+    private YamlUtils() {
+        super();
     }
 
-    public String toString(Charset charset);
-
-    public byte[] toByteArray();
-
-    public File toFile();
-
-    public Path toPath();
-
-    public Properties toProperties(PropertiesFormat propertiesFormat);
-
-    public long getChecksumCRC32(int buffSize);
-
-    public default long getChecksumCRC32() {
-        return getChecksumCRC32(1024);
-    }
-
-    public default Properties toProperties() {
-        return toProperties(PropertiesFormat.PROPERTIES);
+    public static Properties readProperties(Resource... resources) {
+        Assert.notEmpty(resources, "resources is empty");
+        Assert.noNullElements(resources, "resources is null or has null element(s)");
+        final YamlPropertiesFactoryBean factory = new YamlPropertiesFactoryBean();
+        factory.setSingleton(false);
+        factory.setResources(resources);
+        factory.afterPropertiesSet();
+        return factory.getObject();
     }
 
 }

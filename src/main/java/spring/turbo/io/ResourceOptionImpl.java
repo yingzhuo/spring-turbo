@@ -9,6 +9,7 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
+import org.springframework.util.Assert;
 import org.springframework.util.StreamUtils;
 
 import java.io.File;
@@ -89,18 +90,26 @@ final class ResourceOptionImpl implements ResourceOption {
     }
 
     @Override
-    public Properties toProperties(boolean xmlFormat) {
+    public Properties toProperties(PropertiesFormat format) {
+        Assert.notNull(format, "format is null");
         Properties props = new Properties();
+
         try {
-            if (xmlFormat) {
-                props.loadFromXML(resource.getInputStream());
-            } else {
-                props.load(resource.getInputStream());
+            switch (format) {
+                case PROPERTIES:
+                    props.load(resource.getInputStream());
+                    return props;
+                case XML:
+                    props.loadFromXML(resource.getInputStream());
+                    return props;
+                case YAML:
+                    return YamlUtils.readProperties(resource);
+                default:
+                    throw new AssertionError();
             }
         } catch (IOException e) {
             return null;
         }
-        return props;
     }
 
     @Override
