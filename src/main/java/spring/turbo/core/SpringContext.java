@@ -14,6 +14,7 @@ import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
@@ -75,6 +76,11 @@ public final class SpringContext {
     @Nullable
     public Validator getValidator() {
         return getBean(Validator.class).orElse(null);
+    }
+
+    @Nullable
+    public MessageSource getMessageSource() {
+        return getBean(MessageSource.class).orElse(null);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

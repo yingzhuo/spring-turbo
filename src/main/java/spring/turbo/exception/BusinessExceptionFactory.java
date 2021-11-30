@@ -8,38 +8,23 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.MessageSource;
-import org.springframework.context.MessageSourceAware;
-import org.springframework.util.Assert;
-
 import java.util.Locale;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public final class BusinessExceptionFactory implements MessageSourceAware, InitializingBean {
+@FunctionalInterface
+public interface BusinessExceptionFactory {
 
-    private MessageSource messageSource;
-
-    public BusinessException create(String code) {
-        return create(code, (Object[]) null);
+    public default BusinessException create(String code) {
+        return create(code, null, (Object[]) null);
     }
 
-    public BusinessException create(String code, Object... args) {
-        String message = messageSource.getMessage(code, (Object[]) args, Locale.getDefault());
-        return new BusinessException(message, code);
+    public default BusinessException create(String code, Locale locale) {
+        return create(code, locale, (Object[]) null);
     }
 
-    @Override
-    public void setMessageSource(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        Assert.state(messageSource != null, "messageSource not set");
-    }
+    public BusinessException create(String code, Locale locale, Object... args);
 
 }

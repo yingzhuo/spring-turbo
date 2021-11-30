@@ -10,6 +10,7 @@ package spring.turbo.core;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -28,7 +29,7 @@ import java.util.function.Supplier;
  */
 public final class SpringUtils {
 
-    private static final Supplier<? extends UnsupportedOperationException> UNSUPPORTED =
+    public static final Supplier<? extends UnsupportedOperationException> UNSUPPORTED =
             () -> new UnsupportedOperationException("this operation not supported without ApplicationContext instance");
 
     private SpringUtils() {
@@ -74,6 +75,12 @@ public final class SpringUtils {
     public static Validator getValidator() {
         return Optional.ofNullable(SpringApplicationAware.SC)
                 .map(SpringContext::getValidator)
+                .orElseThrow(UNSUPPORTED);
+    }
+
+    public static MessageSource getMessageSource() {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(SpringContext::getMessageSource)
                 .orElseThrow(UNSUPPORTED);
     }
 
