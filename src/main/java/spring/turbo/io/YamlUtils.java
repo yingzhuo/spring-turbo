@@ -24,7 +24,7 @@ public final class YamlUtils {
         super();
     }
 
-    public static Properties readProperties(Resource... resources) {
+    public static Properties toProperties(Resource... resources) {
         Assert.notEmpty(resources, "resources is empty");
         Assert.noNullElements(resources, "resources is null or has null element(s)");
         final YamlPropertiesFactoryBean factory = new YamlPropertiesFactoryBean();

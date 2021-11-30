@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -113,6 +114,10 @@ public final class RequestPredicateFactories {
 
     public static RequestPredicate isSecure() {
         return HttpServletRequest::isSecure;
+    }
+
+    public static RequestPredicate localeMatches(final Locale locale) {
+        return request -> request.getLocale() == locale;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

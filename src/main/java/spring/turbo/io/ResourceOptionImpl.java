@@ -103,7 +103,7 @@ final class ResourceOptionImpl implements ResourceOption {
                     props.loadFromXML(resource.getInputStream());
                     return props;
                 case YAML:
-                    return YamlUtils.readProperties(resource);
+                    return YamlUtils.toProperties(resource);
                 default:
                     throw new AssertionError();
             }
