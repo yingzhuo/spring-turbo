@@ -18,11 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashSet;
 
+import static spring.turbo.util.StringPool.UTF_8;
+
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public abstract class AbstractSkippableFilter extends OncePerRequestFilter {
+public abstract class AbstractServletFilter extends OncePerRequestFilter {
 
     private final SkipPredicateSet skipPredicates = new SkipPredicateSet();
 
@@ -66,6 +68,27 @@ public abstract class AbstractSkippableFilter extends OncePerRequestFilter {
             }
             return false;
         }
+    }
+
+    protected final void writeJson(HttpServletResponse response, String json) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding(UTF_8);
+        response.getWriter().print(json);
+        response.getWriter().flush();
+    }
+
+    protected final void writeText(HttpServletResponse response, String text) throws IOException {
+        response.setContentType("text/plain");
+        response.setCharacterEncoding(UTF_8);
+        response.getWriter().print(text);
+        response.getWriter().flush();
+    }
+
+    protected final void writeHtml(HttpServletResponse response, String html) throws IOException {
+        response.setContentType("text/html");
+        response.setCharacterEncoding(UTF_8);
+        response.getWriter().print(html);
+        response.getWriter().flush();
     }
 
 }

@@ -17,24 +17,25 @@ public final class StringPool {
     public static final String NULL = (String) null;
 
     public static final String EMPTY = "";
-
     public static final String DOT = ".";
-
     public static final String SLASH = "/";
-
     public static final String LINE_SEPARATOR = "\n";
-
     public static final String QUESTION_MARK = "?";
-    public static final String QUESTION_MARK_X_3 = repeat(QUESTION_MARK, 3);
-
     public static final String HYPHEN = "-";
+
+    public static final String QUESTION_MARK_X_3 = repeat(QUESTION_MARK, 3);
     public static final String HYPHEN_X_80 = repeat(HYPHEN, 80);
 
+    public static final String UTF_8 = "UTF-8";
+
     public static final String ANNOTATION_STRING_NULL = "#<no value!!!>#";
+
 
     private StringPool() {
         super();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     private static String repeat(String string, int n) {
         StringBuilder builder = new StringBuilder();

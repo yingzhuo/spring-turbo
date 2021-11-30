@@ -25,6 +25,7 @@ public final class Modules {
     public static final String SPRING_TURBO = "spring.turbo";
     public static final String SPRING_TURBO_SECURITY = "spring.turbo.security";
     public static final String SPRING_TURBO_SECURITY_JWT = "spring.turbo.security-jwt";
+    public static final String SPRING_TURBO_WEBMVC = "spring.turbo.webmvc";
 
     /**
      * 所有子模块名称
