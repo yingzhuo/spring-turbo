@@ -21,10 +21,6 @@ import java.util.*;
 @Mutable
 public class NamedArray<T> implements Iterable<T> {
 
-    public static <T> NamedArrayBuilder<T> builder() {
-        return new NamedArrayBuilder<>();
-    }
-
     private final List<T> array;
     private final List<String> names;
 
@@ -35,6 +31,10 @@ public class NamedArray<T> implements Iterable<T> {
 
         this.array = Collections.unmodifiableList(array);
         this.names = Collections.unmodifiableList(names);
+    }
+
+    public static <T> NamedArrayBuilder<T> builder() {
+        return new NamedArrayBuilder<>();
     }
 
     @Override

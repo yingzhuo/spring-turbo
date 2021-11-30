@@ -11,20 +11,12 @@ package spring.turbo.core;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.core.convert.converter.ConverterFactory;
-import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.format.AnnotationFormatterFactory;
-import org.springframework.format.support.DefaultFormattingConversionService;
-import spring.turbo.integration.Modules;
+import org.springframework.validation.Validator;
 
-import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -36,7 +28,7 @@ import java.util.function.Supplier;
  */
 public final class SpringUtils {
 
-    private static final Supplier<? extends RuntimeException> UNSUPPORTED =
+    private static final Supplier<? extends UnsupportedOperationException> UNSUPPORTED =
             () -> new UnsupportedOperationException("this operation not supported without ApplicationContext instance");
 
     private SpringUtils() {
@@ -64,22 +56,26 @@ public final class SpringUtils {
     public static ResourcePatternResolver getResourcePatternResolver() {
         return Optional.ofNullable(SpringApplicationAware.SC)
                 .map(SpringContext::getResourcePatternResolver)
-                .orElse(new PathMatchingResourcePatternResolver());
-    }
-
-    public static ConversionService getConversionService() {
-        return Optional.ofNullable(SpringApplicationAware.SC)
-                .map(SpringContext::getConversionService)
-                .orElseGet(new BackupConversionServiceSupplier());
+                .orElseThrow(UNSUPPORTED);
     }
 
     public static Environment getEnvironment() {
         return Optional.ofNullable(SpringApplicationAware.SC)
                 .map(SpringContext::getEnvironment)
-                .orElseGet(new BackupEnvironmentSupplier());
+                .orElseThrow(UNSUPPORTED);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    public static ConversionService getConversionService() {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(SpringContext::getConversionService)
+                .orElseThrow(UNSUPPORTED);
+    }
+
+    public static Validator getValidator() {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(SpringContext::getValidator)
+                .orElseThrow(UNSUPPORTED);
+    }
 
     public static <T> Optional<T> getBean(final Class<T> beanType) {
         return Optional.ofNullable(SpringApplicationAware.SC)
@@ -109,43 +105,6 @@ public final class SpringUtils {
         return Optional.ofNullable(SpringApplicationAware.SC)
                 .map(sc -> sc.containsBean(beanType))
                 .orElseThrow(UNSUPPORTED);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private static class BackupConversionServiceSupplier implements Supplier<ConversionService> {
-
-        private final static DefaultFormattingConversionService CONVERSION_SERVICE = new DefaultFormattingConversionService();
-
-        static {
-            for (Converter<?, ?> it : Modules.ALL_CONVERTERS_CONVERTERS) {
-                CONVERSION_SERVICE.addConverter(it);
-            }
-            for (GenericConverter it : Modules.ALL_GENERIC_CONVERTERS) {
-                CONVERSION_SERVICE.addConverter(it);
-            }
-            for (ConverterFactory<?, ?> it : Modules.ALL_CONVERTER_FACTORIES) {
-                CONVERSION_SERVICE.addConverterFactory(it);
-            }
-            for (AnnotationFormatterFactory<? extends Annotation> it : Modules.ALL_ANNOTATION_FORMATTER_FACTORIES) {
-                CONVERSION_SERVICE.addFormatterForFieldAnnotation(it);
-            }
-        }
-
-        @Override
-        public ConversionService get() {
-            return CONVERSION_SERVICE;
-        }
-    }
-
-    private static class BackupEnvironmentSupplier implements Supplier<Environment> {
-
-        private final static StandardEnvironment ENVIRONMENT = new StandardEnvironment();
-
-        @Override
-        public Environment get() {
-            return ENVIRONMENT;
-        }
     }
 
 }

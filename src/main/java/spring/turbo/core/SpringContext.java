@@ -16,11 +16,11 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.lang.Nullable;
+import org.springframework.validation.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,12 +62,19 @@ public final class SpringContext {
         return applicationContext;
     }
 
-    public ConversionService getConversionService() {
-        return getBean(ConversionService.class).orElse(new DefaultConversionService());
+    @Nullable
+    public Environment getEnvironment() {
+        return getBean(Environment.class).orElse(null);
     }
 
-    public Environment getEnvironment() {
-        return getBean(Environment.class).orElse(new StandardEnvironment());
+    @Nullable
+    public ConversionService getConversionService() {
+        return getBean(ConversionService.class).orElse(null);
+    }
+
+    @Nullable
+    public Validator getValidator() {
+        return getBean(Validator.class).orElse(null);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

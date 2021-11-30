@@ -30,7 +30,7 @@ public final class StringPool {
     public static final String HYPHEN = "-";
     public static final String HYPHEN_X_80 = repeat(HYPHEN, 80);
 
-    public static final String ANNOTATION_STRING_NULL = "<no value!!!>";
+    public static final String ANNOTATION_STRING_NULL = "#<no value!!!>#";
 
     private StringPool() {
         super();
