@@ -6,21 +6,26 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.integration.impl;
+package spring.turbo.bean.condition;
 
-import spring.turbo.integration.ModuleNameProvider;
+import org.springframework.context.annotation.Conditional;
 
-import static spring.turbo.integration.Modules.SPRING_TURBO;
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public final class ModuleNameProviderImpl implements ModuleNameProvider {
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Conditional(ConditionalOnReachableCondition.class)
+public @interface ConditionalOnReachable {
 
-    @Override
-    public String getModuleName() {
-        return SPRING_TURBO;
-    }
+    public String address();
+
+    public int port();
+
+    public int timeoutInMilliseconds() default 1000;
 
 }

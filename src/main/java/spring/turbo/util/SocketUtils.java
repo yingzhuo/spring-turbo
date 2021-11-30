@@ -6,21 +6,32 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.integration.impl;
+package spring.turbo.util;
 
-import spring.turbo.integration.ModuleNameProvider;
-
-import static spring.turbo.integration.Modules.SPRING_TURBO;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public final class ModuleNameProviderImpl implements ModuleNameProvider {
+public final class SocketUtils {
 
-    @Override
-    public String getModuleName() {
-        return SPRING_TURBO;
+    private SocketUtils() {
+        super();
+    }
+
+    public static boolean isReachable(String address, int port) {
+        return isReachable(address, port, 0);
+    }
+
+    public static boolean isReachable(String address, int port, int timeoutInMilliseconds) {
+        try (Socket socket = new Socket()) {
+            socket.connect(new InetSocketAddress(address, port), timeoutInMilliseconds);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
