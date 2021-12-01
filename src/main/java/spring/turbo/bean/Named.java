@@ -9,6 +9,8 @@
 package spring.turbo.bean;
 
 /**
+ * 具名的
+ *
  * @author 应卓
  * @since 1.0.0
  */

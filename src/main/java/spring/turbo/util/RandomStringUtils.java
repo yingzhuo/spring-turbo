@@ -9,8 +9,10 @@
 package spring.turbo.util;
 
 import java.util.Random;
+import java.util.UUID;
 
 import static spring.turbo.util.StringPool.EMPTY;
+import static spring.turbo.util.StringPool.HYPHEN;
 
 /**
  * @author 应卓
@@ -175,6 +177,15 @@ public final class RandomStringUtils {
             return random(count, 0, 0, false, false, null, RANDOM);
         }
         return random(count, 0, chars.length, false, false, chars, RANDOM);
+    }
+
+    public static String randomUUID() {
+        return randomUUID(false);
+    }
+
+    public static String randomUUID(boolean removeHyphen) {
+        String uuid = UUID.randomUUID().toString();
+        return removeHyphen ? uuid.replaceAll(HYPHEN, EMPTY) : uuid;
     }
 
 }

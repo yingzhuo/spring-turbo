@@ -22,6 +22,7 @@ public final class StringPool {
     public static final String LINE_SEPARATOR = "\n";
     public static final String QUESTION_MARK = "?";
     public static final String HYPHEN = "-";
+    public static final String UNDERSCORE = "_";
 
     public static final String QUESTION_MARK_X_3 = repeat(QUESTION_MARK, 3);
     public static final String HYPHEN_X_80 = repeat(HYPHEN, 80);
