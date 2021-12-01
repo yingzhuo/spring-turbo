@@ -6,26 +6,23 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.webmvc;
 
-import spring.turbo.lang.Mutable;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 
 /**
+ * @param <T>
  * @author 应卓
  * @since 1.0.0
  */
-@Mutable
-public final class Payload extends HashMap<String, Object> implements Map<String, Object> {
+public interface ApiResult<T> extends Serializable {
 
-    private Payload() {
-        super();
-    }
+    public String getCode();
 
-    public static Payload newInstance() {
-        return new Payload();
-    }
+    public String getErrorMessage();
+
+    public T getPayload();
+
+    public int getPayloadSize();
 
 }

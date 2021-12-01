@@ -31,6 +31,9 @@ public interface ResourceOption extends Serializable {
         return !isAbsent();
     }
 
+    @Override
+    public String toString();
+
     public String toString(Charset charset);
 
     public byte[] toByteArray();
