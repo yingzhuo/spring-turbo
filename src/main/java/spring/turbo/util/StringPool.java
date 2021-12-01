@@ -30,12 +30,9 @@ public final class StringPool {
 
     public static final String ANNOTATION_STRING_NULL = "#<no value!!!>#";
 
-
     private StringPool() {
         super();
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     private static String repeat(String string, int n) {
         StringBuilder builder = new StringBuilder();

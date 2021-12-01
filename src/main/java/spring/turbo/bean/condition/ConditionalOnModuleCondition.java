@@ -15,8 +15,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 import spring.turbo.core.Logic;
 import spring.turbo.integration.Modules;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -35,24 +34,17 @@ final class ConditionalOnModuleCondition implements Condition {
             return false;
         }
 
-        final String[] moduleNames = annotationAttributes.getStringArray("value");
-        if (moduleNames.length == 0) {
+        final Logic logic = annotationAttributes.getEnum("logic");
+        final Modules[] modules = (Modules[]) annotationAttributes.get("value");
+
+        if (modules.length == 0) {
             return false;
         }
 
-        final Logic logic = annotationAttributes.getEnum("logic");
-
         if (logic == Logic.ANY) {
-            for (String actual : Modules.ALL_MODULE_NAMES) {
-                for (String moduleName : moduleNames) {
-                    if (Objects.equals(actual, moduleName)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
+            return Stream.of(modules).anyMatch(Modules::isPresent);
         } else {
-            return Modules.ALL_MODULE_NAMES.containsAll(Arrays.asList(moduleNames));
+            return Stream.of(modules).allMatch(Modules::isPresent);
         }
     }
 

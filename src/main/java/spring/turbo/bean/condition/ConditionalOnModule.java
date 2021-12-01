@@ -11,6 +11,7 @@ package spring.turbo.bean.condition;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.AliasFor;
 import spring.turbo.core.Logic;
+import spring.turbo.integration.Modules;
 
 import java.lang.annotation.*;
 
@@ -25,10 +26,10 @@ import java.lang.annotation.*;
 public @interface ConditionalOnModule {
 
     @AliasFor("value")
-    public String[] moduleNames() default {};
+    public Modules[] modules() default {};
 
-    @AliasFor("moduleNames")
-    public String[] value() default {};
+    @AliasFor("modules")
+    public Modules[] value() default {};
 
     public Logic logic() default Logic.ALL;
 

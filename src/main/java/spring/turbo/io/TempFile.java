@@ -17,6 +17,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import static spring.turbo.util.StringPool.DOT;
+import static spring.turbo.util.StringPool.EMPTY;
+
 /**
  * @author 应卓
  * @since 1.0.0
@@ -80,7 +83,7 @@ public final class TempFile implements Serializable {
 
     public static final class Builder {
 
-        private String prefix = "";
+        private String prefix = EMPTY;
         private File file;
         private byte[] bytes;
         private InputStream inputStream;
@@ -165,11 +168,11 @@ public final class TempFile implements Serializable {
         private String getFilenameExtension() {
             String ext;
             if (file != null) {
-                ext = Optional.ofNullable(StringUtils.getFilenameExtension(file.getPath())).orElse("");
+                ext = Optional.ofNullable(StringUtils.getFilenameExtension(file.getPath())).orElse(EMPTY);
             } else {
-                ext = "";
+                ext = EMPTY;
             }
-            return "".equals(ext) ? ext : "." + ext;
+            return EMPTY.equals(ext) ? ext : DOT + ext;
         }
 
         private void alreadySet() {

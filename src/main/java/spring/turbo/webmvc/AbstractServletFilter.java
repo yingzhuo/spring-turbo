@@ -59,17 +59,6 @@ public abstract class AbstractServletFilter extends OncePerRequestFilter {
         }
     }
 
-    private static class SkipPredicateSet extends HashSet<RequestPredicate> {
-        boolean shouldSkip(HttpServletRequest request) {
-            for (RequestPredicate predicate : this) {
-                if (predicate.test(request)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-
     protected final void writeJson(HttpServletResponse response, String json) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding(UTF_8);
@@ -89,6 +78,17 @@ public abstract class AbstractServletFilter extends OncePerRequestFilter {
         response.setCharacterEncoding(UTF_8);
         response.getWriter().print(html);
         response.getWriter().flush();
+    }
+
+    private static class SkipPredicateSet extends HashSet<RequestPredicate> {
+        boolean shouldSkip(HttpServletRequest request) {
+            for (RequestPredicate predicate : this) {
+                if (predicate.test(request)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
 }

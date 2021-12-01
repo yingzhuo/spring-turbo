@@ -17,31 +17,45 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
+ * 模块
+ *
  * @author 应卓
  * @since 1.0.0
  */
-public final class Modules {
+public enum Modules {
 
-    public static final String SPRING_TURBO = "spring.turbo";
-    public static final String SPRING_TURBO_SECURITY = "spring.turbo.security";
-    public static final String SPRING_TURBO_SECURITY_JWT = "spring.turbo.security-jwt";
-    public static final String SPRING_TURBO_WEBMVC = "spring.turbo.webmvc";
+    SPRING_TURBO("spring.turbo"),
+    SPRING_TURBO_SECURITY("spring.turbo.security"),
+    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt"),
+    SPRING_TURBO_WEBMVC("spring.turbo.webmvc");
 
     /**
-     * 所有子模块名称
+     * 所有子模块名称 (已排序)
      */
     public static final SortedSet<String> ALL_MODULE_NAMES;
 
     static {
-        final Set<String> set = ServiceLoaderUtils.loadQuietly(ModuleNameProvider.class)
-                .stream()
-                .map(ModuleNameProvider::getModuleName)
-                .collect(Collectors.toSet());
+        final Set<String> set =
+                ServiceLoaderUtils.loadQuietly(ModuleNameProvider.class)
+                        .stream()
+                        .map(ModuleNameProvider::getModuleName)
+                        .collect(Collectors.toSet());
+
         ALL_MODULE_NAMES = Collections.unmodifiableSortedSet(new TreeSet<>(set));
     }
 
-    private Modules() {
-        super();
+    private final String moduleName;
+
+    Modules(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public boolean isPresent() {
+        return ALL_MODULE_NAMES.contains(getModuleName());
     }
 
 }

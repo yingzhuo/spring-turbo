@@ -13,5 +13,5 @@ package spring.turbo.util;
  * @since 1.0.0
  */
 public enum LogLevel {
-    TRACE, DEBUG, INFO, WARN, ERROR, OFF, STDOUT, STDERR;
+    TRACE, DEBUG, INFO, WARN, ERROR, OFF, STDOUT, STDERR
 }
