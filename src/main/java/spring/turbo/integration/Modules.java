@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 public enum Modules {
 
     SPRING_TURBO("spring.turbo"),
+    SPRING_TURBO_PREDEFINED("spring.turbo.predefined"),
     SPRING_TURBO_SECURITY("spring.turbo.security"),
     SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt"),
     SPRING_TURBO_WEBMVC("spring.turbo.webmvc");
