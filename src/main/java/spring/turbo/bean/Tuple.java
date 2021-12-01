@@ -13,22 +13,24 @@ import spring.turbo.lang.Immutable;
 
 /**
  * @author 应卓
- * @see Tuple
+ * @see Pair
  * @since 1.0.0
  */
 @Immutable
-public final class Pair<A, B> {
+public final class Tuple<A, B, C> {
 
     private final A a;
     private final B b;
+    private final C c;
 
-    private Pair(A a, B b) {
+    private Tuple(A a, B b, C c) {
         this.a = a;
         this.b = b;
+        this.c = c;
     }
 
-    public static <A, B> Pair<A, B> of(@Nullable A a, @Nullable B b) {
-        return new Pair<>(a, b);
+    public static <A, B, C> Tuple<A, B, C> of(@Nullable A a, @Nullable B b, @Nullable C c) {
+        return new Tuple<>(a, b, c);
     }
 
     public A getA() {
@@ -39,4 +41,7 @@ public final class Pair<A, B> {
         return b;
     }
 
+    public C getC() {
+        return c;
+    }
 }
