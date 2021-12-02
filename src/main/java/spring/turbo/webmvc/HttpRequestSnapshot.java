@@ -8,8 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc;
 
-import org.springframework.util.Assert;
 import spring.turbo.lang.Immutable;
+import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +36,7 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
     private final String text;
 
     private HttpRequestSnapshot(HttpServletRequest request) {
-        Assert.notNull(request, "request is null");
+        Asserts.notNull(request);
 
         lines.add(StringFormatter.format("Time: {}", DATE_FORMAT.format(new Date())));
         lines.add(StringFormatter.format("Method: {}", request.getMethod()));

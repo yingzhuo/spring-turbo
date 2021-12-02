@@ -9,7 +9,6 @@
 package spring.turbo.util;
 
 import org.springframework.core.OrderComparator;
-import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 import java.util.*;
@@ -29,8 +28,8 @@ public final class ServiceLoaderUtils {
     }
 
     public static <T> List<T> load(Class<T> targetType, ClassLoader classLoader) {
-        Assert.notNull(targetType, "targetType is null");
-        Assert.notNull(classLoader, "classLoader is null");
+        Asserts.notNull(targetType);
+        Asserts.notNull(classLoader);
 
         final ServiceLoader<T> loader = ServiceLoader.load(targetType, classLoader);
         List<T> list = new LinkedList<>();

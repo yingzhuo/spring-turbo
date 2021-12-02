@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import org.springframework.util.Assert;
+import spring.turbo.util.Asserts;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -30,9 +30,9 @@ public final class PasswordAndSalt implements Serializable {
     }
 
     public PasswordAndSalt(String delimiter, String password, String salt) {
-        Assert.hasText(delimiter, "delimiter is blank");
-        Assert.hasText(password, "password is blank");
-        Assert.hasText(salt, "salt is blank");
+        Asserts.hasText(delimiter);
+        Asserts.hasText(password);
+        Asserts.hasText(salt);
         this.delimiter = delimiter;
         this.password = password;
         this.salt = salt;

@@ -8,9 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import org.springframework.util.Assert;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptions;
+import spring.turbo.util.Asserts;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -46,12 +46,12 @@ public final class KeysReaders {
     }
 
     private static String getText(String location) {
-        Assert.hasText(location, "location is blank");
+        Asserts.hasText(location);
         ResourceOption option = ResourceOptions.builder()
                 .add(location)
                 .build();
 
-        Assert.state(option.isPresent(), "location is not able to open");
+        Asserts.isTrue(option.isPresent());
         return option.toString(UTF_8);
     }
 

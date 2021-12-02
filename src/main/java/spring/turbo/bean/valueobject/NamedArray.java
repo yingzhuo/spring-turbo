@@ -9,8 +9,8 @@
 package spring.turbo.bean.valueobject;
 
 import org.springframework.beans.MutablePropertyValues;
-import org.springframework.util.Assert;
 import spring.turbo.lang.Mutable;
+import spring.turbo.util.Asserts;
 
 import java.util.*;
 
@@ -25,11 +25,11 @@ public class NamedArray<T> implements Iterable<T> {
     private final List<String> names;
 
     NamedArray(List<T> array, List<String> names) {
-        Assert.notNull(array, "array is null or has null element(s)");
-        Assert.noNullElements(array, "array is null or has null element(s)");
-        Assert.notNull(names, "names is null or has null element(s)");
-        Assert.noNullElements(names, "names is null or has null element(s)");
-        Assert.state(array.size() == names.size(), "array and names have different size");
+        Asserts.notNull(array);
+        Asserts.noNullElements(array, "array is null or has null element(s)");
+        Asserts.notNull(names, "names is null or has null element(s)");
+        Asserts.noNullElements(names, (String) null);
+        Asserts.isTrue(array.size() == names.size());
 
         this.array = Collections.unmodifiableList(array);
         this.names = Collections.unmodifiableList(names);

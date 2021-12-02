@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import org.springframework.util.Assert;
+import spring.turbo.util.Asserts;
 
 import javax.crypto.Cipher;
 import java.security.KeyFactory;
@@ -32,7 +32,7 @@ public final class RSABuilder {
     }
 
     public RSABuilder keyPair(RSAKeys keyPair) {
-        Assert.notNull(keyPair, "keyPair is null");
+        Asserts.notNull(keyPair);
         this.publicKey = keyPair.getPublicKey();
         this.privateKey = keyPair.getPrivateKey();
         return this;

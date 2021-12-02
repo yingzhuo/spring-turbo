@@ -13,8 +13,8 @@ import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.RegexPatternTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
-import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import spring.turbo.util.Asserts;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -58,7 +58,7 @@ public final class TypeFilterFactories {
      * @return TypeFilter的实例
      */
     public static TypeFilter annotation(Class<? extends Annotation> annotationType, boolean considerMetaAnnotations, boolean considerInterfaces) {
-        Assert.notNull(annotationType, "annotationType is null");
+        Asserts.notNull(annotationType);
         return new AnnotationTypeFilter(annotationType, considerMetaAnnotations, considerInterfaces);
     }
 
@@ -69,7 +69,7 @@ public final class TypeFilterFactories {
      * @return TypeFilter的实例
      */
     public static TypeFilter regex(String regex) {
-        Assert.hasText(regex, "regex is null or blank");
+        Asserts.hasText(regex);
         return new RegexPatternTypeFilter(Pattern.compile(regex));
     }
 
@@ -154,7 +154,7 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter not(final TypeFilter typeFilter) {
-        Assert.notNull(typeFilter, "typeFilter is null");
+        Asserts.notNull(typeFilter);
         return (reader, readerFactory) -> !typeFilter.match(reader, readerFactory);
     }
 
@@ -166,8 +166,8 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter or(TypeFilter f1, TypeFilter f2) {
-        Assert.notNull(f1, "f1 is null");
-        Assert.notNull(f2, "f2 is null");
+        Asserts.notNull(f1);
+        Asserts.notNull(f2);
         return any(f1, f2);
     }
 
@@ -179,8 +179,8 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter and(TypeFilter f1, TypeFilter f2) {
-        Assert.notNull(f1, "f1 is null");
-        Assert.notNull(f2, "f2 is null");
+        Asserts.notNull(f1);
+        Asserts.notNull(f2);
         return all(f1, f2);
     }
 
@@ -192,8 +192,8 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter xor(TypeFilter f1, TypeFilter f2) {
-        Assert.notNull(f1, "f1 is null");
-        Assert.notNull(f2, "f2 is null");
+        Asserts.notNull(f1);
+        Asserts.notNull(f2);
         return (reader, readerFactory) -> f1.match(reader, readerFactory) ^ f2.match(reader, readerFactory);
     }
 
@@ -204,8 +204,8 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter any(TypeFilter... filters) {
-        Assert.notNull(filters, "filters is null or has null element(s)");
-        Assert.noNullElements(filters, "filters is null or has null element(s)");
+        Asserts.notNull(filters);
+        Asserts.noNullElements(filters);
         return new Any(Arrays.asList(filters));
     }
 
@@ -216,8 +216,8 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter all(TypeFilter... filters) {
-        Assert.notNull(filters, "filters is null or has null element(s)");
-        Assert.noNullElements(filters, "filters is null or has null element(s)");
+        Asserts.notNull(filters);
+        Asserts.noNullElements(filters);
         return new All(Arrays.asList(filters));
     }
 
@@ -247,7 +247,7 @@ public final class TypeFilterFactories {
      * @return TypeFilter实例
      */
     public static TypeFilter quiet(TypeFilter filter, boolean resultIfError) {
-        Assert.notNull(filter, "filter is null");
+        Asserts.notNull(filter);
         return new Quiet(filter, resultIfError);
     }
 

@@ -10,8 +10,8 @@ package spring.turbo.webmvc.function;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+import spring.turbo.util.Asserts;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -36,19 +36,19 @@ public final class RequestPredicateFactories {
     }
 
     public static RequestPredicate methodMatches(final HttpMethod... methods) {
-        Assert.notNull(methods, "methods is null or has null element(s)");
-        Assert.noNullElements(methods, "methods is null or has null element(s)");
+        Asserts.notNull(methods);
+        Asserts.noNullElements(methods);
         return request -> RequestPredicateFactories.matchMethods(request, methods);
     }
 
     public static RequestPredicate hasParameter(final String parameterName) {
-        Assert.hasText(parameterName, "parameterName is blank");
+        Asserts.hasText(parameterName);
         return request -> request.getParameterMap().containsKey(parameterName);
     }
 
     public static RequestPredicate parameterValueRegexMatches(final String parameterName, final String parameterValueRegex) {
-        Assert.hasText(parameterName, "parameterName is blank");
-        Assert.hasText(parameterValueRegex, "parameterValueRegex is blank");
+        Asserts.hasText(parameterName);
+        Asserts.hasText(parameterValueRegex);
 
         return request -> {
             String value = request.getParameter(parameterName);
@@ -58,13 +58,13 @@ public final class RequestPredicateFactories {
     }
 
     public static RequestPredicate hasAttribute(final String attributeName) {
-        Assert.hasText(attributeName, "attributeName is blank");
+        Asserts.hasText(attributeName);
         return request -> request.getAttribute(attributeName) != null;
     }
 
     public static RequestPredicate attributeValueRegexMatches(final String attributeName, final String attributeValueRegex) {
-        Assert.hasText(attributeName, "attributeName is blank");
-        Assert.hasText(attributeValueRegex, "attributeValueRegex is blank");
+        Asserts.hasText(attributeName);
+        Asserts.hasText(attributeValueRegex);
 
         return request -> {
             Object valueObj = request.getAttribute(attributeName);
@@ -79,23 +79,23 @@ public final class RequestPredicateFactories {
     }
 
     public static RequestPredicate pathAntStyleMatches(final String pattern) {
-        Assert.hasText(pattern, "pattern is blank");
+        Asserts.hasText(pattern);
         return request -> ANT_PATH_MATCHER.match(pattern, request.getRequestURI());
     }
 
     public static RequestPredicate pathRegexMatches(final String regex) {
-        Assert.hasText(regex, "regex is blank");
+        Asserts.hasText(regex);
         return request -> request.getRequestURI().matches(regex);
     }
 
     public static RequestPredicate hasHeader(final String headerName) {
-        Assert.hasText(headerName, "headerName is blank");
+        Asserts.hasText(headerName);
         return request -> StringUtils.hasText(request.getHeader(headerName));
     }
 
     public static RequestPredicate headerValueRegexMatches(final String headerName, final String headerValueRegex) {
-        Assert.hasText(headerName, "headerName is blank");
-        Assert.hasText(headerValueRegex, "headerValueRegex is blank");
+        Asserts.hasText(headerName);
+        Asserts.hasText(headerValueRegex);
 
         return request -> {
             String value = request.getHeader(headerName);
@@ -105,7 +105,7 @@ public final class RequestPredicateFactories {
     }
 
     public static RequestPredicate contextPathRegexMatches(final String contextPathPattern) {
-        Assert.hasText(contextPathPattern, "contextPathPattern is blank");
+        Asserts.hasText(contextPathPattern);
         return request -> {
             String contextPath = request.getContextPath();
             if (contextPath == null) return false;
@@ -124,7 +124,7 @@ public final class RequestPredicateFactories {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static RequestPredicate delegating(final Predicate<HttpServletRequest> predicate) {
-        Assert.notNull(predicate, "predicate is null");
+        Asserts.notNull(predicate);
         return new Delegating(predicate);
     }
 
@@ -139,37 +139,37 @@ public final class RequestPredicateFactories {
     }
 
     public static RequestPredicate not(final RequestPredicate predicate) {
-        Assert.notNull(predicate, "predicate is null");
+        Asserts.notNull(predicate);
         return new Not(predicate);
     }
 
     public static RequestPredicate any(final RequestPredicate... predicates) {
-        Assert.notEmpty(predicates, "predicates is null or has null element");
-        Assert.noNullElements(predicates, "predicates is null or has null element");
+        Asserts.notEmpty(predicates);
+        Asserts.noNullElements(predicates);
         return new Any(predicates);
     }
 
     public static RequestPredicate all(final RequestPredicate... predicates) {
-        Assert.notEmpty(predicates, "predicates is null or has null element");
-        Assert.noNullElements(predicates, "predicates is null or has null element");
+        Asserts.notEmpty(predicates);
+        Asserts.noNullElements(predicates);
         return new All(predicates);
     }
 
     public static RequestPredicate or(final RequestPredicate p1, final RequestPredicate p2) {
-        Assert.notNull(p1, "p1 is null");
-        Assert.notNull(p2, "p2 is null");
+        Asserts.notNull(p1);
+        Asserts.notNull(p2);
         return any(p1, p2);
     }
 
     public static RequestPredicate and(final RequestPredicate p1, final RequestPredicate p2) {
-        Assert.notNull(p1, "p1 is null");
-        Assert.notNull(p2, "p2 is null");
+        Asserts.notNull(p1);
+        Asserts.notNull(p2);
         return all(p1, p2);
     }
 
     public static RequestPredicate xor(final RequestPredicate p1, final RequestPredicate p2) {
-        Assert.notNull(p1, "p1 is null");
-        Assert.notNull(p2, "p2 is null");
+        Asserts.notNull(p1);
+        Asserts.notNull(p2);
         return request -> p1.test(request) ^ p2.test(request);
     }
 

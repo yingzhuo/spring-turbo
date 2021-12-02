@@ -15,7 +15,7 @@ import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.filter.TypeFilter;
-import org.springframework.util.Assert;
+import spring.turbo.util.Asserts;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,13 +47,13 @@ public final class ClassPathScannerBuilder {
     }
 
     public ClassPathScannerBuilder environment(Environment environment) {
-        Assert.notNull(environment, "environment is null");
+        Asserts.notNull(environment);
         this.environment = environment;
         return this;
     }
 
     public ClassPathScannerBuilder resourceLoader(ResourceLoader resourceLoader) {
-        Assert.notNull(resourceLoader, "resourceLoader is null");
+        Asserts.notNull(resourceLoader);
         this.resourceLoader = resourceLoader;
         return this;
     }

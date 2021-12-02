@@ -11,7 +11,7 @@ package spring.turbo.bean;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.util.Assert;
+import spring.turbo.util.Asserts;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -27,7 +27,7 @@ public final class ScannedResult implements Serializable, Comparable<ScannedResu
     private final BeanDefinition beanDefinition;
 
     public ScannedResult(BeanDefinition beanDefinition) {
-        Assert.notNull(beanDefinition, "beanDefinition is null");
+        Asserts.notNull(beanDefinition);
 
         this.beanDefinition = beanDefinition;
     }
@@ -37,7 +37,7 @@ public final class ScannedResult implements Serializable, Comparable<ScannedResu
     }
 
     public AnnotationAttributes getAnnotationAttributes(Class<? extends Annotation> annotationType) {
-        Assert.notNull(annotationType, "annotationType is null");
+        Asserts.notNull(annotationType);
 
         if (!(beanDefinition instanceof AnnotatedBeanDefinition)) {
             return new AnnotationAttributes(annotationType);

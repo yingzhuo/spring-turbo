@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import org.springframework.util.Assert;
+import spring.turbo.util.Asserts;
 
 import java.security.KeyFactory;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -28,7 +28,7 @@ public final class DSABuilder {
     }
 
     public DSABuilder keyPair(DSAKeys keyPair) {
-        Assert.notNull(keyPair, "keyPair is null");
+        Asserts.notNull(keyPair);
         this.privateKey = keyPair.getPrivateKey();
         this.publicKey = keyPair.getPublicKey();
         return this;

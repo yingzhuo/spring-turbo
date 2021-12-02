@@ -10,7 +10,6 @@ package spring.turbo.util;
 
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
-import org.springframework.util.Assert;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -27,24 +26,24 @@ public final class AnnotationUtils {
     }
 
     public static boolean isAnnotationPresent(Class<?> annotationSupplier, Class<? extends Annotation> annotationType) {
-        Assert.notNull(annotationSupplier, "annotationSupplier is null");
-        Assert.notNull(annotationType, "annotationType is null");
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
 
         return org.springframework.core.annotation.AnnotationUtils
                 .findAnnotation(annotationSupplier, annotationType) != null;
     }
 
     public static boolean isAnnotationPresent(Method annotationSupplier, Class<? extends Annotation> annotationType) {
-        Assert.notNull(annotationSupplier, "annotationSupplier is null");
-        Assert.notNull(annotationType, "annotationType is null");
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
 
         return org.springframework.core.annotation.AnnotationUtils
                 .findAnnotation(annotationSupplier, annotationType) != null;
     }
 
     public static boolean isAnnotationPresent(AnnotatedElement annotationSupplier, Class<? extends Annotation> annotationType) {
-        Assert.notNull(annotationSupplier, "annotationSupplier is null");
-        Assert.notNull(annotationType, "annotationType is null");
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
 
         return org.springframework.core.annotation.AnnotationUtils
                 .findAnnotation(annotationSupplier, annotationType) != null;
@@ -52,8 +51,8 @@ public final class AnnotationUtils {
 
     @NonNull
     public static AnnotationAttributes findAnnotationAttributes(Class<?> annotationSupplier, Class<? extends Annotation> annotationType) {
-        Assert.notNull(annotationSupplier, "annotationSupplier is null");
-        Assert.notNull(annotationType, "annotationType is null");
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
 
         final Annotation annotation = org.springframework.core.annotation.AnnotationUtils
                 .findAnnotation(annotationSupplier, annotationType);
@@ -68,8 +67,8 @@ public final class AnnotationUtils {
 
     @NonNull
     public static AnnotationAttributes findAnnotationAttributes(Method annotationSupplier, Class<? extends Annotation> annotationType) {
-        Assert.notNull(annotationSupplier, "annotationSupplier is null");
-        Assert.notNull(annotationType, "annotationType is null");
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
 
         final Annotation annotation = org.springframework.core.annotation.AnnotationUtils
                 .findAnnotation(annotationSupplier, annotationType);
@@ -84,8 +83,8 @@ public final class AnnotationUtils {
 
     @NonNull
     public static AnnotationAttributes findAnnotationAttributes(AnnotatedElement annotationSupplier, Class<? extends Annotation> annotationType) {
-        Assert.notNull(annotationSupplier, "annotationSupplier is null");
-        Assert.notNull(annotationType, "annotationType is null");
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
 
         final Annotation annotation = org.springframework.core.annotation.AnnotationUtils
                 .findAnnotation(annotationSupplier, annotationType);

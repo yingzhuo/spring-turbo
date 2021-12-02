@@ -8,9 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import org.springframework.util.Assert;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
+import spring.turbo.util.Asserts;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -30,7 +30,7 @@ public final class TempFile implements Serializable {
 
     private TempFile(Path path) {
         super();
-        Assert.notNull(path, "path is null");
+        Asserts.notNull(path);
         this.path = path;
     }
 
@@ -94,41 +94,41 @@ public final class TempFile implements Serializable {
         }
 
         public Builder prefix(String prefix) {
-            Assert.notNull(prefix, "prefix is null");
+            Asserts.notNull(prefix);
             this.prefix = prefix;
             return this;
         }
 
         public Builder set(File file) {
-            Assert.notNull(file, "file is null");
+            Asserts.notNull(file);
             alreadySet();
             this.file = file;
             return this;
         }
 
         public Builder set(byte[] file) {
-            Assert.notNull(file, "file is null");
+            Asserts.notNull(file);
             alreadySet();
             this.bytes = file;
             return this;
         }
 
         public Builder set(InputStream file) {
-            Assert.notNull(file, "file is null");
+            Asserts.notNull(file);
             alreadySet();
             this.inputStream = file;
             return this;
         }
 
         public Builder set(Reader file) {
-            Assert.notNull(file, "file is null");
+            Asserts.notNull(file);
             alreadySet();
             this.reader = file;
             return this;
         }
 
         public Builder set(Path file) {
-            Assert.notNull(file, "file is null");
+            Asserts.notNull(file);
             alreadySet();
             this.file = file.toFile();
             return this;

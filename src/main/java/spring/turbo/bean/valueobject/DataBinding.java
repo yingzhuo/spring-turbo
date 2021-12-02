@@ -10,10 +10,10 @@ package spring.turbo.bean.valueobject;
 
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Validator;
+import spring.turbo.util.Asserts;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -40,39 +40,40 @@ public final class DataBinding {
     }
 
     public DataBinding valueObject(Object valueObject) {
-        Assert.notNull(valueObject, "valueObject is null");
+        Asserts.notNull(valueObject);
         this.valueObject = valueObject;
         return this;
     }
 
     public DataBinding data(MutablePropertyValues data) {
-        Assert.notNull(data, "data is null");
+        Asserts.notNull(data);
         this.data = data;
         return this;
     }
 
     public DataBinding data(NamedArray<?> data) {
-        Assert.notNull(data, "data is null");
+        Asserts.notNull(data);
         this.data = data.toMutablePropertyValues();
         return this;
     }
 
     public DataBinding conversionService(ConversionService conversionService) {
-        Assert.notNull(conversionService, "conversionService is null");
+        Asserts.notNull(conversionService);
         this.conversionService = conversionService;
         return this;
     }
 
     public DataBinding validator(Validator validator) {
-        Assert.notNull(validator, "validator is null");
+        Asserts.notNull(validator);
         this.validators.clear();
         this.validators.add(validator);
         return this;
     }
 
     public DataBinding validators(Validator... validators) {
-        Assert.notNull(validators, "validator is null or has null element(s)");
-        Assert.noNullElements(validators, "validator is null or has null element(s)");
+        Asserts.notNull(validators);
+        Asserts.notEmpty(validators);
+        Asserts.noNullElements(validators);
         this.validators.addAll(Arrays.asList(validators));
         return this;
     }
@@ -93,8 +94,8 @@ public final class DataBinding {
     }
 
     private void init() {
-        Assert.state(valueObject != null, "valueObject not set");
-        Assert.state(data != null, "data not set");
+        Asserts.state(valueObject != null);
+        Asserts.state(data != null);
     }
 
 }

@@ -9,8 +9,8 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
-import org.springframework.util.Assert;
 import org.springframework.util.StreamUtils;
+import spring.turbo.util.Asserts;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,7 +91,7 @@ final class ResourceOptionImpl implements ResourceOption {
 
     @Override
     public Properties toProperties(PropertiesFormat format) {
-        Assert.notNull(format, "format is null");
+        Asserts.notNull(format);
         Properties props = new Properties();
 
         try {

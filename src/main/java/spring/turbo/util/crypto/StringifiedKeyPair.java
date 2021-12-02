@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import org.springframework.util.Assert;
+import spring.turbo.util.Asserts;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -30,9 +30,9 @@ public final class StringifiedKeyPair implements Serializable {
     }
 
     public StringifiedKeyPair(String delimiter, String publicKey, String privateKey) {
-        Assert.hasText(delimiter, "delimiter is blank");
-        Assert.hasText(publicKey, "publicKey is blank");
-        Assert.hasText(privateKey, "privateKey is blank");
+        Asserts.hasText(delimiter);
+        Asserts.hasText(publicKey);
+        Asserts.hasText(privateKey);
         this.delimiter = delimiter;
         this.publicKey = publicKey;
         this.privateKey = privateKey;

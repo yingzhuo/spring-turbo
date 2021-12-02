@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.util.Assert;
-
 import java.util.Random;
 
 /**
@@ -29,7 +27,7 @@ public final class RandomUtils {
     }
 
     public static byte[] nextBytes(final int count) {
-        Assert.isTrue(count >= 0, "count cannot be negative");
+        Asserts.isTrue(count >= 0);
 
         final byte[] result = new byte[count];
         RANDOM.nextBytes(result);
@@ -37,9 +35,8 @@ public final class RandomUtils {
     }
 
     public static int nextInt(final int startInclusive, final int endExclusive) {
-        Assert.isTrue(endExclusive >= startInclusive,
-                "Start value must be smaller or equal to end value.");
-        Assert.isTrue(startInclusive >= 0, "both range values must be non-negative");
+        Asserts.isTrue(endExclusive >= startInclusive);
+        Asserts.isTrue(startInclusive >= 0);
 
         if (startInclusive == endExclusive) {
             return startInclusive;
@@ -53,9 +50,8 @@ public final class RandomUtils {
     }
 
     public static long nextLong(final long startInclusive, final long endExclusive) {
-        Assert.isTrue(endExclusive >= startInclusive,
-                "start value must be smaller or equal to end value.");
-        Assert.isTrue(startInclusive >= 0, "both range values must be non-negative.");
+        Asserts.isTrue(endExclusive >= startInclusive);
+        Asserts.isTrue(startInclusive >= 0);
 
         if (startInclusive == endExclusive) {
             return startInclusive;
@@ -81,9 +77,8 @@ public final class RandomUtils {
     }
 
     public static double nextDouble(final double startInclusive, final double endExclusive) {
-        Assert.isTrue(endExclusive >= startInclusive,
-                "start value must be smaller or equal to end value.");
-        Assert.isTrue(startInclusive >= 0, "both range values must be non-negative.");
+        Asserts.isTrue(endExclusive >= startInclusive);
+        Asserts.isTrue(startInclusive >= 0);
 
         if (startInclusive == endExclusive) {
             return startInclusive;
@@ -97,9 +92,8 @@ public final class RandomUtils {
     }
 
     public static float nextFloat(final float startInclusive, final float endExclusive) {
-        Assert.isTrue(endExclusive >= startInclusive,
-                "start value must be smaller or equal to end value.");
-        Assert.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
+        Asserts.isTrue(endExclusive >= startInclusive);
+        Asserts.isTrue(startInclusive >= 0);
 
         if (startInclusive == endExclusive) {
             return startInclusive;

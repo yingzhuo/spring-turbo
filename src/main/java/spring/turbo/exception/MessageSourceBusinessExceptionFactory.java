@@ -12,7 +12,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.context.NoSuchMessageException;
-import org.springframework.util.Assert;
+import spring.turbo.util.Asserts;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -42,8 +42,8 @@ public class MessageSourceBusinessExceptionFactory implements BusinessExceptionF
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
-        Assert.state(messageSource != null, "messageSource not set");
+    public void afterPropertiesSet() {
+        Asserts.notNull(messageSource);
     }
 
 }
