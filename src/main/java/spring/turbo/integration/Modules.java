@@ -24,12 +24,12 @@ import java.util.stream.Collectors;
  */
 public enum Modules {
 
-    SPRING_TURBO("spring.turbo"),
-    SPRING_TURBO_PREDEFINED("spring.turbo.predefined"),
-    SPRING_TURBO_SECURITY("spring.turbo.security"),
-    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt"),
-    SPRING_TURBO_WEBMVC("spring.turbo.webmvc"),
-    SPRING_TURBO_QRCODE("spring.turbo.qrcode");
+    SPRING_TURBO("spring.turbo", true),
+    SPRING_TURBO_PREDEFINED("spring.turbo.predefined", false),
+    SPRING_TURBO_QRCODE("spring.turbo.qrcode", false),
+    SPRING_TURBO_SECURITY("spring.turbo.security", false),
+    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt", false),
+    SPRING_TURBO_WEBMVC("spring.turbo.webmvc", false);
 
     /**
      * 所有子模块名称 (已排序)
@@ -47,13 +47,19 @@ public enum Modules {
     }
 
     private final String moduleName;
+    private final boolean core;
 
-    Modules(String moduleName) {
+    private Modules(String moduleName, boolean core) {
         this.moduleName = moduleName;
+        this.core = core;
     }
 
     public String getModuleName() {
         return moduleName;
+    }
+
+    public boolean isCore() {
+        return core;
     }
 
     public boolean isPresent() {
