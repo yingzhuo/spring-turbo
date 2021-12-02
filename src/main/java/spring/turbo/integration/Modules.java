@@ -28,7 +28,8 @@ public enum Modules {
     SPRING_TURBO_PREDEFINED("spring.turbo.predefined"),
     SPRING_TURBO_SECURITY("spring.turbo.security"),
     SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt"),
-    SPRING_TURBO_WEBMVC("spring.turbo.webmvc");
+    SPRING_TURBO_WEBMVC("spring.turbo.webmvc"),
+    SPRING_TURBO_QRCODE("spring.turbo.qrcode");
 
     /**
      * 所有子模块名称 (已排序)
