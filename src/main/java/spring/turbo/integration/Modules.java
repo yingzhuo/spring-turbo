@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 public enum Modules {
 
     SPRING_TURBO("spring.turbo", true),
+    SPRING_TURBO_EXCEL("spring.turbo.excel", false),
     SPRING_TURBO_PREDEFINED("spring.turbo.predefined", false),
     SPRING_TURBO_QRCODE("spring.turbo.qrcode", false),
     SPRING_TURBO_SECURITY("spring.turbo.security", false),
