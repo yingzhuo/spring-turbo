@@ -36,6 +36,7 @@ public final class RequestPredicateFactories {
     }
 
     public static RequestPredicate methodMatches(final HttpMethod... methods) {
+        Assert.notNull(methods, "methods is null or has null element(s)");
         Assert.noNullElements(methods, "methods is null or has null element(s)");
         return request -> RequestPredicateFactories.matchMethods(request, methods);
     }
@@ -143,11 +144,13 @@ public final class RequestPredicateFactories {
     }
 
     public static RequestPredicate any(final RequestPredicate... predicates) {
+        Assert.notEmpty(predicates, "predicates is null or has null element");
         Assert.noNullElements(predicates, "predicates is null or has null element");
         return new Any(predicates);
     }
 
     public static RequestPredicate all(final RequestPredicate... predicates) {
+        Assert.notEmpty(predicates, "predicates is null or has null element");
         Assert.noNullElements(predicates, "predicates is null or has null element");
         return new All(predicates);
     }

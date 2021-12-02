@@ -71,6 +71,7 @@ public final class DataBinding {
     }
 
     public DataBinding validators(Validator... validators) {
+        Assert.notNull(validators, "validator is null or has null element(s)");
         Assert.noNullElements(validators, "validator is null or has null element(s)");
         this.validators.addAll(Arrays.asList(validators));
         return this;

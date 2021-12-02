@@ -25,7 +25,9 @@ public class NamedArray<T> implements Iterable<T> {
     private final List<String> names;
 
     NamedArray(List<T> array, List<String> names) {
+        Assert.notNull(array, "array is null or has null element(s)");
         Assert.noNullElements(array, "array is null or has null element(s)");
+        Assert.notNull(names, "names is null or has null element(s)");
         Assert.noNullElements(names, "names is null or has null element(s)");
         Assert.state(array.size() == names.size(), "array and names have different size");
 

@@ -204,6 +204,7 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter any(TypeFilter... filters) {
+        Assert.notNull(filters, "filters is null or has null element(s)");
         Assert.noNullElements(filters, "filters is null or has null element(s)");
         return new Any(Arrays.asList(filters));
     }
@@ -215,6 +216,7 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter all(TypeFilter... filters) {
+        Assert.notNull(filters, "filters is null or has null element(s)");
         Assert.noNullElements(filters, "filters is null or has null element(s)");
         return new All(Arrays.asList(filters));
     }
