@@ -11,7 +11,7 @@ package spring.turbo.webmvc;
 import java.io.Serializable;
 
 /**
- * @param <T>
+ * @param <T> 负载类型
  * @author 应卓
  * @since 1.0.0
  */
