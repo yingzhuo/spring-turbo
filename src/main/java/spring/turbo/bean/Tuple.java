@@ -11,6 +11,8 @@ package spring.turbo.bean;
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Immutable;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  * @see Pair
@@ -44,4 +46,18 @@ public final class Tuple<A, B, C> {
     public C getC() {
         return c;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tuple<?, ?, ?> tuple = (Tuple<?, ?, ?>) o;
+        return Objects.equals(a, tuple.a) && Objects.equals(b, tuple.b) && Objects.equals(c, tuple.c);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(a, b, c);
+    }
+
 }
