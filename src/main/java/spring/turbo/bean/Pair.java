@@ -10,10 +10,13 @@ package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Immutable;
+import spring.turbo.util.StringFormatter;
 
 import java.util.Objects;
 
 /**
+ * 对
+ *
  * @author 应卓
  * @see Tuple
  * @since 1.0.0
@@ -53,4 +56,10 @@ public final class Pair<A, B> {
     public int hashCode() {
         return Objects.hash(a, b);
     }
+
+    @Override
+    public String toString() {
+        return StringFormatter.format("({}, {})", a, b);
+    }
+
 }

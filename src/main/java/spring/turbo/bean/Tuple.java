@@ -10,10 +10,14 @@ package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Immutable;
+import spring.turbo.util.StringFormatter;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
+ * 三元组
+ *
  * @author 应卓
  * @see Pair
  * @since 1.0.0
@@ -33,6 +37,22 @@ public final class Tuple<A, B, C> {
 
     public static <A, B, C> Tuple<A, B, C> of(@Nullable A a, @Nullable B b, @Nullable C c) {
         return new Tuple<>(a, b, c);
+    }
+
+    public static <A, B, C> Tuple<A, B, C> of(@Nullable Pair<A, B> pair, @Nullable C c) {
+        return new Tuple<>(
+                Optional.ofNullable(pair).map(Pair::getA).orElse(null),
+                Optional.ofNullable(pair).map(Pair::getB).orElse(null),
+                c
+        );
+    }
+
+    public static <A, B, C> Tuple<A, B, C> of(@Nullable A a, @Nullable Pair<B, C> pair) {
+        return new Tuple<>(
+                a,
+                Optional.ofNullable(pair).map(Pair::getA).orElse(null),
+                Optional.ofNullable(pair).map(Pair::getB).orElse(null)
+        );
     }
 
     public A getA() {
@@ -58,6 +78,11 @@ public final class Tuple<A, B, C> {
     @Override
     public int hashCode() {
         return Objects.hash(a, b, c);
+    }
+
+    @Override
+    public String toString() {
+        return StringFormatter.format("({}, {}, {})", a, b, c);
     }
 
 }
