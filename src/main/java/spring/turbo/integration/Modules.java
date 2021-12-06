@@ -33,21 +33,6 @@ public enum Modules {
     SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt", false),
     SPRING_TURBO_WEBMVC("spring.turbo.webmvc", false);
 
-    /**
-     * 所有子模块名称 (已排序)
-     */
-    public static final SortedSet<String> ALL_MODULE_NAMES;
-
-    static {
-        final Set<String> set =
-                ServiceLoaderUtils.loadQuietly(ModuleNameProvider.class)
-                        .stream()
-                        .map(ModuleNameProvider::getModuleName)
-                        .collect(Collectors.toSet());
-
-        ALL_MODULE_NAMES = Collections.unmodifiableSortedSet(new TreeSet<>(set));
-    }
-
     private final String moduleName;
     private final boolean core;
 
@@ -65,7 +50,28 @@ public enum Modules {
     }
 
     public boolean isPresent() {
-        return ALL_MODULE_NAMES.contains(getModuleName());
+        return SyncAvoid.ALL_MODULE_NAMES.contains(getModuleName());
+    }
+
+    /**
+     * 懒加载
+     */
+    private static final class SyncAvoid {
+
+        /**
+         * 所有子模块名称 (已排序)
+         */
+        static final SortedSet<String> ALL_MODULE_NAMES;
+
+        static {
+            final Set<String> set =
+                    ServiceLoaderUtils.loadQuietly(ModuleNameProvider.class)
+                            .stream()
+                            .map(ModuleNameProvider::getModuleName)
+                            .collect(Collectors.toSet());
+
+            ALL_MODULE_NAMES = Collections.unmodifiableSortedSet(new TreeSet<>(set));
+        }
     }
 
 }
