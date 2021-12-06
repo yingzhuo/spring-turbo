@@ -18,7 +18,7 @@ import spring.turbo.lang.Mutable;
 @Mutable
 public final class Json implements ApiResult<Payload> {
 
-    private String code;
+    private String code = "200";
     private String errorMessage;
     private Payload payload = Payload.newInstance(); // mutable
 
