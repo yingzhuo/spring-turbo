@@ -18,7 +18,7 @@ public final class ModuleNameProviderImpl implements ModuleNameProvider {
 
     @Override
     public String getModuleName() {
-        return SPRING_TURBO.getModuleName();
+        return SPRING_TURBO.getName();
     }
 
 }

@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.integration;
 
+import spring.turbo.bean.Named;
 import spring.turbo.util.ServiceLoaderUtils;
 
 import java.util.Collections;
@@ -22,35 +23,35 @@ import java.util.stream.Collectors;
  * @author 应卓
  * @since 1.0.0
  */
-public enum Modules {
+public enum Modules implements Named {
 
-    SPRING_TURBO("spring.turbo", true),
-    SPRING_TURBO_CAPTCHA("spring.turbo", false),
-    SPRING_TURBO_EXCEL("spring.turbo.excel", false),
-    SPRING_TURBO_PREDEFINED("spring.turbo.predefined", false),
-    SPRING_TURBO_QRCODE("spring.turbo.qrcode", false),
-    SPRING_TURBO_SECURITY("spring.turbo.security", false),
-    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt", false),
-    SPRING_TURBO_WEBMVC("spring.turbo.webmvc", false);
+    SPRING_TURBO("spring.turbo"),
+    SPRING_TURBO_CAPTCHA("spring.turbo"),
+    SPRING_TURBO_EXCEL("spring.turbo.excel"),
+    SPRING_TURBO_PREDEFINED("spring.turbo.predefined"),
+    SPRING_TURBO_QRCODE("spring.turbo.qrcode"),
+    SPRING_TURBO_SECURITY("spring.turbo.security"),
+    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt"),
+    SPRING_TURBO_WEBMVC("spring.turbo.webmvc");
 
-    private final String moduleName;
-    private final boolean core;
+    private final String name;
 
-    private Modules(String moduleName, boolean core) {
-        this.moduleName = moduleName;
-        this.core = core;
+    private Modules(String name) {
+        this.name = name;
     }
 
-    public String getModuleName() {
-        return moduleName;
+    @Override
+    public String getName() {
+        return name;
     }
 
-    public boolean isCore() {
-        return core;
+    @Override
+    public String toString() {
+        return getName();
     }
 
     public boolean isPresent() {
-        return SyncAvoid.ALL_MODULE_NAMES.contains(getModuleName());
+        return SyncAvoid.ALL_MODULE_NAMES.contains(getName());
     }
 
     /**
