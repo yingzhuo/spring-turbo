@@ -40,7 +40,7 @@ public @interface FieldsValueNotMatch {
     @Documented
     @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
     @Retention(RetentionPolicy.RUNTIME)
-    @interface List {
+    public @interface List {
         FieldsValueNotMatch[] value();
     }
 

@@ -21,13 +21,21 @@ import java.util.*;
 @Mutable
 public class NamedArray<T> implements Iterable<T> {
 
+    // 数据
     private final List<T> array;
+
+    // 名字
     private final List<String> names;
 
+    /**
+     * 构造方法
+     *
+     * @param array 数据
+     * @param names 名称
+     */
     NamedArray(List<T> array, List<String> names) {
         Asserts.notNull(array);
-        Asserts.noNullElements(array, "array is null or has null element(s)");
-        Asserts.notNull(names, "names is null or has null element(s)");
+        Asserts.notNull(names);
         Asserts.noNullElements(names, (String) null);
         Asserts.isTrue(array.size() == names.size());
 
