@@ -9,12 +9,19 @@
 package spring.turbo.util.crypto;
 
 /**
+ * 3DES加密解密工具
+ *
  * @author 应卓
  * @since 1.0.0
  */
-@FunctionalInterface
-public interface PasswordAndSaltProvider {
+public interface TripleDES extends Crypto {
 
-    public PasswordAndSalt getPasswordAndSalt();
+    public static TripleDESBuilder builder() {
+        return new TripleDESBuilder();
+    }
+
+    public String encrypt(String input);
+
+    public String decrypt(String cipherText);
 
 }
