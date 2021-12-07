@@ -8,25 +8,30 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.time.Duration;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public final class SocketUtils {
+public final class SleepUtils {
 
-    private SocketUtils() {
+    private SleepUtils() {
         super();
     }
 
-    public static boolean isReachable(String address, int port, int timeoutInMilliseconds) {
-        try (Socket socket = new Socket()) {
-            socket.connect(new InetSocketAddress(address, port), timeoutInMilliseconds);
-            return true;
-        } catch (Exception e) {
-            return false;
+    public static void sleep(Duration duration) {
+        Asserts.notNull(duration);
+        try {
+            Thread.sleep(duration.toMillis());
+        } catch (InterruptedException e) {
+            throw new UncheckedInterruptedException(e);
+        }
+    }
+
+    public static class UncheckedInterruptedException extends RuntimeException {
+        public UncheckedInterruptedException(InterruptedException e) {
+            super(e.getMessage(), e);
         }
     }
 

@@ -6,28 +6,16 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util;
+package spring.turbo.lang;
 
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public final class SocketUtils {
-
-    private SocketUtils() {
-        super();
-    }
-
-    public static boolean isReachable(String address, int port, int timeoutInMilliseconds) {
-        try (Socket socket = new Socket()) {
-            socket.connect(new InetSocketAddress(address, port), timeoutInMilliseconds);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
+@Documented
+@Retention(RetentionPolicy.SOURCE)
+@Target(ElementType.TYPE)
+public @interface Beta {
 }

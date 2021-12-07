@@ -25,24 +25,30 @@ import java.util.stream.Collectors;
  */
 public enum Modules implements Named {
 
-    SPRING_TURBO("spring.turbo"),
-    SPRING_TURBO_CAPTCHA("spring.turbo"),
-    SPRING_TURBO_EXCEL("spring.turbo.excel"),
-    SPRING_TURBO_PREDEFINED("spring.turbo.predefined"),
-    SPRING_TURBO_QRCODE("spring.turbo.qrcode"),
-    SPRING_TURBO_SECURITY("spring.turbo.security"),
-    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt"),
-    SPRING_TURBO_WEBMVC("spring.turbo.webmvc");
+    SPRING_TURBO("spring.turbo", false),
+    SPRING_TURBO_CAPTCHA("spring.turbo", false),
+    SPRING_TURBO_EXCEL("spring.turbo.excel", false),
+    SPRING_TURBO_PREDEFINED("spring.turbo.predefined", false),
+    SPRING_TURBO_QRCODE("spring.turbo.qrcode", false),
+    SPRING_TURBO_SECURITY("spring.turbo.security", false),
+    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt", false),
+    SPRING_TURBO_WEBMVC("spring.turbo.webmvc", false);
 
     private final String name;
+    private final boolean beta;
 
-    private Modules(String name) {
+    Modules(String name, boolean beta) {
         this.name = name;
+        this.beta = beta;
     }
 
     @Override
     public String getName() {
         return name;
+    }
+
+    public boolean isBeta() {
+        return beta;
     }
 
     @Override
