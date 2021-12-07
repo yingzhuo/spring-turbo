@@ -14,11 +14,8 @@ package spring.turbo.util;
  */
 public final class CharPool {
 
-    private CharPool() {
-        super();
-    }
-
     public static final char SPACE = ' ';
+    public static final char TAB = '\t';
     public static final char DOT = '.';
     public static final char SLASH = '/';
     public static final char BACKSLASH = '\\';
@@ -26,5 +23,9 @@ public final class CharPool {
     public static final char QUESTION_MARK = '?';
     public static final char HYPHEN = '-';
     public static final char UNDERSCORE = '_';
+
+    private CharPool() {
+        super();
+    }
 
 }
