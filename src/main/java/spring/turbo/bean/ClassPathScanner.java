@@ -22,7 +22,7 @@ public interface ClassPathScanner {
     /**
      * 扫描类路径
      *
-     * @param basePackages 扫描报起点
+     * @param basePackages 扫描起点
      * @return 扫描结果
      */
     public ScannedResultSet scan(@NonNull Iterable<String> basePackages);

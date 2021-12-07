@@ -23,9 +23,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * 本类包含一系列静态方法创建TypeFilter的实例
- *
  * @author 应卓
+ * @see ClassPathScanner
+ * @see ClassPathScannerBuilder
+ * 本类包含一系列静态方法创建TypeFilter的实例
  * @since 1.0.0
  */
 public final class TypeFilterFactories {
