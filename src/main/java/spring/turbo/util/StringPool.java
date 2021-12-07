@@ -20,7 +20,8 @@ public final class StringPool {
     public static final String SPACE = " ";
     public static final String DOT = ".";
     public static final String SLASH = "/";
-    public static final String LINE_SEPARATOR = "\n";
+    public static final String BACKSLASH = "\\";
+    public static final String CR = "\n";
     public static final String QUESTION_MARK = "?";
     public static final String HYPHEN = "-";
     public static final String UNDERSCORE = "_";

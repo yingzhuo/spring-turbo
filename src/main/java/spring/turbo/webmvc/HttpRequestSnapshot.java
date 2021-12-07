@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static spring.turbo.util.StringPool.LINE_SEPARATOR;
+import static spring.turbo.util.StringPool.CR;
 import static spring.turbo.util.StringPool.QUESTION_MARK_X_3;
 
 /**
@@ -61,7 +61,7 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
         lines.add(StringFormatter.format("Remote Address: {}", request.getRemoteAddr()));
         lines.add(StringFormatter.format("Session ID: {}", getSessionId(request)));
 
-        text = String.join(LINE_SEPARATOR, lines).trim();
+        text = String.join(CR, lines).trim();
     }
 
     public static HttpRequestSnapshot of(HttpServletRequest request) {

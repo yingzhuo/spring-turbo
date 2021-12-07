@@ -22,6 +22,7 @@ public final class BytesBuilder {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream(64);
 
     private BytesBuilder() {
+        super();
     }
 
     public static BytesBuilder newInstance() {
