@@ -15,6 +15,7 @@ import org.springframework.context.support.MessageSourceAccessor;
 
 /**
  * @author 应卓
+ * @see MessageSource
  * @since 1.0.0
  */
 class SpringBootAutoConfiguration {

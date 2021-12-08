@@ -18,6 +18,7 @@ import java.util.stream.Stream;
  * @author 应卓
  * @since 1.0.0
  */
+@Deprecated
 public class PasswordValidator implements ConstraintValidator<Password, CharSequence> {
 
     private Password.Complexity complexity;
@@ -56,7 +57,7 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
             return true;
         }
 
-        Set<Character> chars = toCharStream(password.toString())
+        final Set<Character> chars = toCharStream(password.toString())
                 .collect(Collectors.toSet());
 
         boolean hasNumeric = false;

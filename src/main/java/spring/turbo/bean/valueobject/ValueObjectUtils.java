@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.valueobject;
 
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.ReflectionUtils;
 import spring.turbo.core.AnnotationUtils;
@@ -52,6 +53,7 @@ public final class ValueObjectUtils {
             final String from = attributes.getString("value");
             if (!StringPool.ANNOTATION_STRING_NULL.equals(from)) {
                 map.put(from, field.getName());
+            } else {
             }
         });
 

@@ -23,6 +23,7 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Constraint(validatedBy = PasswordValidator.class)
+@Deprecated
 public @interface Password {
 
     public Complexity complexity() default Complexity.ANY;
