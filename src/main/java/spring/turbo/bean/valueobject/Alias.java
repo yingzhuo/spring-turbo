@@ -8,33 +8,24 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.valueobject;
 
-import spring.turbo.util.Asserts;
+import org.springframework.core.annotation.AliasFor;
+import spring.turbo.util.StringPool;
 
-import java.util.function.Supplier;
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @see java.util.function.Supplier
- * @see ValueObjectUtils
  * @since 1.0.0
  */
-public final class ReflectionObjectSupplier<T> implements Supplier<T> {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface Alias {
 
-    private final Class<T> type;
+    @AliasFor(attribute = "value")
+    public String from() default StringPool.ANNOTATION_STRING_NULL;
 
-    public ReflectionObjectSupplier(Class<T> type) {
-        Asserts.notNull(type);
-        this.type = type;
-    }
-
-    public static <T> ReflectionObjectSupplier<T> of(Class<T> type) {
-        return new ReflectionObjectSupplier<>(type);
-    }
-
-    @Override
-    public T get() {
-        return ValueObjectUtils.newInstance(type)
-                .orElseThrow(() -> new IllegalArgumentException("cannot create instance"));
-    }
+    @AliasFor(attribute = "from")
+    public String value() default StringPool.ANNOTATION_STRING_NULL;
 
 }

@@ -8,10 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.valueobject;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @param <T> 数据类型
@@ -22,6 +19,7 @@ public final class NamedArrayBuilder<T> {
 
     private final List<T> array = new LinkedList<>();
     private final List<String> names = new LinkedList<>();
+    private Map<String, String> aliases = new HashMap<>();
 
     NamedArrayBuilder() {
         super();
@@ -48,6 +46,11 @@ public final class NamedArrayBuilder<T> {
         return this;
     }
 
+    public final NamedArrayBuilder<T> aliasesMap(Map<String, String> aliases) {
+        this.aliases = aliases;
+        return this;
+    }
+
     public NamedArray<T> build() {
         return build(false);
     }
@@ -59,7 +62,7 @@ public final class NamedArrayBuilder<T> {
                 names.add(Integer.toString(i));
             }
         }
-        return new NamedArray<>(array, names);
+        return new NamedArray<>(array, names, Optional.ofNullable(aliases).orElseGet(Collections::emptyMap));
     }
 
 }

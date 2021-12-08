@@ -27,13 +27,16 @@ public class NamedArray<T> implements Iterable<T> {
     // 名字
     private final List<String> names;
 
+    // 别名
+    private final Map<String, String> aliases;
+
     /**
      * 构造方法
      *
      * @param array 数据
      * @param names 名称
      */
-    NamedArray(List<T> array, List<String> names) {
+    NamedArray(List<T> array, List<String> names, Map<String, String> aliases) {
         Asserts.notNull(array);
         Asserts.notNull(names);
         Asserts.noNullElements(names, (String) null);
@@ -41,6 +44,7 @@ public class NamedArray<T> implements Iterable<T> {
 
         this.array = Collections.unmodifiableList(array);
         this.names = Collections.unmodifiableList(names);
+        this.aliases = aliases == null ? Collections.emptyMap() : Collections.unmodifiableMap(aliases);
     }
 
     public static <T> NamedArrayBuilder<T> builder() {
@@ -59,7 +63,7 @@ public class NamedArray<T> implements Iterable<T> {
     public Map<String, T> zip() {
         final Map<String, T> map = new HashMap<>();
         for (int i = 0; i < array.size(); i++) {
-            map.put(names.get(i), array.get(i));
+            map.put(toAliasIfNecessary(names.get(i)), array.get(i));
         }
         return Collections.unmodifiableMap(map);
     }
@@ -67,9 +71,13 @@ public class NamedArray<T> implements Iterable<T> {
     public MutablePropertyValues toMutablePropertyValues() {
         final MutablePropertyValues mpv = new MutablePropertyValues();
         for (int i = 0; i < array.size(); i++) {
-            mpv.add(names.get(i), array.get(i));
+            mpv.add(toAliasIfNecessary(names.get(i)), array.get(i));
         }
         return mpv;
+    }
+
+    private String toAliasIfNecessary(String name) {
+        return this.aliases.getOrDefault(name, name);
     }
 
 }
