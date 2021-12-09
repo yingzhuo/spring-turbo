@@ -20,7 +20,10 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -144,6 +147,20 @@ public final class TypeFilterFactories {
      */
     public static TypeFilter isInnerClass() {
         return (reader, readerFactory) -> reader.getClassMetadata().hasEnclosingClass();
+    }
+
+    /**
+     * 过滤实现了指定接口的类型
+     *
+     * @param interfaceType 指定接口
+     * @return TypeFilter的实例
+     */
+    public static TypeFilter implementsInterface(final Class<?> interfaceType) {
+        Asserts.notNull(interfaceType);
+        return (reader, readerFactory) -> {
+            final Set<String> set = Stream.of(reader.getClassMetadata().getInterfaceNames()).collect(Collectors.toSet());
+            return set.contains(interfaceType.getName());
+        };
     }
 
     // -----------------------------------------------------------------------------------------------------------------
