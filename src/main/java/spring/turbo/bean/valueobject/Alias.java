@@ -28,4 +28,5 @@ public @interface Alias {
     @AliasFor(attribute = "from")
     public String value() default StringPool.ANNOTATION_STRING_NULL;
 
+    public String to() default StringPool.ANNOTATION_STRING_NULL;
 }

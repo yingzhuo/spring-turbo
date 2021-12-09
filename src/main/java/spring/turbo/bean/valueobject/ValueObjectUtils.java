@@ -50,15 +50,11 @@ public final class ValueObjectUtils {
         ReflectionUtils.doWithFields(valueObjectType, field -> {
             final AnnotationAttributes attributes = AnnotationUtils.findAnnotationAttributes(field, Alias.class);
 
-            // TODO: 删除调试代码
-            System.out.println("--- 调试代码");
-            System.out.println(valueObjectType);
-            System.out.println(attributes);
-            System.out.println("--- 调试代码");
-
-            final String from = attributes.getString("value");
-            if (!StringPool.ANNOTATION_STRING_NULL.equals(from)) {
-                map.put(from, field.getName());
+            if (attributes.containsKey("value")) {
+                final String from = attributes.getString("value");
+                if (!StringPool.ANNOTATION_STRING_NULL.equals(from)) {
+                    map.put(from, field.getName());
+                }
             }
         });
 
