@@ -15,7 +15,15 @@ import org.springframework.validation.Validator;
  * @author 应卓
  * @since 1.0.0
  */
-public class NullValidator implements Validator {
+public final class NullValidator implements Validator {
+
+    private NullValidator() {
+        super();
+    }
+
+    public static NullValidator getInstance() {
+        return SyncAvoid.INSTANCE;
+    }
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -25,6 +33,10 @@ public class NullValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         // nop
+    }
+
+    private static class SyncAvoid {
+        private final static NullValidator INSTANCE = new NullValidator();
     }
 
 }
