@@ -33,8 +33,7 @@ public final class ReflectionObjectSupplier<T> implements Supplier<T> {
 
     @Override
     public T get() {
-        return ValueObjectUtils.newInstance(type)
-                .orElseThrow(() -> new IllegalArgumentException("cannot create instance"));
+        return ValueObjectUtils.newInstanceOrThrow(type);
     }
 
 }

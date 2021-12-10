@@ -38,6 +38,7 @@ public final class ValueObjectUtils {
     }
 
     public static <T> T newInstanceOrThrow(Class<T> valueObjectType, Supplier<RuntimeException> exceptionSupplier) {
+        Asserts.notNull(exceptionSupplier);
         return newInstance(valueObjectType)
                 .orElseThrow(exceptionSupplier);
     }
