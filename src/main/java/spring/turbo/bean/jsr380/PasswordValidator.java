@@ -18,7 +18,6 @@ import java.util.stream.Stream;
  * @author 应卓
  * @since 1.0.0
  */
-@Deprecated
 public class PasswordValidator implements ConstraintValidator<Password, CharSequence> {
 
     private Password.Complexity complexity;

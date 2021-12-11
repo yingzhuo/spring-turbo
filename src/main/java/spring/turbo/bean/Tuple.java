@@ -12,6 +12,7 @@ import org.springframework.lang.Nullable;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringFormatter;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ import java.util.Optional;
  * @since 1.0.0
  */
 @Immutable
-public final class Tuple<A, B, C> {
+public final class Tuple<A, B, C> implements Serializable {
 
     private final A a;
     private final B b;

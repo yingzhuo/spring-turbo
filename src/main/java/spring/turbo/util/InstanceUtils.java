@@ -1,0 +1,52 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *    ____             _            _____           _
+ *   / ___| _ __  _ __(_)_ __   __ |_   _|   _ _ __| |__   ___
+ *   \___ \| '_ \| '__| | '_ \ / _` || || | | | '__| '_ \ / _ \
+ *    ___) | |_) | |  | | | | | (_| || || |_| | |  | |_) | (_) |
+ *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
+ *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+package spring.turbo.util;
+
+import org.springframework.util.ReflectionUtils;
+
+import java.util.Optional;
+import java.util.function.Supplier;
+
+/**
+ * @author 应卓
+ * @since 1.0.0
+ */
+public final class InstanceUtils {
+
+    private static final Supplier<RuntimeException> CANNOT_CREATE_INSTANCE
+            = () -> new IllegalArgumentException("cannot create instance");
+
+    private InstanceUtils() {
+        super();
+    }
+
+    public static <T> T newInstanceOrThrow(Class<T> valueObjectType) {
+        return newInstanceOrThrow(valueObjectType, CANNOT_CREATE_INSTANCE);
+    }
+
+    public static <T> T newInstanceOrThrow(Class<T> valueObjectType, Supplier<RuntimeException> exceptionSupplier) {
+        Asserts.notNull(exceptionSupplier);
+        return newInstance(valueObjectType)
+                .orElseThrow(exceptionSupplier);
+    }
+
+    public static <T> Optional<T> newInstance(Class<T> valueObjectType) {
+        Asserts.notNull(valueObjectType);
+        try {
+            return Optional.of(
+                    ReflectionUtils
+                            .accessibleConstructor(valueObjectType)
+                            .newInstance()
+            );
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+}

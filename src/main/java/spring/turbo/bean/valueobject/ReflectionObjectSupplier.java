@@ -9,6 +9,7 @@
 package spring.turbo.bean.valueobject;
 
 import spring.turbo.util.Asserts;
+import spring.turbo.util.InstanceUtils;
 
 import java.util.function.Supplier;
 
@@ -33,7 +34,7 @@ public final class ReflectionObjectSupplier<T> implements Supplier<T> {
 
     @Override
     public T get() {
-        return ValueObjectUtils.newInstanceOrThrow(type);
+        return InstanceUtils.newInstanceOrThrow(type);
     }
 
 }

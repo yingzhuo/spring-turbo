@@ -17,8 +17,6 @@ import spring.turbo.util.StringPool;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * @author 应卓
@@ -26,34 +24,8 @@ import java.util.function.Supplier;
  */
 public final class ValueObjectUtils {
 
-    private static final Supplier<RuntimeException> CANNOT_CREATE_INSTANCE
-            = () -> new IllegalArgumentException("cannot create instance");
-
     private ValueObjectUtils() {
         super();
-    }
-
-    public static <T> T newInstanceOrThrow(Class<T> valueObjectType) {
-        return newInstanceOrThrow(valueObjectType, CANNOT_CREATE_INSTANCE);
-    }
-
-    public static <T> T newInstanceOrThrow(Class<T> valueObjectType, Supplier<RuntimeException> exceptionSupplier) {
-        Asserts.notNull(exceptionSupplier);
-        return newInstance(valueObjectType)
-                .orElseThrow(exceptionSupplier);
-    }
-
-    public static <T> Optional<T> newInstance(Class<T> valueObjectType) {
-        Asserts.notNull(valueObjectType);
-        try {
-            return Optional.of(
-                    ReflectionUtils
-                            .accessibleConstructor(valueObjectType)
-                            .newInstance()
-            );
-        } catch (Exception e) {
-            return Optional.empty();
-        }
     }
 
     public static Map<String, String> getAliases(Class<?> valueObjectType) {
