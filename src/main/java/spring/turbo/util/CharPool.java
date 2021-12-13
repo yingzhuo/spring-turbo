@@ -23,6 +23,7 @@ public final class CharPool {
     public static final char QUESTION_MARK = '?';
     public static final char HYPHEN = '-';
     public static final char UNDERSCORE = '_';
+    public static final char COMMA = ',';
 
     private CharPool() {
         super();
