@@ -39,6 +39,8 @@ public final class StringPool {
         super();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     private static String repeat(String string, int n) {
         StringBuilder builder = new StringBuilder();
         while (n-- != 0) {

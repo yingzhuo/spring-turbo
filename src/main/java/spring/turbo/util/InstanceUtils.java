@@ -15,22 +15,27 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
+ * @see UncheckedInstantiationException
  * @since 1.0.0
  */
 public final class InstanceUtils {
-
-    private static final Supplier<RuntimeException> CANNOT_CREATE_INSTANCE
-            = () -> new IllegalArgumentException("cannot create instance");
 
     private InstanceUtils() {
         super();
     }
 
     public static <T> T newInstanceOrThrow(Class<T> valueObjectType) {
-        return newInstanceOrThrow(valueObjectType, CANNOT_CREATE_INSTANCE);
+        Asserts.notNull(valueObjectType);
+        try {
+            return ReflectionUtils
+                    .accessibleConstructor(valueObjectType)
+                    .newInstance();
+        } catch (Exception e) {
+            throw new UncheckedInstantiationException(e.getMessage());
+        }
     }
 
-    public static <T> T newInstanceOrThrow(Class<T> valueObjectType, Supplier<RuntimeException> exceptionSupplier) {
+    public static <T> T newInstanceOrThrow(Class<T> valueObjectType, Supplier<? extends RuntimeException> exceptionSupplier) {
         Asserts.notNull(exceptionSupplier);
         return newInstance(valueObjectType)
                 .orElseThrow(exceptionSupplier);
