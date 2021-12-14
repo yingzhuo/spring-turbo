@@ -7,3 +7,22 @@
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
+
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
+import org.springframework.context.annotation.Bean;
+
+/**
+ * @author 应卓
+ * @since 1.0.0
+ */
+class SpringBootAutoConfiguration {
+
+    @Bean
+    @ConditionalOnBean
+    @ConfigurationPropertiesBinding
+    StringToNumberConverter stringToNumberConverter() {
+        return new StringToNumberConverter();
+    }
+
+}
