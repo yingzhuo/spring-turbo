@@ -8,13 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import static spring.turbo.util.StringUtils.repeat;
+
 /**
  * @author 应卓
  * @since 1.0.0
  */
 public final class StringPool {
-
-    public static final String NULL = (String) null;
 
     public static final String EMPTY = "";
     public static final String SPACE = " ";
@@ -37,16 +37,6 @@ public final class StringPool {
 
     private StringPool() {
         super();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private static String repeat(String string, int n) {
-        StringBuilder builder = new StringBuilder();
-        while (n-- != 0) {
-            builder.append(string);
-        }
-        return builder.toString();
     }
 
 }
