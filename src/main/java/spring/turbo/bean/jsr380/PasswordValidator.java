@@ -8,11 +8,12 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
+import spring.turbo.util.StringUtils;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -25,19 +26,12 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
     private int minLength;
     private int maxLength;
 
-    private Stream<Character> toCharStream(String string) {
-        if (string == null) {
-            return Stream.empty();
-        }
-        return string.chars().mapToObj(ch -> (char) ch);
-    }
-
     @Override
     public void initialize(Password annotation) {
         this.complexity = annotation.complexity();
         this.minLength = annotation.min();
         this.maxLength = annotation.max();
-        this.specialChars = toCharStream(annotation.specialChars()).collect(Collectors.toSet());
+        this.specialChars = StringUtils.toCharStream(annotation.specialChars()).collect(Collectors.toSet());
     }
 
     @Override
@@ -56,7 +50,7 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
             return true;
         }
 
-        final Set<Character> chars = toCharStream(password.toString())
+        final Set<Character> chars = StringUtils.toCharStream(password.toString())
                 .collect(Collectors.toSet());
 
         boolean hasNumeric = false;

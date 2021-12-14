@@ -8,7 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static spring.turbo.util.StringPool.EMPTY;
 
@@ -21,6 +27,8 @@ public final class StringUtils {
     private StringUtils() {
         super();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static String repeat(@Nullable String string, int n) {
         if (string == null) {
@@ -67,6 +75,10 @@ public final class StringUtils {
         return !isBlank(string);
     }
 
+    public static int size(@Nullable String string) {
+        return isNull(string) ? 0 : string.length();
+    }
+
     public static boolean containsWhitespace(@Nullable String string) {
         if (string == null) {
             return false;
@@ -79,6 +91,65 @@ public final class StringUtils {
             }
         }
         return false;
+    }
+
+    public static boolean containsAnyChars(@Nullable String string, String charsToCheck) {
+        if (string == null) {
+            return false;
+        }
+
+        final Set<Character> charSet = toCharSet(string);
+        if (charSet.isEmpty()) {
+            return false;
+        }
+
+        return toCharStream(charsToCheck).anyMatch(charSet::contains);
+    }
+
+    public static boolean containsAllChars(@Nullable String string, String charsToCheck) {
+        if (string == null) {
+            return false;
+        }
+
+        final Set<Character> charSet = toCharSet(string);
+        if (charSet.isEmpty()) {
+            return false;
+        }
+
+        return toCharStream(charsToCheck).allMatch(charSet::contains);
+    }
+
+    public static String deleteChars(@Nullable String string, String charsToDelete) {
+        if (string == null) {
+            return null;
+        }
+        if (isEmpty(charsToDelete)) {
+            return string;
+        }
+
+        final Set<Character> charsToDeleteSet = toCharSet(charsToDelete);
+
+        final StringBuilder builder = new StringBuilder();
+        toCharList(string).stream().filter(c -> !charsToDeleteSet.contains(c)).forEach(builder::append);
+        return builder.toString();
+    }
+
+    @NonNull
+    public static Stream<Character> toCharStream(@Nullable String string) {
+        if (string == null) {
+            return Stream.empty();
+        }
+        return string.chars().mapToObj(ch -> (char) ch);
+    }
+
+    @NonNull
+    public static List<Character> toCharList(@Nullable String string) {
+        return toCharStream(string).collect(Collectors.toList());
+    }
+
+    @NonNull
+    public static Set<Character> toCharSet(@Nullable String string) {
+        return toCharStream(string).collect(Collectors.toSet());
     }
 
 }
