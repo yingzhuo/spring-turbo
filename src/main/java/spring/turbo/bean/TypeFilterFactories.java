@@ -11,6 +11,7 @@ package spring.turbo.bean;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
+import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.core.type.filter.RegexPatternTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.util.CollectionUtils;
@@ -67,12 +68,22 @@ public final class TypeFilterFactories {
     }
 
     /**
+     * 通过可赋值性过滤类型
+     *
+     * @param targetType 赋值目标类型
+     * @return TypeFilter的实例
+     */
+    public static TypeFilter assignable(Class<?> targetType) {
+        return new AssignableTypeFilter(targetType);
+    }
+
+    /**
      * 通过正则表达式匹配fully-qualified class name过滤类型
      *
      * @param regex 正则表达式
      * @return TypeFilter的实例
      */
-    public static TypeFilter regex(String regex) {
+    public static TypeFilter regexPattern(String regex) {
         Asserts.hasText(regex);
         return new RegexPatternTypeFilter(Pattern.compile(regex));
     }
@@ -314,9 +325,14 @@ public final class TypeFilterFactories {
         }
     }
 
-    private static class Quiet implements TypeFilter {
+    public static class Quiet implements TypeFilter {
+
         private final TypeFilter typeFilter;
         private final boolean resultIfError;
+
+        public Quiet(TypeFilter typeFilter) {
+            this(typeFilter, false);
+        }
 
         public Quiet(TypeFilter typeFilter, boolean resultIfError) {
             this.typeFilter = typeFilter;

@@ -86,7 +86,7 @@ public final class StringUtils {
 
         int strLen = string.length();
         for (int i = 0; i < strLen; i++) {
-            if (Character.isWhitespace(string.charAt(i))) {
+            if (CharUtils.isWhitespace(string.charAt(i))) {
                 return true;
             }
         }

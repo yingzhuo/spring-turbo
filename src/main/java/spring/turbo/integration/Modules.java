@@ -28,6 +28,7 @@ public enum Modules implements Named {
     SPRING_TURBO("spring.turbo", false),
     SPRING_TURBO_CAPTCHA("spring.turbo", false),
     SPRING_TURBO_EXCEL("spring.turbo.excel", false),
+    SPRING_TURBO_FEIGN("spring.turbo.feign", false),
     SPRING_TURBO_PREDEFINED("spring.turbo.predefined", false),
     SPRING_TURBO_QRCODE("spring.turbo.qrcode", false),
     SPRING_TURBO_SECURITY("spring.turbo.security", false),

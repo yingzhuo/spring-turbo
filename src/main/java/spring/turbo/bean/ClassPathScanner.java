@@ -19,6 +19,10 @@ import org.springframework.lang.NonNull;
 @FunctionalInterface
 public interface ClassPathScanner {
 
+    public static ClassPathScannerBuilder builder() {
+        return new ClassPathScannerBuilder();
+    }
+
     /**
      * 扫描类路径
      *

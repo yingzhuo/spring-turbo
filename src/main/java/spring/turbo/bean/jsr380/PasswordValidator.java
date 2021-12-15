@@ -50,8 +50,7 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
             return true;
         }
 
-        final Set<Character> chars = StringUtils.toCharStream(password.toString())
-                .collect(Collectors.toSet());
+        final Set<Character> chars = StringUtils.toCharSet(password.toString());
 
         boolean hasNumeric = false;
         boolean hasAlphabetic = false;
