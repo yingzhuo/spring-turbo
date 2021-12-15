@@ -12,8 +12,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.FormatterRegistry;
 
-import java.util.Optional;
-
 /**
  * @author 应卓
  * @since 1.0.0
@@ -28,8 +26,10 @@ class SpringBootAutoConfiguration implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
-        Optional.ofNullable(formatterRegistry).ifPresent(it -> it.addConverter(new StringToNumberConverter()));
+    public void afterPropertiesSet() {
+        if (formatterRegistry != null) {
+            formatterRegistry.addConverter(StringToNumberConverter.INSTANCE);
+        }
     }
 
 }

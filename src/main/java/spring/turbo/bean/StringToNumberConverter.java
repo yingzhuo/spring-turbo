@@ -22,6 +22,16 @@ import java.util.Set;
  */
 public class StringToNumberConverter implements GenericConverter {
 
+    public static StringToNumberConverter INSTANCE = new StringToNumberConverter();
+
+    public static StringToNumberConverter getInstance() {
+        return INSTANCE;
+    }
+
+    private StringToNumberConverter() {
+        super();
+    }
+
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
         final Set<ConvertiblePair> set = new HashSet<>();
