@@ -8,21 +8,28 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.FormatterRegistry;
+
+import java.util.Optional;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-class SpringBootAutoConfiguration {
+class SpringBootAutoConfiguration implements InitializingBean {
 
-    @Bean
-    @ConditionalOnBean
-    @ConfigurationPropertiesBinding
-    StringToNumberConverter stringToNumberConverter() {
-        return new StringToNumberConverter();
+    private final FormatterRegistry formatterRegistry;
+
+    @Autowired(required = false)
+    public SpringBootAutoConfiguration(FormatterRegistry formatterRegistry) {
+        this.formatterRegistry = formatterRegistry;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Optional.ofNullable(formatterRegistry).ifPresent(it -> it.addConverter(new StringToNumberConverter()));
     }
 
 }
