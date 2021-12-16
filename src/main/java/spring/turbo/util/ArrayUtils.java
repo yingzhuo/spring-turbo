@@ -31,6 +31,14 @@ public final class ArrayUtils {
         return array == null || array.length == 0;
     }
 
+    public static <T> boolean doseNotContainsAnyElements(@Nullable T[] array) {
+        if (isNullOrEmpty(array)) return true;
+        for (T obj : array) {
+            if (obj != null) return false;
+        }
+        return true;
+    }
+
     @NonNull
     public static <T> List<T> toArrayList(@Nullable T[] array) {
         if (isNullOrEmpty(array)) return new ArrayList<>(0);
@@ -57,5 +65,6 @@ public final class ArrayUtils {
     public static <T> boolean contains(@Nullable T[] array, T elementToFind) {
         return toUnmodifiableSet(array).contains(elementToFind);
     }
+
 
 }

@@ -20,6 +20,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Mutable
+@Deprecated
 public final class ValueObjectHolder<T> implements Iterable<T> {
 
     private final int batchSize;
