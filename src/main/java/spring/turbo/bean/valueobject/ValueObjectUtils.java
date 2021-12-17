@@ -12,11 +12,12 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.ReflectionUtils;
 import spring.turbo.core.AnnotationUtils;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.StringPool;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import static spring.turbo.util.StringPool.ANNOTATION_STRING_NULL;
 
 /**
  * @author 应卓
@@ -33,12 +34,34 @@ public final class ValueObjectUtils {
 
         final Map<String, String> map = new HashMap<>();
 
+        // 先从type上查找
+        Alias.List listAnnotation = AnnotationUtils.findAnnotation(valueObjectType, Alias.List.class);
+        if (listAnnotation != null) {
+            for (Alias annotation : listAnnotation.value()) {
+                final String from = annotation.from();
+                final String to = annotation.to();
+                if (!ANNOTATION_STRING_NULL.equals(from) && !ANNOTATION_STRING_NULL.equals(to)) {
+                    map.put(from, to);
+                }
+            }
+        } else {
+            Alias annotation = AnnotationUtils.findAnnotation(valueObjectType, Alias.class);
+            if (annotation != null) {
+                final String from = annotation.from();
+                final String to = annotation.to();
+                if (!ANNOTATION_STRING_NULL.equals(from) && !ANNOTATION_STRING_NULL.equals(to)) {
+                    map.put(from, to);
+                }
+            }
+        }
+
+        // 后从field上查找
         ReflectionUtils.doWithFields(valueObjectType, field -> {
             final AnnotationAttributes attributes = AnnotationUtils.findAnnotationAttributes(field, Alias.class);
 
             if (attributes.containsKey("value")) {
                 final String from = attributes.getString("value");
-                if (!StringPool.ANNOTATION_STRING_NULL.equals(from)) {
+                if (!ANNOTATION_STRING_NULL.equals(from)) {
                     map.put(from, field.getName());
                 }
             }

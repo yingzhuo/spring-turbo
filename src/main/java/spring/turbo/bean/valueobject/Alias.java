@@ -19,7 +19,8 @@ import java.lang.annotation.*;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.TYPE})
+@Repeatable(Alias.List.class)
 public @interface Alias {
 
     @AliasFor(attribute = "value")
@@ -29,4 +30,12 @@ public @interface Alias {
     public String value() default StringPool.ANNOTATION_STRING_NULL;
 
     public String to() default StringPool.ANNOTATION_STRING_NULL;
+
+    @Documented
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.FIELD, ElementType.TYPE})
+    public static @interface List {
+        public Alias[] value() default {};
+    }
+
 }

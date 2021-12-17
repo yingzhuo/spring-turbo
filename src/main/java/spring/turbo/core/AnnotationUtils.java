@@ -98,4 +98,22 @@ public final class AnnotationUtils {
                 .getAnnotationAttributes(annotation, false, true);
     }
 
+    public static <A extends Annotation> A findAnnotation(Class<?> annotationSupplier, Class<A> annotationType) {
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
+        return org.springframework.core.annotation.AnnotationUtils.findAnnotation(annotationSupplier, annotationType);
+    }
+
+    public static <A extends Annotation> A findAnnotation(AnnotatedElement annotationSupplier, Class<A> annotationType) {
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
+        return org.springframework.core.annotation.AnnotationUtils.findAnnotation(annotationSupplier, annotationType);
+    }
+
+    public static <A extends Annotation> A findAnnotation(Method annotationSupplier, Class<A> annotationType) {
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
+        return org.springframework.core.annotation.AnnotationUtils.findAnnotation(annotationSupplier, annotationType);
+    }
+
 }
