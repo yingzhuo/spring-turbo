@@ -24,12 +24,12 @@ public class StringToNumberConverter implements GenericConverter {
 
     public static StringToNumberConverter INSTANCE = new StringToNumberConverter();
 
-    public static StringToNumberConverter getInstance() {
-        return INSTANCE;
-    }
-
     private StringToNumberConverter() {
         super();
+    }
+
+    public static StringToNumberConverter getInstance() {
+        return INSTANCE;
     }
 
     @Override
