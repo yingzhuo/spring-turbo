@@ -21,7 +21,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.lang.Nullable;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.Validator;
+import spring.turbo.util.Asserts;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,6 +45,10 @@ public final class SpringContext {
 
     public static SpringContext of(ApplicationContext applicationContext) {
         return new SpringContext(applicationContext);
+    }
+
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -109,6 +115,17 @@ public final class SpringContext {
         } catch (BeansException e) {
             return Collections.emptyList();
         }
+    }
+
+    public <T> List<T> getBeanList(Class<T> beanType, T defaultIfNotNull) {
+        Asserts.notNull(defaultIfNotNull);
+
+        List<T> list = getBeanList(beanType);
+        if (CollectionUtils.isEmpty(list)) {
+            list = new ArrayList<>();
+            list.add(defaultIfNotNull);
+        }
+        return Collections.unmodifiableList(list);
     }
 
     public <T> boolean containsBean(String beanName) {

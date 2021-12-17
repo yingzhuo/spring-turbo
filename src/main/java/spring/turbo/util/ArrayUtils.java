@@ -66,5 +66,4 @@ public final class ArrayUtils {
         return toUnmodifiableSet(array).contains(elementToFind);
     }
 
-
 }
