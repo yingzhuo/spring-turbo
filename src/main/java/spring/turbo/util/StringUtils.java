@@ -152,4 +152,19 @@ public final class StringUtils {
         return toCharStream(string).collect(Collectors.toSet());
     }
 
+    @Nullable
+    public static String emptyToNull(@Nullable String string) {
+        return isEmpty(string) ? null : string;
+    }
+
+    @Nullable
+    public static String blankToNull(@Nullable String string) {
+        return isBlank(string) ? null : string;
+    }
+
+    @NonNull
+    public static String nullToEmpty(@Nullable String string) {
+        return string == null ? EMPTY : string;
+    }
+
 }

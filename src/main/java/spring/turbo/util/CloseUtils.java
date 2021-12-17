@@ -9,6 +9,7 @@
 package spring.turbo.util;
 
 import org.springframework.core.io.Resource;
+import org.springframework.lang.Nullable;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public final class CloseUtils {
         super();
     }
 
-    public static void closeQuietly(Closeable closeable) {
+    public static void closeQuietly(@Nullable Closeable closeable) {
         if (closeable != null) {
             try {
                 closeable.close();
@@ -33,7 +34,7 @@ public final class CloseUtils {
         }
     }
 
-    public static void closeQuietly(Resource resource) {
+    public static void closeQuietly(@Nullable Resource resource) {
         if (resource != null) {
             try {
                 closeQuietly(resource.getInputStream());
