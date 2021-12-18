@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
- * @see UncheckedInstantiationException
+ * @see InstantiationException
  * @since 1.0.0
  */
 public final class InstanceUtils {
@@ -24,29 +24,22 @@ public final class InstanceUtils {
         super();
     }
 
-    public static <T> T newInstanceOrThrow(Class<T> valueObjectType) {
-        Asserts.notNull(valueObjectType);
-        try {
-            return ReflectionUtils
-                    .accessibleConstructor(valueObjectType)
-                    .newInstance();
-        } catch (Exception e) {
-            throw new UncheckedInstantiationException(e.getMessage());
-        }
+    public static <T> T newInstanceOrThrow(Class<T> type) {
+        return newInstanceOrThrow(type, new InstantiationExceptionSupplier(type));
     }
 
-    public static <T> T newInstanceOrThrow(Class<T> valueObjectType, Supplier<? extends RuntimeException> exceptionSupplier) {
-        Asserts.notNull(exceptionSupplier);
-        return newInstance(valueObjectType)
-                .orElseThrow(exceptionSupplier);
+    public static <T> T newInstanceOrThrow(Class<T> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
+        Asserts.notNull(exceptionIfCannotCreateInstance);
+        return newInstance(type)
+                .orElseThrow(exceptionIfCannotCreateInstance);
     }
 
-    public static <T> Optional<T> newInstance(Class<T> valueObjectType) {
-        Asserts.notNull(valueObjectType);
+    public static <T> Optional<T> newInstance(Class<T> type) {
+        Asserts.notNull(type);
         try {
             return Optional.of(
                     ReflectionUtils
-                            .accessibleConstructor(valueObjectType)
+                            .accessibleConstructor(type)
                             .newInstance()
             );
         } catch (Exception e) {

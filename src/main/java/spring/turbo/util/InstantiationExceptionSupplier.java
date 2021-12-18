@@ -8,15 +8,24 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import java.util.function.Supplier;
+
 /**
  * @author 应卓
- * @see InstanceUtils
  * @since 1.0.0
  */
-public class UncheckedInstantiationException extends IllegalStateException {
+public final class InstantiationExceptionSupplier implements Supplier<InstantiationException> {
 
-    public UncheckedInstantiationException(String message) {
-        super(message);
+    private final Class<?> type;
+
+    public InstantiationExceptionSupplier(Class<?> type) {
+        Asserts.notNull(type);
+        this.type = type;
+    }
+
+    @Override
+    public InstantiationException get() {
+        return new InstantiationException(StringFormatter.format("cannot create instance. type: {}", type.getName()));
     }
 
 }
