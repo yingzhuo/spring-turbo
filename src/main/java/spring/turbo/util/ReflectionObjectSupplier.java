@@ -6,10 +6,9 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.valueobject;
+package spring.turbo.util;
 
-import spring.turbo.util.Asserts;
-import spring.turbo.util.InstanceUtils;
+import spring.turbo.bean.valueobject.ValueObjectUtils;
 
 import java.util.function.Supplier;
 
@@ -26,10 +25,6 @@ public final class ReflectionObjectSupplier<T> implements Supplier<T> {
     public ReflectionObjectSupplier(Class<T> type) {
         Asserts.notNull(type);
         this.type = type;
-    }
-
-    public static <T> ReflectionObjectSupplier<T> of(Class<T> type) {
-        return new ReflectionObjectSupplier<>(type);
     }
 
     @Override

@@ -8,6 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.ApplicationContext;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import spring.turbo.lang.Mutable;
 
 import java.util.HashMap;
@@ -20,20 +25,28 @@ import java.util.function.Supplier;
  * @since 1.0.0
  */
 @Mutable
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public final class InstanceCache {
 
     private final Map<Class<?>, Object> map = new HashMap<>();
+    private final ApplicationContext applicationContext;
 
-    private InstanceCache() {
-        super();
+    private InstanceCache(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
 
     public static InstanceCache newInstance() {
-        return new InstanceCache();
+        return new InstanceCache(null);
+    }
+
+    public static InstanceCache newInstance(@Nullable ApplicationContext applicationContext) {
+        return new InstanceCache(applicationContext);
     }
 
     public InstanceCache add(Class<?> type, Object instance) {
+        Asserts.notNull(type);
+        Asserts.notNull(instance);
+
         map.put(type, instance);
         return this;
     }
@@ -61,12 +74,32 @@ public final class InstanceCache {
     }
 
     public <T> T findOrCreate(Class<?> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
+        Asserts.notNull(exceptionIfCannotCreateInstance);
+
         Object instance = map.get(type);
         if (instance == null) {
-            instance = InstanceUtils.newInstanceOrThrow(type, exceptionIfCannotCreateInstance);
+            instance = find(type, exceptionIfCannotCreateInstance);
             this.add(type, instance);
         }
         return (T) instance;
+    }
+
+    @NonNull
+    private Object find(Class<?> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
+        // 没有spring容器
+        // 尝试反射创建
+        if (applicationContext == null) {
+            return InstanceUtils.newInstanceOrThrow(type, exceptionIfCannotCreateInstance);
+        }
+
+        // 有spring容器
+        // 尝试查找或反射创建
+        final ObjectProvider objectProvider = applicationContext.getBeanProvider(type);
+        try {
+            return objectProvider.getIfAvailable(new ReflectionObjectSupplier(type));
+        } catch (BeansException e) {
+            throw exceptionIfCannotCreateInstance.get();
+        }
     }
 
 }

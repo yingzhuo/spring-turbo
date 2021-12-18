@@ -51,8 +51,6 @@ public final class SpringContext {
         return applicationContext;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public BeanDefinitionRegistry getBeanDefinitionRegistry() {
         return (BeanDefinitionRegistry) applicationContext.getAutowireCapableBeanFactory();
     }
