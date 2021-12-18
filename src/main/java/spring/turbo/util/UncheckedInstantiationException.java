@@ -13,7 +13,7 @@ package spring.turbo.util;
  * @see InstanceUtils
  * @since 1.0.0
  */
-public class UncheckedInstantiationException extends RuntimeException {
+public class UncheckedInstantiationException extends IllegalStateException {
 
     public UncheckedInstantiationException(String message) {
         super(message);

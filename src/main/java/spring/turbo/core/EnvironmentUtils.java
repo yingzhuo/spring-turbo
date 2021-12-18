@@ -29,6 +29,10 @@ public final class EnvironmentUtils {
         return SpringUtils.getEnvironment().resolvePlaceholders(text);
     }
 
+    public static String resolveRequiredPlaceholders(String text) {
+        return SpringUtils.getEnvironment().resolveRequiredPlaceholders(text);
+    }
+
     public static String getPropertyValue(String propertyName) {
         return getPropertyValue(propertyName, String.class);
     }
