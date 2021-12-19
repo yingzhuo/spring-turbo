@@ -15,6 +15,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Mutable;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -26,7 +27,7 @@ import java.util.function.Supplier;
  */
 @Mutable
 @SuppressWarnings({"unchecked", "rawtypes"})
-public final class InstanceCache {
+public final class InstanceCache implements Serializable {
 
     private final Map<Class<?>, Object> map = new HashMap<>();
     private final ApplicationContext applicationContext;
@@ -69,36 +70,42 @@ public final class InstanceCache {
         return map.size();
     }
 
-    public <T> T findOrCreate(Class<?> type) {
+    @NonNull
+    public synchronized <T> T findOrCreate(@NonNull Class<?> type) {
         return findOrCreate(type, new InstantiationExceptionSupplier(type));
     }
 
-    public <T> T findOrCreate(Class<?> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
+    @NonNull
+    public synchronized <T> T findOrCreate(@NonNull Class<?> type, @NonNull Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
+        Asserts.notNull(type);
         Asserts.notNull(exceptionIfCannotCreateInstance);
 
-        Object instance = map.get(type);
+        Object instance = findFromApplicationContext(type);
+        if (instance != null) {
+            // spring托管的不放入map
+            // 如果该bean是prototype类型，每次都需要创建一个新对象
+            return (T) instance;
+        }
+
+        instance = map.get(type);
         if (instance == null) {
-            instance = find(type, exceptionIfCannotCreateInstance);
-            this.add(type, instance);
+            instance = InstanceUtils.newInstanceOrThrow(type, exceptionIfCannotCreateInstance);
+            map.put(type, instance);
         }
         return (T) instance;
     }
 
-    @NonNull
-    private Object find(Class<?> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
-        // 没有spring容器
-        // 尝试反射创建
+    @Nullable
+    private Object findFromApplicationContext(@NonNull Class<?> type) {
         if (applicationContext == null) {
-            return InstanceUtils.newInstanceOrThrow(type, exceptionIfCannotCreateInstance);
+            return null;
         }
 
-        // 有spring容器
-        // 尝试查找或反射创建
-        final ObjectProvider objectProvider = applicationContext.getBeanProvider(type);
+        final ObjectProvider provider = applicationContext.getBeanProvider(type);
         try {
-            return objectProvider.getIfAvailable(new ReflectionObjectSupplier(type));
+            return provider.getIfAvailable();
         } catch (BeansException e) {
-            throw exceptionIfCannotCreateInstance.get();
+            return null;
         }
     }
 
