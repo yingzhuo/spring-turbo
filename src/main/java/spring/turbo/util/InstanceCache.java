@@ -15,7 +15,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Mutable;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -27,7 +26,7 @@ import java.util.function.Supplier;
  */
 @Mutable
 @SuppressWarnings({"unchecked", "rawtypes"})
-public final class InstanceCache implements Serializable {
+public final class InstanceCache {
 
     private final Map<Class<?>, Object> map = new HashMap<>();
     private final ApplicationContext applicationContext;
@@ -50,24 +49,6 @@ public final class InstanceCache implements Serializable {
 
         map.put(type, instance);
         return this;
-    }
-
-    public InstanceCache remove(Class<?> type) {
-        map.remove(type);
-        return this;
-    }
-
-    public InstanceCache clear() {
-        map.clear();
-        return this;
-    }
-
-    public boolean isEmpty() {
-        return map.isEmpty();
-    }
-
-    public int size() {
-        return map.size();
     }
 
     @NonNull
