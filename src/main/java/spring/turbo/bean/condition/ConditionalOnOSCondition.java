@@ -13,40 +13,33 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.util.CollectionUtils;
-import spring.turbo.core.Logic;
-import spring.turbo.integration.Modules;
+import spring.turbo.util.OS;
 
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author 应卓
- * @see ConditionalOnModule
  * @since 1.0.0
  */
-final class ConditionalOnModuleCondition implements Condition {
+class ConditionalOnOSCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-
         AnnotationAttributes annotationAttributes =
-                AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnModule.class.getName()));
+                AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnOS.class.getName()));
 
         if (CollectionUtils.isEmpty(annotationAttributes)) {
             return false;
         }
 
-        final Logic logic = annotationAttributes.getEnum("logic");
-        final Modules[] modules = (Modules[]) annotationAttributes.get("value");
+        Set<OS> expected = new HashSet<>(Arrays.asList((OS[]) annotationAttributes.get("value")));
 
-        if (modules.length == 0) {
+        if (CollectionUtils.isEmpty(expected)) {
             return false;
         }
-
-        if (logic == Logic.ANY) {
-            return Stream.of(modules).anyMatch(Modules::isPresent);
-        } else {
-            return Stream.of(modules).allMatch(Modules::isPresent);
-        }
+        return expected.contains(OS.get());
     }
 
 }

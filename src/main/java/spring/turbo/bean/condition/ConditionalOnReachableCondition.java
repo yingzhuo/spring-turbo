@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.util.CollectionUtils;
 import spring.turbo.util.SocketUtils;
 
 /**
@@ -26,7 +27,7 @@ final class ConditionalOnReachableCondition implements Condition {
         AnnotationAttributes annotationAttributes =
                 AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnReachable.class.getName()));
 
-        if (annotationAttributes == null) {
+        if (CollectionUtils.isEmpty(annotationAttributes)) {
             return false;
         }
 

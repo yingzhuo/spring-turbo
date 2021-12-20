@@ -9,6 +9,7 @@
 package spring.turbo.bean.condition;
 
 import org.springframework.context.annotation.Conditional;
+import spring.turbo.util.OS;
 
 import java.lang.annotation.*;
 
@@ -19,13 +20,9 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Conditional(ConditionalOnReachableCondition.class)
-public @interface ConditionalOnReachable {
+@Conditional(ConditionalOnOSCondition.class)
+public @interface ConditionalOnOS {
 
-    public String address();
-
-    public int port();
-
-    public int timeoutInMilliseconds() default 1000;
+    public OS[] value() default {};
 
 }

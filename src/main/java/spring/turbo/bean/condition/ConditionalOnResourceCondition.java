@@ -14,6 +14,7 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.util.CollectionUtils;
 import spring.turbo.core.Logic;
 
 import java.util.List;
@@ -34,7 +35,7 @@ final class ConditionalOnResourceCondition implements Condition {
         final AnnotationAttributes annotationAttributes =
                 AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnResource.class.getName()));
 
-        if (annotationAttributes == null) {
+        if (CollectionUtils.isEmpty(annotationAttributes)) {
             return false;
         }
 
