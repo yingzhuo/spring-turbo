@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.NonNull;
 import org.springframework.util.ReflectionUtils;
 
 import java.util.Optional;
@@ -24,16 +25,19 @@ public final class InstanceUtils {
         super();
     }
 
+    @NonNull
     public static <T> T newInstanceOrThrow(Class<T> type) {
         return newInstanceOrThrow(type, new InstantiationExceptionSupplier(type));
     }
 
+    @NonNull
     public static <T> T newInstanceOrThrow(Class<T> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
         Asserts.notNull(exceptionIfCannotCreateInstance);
         return newInstance(type)
                 .orElseThrow(exceptionIfCannotCreateInstance);
     }
 
+    @NonNull
     public static <T> Optional<T> newInstance(Class<T> type) {
         Asserts.notNull(type);
         try {
