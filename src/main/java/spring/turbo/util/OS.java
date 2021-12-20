@@ -14,10 +14,30 @@ package spring.turbo.util;
  */
 public enum OS {
 
-    WINDOWS, LINUX, MAC, SOLARIS, UNKNOWN;
+    WINDOWS, LINUX, MAC, SOLARIS, OTHER;
 
     public static OS get() {
         return SyncAvoid.os;
+    }
+
+    public static boolean isWindows() {
+        return get() == WINDOWS;
+    }
+
+    public static boolean isLinux() {
+        return get() == LINUX;
+    }
+
+    public static boolean isMac() {
+        return get() == MAC;
+    }
+
+    public static boolean isSolaris() {
+        return get() == SOLARIS;
+    }
+
+    public static boolean isOther() {
+        return get() == OTHER;
     }
 
     // 延迟加载
@@ -36,7 +56,7 @@ public enum OS {
             } else if (osName.contains("sunos")) {
                 os = OS.SOLARIS;
             } else {
-                os = OS.UNKNOWN;
+                os = OS.OTHER;
             }
         }
     }
