@@ -8,16 +8,22 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.valueobject;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.ObjectUtils;
+import spring.turbo.util.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static spring.turbo.util.StringPool.COMMA;
-import static spring.turbo.util.StringPool.EMPTY;
 
 /**
  * @author 应卓
@@ -41,13 +47,48 @@ public final class BindingResultUtils {
                 .collect(Collectors.toList());
     }
 
-    public static String getJoinedDefaultErrorMessages(BindingResult bindingResult) {
+    public static String getJoinedDefaultErrorMessages(@NonNull BindingResult bindingResult) {
         return getJoinedDefaultErrorMessages(bindingResult, COMMA);
     }
 
-    public static String getJoinedDefaultErrorMessages(BindingResult bindingResult, String separator) {
-        separator = !Objects.isNull(separator) ? separator : EMPTY;
+    public static String getJoinedDefaultErrorMessages(@NonNull BindingResult bindingResult, @Nullable String separator) {
+        separator = StringUtils.nullToEmpty(separator);
         return String.join(separator, getDefaultErrorMessages(bindingResult));
+    }
+
+    public static String getJoinedErrorMessages(@NonNull BindingResult bindingResult, @NonNull final MessageSource messageSource) {
+        return getJoinedErrorMessages(bindingResult, messageSource, null);
+    }
+
+    public static String getJoinedErrorMessages(@NonNull BindingResult bindingResult, @NonNull final MessageSource messageSource, final @Nullable Locale locale) {
+        return getJoinedErrorMessages(bindingResult, messageSource, locale, COMMA);
+    }
+
+    public static String getJoinedErrorMessages(@NonNull BindingResult bindingResult, @NonNull final MessageSource messageSource, final @Nullable Locale locale, @Nullable String separator) {
+        separator = StringUtils.nullToEmpty(separator);
+        return String.join(separator, getErrorMessages(bindingResult, messageSource, locale));
+    }
+
+    public static List<String> getErrorMessages(@NonNull BindingResult bindingResult, @NonNull final MessageSource messageSource) {
+        return getErrorMessages(bindingResult, messageSource, null);
+    }
+
+    public static List<String> getErrorMessages(@NonNull BindingResult bindingResult, @NonNull final MessageSource messageSource, final @Nullable Locale locale) {
+        Asserts.notNull(bindingResult);
+        Asserts.notNull(messageSource);
+
+        final Locale localeToUse = ObjectUtils.defaultIfNull(locale, Locale::getDefault);
+        if (!bindingResult.hasErrors()) {
+            return Collections.emptyList();
+        } else {
+            return bindingResult
+                    .getAllErrors()
+                    .stream()
+                    .map(e -> messageSource.getMessage(e, localeToUse))
+                    .distinct()
+                    .sorted()
+                    .collect(Collectors.toList());
+        }
     }
 
 }
