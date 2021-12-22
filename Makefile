@@ -15,13 +15,13 @@ clean:
 	@mvn -f $(CURDIR)/pom.xml clean -q
 
 package:
-	@mvn -f $(CURDIR)/pom.xml clean package
+	@mvn -f $(CURDIR)/pom.xml clean package -Dmaven.test.skip=true
 
 deploy:
 	@mvn -f $(CURDIR)/pom.xml clean deploy -P"sonar"
 
 install:
-	@mvn -f $(CURDIR)/pom.xml clean install
+	@mvn -f $(CURDIR)/pom.xml clean install -Dmaven.test.skip=true
 
 version:
 	@mvn -f $(CURDIR)/pom.xml versions:set
