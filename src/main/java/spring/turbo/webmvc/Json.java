@@ -22,7 +22,7 @@ public final class Json implements ApiResult<Payload> {
     private String errorMessage;
     private Payload payload = Payload.newInstance(); // mutable
 
-    private Json() {
+    public Json() {
         super();
     }
 
