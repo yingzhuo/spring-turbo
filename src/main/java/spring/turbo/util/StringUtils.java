@@ -167,4 +167,12 @@ public final class StringUtils {
         return string == null ? EMPTY : string;
     }
 
+    @Nullable
+    public static String reverse(@Nullable String string) {
+        if (isNull(string)) {
+            return null;
+        } else {
+            return new StringBuilder(string).reverse().toString();
+        }
+    }
 }
