@@ -13,6 +13,9 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
+ * @see org.springframework.web.servlet.function.RequestPredicate
+ * @see org.springframework.web.servlet.function.RequestPredicates
+ * @see RequestPredicateFactories
  * @since 1.0.0
  */
 @FunctionalInterface

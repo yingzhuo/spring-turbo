@@ -35,10 +35,42 @@ public final class RequestPredicateFactories {
         super();
     }
 
+    public static RequestPredicate GET() {
+        return methodMatches(HttpMethod.GET);
+    }
+
+    public static RequestPredicate POST() {
+        return methodMatches(HttpMethod.POST);
+    }
+
+    public static RequestPredicate HEAD() {
+        return methodMatches(HttpMethod.HEAD);
+    }
+
+    public static RequestPredicate PUT() {
+        return methodMatches(HttpMethod.PUT);
+    }
+
+    public static RequestPredicate PATCH() {
+        return methodMatches(HttpMethod.PATCH);
+    }
+
+    public static RequestPredicate DELETE() {
+        return methodMatches(HttpMethod.DELETE);
+    }
+
+    public static RequestPredicate OPTIONS() {
+        return methodMatches(HttpMethod.OPTIONS);
+    }
+
+    public static RequestPredicate TRACE() {
+        return methodMatches(HttpMethod.TRACE);
+    }
+
     public static RequestPredicate methodMatches(final HttpMethod... methods) {
         Asserts.notNull(methods);
         Asserts.noNullElements(methods);
-        return request -> RequestPredicateFactories.matchMethods(request, methods);
+        return request -> matchMethods(request, methods);
     }
 
     public static RequestPredicate hasParameter(final String parameterName) {
