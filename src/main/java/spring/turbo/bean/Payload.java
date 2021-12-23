@@ -18,9 +18,9 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Mutable
-public final class Payload extends HashMap<String, Object> implements Map<String, Object> {
+public class Payload extends HashMap<String, Object> implements Map<String, Object> {
 
-    private Payload() {
+    public Payload() {
         super();
     }
 

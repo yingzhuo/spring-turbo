@@ -24,6 +24,7 @@ public final class TokenResolverBuilder {
     private final List<TokenResolver> list = new ArrayList<>();
 
     TokenResolverBuilder() {
+        super();
     }
 
     public TokenResolverBuilder add(TokenResolver... resolvers) {

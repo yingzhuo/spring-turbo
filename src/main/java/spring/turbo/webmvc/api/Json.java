@@ -6,7 +6,7 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.webmvc;
+package spring.turbo.webmvc.api;
 
 import spring.turbo.bean.Payload;
 import spring.turbo.lang.Mutable;
@@ -16,11 +16,12 @@ import spring.turbo.lang.Mutable;
  * @since 1.0.0
  */
 @Mutable
-public final class Json implements ApiResult<Payload> {
+public final class Json implements MutableApiResult<Payload> {
 
     private String code = "200";
     private String errorMessage;
-    private Payload payload = Payload.newInstance(); // mutable
+    private Payload payload = Payload.newInstance();
+    private boolean deprecated = false;
 
     public Json() {
         super();
@@ -45,24 +46,49 @@ public final class Json implements ApiResult<Payload> {
         return this;
     }
 
+    public Json deprecated(boolean deprecated) {
+        this.deprecated = deprecated;
+        return this;
+    }
+
     @Override
     public String getCode() {
-        return this.code;
+        return code;
+    }
+
+    @Override
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Override
     public String getErrorMessage() {
-        return this.errorMessage;
+        return errorMessage;
+    }
+
+    @Override
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     @Override
     public Payload getPayload() {
-        return this.payload;
+        return payload;
     }
 
     @Override
-    public int getPayloadSize() {
-        return this.payload.size();
+    public void setPayload(Payload payload) {
+        this.payload = payload;
+    }
+
+    @Override
+    public boolean isDeprecated() {
+        return deprecated;
+    }
+
+    @Override
+    public void setDeprecated(boolean deprecated) {
+        this.deprecated = deprecated;
     }
 
 }

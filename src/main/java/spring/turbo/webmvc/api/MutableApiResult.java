@@ -6,23 +6,24 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.webmvc;
+package spring.turbo.webmvc.api;
 
-import java.io.Serializable;
+import spring.turbo.lang.Mutable;
 
 /**
- * @param <T> 负载类型
+ * @param <T> payload类型
  * @author 应卓
  * @since 1.0.0
  */
-public interface ApiResult<T> extends Serializable {
+@Mutable
+public interface MutableApiResult<T> extends ApiResult<T> {
 
-    public String getCode();
+    public void setCode(String code);
 
-    public String getErrorMessage();
+    public void setErrorMessage(String errorMessage);
 
-    public T getPayload();
+    public void setPayload(T payload);
 
-    public int getPayloadSize();
+    public void setDeprecated(boolean deprecated);
 
 }
