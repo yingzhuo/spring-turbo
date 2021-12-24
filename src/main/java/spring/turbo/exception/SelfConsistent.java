@@ -77,7 +77,7 @@ public final class SelfConsistent {
     }
 
     public static void assertNotEmpty(@Nullable CharSequence string, @NonNull String code, @Nullable Object... args) {
-        if (StringUtils.hasLength(string)) {
+        if (!StringUtils.hasLength(string)) {
             throw new SelfConsistentException(new String[]{code}, args, null);
         }
     }
@@ -87,7 +87,7 @@ public final class SelfConsistent {
     }
 
     public static void assertNotBlank(@Nullable CharSequence string, @NonNull String code, @Nullable Object... args) {
-        if (StringUtils.hasText(string)) {
+        if (!StringUtils.hasText(string)) {
             throw new SelfConsistentException(new String[]{code}, args, null);
         }
     }
