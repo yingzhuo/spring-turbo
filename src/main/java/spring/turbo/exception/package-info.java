@@ -8,7 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -19,8 +21,9 @@ class SpringBootAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    BusinessExceptionFactory businessExceptionFactory() {
-        return new MessageSourceBusinessExceptionFactory();
+    @ConditionalOnBean(MessageSource.class)
+    BusinessExceptionFactory businessExceptionFactory(MessageSource messageSource) {
+        return new MessageSourceBusinessExceptionFactory(messageSource);
     }
 
 }

@@ -8,9 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
-import org.springframework.context.MessageSourceAware;
 import org.springframework.context.NoSuchMessageException;
 import spring.turbo.util.Asserts;
 
@@ -21,9 +19,14 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.0.0
  */
-public class MessageSourceBusinessExceptionFactory implements BusinessExceptionFactory, MessageSourceAware, InitializingBean {
+public class MessageSourceBusinessExceptionFactory implements BusinessExceptionFactory {
 
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
+
+    public MessageSourceBusinessExceptionFactory(MessageSource messageSource) {
+        Asserts.notNull(messageSource);
+        this.messageSource = messageSource;
+    }
 
     @Override
     public BusinessException create(String code, Locale locale, Object... args) {
@@ -34,16 +37,6 @@ public class MessageSourceBusinessExceptionFactory implements BusinessExceptionF
             throw new IllegalArgumentException(e.getMessage(), e);
         }
         return new BusinessException(code, message);
-    }
-
-    @Override
-    public void setMessageSource(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
-
-    @Override
-    public void afterPropertiesSet() {
-        Asserts.notNull(messageSource);
     }
 
 }

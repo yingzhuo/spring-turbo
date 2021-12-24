@@ -8,37 +8,44 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.context.MessageSourceResolvable;
+import org.springframework.lang.Nullable;
+import spring.turbo.lang.Immutable;
 
 /**
  * 自洽性错误
  *
  * @author 应卓
+ * @see java.text.MessageFormat
+ * @see org.springframework.context.MessageSource
  * @since 1.0.0
  */
-public class SelfConsistentException extends RuntimeException {
+@Immutable
+public final class SelfConsistentException extends IllegalStateException implements MessageSourceResolvable {
 
-    public SelfConsistentException() {
-        super();
+    private final String[] codes;
+    private final Object[] arguments;
+    private final String defaultMessage;
+
+    public SelfConsistentException(@Nullable String[] codes, @Nullable Object[] arguments, @Nullable String defaultMessage) {
+        this.codes = codes;
+        this.arguments = arguments;
+        this.defaultMessage = defaultMessage;
     }
 
-    public SelfConsistentException(String message) {
-        super(message);
+    @Override
+    public String[] getCodes() {
+        return this.codes;
     }
 
-    public Map<String, Object> asMap() {
-        return asMap(true);
+    @Override
+    public Object[] getArguments() {
+        return this.arguments;
     }
 
-    public Map<String, Object> asMap(boolean includeType) {
-        final Map<String, Object> map = new HashMap<>();
-        map.put("message", getMessage());
-        if (includeType) {
-            map.put("type", SelfConsistentException.class.getName());
-        }
-        return Collections.unmodifiableMap(map);
+    @Override
+    public String getDefaultMessage() {
+        return this.defaultMessage;
     }
 
 }
