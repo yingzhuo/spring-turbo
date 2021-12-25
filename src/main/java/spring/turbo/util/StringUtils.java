@@ -11,11 +11,13 @@ package spring.turbo.util;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static spring.turbo.util.StringPool.COMMA;
 import static spring.turbo.util.StringPool.EMPTY;
 
 /**
@@ -175,4 +177,24 @@ public final class StringUtils {
             return new StringBuilder(string).reverse().toString();
         }
     }
+
+    @NonNull
+    public static String[] commaDelimitedListToStringArray(@Nullable String string) {
+        return commaDelimitedListToStringArray(string, false);
+    }
+
+    @NonNull
+    public static String[] commaDelimitedListToStringArray(@Nullable String string, boolean trimAllElements) {
+        if (string == null || isBlank(string)) {
+            return new String[0];
+        }
+
+        final String[] array = string.split(COMMA);
+        if (trimAllElements) {
+            return Arrays.stream(array).map(String::trim).toArray(String[]::new);
+        } else {
+            return array;
+        }
+    }
+
 }
