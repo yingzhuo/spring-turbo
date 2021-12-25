@@ -22,6 +22,7 @@ import java.util.Optional;
 
 /**
  * @author 应卓
+ * @see Payload
  * @since 1.0.0
  */
 @Mutable
@@ -62,6 +63,12 @@ public class Attributes extends LinkedMultiValueMap<String, Object> {
     }
 
     // since 1.0.1
+    @Nullable
+    public <T> T findFirstOrDefault(String key, T defaultIfNull) {
+        return Optional.<T>ofNullable(findFirst(key)).orElse(defaultIfNull);
+    }
+
+    // since 1.0.1
     @NonNull
     public <T> T findRequiredFirst(String key) {
         T obj = findFirst(key);
@@ -69,12 +76,6 @@ public class Attributes extends LinkedMultiValueMap<String, Object> {
             throw new NoSuchElementException(StringFormatter.format("element not found. key: {}", key));
         }
         return obj;
-    }
-
-    // since 1.0.1
-    @Nullable
-    public <T> T findFirstOrDefault(String key, T defaultIfNull) {
-        return Optional.<T>ofNullable(findFirst(key)).orElse(defaultIfNull);
     }
 
 }

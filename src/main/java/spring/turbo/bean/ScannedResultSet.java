@@ -14,6 +14,7 @@ import java.util.TreeSet;
 
 /**
  * @author 应卓
+ * @see ScannedResult
  * @since 1.0.0
  */
 public final class ScannedResultSet extends TreeSet<ScannedResult> implements Set<ScannedResult> {

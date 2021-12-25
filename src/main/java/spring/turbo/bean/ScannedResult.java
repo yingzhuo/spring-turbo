@@ -20,6 +20,7 @@ import java.util.Objects;
 
 /**
  * @author 应卓
+ * @see ScannedResultSet
  * @since 1.0.0
  */
 public final class ScannedResult implements Serializable, Comparable<ScannedResult> {

@@ -8,16 +8,23 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import spring.turbo.lang.Mutable;
+import spring.turbo.util.StringFormatter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * @author 应卓
+ * @see Attributes
  * @since 1.0.0
  */
 @Mutable
+@SuppressWarnings("unchecked")
 public class Payload extends HashMap<String, Object> implements Map<String, Object> {
 
     public Payload() {
@@ -26,6 +33,28 @@ public class Payload extends HashMap<String, Object> implements Map<String, Obje
 
     public static Payload newInstance() {
         return new Payload();
+    }
+
+    // since 1.0.1
+    @Nullable
+    public <T> T find(String key) {
+        return (T) get(key);
+    }
+
+    // since 1.0.1
+    @Nullable
+    public <T> T findOrDefault(String key, @Nullable T defaultIfNull) {
+        return Optional.<T>ofNullable(find(key)).orElse(defaultIfNull);
+    }
+
+    // since 1.0.1
+    @NonNull
+    public <T> T findRequiredFirst(String key) {
+        T obj = find(key);
+        if (obj == null) {
+            throw new NoSuchElementException(StringFormatter.format("element not found. key: {}", key));
+        }
+        return obj;
     }
 
 }
