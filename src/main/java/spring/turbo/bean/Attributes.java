@@ -8,13 +8,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import spring.turbo.lang.Mutable;
+import spring.turbo.util.StringFormatter;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -23,7 +26,7 @@ import java.util.Optional;
  */
 @Mutable
 @SuppressWarnings("unchecked")
-public final class Attributes extends LinkedMultiValueMap<String, Object> {
+public class Attributes extends LinkedMultiValueMap<String, Object> {
 
     public Attributes() {
         super();
@@ -56,6 +59,16 @@ public final class Attributes extends LinkedMultiValueMap<String, Object> {
     @Nullable
     public <T> T findFirst(String key) {
         return (T) super.getFirst(key);
+    }
+
+    // since 1.0.1
+    @NonNull
+    public <T> T findRequiredFirst(String key) {
+        T obj = findFirst(key);
+        if (obj == null) {
+            throw new NoSuchElementException(StringFormatter.format("element not found. key: {}", key));
+        }
+        return obj;
     }
 
     // since 1.0.1
