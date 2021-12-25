@@ -14,7 +14,6 @@ import spring.turbo.lang.Mutable;
 import spring.turbo.util.StringFormatter;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -25,7 +24,7 @@ import java.util.Optional;
  */
 @Mutable
 @SuppressWarnings("unchecked")
-public class Payload extends HashMap<String, Object> implements Map<String, Object> {
+public class Payload extends HashMap<String, Object> {
 
     public Payload() {
         super();
