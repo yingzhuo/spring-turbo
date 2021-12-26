@@ -10,13 +10,13 @@ package spring.turbo.io;
 
 import org.springframework.lang.NonNull;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.crypto.Base64;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.Base64;
 
 /**
  * @author 应卓
@@ -44,7 +44,7 @@ public final class ImageUtils {
     public static String encodeToBase64(@NonNull BufferedImage image, @NonNull String format) {
         Asserts.notNull(image);
         Asserts.hasText(format);
-        return Base64.getEncoder().encodeToString(toByteArray(image, format));
+        return Base64.encode(toByteArray(image, format));
     }
 
 }
