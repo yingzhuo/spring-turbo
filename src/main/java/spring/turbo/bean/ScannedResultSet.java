@@ -8,9 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
+import spring.turbo.util.ClassUtils;
+import spring.turbo.util.StringFormatter;
+
+import java.util.*;
 
 /**
  * @author 应卓
@@ -19,12 +20,36 @@ import java.util.TreeSet;
  */
 public final class ScannedResultSet extends TreeSet<ScannedResult> implements Set<ScannedResult> {
 
-    ScannedResultSet() {
+    public ScannedResultSet() {
         super();
     }
 
-    ScannedResultSet(Collection<? extends ScannedResult> c) {
+    public ScannedResultSet(Collection<? extends ScannedResult> c) {
         super(c);
+    }
+
+    // since 1.0.2
+    public Set<Class<?>> toClassSet() {
+        return toClassSet(false);
+    }
+
+    // since 1.0.2
+    public Set<Class<?>> toClassSet(boolean skipIfNotAbleToLoad) {
+        final Set<Class<?>> set = new HashSet<>();
+
+        for (ScannedResult scannedResult : this) {
+            Optional<Class<?>> clzOpt = ClassUtils.forName(scannedResult.getClassName());
+            if (clzOpt.isPresent()) {
+                set.add(clzOpt.get());
+            } else {
+                if (!skipIfNotAbleToLoad) {
+                    final String msg = StringFormatter.format("cannot load class: {}", scannedResult.getClassName());
+                    throw new IllegalStateException(msg);
+                }
+            }
+        }
+
+        return Collections.unmodifiableSet(set);
     }
 
 }
