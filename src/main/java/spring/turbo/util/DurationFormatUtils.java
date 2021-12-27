@@ -6,25 +6,34 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.util;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
+import org.springframework.boot.convert.DurationStyle;
+import org.springframework.lang.Nullable;
+
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 /**
  * @author 应卓
- * @see ScannedResult
- * @since 1.0.0
+ * @see DurationParseUtils
+ * @since 1.0.1
  */
-public final class ScannedResultSet extends TreeSet<ScannedResult> implements Set<ScannedResult> {
+public final class DurationFormatUtils {
 
-    ScannedResultSet() {
+    private DurationFormatUtils() {
         super();
     }
 
-    ScannedResultSet(Collection<? extends ScannedResult> c) {
-        super(c);
+    public static String format(@Nullable Duration duration) {
+        return format(duration, null);
+    }
+
+    public static String format(@Nullable Duration duration, @Nullable ChronoUnit unit) {
+        if (duration == null) {
+            return null;
+        }
+        return DurationStyle.ISO8601.print(duration, unit);
     }
 
 }

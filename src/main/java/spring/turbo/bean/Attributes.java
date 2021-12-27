@@ -8,20 +8,26 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import spring.turbo.lang.Mutable;
+import spring.turbo.util.StringFormatter;
 
-import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * @author 应卓
+ * @see Payload
  * @since 1.0.0
  */
 @Mutable
-public class Attributes extends LinkedMultiValueMap<String, Object>
-        implements MultiValueMap<String, Object>, Map<String, List<Object>> {
+@SuppressWarnings("unchecked")
+public class Attributes extends LinkedMultiValueMap<String, Object> {
 
     public Attributes() {
         super();
@@ -29,6 +35,47 @@ public class Attributes extends LinkedMultiValueMap<String, Object>
 
     public static Attributes newInstance() {
         return new Attributes();
+    }
+
+    // since 1.0.1
+    public static Attributes fromMap(@Nullable Map<String, Object> map) {
+        Attributes attributes = new Attributes();
+        if (!CollectionUtils.isEmpty(map)) {
+            for (String key : map.keySet()) {
+                Object value = map.get(key);
+                attributes.add(key, value);
+            }
+        }
+        return attributes;
+    }
+
+    // since 1.0.1
+    public static Attributes fromMultiValueMap(@Nullable MultiValueMap<String, Object> map) {
+        final Attributes attributes = new Attributes();
+        Optional.ofNullable(map).ifPresent(attributes::addAll);
+        return attributes;
+    }
+
+    // since 1.0.1
+    @Nullable
+    public <T> T findFirst(String key) {
+        return (T) super.getFirst(key);
+    }
+
+    // since 1.0.1
+    @Nullable
+    public <T> T findFirstOrDefault(String key, T defaultIfNull) {
+        return Optional.<T>ofNullable(findFirst(key)).orElse(defaultIfNull);
+    }
+
+    // since 1.0.1
+    @NonNull
+    public <T> T findRequiredFirst(String key) {
+        T obj = findFirst(key);
+        if (obj == null) {
+            throw new NoSuchElementException(StringFormatter.format("element not found. key: {}", key));
+        }
+        return obj;
     }
 
 }

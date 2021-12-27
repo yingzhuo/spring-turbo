@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
-import org.springframework.util.StringUtils;
+import spring.turbo.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,6 +22,7 @@ import java.util.List;
 public final class EnvironmentUtils {
 
     private EnvironmentUtils() {
+        super();
     }
 
     public static String resolvePlaceholders(String text) {
@@ -52,7 +53,7 @@ public final class EnvironmentUtils {
         if (value == null) {
             return Collections.emptyList();
         } else {
-            return Collections.unmodifiableList(Arrays.asList(StringUtils.commaDelimitedListToStringArray(value)));
+            return Collections.unmodifiableList(Arrays.asList(StringUtils.commaDelimitedListToStringArray(value, true)));
         }
     }
 

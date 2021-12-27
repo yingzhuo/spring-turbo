@@ -8,14 +8,15 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
+import org.springframework.lang.NonNull;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.crypto.Base64;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.Base64;
 
 /**
  * @author 应卓
@@ -27,18 +28,23 @@ public final class ImageUtils {
         super();
     }
 
-    public static String encodeToBase64(BufferedImage image, String format) {
+    public static byte[] toByteArray(@NonNull BufferedImage image, @NonNull String format) {
         Asserts.notNull(image);
         Asserts.hasText(format);
 
         try {
-            final ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(image, format, os);
-            byte[] bytes = os.toByteArray();
-            return Base64.getEncoder().encodeToString(bytes);
+            return os.toByteArray();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public static String encodeToBase64(@NonNull BufferedImage image, @NonNull String format) {
+        Asserts.notNull(image);
+        Asserts.hasText(format);
+        return Base64.encode(toByteArray(image, format));
     }
 
 }
