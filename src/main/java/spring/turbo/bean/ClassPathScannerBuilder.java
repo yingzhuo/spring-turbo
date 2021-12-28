@@ -76,8 +76,8 @@ public final class ClassPathScannerBuilder {
 
     private static class NullClassPathScanner implements ClassPathScanner {
         @Override
-        public ScannedResultSet scan(Iterable<String> basePackages) {
-            return new ScannedResultSet();
+        public List<ClassDefinition> scan(Iterable<String> basePackages) {
+            return Collections.emptyList();
         }
     }
 
@@ -85,20 +85,14 @@ public final class ClassPathScannerBuilder {
         private final ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider();
 
         @Override
-        public ScannedResultSet scan(Iterable<String> basePackages) {
+        public List<ClassDefinition> scan(Iterable<String> basePackages) {
             final Set<BeanDefinition> set = new HashSet<>();
 
             for (String basePackage : basePackages) {
                 set.addAll(provider.findCandidateComponents(basePackage));
             }
 
-            return new ScannedResultSet(
-                    new TreeSet<>(
-                            set.stream()
-                                    .map(ScannedResult::new)
-                                    .collect(Collectors.toSet())
-                    )
-            );
+            return set.stream().map(ClassDefinition::new).collect(Collectors.toList());
         }
 
         public void setResourceLoader(ResourceLoader resourceLoader) {
