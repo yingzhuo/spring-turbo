@@ -11,6 +11,7 @@ package spring.turbo.util;
 import org.springframework.lang.NonNull;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author 应卓
@@ -24,13 +25,23 @@ public final class ClassUtils {
         super();
     }
 
+    public static ClassLoader getDefaultClassloader() {
+        return DEFAULT_CLASSLOADER;
+    }
+
+    @NonNull
     public static Class<?> forNameOrThrow(@NonNull String className) {
-        return forName(className).orElseThrow(() -> new IllegalStateException("cannot load class '" + className + "'"));
+        return forNameOrThrow(className, () -> new IllegalStateException("cannot load class '" + className + "'"));
+    }
+
+    @NonNull
+    public static Class<?> forNameOrThrow(@NonNull String className, Supplier<? extends RuntimeException> exceptionIfCannotLoad) {
+        return forName(className).orElseThrow(exceptionIfCannotLoad);
     }
 
     public static Optional<Class<?>> forName(@NonNull String className) {
         try {
-            Class<?> clazz = org.springframework.util.ClassUtils.forName(className, DEFAULT_CLASSLOADER);
+            final Class<?> clazz = org.springframework.util.ClassUtils.forName(className, DEFAULT_CLASSLOADER);
             return Optional.of(clazz);
         } catch (Throwable e) {
             return Optional.empty();
