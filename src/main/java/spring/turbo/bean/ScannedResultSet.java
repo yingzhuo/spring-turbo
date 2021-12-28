@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import spring.turbo.lang.Mutable;
 import spring.turbo.util.ClassUtils;
 import spring.turbo.util.StringFormatter;
 
@@ -18,6 +19,7 @@ import java.util.*;
  * @see ScannedResult
  * @since 1.0.0
  */
+@Mutable
 public final class ScannedResultSet extends TreeSet<ScannedResult> implements Set<ScannedResult> {
 
     public ScannedResultSet() {

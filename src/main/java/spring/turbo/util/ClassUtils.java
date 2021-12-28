@@ -24,6 +24,10 @@ public final class ClassUtils {
         super();
     }
 
+    public static Class<?> forNameOrThrow(@NonNull String className) {
+        return forName(className).orElseThrow(() -> new IllegalStateException("cannot load class '" + className + "'"));
+    }
+
     public static Optional<Class<?>> forName(@NonNull String className) {
         try {
             Class<?> clazz = org.springframework.util.ClassUtils.forName(className, DEFAULT_CLASSLOADER);

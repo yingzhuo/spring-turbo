@@ -37,6 +37,10 @@ public final class ScannedResult implements Serializable, Comparable<ScannedResu
         return beanDefinition.getBeanClassName();
     }
 
+    public BeanDefinition getBeanDefinition() {
+        return beanDefinition;
+    }
+
     public AnnotationAttributes getAnnotationAttributes(Class<? extends Annotation> annotationType) {
         Asserts.notNull(annotationType);
 
@@ -46,9 +50,9 @@ public final class ScannedResult implements Serializable, Comparable<ScannedResu
 
         AnnotatedBeanDefinition annotatedBeanDefinition = (AnnotatedBeanDefinition) beanDefinition;
 
-        final Map<String, Object> attributes = annotatedBeanDefinition
-                .getMetadata()
-                .getAnnotationAttributes(annotationType.getName());
+        final Map<String, Object> attributes =
+                annotatedBeanDefinition.getMetadata()
+                        .getAnnotationAttributes(annotationType.getName());
 
         AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(attributes);
         if (annotationAttributes == null) {
