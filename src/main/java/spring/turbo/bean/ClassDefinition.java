@@ -24,7 +24,7 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.0.2
  */
-public final class ClassDefinition implements Serializable {
+public final class ClassDefinition implements ClassDefinitionResolvable, Serializable {
 
     private final BeanDefinition beanDefinition;
     private final Class<?> beanClass;
@@ -40,30 +40,40 @@ public final class ClassDefinition implements Serializable {
         return beanDefinition;
     }
 
+    @Override
     public Class<?> getBeanClass() {
         return beanClass;
+    }
+
+    @Override
+    public String getBeanClassName() {
+        return beanDefinition.getBeanClassName();
     }
 
     public boolean isPrimary() {
         return beanDefinition.isPrimary();
     }
 
+    @Override
     public boolean isSingleton() {
         return beanDefinition.isSingleton();
     }
 
+    @Override
     public boolean isPrototype() {
         return beanDefinition.isPrototype();
     }
 
-    public boolean isAbstract() {
+    public boolean isAbstractDefinition() {
         return beanDefinition.isAbstract();
     }
 
+    @Override
     public boolean isLazyInit() {
         return beanDefinition.isLazyInit();
     }
 
+    @Override
     public boolean isEagerInit() {
         return !beanDefinition.isLazyInit();
     }
