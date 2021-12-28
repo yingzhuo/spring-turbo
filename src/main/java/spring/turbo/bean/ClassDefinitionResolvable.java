@@ -8,16 +8,24 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import java.io.Serializable;
+
 /**
  * @author 应卓
  * @see org.springframework.beans.factory.SmartFactoryBean
  * @since 1.0.2
  */
-public interface ClassDefinitionResolvable {
+public interface ClassDefinitionResolvable extends Serializable {
+
+    public boolean isPrimary();
 
     public boolean isSingleton();
 
     public boolean isPrototype();
+
+    public default boolean isAbstractDefinition() {
+        return false;
+    }
 
     public boolean isLazyInit();
 
@@ -28,5 +36,13 @@ public interface ClassDefinitionResolvable {
     public Class<?> getBeanClass();
 
     public String getBeanClassName();
+
+    /**
+     * @return bean角色
+     * @see org.springframework.beans.factory.config.BeanDefinition#ROLE_APPLICATION
+     * @see org.springframework.beans.factory.config.BeanDefinition#ROLE_SUPPORT
+     * @see org.springframework.beans.factory.config.BeanDefinition#ROLE_INFRASTRUCTURE
+     */
+    public int getRole();
 
 }

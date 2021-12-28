@@ -92,7 +92,7 @@ public final class ClassPathScannerBuilder {
                 set.addAll(provider.findCandidateComponents(basePackage));
             }
 
-            return set.stream().map(ClassDefinition::new).collect(Collectors.toList());
+            return Collections.unmodifiableList(set.stream().map(ClassDefinition::new).collect(Collectors.toList()));
         }
 
         public void setResourceLoader(ResourceLoader resourceLoader) {

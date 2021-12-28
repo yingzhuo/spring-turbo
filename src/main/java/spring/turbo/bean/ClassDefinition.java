@@ -16,15 +16,16 @@ import spring.turbo.core.AnnotationUtils;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.ClassUtils;
 
-import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
  * @author 应卓
+ * @see BeanDefinition
  * @since 1.0.2
  */
-public final class ClassDefinition implements ClassDefinitionResolvable, Serializable {
+public final class ClassDefinition implements ClassDefinitionResolvable {
 
     private final BeanDefinition beanDefinition;
     private final Class<?> beanClass;
@@ -50,6 +51,7 @@ public final class ClassDefinition implements ClassDefinitionResolvable, Seriali
         return beanDefinition.getBeanClassName();
     }
 
+    @Override
     public boolean isPrimary() {
         return beanDefinition.isPrimary();
     }
@@ -64,6 +66,7 @@ public final class ClassDefinition implements ClassDefinitionResolvable, Seriali
         return beanDefinition.isPrototype();
     }
 
+    @Override
     public boolean isAbstractDefinition() {
         return beanDefinition.isAbstract();
     }
@@ -93,6 +96,11 @@ public final class ClassDefinition implements ClassDefinitionResolvable, Seriali
         return beanDefinition.getResourceDescription();
     }
 
+    @Override
+    public int getRole() {
+        return beanDefinition.getRole();
+    }
+
     public <T extends Annotation> boolean isAnnotationPresent(@NonNull Class<T> annotationType) {
         return findAnnotation(annotationType) != null;
     }
@@ -105,6 +113,24 @@ public final class ClassDefinition implements ClassDefinitionResolvable, Seriali
     @NonNull
     public AnnotationAttributes findAnnotationAttributes(@NonNull Class<? extends Annotation> annotationType) {
         return AnnotationUtils.findAnnotationAttributes(this.beanClass, annotationType);
+    }
+
+    @Override
+    public String toString() {
+        return beanDefinition.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClassDefinition that = (ClassDefinition) o;
+        return beanDefinition.equals(that.beanDefinition);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(beanDefinition);
     }
 
 }
