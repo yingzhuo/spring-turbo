@@ -8,8 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Immutable;
+import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
 import java.io.Serializable;
@@ -37,6 +39,13 @@ public final class Tuple<A, B, C> implements Serializable {
     }
 
     public static <A, B, C> Tuple<A, B, C> of(@Nullable A a, @Nullable B b, @Nullable C c) {
+        return new Tuple<>(a, b, c);
+    }
+
+    public static <A, B, C> Tuple<A, B, C> ofNonNull(@NonNull A a, @NonNull B b, @NonNull C c) {
+        Asserts.notNull(a);
+        Asserts.notNull(b);
+        Asserts.notNull(c);
         return new Tuple<>(a, b, c);
     }
 

@@ -10,24 +10,17 @@ package spring.turbo.util;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @see InstantiationException
+ * @since 1.0.2
  */
-public final class CharPool {
+public class ClassLoadingException extends IllegalStateException {
 
-    public static final char SPACE = ' ';
-    public static final char TAB = '\t';
-    public static final char DOT = '.';
-    public static final char SLASH = '/';
-    public static final char BACKSLASH = '\\';
-    public static final char CR = '\r';
-    public static final char LF = '\n';
-    public static final char QUESTION_MARK = '?';
-    public static final char HYPHEN = '-';
-    public static final char UNDERSCORE = '_';
-    public static final char COMMA = ',';
-
-    private CharPool() {
+    public ClassLoadingException() {
         super();
+    }
+
+    public ClassLoadingException(String s) {
+        super(s);
     }
 
 }

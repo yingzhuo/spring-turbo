@@ -31,4 +31,33 @@ public final class ObjectUtils {
         return Optional.ofNullable(obj).orElseGet(defaultValue);
     }
 
+    @Nullable
+    @SafeVarargs
+    public static <T> T firstNonNull(final T... values) {
+        if (values != null) {
+            for (final T val : values) {
+                if (val != null) {
+                    return val;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    @SafeVarargs
+    public static <T> T getFirstNonNull(final Supplier<T>... suppliers) {
+        if (suppliers != null) {
+            for (final Supplier<T> supplier : suppliers) {
+                if (supplier != null) {
+                    final T value = supplier.get();
+                    if (value != null) {
+                        return value;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 }

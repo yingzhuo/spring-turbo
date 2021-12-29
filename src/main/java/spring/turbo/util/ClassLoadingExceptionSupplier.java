@@ -8,26 +8,29 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.NonNull;
+
+import java.util.function.Supplier;
+
 /**
  * @author 应卓
- * @since 1.0.0
+ * @see ClassUtils
+ * @see ClassLoadingException
+ * @since 1.0.2
  */
-public final class CharPool {
+public class ClassLoadingExceptionSupplier implements Supplier<ClassLoadingException> {
 
-    public static final char SPACE = ' ';
-    public static final char TAB = '\t';
-    public static final char DOT = '.';
-    public static final char SLASH = '/';
-    public static final char BACKSLASH = '\\';
-    public static final char CR = '\r';
-    public static final char LF = '\n';
-    public static final char QUESTION_MARK = '?';
-    public static final char HYPHEN = '-';
-    public static final char UNDERSCORE = '_';
-    public static final char COMMA = ',';
+    private final String className;
 
-    private CharPool() {
-        super();
+    public ClassLoadingExceptionSupplier(@NonNull String className) {
+        Asserts.hasText(className);
+        this.className = className;
+    }
+
+    @Override
+    public ClassLoadingException get() {
+        final String msg = StringFormatter.format("not able to load class: '{}'", className);
+        return new ClassLoadingException(msg);
     }
 
 }

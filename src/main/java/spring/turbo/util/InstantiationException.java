@@ -10,10 +10,15 @@ package spring.turbo.util;
 
 /**
  * @author 应卓
+ * @see ClassLoadingException
  * @see InstanceUtils
  * @since 1.0.0
  */
 public class InstantiationException extends IllegalStateException {
+
+    public InstantiationException() {
+        super();
+    }
 
     public InstantiationException(String message) {
         super(message);
