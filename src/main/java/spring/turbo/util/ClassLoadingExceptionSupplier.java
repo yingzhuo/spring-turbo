@@ -8,20 +8,29 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.NonNull;
+
+import java.util.function.Supplier;
+
 /**
  * @author 应卓
+ * @see ClassUtils
  * @see ClassLoadingException
- * @see InstanceUtils
- * @since 1.0.0
+ * @since 1.0.2
  */
-public class InstantiationException extends IllegalStateException {
+public class ClassLoadingExceptionSupplier implements Supplier<ClassLoadingException> {
 
-    public InstantiationException() {
-        super();
+    private final String className;
+
+    public ClassLoadingExceptionSupplier(@NonNull String className) {
+        Asserts.hasText(className);
+        this.className = className;
     }
 
-    public InstantiationException(String message) {
-        super(message);
+    @Override
+    public ClassLoadingException get() {
+        final String msg = StringFormatter.format("not able to load class: '{}'", className);
+        return new ClassLoadingException(msg);
     }
 
 }

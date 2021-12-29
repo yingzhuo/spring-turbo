@@ -15,6 +15,7 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
+ * @see InstanceUtils
  * @since 1.0.2
  */
 public final class ClassUtils {
@@ -31,7 +32,7 @@ public final class ClassUtils {
 
     @NonNull
     public static Class<?> forNameOrThrow(@NonNull String className) {
-        return forNameOrThrow(className, () -> new IllegalStateException("cannot load class '" + className + "'"));
+        return forNameOrThrow(className, new ClassLoadingExceptionSupplier(className));
     }
 
     @NonNull
