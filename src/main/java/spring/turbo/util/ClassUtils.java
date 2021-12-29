@@ -36,7 +36,8 @@ public final class ClassUtils {
     }
 
     @NonNull
-    public static Class<?> forNameOrThrow(@NonNull String className, Supplier<? extends RuntimeException> exceptionIfCannotLoad) {
+    public static Class<?> forNameOrThrow(@NonNull String className, @NonNull Supplier<? extends RuntimeException> exceptionIfCannotLoad) {
+        Asserts.notNull(exceptionIfCannotLoad);
         return forName(className).orElseThrow(exceptionIfCannotLoad);
     }
 
