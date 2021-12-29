@@ -8,23 +8,29 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.core.Ordered;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @since 1.0.2
  */
-final class SpringApplicationAware implements ApplicationContextAware {
+class SpringApplicationAware implements ApplicationListener<ContextRefreshedEvent>, Ordered {
 
     static ApplicationContext AC = null;
     static SpringContext SC = null;
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        AC = applicationContext;
-        SC = SpringContext.of(applicationContext);
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        AC = event.getApplicationContext();
+        SC = SpringContext.of(AC);
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 
 }

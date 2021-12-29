@@ -250,4 +250,36 @@ public final class StringUtils {
         }
         return new String(newCodePoints, 0, outOffset);
     }
+
+    @Nullable
+    public static String wrap(@Nullable final String string, @Nullable final String wrapWith) {
+        if (isEmpty(string) || isEmpty(wrapWith)) {
+            return string;
+        }
+        return wrapWith.concat(string).concat(wrapWith);
+    }
+
+    @Nullable
+    public static String wrapIfMissing(@Nullable final String string, @Nullable final String wrapWith) {
+        if (isEmpty(string) || isEmpty(wrapWith)) {
+            return string;
+        }
+
+        final boolean wrapStart = !string.startsWith(wrapWith);
+        final boolean wrapEnd = !string.endsWith(wrapWith);
+        if (!wrapStart && !wrapEnd) {
+            return string;
+        }
+
+        final StringBuilder builder = new StringBuilder(string.length() + wrapWith.length() + wrapWith.length());
+        if (wrapStart) {
+            builder.append(wrapWith);
+        }
+        builder.append(string);
+        if (wrapEnd) {
+            builder.append(wrapWith);
+        }
+        return builder.toString();
+    }
+
 }

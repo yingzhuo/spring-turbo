@@ -7,20 +7,3 @@
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
-
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
-
-/**
- * @author 应卓
- * @since 1.0.0
- */
-class SpringBootAutoConfiguration {
-
-    @ConditionalOnMissingBean
-    @Bean("__applicationContextProvider__")
-    SpringApplicationAware applicationContextProvider() {
-        return new SpringApplicationAware();
-    }
-
-}

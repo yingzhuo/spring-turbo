@@ -8,28 +8,23 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.FormatterRegistry;
+import spring.turbo.format.StringToNumberConverter;
+
+import java.util.Optional;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-class SpringBootAutoConfiguration implements InitializingBean {
-
-    private final FormatterRegistry formatterRegistry;
+class SpringBootAutoConfiguration {
 
     @Autowired(required = false)
     public SpringBootAutoConfiguration(FormatterRegistry formatterRegistry) {
-        this.formatterRegistry = formatterRegistry;
-    }
-
-    @Override
-    public void afterPropertiesSet() {
-        if (formatterRegistry != null) {
-            formatterRegistry.addConverter(StringToNumberConverter.INSTANCE);
-        }
+        Optional.ofNullable(formatterRegistry).ifPresent(registry -> {
+            registry.addConverter(StringToNumberConverter.getInstance());
+        });
     }
 
 }

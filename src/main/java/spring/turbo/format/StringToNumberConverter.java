@@ -6,13 +6,14 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.format;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ import java.util.Set;
  */
 public class StringToNumberConverter implements GenericConverter {
 
-    public static StringToNumberConverter INSTANCE = new StringToNumberConverter();
+    private static final StringToNumberConverter INSTANCE = new StringToNumberConverter();
 
     private StringToNumberConverter() {
         super();
@@ -43,7 +44,7 @@ public class StringToNumberConverter implements GenericConverter {
         set.add(new ConvertiblePair(String.class, Double.class));
         set.add(new ConvertiblePair(String.class, BigInteger.class));
         set.add(new ConvertiblePair(String.class, BigDecimal.class));
-        return set;
+        return Collections.unmodifiableSet(set);
     }
 
     @Override
