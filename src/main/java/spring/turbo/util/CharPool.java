@@ -19,7 +19,8 @@ public final class CharPool {
     public static final char DOT = '.';
     public static final char SLASH = '/';
     public static final char BACKSLASH = '\\';
-    public static final char CR = '\n';
+    public static final char CR = '\r';
+    public static final char LF = '\n';
     public static final char QUESTION_MARK = '?';
     public static final char HYPHEN = '-';
     public static final char UNDERSCORE = '_';
