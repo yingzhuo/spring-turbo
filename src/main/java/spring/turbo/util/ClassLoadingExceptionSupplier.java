@@ -29,7 +29,7 @@ public class ClassLoadingExceptionSupplier implements Supplier<ClassLoadingExcep
 
     @Override
     public ClassLoadingException get() {
-        final String msg = StringFormatter.format("not able to load class. type: '{}'", className);
+        final String msg = StringFormatter.format("not able to load class. class name: '{}'", className);
         return new ClassLoadingException(msg);
     }
 

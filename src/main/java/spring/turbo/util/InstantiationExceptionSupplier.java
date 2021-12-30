@@ -27,7 +27,7 @@ public final class InstantiationExceptionSupplier implements Supplier<Instantiat
 
     @Override
     public InstantiationException get() {
-        return new InstantiationException(StringFormatter.format("cannot create instance. type: {}", type.getName()));
+        return new InstantiationException(StringFormatter.format("not able to create instance. type: '{}'", type.getName()));
     }
 
 }
