@@ -10,6 +10,7 @@ package spring.turbo.core;
 
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
 import java.lang.annotation.Annotation;
@@ -24,30 +25,6 @@ public final class AnnotationUtils {
 
     private AnnotationUtils() {
         super();
-    }
-
-    public static boolean isAnnotationPresent(Class<?> annotationSupplier, Class<? extends Annotation> annotationType) {
-        Asserts.notNull(annotationSupplier);
-        Asserts.notNull(annotationType);
-
-        return org.springframework.core.annotation.AnnotationUtils
-                .findAnnotation(annotationSupplier, annotationType) != null;
-    }
-
-    public static boolean isAnnotationPresent(Method annotationSupplier, Class<? extends Annotation> annotationType) {
-        Asserts.notNull(annotationSupplier);
-        Asserts.notNull(annotationType);
-
-        return org.springframework.core.annotation.AnnotationUtils
-                .findAnnotation(annotationSupplier, annotationType) != null;
-    }
-
-    public static boolean isAnnotationPresent(AnnotatedElement annotationSupplier, Class<? extends Annotation> annotationType) {
-        Asserts.notNull(annotationSupplier);
-        Asserts.notNull(annotationType);
-
-        return org.springframework.core.annotation.AnnotationUtils
-                .findAnnotation(annotationSupplier, annotationType) != null;
     }
 
     @NonNull
@@ -98,22 +75,94 @@ public final class AnnotationUtils {
                 .getAnnotationAttributes(annotation, false, true);
     }
 
+    /**
+     * 级联查找元注释
+     *
+     * @param annotationSupplier 查找起点
+     * @param annotationType     元注释类型
+     * @param <A>                元注释泛型
+     * @return 查找结果或null
+     */
+    @Nullable
     public static <A extends Annotation> A findAnnotation(Class<?> annotationSupplier, Class<A> annotationType) {
         Asserts.notNull(annotationSupplier);
         Asserts.notNull(annotationType);
         return org.springframework.core.annotation.AnnotationUtils.findAnnotation(annotationSupplier, annotationType);
     }
 
+    /**
+     * 级联查找元注释
+     *
+     * @param annotationSupplier 查找起点
+     * @param annotationType     元注释类型
+     * @param <A>                元注释泛型
+     * @return 查找结果或null
+     */
+    @Nullable
     public static <A extends Annotation> A findAnnotation(AnnotatedElement annotationSupplier, Class<A> annotationType) {
         Asserts.notNull(annotationSupplier);
         Asserts.notNull(annotationType);
         return org.springframework.core.annotation.AnnotationUtils.findAnnotation(annotationSupplier, annotationType);
     }
 
+    /**
+     * 级联查找元注释
+     *
+     * @param annotationSupplier 查找起点
+     * @param annotationType     元注释类型
+     * @param <A>                元注释泛型
+     * @return 查找结果或null
+     */
+    @Nullable
     public static <A extends Annotation> A findAnnotation(Method annotationSupplier, Class<A> annotationType) {
         Asserts.notNull(annotationSupplier);
         Asserts.notNull(annotationType);
         return org.springframework.core.annotation.AnnotationUtils.findAnnotation(annotationSupplier, annotationType);
+    }
+
+    /**
+     * 单层查找元注释
+     *
+     * @param annotationSupplier 查找起点
+     * @param annotationType     元注释类型
+     * @param <A>                元注释泛型
+     * @return 查找结果或null
+     */
+    @Nullable
+    public static <A extends Annotation> A getAnnotation(Class<?> annotationSupplier, Class<A> annotationType) {
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
+        return org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotationSupplier, annotationType);
+    }
+
+    /**
+     * 单层查找元注释
+     *
+     * @param annotationSupplier 查找起点
+     * @param annotationType     元注释类型
+     * @param <A>                元注释泛型
+     * @return 查找结果或null
+     */
+    @Nullable
+    public static <A extends Annotation> A getAnnotation(AnnotatedElement annotationSupplier, Class<A> annotationType) {
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
+        return org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotationSupplier, annotationType);
+    }
+
+    /**
+     * 单层查找元注释
+     *
+     * @param annotationSupplier 查找起点
+     * @param annotationType     元注释类型
+     * @param <A>                元注释泛型
+     * @return 查找结果或null
+     */
+    @Nullable
+    public static <A extends Annotation> A getAnnotation(Method annotationSupplier, Class<A> annotationType) {
+        Asserts.notNull(annotationSupplier);
+        Asserts.notNull(annotationType);
+        return org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotationSupplier, annotationType);
     }
 
 }

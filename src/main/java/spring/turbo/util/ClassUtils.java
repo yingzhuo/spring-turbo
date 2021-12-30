@@ -26,8 +26,11 @@ public final class ClassUtils {
         super();
     }
 
+    @NonNull
     public static ClassLoader getDefaultClassloader() {
-        return DEFAULT_CLASSLOADER;
+        // (only null if even the system ClassLoader isn't accessible)
+        return Optional.ofNullable(DEFAULT_CLASSLOADER)
+                .orElse(Thread.currentThread().getContextClassLoader());
     }
 
     @NonNull
