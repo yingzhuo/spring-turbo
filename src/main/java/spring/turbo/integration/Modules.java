@@ -25,16 +25,16 @@ import java.util.stream.Collectors;
  */
 public enum Modules implements Named {
 
-    SPRING_TURBO("spring.turbo", false, "v1.0.0"),
-    SPRING_TURBO_CAPTCHA("spring.turbo", false, "v1.0.0"),
-    SPRING_TURBO_EXCEL("spring.turbo.excel", false, "v1.0.0"),
-    SPRING_TURBO_FEIGN("spring.turbo.feign", false, "v1.0.0"),
-    SPRING_TURBO_PREDEFINED("spring.turbo.predefined", false, "v1.0.0"),
-    SPRING_TURBO_QRCODE("spring.turbo.qrcode", false, "v1.0.0"),
-    SPRING_TURBO_SECURITY("spring.turbo.security", false, "v1.0.0"),
-    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt", false, "v1.0.1"),
-    SPRING_TURBO_SECURITY_HUTOOL("spring.turbo.security-hutool", false, "v1.0.1"),
-    SPRING_TURBO_WEBMVC("spring.turbo.webmvc", false, "v1.0.0");
+    SPRING_TURBO("spring.turbo", false, Versions.V1_0_0),
+    SPRING_TURBO_CAPTCHA("spring.turbo", false, Versions.V1_0_0),
+    SPRING_TURBO_EXCEL("spring.turbo.excel", false, Versions.V1_0_0),
+    SPRING_TURBO_FEIGN("spring.turbo.feign", false, Versions.V1_0_0),
+    SPRING_TURBO_PREDEFINED("spring.turbo.predefined", false, Versions.V1_0_0),
+    SPRING_TURBO_QRCODE("spring.turbo.qrcode", false, Versions.V1_0_0),
+    SPRING_TURBO_SECURITY("spring.turbo.security", false, Versions.V1_0_0),
+    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt", false, Versions.V1_0_0),
+    SPRING_TURBO_SECURITY_HUTOOL("spring.turbo.security-hutool", false, Versions.V1_0_1),
+    SPRING_TURBO_WEBMVC("spring.turbo.webmvc", false, Versions.V1_0_0);
 
     private final String name;
     private final boolean beta;
