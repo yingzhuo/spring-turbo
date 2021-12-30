@@ -27,19 +27,19 @@ public final class InstanceUtils {
     }
 
     @NonNull
-    public static <T> T newInstanceOrThrow(Class<T> type) {
+    public static <T> T newInstanceOrThrow(@NonNull Class<T> type) {
         return newInstanceOrThrow(type, new InstantiationExceptionSupplier(type));
     }
 
     @NonNull
-    public static <T> T newInstanceOrThrow(Class<T> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
+    public static <T> T newInstanceOrThrow(@NonNull Class<T> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
         Asserts.notNull(exceptionIfCannotCreateInstance);
         return newInstance(type)
                 .orElseThrow(exceptionIfCannotCreateInstance);
     }
 
     @NonNull
-    public static <T> Optional<T> newInstance(Class<T> type) {
+    public static <T> Optional<T> newInstance(@NonNull Class<T> type) {
         Asserts.notNull(type);
         try {
             return Optional.of(
@@ -47,7 +47,19 @@ public final class InstanceUtils {
                             .accessibleConstructor(type)
                             .newInstance()
             );
-        } catch (Exception e) {
+        } catch (Throwable e) {
+            return Optional.empty();
+        }
+    }
+
+    @NonNull
+    @SuppressWarnings("unchecked")
+    public static <T> Optional<T> newInstance(@NonNull String className) {
+        Asserts.hasText(className);
+        try {
+            final Class<?> type = ClassUtils.forNameOrThrow(className);
+            return (Optional<T>) newInstance(type);
+        } catch (Throwable e) {
             return Optional.empty();
         }
     }
