@@ -27,8 +27,16 @@ public final class AnnotationUtils {
         super();
     }
 
+    /**
+     * 查找元注释并获取AnnotationAttributes实例
+     *
+     * @param annotationSupplier 查找起点
+     * @param annotationType     元注释类型
+     * @return AnnotationAttributes实例
+     * @see #findAnnotation(Class, Class)
+     */
     @NonNull
-    public static AnnotationAttributes findAnnotationAttributes(Class<?> annotationSupplier, Class<? extends Annotation> annotationType) {
+    public static AnnotationAttributes findAnnotationAttributes(@NonNull Class<?> annotationSupplier, @NonNull Class<? extends Annotation> annotationType) {
         Asserts.notNull(annotationSupplier);
         Asserts.notNull(annotationType);
 
@@ -43,8 +51,16 @@ public final class AnnotationUtils {
                 .getAnnotationAttributes(annotation, false, true);
     }
 
+    /**
+     * 查找元注释并获取AnnotationAttributes实例
+     *
+     * @param annotationSupplier 查找起点
+     * @param annotationType     元注释类型
+     * @return AnnotationAttributes实例
+     * @see #findAnnotation(Method, Class)
+     */
     @NonNull
-    public static AnnotationAttributes findAnnotationAttributes(Method annotationSupplier, Class<? extends Annotation> annotationType) {
+    public static AnnotationAttributes findAnnotationAttributes(@NonNull Method annotationSupplier, @NonNull Class<? extends Annotation> annotationType) {
         Asserts.notNull(annotationSupplier);
         Asserts.notNull(annotationType);
 
@@ -59,8 +75,16 @@ public final class AnnotationUtils {
                 .getAnnotationAttributes(annotation, false, true);
     }
 
+    /**
+     * 查找元注释并获取AnnotationAttributes实例
+     *
+     * @param annotationSupplier 查找起点
+     * @param annotationType     元注释类型
+     * @return AnnotationAttributes实例
+     * @see #findAnnotation(AnnotatedElement, Class)
+     */
     @NonNull
-    public static AnnotationAttributes findAnnotationAttributes(AnnotatedElement annotationSupplier, Class<? extends Annotation> annotationType) {
+    public static AnnotationAttributes findAnnotationAttributes(@NonNull AnnotatedElement annotationSupplier, @NonNull Class<? extends Annotation> annotationType) {
         Asserts.notNull(annotationSupplier);
         Asserts.notNull(annotationType);
 
