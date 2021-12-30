@@ -15,5 +15,15 @@ package spring.turbo.core;
  * @since 1.0.0
  */
 public enum Logic {
-    ANY, ALL
+
+    /**
+     * 任意一个
+     */
+    ANY,
+
+    /**
+     * 全部
+     */
+    ALL
+
 }

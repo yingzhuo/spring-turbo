@@ -18,11 +18,16 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 
 /**
+ * 元注释相关工具类
+ *
  * @author 应卓
  * @since 1.0.0
  */
 public final class AnnotationUtils {
 
+    /**
+     * 私有构造方法
+     */
     private AnnotationUtils() {
         super();
     }
@@ -34,6 +39,7 @@ public final class AnnotationUtils {
      * @param annotationType     元注释类型
      * @return AnnotationAttributes实例
      * @see #findAnnotation(Class, Class)
+     * @since 1.0.0
      */
     @NonNull
     public static AnnotationAttributes findAnnotationAttributes(@NonNull Class<?> annotationSupplier, @NonNull Class<? extends Annotation> annotationType) {
@@ -58,6 +64,7 @@ public final class AnnotationUtils {
      * @param annotationType     元注释类型
      * @return AnnotationAttributes实例
      * @see #findAnnotation(Method, Class)
+     * @since 1.0.0
      */
     @NonNull
     public static AnnotationAttributes findAnnotationAttributes(@NonNull Method annotationSupplier, @NonNull Class<? extends Annotation> annotationType) {
@@ -82,6 +89,7 @@ public final class AnnotationUtils {
      * @param annotationType     元注释类型
      * @return AnnotationAttributes实例
      * @see #findAnnotation(AnnotatedElement, Class)
+     * @since 1.0.0
      */
     @NonNull
     public static AnnotationAttributes findAnnotationAttributes(@NonNull AnnotatedElement annotationSupplier, @NonNull Class<? extends Annotation> annotationType) {
@@ -106,6 +114,8 @@ public final class AnnotationUtils {
      * @param annotationType     元注释类型
      * @param <A>                元注释泛型
      * @return 查找结果或null
+     * @see #getAnnotation(Class, Class)
+     * @since 1.0.0
      */
     @Nullable
     public static <A extends Annotation> A findAnnotation(Class<?> annotationSupplier, Class<A> annotationType) {
@@ -121,6 +131,8 @@ public final class AnnotationUtils {
      * @param annotationType     元注释类型
      * @param <A>                元注释泛型
      * @return 查找结果或null
+     * @see #getAnnotation(AnnotatedElement, Class)
+     * @since 1.0.0
      */
     @Nullable
     public static <A extends Annotation> A findAnnotation(AnnotatedElement annotationSupplier, Class<A> annotationType) {
@@ -136,6 +148,8 @@ public final class AnnotationUtils {
      * @param annotationType     元注释类型
      * @param <A>                元注释泛型
      * @return 查找结果或null
+     * @see #getAnnotation(Method, Class)
+     * @since 1.0.0
      */
     @Nullable
     public static <A extends Annotation> A findAnnotation(Method annotationSupplier, Class<A> annotationType) {
@@ -151,6 +165,7 @@ public final class AnnotationUtils {
      * @param annotationType     元注释类型
      * @param <A>                元注释泛型
      * @return 查找结果或null
+     * @since 1.0.4
      */
     @Nullable
     public static <A extends Annotation> A getAnnotation(Class<?> annotationSupplier, Class<A> annotationType) {
@@ -166,6 +181,7 @@ public final class AnnotationUtils {
      * @param annotationType     元注释类型
      * @param <A>                元注释泛型
      * @return 查找结果或null
+     * @since 1.0.4
      */
     @Nullable
     public static <A extends Annotation> A getAnnotation(AnnotatedElement annotationSupplier, Class<A> annotationType) {
@@ -181,6 +197,7 @@ public final class AnnotationUtils {
      * @param annotationType     元注释类型
      * @param <A>                元注释泛型
      * @return 查找结果或null
+     * @since 1.0.4
      */
     @Nullable
     public static <A extends Annotation> A getAnnotation(Method annotationSupplier, Class<A> annotationType) {
