@@ -8,8 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.token;
 
-import org.springframework.util.Assert;
+import org.springframework.lang.NonNull;
 import spring.turbo.lang.Immutable;
+import spring.turbo.util.Asserts;
 
 import java.util.Objects;
 
@@ -22,12 +23,12 @@ public class StringToken implements Token {
 
     private final String content;
 
-    private StringToken(String content) {
-        Assert.hasText(content, "content is blank");
+    private StringToken(@NonNull String content) {
+        Asserts.hasText(content);
         this.content = content;
     }
 
-    public static StringToken of(String token) {
+    public static StringToken of(@NonNull String token) {
         return new StringToken(token);
     }
 
