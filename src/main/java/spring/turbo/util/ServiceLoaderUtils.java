@@ -9,25 +9,50 @@
 package spring.turbo.util;
 
 import org.springframework.core.OrderComparator;
-import org.springframework.util.ClassUtils;
+import org.springframework.lang.NonNull;
 
 import java.util.*;
 
 /**
+ * {@link ServiceLoader}相关工具
+ *
  * @author 应卓
+ * @see java.util.ServiceLoader
  * @since 1.0.0
  */
 public final class ServiceLoaderUtils {
 
+    /**
+     * 私有构造方法
+     */
     private ServiceLoaderUtils() {
         super();
     }
 
-    public static <T> List<T> load(Class<T> targetType) {
+    /**
+     * 加载Service
+     *
+     * @param targetType Service类型
+     * @param <T>        Service类型泛型
+     * @return Service实例
+     * @throws ServiceConfigurationError 加载失败时抛出此错误
+     */
+    @NonNull
+    public static <T> List<T> load(@NonNull Class<T> targetType) {
         return load(targetType, ClassUtils.getDefaultClassLoader());
     }
 
-    public static <T> List<T> load(Class<T> targetType, ClassLoader classLoader) {
+    /**
+     * 加载Service
+     *
+     * @param targetType  Service类型
+     * @param classLoader ClassLoader实例
+     * @param <T>         Service类型泛型
+     * @return Service实例
+     * @throws ServiceConfigurationError 加载失败时抛出此错误
+     */
+    @NonNull
+    public static <T> List<T> load(@NonNull Class<T> targetType, @NonNull ClassLoader classLoader) {
         Asserts.notNull(targetType);
         Asserts.notNull(classLoader);
 
@@ -40,11 +65,28 @@ public final class ServiceLoaderUtils {
         return Collections.unmodifiableList(list);
     }
 
-    public static <T> List<T> loadQuietly(Class<T> targetType) {
+    /**
+     * 加载Service
+     *
+     * @param targetType Service类型
+     * @param <T>        Service类型泛型
+     * @return Service实例
+     */
+    @NonNull
+    public static <T> List<T> loadQuietly(@NonNull Class<T> targetType) {
         return loadQuietly(targetType, ClassUtils.getDefaultClassLoader());
     }
 
-    public static <T> List<T> loadQuietly(Class<T> targetType, ClassLoader classLoader) {
+    /**
+     * 加载Service
+     *
+     * @param targetType  Service类型
+     * @param classLoader ClassLoader实例
+     * @param <T>         Service类型泛型
+     * @return Service实例
+     */
+    @NonNull
+    public static <T> List<T> loadQuietly(@NonNull Class<T> targetType, @NonNull ClassLoader classLoader) {
         try {
             return load(targetType, classLoader);
         } catch (ServiceConfigurationError e) {

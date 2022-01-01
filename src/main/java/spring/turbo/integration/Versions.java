@@ -24,6 +24,7 @@ public final class Versions {
     public static final String V1_0_3 = "1.0.3";
     public static final String V1_0_4_SNAPSHOT = "1.0.4-SNAPSHOT";
     public static final String V1_0_4 = "1.0.4";
+
     private Versions() {
         super();
     }

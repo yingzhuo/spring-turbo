@@ -28,7 +28,7 @@ public final class YamlUtils {
     }
 
     /**
-     * YAML文件转换为 {@link Properties}
+     * YAML文件转换为{@link Properties}
      *
      * @param resources YAML文件
      * @return {@link Properties}实例

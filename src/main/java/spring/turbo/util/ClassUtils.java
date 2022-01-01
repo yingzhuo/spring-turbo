@@ -37,7 +37,7 @@ public final class ClassUtils {
      * @return {@link ClassLoader}实例
      */
     @NonNull
-    public static ClassLoader getDefaultClassloader() {
+    public static ClassLoader getDefaultClassLoader() {
         // (only null if even the system ClassLoader isn't accessible)
         return Optional.ofNullable(DEFAULT_CLASSLOADER)
                 .orElse(Thread.currentThread().getContextClassLoader());
@@ -72,14 +72,15 @@ public final class ClassUtils {
     /**
      * 尝试加载类型
      * <p>
-     * 例子:
-     * {@code ClassUtils.forName("int")}
-     * {@code ClassUtils.forName("int[]")}
-     * {@code ClassUtils.forName("[[Ljava.lang.String;")}
-     * {@code ClassUtils.forName("foo.Bar")}
-     * {@code ClassUtils.forName("foo.Bar[]")}
-     * {@code ClassUtils.forName("foo.Bar.InnerClass")}
-     * {@code ClassUtils.forName("foo.Bar$InnerClass")}
+     * <p>
+     * 例子: <br>
+     * {@code ClassUtils.forName("int")} <br>
+     * {@code ClassUtils.forName("int[]")} <br>
+     * {@code ClassUtils.forName("[[Ljava.lang.String;")} <br>
+     * {@code ClassUtils.forName("foo.Bar")} <br>
+     * {@code ClassUtils.forName("foo.Bar[]")} <br>
+     * {@code ClassUtils.forName("foo.Bar.InnerClass")} <br>
+     * {@code ClassUtils.forName("foo.Bar$InnerClass")} <br>
      *
      * @param className 类型全名
      * @return 加载结果
