@@ -51,7 +51,7 @@ public final class DeprecationUtils {
      * 检查方法是否已经过期
      *
      * @param annotationSupplier 方法
-     * @return 已过期时返回{@code true}，否则返回{@code false}
+     * @return 已过期时返回 {@code true}，否则返回 {@code false}
      */
     public boolean isDeprecated(@NonNull Method annotationSupplier) {
         return AnnotationUtils.getAnnotation(annotationSupplier, ANNOTATION_TYPE) != null;
@@ -61,7 +61,7 @@ public final class DeprecationUtils {
      * 检查类型是否已经过期
      *
      * @param annotationSupplier 类型
-     * @return 已过期时返回{@code true}，否则返回{@code false}
+     * @return 已过期时返回 {@code true}，否则返回 {@code false}
      */
     public boolean isDeprecated(@NonNull Class<?> annotationSupplier) {
         return AnnotationUtils.getAnnotation(annotationSupplier, ANNOTATION_TYPE) != null;

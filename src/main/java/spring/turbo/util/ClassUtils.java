@@ -72,15 +72,16 @@ public final class ClassUtils {
     /**
      * 尝试加载类型
      * <p>
-     * <p>
-     * 例子: <br>
-     * {@code ClassUtils.forName("int")} <br>
-     * {@code ClassUtils.forName("int[]")} <br>
-     * {@code ClassUtils.forName("[[Ljava.lang.String;")} <br>
-     * {@code ClassUtils.forName("foo.Bar")} <br>
-     * {@code ClassUtils.forName("foo.Bar[]")} <br>
-     * {@code ClassUtils.forName("foo.Bar.InnerClass")} <br>
-     * {@code ClassUtils.forName("foo.Bar$InnerClass")} <br>
+     * 例子:
+     * <ul>
+     * <li> {@code ClassUtils.forName("int")} </li>
+     * <li> {@code ClassUtils.forName("int[]")} </li>
+     * <li> {@code ClassUtils.forName("[[Ljava.lang.String;")} </li>
+     * <li> {@code ClassUtils.forName("foo.Bar")} </li>
+     * <li> {@code ClassUtils.forName("foo.Bar[]")} </li>
+     * <li> {@code ClassUtils.forName("foo.Bar.InnerClass")} </li>
+     * <li> {@code ClassUtils.forName("foo.Bar$InnerClass")} </li>
+     * </ul>
      *
      * @param className 类型全名
      * @return 加载结果

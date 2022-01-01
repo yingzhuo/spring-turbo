@@ -38,6 +38,7 @@ public final class InstanceUtils {
      * @param type 类型
      * @param <T>  实例类型泛型
      * @return 实例
+     * @throws InstantiationException 创建实例无法成功
      */
     @NonNull
     public static <T> T newInstanceOrThrow(@NonNull Class<T> type) {

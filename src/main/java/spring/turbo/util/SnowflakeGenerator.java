@@ -9,6 +9,8 @@
 package spring.turbo.util;
 
 /**
+ * 雪花算法ID生成器
+ *
  * @author 应卓
  * @since 1.0.0
  */
@@ -101,6 +103,11 @@ public class SnowflakeGenerator {
         this.dataCenterId = dataCenterId;
     }
 
+    /**
+     * 生成一个ID
+     *
+     * @return ID
+     */
     public synchronized Long nextId() {
         long timestamp = timeGen();
 
