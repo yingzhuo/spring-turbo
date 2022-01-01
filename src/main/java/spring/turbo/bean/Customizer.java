@@ -10,13 +10,23 @@ package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
 
+import java.util.function.Function;
+
 /**
+ * 定制化器
+ *
  * @param <T> 类型
  * @author 应卓
  * @since 1.0.0
  */
-public interface Customizer<T> {
+@FunctionalInterface
+public interface Customizer<T> extends Function<T, T> {
 
     public T customize(@Nullable T obj);
+
+    @Override
+    public default T apply(T t) {
+        return customize(t);
+    }
 
 }

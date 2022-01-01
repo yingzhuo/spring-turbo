@@ -11,6 +11,8 @@ package spring.turbo.bean;
 import java.io.Serializable;
 
 /**
+ * 空值占位对象
+ *
  * @author 应卓
  * @since 1.0.0
  */

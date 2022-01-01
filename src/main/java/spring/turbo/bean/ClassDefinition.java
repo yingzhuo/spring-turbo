@@ -13,6 +13,7 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.core.AnnotationUtils;
+import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.ClassUtils;
 
@@ -25,6 +26,7 @@ import java.util.Optional;
  * @see BeanDefinition
  * @since 1.0.2
  */
+@Immutable
 public final class ClassDefinition implements ClassDefinitionResolvable {
 
     private final BeanDefinition beanDefinition;

@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * 对
+ * 二元组
  *
  * @author 应卓
  * @see Tuple

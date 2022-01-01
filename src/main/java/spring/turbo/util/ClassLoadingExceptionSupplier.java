@@ -13,6 +13,8 @@ import org.springframework.lang.NonNull;
 import java.util.function.Supplier;
 
 /**
+ * 类型加载异常提供器
+ *
  * @author 应卓
  * @see ClassUtils
  * @see ClassLoadingException

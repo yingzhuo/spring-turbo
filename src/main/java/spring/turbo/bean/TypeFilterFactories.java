@@ -30,6 +30,7 @@ import java.util.stream.Stream;
  * 本类包含一系列静态方法创建TypeFilter的实例
  *
  * @author 应卓
+ * @see TypeFilter
  * @see ClassPathScanner
  * @see ClassPathScannerBuilder
  * @since 1.0.0
@@ -76,6 +77,18 @@ public final class TypeFilterFactories {
      */
     public static TypeFilter assignable(Class<?> targetType) {
         return new AssignableTypeFilter(targetType);
+    }
+
+    /**
+     * 通过类名过滤类型
+     *
+     * @param className 指定的类型
+     * @return TypeFilter的实例
+     * @since 1.0.5
+     */
+    public static TypeFilter fullyQualifiedClassName(String className) {
+        Asserts.hasText(className);
+        return (reader, readerFactory) -> className.equals(reader.getClassMetadata().getClassName());
     }
 
     /**

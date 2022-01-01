@@ -15,22 +15,44 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
+ * 实例创建工具
+ *
  * @author 应卓
  * @see ClassUtils
  * @see InstantiationException
  * @since 1.0.0
  */
+@SuppressWarnings("unchecked")
 public final class InstanceUtils {
 
+    /**
+     * 私有构造方法
+     */
     private InstanceUtils() {
         super();
     }
 
+    /**
+     * 创建实例，不成功时抛出默认异常
+     *
+     * @param type 类型
+     * @param <T>  实例类型泛型
+     * @return 实例
+     * @throws InstantiationException 创建实例无法成功
+     */
     @NonNull
     public static <T> T newInstanceOrThrow(@NonNull Class<T> type) {
         return newInstanceOrThrow(type, new InstantiationExceptionSupplier(type));
     }
 
+    /**
+     * 创建实例，不成功时抛出异常
+     *
+     * @param type                            类型
+     * @param exceptionIfCannotCreateInstance 异常提供器
+     * @param <T>                             实例类型泛型
+     * @return 实例
+     */
     @NonNull
     public static <T> T newInstanceOrThrow(@NonNull Class<T> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
         Asserts.notNull(exceptionIfCannotCreateInstance);
@@ -38,6 +60,13 @@ public final class InstanceUtils {
                 .orElseThrow(exceptionIfCannotCreateInstance);
     }
 
+    /**
+     * 尝试创建实例
+     *
+     * @param type 类型
+     * @param <T>  实例类型泛型
+     * @return 实例Optional，不成功时返回空的Optional
+     */
     @NonNull
     public static <T> Optional<T> newInstance(@NonNull Class<T> type) {
         Asserts.notNull(type);
@@ -52,8 +81,15 @@ public final class InstanceUtils {
         }
     }
 
+    /**
+     * 尝试加载类型并创建实例
+     *
+     * @param className 类型名称
+     * @param <T>       实例类型泛型
+     * @return 实例Optional，不成功时返回空的Optional
+     * @see ClassUtils#forName(String) 加载类型
+     */
     @NonNull
-    @SuppressWarnings("unchecked")
     public static <T> Optional<T> newInstance(@NonNull String className) {
         Asserts.hasText(className);
         try {

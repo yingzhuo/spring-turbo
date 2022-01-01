@@ -19,21 +19,33 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 
 /**
+ * {@code BufferedImage}相关工具
+ *
  * @author 应卓
  * @since 1.0.0
  */
 public final class ImageUtils {
 
+    /**
+     * 私有构造方法
+     */
     private ImageUtils() {
         super();
     }
 
+    /**
+     * 将图片转换成字节数组
+     *
+     * @param image  图片实例
+     * @param format 格式，如: {@code "png"}
+     * @return 字节数组
+     */
     public static byte[] toByteArray(@NonNull BufferedImage image, @NonNull String format) {
         Asserts.notNull(image);
         Asserts.hasText(format);
 
         try {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            final ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(image, format, os);
             return os.toByteArray();
         } catch (IOException e) {
@@ -41,6 +53,14 @@ public final class ImageUtils {
         }
     }
 
+    /**
+     * 将图片转换成Base64哈希之后的字符串
+     *
+     * @param image  图片实例
+     * @param format 格式，如: {@code "png"}
+     * @return Base64字符串
+     * @see Base64#toString(byte[])
+     */
     public static String encodeToBase64(@NonNull BufferedImage image, @NonNull String format) {
         Asserts.notNull(image);
         Asserts.hasText(format);

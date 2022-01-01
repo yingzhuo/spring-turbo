@@ -21,6 +21,12 @@ import java.util.List;
 @FunctionalInterface
 public interface ClassPathScanner {
 
+    /**
+     * 新建创建器
+     *
+     * @return 创建器
+     */
+    @NonNull
     public static ClassPathScannerBuilder builder() {
         return new ClassPathScannerBuilder();
     }
@@ -31,6 +37,7 @@ public interface ClassPathScanner {
      * @param basePackages 扫描起点
      * @return 扫描结果
      */
+    @NonNull
     public List<ClassDefinition> scan(@NonNull Iterable<String> basePackages);
 
 }

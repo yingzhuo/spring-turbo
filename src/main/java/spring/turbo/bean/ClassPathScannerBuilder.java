@@ -21,6 +21,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * ClassPath扫描器的创建器
+ *
  * @author 应卓
  * @see TypeFilter
  * @see TypeFilterFactories

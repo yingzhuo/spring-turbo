@@ -10,11 +10,14 @@ package spring.turbo.io;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.Resource;
-import org.springframework.util.Assert;
+import org.springframework.lang.NonNull;
+import spring.turbo.util.Asserts;
 
 import java.util.Properties;
 
 /**
+ * YAML文件工具
+ *
  * @author 应卓
  * @since 1.0.0
  */
@@ -24,9 +27,15 @@ public final class YamlUtils {
         super();
     }
 
-    public static Properties toProperties(Resource... resources) {
-        Assert.notEmpty(resources, "resources is empty");
-        Assert.noNullElements(resources, "resources is null or has null element(s)");
+    /**
+     * YAML文件转换为{@link Properties}
+     *
+     * @param resources YAML文件
+     * @return {@link Properties}实例
+     */
+    public static Properties toProperties(@NonNull Resource... resources) {
+        Asserts.notEmpty(resources);
+        Asserts.noNullElements(resources);
         final YamlPropertiesFactoryBean factory = new YamlPropertiesFactoryBean();
         factory.setSingleton(false);
         factory.setResources(resources);
