@@ -14,10 +14,6 @@ package spring.turbo.integration;
  */
 public final class Versions {
 
-    private Versions() {
-        super();
-    }
-
     public static final String V1_0_0_SNAPSHOT = "1.0.0-SNAPSHOT";
     public static final String V1_0_0 = "1.0.0";
     public static final String V1_0_1_SNAPSHOT = "1.0.1-SNAPSHOT";
@@ -28,5 +24,8 @@ public final class Versions {
     public static final String V1_0_3 = "1.0.3";
     public static final String V1_0_4_SNAPSHOT = "1.0.4-SNAPSHOT";
     public static final String V1_0_4 = "1.0.4";
+    private Versions() {
+        super();
+    }
 
 }

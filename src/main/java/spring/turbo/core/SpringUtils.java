@@ -31,7 +31,7 @@ import java.util.function.Supplier;
 public final class SpringUtils {
 
     public static final Supplier<? extends RuntimeException> UNSUPPORTED =
-            () -> new UnsupportedOperationException("this operation not supported without ApplicationContext instance");
+            () -> new UnsupportedOperationException("this operation is unsupported without ApplicationContext instance");
 
     private SpringUtils() {
         super();
