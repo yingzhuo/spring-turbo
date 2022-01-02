@@ -22,6 +22,9 @@ import java.io.IOException;
  */
 public final class CloseUtils {
 
+    /**
+     * 私有构造方法
+     */
     private CloseUtils() {
         super();
     }
