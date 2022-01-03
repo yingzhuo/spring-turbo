@@ -10,8 +10,12 @@ package spring.turbo.webmvc.token;
 
 import org.springframework.core.OrderComparator;
 import org.springframework.web.context.request.WebRequest;
+import spring.turbo.util.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * 组合型令牌解析器
@@ -26,20 +30,14 @@ public final class CompositeTokenResolver implements TokenResolver {
     private final List<TokenResolver> resolvers = new ArrayList<>();
 
     public CompositeTokenResolver(TokenResolver... resolvers) {
-        if (resolvers != null) {
-            this.resolvers.addAll(Arrays.asList(resolvers));
-        }
-
-        // 排序
+        //添加并排序
+        CollectionUtils.nullSafeAddAll(this.resolvers, resolvers);
         OrderComparator.sort(this.resolvers);
     }
 
     public CompositeTokenResolver(Collection<TokenResolver> resolvers) {
-        if (resolvers != null && !resolvers.isEmpty()) {
-            this.resolvers.addAll(resolvers);
-        }
-
-        // 排序
+        //添加并排序
+        CollectionUtils.nullSafeAddAll(this.resolvers, resolvers);
         OrderComparator.sort(this.resolvers);
     }
 
