@@ -8,10 +8,12 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 集合相关工具
@@ -95,6 +97,40 @@ public final class CollectionUtils {
      */
     public static <K, V> boolean isNotEmpty(@Nullable Map<K, V> map) {
         return size(map) != 0;
+    }
+
+    /**
+     * 为集合添加元素，并小心地处理空值
+     *
+     * @param collection 要加入的集合
+     * @param elements   待添加的元素
+     * @param <T>        集合的泛型类型
+     */
+    public static <T> void nullSafeAddAll(@NonNull Collection<T> collection, @Nullable T[] elements) {
+        Asserts.notNull(collection);
+        if (elements != null) {
+            for (T obj : elements) {
+                Optional.ofNullable(obj)
+                        .ifPresent(collection::add);
+            }
+        }
+    }
+
+    /**
+     * 为集合添加元素，并小心地处理空值
+     *
+     * @param collection 要加入的集合
+     * @param elements   待添加的元素
+     * @param <T>        集合的泛型类型
+     */
+    public static <T> void nullSafeAddAll(@NonNull Collection<T> collection, @Nullable Collection<T> elements) {
+        Asserts.notNull(collection);
+        if (elements != null) {
+            for (T obj : elements) {
+                Optional.ofNullable(obj)
+                        .ifPresent(collection::add);
+            }
+        }
     }
 
 }

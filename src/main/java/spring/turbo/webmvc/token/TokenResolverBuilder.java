@@ -8,12 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.token;
 
-import org.springframework.util.CollectionUtils;
+import spring.turbo.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 令牌解析器的创建器
@@ -39,11 +38,7 @@ public final class TokenResolverBuilder {
      * @return 创建器本身
      */
     public TokenResolverBuilder add(TokenResolver... resolvers) {
-        if (resolvers != null && resolvers.length != 0) {
-            for (TokenResolver resolver : resolvers) {
-                Optional.ofNullable(resolver).ifPresent(list::add);
-            }
-        }
+        CollectionUtils.nullSafeAddAll(this.list, resolvers);
         return this;
     }
 
@@ -54,11 +49,7 @@ public final class TokenResolverBuilder {
      * @return 创建器本身
      */
     public TokenResolverBuilder add(Collection<TokenResolver> resolvers) {
-        if (!CollectionUtils.isEmpty(resolvers)) {
-            for (TokenResolver resolver : resolvers) {
-                Optional.ofNullable(resolver).ifPresent(list::add);
-            }
-        }
+        CollectionUtils.nullSafeAddAll(this.list, resolvers);
         return this;
     }
 
