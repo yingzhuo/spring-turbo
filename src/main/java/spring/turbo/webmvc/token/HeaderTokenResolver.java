@@ -8,12 +8,18 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.token;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.web.context.request.WebRequest;
-import spring.turbo.util.StringPool;
+import spring.turbo.util.Asserts;
 
 import java.util.Optional;
 
+import static spring.turbo.util.StringPool.EMPTY;
+
 /**
+ * 通过HTTP header解析令牌
+ *
  * @author 应卓
  * @since 1.0.0
  */
@@ -23,17 +29,35 @@ public class HeaderTokenResolver implements TokenResolver {
     protected final String prefix;
     protected final int prefixLen;
 
-    public HeaderTokenResolver(String headerName) {
-        this(headerName, StringPool.EMPTY);
+    /**
+     * 构造方法
+     *
+     * @param headerName 请求头名
+     */
+    public HeaderTokenResolver(@NonNull String headerName) {
+        this(headerName, EMPTY);
     }
 
-    public HeaderTokenResolver(String headerName, String prefix) {
-        if (prefix == null) prefix = StringPool.EMPTY;
+    /**
+     * 构造方法
+     *
+     * @param headerName 请求头名
+     * @param prefix     前缀
+     */
+    public HeaderTokenResolver(@NonNull String headerName, @Nullable String prefix) {
+        Asserts.hasText(headerName);
+        if (prefix == null) prefix = EMPTY;
         this.headerName = headerName;
         this.prefix = prefix;
         this.prefixLen = prefix.length();
     }
 
+    /**
+     * 解析令牌
+     *
+     * @param request HTTP请求
+     * @return 令牌Optional，不能成功解析时返回empty-optional
+     */
     @Override
     public Optional<Token> resolve(WebRequest request) {
 

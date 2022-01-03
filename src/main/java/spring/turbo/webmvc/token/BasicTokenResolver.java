@@ -8,24 +8,25 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.token;
 
-import org.springframework.lang.NonNull;
-
-import java.io.Serializable;
+import org.springframework.http.HttpHeaders;
 
 /**
- * 令牌
+ * HTTP Basic 令牌解析器
  *
  * @author 应卓
- * @since 1.0.0
+ * @see HeaderTokenResolver
+ * @see BearerTokenResolver
+ * @since 1.0.5
  */
-@FunctionalInterface
-public interface Token extends Serializable {
+public final class BasicTokenResolver extends HeaderTokenResolver {
+
+    private static final String PREFIX = "Basic ";
 
     /**
-     * @return 将令牌转换为 {@link java.lang.String}
-     * @since 1.0.5
+     * 构造方法
      */
-    @NonNull
-    public String asString();
+    public BasicTokenResolver() {
+        super(HttpHeaders.AUTHORIZATION, PREFIX);
+    }
 
 }

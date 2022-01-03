@@ -8,25 +8,25 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.token;
 
-import org.springframework.web.context.request.WebRequest;
-
-import java.util.Optional;
+import org.springframework.http.HttpHeaders;
 
 /**
+ * HTTP Bearer 令牌解析器
+ *
  * @author 应卓
- * @since 1.0.0
+ * @see HeaderTokenResolver
+ * @see BasicTokenResolver
+ * @since 1.0.5
  */
-public final class FixedStringTokenResolver implements TokenResolver {
+public final class BearerTokenResolver extends HeaderTokenResolver {
 
-    private final StringToken token;
+    private static final String PREFIX = "Bearer ";
 
-    public FixedStringTokenResolver(String token) {
-        this.token = StringToken.of(token);
-    }
-
-    @Override
-    public Optional<Token> resolve(WebRequest webRequest) {
-        return Optional.of(token);
+    /**
+     * 构造方法
+     */
+    public BearerTokenResolver() {
+        super(HttpHeaders.AUTHORIZATION, PREFIX);
     }
 
 }

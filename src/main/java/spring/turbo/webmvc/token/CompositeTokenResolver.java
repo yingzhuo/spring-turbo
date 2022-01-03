@@ -15,6 +15,8 @@ import org.springframework.web.context.request.WebRequest;
 import java.util.*;
 
 /**
+ * 组合型令牌解析器
+ *
  * @author 应卓
  * @since 1.0.0
  */
