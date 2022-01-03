@@ -8,12 +8,18 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.token;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.web.context.request.WebRequest;
-import spring.turbo.util.StringPool;
+import spring.turbo.util.Asserts;
 
 import java.util.Optional;
 
+import static spring.turbo.util.StringPool.EMPTY;
+
 /**
+ * 从HTTP QUERY中解析令牌
+ *
  * @author 应卓
  * @since 1.0.0
  */
@@ -23,17 +29,35 @@ public class QueryTokenResolver implements TokenResolver {
     protected final String prefix;
     protected final int prefixLen;
 
-    public QueryTokenResolver(String paramName) {
-        this(paramName, StringPool.EMPTY);
+    /**
+     * 构造方法
+     *
+     * @param paramName query name
+     */
+    public QueryTokenResolver(@NonNull String paramName) {
+        this(paramName, EMPTY);
     }
 
-    public QueryTokenResolver(String paramName, String prefix) {
-        if (prefix == null) prefix = StringPool.EMPTY;
+    /**
+     * 构造方法
+     *
+     * @param paramName query name
+     * @param prefix    前缀
+     */
+    public QueryTokenResolver(@NonNull String paramName, @Nullable String prefix) {
+        Asserts.hasText(paramName);
+        if (prefix == null) prefix = EMPTY;
         this.paramName = paramName;
         this.prefix = prefix;
         this.prefixLen = prefix.length();
     }
 
+    /**
+     * 解析令牌
+     *
+     * @param request HTTP请求
+     * @return 令牌Optional，不能成功解析时返回empty-optional
+     */
     @Override
     public Optional<Token> resolve(WebRequest request) {
         String paramValue = request.getParameter(paramName);

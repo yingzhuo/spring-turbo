@@ -15,30 +15,34 @@ import spring.turbo.util.Asserts;
 import java.util.Objects;
 
 /**
+ * String令牌
+ *
  * @author 应卓
  * @since 1.0.0
  */
 @Immutable
 public class StringToken implements Token {
 
-    private final String content;
+    private final String string;
 
-    private StringToken(@NonNull String content) {
-        Asserts.hasText(content);
-        this.content = content;
+    protected StringToken(@NonNull String string) {
+        Asserts.hasText(string);
+        this.string = string;
     }
 
     public static StringToken of(@NonNull String token) {
         return new StringToken(token);
     }
 
-    public String getContent() {
-        return content;
+    @NonNull
+    @Override
+    public String asString() {
+        return string;
     }
 
     @Override
     public String toString() {
-        return content;
+        return string;
     }
 
     @Override
@@ -46,12 +50,12 @@ public class StringToken implements Token {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StringToken that = (StringToken) o;
-        return content.equals(that.content);
+        return string.equals(that.string);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(content);
+        return Objects.hash(string);
     }
 
 }
