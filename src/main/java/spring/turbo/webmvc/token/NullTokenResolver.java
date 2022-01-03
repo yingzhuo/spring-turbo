@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.token;
 
+import org.springframework.core.Ordered;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Optional;
@@ -50,6 +51,16 @@ public final class NullTokenResolver implements TokenResolver {
     @Override
     public Optional<Token> resolve(WebRequest request) {
         return Optional.empty();
+    }
+
+    /**
+     * 排序参数
+     *
+     * @return 排序值 (最低)
+     */
+    @Override
+    public int getOrder() {
+        return Ordered.LOWEST_PRECEDENCE;
     }
 
 }
