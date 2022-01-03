@@ -76,4 +76,14 @@ public class HeaderTokenResolver implements TokenResolver {
         return Optional.of(StringToken.of(headerValue));
     }
 
+    /**
+     * 排序参数
+     *
+     * @return 排序值
+     */
+    @Override
+    public int getOrder() {
+        return -100;
+    }
+
 }
