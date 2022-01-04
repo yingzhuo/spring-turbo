@@ -86,8 +86,8 @@ public final class InstanceCache {
     /**
      * 查找或尝试创建对象
      *
-     * @param type                            实例的类型
-     * @param <T>                             实例泛型
+     * @param type 实例的类型
+     * @param <T>  实例泛型
      * @return 实例值
      */
     @NonNull

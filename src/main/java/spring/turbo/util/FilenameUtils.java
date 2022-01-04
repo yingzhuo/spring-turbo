@@ -11,6 +11,8 @@ package spring.turbo.util;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.nio.file.Paths;
+
 import static spring.turbo.util.StringPool.EMPTY;
 
 /**
@@ -31,6 +33,35 @@ public final class FilenameUtils {
      */
     private FilenameUtils() {
         super();
+    }
+
+    /**
+     * 正常化文件名
+     *
+     * @param filename 文件名
+     * @return 文件名
+     */
+    @NonNull
+    public static String normalize(@NonNull String filename) {
+        return contact(filename);
+    }
+
+    /**
+     * 拼接多个path生成文件名
+     *
+     * @param path path
+     * @param more 子目录
+     * @return 文件名
+     */
+    @NonNull
+    public static String contact(@NonNull String path, String... more) {
+        Asserts.notNull(path);
+
+        if (more != null)
+            return Paths.get(path, more).normalize().toString();
+        else {
+            return Paths.get(path).normalize().toString();
+        }
     }
 
     /**
