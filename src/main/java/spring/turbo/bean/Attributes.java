@@ -14,11 +14,13 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import spring.turbo.lang.Mutable;
+import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author 应卓
@@ -58,22 +60,32 @@ public class Attributes extends LinkedMultiValueMap<String, Object> {
 
     // since 1.0.1
     @Nullable
-    public <T> T findFirst(String key) {
+    public <T> T findFirst(@NonNull String key) {
+        Asserts.notNull(key);
         return (T) super.getFirst(key);
     }
 
     // since 1.0.1
     @Nullable
-    public <T> T findFirstOrDefault(String key, T defaultIfNull) {
+    public <T> T findFirstOrDefault(@NonNull String key, @Nullable T defaultIfNull) {
+        Asserts.notNull(key);
         return Optional.<T>ofNullable(findFirst(key)).orElse(defaultIfNull);
     }
 
-    // since 1.0.1
     @NonNull
-    public <T> T findRequiredFirst(String key) {
+    public <T> T findRequiredFirst(@NonNull String key) {
+        return findRequiredFirst(key, () -> new NoSuchElementException(StringFormatter.format("element not found. key: {}", key)));
+    }
+
+    // since 1.0.5
+    @NonNull
+    public <T> T findRequiredFirst(@NonNull String key, @NonNull Supplier<? extends RuntimeException> exceptionIfAttributeNotFound) {
+        Asserts.notNull(key);
+        Asserts.notNull(exceptionIfAttributeNotFound);
+
         T obj = findFirst(key);
         if (obj == null) {
-            throw new NoSuchElementException(StringFormatter.format("element not found. key: {}", key));
+            throw exceptionIfAttributeNotFound.get();
         }
         return obj;
     }
