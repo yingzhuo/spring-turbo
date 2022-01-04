@@ -14,23 +14,51 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
+ * {@link java.lang.Object}相关工具
+ *
  * @author 应卓
  * @since 1.0.0
  */
 public final class ObjectUtils {
 
+    /**
+     * 私有构造方法
+     */
     private ObjectUtils() {
         super();
     }
 
+    /**
+     * 空值替代
+     *
+     * @param obj          一个对象
+     * @param defaultValue 空值时的替代值
+     * @param <T>          对象类型泛型
+     * @return 对象或替代值
+     */
     public static <T> T defaultIfNull(@Nullable T obj, T defaultValue) {
         return Optional.ofNullable(obj).orElse(defaultValue);
     }
 
+    /**
+     * 空值替代
+     *
+     * @param obj          一个对象
+     * @param defaultValue 空值时的替代值的提供器
+     * @param <T>          对象类型泛型
+     * @return 对象或替代值
+     */
     public static <T> T defaultIfNull(@Nullable T obj, Supplier<T> defaultValue) {
         return Optional.ofNullable(obj).orElseGet(defaultValue);
     }
 
+    /**
+     * 查找第一个非空值
+     *
+     * @param values 要查找的对象
+     * @param <T>    对象类型泛型
+     * @return 查钊结果或{@code null}
+     */
     @Nullable
     @SafeVarargs
     public static <T> T firstNonNull(final T... values) {
@@ -44,6 +72,13 @@ public final class ObjectUtils {
         return null;
     }
 
+    /**
+     * 查找第一个非空值
+     *
+     * @param suppliers 要查找的对象的提供器
+     * @param <T>       对象类型泛型
+     * @return 查钊结果或{@code null}
+     */
     @Nullable
     @SafeVarargs
     public static <T> T getFirstNonNull(final Supplier<T>... suppliers) {
