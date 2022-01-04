@@ -14,7 +14,8 @@ import spring.turbo.lang.Mutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -22,40 +23,84 @@ import java.util.function.Supplier;
 /**
  * @author 应卓
  * @see Attributes
+ * @see Map
  * @since 1.0.0
  */
 @Mutable
 @SuppressWarnings("unchecked")
-public class Payload extends HashMap<String, Object> {
+public class Payload extends LinkedHashMap<String, Object> implements Map<String, Object> {
 
+    /**
+     * 构造方法
+     */
     public Payload() {
         super();
     }
 
+    /**
+     * 创建Payload的实例
+     *
+     * @return Payload的实例
+     */
     public static Payload newInstance() {
         return new Payload();
     }
 
-    // since 1.0.1
+    /**
+     * 获取值
+     *
+     * @param key key
+     * @param <T> 返回值类型泛型
+     * @return 值或 {@code null}
+     * @see #findOrDefault(String, Object)
+     * @since 1.0.1
+     */
     @Nullable
     public <T> T find(@NonNull String key) {
         Asserts.notNull(key);
         return (T) get(key);
     }
 
-    // since 1.0.1
+    /**
+     * 获取key对应值或默认值
+     *
+     * @param key           key
+     * @param defaultIfNull 找不到时的默认值
+     * @param <T>           返回值类型泛型
+     * @return 值或者默认值
+     * @see #find(String)
+     * @since 1.0.1
+     */
     @Nullable
     public <T> T findOrDefault(@NonNull String key, @Nullable T defaultIfNull) {
         Asserts.notNull(key);
         return Optional.<T>ofNullable(find(key)).orElse(defaultIfNull);
     }
 
-    // since 1.0.1
+    /**
+     * 获取key对应值或抛出异常
+     *
+     * @param key key
+     * @param <T> 返回值类型泛型
+     * @return 值
+     * @throws NoSuchElementException 找不到key值时抛出异常
+     * @see #findRequiredFirst(String, Supplier)
+     * @since 1.0.1
+     */
     public <T> T findRequiredFirst(@NonNull String key) {
         return findRequiredFirst(key, () -> new NoSuchElementException(StringFormatter.format("element not found. key: {}", key)));
     }
 
-    // since 1.0.5
+    /**
+     * 获取key对应值或抛出异常
+     *
+     * @param key                    key
+     * @param exceptionIfKeyNotFound 找不到key对应的值时的异常提供器
+     * @param <T>                    返回值类型泛型
+     * @return 值
+     * @see #findRequiredFirst(String)
+     * @since 1.0.5
+     */
     @NonNull
     public <T> T findRequiredFirst(@NonNull String key, @NonNull Supplier<? extends RuntimeException> exceptionIfKeyNotFound) {
         Asserts.notNull(key);
