@@ -79,13 +79,13 @@ public class Attributes extends LinkedMultiValueMap<String, Object> {
 
     // since 1.0.5
     @NonNull
-    public <T> T findRequiredFirst(@NonNull String key, @NonNull Supplier<? extends RuntimeException> exceptionIfAttributeNotFound) {
+    public <T> T findRequiredFirst(@NonNull String key, @NonNull Supplier<? extends RuntimeException> exceptionIfKeyNotFound) {
         Asserts.notNull(key);
-        Asserts.notNull(exceptionIfAttributeNotFound);
+        Asserts.notNull(exceptionIfKeyNotFound);
 
         T obj = findFirst(key);
         if (obj == null) {
-            throw exceptionIfAttributeNotFound.get();
+            throw exceptionIfKeyNotFound.get();
         }
         return obj;
     }
