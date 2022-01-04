@@ -16,6 +16,8 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 /**
+ * {@link Duration} 格式化工具
+ *
  * @author 应卓
  * @see DurationParseUtils
  * @since 1.0.1

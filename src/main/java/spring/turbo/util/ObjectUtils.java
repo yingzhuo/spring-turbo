@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * {@link java.lang.Object}相关工具
+ * {@link Object} 相关工具
  *
  * @author 应卓
  * @since 1.0.0
