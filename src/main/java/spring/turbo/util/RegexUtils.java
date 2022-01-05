@@ -156,10 +156,10 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.removePattern(null, *)       = null
-     * StringUtils.removePattern("any", (String) null)   = "any"
-     * StringUtils.removePattern("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")  = "AB"
-     * StringUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
+     * RegexUtils.removePattern(null, *)       = null
+     * RegexUtils.removePattern("any", (String) null)   = "any"
+     * RegexUtils.removePattern("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")  = "AB"
+     * RegexUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
      * </pre>
      *
      * @param text  原始字符串
