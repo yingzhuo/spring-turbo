@@ -95,4 +95,38 @@ public final class ObjectUtils {
         return null;
     }
 
+    /**
+     * 判断数组中是否存在 {@code null}值
+     *
+     * @param objects 数组
+     * @return 存在 {@code null} 值时返回 {@code true}，否则返回 {@code false}
+     * @since 1.0.6
+     */
+    public static boolean anyNull(@Nullable Object... objects) {
+        if (objects == null) return true;
+        for (Object object : objects) {
+            if (object == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断数组中是否全部为 {@code null}值
+     *
+     * @param objects 数组
+     * @return 全部为 {@code null} 值时返回 {@code true}，否则返回 {@code false}
+     * @since 1.0.6
+     */
+    public static boolean allNull(@Nullable Object... objects) {
+        if (objects == null) return true;
+        for (Object object : objects) {
+            if (object != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
