@@ -11,6 +11,8 @@ package spring.turbo.util;
 import static spring.turbo.util.StringUtils.repeat;
 
 /**
+ * 字符串池
+ *
  * @author 应卓
  * @since 1.0.0
  */
