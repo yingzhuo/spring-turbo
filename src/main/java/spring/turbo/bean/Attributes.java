@@ -23,25 +23,43 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
+ * Attributes
+ *
  * @author 应卓
  * @see Payload
+ * @see Map
+ * @see MultiValueMap
  * @since 1.0.0
  */
 @Mutable
 @SuppressWarnings("unchecked")
 public class Attributes extends LinkedMultiValueMap<String, Object> {
 
+    /**
+     * 构造方法
+     */
     public Attributes() {
         super();
     }
 
+    /**
+     * 创建Attributes实例
+     *
+     * @return Attributes实例
+     */
     public static Attributes newInstance() {
         return new Attributes();
     }
 
-    // since 1.0.1
+    /**
+     * 通过 {@link Map} 创建Attributes实例
+     *
+     * @param map map
+     * @return Attributes实例
+     * @since 1.0.1
+     */
     public static Attributes fromMap(@Nullable Map<String, Object> map) {
-        Attributes attributes = new Attributes();
+        final Attributes attributes = new Attributes();
         if (!CollectionUtils.isEmpty(map)) {
             for (String key : map.keySet()) {
                 Object value = map.get(key);
@@ -51,41 +69,84 @@ public class Attributes extends LinkedMultiValueMap<String, Object> {
         return attributes;
     }
 
-    // since 1.0.1
+    /**
+     * 通过 {@link MultiValueMap} 的实例创建Attributes实例
+     *
+     * @param map map
+     * @return Attributes实例
+     * @since 1.0.1
+     */
     public static Attributes fromMultiValueMap(@Nullable MultiValueMap<String, Object> map) {
         final Attributes attributes = new Attributes();
         Optional.ofNullable(map).ifPresent(attributes::addAll);
         return attributes;
     }
 
-    // since 1.0.1
+    /**
+     * 获取第一个值
+     *
+     * @param key key
+     * @param <T> 返回值类型泛型
+     * @return 值或者 {@code null}
+     * @since 1.0.1
+     */
     @Nullable
     public <T> T findFirst(@NonNull String key) {
         Asserts.notNull(key);
         return (T) super.getFirst(key);
     }
 
-    // since 1.0.1
+    /**
+     * 获取第一个值
+     *
+     * @param key           key
+     * @param defaultIfNull 找不到时的默认值
+     * @param <T>           返回值类型泛型
+     * @return 值或者默认值
+     * @see #findFirst(String)
+     * @see #findRequiredFirst(String)
+     * @see #findRequiredFirst(String, Supplier)
+     * @since 1.0.1
+     */
     @Nullable
     public <T> T findFirstOrDefault(@NonNull String key, @Nullable T defaultIfNull) {
         Asserts.notNull(key);
         return Optional.<T>ofNullable(findFirst(key)).orElse(defaultIfNull);
     }
 
+    /**
+     * 获取第一个值，如果找不到key值将抛出异常
+     *
+     * @param key key
+     * @param <T> 返回值类型泛型
+     * @return 值
+     * @throws NoSuchElementException 找不到key值时抛出异常
+     * @see #findRequiredFirst(String)
+     * @since 1.0.5
+     */
     @NonNull
     public <T> T findRequiredFirst(@NonNull String key) {
         return findRequiredFirst(key, () -> new NoSuchElementException(StringFormatter.format("element not found. key: {}", key)));
     }
 
-    // since 1.0.5
+    /**
+     * 获取第一个值，如果找不到key值将抛出异常
+     *
+     * @param key                    key
+     * @param exceptionIfKeyNotFound 找不到key对应的值时的异常提供器
+     * @param <T>                    返回值类型泛型
+     * @return 值
+     * @see #findRequiredFirst(String)
+     * @since 1.0.5
+     */
     @NonNull
-    public <T> T findRequiredFirst(@NonNull String key, @NonNull Supplier<? extends RuntimeException> exceptionIfAttributeNotFound) {
+    public <T> T findRequiredFirst(@NonNull String key, @NonNull Supplier<? extends RuntimeException> exceptionIfKeyNotFound) {
         Asserts.notNull(key);
-        Asserts.notNull(exceptionIfAttributeNotFound);
+        Asserts.notNull(exceptionIfKeyNotFound);
 
         T obj = findFirst(key);
         if (obj == null) {
-            throw exceptionIfAttributeNotFound.get();
+            throw exceptionIfKeyNotFound.get();
         }
         return obj;
     }
