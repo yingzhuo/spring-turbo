@@ -9,6 +9,8 @@
 package spring.turbo.util;
 
 /**
+ * 字符池
+ *
  * @author 应卓
  * @since 1.0.0
  */
