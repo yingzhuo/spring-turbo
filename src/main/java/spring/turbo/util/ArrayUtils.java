@@ -129,6 +129,14 @@ public final class ArrayUtils {
         return Collections.unmodifiableSet(toHashSet(array));
     }
 
+    /**
+     * 判断字符数组是否包含指定的元素
+     *
+     * @param array         数组
+     * @param elementToFind 要查找的元素
+     * @param <T>           数组元素类型
+     * @return 结果
+     */
     public static <T> boolean contains(@Nullable T[] array, T elementToFind) {
         return toUnmodifiableSet(array).contains(elementToFind);
     }
