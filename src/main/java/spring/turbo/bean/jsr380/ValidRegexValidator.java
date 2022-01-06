@@ -8,34 +8,29 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
-import org.springframework.beans.BeanWrapperImpl;
+import spring.turbo.util.RegexUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Objects;
 
 /**
  * @author 应卓
- * @see FieldsValueMatch
- * @since 1.0.0
+ * @see ValidRegex
+ * @since 1.0.6
  */
-public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValueMatch, Object> {
-
-    private String field;
-    private String fieldMatch;
+public class ValidRegexValidator implements ConstraintValidator<ValidRegex, CharSequence> {
 
     @Override
-    public void initialize(FieldsValueMatch annotation) {
-        this.field = annotation.field();
-        this.fieldMatch = annotation.fieldMatch();
+    public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
+        if (value == null) {
+            return true;
+        }
+        return RegexUtils.isValidRegex(value.toString());
     }
 
     @Override
-    public boolean isValid(Object value, ConstraintValidatorContext context) {
-        if (value == null) return true;
-        Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
-        Object fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);
-        return Objects.equals(fieldValue, fieldMatchValue);
+    public void initialize(ValidRegex constraintAnnotation) {
+        ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
 }

@@ -87,7 +87,7 @@ public class Attributes extends LinkedMultiValueMap<String, Object> {
      *
      * @param key key
      * @param <T> 返回值类型泛型
-     * @return 值或者 {@code null}
+     * @return 值或者  {@code null}
      * @since 1.0.1
      */
     @Nullable

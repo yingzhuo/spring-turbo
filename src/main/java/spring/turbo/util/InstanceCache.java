@@ -43,7 +43,7 @@ public final class InstanceCache {
     /**
      * 私有构造方法
      *
-     * @param applicationContext Spring上下文，可为{@code null}
+     * @param applicationContext Spring上下文，可为 {@code null}
      */
     private InstanceCache(@Nullable ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
@@ -61,7 +61,7 @@ public final class InstanceCache {
     /**
      * 创建实例缓存实例
      *
-     * @param applicationContext Spring上下文，可为{@code null}
+     * @param applicationContext Spring上下文，可为 {@code null}
      * @return InstanceCache
      */
     public static InstanceCache newInstance(@Nullable ApplicationContext applicationContext) {

@@ -54,11 +54,11 @@ public final class ArrayUtils {
     }
 
     /**
-     * 判断数组是否为 {@code null} 或者 长度为0
+     * 判断数组是否为  {@code null}  或者 长度为0
      *
      * @param array 数组
      * @param <T>   数组元素类型
-     * @return 长度为0或数组为 {@code null} 返回{@code true}，其他情况返回{@code false}
+     * @return 长度为0或数组为  {@code null}  返回 {@code true}  其他情况返回 {@code false}
      */
     public static <T> boolean isNullOrEmpty(@Nullable T[] array) {
         return array == null || array.length == 0;
@@ -69,7 +69,7 @@ public final class ArrayUtils {
      *
      * @param array 数组
      * @param <T>   数组元素类型
-     * @return 数组不包含任何元素时返回{@code true}，否则返回{@code false}
+     * @return 数组不包含任何元素时返回 {@code true}  否则返回 {@code false}
      */
     public static <T> boolean doseNotContainsAnyElements(@Nullable T[] array) {
         if (isNullOrEmpty(array)) return true;
