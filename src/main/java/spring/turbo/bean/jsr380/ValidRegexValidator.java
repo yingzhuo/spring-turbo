@@ -28,9 +28,4 @@ public class ValidRegexValidator implements ConstraintValidator<ValidRegex, Char
         return RegexUtils.isValidRegex(value.toString());
     }
 
-    @Override
-    public void initialize(ValidRegex constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
-    }
-
 }
