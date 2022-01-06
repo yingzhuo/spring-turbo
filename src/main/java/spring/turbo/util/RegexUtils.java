@@ -8,9 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import static spring.turbo.util.StringPool.EMPTY;
 
@@ -36,8 +38,6 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * RegexUtils.removeAll(null, *)      = null
-     * RegexUtils.removeAll("any", (Pattern) null)  = "any"
      * RegexUtils.removeAll("any", Pattern.compile(""))    = "any"
      * RegexUtils.removeAll("any", Pattern.compile(".*"))  = ""
      * RegexUtils.removeAll("any", Pattern.compile(".+"))  = ""
@@ -55,7 +55,8 @@ public final class RegexUtils {
      * @see java.util.regex.Matcher#replaceAll(String)
      * @see java.util.regex.Pattern
      */
-    public static String removeAll(@Nullable final String text, @Nullable final Pattern regex) {
+    @NonNull
+    public static String removeAll(@NonNull final String text, @NonNull final Pattern regex) {
         return replaceAll(text, regex, EMPTY);
     }
 
@@ -65,8 +66,6 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * RegexUtils.removeAll(null, *)      = null
-     * RegexUtils.removeAll("any", (String) null)  = "any"
      * RegexUtils.removeAll("any", "")    = "any"
      * RegexUtils.removeAll("any", ".*")  = ""
      * RegexUtils.removeAll("any", ".+")  = ""
@@ -79,14 +78,15 @@ public final class RegexUtils {
      * @param text  原始字符串
      * @param regex 正则表达式
      * @return 结果
-     * @throws java.util.regex.PatternSyntaxException 正则表达式非法
+     * @throws PatternSyntaxException 正则表达式非法
      * @see #replaceAll(String, String, String)
      * @see #removePattern(String, String)
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      */
-    public static String removeAll(@Nullable final String text, @Nullable final String regex) {
+    @NonNull
+    public static String removeAll(@NonNull final String text, @NonNull final String regex) {
         return replaceAll(text, regex, EMPTY);
     }
 
@@ -96,8 +96,6 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * RegexUtils.removeFirst(null, *)      = null
-     * RegexUtils.removeFirst("any", (Pattern) null)  = "any"
      * RegexUtils.removeFirst("any", Pattern.compile(""))    = "any"
      * RegexUtils.removeFirst("any", Pattern.compile(".*"))  = ""
      * RegexUtils.removeFirst("any", Pattern.compile(".+"))  = ""
@@ -115,7 +113,8 @@ public final class RegexUtils {
      * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
      */
-    public static String removeFirst(@Nullable final String text, @Nullable final Pattern regex) {
+    @NonNull
+    public static String removeFirst(@NonNull final String text, @NonNull final Pattern regex) {
         return replaceFirst(text, regex, EMPTY);
     }
 
@@ -125,8 +124,6 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * RegexUtils.removeFirst(null, *)      = null
-     * RegexUtils.removeFirst("any", (String) null)  = "any"
      * RegexUtils.removeFirst("any", "")    = "any"
      * RegexUtils.removeFirst("any", ".*")  = ""
      * RegexUtils.removeFirst("any", ".+")  = ""
@@ -140,13 +137,14 @@ public final class RegexUtils {
      * @param text  原始字符串
      * @param regex 正则表达式
      * @return 结果
-     * @throws java.util.regex.PatternSyntaxException 正则表达式非法
+     * @throws PatternSyntaxException 正则表达式非法
      * @see #replaceFirst(String, String, String)
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      */
-    public static String removeFirst(@Nullable final String text, @Nullable final String regex) {
+    @NonNull
+    public static String removeFirst(@NonNull final String text, @NonNull final String regex) {
         return replaceFirst(text, regex, EMPTY);
     }
 
@@ -156,8 +154,6 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * RegexUtils.removePattern(null, *)       = null
-     * RegexUtils.removePattern("any", (String) null)   = "any"
      * RegexUtils.removePattern("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")  = "AB"
      * RegexUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
      * </pre>
@@ -165,12 +161,13 @@ public final class RegexUtils {
      * @param text  原始字符串
      * @param regex 正则表达式
      * @return 结果
-     * @throws java.util.regex.PatternSyntaxException 正则表达式非法
+     * @throws PatternSyntaxException 正则表达式非法
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
      */
-    public static String removePattern(@Nullable final String text, @Nullable final String regex) {
+    @NonNull
+    public static String removePattern(@NonNull final String text, @NonNull final String regex) {
         return replacePattern(text, regex, EMPTY);
     }
 
@@ -180,9 +177,6 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * RegexUtils.replaceAll(null, *, *)       = null
-     * RegexUtils.replaceAll("any", (Pattern) null, *)   = "any"
-     * RegexUtils.replaceAll("any", *, null)   = "any"
      * RegexUtils.replaceAll("", Pattern.compile(""), "zzz")    = "zzz"
      * RegexUtils.replaceAll("", Pattern.compile(".*"), "zzz")  = "zzz"
      * RegexUtils.replaceAll("", Pattern.compile(".+"), "zzz")  = ""
@@ -203,10 +197,11 @@ public final class RegexUtils {
      * @see java.util.regex.Matcher#replaceAll(String)
      * @see java.util.regex.Pattern
      */
-    public static String replaceAll(@Nullable final String text, @Nullable final Pattern regex, @Nullable final String replacement) {
-        if (ObjectUtils.anyNull(text, regex, replacement)) {
-            return text;
-        }
+    @NonNull
+    public static String replaceAll(@NonNull final String text, @NonNull final Pattern regex, @NonNull final String replacement) {
+        Asserts.notNull(text);
+        Asserts.notNull(regex);
+        Asserts.notNull(replacement);
         return regex.matcher(text).replaceAll(replacement);
     }
 
@@ -216,9 +211,6 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * RegexUtils.replaceAll(null, *, *)       = null
-     * RegexUtils.replaceAll("any", (String) null, *)   = "any"
-     * RegexUtils.replaceAll("any", *, null)   = "any"
      * RegexUtils.replaceAll("", "", "zzz")    = "zzz"
      * RegexUtils.replaceAll("", ".*", "zzz")  = "zzz"
      * RegexUtils.replaceAll("", ".+", "zzz")  = ""
@@ -235,16 +227,17 @@ public final class RegexUtils {
      * @param regex       正则表达式
      * @param replacement 替换字符串
      * @return 结果
-     * @throws java.util.regex.PatternSyntaxException 正则表达式非法
+     * @throws PatternSyntaxException 正则表达式非法
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      */
-    public static String replaceAll(@Nullable final String text, @Nullable final String regex, @Nullable final String replacement) {
-        if (ObjectUtils.anyNull(text, regex, replacement)) {
-            return text;
-        }
+    @NonNull
+    public static String replaceAll(@NonNull final String text, @NonNull final String regex, @NonNull final String replacement) {
+        Asserts.notNull(text);
+        Asserts.notNull(regex);
+        Asserts.notNull(replacement);
         return text.replaceAll(regex, replacement);
     }
 
@@ -254,9 +247,6 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * RegexUtils.replaceFirst(null, *, *)       = null
-     * RegexUtils.replaceFirst("any", (Pattern) null, *)   = "any"
-     * RegexUtils.replaceFirst("any", *, null)   = "any"
      * RegexUtils.replaceFirst("", Pattern.compile(""), "zzz")    = "zzz"
      * RegexUtils.replaceFirst("", Pattern.compile(".*"), "zzz")  = "zzz"
      * RegexUtils.replaceFirst("", Pattern.compile(".+"), "zzz")  = ""
@@ -276,10 +266,11 @@ public final class RegexUtils {
      * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
      */
-    public static String replaceFirst(@Nullable final String text, @Nullable final Pattern regex, @Nullable final String replacement) {
-        if (ObjectUtils.anyNull(text, regex, replacement)) {
-            return text;
-        }
+    @NonNull
+    public static String replaceFirst(@NonNull final String text, @NonNull final Pattern regex, @NonNull final String replacement) {
+        Asserts.notNull(text);
+        Asserts.notNull(regex);
+        Asserts.notNull(replacement);
         return regex.matcher(text).replaceFirst(replacement);
     }
 
@@ -289,9 +280,6 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * RegexUtils.replaceFirst(null, *, *)       = null
-     * RegexUtils.replaceFirst("any", (String) null, *)   = "any"
-     * RegexUtils.replaceFirst("any", *, null)   = "any"
      * RegexUtils.replaceFirst("", "", "zzz")    = "zzz"
      * RegexUtils.replaceFirst("", ".*", "zzz")  = "zzz"
      * RegexUtils.replaceFirst("", ".+", "zzz")  = ""
@@ -308,15 +296,16 @@ public final class RegexUtils {
      * @param regex       正则表达式
      * @param replacement 替换字符串
      * @return 结果
-     * @throws java.util.regex.PatternSyntaxException 正则表达式非法
+     * @throws PatternSyntaxException 正则表达式非法
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      */
-    public static String replaceFirst(@Nullable final String text, @Nullable final String regex, @Nullable final String replacement) {
-        if (ObjectUtils.anyNull(text, regex, replacement)) {
-            return text;
-        }
+    @NonNull
+    public static String replaceFirst(@NonNull final String text, @NonNull final String regex, @NonNull final String replacement) {
+        Asserts.notNull(text);
+        Asserts.notNull(regex);
+        Asserts.notNull(replacement);
         return text.replaceFirst(regex, replacement);
     }
 
@@ -326,9 +315,6 @@ public final class RegexUtils {
      * </p>
      *
      * <pre>
-     * RegexUtils.replacePattern(null, *, *)       = null
-     * RegexUtils.replacePattern("any", (String) null, *)   = "any"
-     * RegexUtils.replacePattern("any", *, null)   = "any"
      * RegexUtils.replacePattern("", "", "zzz")    = "zzz"
      * RegexUtils.replacePattern("", ".*", "zzz")  = "zzz"
      * RegexUtils.replacePattern("", ".+", "zzz")  = ""
@@ -343,16 +329,36 @@ public final class RegexUtils {
      * @param regex       正则表达式
      * @param replacement 替换的字符串
      * @return 结果
-     * @throws java.util.regex.PatternSyntaxException 正则表达式非法
+     * @throws PatternSyntaxException 正则表达式非法
      * @see #replaceAll(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
      */
-    public static String replacePattern(@Nullable final String text, @Nullable final String regex, @Nullable final String replacement) {
-        if (ObjectUtils.anyNull(text, regex, replacement)) {
-            return text;
-        }
+    @NonNull
+    public static String replacePattern(@NonNull final String text, @NonNull final String regex, @NonNull final String replacement) {
+        Asserts.notNull(text);
+        Asserts.notNull(regex);
+        Asserts.notNull(replacement);
         return Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(replacement);
+    }
+
+    /**
+     * 判断正则表达式是否合法
+     *
+     * @param regex 正则表达式
+     * @return 合法时返回 {@code true} 否则返回 {@code false}
+     */
+    public static boolean isValidRegex(@Nullable String regex) {
+        if (regex == null) {
+            return false;
+        }
+
+        try {
+            Pattern.compile(regex);
+            return true;
+        } catch (PatternSyntaxException e) {
+            return false;
+        }
     }
 
 }

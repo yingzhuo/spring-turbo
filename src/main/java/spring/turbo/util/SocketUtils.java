@@ -35,7 +35,7 @@ public final class SocketUtils {
      * @param address         地址
      * @param port            端口号
      * @param timeoutInMillis timeout毫秒数
-     * @return 能联通时返回{@code true}，否则返回{@code false}
+     * @return 能联通时返回 {@code true}  否则返回 {@code false}
      */
     public static boolean isReachable(@NonNull String address, int port, int timeoutInMillis) {
         Asserts.hasText(address);
@@ -54,7 +54,7 @@ public final class SocketUtils {
      * @param address 地址
      * @param port    端口号
      * @param timeout timeout
-     * @return 能联通时返回{@code true}，否则返回{@code false}
+     * @return 能联通时返回 {@code true}  否则返回 {@code false}
      */
     public static boolean isReachable(@NonNull String address, int port, @NonNull Duration timeout) {
         Asserts.notNull(timeout);

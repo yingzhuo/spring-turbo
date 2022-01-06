@@ -122,7 +122,7 @@ public final class EnumUtils {
      * @param enumClass 枚举类型
      * @param enumName  枚举字符串
      * @param <E>       枚举类泛型
-     * @return 合法时返回{@code true}，否则返回 {@code false}
+     * @return 合法时返回 {@code true}  否则返回  {@code false}
      */
     public static <E extends Enum<E>> boolean isValidEnum(final Class<E> enumClass, final String enumName) {
         return getEnum(enumClass, enumName) != null;
@@ -134,7 +134,7 @@ public final class EnumUtils {
      * @param enumClass 枚举类型
      * @param enumName  枚举字符串
      * @param <E>       枚举类泛型
-     * @return 合法时返回{@code true}，否则返回 {@code false}
+     * @return 合法时返回 {@code true}  否则返回  {@code false}
      */
     public static <E extends Enum<E>> boolean isValidEnumIgnoreCase(final Class<E> enumClass, final String enumName) {
         return getEnumIgnoreCase(enumClass, enumName) != null;

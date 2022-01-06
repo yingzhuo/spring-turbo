@@ -33,7 +33,7 @@ public final class CollectionUtils {
     /**
      * 获取collection长度
      *
-     * @param collection collection，可为 {@code null}
+     * @param collection collection，可为  {@code null}
      * @param <T>        集合的泛型类型
      * @return 长度或0
      */
@@ -44,7 +44,7 @@ public final class CollectionUtils {
     /**
      * 获取map长度
      *
-     * @param map map，可为 {@code null}
+     * @param map map，可为  {@code null}
      * @param <K> KEY类型泛型
      * @param <V> VALUE类型泛型
      * @return 长度或0
@@ -56,9 +56,9 @@ public final class CollectionUtils {
     /**
      * 判断collection是否为空
      *
-     * @param collection collection，可为 {@code null}
+     * @param collection collection，可为  {@code null}
      * @param <T>        collection的泛型类型
-     * @return 空时返回 {@code true}， 否则返回 {@code false}
+     * @return 空时返回  {@code true}   否则返回  {@code false}
      */
     public static <T> boolean isEmpty(@Nullable Collection<T> collection) {
         return size(collection) == 0;
@@ -67,10 +67,10 @@ public final class CollectionUtils {
     /**
      * 判断map是否为空
      *
-     * @param map map，可为 {@code null}
+     * @param map map，可为  {@code null}
      * @param <K> KEY类型泛型
      * @param <V> VALUE类型泛型
-     * @return 空时返回 {@code true}， 否则返回 {@code false}
+     * @return 空时返回  {@code true}   否则返回  {@code false}
      */
     public static <K, V> boolean isEmpty(@Nullable Map<K, V> map) {
         return size(map) == 0;
@@ -79,9 +79,9 @@ public final class CollectionUtils {
     /**
      * 判断collection是否不为空
      *
-     * @param collection collection，可为 {@code null}
+     * @param collection collection，可为  {@code null}
      * @param <T>        collection的泛型类型
-     * @return 空时返回 {@code false}， 否则返回 {@code true}
+     * @return 空时返回  {@code false} ， 否则返回  {@code true}
      */
     public static <T> boolean isNotEmpty(@Nullable Collection<T> collection) {
         return size(collection) != 0;
@@ -90,10 +90,10 @@ public final class CollectionUtils {
     /**
      * 判断map是否不为空
      *
-     * @param map map，可为 {@code null}
+     * @param map map，可为  {@code null}
      * @param <K> KEY类型泛型
      * @param <V> VALUE类型泛型
-     * @return 空时返回 {@code false}， 否则返回 {@code true}
+     * @return 空时返回  {@code false} ， 否则返回  {@code true}
      */
     public static <K, V> boolean isNotEmpty(@Nullable Map<K, V> map) {
         return size(map) != 0;
