@@ -24,4 +24,5 @@ public interface ApiResult<T> extends Serializable {
     public T getPayload();
 
     public boolean isDeprecated();
+
 }

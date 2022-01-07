@@ -8,19 +8,24 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.api;
 
-import spring.turbo.bean.Payload;
+import org.springframework.lang.NonNull;
 import spring.turbo.lang.Mutable;
+import spring.turbo.util.Asserts;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
 @Mutable
-public final class Json implements MutableApiResult<Payload> {
+public class Json implements MutableApiResult<Map<String, Object>> {
 
     private String code = "200";
     private String errorMessage;
-    private Payload payload = Payload.newInstance();
+    private Map<String, Object> payload = new LinkedHashMap<>();
     private boolean deprecated = false;
 
     public Json() {
@@ -41,9 +46,15 @@ public final class Json implements MutableApiResult<Payload> {
         return this;
     }
 
-    public Json payload(String key, Object value) {
+    public Json payload(@NonNull String key, Object value) {
+        Asserts.hasText(key);
         this.payload.put(key, value);
         return this;
+    }
+
+    public Json requiredPayload(@NonNull String key, @NonNull Object value) {
+        Asserts.notNull(value);
+        return payload(key, value);
     }
 
     public Json deprecated(boolean deprecated) {
@@ -72,13 +83,13 @@ public final class Json implements MutableApiResult<Payload> {
     }
 
     @Override
-    public Payload getPayload() {
+    public Map<String, Object> getPayload() {
         return payload;
     }
 
     @Override
-    public void setPayload(Payload payload) {
-        this.payload = payload;
+    public void setPayload(Map<String, Object> payload) {
+        this.payload = Optional.of(payload).orElseGet(LinkedHashMap::new);
     }
 
     @Override
