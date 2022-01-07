@@ -16,6 +16,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -24,7 +25,7 @@ import java.util.function.Supplier;
  * @author 应卓
  * @since 1.0.6
  */
-public class ValueObjectGetter {
+public class ValueObjectGetter implements Serializable {
 
     private final Object vo;
     private final BeanWrapper vow;
