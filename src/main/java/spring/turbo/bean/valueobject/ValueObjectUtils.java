@@ -34,17 +34,6 @@ public final class ValueObjectUtils {
     }
 
     /**
-     * 将ValueObject转换为 {@link ValueObjectGetter} 实例
-     *
-     * @param valueObject ValueObject实例 不可为 {@code null}
-     * @return {@link ValueObjectGetter} 实例
-     * @since 1.0.6
-     */
-    public ValueObjectGetter toValueObjectGetter(@NonNull Object valueObject) {
-        return new ValueObjectGetter(valueObject);
-    }
-
-    /**
      * 获取VO类各个property的别名
      *
      * @param valueObjectType VO类型
@@ -90,6 +79,17 @@ public final class ValueObjectUtils {
         });
 
         return Collections.unmodifiableMap(map);
+    }
+
+    /**
+     * 将ValueObject转换为 {@link ValueObjectGetter} 实例
+     *
+     * @param valueObject ValueObject实例 不可为 {@code null}
+     * @return {@link ValueObjectGetter} 实例
+     * @since 1.0.6
+     */
+    public static ValueObjectGetter toValueObjectGetter(@NonNull Object valueObject) {
+        return new ValueObjectGetter(valueObject);
     }
 
 }
