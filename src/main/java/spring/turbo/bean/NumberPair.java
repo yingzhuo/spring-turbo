@@ -38,6 +38,11 @@ public class NumberPair implements Serializable {
     }
 
     @NonNull
+    public NumberPair toOrdered() {
+        return new NumberPair(min(left, right), max(left, right));
+    }
+
+    @NonNull
     public <T extends Number> Pair<T, T> toPair(Class<T> type) {
         return Pair.ofNonNull(getLeft(type), getRight(type));
     }
@@ -144,6 +149,14 @@ public class NumberPair implements Serializable {
     @Override
     public String toString() {
         return StringFormatter.format("{} - {}", left, right);
+    }
+
+    private BigDecimal min(@NonNull BigDecimal number1, @NonNull BigDecimal number2) {
+        return number1.compareTo(number2) < 0 ? number1 : number2;
+    }
+
+    private BigDecimal max(@NonNull BigDecimal number1, @NonNull BigDecimal number2) {
+        return number1.compareTo(number2) > 0 ? number1 : number2;
     }
 
 }

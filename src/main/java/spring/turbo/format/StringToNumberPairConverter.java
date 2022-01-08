@@ -62,11 +62,10 @@ public class StringToNumberPairConverter implements GenericConverter {
         }
 
         final String exceptionMsg = StringFormatter.format("'{}' is invalid NumberPair", ogiString);
+        final BigDecimal left = parse(leftString).orElseThrow(() -> new IllegalArgumentException(exceptionMsg));
+        final BigDecimal right = parse(rightString).orElseThrow(() -> new IllegalArgumentException(exceptionMsg));
 
-        return new NumberPair(
-                parse(leftString).orElseThrow(() -> new IllegalArgumentException(exceptionMsg)),
-                parse(rightString).orElseThrow(() -> new IllegalArgumentException(exceptionMsg))
-        );
+        return new NumberPair(left, right);
     }
 
     private Optional<BigDecimal> parse(String text) {
