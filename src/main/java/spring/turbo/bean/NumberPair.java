@@ -21,6 +21,14 @@ import java.util.Objects;
 /**
  * @author 应卓
  * @see spring.turbo.format.StringToNumberPairConverter
+ * @see BytePair
+ * @see ShortPair
+ * @see IntegerPair
+ * @see LongPair
+ * @see BigIntegerPair
+ * @see FloatPair
+ * @see DoublePair
+ * @see BigDecimalPair
  * @since 1.0.7
  */
 @Immutable

@@ -12,13 +12,14 @@ import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
-import spring.turbo.bean.NumberPair;
+import spring.turbo.bean.*;
 import spring.turbo.util.RegexUtils;
 import spring.turbo.util.StringFormatter;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -36,7 +37,17 @@ public class StringToNumberPairConverter implements GenericConverter {
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return Collections.singleton(new ConvertiblePair(CharSequence.class, NumberPair.class));
+        final Set<ConvertiblePair> set = new HashSet<>(9);
+        set.add(new ConvertiblePair(CharSequence.class, NumberPair.class));
+        set.add(new ConvertiblePair(CharSequence.class, BytePair.class));
+        set.add(new ConvertiblePair(CharSequence.class, ShortPair.class));
+        set.add(new ConvertiblePair(CharSequence.class, IntegerPair.class));
+        set.add(new ConvertiblePair(CharSequence.class, LongPair.class));
+        set.add(new ConvertiblePair(CharSequence.class, BigIntegerPair.class));
+        set.add(new ConvertiblePair(CharSequence.class, FloatPair.class));
+        set.add(new ConvertiblePair(CharSequence.class, DoublePair.class));
+        set.add(new ConvertiblePair(CharSequence.class, BigDecimalPair.class));
+        return Collections.unmodifiableSet(set);
     }
 
     @Override
@@ -64,6 +75,24 @@ public class StringToNumberPairConverter implements GenericConverter {
         final String exceptionMsg = StringFormatter.format("'{}' is invalid NumberPair", ogiString);
         final BigDecimal left = parse(leftString).orElseThrow(() -> new IllegalArgumentException(exceptionMsg));
         final BigDecimal right = parse(rightString).orElseThrow(() -> new IllegalArgumentException(exceptionMsg));
+
+        if (targetType.getObjectType() == BytePair.class) {
+            return new BytePair(left, right);
+        } else if (targetType.getObjectType() == ShortPair.class) {
+            return new ShortPair(left, right);
+        } else if (targetType.getObjectType() == IntegerPair.class) {
+            return new IntegerPair(left, right);
+        } else if (targetType.getObjectType() == LongPair.class) {
+            return new LongPair(left, right);
+        } else if (targetType.getObjectType() == BigIntegerPair.class) {
+            return new BigIntegerPair(left, right);
+        } else if (targetType.getObjectType() == FloatPair.class) {
+            return new FloatPair(left, right);
+        } else if (targetType.getObjectType() == DoublePair.class) {
+            return new DoublePair(left, right);
+        } else if (targetType.getObjectType() == BigDecimalPair.class) {
+            return new BigDecimalPair(left, right);
+        }
 
         return new NumberPair(left, right);
     }
