@@ -11,8 +11,7 @@ package spring.turbo.bean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.FormatterRegistry;
 import spring.turbo.format.StringToNumberConverter;
-
-import java.util.Optional;
+import spring.turbo.format.StringToNumberPairConverter;
 
 /**
  * @author 应卓
@@ -21,10 +20,11 @@ import java.util.Optional;
 class SpringBootAutoConfiguration {
 
     @Autowired(required = false)
-    public SpringBootAutoConfiguration(FormatterRegistry formatterRegistry) {
-        Optional.ofNullable(formatterRegistry).ifPresent(registry -> {
-            registry.addConverter(StringToNumberConverter.getInstance());
-        });
+    public SpringBootAutoConfiguration(FormatterRegistry registry) {
+        if (registry != null) {
+            registry.addConverter(new StringToNumberConverter());
+            registry.addConverter(new StringToNumberPairConverter());
+        }
     }
 
 }

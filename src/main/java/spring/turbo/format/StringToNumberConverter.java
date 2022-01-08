@@ -23,14 +23,8 @@ import java.util.Set;
  */
 public class StringToNumberConverter implements GenericConverter {
 
-    private static final StringToNumberConverter INSTANCE = new StringToNumberConverter();
-
-    private StringToNumberConverter() {
+    public StringToNumberConverter() {
         super();
-    }
-
-    public static StringToNumberConverter getInstance() {
-        return INSTANCE;
     }
 
     @Override
