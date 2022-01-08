@@ -12,6 +12,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -280,6 +281,58 @@ public final class StringUtils {
             builder.append(wrapWith);
         }
         return builder.toString();
+    }
+
+    public static void nullSafeAddAll(@NonNull Collection<String> collection, @Nullable String... elements) {
+        CollectionUtils.nullSafeAddAll(collection, elements);
+    }
+
+    public static void nullSafeAddAll(@NonNull Collection<String> collection, @Nullable Collection<String> elements) {
+        CollectionUtils.nullSafeAddAll(collection, elements);
+    }
+
+    public static void emptySafeAddAll(@NonNull Collection<String> collection, @Nullable String... elements) {
+        Asserts.notNull(collection);
+        if (elements != null) {
+            for (String element : elements) {
+                if (isNotEmpty(element)) {
+                    collection.add(element);
+                }
+            }
+        }
+    }
+
+    public static void emptySafeAddAll(@NonNull Collection<String> collection, @Nullable Collection<String> elements) {
+        Asserts.notNull(collection);
+        if (elements != null) {
+            for (String element : elements) {
+                if (isNotEmpty(element)) {
+                    collection.add(element);
+                }
+            }
+        }
+    }
+
+    public static void blankSafeAddAll(@NonNull Collection<String> collection, @Nullable String... elements) {
+        Asserts.notNull(collection);
+        if (elements != null) {
+            for (String element : elements) {
+                if (isNotBlank(element)) {
+                    collection.add(element);
+                }
+            }
+        }
+    }
+
+    public static void blankSafeAddAll(@NonNull Collection<String> collection, @Nullable Collection<String> elements) {
+        Asserts.notNull(collection);
+        if (elements != null) {
+            for (String element : elements) {
+                if (isNotBlank(element)) {
+                    collection.add(element);
+                }
+            }
+        }
     }
 
 }
