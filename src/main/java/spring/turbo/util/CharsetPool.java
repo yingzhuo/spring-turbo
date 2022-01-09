@@ -8,30 +8,24 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-/**
- * 字符池
- *
- * @author 应卓
- * @since 1.0.0
- */
-public final class CharPool {
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
-    public static final char SPACE = ' ';
-    public static final char TAB = '\t';
-    public static final char DOT = '.';
-    public static final char SLASH = '/';
-    public static final char BACKSLASH = '\\';
-    public static final char CR = '\r';
-    public static final char LF = '\n';
-    public static final char QUESTION_MARK = '?';
-    public static final char HYPHEN = '-';
-    public static final char UNDERSCORE = '_';
-    public static final char COMMA = ',';
+/**
+ * @author 应卓
+ * @since 1.0.7
+ */
+public final class CharsetPool {
+
+    public static final Charset UTF_8 = StandardCharsets.UTF_8;
+    public static final String UTF_8_VALUE = "UTF-8";
+    public static final Charset ISO_8859_1 = StandardCharsets.ISO_8859_1;
+    public static final String ISO_8859_1_VALUES = "ISO-8859-1";
 
     /**
      * 私有构造方法
      */
-    private CharPool() {
+    private CharsetPool() {
         super();
     }
 
