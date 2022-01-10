@@ -6,25 +6,27 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.FormatterRegistry;
-import spring.turbo.format.StringToNumberConverter;
-import spring.turbo.format.StringToNumberPairConverter;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @since 1.0.7
  */
-class SpringBootAutoConfiguration {
+public final class CharsetPool {
 
-    @Autowired(required = false)
-    public SpringBootAutoConfiguration(FormatterRegistry registry) {
-        if (registry != null) {
-            registry.addConverter(new StringToNumberConverter());
-            registry.addConverter(new StringToNumberPairConverter());
-        }
+    public static final Charset UTF_8 = StandardCharsets.UTF_8;
+    public static final String UTF_8_VALUE = "UTF-8";
+    public static final Charset ISO_8859_1 = StandardCharsets.ISO_8859_1;
+    public static final String ISO_8859_1_VALUES = "ISO-8859-1";
+
+    /**
+     * 私有构造方法
+     */
+    private CharsetPool() {
+        super();
     }
 
 }

@@ -35,10 +35,11 @@ public final class StringPool {
     public static final String QUESTION_MARK_X_3 = repeat(QUESTION_MARK, 3);
     public static final String HYPHEN_X_80 = repeat(HYPHEN, 80);
 
-    public static final String UTF_8 = "UTF-8";
-
     public static final String ANNOTATION_STRING_NULL = "#<no value!!!>#";
 
+    /**
+     * 私有构造方法
+     */
     private StringPool() {
         super();
     }

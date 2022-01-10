@@ -8,7 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.Nullable;
+
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * 空值占位对象
@@ -22,6 +25,10 @@ public final class Null implements Serializable {
 
     private Null() {
         super();
+    }
+
+    public static Object replaceIfNull(@Nullable Object obj) {
+        return Optional.ofNullable(obj).orElse(INSTANCE);
     }
 
     public static Null getInstance() {

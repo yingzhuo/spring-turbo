@@ -28,6 +28,9 @@ public final class CharPool {
     public static final char UNDERSCORE = '_';
     public static final char COMMA = ',';
 
+    /**
+     * 私有构造方法
+     */
     private CharPool() {
         super();
     }

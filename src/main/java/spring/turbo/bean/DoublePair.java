@@ -8,23 +8,29 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.FormatterRegistry;
-import spring.turbo.format.StringToNumberConverter;
-import spring.turbo.format.StringToNumberPairConverter;
+import java.math.BigDecimal;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @since 1.0.7
  */
-class SpringBootAutoConfiguration {
+public final class DoublePair extends NumberPair {
 
-    @Autowired(required = false)
-    public SpringBootAutoConfiguration(FormatterRegistry registry) {
-        if (registry != null) {
-            registry.addConverter(new StringToNumberConverter());
-            registry.addConverter(new StringToNumberPairConverter());
-        }
+    public DoublePair(BigDecimal left, BigDecimal right) {
+        super(left, right);
+    }
+
+    public Double getLeft() {
+        return super.getLeft(Double.class);
+    }
+
+    public Double getRight() {
+        return super.getRight(Double.class);
+    }
+
+    public DoublePair toTypedOrdered() {
+        final NumberPair np = super.toOrdered();
+        return new DoublePair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));
     }
 
 }
