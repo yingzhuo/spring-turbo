@@ -55,7 +55,7 @@ public class NumberPair implements Serializable {
 
     @NonNull
     public final NumberPair toOrdered() {
-        return new NumberPair(min(left, right), max(left, right));
+        return isOrdered() ? this : new NumberPair(min(left, right), max(left, right));
     }
 
     @NonNull

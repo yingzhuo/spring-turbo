@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.NonNull;
+
 import java.math.BigDecimal;
 
 /**
@@ -16,7 +18,7 @@ import java.math.BigDecimal;
  */
 public final class BigDecimalPair extends NumberPair {
 
-    public BigDecimalPair(BigDecimal left, BigDecimal right) {
+    public BigDecimalPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
         super(left, right);
     }
 
