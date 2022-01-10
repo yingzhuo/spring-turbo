@@ -57,8 +57,8 @@ public class StringToNumberPairConverter implements GenericConverter {
         }
 
         final String ogiString = source.toString();
+        final String string = StringUtils.trimAllWhitespace(ogiString);
 
-        String string = StringUtils.trimAllWhitespace(ogiString);
         String leftString = RegexUtils.replaceFirst(string, REGEX, "$1");
         String rightString = RegexUtils.replaceFirst(string, REGEX, "$2");
 
