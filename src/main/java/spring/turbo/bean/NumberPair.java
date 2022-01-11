@@ -18,12 +18,12 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Objects;
 
-import static spring.turbo.util.BigDecimalUtils.max;
-import static spring.turbo.util.BigDecimalUtils.min;
-
 /**
  * @author 应卓
  * @see spring.turbo.format.StringToNumberPairConverter
+ * @see spring.turbo.bean.jsr380.OrderedNumberPair
+ * @see spring.turbo.bean.jsr380.NumberPairLeft
+ * @see spring.turbo.bean.jsr380.NumberPairRight
  * @see BytePair
  * @see ShortPair
  * @see IntegerPair
@@ -55,7 +55,7 @@ public class NumberPair implements Serializable {
 
     @NonNull
     public final NumberPair toOrdered() {
-        return isOrdered() ? this : new NumberPair(min(left, right), max(left, right));
+        return isOrdered() ? this : new NumberPair(right, left);
     }
 
     @NonNull
