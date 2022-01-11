@@ -6,22 +6,31 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.jsr380;
+package spring.turbo.format;
 
-import spring.turbo.bean.NumberPair;
+import org.springframework.format.Printer;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import java.util.Locale;
 
 /**
  * @author 应卓
  * @since 1.0.8
  */
-public class OrderedNumberPairValidator implements ConstraintValidator<OrderedNumberPair, NumberPair> {
+public final class ToStringPrint implements Printer<Object> {
+
+    public static final ToStringPrint INSTANCE = new ToStringPrint();
+
+    private ToStringPrint() {
+        super();
+    }
+
+    public static ToStringPrint getInstance() {
+        return INSTANCE;
+    }
 
     @Override
-    public boolean isValid(NumberPair value, ConstraintValidatorContext context) {
-        return value == null || value.isOrdered();
+    public String print(Object object, Locale locale) {
+        return object.toString();
     }
 
 }

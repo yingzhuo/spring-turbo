@@ -10,6 +10,8 @@ package spring.turbo.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.FormatterRegistry;
+import spring.turbo.format.DatePairAnnotationFormatterFactory;
+import spring.turbo.format.StringToDatePairConverter;
 import spring.turbo.format.StringToNumberConverter;
 import spring.turbo.format.StringToNumberPairConverter;
 
@@ -24,6 +26,8 @@ class SpringBootAutoConfiguration {
         if (registry != null) {
             registry.addConverter(new StringToNumberConverter());
             registry.addConverter(new StringToNumberPairConverter());
+            registry.addConverter(new StringToDatePairConverter());
+            registry.addFormatterForFieldAnnotation(new DatePairAnnotationFormatterFactory());
         }
     }
 

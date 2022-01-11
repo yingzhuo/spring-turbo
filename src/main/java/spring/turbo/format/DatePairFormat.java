@@ -6,35 +6,21 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.jsr380;
+package spring.turbo.format;
 
-import spring.turbo.bean.NumberPair;
-
-import javax.validation.Constraint;
-import javax.validation.Payload;
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.*;
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @see NumberPair
- * @see NumberPair#isOrdered()
  * @since 1.0.8
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
-@Constraint(validatedBy = OrderedNumberPairValidator.class)
-public @interface OrderedNumberPair {
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+public @interface DatePairFormat {
 
-    public String message();
+    public String delimiter() default " @@ ";
 
-    public Class<?>[] groups() default {};
-
-    public Class<? extends Payload>[] payload() default {};
+    public String pattern() default "yyyy-MM-dd HH:mm:ss";
 
 }

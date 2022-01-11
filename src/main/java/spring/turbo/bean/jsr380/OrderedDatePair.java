@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
-import spring.turbo.bean.NumberPair;
+import spring.turbo.bean.DatePair;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -21,15 +21,15 @@ import static java.lang.annotation.ElementType.*;
 
 /**
  * @author 应卓
- * @see NumberPair
- * @see NumberPair#isOrdered()
+ * @see DatePair
+ * @see DatePair#isOrdered()
  * @since 1.0.8
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
-@Constraint(validatedBy = OrderedNumberPairValidator.class)
-public @interface OrderedNumberPair {
+@Constraint(validatedBy = OrderedDatePairValidator.class)
+public @interface OrderedDatePair {
 
     public String message();
 

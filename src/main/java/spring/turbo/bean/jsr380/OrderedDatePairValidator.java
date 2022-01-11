@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
-import spring.turbo.bean.NumberPair;
+import spring.turbo.bean.DatePair;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -17,10 +17,10 @@ import javax.validation.ConstraintValidatorContext;
  * @author 应卓
  * @since 1.0.8
  */
-public class OrderedNumberPairValidator implements ConstraintValidator<OrderedNumberPair, NumberPair> {
+public class OrderedDatePairValidator implements ConstraintValidator<OrderedDatePair, DatePair> {
 
     @Override
-    public boolean isValid(NumberPair value, ConstraintValidatorContext context) {
+    public boolean isValid(DatePair value, ConstraintValidatorContext context) {
         return value == null || value.isOrdered();
     }
 
