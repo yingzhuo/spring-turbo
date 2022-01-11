@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.NonNull;
+
 import java.math.BigDecimal;
 
 /**
@@ -16,7 +18,10 @@ import java.math.BigDecimal;
  */
 public final class IntegerPair extends NumberPair {
 
-    public IntegerPair(BigDecimal left, BigDecimal right) {
+    public static final IntegerPair MIN_TO_MAX
+            = new IntegerPair(BigDecimal.valueOf(Integer.MIN_VALUE), BigDecimal.valueOf(Integer.MAX_VALUE));
+
+    public IntegerPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
         super(left, right);
     }
 

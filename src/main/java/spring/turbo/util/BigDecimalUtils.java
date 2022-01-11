@@ -6,34 +6,35 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.util;
 
 import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 /**
  * @author 应卓
- * @since 1.0.7
+ * @since 1.0.8
  */
-public final class BigIntegerPair extends NumberPair {
+public final class BigDecimalUtils {
 
-    public BigIntegerPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
-        super(left, right);
+    /**
+     * 私有构造方法
+     */
+    private BigDecimalUtils() {
+        super();
     }
 
-    public BigInteger getLeft() {
-        return super.getLeft(BigInteger.class);
+    public static BigDecimal min(@NonNull BigDecimal number1, @NonNull BigDecimal number2) {
+        Asserts.notNull(number1);
+        Asserts.notNull(number2);
+        return number1.compareTo(number2) < 0 ? number1 : number2;
     }
 
-    public BigInteger getRight() {
-        return super.getRight(BigInteger.class);
-    }
-
-    public BigIntegerPair toTypedOrdered() {
-        final NumberPair np = super.toOrdered();
-        return new BigIntegerPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));
+    public static BigDecimal max(@NonNull BigDecimal number1, @NonNull BigDecimal number2) {
+        Asserts.notNull(number1);
+        Asserts.notNull(number2);
+        return number1.compareTo(number2) > 0 ? number1 : number2;
     }
 
 }

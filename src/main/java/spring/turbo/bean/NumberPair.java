@@ -18,6 +18,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Objects;
 
+import static spring.turbo.util.BigDecimalUtils.max;
+import static spring.turbo.util.BigDecimalUtils.min;
+
 /**
  * @author 应卓
  * @see spring.turbo.format.StringToNumberPairConverter
@@ -45,9 +48,14 @@ public class NumberPair implements Serializable {
         this.right = right;
     }
 
+    // since 1.0.8
+    public final boolean isOrdered() {
+        return left.compareTo(right) <= 0;
+    }
+
     @NonNull
-    public NumberPair toOrdered() {
-        return new NumberPair(min(left, right), max(left, right));
+    public final NumberPair toOrdered() {
+        return isOrdered() ? this : new NumberPair(min(left, right), max(left, right));
     }
 
     @NonNull
@@ -157,14 +165,6 @@ public class NumberPair implements Serializable {
     @Override
     public String toString() {
         return StringFormatter.format("{} - {}", left, right);
-    }
-
-    private BigDecimal min(@NonNull BigDecimal number1, @NonNull BigDecimal number2) {
-        return number1.compareTo(number2) < 0 ? number1 : number2;
-    }
-
-    private BigDecimal max(@NonNull BigDecimal number1, @NonNull BigDecimal number2) {
-        return number1.compareTo(number2) > 0 ? number1 : number2;
     }
 
 }
