@@ -31,6 +31,8 @@ import static java.lang.annotation.ElementType.*;
 @Constraint(validatedBy = OrderedNumberPairValidator.class)
 public @interface OrderedNumberPair {
 
+    public String message();
+
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};

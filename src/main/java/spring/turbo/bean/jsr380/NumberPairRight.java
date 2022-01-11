@@ -22,6 +22,7 @@ import static java.lang.annotation.ElementType.*;
 /**
  * @author 应卓
  * @see NumberPair
+ * @see NumberPairLeft
  * @since 1.0.8
  */
 @Documented
@@ -29,6 +30,8 @@ import static java.lang.annotation.ElementType.*;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Constraint(validatedBy = NumberPairRightValidator.class)
 public @interface NumberPairRight {
+
+    public String message();
 
     public double min() default Double.MIN_VALUE;
 
