@@ -8,20 +8,33 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
-import spring.turbo.bean.NumberPair;
+import spring.turbo.bean.DatePair;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
 
 /**
  * @author 应卓
+ * @see DatePair
+ * @see DatePair#isOrdered()
  * @since 1.0.8
  */
-public class OrderedNumberPairValidator implements ConstraintValidator<OrderedNumberPair, NumberPair> {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@Constraint(validatedBy = OrderedDatePairValidator.class)
+public @interface OrderedDatePair {
 
-    @Override
-    public boolean isValid(NumberPair value, ConstraintValidatorContext context) {
-        return value == null || value.isOrdered();
-    }
+    public String message();
+
+    public Class<?>[] groups() default {};
+
+    public Class<? extends Payload>[] payload() default {};
 
 }

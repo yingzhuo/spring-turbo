@@ -13,15 +13,27 @@ import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  * @author 应卓
+ * @see spring.turbo.format.DatePairFormat
+ * @see spring.turbo.format.StringToDatePairConverter
+ * @see spring.turbo.format.DatePairAnnotationFormatterFactory
+ * @see spring.turbo.bean.jsr380.OrderedDatePair
  * @see NumberPair
  * @since 1.0.8
  */
 public final class DatePair implements Serializable {
+
+    public static final DatePair DEFAULT =
+            new DatePair(
+                    Date.from(LocalDate.of(2000, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                    Date.from(LocalDate.of(2100, 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant())
+            );
 
     private final Date left;
     private final Date right;
@@ -74,7 +86,6 @@ public final class DatePair implements Serializable {
         return Pair.ofNonNull(getLeft(), getRight());
     }
 
-    @NonNull
     @Override
     public String toString() {
         return StringFormatter.format("{} - {}", left, right);
