@@ -35,7 +35,7 @@ public final class BindingResultUtils {
         super();
     }
 
-    public static List<String> getDefaultErrorMessages(BindingResult bindingResult) {
+    public static List<String> getDefaultErrorMessages(@NonNull BindingResult bindingResult) {
         Asserts.notNull(bindingResult);
         return bindingResult
                 .getAllErrors()
@@ -78,9 +78,7 @@ public final class BindingResultUtils {
         Asserts.notNull(messageSource);
 
         final Locale localeToUse = ObjectUtils.defaultIfNull(locale, Locale::getDefault);
-        if (!bindingResult.hasErrors()) {
-            return Collections.emptyList();
-        } else {
+        if (bindingResult.hasErrors()) {
             return bindingResult
                     .getAllErrors()
                     .stream()
@@ -88,6 +86,8 @@ public final class BindingResultUtils {
                     .distinct()
                     .sorted()
                     .collect(Collectors.toList());
+        } else {
+            return Collections.emptyList();
         }
     }
 
