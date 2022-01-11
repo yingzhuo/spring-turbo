@@ -56,11 +56,11 @@ public class StringToNumberPairConverter implements GenericConverter {
             return null;
         }
 
-        final String ogiString = source.toString();
-        final String string = StringUtils.trimAllWhitespace(ogiString);
+        final String originalString = source.toString();
+        final String trimmedString = StringUtils.trimAllWhitespace(originalString);
 
-        String leftString = RegexUtils.replaceFirst(string, REGEX, "$1");
-        String rightString = RegexUtils.replaceFirst(string, REGEX, "$2");
+        String leftString = RegexUtils.replaceFirst(trimmedString, REGEX, "$1");
+        String rightString = RegexUtils.replaceFirst(trimmedString, REGEX, "$2");
 
         // 去除前面的+号
         if (leftString.startsWith("+")) {
@@ -72,7 +72,7 @@ public class StringToNumberPairConverter implements GenericConverter {
             rightString = rightString.substring(1);
         }
 
-        final String exceptionMsg = StringFormatter.format("'{}' is invalid NumberPair", ogiString);
+        final String exceptionMsg = StringFormatter.format("'{}' is invalid NumberPair", originalString);
         final BigDecimal left = parse(leftString).orElseThrow(() -> new IllegalArgumentException(exceptionMsg));
         final BigDecimal right = parse(rightString).orElseThrow(() -> new IllegalArgumentException(exceptionMsg));
 
@@ -92,9 +92,9 @@ public class StringToNumberPairConverter implements GenericConverter {
             return new DoublePair(left, right);
         } else if (targetType.getObjectType() == BigDecimalPair.class) {
             return new BigDecimalPair(left, right);
+        } else {
+            return new NumberPair(left, right);
         }
-
-        return new NumberPair(left, right);
     }
 
     private Optional<BigDecimal> parse(String text) {
@@ -105,8 +105,8 @@ public class StringToNumberPairConverter implements GenericConverter {
                 text.startsWith("-0X") ||
                 text.startsWith("-0x")) {
 
-            final BigInteger big = NumberUtils.parseNumber(text, BigInteger.class);
-            return Optional.of(new BigDecimal(big));
+            final BigInteger bigInt = NumberUtils.parseNumber(text, BigInteger.class);
+            return Optional.of(new BigDecimal(bigInt));
         }
 
         try {
