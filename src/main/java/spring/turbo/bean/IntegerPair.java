@@ -21,20 +21,26 @@ public final class IntegerPair extends NumberPair {
     public static final IntegerPair MIN_TO_MAX
             = new IntegerPair(BigDecimal.valueOf(Integer.MIN_VALUE), BigDecimal.valueOf(Integer.MAX_VALUE));
 
+    public static final IntegerPair DEFAULT = MIN_TO_MAX;
+
     public IntegerPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
         super(left, right);
     }
 
+    @NonNull
     public Integer getLeft() {
         return super.getLeft(Integer.class);
     }
 
+    @NonNull
     public Integer getRight() {
         return super.getRight(Integer.class);
     }
 
+    @NonNull
     public IntegerPair toTypedOrdered() {
         final NumberPair np = super.toOrdered();
         return new IntegerPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));
     }
+
 }

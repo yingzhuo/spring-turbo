@@ -38,6 +38,9 @@ import java.util.Objects;
 @SuppressWarnings("unchecked")
 public class NumberPair implements Serializable {
 
+    public static final NumberPair DEFAULT =
+            new NumberPair(BigDecimal.valueOf(Double.MIN_VALUE), BigDecimal.valueOf(Double.MAX_VALUE));
+
     private final BigDecimal left;
     private final BigDecimal right;
 

@@ -21,18 +21,23 @@ public final class FloatPair extends NumberPair {
     public static final FloatPair MIN_TO_MAX =
             new FloatPair(BigDecimal.valueOf(Float.MIN_VALUE), BigDecimal.valueOf(Float.MAX_VALUE));
 
+    public static final FloatPair DEFAULT = MIN_TO_MAX;
+
     public FloatPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
         super(left, right);
     }
 
+    @NonNull
     public Float getLeft() {
         return super.getLeft(Float.class);
     }
 
+    @NonNull
     public Float getRight() {
         return super.getRight(Float.class);
     }
 
+    @NonNull
     public FloatPair toTypedOrdered() {
         final NumberPair np = super.toOrdered();
         return new FloatPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));

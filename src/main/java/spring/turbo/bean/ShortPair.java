@@ -21,18 +21,23 @@ public final class ShortPair extends NumberPair {
     public static final ShortPair MIN_TO_MAX =
             new ShortPair(BigDecimal.valueOf(Short.MIN_VALUE), BigDecimal.valueOf(Short.MAX_VALUE));
 
+    public static final ShortPair DEFAULT = MIN_TO_MAX;
+
     public ShortPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
         super(left, right);
     }
 
+    @NonNull
     public Short getLeft() {
         return super.getLeft(Short.class);
     }
 
+    @NonNull
     public Short getRight() {
         return super.getRight(Short.class);
     }
 
+    @NonNull
     public ShortPair toTypedOrdered() {
         final NumberPair np = super.toOrdered();
         return new ShortPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));

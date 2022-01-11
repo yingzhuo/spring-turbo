@@ -21,18 +21,23 @@ public final class BytePair extends NumberPair {
     public static final BytePair MIN_TO_MAX =
             new BytePair(BigDecimal.valueOf(Byte.MIN_VALUE), BigDecimal.valueOf(Byte.MAX_VALUE));
 
+    public static final BytePair DEFAULT = MIN_TO_MAX;
+
     public BytePair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
         super(left, right);
     }
 
+    @NonNull
     public Byte getLeft() {
         return super.getLeft(Byte.class);
     }
 
+    @NonNull
     public Byte getRight() {
         return super.getRight(Byte.class);
     }
 
+    @NonNull
     public BytePair toTypedOrdered() {
         final NumberPair np = super.toOrdered();
         return new BytePair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));
