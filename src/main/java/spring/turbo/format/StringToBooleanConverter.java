@@ -10,24 +10,27 @@ package spring.turbo.format;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
-import spring.turbo.bean.DatePair;
+import spring.turbo.util.StringFormatter;
 
-import java.text.ParseException;
 import java.util.Collections;
-import java.util.Locale;
 import java.util.Set;
 
 /**
  * @author 应卓
  * @since 1.0.8
  */
-public class StringToDatePairConverter implements GenericConverter {
+public class StringToBooleanConverter implements GenericConverter {
 
-    private static final DatePairParser DATE_PAIR_PARSER = new DatePairParser(" @@ ", "yyyy-MM-dd HH:mm:ss");
+    private static final String TRUE = "true";
+    private static final String FALSE = "false";
+    private static final String ON = "on";
+    private static final String OFF = "off";
+    private static final String ONE = "1";
+    private static final String ZERO = "0";
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return Collections.singleton(new ConvertiblePair(CharSequence.class, DatePair.class));
+        return Collections.singleton(new ConvertiblePair(CharSequence.class, Boolean.class));
     }
 
     @Override
@@ -36,11 +39,18 @@ public class StringToDatePairConverter implements GenericConverter {
             return null;
         }
 
-        try {
-            return DATE_PAIR_PARSER.parse(source.toString(), Locale.getDefault());
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e.getMessage());
+        final String text = source.toString().trim();
+
+        if (TRUE.equalsIgnoreCase(text) || ON.equalsIgnoreCase(text) || ONE.equalsIgnoreCase(text)) {
+            return Boolean.TRUE;
         }
+
+        if (FALSE.equalsIgnoreCase(text) || OFF.equalsIgnoreCase(text) || ZERO.equalsIgnoreCase(text)) {
+            return Boolean.FALSE;
+        }
+
+        final String msg = StringFormatter.format("'{}' is not a valid boolean", text);
+        throw new IllegalArgumentException(msg);
     }
 
 }

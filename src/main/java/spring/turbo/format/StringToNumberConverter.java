@@ -10,6 +10,7 @@ package spring.turbo.format;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
+import spring.turbo.util.StringFormatter;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -79,7 +80,8 @@ public class StringToNumberConverter implements GenericConverter {
             return decimal;
         }
 
-        return null;
+        final String msg = StringFormatter.format("'{}' is not a valid number", text);
+        throw new IllegalArgumentException(msg);
     }
 
 }
