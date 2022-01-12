@@ -9,13 +9,28 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.NonNull;
+import spring.turbo.lang.Immutable;
+import spring.turbo.util.StringFormatter;
 
 import java.math.BigDecimal;
 
 /**
  * @author 应卓
+ * @see spring.turbo.format.StringToNumberPairConverter
+ * @see spring.turbo.bean.jsr380.OrderedNumberPair
+ * @see spring.turbo.bean.jsr380.NumberPairLeft
+ * @see spring.turbo.bean.jsr380.NumberPairRight
+ * @see BytePair
+ * @see ShortPair
+ * @see IntegerPair
+ * @see BigIntegerPair
+ * @see FloatPair
+ * @see DoublePair
+ * @see BigDecimalPair
+ * @see DatePair
  * @since 1.0.7
  */
+@Immutable
 public final class LongPair extends NumberPair {
 
     public static final LongPair MIN_TO_MAX =
@@ -41,6 +56,11 @@ public final class LongPair extends NumberPair {
     public LongPair toTypedOrdered() {
         final NumberPair np = super.toOrdered();
         return new LongPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));
+    }
+
+    @Override
+    public String toString() {
+        return StringFormatter.format("{} - {}", getLeft(), getRight());
     }
 
 }

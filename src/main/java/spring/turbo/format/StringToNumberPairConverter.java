@@ -72,9 +72,9 @@ public class StringToNumberPairConverter implements GenericConverter {
             rightString = rightString.substring(1);
         }
 
-        final String exceptionMsg = StringFormatter.format("'{}' is invalid NumberPair", originalString);
-        final BigDecimal left = parse(leftString).orElseThrow(() -> new IllegalArgumentException(exceptionMsg));
-        final BigDecimal right = parse(rightString).orElseThrow(() -> new IllegalArgumentException(exceptionMsg));
+        final String msg = StringFormatter.format("'{}' is not a valid number pair", originalString);
+        final BigDecimal left = parse(leftString).orElseThrow(() -> new IllegalArgumentException(msg));
+        final BigDecimal right = parse(rightString).orElseThrow(() -> new IllegalArgumentException(msg));
 
         if (targetType.getObjectType() == BytePair.class) {
             return new BytePair(left, right);

@@ -9,6 +9,7 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.util.StringPool;
 
 import java.io.Serializable;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public final class Null implements Serializable {
 
     @Override
     public String toString() {
-        return "null";
+        return StringPool.NULL;
     }
 
 }

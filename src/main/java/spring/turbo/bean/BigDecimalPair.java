@@ -10,6 +10,7 @@ package spring.turbo.bean;
 
 import org.springframework.lang.NonNull;
 import spring.turbo.lang.Immutable;
+import spring.turbo.util.StringFormatter;
 
 import java.math.BigDecimal;
 
@@ -53,6 +54,11 @@ public final class BigDecimalPair extends NumberPair {
     public BigDecimalPair toTypedOrdered() {
         final NumberPair np = super.toOrdered();
         return new BigDecimalPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));
+    }
+
+    @Override
+    public String toString() {
+        return StringFormatter.format("{} - {}", getLeft(), getRight());
     }
 
 }
