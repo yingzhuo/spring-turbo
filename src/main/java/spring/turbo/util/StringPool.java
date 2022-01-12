@@ -18,6 +18,7 @@ import static spring.turbo.util.StringUtils.repeat;
  */
 public final class StringPool {
 
+    public static final String NULL = "null";
     public static final String EMPTY = "";
     public static final String SPACE = " ";
     public static final String TAB = "\t";

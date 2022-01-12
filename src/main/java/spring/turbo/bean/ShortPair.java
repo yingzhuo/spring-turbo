@@ -10,6 +10,7 @@ package spring.turbo.bean;
 
 import org.springframework.lang.NonNull;
 import spring.turbo.lang.Immutable;
+import spring.turbo.util.StringFormatter;
 
 import java.math.BigDecimal;
 
@@ -55,6 +56,11 @@ public final class ShortPair extends NumberPair {
     public ShortPair toTypedOrdered() {
         final NumberPair np = super.toOrdered();
         return new ShortPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));
+    }
+
+    @Override
+    public String toString() {
+        return StringFormatter.format("{} - {}", getLeft(), getRight());
     }
 
 }

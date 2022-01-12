@@ -97,7 +97,7 @@ public final class DatePair implements Iterable<Date>, Serializable {
 
     @Override
     public String toString() {
-        return StringFormatter.format("{} - {}", left, right);
+        return StringFormatter.format("{} - {}", getLeft(), getRight());
     }
 
 }
