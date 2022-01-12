@@ -15,7 +15,9 @@ import spring.turbo.util.StringFormatter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -27,7 +29,7 @@ import java.util.Objects;
  * @see NumberPair
  * @since 1.0.8
  */
-public final class DatePair implements Serializable {
+public final class DatePair implements Iterable<Date>, Serializable {
 
     public static final DatePair DEFAULT =
             new DatePair(
@@ -66,6 +68,13 @@ public final class DatePair implements Serializable {
     @NonNull
     public Date getRight() {
         return right;
+    }
+
+    // since 1.0.8
+    @NonNull
+    @Override
+    public Iterator<Date> iterator() {
+        return Arrays.asList(left, right).iterator();
     }
 
     @Override

@@ -14,6 +14,9 @@ package spring.turbo.util.crypto;
  */
 public final class Base64 {
 
+    /**
+     * 私有构造方法
+     */
     private Base64() {
         super();
     }

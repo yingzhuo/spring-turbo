@@ -16,6 +16,8 @@ import spring.turbo.util.StringFormatter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -37,7 +39,7 @@ import java.util.Objects;
  */
 @Immutable
 @SuppressWarnings("unchecked")
-public class NumberPair implements Serializable {
+public class NumberPair implements Iterable<BigDecimal>, Serializable {
 
     public static final NumberPair DEFAULT =
             new NumberPair(BigDecimal.valueOf(Double.MIN_VALUE), BigDecimal.valueOf(Double.MAX_VALUE));
@@ -151,6 +153,13 @@ public class NumberPair implements Serializable {
         }
 
         throw new UnsupportedOperationException(StringFormatter.format("'{}' type is not supported", type.getSimpleName()));
+    }
+
+    // since 1.0.8
+    @NonNull
+    @Override
+    public Iterator<BigDecimal> iterator() {
+        return Arrays.asList(left, right).iterator();
     }
 
     @Override

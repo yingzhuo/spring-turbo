@@ -23,7 +23,7 @@ public final class LongPair extends NumberPair {
 
     public static final LongPair DEFAULT = MIN_TO_MAX;
 
-    public LongPair(BigDecimal left, BigDecimal right) {
+    public LongPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
         super(left, right);
     }
 

@@ -9,13 +9,27 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.NonNull;
+import spring.turbo.lang.Immutable;
 
 import java.math.BigDecimal;
 
 /**
  * @author 应卓
+ * @see spring.turbo.format.StringToNumberPairConverter
+ * @see spring.turbo.bean.jsr380.OrderedNumberPair
+ * @see spring.turbo.bean.jsr380.NumberPairLeft
+ * @see spring.turbo.bean.jsr380.NumberPairRight
+ * @see ShortPair
+ * @see IntegerPair
+ * @see LongPair
+ * @see BigIntegerPair
+ * @see FloatPair
+ * @see DoublePair
+ * @see BigDecimalPair
+ * @see DatePair
  * @since 1.0.7
  */
+@Immutable
 public final class BytePair extends NumberPair {
 
     public static final BytePair MIN_TO_MAX =
