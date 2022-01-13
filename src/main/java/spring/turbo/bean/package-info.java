@@ -21,6 +21,7 @@ class SpringBootAutoConfiguration {
     @Autowired(required = false)
     public SpringBootAutoConfiguration(FormatterRegistry registry) {
         if (registry != null) {
+            registry.addConverter(new ResourceOptionConverter());
             registry.addConverter(new StringToBooleanConverter());
             registry.addConverter(new StringToNumberConverter());
             registry.addConverter(new StringToNumberPairConverter());
