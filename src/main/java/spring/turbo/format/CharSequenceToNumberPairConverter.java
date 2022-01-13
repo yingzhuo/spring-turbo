@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  * @see NumberPair
  * @since 1.0.7
  */
-public class StringToNumberPairConverter implements GenericConverter {
+public class CharSequenceToNumberPairConverter implements GenericConverter {
 
     private static final Pattern REGEX =
             Pattern.compile("^([+\\-]?[a-fA-F0-9.xX]+)-([+\\-]?[a-fA-F0-9.xX]+)$");
