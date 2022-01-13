@@ -6,23 +6,36 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.io;
+package spring.turbo.format;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
+import org.springframework.core.io.Resource;
+import spring.turbo.io.ResourceOption;
+import spring.turbo.io.ResourceOptions;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @since 1.0.8
  */
 public class ResourceOptionConverter implements GenericConverter {
 
+    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS;
+
+    static {
+        final Set<ConvertiblePair> set = new HashSet<>();
+        set.add(new ConvertiblePair(CharSequence.class, ResourceOption.class));
+        set.add(new ConvertiblePair(Resource.class, ResourceOption.class));
+        CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
+    }
+
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return Collections.singleton(new ConvertiblePair(CharSequence.class, ResourceOption.class));
+        return CONVERTIBLE_PAIRS;
     }
 
     @Override
@@ -30,7 +43,16 @@ public class ResourceOptionConverter implements GenericConverter {
         if (source == null) {
             return null;
         }
-        return ResourceOptions.fromCommaSeparatedLocations(source.toString());
+
+        if (source instanceof CharSequence) {
+            return ResourceOptions.fromSeparatedLocations(source.toString());
+        }
+
+        if (source instanceof Resource) {
+            return ResourceOptions.of((Resource) source);
+        }
+
+        return null;
     }
 
 }

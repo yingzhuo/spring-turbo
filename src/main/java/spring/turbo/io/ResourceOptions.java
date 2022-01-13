@@ -8,13 +8,14 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
+import org.springframework.core.io.Resource;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 
-import static spring.turbo.util.StringPool.COMMA;
-
 /**
+ * {@link ResourceOption}相关工具
+ *
  * @author 应卓
  * @since 1.0.0
  */
@@ -38,9 +39,21 @@ public final class ResourceOptions {
                 .build();
     }
 
-    public static ResourceOption fromCommaSeparatedLocations(String locations) {
+    public static ResourceOption of(Resource resource) {
         return builder()
-                .add(Arrays.stream(locations.split(COMMA)).map(StringUtils::trimWhitespace).toArray(String[]::new))
+                .add(resource)
+                .build();
+    }
+
+    public static ResourceOption fromSeparatedLocations(String locations) {
+        final String[] array =
+                Arrays.stream(locations.split("[\\s,]"))
+                        .filter(StringUtils::hasText)
+                        .map(StringUtils::trimWhitespace)
+                        .toArray(String[]::new);
+
+        return builder()
+                .add(array)
                 .build();
     }
 
