@@ -18,12 +18,12 @@ public final class EmptyLineIterator extends LineIterator {
 
     private static final EmptyLineIterator INSTANCE = new EmptyLineIterator();
 
-    public static EmptyLineIterator getInstance() {
-        return INSTANCE;
-    }
-
     private EmptyLineIterator() {
         super(EmptyReader.getInstance());
+    }
+
+    public static EmptyLineIterator getInstance() {
+        return INSTANCE;
     }
 
     @Override

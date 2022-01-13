@@ -26,12 +26,12 @@ final class ResourceOptionEmpty implements ResourceOption {
     private static final ResourceOptionEmpty INSTANCE = new ResourceOptionEmpty();
     private static final IllegalStateException EX = new IllegalStateException("empty resource");
 
-    public static ResourceOption getInstance() {
-        return INSTANCE;
-    }
-
     private ResourceOptionEmpty() {
         super();
+    }
+
+    public static ResourceOption getInstance() {
+        return INSTANCE;
     }
 
     @NonNull
@@ -102,6 +102,7 @@ final class ResourceOptionEmpty implements ResourceOption {
         throw EX;
     }
 
+    @NonNull
     @Override
     public LineIterator getLineIterator(Charset charset) {
         throw EX;
