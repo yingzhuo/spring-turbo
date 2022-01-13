@@ -19,12 +19,12 @@ public final class EmptyReader extends Reader {
 
     private static final EmptyReader INSTANCE = new EmptyReader();
 
-    public static EmptyReader getInstance() {
-        return INSTANCE;
-    }
-
     private EmptyReader() {
         super();
+    }
+
+    public static EmptyReader getInstance() {
+        return INSTANCE;
     }
 
     @Override

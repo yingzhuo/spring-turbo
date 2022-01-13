@@ -9,27 +9,27 @@
 package spring.turbo.io;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author 应卓
  * @since 1.0.8
  */
-public final class EmptyInputStream extends InputStream {
+public final class BlackholeOutputStream extends OutputStream {
 
-    private static final EmptyInputStream INSTANCE = new EmptyInputStream();
+    private static final BlackholeOutputStream INSTANCE = new BlackholeOutputStream();
 
-    private EmptyInputStream() {
+    private BlackholeOutputStream() {
         super();
     }
 
-    public static EmptyInputStream getInstance() {
+    public static BlackholeOutputStream getInstance() {
         return INSTANCE;
     }
 
     @Override
-    public int read() throws IOException {
-        return -1;
+    public void write(int b) throws IOException {
+        // nop
     }
 
 }
