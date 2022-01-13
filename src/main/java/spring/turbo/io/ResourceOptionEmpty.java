@@ -24,6 +24,7 @@ import java.util.Properties;
 final class ResourceOptionEmpty implements ResourceOption {
 
     private static final ResourceOptionEmpty INSTANCE = new ResourceOptionEmpty();
+    private static final IllegalStateException EX = new IllegalStateException("empty resource");
 
     public static ResourceOption getInstance() {
         return INSTANCE;
@@ -52,64 +53,64 @@ final class ResourceOptionEmpty implements ResourceOption {
     @NonNull
     @Override
     public String toString(Charset charset) {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
     @NonNull
     @Override
     public String toString() {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
     @NonNull
     @Override
     public byte[] toByteArray() {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
     @NonNull
     @Override
     public File toFile() {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
     @NonNull
     @Override
     public Path toPath() {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
     @NonNull
     @Override
     public Properties toProperties(PropertiesFormat propertiesFormat) {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
     @NonNull
     @Override
     public Properties toProperties() {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
     @Override
     public long getChecksumCRC32(int buffSize) {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
     @Override
     public long getChecksumCRC32() {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
     @Override
     public LineIterator getLineIterator(Charset charset) {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
     @NonNull
     @Override
     public LineIterator getLineIterator() {
-        throw new IllegalStateException("empty resource option");
+        throw EX;
     }
 
 }
