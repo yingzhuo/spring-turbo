@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  * @see NumberPair
  * @since 1.0.7
  */
-public class CharSequenceToNumberPairConverter implements GenericConverter {
+public class StringToNumberPairConverter implements GenericConverter {
 
     private static final Pattern REGEX =
             Pattern.compile("^([+\\-]?[a-fA-F0-9.xX]+)-([+\\-]?[a-fA-F0-9.xX]+)$");
@@ -38,15 +38,15 @@ public class CharSequenceToNumberPairConverter implements GenericConverter {
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
         final Set<ConvertiblePair> set = new HashSet<>(9);
-        set.add(new ConvertiblePair(CharSequence.class, NumberPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, BytePair.class));
-        set.add(new ConvertiblePair(CharSequence.class, ShortPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, IntegerPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, LongPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, BigIntegerPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, FloatPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, DoublePair.class));
-        set.add(new ConvertiblePair(CharSequence.class, BigDecimalPair.class));
+        set.add(new ConvertiblePair(String.class, NumberPair.class));
+        set.add(new ConvertiblePair(String.class, BytePair.class));
+        set.add(new ConvertiblePair(String.class, ShortPair.class));
+        set.add(new ConvertiblePair(String.class, IntegerPair.class));
+        set.add(new ConvertiblePair(String.class, LongPair.class));
+        set.add(new ConvertiblePair(String.class, BigIntegerPair.class));
+        set.add(new ConvertiblePair(String.class, FloatPair.class));
+        set.add(new ConvertiblePair(String.class, DoublePair.class));
+        set.add(new ConvertiblePair(String.class, BigDecimalPair.class));
         return Collections.unmodifiableSet(set);
     }
 
