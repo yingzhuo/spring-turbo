@@ -9,6 +9,7 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
+import org.springframework.lang.NonNull;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -22,11 +23,17 @@ import java.util.Properties;
  */
 final class ResourceOptionEmpty implements ResourceOption {
 
-    static final ResourceOptionEmpty INSTANCE = new ResourceOptionEmpty();
+    private static final ResourceOptionEmpty INSTANCE = new ResourceOptionEmpty();
 
-    private ResourceOptionEmpty() {
+    public static ResourceOption getInstance() {
+        return INSTANCE;
     }
 
+    private ResourceOptionEmpty() {
+        super();
+    }
+
+    @NonNull
     @Override
     public Optional<Resource> toOptional() {
         return Optional.empty();
@@ -42,49 +49,67 @@ final class ResourceOptionEmpty implements ResourceOption {
         return false;
     }
 
+    @NonNull
     @Override
     public String toString(Charset charset) {
-        return null;
+        throw new IllegalStateException("empty resource option");
     }
 
+    @NonNull
     @Override
     public String toString() {
-        return "Empty ResourceOption";
+        throw new IllegalStateException("empty resource option");
     }
 
+    @NonNull
     @Override
     public byte[] toByteArray() {
-        return null;
+        throw new IllegalStateException("empty resource option");
     }
 
+    @NonNull
     @Override
     public File toFile() {
-        return null;
+        throw new IllegalStateException("empty resource option");
     }
 
+    @NonNull
     @Override
     public Path toPath() {
-        return null;
+        throw new IllegalStateException("empty resource option");
     }
 
+    @NonNull
     @Override
     public Properties toProperties(PropertiesFormat propertiesFormat) {
-        return null;
+        throw new IllegalStateException("empty resource option");
     }
 
+    @NonNull
     @Override
     public Properties toProperties() {
-        return null;
+        throw new IllegalStateException("empty resource option");
     }
 
     @Override
     public long getChecksumCRC32(int buffSize) {
-        return -1;
+        throw new IllegalStateException("empty resource option");
     }
 
     @Override
     public long getChecksumCRC32() {
-        return -1;
+        throw new IllegalStateException("empty resource option");
+    }
+
+    @Override
+    public LineIterator getLineIterator(Charset charset) {
+        throw new IllegalStateException("empty resource option");
+    }
+
+    @NonNull
+    @Override
+    public LineIterator getLineIterator() {
+        throw new IllegalStateException("empty resource option");
     }
 
 }
