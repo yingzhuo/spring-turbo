@@ -13,6 +13,7 @@ import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Null;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 
 /**
@@ -186,6 +187,46 @@ public final class BigDecimalUtils {
             return BigDecimal.ONE;
         }
         return nullSafeMultiply(numbers.toArray(new BigDecimal[0]));
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends Number> T getValue(@NonNull BigDecimal number, @NonNull Class<T> numberType) {
+        Asserts.notNull(number);
+        Asserts.notNull(numberType);
+
+        if (numberType == Byte.class) {
+            return (T) new Byte(number.byteValue());
+        }
+
+        if (numberType == Short.class) {
+            return (T) new Short(number.shortValue());
+        }
+
+        if (numberType == Integer.class) {
+            return (T) new Integer(number.intValue());
+        }
+
+        if (numberType == Long.class) {
+            return (T) new Long(number.longValue());
+        }
+
+        if (numberType == Float.class) {
+            return (T) new Float(number.floatValue());
+        }
+
+        if (numberType == Double.class) {
+            return (T) new Double(number.doubleValue());
+        }
+
+        if (numberType == BigInteger.class) {
+            return (T) number.toBigInteger();
+        }
+
+        if (numberType == BigDecimal.class) {
+            return (T) number;
+        }
+
+        throw new IllegalArgumentException(StringFormatter.format("unsupported number type: {}", numberType.getName()));
     }
 
 }

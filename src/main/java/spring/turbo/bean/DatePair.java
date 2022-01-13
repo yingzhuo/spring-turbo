@@ -9,6 +9,7 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.NonNull;
+import spring.turbo.format.CharSequenceToDatePairConverter;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
@@ -23,7 +24,7 @@ import java.util.Objects;
 /**
  * @author 应卓
  * @see spring.turbo.format.DatePairFormat
- * @see spring.turbo.format.StringToDatePairConverter
+ * @see CharSequenceToDatePairConverter
  * @see spring.turbo.format.DatePairAnnotationFormatterFactory
  * @see spring.turbo.bean.jsr380.OrderedDatePair
  * @see NumberPair

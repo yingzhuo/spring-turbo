@@ -10,6 +10,7 @@ package spring.turbo.format;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
+import spring.turbo.util.NumberParseUtils;
 import spring.turbo.util.StringFormatter;
 
 import java.math.BigDecimal;
@@ -20,68 +21,71 @@ import java.util.Set;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @since 1.0.8
  */
-public class StringToNumberConverter implements GenericConverter {
+public class CharSequenceToNumberConverter implements GenericConverter {
 
-    public StringToNumberConverter() {
+    public CharSequenceToNumberConverter() {
         super();
     }
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
         final Set<ConvertiblePair> set = new HashSet<>();
-        set.add(new ConvertiblePair(String.class, Byte.class));
-        set.add(new ConvertiblePair(String.class, Short.class));
-        set.add(new ConvertiblePair(String.class, Integer.class));
-        set.add(new ConvertiblePair(String.class, Long.class));
-        set.add(new ConvertiblePair(String.class, Float.class));
-        set.add(new ConvertiblePair(String.class, Double.class));
-        set.add(new ConvertiblePair(String.class, BigInteger.class));
-        set.add(new ConvertiblePair(String.class, BigDecimal.class));
+        set.add(new ConvertiblePair(CharSequence.class, Byte.class));
+        set.add(new ConvertiblePair(CharSequence.class, Short.class));
+        set.add(new ConvertiblePair(CharSequence.class, Integer.class));
+        set.add(new ConvertiblePair(CharSequence.class, Long.class));
+        set.add(new ConvertiblePair(CharSequence.class, Float.class));
+        set.add(new ConvertiblePair(CharSequence.class, Double.class));
+        set.add(new ConvertiblePair(CharSequence.class, BigInteger.class));
+        set.add(new ConvertiblePair(CharSequence.class, BigDecimal.class));
         return Collections.unmodifiableSet(set);
     }
 
     @Override
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
-        String text = (String) source;
 
-        final BigDecimal decimal = new BigDecimal(text);
+        if (source == null) {
+            return null;
+        }
+
+        final String text = source.toString();
 
         if (targetType.getObjectType() == Byte.class) {
-            return decimal.byteValue();
+            return NumberParseUtils.parse(text, Byte.class);
         }
 
         if (targetType.getObjectType() == Short.class) {
-            return decimal.shortValue();
+            return NumberParseUtils.parse(text, Short.class);
         }
 
         if (targetType.getObjectType() == Integer.class) {
-            return decimal.intValue();
+            return NumberParseUtils.parse(text, Integer.class);
         }
 
         if (targetType.getObjectType() == Long.class) {
-            return decimal.longValue();
+            return NumberParseUtils.parse(text, Long.class);
         }
 
         if (targetType.getObjectType() == Float.class) {
-            return decimal.floatValue();
+            return NumberParseUtils.parse(text, Float.class);
         }
 
         if (targetType.getObjectType() == Double.class) {
-            return decimal.doubleValue();
+            return NumberParseUtils.parse(text, Double.class);
         }
 
         if (targetType.getObjectType() == BigInteger.class) {
-            return decimal.toBigInteger();
+            return NumberParseUtils.parse(text, BigInteger.class);
         }
 
         if (targetType.getObjectType() == BigDecimal.class) {
-            return decimal;
+            return NumberParseUtils.parse(text, BigDecimal.class);
         }
 
-        final String msg = StringFormatter.format("'{}' is not a valid number", text);
-        throw new IllegalArgumentException(msg);
+        // 实际不会发生
+        throw new IllegalArgumentException(StringFormatter.format("unsupported number type: {}", targetType.getObjectType().getName()));
     }
 
 }
