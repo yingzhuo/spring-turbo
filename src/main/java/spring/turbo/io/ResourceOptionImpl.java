@@ -14,6 +14,8 @@ import spring.turbo.util.Asserts;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -123,6 +125,15 @@ final class ResourceOptionImpl implements ResourceOption {
             return checkedInputStream.getChecksum().getValue();
         } catch (IOException e) {
             return -1;
+        }
+    }
+
+    @Override
+    public LineIterator getLineIterator(Charset charset) {
+        try {
+            return new LineIterator(new InputStreamReader(resource.getInputStream(), charset));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 

@@ -74,7 +74,7 @@ public final class ResourceOptionBuilder {
                 return new ResourceOptionImpl(resource);
             }
         }
-        return ResourceOptionEmpty.INSTANCE;
+        return ResourceOptionEmpty.getInstance();
     }
 
 }

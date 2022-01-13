@@ -12,6 +12,8 @@ import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 
+import static spring.turbo.util.StringPool.COMMA;
+
 /**
  * @author 应卓
  * @since 1.0.0
@@ -23,7 +25,7 @@ public final class ResourceOptions {
     }
 
     public static ResourceOption empty() {
-        return ResourceOptionEmpty.INSTANCE;
+        return ResourceOptionEmpty.getInstance();
     }
 
     public static ResourceOptionBuilder builder() {
@@ -38,7 +40,7 @@ public final class ResourceOptions {
 
     public static ResourceOption fromCommaSeparatedLocations(String locations) {
         return builder()
-                .add(Arrays.stream(locations.split(",")).map(StringUtils::trimWhitespace).toArray(String[]::new))
+                .add(Arrays.stream(locations.split(COMMA)).map(StringUtils::trimWhitespace).toArray(String[]::new))
                 .build();
     }
 
@@ -48,7 +50,7 @@ public final class ResourceOptions {
                 return option;
             }
         }
-        return ResourceOptionEmpty.INSTANCE;
+        return ResourceOptionEmpty.getInstance();
     }
 
 }
