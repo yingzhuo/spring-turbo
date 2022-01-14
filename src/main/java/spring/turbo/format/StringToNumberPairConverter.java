@@ -25,12 +25,14 @@ import java.util.regex.Pattern;
  * @author 应卓
  * @see CharSequence
  * @see NumberPair
+ * @see NumberParseUtils
+ * @see org.springframework.util.NumberUtils
  * @since 1.0.7
  */
 public class StringToNumberPairConverter implements GenericConverter {
 
     private static final Pattern REGEX =
-            Pattern.compile("^([+\\-]?[a-fA-F0-9.xX]+)-([+\\-]?[a-fA-F0-9.xX]+)$");
+            Pattern.compile("^([+\\-]?[#a-fA-F0-9.xX]+)-([+\\-]?[#a-fA-F0-9.xX]+)$");
 
     private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS;
 
