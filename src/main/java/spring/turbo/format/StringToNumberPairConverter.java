@@ -10,17 +10,14 @@ package spring.turbo.format;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
-import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 import spring.turbo.bean.*;
+import spring.turbo.util.NumberParseUtils;
 import spring.turbo.util.RegexUtils;
-import spring.turbo.util.StringFormatter;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -28,26 +25,34 @@ import java.util.regex.Pattern;
  * @author 应卓
  * @see CharSequence
  * @see NumberPair
+ * @see NumberParseUtils
+ * @see org.springframework.util.NumberUtils
  * @since 1.0.7
  */
-public class CharSequenceToNumberPairConverter implements GenericConverter {
+public class StringToNumberPairConverter implements GenericConverter {
 
     private static final Pattern REGEX =
-            Pattern.compile("^([+\\-]?[a-fA-F0-9.xX]+)-([+\\-]?[a-fA-F0-9.xX]+)$");
+            Pattern.compile("^([+\\-]?[#a-fA-F0-9.xX]+)-([+\\-]?[#a-fA-F0-9.xX]+)$");
+
+    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS;
+
+    static {
+        final Set<ConvertiblePair> set = new HashSet<>();
+        set.add(new ConvertiblePair(String.class, NumberPair.class));
+        set.add(new ConvertiblePair(String.class, BytePair.class));
+        set.add(new ConvertiblePair(String.class, ShortPair.class));
+        set.add(new ConvertiblePair(String.class, IntegerPair.class));
+        set.add(new ConvertiblePair(String.class, LongPair.class));
+        set.add(new ConvertiblePair(String.class, BigIntegerPair.class));
+        set.add(new ConvertiblePair(String.class, FloatPair.class));
+        set.add(new ConvertiblePair(String.class, DoublePair.class));
+        set.add(new ConvertiblePair(String.class, BigDecimalPair.class));
+        CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
+    }
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        final Set<ConvertiblePair> set = new HashSet<>(9);
-        set.add(new ConvertiblePair(CharSequence.class, NumberPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, BytePair.class));
-        set.add(new ConvertiblePair(CharSequence.class, ShortPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, IntegerPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, LongPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, BigIntegerPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, FloatPair.class));
-        set.add(new ConvertiblePair(CharSequence.class, DoublePair.class));
-        set.add(new ConvertiblePair(CharSequence.class, BigDecimalPair.class));
-        return Collections.unmodifiableSet(set);
+        return CONVERTIBLE_PAIRS;
     }
 
     @Override
@@ -72,9 +77,8 @@ public class CharSequenceToNumberPairConverter implements GenericConverter {
             rightString = rightString.substring(1);
         }
 
-        final String msg = StringFormatter.format("'{}' is not a valid number pair", originalString);
-        final BigDecimal left = parse(leftString).orElseThrow(() -> new IllegalArgumentException(msg));
-        final BigDecimal right = parse(rightString).orElseThrow(() -> new IllegalArgumentException(msg));
+        final BigDecimal left = NumberParseUtils.parse(leftString, BigDecimal.class);
+        final BigDecimal right = NumberParseUtils.parse(rightString, BigDecimal.class);
 
         if (targetType.getObjectType() == BytePair.class) {
             return new BytePair(left, right);
@@ -94,25 +98,6 @@ public class CharSequenceToNumberPairConverter implements GenericConverter {
             return new BigDecimalPair(left, right);
         } else {
             return new NumberPair(left, right);
-        }
-    }
-
-    private Optional<BigDecimal> parse(String text) {
-
-        // Spring工具不可以将十六进数直接转换成BigDecimal
-        if (text.startsWith("0x") ||
-                text.startsWith("0X") ||
-                text.startsWith("-0X") ||
-                text.startsWith("-0x")) {
-
-            final BigInteger bigInt = NumberUtils.parseNumber(text, BigInteger.class);
-            return Optional.of(new BigDecimal(bigInt));
-        }
-
-        try {
-            return Optional.of(NumberUtils.parseNumber(text, BigDecimal.class));
-        } catch (Exception e) {
-            return Optional.empty();
         }
     }
 

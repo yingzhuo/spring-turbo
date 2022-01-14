@@ -53,7 +53,7 @@ public final class NumberParseUtils {
         Asserts.notNull(type);
 
         // 移除白字符和逗号
-        text = text.replaceAll("[\\s],", EMPTY);
+        text = text.replaceAll("[\\s,]", EMPTY);
 
         // 十六进制数特殊处理
         if (text.startsWith("#") || text.startsWith("-#") || text.startsWith("0x") || text.startsWith("0X") || text.startsWith("-0x") || text.startsWith("-0X")) {

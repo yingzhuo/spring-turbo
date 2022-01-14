@@ -21,11 +21,11 @@ class SpringBootAutoConfiguration {
     @Autowired(required = false)
     public SpringBootAutoConfiguration(FormatterRegistry registry) {
         if (registry != null) {
-            registry.addConverter(new CharSequenceToBooleanConverter());
-            registry.addConverter(new CharSequenceToNumberConverter());
             registry.addConverter(new ResourceOptionConverter());
-            registry.addConverter(new CharSequenceToNumberPairConverter());
-            registry.addConverter(new CharSequenceToDatePairConverter());
+            registry.addConverter(new StringToBooleanConverter());
+            registry.addConverter(new StringToNumberConverter());
+            registry.addConverter(new StringToNumberPairConverter());
+            registry.addConverter(new StringToDatePairConverter());
             registry.addFormatterForFieldAnnotation(new DatePairAnnotationFormatterFactory());
         }
     }

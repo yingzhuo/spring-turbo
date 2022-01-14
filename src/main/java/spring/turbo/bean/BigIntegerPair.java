@@ -9,7 +9,7 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.NonNull;
-import spring.turbo.format.CharSequenceToNumberPairConverter;
+import spring.turbo.format.StringToNumberPairConverter;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringFormatter;
 
@@ -18,7 +18,7 @@ import java.math.BigInteger;
 
 /**
  * @author 应卓
- * @see CharSequenceToNumberPairConverter
+ * @see StringToNumberPairConverter
  * @see spring.turbo.bean.jsr380.OrderedNumberPair
  * @see spring.turbo.bean.jsr380.NumberPairLeft
  * @see spring.turbo.bean.jsr380.NumberPairRight

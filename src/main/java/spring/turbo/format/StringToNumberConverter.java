@@ -23,24 +23,30 @@ import java.util.Set;
  * @author 应卓
  * @since 1.0.8
  */
-public class CharSequenceToNumberConverter implements GenericConverter {
+public class StringToNumberConverter implements GenericConverter {
 
-    public CharSequenceToNumberConverter() {
+    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS;
+
+    static {
+        final Set<ConvertiblePair> set = new HashSet<>();
+        set.add(new ConvertiblePair(String.class, Byte.class));
+        set.add(new ConvertiblePair(String.class, Short.class));
+        set.add(new ConvertiblePair(String.class, Integer.class));
+        set.add(new ConvertiblePair(String.class, Long.class));
+        set.add(new ConvertiblePair(String.class, Float.class));
+        set.add(new ConvertiblePair(String.class, Double.class));
+        set.add(new ConvertiblePair(String.class, BigInteger.class));
+        set.add(new ConvertiblePair(String.class, BigDecimal.class));
+        CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
+    }
+
+    public StringToNumberConverter() {
         super();
     }
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        final Set<ConvertiblePair> set = new HashSet<>();
-        set.add(new ConvertiblePair(CharSequence.class, Byte.class));
-        set.add(new ConvertiblePair(CharSequence.class, Short.class));
-        set.add(new ConvertiblePair(CharSequence.class, Integer.class));
-        set.add(new ConvertiblePair(CharSequence.class, Long.class));
-        set.add(new ConvertiblePair(CharSequence.class, Float.class));
-        set.add(new ConvertiblePair(CharSequence.class, Double.class));
-        set.add(new ConvertiblePair(CharSequence.class, BigInteger.class));
-        set.add(new ConvertiblePair(CharSequence.class, BigDecimal.class));
-        return Collections.unmodifiableSet(set);
+        return CONVERTIBLE_PAIRS;
     }
 
     @Override
