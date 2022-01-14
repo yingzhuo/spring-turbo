@@ -25,12 +25,9 @@ import java.util.Set;
  */
 public class StringToNumberConverter implements GenericConverter {
 
-    public StringToNumberConverter() {
-        super();
-    }
+    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS;
 
-    @Override
-    public Set<ConvertiblePair> getConvertibleTypes() {
+    static {
         final Set<ConvertiblePair> set = new HashSet<>();
         set.add(new ConvertiblePair(String.class, Byte.class));
         set.add(new ConvertiblePair(String.class, Short.class));
@@ -40,7 +37,16 @@ public class StringToNumberConverter implements GenericConverter {
         set.add(new ConvertiblePair(String.class, Double.class));
         set.add(new ConvertiblePair(String.class, BigInteger.class));
         set.add(new ConvertiblePair(String.class, BigDecimal.class));
-        return Collections.unmodifiableSet(set);
+        CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
+    }
+
+    public StringToNumberConverter() {
+        super();
+    }
+
+    @Override
+    public Set<ConvertiblePair> getConvertibleTypes() {
+        return CONVERTIBLE_PAIRS;
     }
 
     @Override
