@@ -22,6 +22,8 @@ import java.util.Iterator;
 import java.util.Objects;
 
 /**
+ * {@link Date}对
+ *
  * @author 应卓
  * @see spring.turbo.format.DatePairFormat
  * @see StringToDatePairConverter

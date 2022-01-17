@@ -33,12 +33,10 @@ public final class NumberParseUtils {
 
     /**
      * 从字符串中解析数字
-     * <p>
-     *    <ul>
-     *        <li>支持科学计数法</li>
-     *        <li>支持十六进制数</li>
-     *    </ul>
-     * <p>
+     * <ul>
+     * <li>支持科学计数法</li>
+     * <li>支持十六进制数</li>
+     * </ul>
      * 请正确使用类型，否则会有精度损失
      *
      * @param text 字符串
