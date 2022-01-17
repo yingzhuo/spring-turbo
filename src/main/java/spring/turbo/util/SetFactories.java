@@ -11,6 +11,7 @@ package spring.turbo.util;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * @author 应卓
@@ -23,6 +24,11 @@ public final class SetFactories {
      */
     private SetFactories() {
         super();
+    }
+
+    @SafeVarargs
+    public static <T> Set<T> newUnmodifiableSet(T... elements) {
+        return Collections.unmodifiableSet(newHashSet(elements));
     }
 
     @SafeVarargs

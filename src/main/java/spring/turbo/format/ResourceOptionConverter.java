@@ -13,9 +13,8 @@ import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.io.Resource;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptions;
+import spring.turbo.util.SetFactories;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,14 +23,10 @@ import java.util.Set;
  */
 public class ResourceOptionConverter implements GenericConverter {
 
-    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS;
-
-    static {
-        final Set<ConvertiblePair> set = new HashSet<>();
-        set.add(new ConvertiblePair(CharSequence.class, ResourceOption.class));
-        set.add(new ConvertiblePair(Resource.class, ResourceOption.class));
-        CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
-    }
+    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS = SetFactories.newUnmodifiableSet(
+            new ConvertiblePair(CharSequence.class, ResourceOption.class),
+            new ConvertiblePair(Resource.class, ResourceOption.class)
+    );
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {

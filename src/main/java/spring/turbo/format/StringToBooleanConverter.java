@@ -10,9 +10,9 @@ package spring.turbo.format;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
+import spring.turbo.util.SetFactories;
 import spring.turbo.util.StringFormatter;
 
-import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -20,6 +20,8 @@ import java.util.Set;
  * @since 1.0.8
  */
 public class StringToBooleanConverter implements GenericConverter {
+
+    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS = SetFactories.newUnmodifiableSet(new ConvertiblePair(String.class, Boolean.class));
 
     private static final String TRUE = "true";
     private static final String FALSE = "false";
@@ -30,7 +32,7 @@ public class StringToBooleanConverter implements GenericConverter {
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return Collections.singleton(new ConvertiblePair(String.class, Boolean.class));
+        return CONVERTIBLE_PAIRS;
     }
 
     @Override

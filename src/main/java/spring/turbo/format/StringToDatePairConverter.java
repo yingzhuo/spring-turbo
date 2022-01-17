@@ -11,9 +11,9 @@ package spring.turbo.format;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import spring.turbo.bean.DatePair;
+import spring.turbo.util.SetFactories;
 
 import java.text.ParseException;
-import java.util.Collections;
 import java.util.Locale;
 import java.util.Set;
 
@@ -23,11 +23,12 @@ import java.util.Set;
  */
 public class StringToDatePairConverter implements GenericConverter {
 
+    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS = SetFactories.newUnmodifiableSet(new ConvertiblePair(String.class, DatePair.class));
     private static final DatePairParser DATE_PAIR_PARSER = new DatePairParser(" @@ ", "yyyy-MM-dd HH:mm:ss");
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return Collections.singleton(new ConvertiblePair(String.class, DatePair.class));
+        return CONVERTIBLE_PAIRS;
     }
 
     @Override

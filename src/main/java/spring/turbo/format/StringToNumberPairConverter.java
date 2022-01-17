@@ -14,10 +14,9 @@ import org.springframework.util.StringUtils;
 import spring.turbo.bean.*;
 import spring.turbo.util.NumberParseUtils;
 import spring.turbo.util.RegexUtils;
+import spring.turbo.util.SetFactories;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -34,21 +33,17 @@ public class StringToNumberPairConverter implements GenericConverter {
     private static final Pattern REGEX =
             Pattern.compile("^([+\\-]?[#a-fA-F0-9.xX]+)-([+\\-]?[#a-fA-F0-9.xX]+)$");
 
-    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS;
-
-    static {
-        final Set<ConvertiblePair> set = new HashSet<>();
-        set.add(new ConvertiblePair(String.class, NumberPair.class));
-        set.add(new ConvertiblePair(String.class, BytePair.class));
-        set.add(new ConvertiblePair(String.class, ShortPair.class));
-        set.add(new ConvertiblePair(String.class, IntegerPair.class));
-        set.add(new ConvertiblePair(String.class, LongPair.class));
-        set.add(new ConvertiblePair(String.class, BigIntegerPair.class));
-        set.add(new ConvertiblePair(String.class, FloatPair.class));
-        set.add(new ConvertiblePair(String.class, DoublePair.class));
-        set.add(new ConvertiblePair(String.class, BigDecimalPair.class));
-        CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
-    }
+    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS = SetFactories.newUnmodifiableSet(
+            new ConvertiblePair(String.class, NumberPair.class),
+            new ConvertiblePair(String.class, BytePair.class),
+            new ConvertiblePair(String.class, ShortPair.class),
+            new ConvertiblePair(String.class, IntegerPair.class),
+            new ConvertiblePair(String.class, LongPair.class),
+            new ConvertiblePair(String.class, BigIntegerPair.class),
+            new ConvertiblePair(String.class, FloatPair.class),
+            new ConvertiblePair(String.class, DoublePair.class),
+            new ConvertiblePair(String.class, BigDecimalPair.class)
+    );
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {

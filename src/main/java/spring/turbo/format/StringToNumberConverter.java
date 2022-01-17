@@ -11,12 +11,11 @@ package spring.turbo.format;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import spring.turbo.util.NumberParseUtils;
+import spring.turbo.util.SetFactories;
 import spring.turbo.util.StringFormatter;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,20 +24,16 @@ import java.util.Set;
  */
 public class StringToNumberConverter implements GenericConverter {
 
-    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS;
-
-    static {
-        final Set<ConvertiblePair> set = new HashSet<>();
-        set.add(new ConvertiblePair(String.class, Byte.class));
-        set.add(new ConvertiblePair(String.class, Short.class));
-        set.add(new ConvertiblePair(String.class, Integer.class));
-        set.add(new ConvertiblePair(String.class, Long.class));
-        set.add(new ConvertiblePair(String.class, Float.class));
-        set.add(new ConvertiblePair(String.class, Double.class));
-        set.add(new ConvertiblePair(String.class, BigInteger.class));
-        set.add(new ConvertiblePair(String.class, BigDecimal.class));
-        CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
-    }
+    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS = SetFactories.newUnmodifiableSet(
+            new ConvertiblePair(String.class, Byte.class),
+            new ConvertiblePair(String.class, Short.class),
+            new ConvertiblePair(String.class, Integer.class),
+            new ConvertiblePair(String.class, Long.class),
+            new ConvertiblePair(String.class, Float.class),
+            new ConvertiblePair(String.class, Double.class),
+            new ConvertiblePair(String.class, BigInteger.class),
+            new ConvertiblePair(String.class, BigDecimal.class)
+    );
 
     public StringToNumberConverter() {
         super();

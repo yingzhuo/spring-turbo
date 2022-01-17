@@ -8,10 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * @author 应卓
@@ -24,6 +21,11 @@ public final class ListFactories {
      */
     private ListFactories() {
         super();
+    }
+
+    @SafeVarargs
+    public static <T> List<T> newUnmodifiableList(T... elements) {
+        return Collections.unmodifiableList(newArrayList(elements));
     }
 
     @SafeVarargs
