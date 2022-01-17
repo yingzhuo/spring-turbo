@@ -21,6 +21,7 @@ import java.util.stream.Stream;
  *
  * @param <T> ValueObject类型
  * @author 应卓
+ * @see BindingResultBatch
  * @since 1.0.9
  */
 public class Batch<T> implements Iterable<T>, Serializable {
