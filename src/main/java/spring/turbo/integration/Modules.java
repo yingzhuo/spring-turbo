@@ -25,38 +25,27 @@ import java.util.stream.Collectors;
  */
 public enum Modules implements Named {
 
-    SPRING_TURBO("spring.turbo", false, Versions.V1_0_0),
-    SPRING_TURBO_CAPTCHA("spring.turbo", false, Versions.V1_0_0),
-    SPRING_TURBO_EXCEL("spring.turbo.excel", false, Versions.V1_0_0),
-    SPRING_TURBO_FEIGN("spring.turbo.feign", false, Versions.V1_0_0),
-    SPRING_TURBO_PREDEFINED("spring.turbo.predefined", false, Versions.V1_0_0),
-    SPRING_TURBO_QRCODE("spring.turbo.qrcode", false, Versions.V1_0_0),
-    SPRING_TURBO_SECURITY("spring.turbo.security", false, Versions.V1_0_0),
-    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt", false, Versions.V1_0_0),
-    SPRING_TURBO_SECURITY_HUTOOL("spring.turbo.security-hutool", false, Versions.V1_0_1),
-    SPRING_TURBO_WEBMVC("spring.turbo.webmvc", false, Versions.V1_0_0);
+    SPRING_TURBO("spring.turbo"),
+    SPRING_TURBO_CAPTCHA("spring.turbo"),
+    SPRING_TURBO_CSV("spring.turbo.csv"),
+    SPRING_TURBO_EXCEL("spring.turbo.excel"),
+    SPRING_TURBO_FEIGN("spring.turbo.feign"),
+    SPRING_TURBO_PREDEFINED("spring.turbo.predefined"),
+    SPRING_TURBO_QRCODE("spring.turbo.qrcode"),
+    SPRING_TURBO_SECURITY("spring.turbo.security"),
+    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt"),
+    SPRING_TURBO_SECURITY_HUTOOL("spring.turbo.security-hutool"),
+    SPRING_TURBO_WEBMVC("spring.turbo.webmvc");
 
     private final String name;
-    private final boolean beta;
-    private final String since;
 
-    Modules(String name, boolean beta, String since) {
+    private Modules(String name) {
         this.name = name;
-        this.beta = beta;
-        this.since = since;
     }
 
     @Override
     public String getName() {
         return name;
-    }
-
-    public boolean isBeta() {
-        return beta;
-    }
-
-    public String getSince() {
-        return since;
     }
 
     @Override
