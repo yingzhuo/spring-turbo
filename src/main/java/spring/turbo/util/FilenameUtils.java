@@ -66,7 +66,6 @@ public final class FilenameUtils {
 
     /**
      * 获取文件BaseName
-     * <p>
      * <pre>
      * a/b/c.txt --&gt; c
      * a.txt     --&gt; a
@@ -92,7 +91,6 @@ public final class FilenameUtils {
 
     /**
      * 获取文件的扩展名
-     * <p>
      * <pre>
      * foo.txt      --&gt; "txt"
      * a/b/c.jpg    --&gt; "jpg"

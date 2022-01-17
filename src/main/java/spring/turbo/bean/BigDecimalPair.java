@@ -16,6 +16,8 @@ import spring.turbo.util.StringFormatter;
 import java.math.BigDecimal;
 
 /**
+ * {@link BigDecimal}对
+ *
  * @author 应卓
  * @see StringToNumberPairConverter
  * @see spring.turbo.bean.jsr380.OrderedNumberPair

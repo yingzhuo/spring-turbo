@@ -22,6 +22,8 @@ import java.util.Iterator;
 import java.util.Objects;
 
 /**
+ * 数字对
+ *
  * @author 应卓
  * @see StringToNumberPairConverter
  * @see spring.turbo.bean.jsr380.OrderedNumberPair
