@@ -13,26 +13,26 @@ import java.io.InputStream;
 
 /**
  * @author 应卓
- * @since 1.0.8
+ * @since 1.0.9
  */
-public final class EmptyInputStream extends InputStream {
+public final class BrokenInputStream extends InputStream {
 
-    private EmptyInputStream() {
+    private BrokenInputStream() {
         super();
     }
 
-    public static EmptyInputStream getInstance() {
+    public static BrokenInputStream getInstance() {
         return SyncAvoid.INSTANCE;
     }
 
     @Override
     public int read() throws IOException {
-        return -1;
+        throw new IOException("broken");
     }
 
     // 延迟加载
     private static class SyncAvoid {
-        private static final EmptyInputStream INSTANCE = new EmptyInputStream();
+        private static final BrokenInputStream INSTANCE = new BrokenInputStream();
     }
 
 }

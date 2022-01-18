@@ -17,19 +17,22 @@ import java.io.OutputStream;
  */
 public final class BlackholeOutputStream extends OutputStream {
 
-    private static final BlackholeOutputStream INSTANCE = new BlackholeOutputStream();
-
     private BlackholeOutputStream() {
         super();
     }
 
     public static BlackholeOutputStream getInstance() {
-        return INSTANCE;
+        return SyncAvoid.INSTANCE;
     }
 
     @Override
     public void write(int b) throws IOException {
         // nop
+    }
+
+    // 延迟加载
+    private static class SyncAvoid {
+        private static final BlackholeOutputStream INSTANCE = new BlackholeOutputStream();
     }
 
 }

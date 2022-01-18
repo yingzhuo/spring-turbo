@@ -8,6 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -15,6 +18,7 @@ import java.util.Set;
 
 /**
  * @author 应卓
+ * @see ListFactories
  * @since 1.0.9
  */
 public final class SetFactories {
@@ -26,13 +30,18 @@ public final class SetFactories {
         super();
     }
 
+    @NonNull
     @SafeVarargs
-    public static <T> Set<T> newUnmodifiableSet(T... elements) {
+    public static <T> Set<T> newUnmodifiableSet(@Nullable T... elements) {
+        if (elements == null) {
+            return Collections.emptySet();
+        }
         return Collections.unmodifiableSet(newHashSet(elements));
     }
 
+    @NonNull
     @SafeVarargs
-    public static <T> HashSet<T> newHashSet(T... elements) {
+    public static <T> HashSet<T> newHashSet(@Nullable T... elements) {
         final HashSet<T> set = new HashSet<>();
         if (elements != null) {
             Collections.addAll(set, elements);
@@ -40,8 +49,9 @@ public final class SetFactories {
         return set;
     }
 
+    @NonNull
     @SafeVarargs
-    public static <T> LinkedHashSet<T> newLinkedHashSet(T... elements) {
+    public static <T> LinkedHashSet<T> newLinkedHashSet(@Nullable T... elements) {
         final LinkedHashSet<T> set = new LinkedHashSet<>();
         if (elements != null) {
             Collections.addAll(set, elements);
@@ -49,15 +59,17 @@ public final class SetFactories {
         return set;
     }
 
+    @NonNull
     @SafeVarargs
-    public static <T> HashSet<T> nullSafeNewHashSet(T... elements) {
+    public static <T> HashSet<T> nullSafeNewHashSet(@Nullable T... elements) {
         final HashSet<T> set = new HashSet<>();
         CollectionUtils.nullSafeAddAll(set, elements);
         return set;
     }
 
+    @NonNull
     @SafeVarargs
-    public static <T> LinkedHashSet<T> nullSafeNewLinkedHashSet(T... elements) {
+    public static <T> LinkedHashSet<T> nullSafeNewLinkedHashSet(@Nullable T... elements) {
         final LinkedHashSet<T> set = new LinkedHashSet<>();
         CollectionUtils.nullSafeAddAll(set, elements);
         return set;
