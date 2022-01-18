@@ -15,6 +15,7 @@ import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.filter.TypeFilter;
+import org.springframework.lang.NonNull;
 import spring.turbo.util.Asserts;
 
 import java.util.*;
@@ -76,9 +77,12 @@ public final class ClassPathScannerBuilder {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    private static class NullClassPathScanner implements ClassPathScanner {
+    private static final class NullClassPathScanner implements ClassPathScanner {
+
+        @NonNull
         @Override
-        public List<ClassDefinition> scan(Iterable<String> basePackages) {
+        public List<ClassDefinition> scan(@NonNull Iterable<String> basePackages) {
+            Asserts.notNull(basePackages);
             return Collections.emptyList();
         }
     }
@@ -86,8 +90,9 @@ public final class ClassPathScannerBuilder {
     private static class DefaultClassPathScanner implements ClassPathScanner {
         private final ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider();
 
+        @NonNull
         @Override
-        public List<ClassDefinition> scan(Iterable<String> basePackages) {
+        public List<ClassDefinition> scan(@NonNull Iterable<String> basePackages) {
             final Set<BeanDefinition> set = new HashSet<>();
 
             for (String basePackage : basePackages) {

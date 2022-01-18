@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.integration;
 
+import org.springframework.lang.NonNull;
+
 import static spring.turbo.integration.Modules.SPRING_TURBO;
 
 /**
@@ -16,6 +18,7 @@ import static spring.turbo.integration.Modules.SPRING_TURBO;
  */
 public final class ModuleNameProviderImpl implements ModuleNameProvider {
 
+    @NonNull
     @Override
     public String getModuleName() {
         return SPRING_TURBO.getName();
