@@ -17,14 +17,12 @@ import java.io.Reader;
  */
 public final class EmptyReader extends Reader {
 
-    private static final EmptyReader INSTANCE = new EmptyReader();
-
     private EmptyReader() {
         super();
     }
 
     public static EmptyReader getInstance() {
-        return INSTANCE;
+        return SyncAvoid.INSTANCE;
     }
 
     @Override
@@ -34,6 +32,11 @@ public final class EmptyReader extends Reader {
 
     @Override
     public void close() throws IOException {
+    }
+
+    // 延迟加载
+    private static class SyncAvoid {
+        private static final EmptyReader INSTANCE = new EmptyReader();
     }
 
 }
