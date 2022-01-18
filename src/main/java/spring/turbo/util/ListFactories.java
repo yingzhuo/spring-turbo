@@ -8,10 +8,14 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 import java.util.*;
 
 /**
  * @author 应卓
+ * @see SetFactories
  * @since 1.0.9
  */
 public final class ListFactories {
@@ -23,13 +27,18 @@ public final class ListFactories {
         super();
     }
 
+    @NonNull
     @SafeVarargs
-    public static <T> List<T> newUnmodifiableList(T... elements) {
+    public static <T> List<T> newUnmodifiableList(@Nullable T... elements) {
+        if (elements == null) {
+            return Collections.emptyList();
+        }
         return Collections.unmodifiableList(newArrayList(elements));
     }
 
+    @NonNull
     @SafeVarargs
-    public static <T> ArrayList<T> newArrayList(T... elements) {
+    public static <T> ArrayList<T> newArrayList(@Nullable T... elements) {
         final ArrayList<T> list = new ArrayList<>();
         if (elements != null) {
             Collections.addAll(list, elements);
@@ -37,8 +46,9 @@ public final class ListFactories {
         return list;
     }
 
+    @NonNull
     @SafeVarargs
-    public static <T> LinkedList<T> newLinkedList(T... elements) {
+    public static <T> LinkedList<T> newLinkedList(@Nullable T... elements) {
         final LinkedList<T> list = new LinkedList<>();
         if (elements != null) {
             list.addAll(Arrays.asList(elements));
@@ -46,15 +56,17 @@ public final class ListFactories {
         return list;
     }
 
+    @NonNull
     @SafeVarargs
-    public static <T> ArrayList<T> nullSafeNewArrayList(T... elements) {
+    public static <T> ArrayList<T> nullSafeNewArrayList(@Nullable T... elements) {
         final ArrayList<T> list = new ArrayList<>();
         CollectionUtils.nullSafeAddAll(list, elements);
         return list;
     }
 
+    @NonNull
     @SafeVarargs
-    public static <T> LinkedList<T> nullSafeNewLinkedList(T... elements) {
+    public static <T> LinkedList<T> nullSafeNewLinkedList(@Nullable T... elements) {
         final LinkedList<T> list = new LinkedList<>();
         CollectionUtils.nullSafeAddAll(list, elements);
         return list;
