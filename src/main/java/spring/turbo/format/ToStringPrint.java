@@ -9,6 +9,7 @@
 package spring.turbo.format;
 
 import org.springframework.format.Printer;
+import org.springframework.lang.NonNull;
 
 import java.util.Locale;
 
@@ -28,8 +29,9 @@ public final class ToStringPrint implements Printer<Object> {
         return INSTANCE;
     }
 
+    @NonNull
     @Override
-    public String print(Object object, Locale locale) {
+    public String print(@NonNull Object object, @NonNull Locale locale) {
         return object.toString();
     }
 

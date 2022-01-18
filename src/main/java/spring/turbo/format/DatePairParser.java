@@ -37,8 +37,9 @@ class DatePairParser implements Parser<DatePair> {
         this.dateFormat = new SimpleDateFormat(pattern);
     }
 
+    @NonNull
     @Override
-    public DatePair parse(String text, Locale locale) throws ParseException {
+    public DatePair parse(@NonNull String text, @NonNull Locale locale) throws ParseException {
         final String string = text.trim();
         final String[] parts = string.split(delimiter, 2);
         final Date left = dateFormat.parse(parts[0]);

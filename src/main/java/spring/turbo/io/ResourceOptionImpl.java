@@ -9,6 +9,7 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
+import org.springframework.lang.NonNull;
 import org.springframework.util.StreamUtils;
 import spring.turbo.util.Asserts;
 
@@ -35,6 +36,7 @@ final class ResourceOptionImpl implements ResourceOption {
         this.resource = resource;
     }
 
+    @NonNull
     @Override
     public Optional<Resource> toOptional() {
         return Optional.of(resource);
@@ -50,47 +52,53 @@ final class ResourceOptionImpl implements ResourceOption {
         return true;
     }
 
+    @NonNull
     @Override
     public String toString(Charset charset) {
         try {
             return StreamUtils.copyToString(resource.getInputStream(), charset);
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
     }
 
+    @NonNull
     @Override
     public String toString() {
         return resource.toString();
     }
 
+    @NonNull
     @Override
     public byte[] toByteArray() {
         try {
             return StreamUtils.copyToByteArray(resource.getInputStream());
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
     }
 
+    @NonNull
     @Override
     public File toFile() {
         try {
             return resource.getFile();
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
     }
 
+    @NonNull
     @Override
     public Path toPath() {
         try {
             return resource.getFile().toPath().normalize();
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
     }
 
+    @NonNull
     @Override
     public Properties toProperties(PropertiesFormat format) {
         Asserts.notNull(format);
@@ -110,7 +118,7 @@ final class ResourceOptionImpl implements ResourceOption {
                     throw new AssertionError();
             }
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -124,10 +132,11 @@ final class ResourceOptionImpl implements ResourceOption {
             }
             return checkedInputStream.getChecksum().getValue();
         } catch (IOException e) {
-            return -1;
+            throw new UncheckedIOException(e);
         }
     }
 
+    @NonNull
     @Override
     public LineIterator getLineIterator(Charset charset) {
         try {

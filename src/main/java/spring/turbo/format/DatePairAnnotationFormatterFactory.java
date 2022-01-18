@@ -11,6 +11,7 @@ package spring.turbo.format;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
+import org.springframework.lang.NonNull;
 import spring.turbo.bean.DatePair;
 
 import java.util.Collections;
@@ -23,18 +24,21 @@ import java.util.Set;
  */
 public class DatePairAnnotationFormatterFactory implements AnnotationFormatterFactory<DatePairFormat> {
 
+    @NonNull
     @Override
     public Set<Class<?>> getFieldTypes() {
         return Collections.singleton(DatePair.class);
     }
 
+    @NonNull
     @Override
-    public Printer<?> getPrinter(DatePairFormat annotation, Class<?> fieldType) {
+    public Printer<?> getPrinter(@NonNull DatePairFormat annotation, @NonNull Class<?> fieldType) {
         return ToStringPrint.getInstance();
     }
 
+    @NonNull
     @Override
-    public Parser<?> getParser(DatePairFormat annotation, Class<?> fieldType) {
+    public Parser<?> getParser(@NonNull DatePairFormat annotation, @NonNull Class<?> fieldType) {
         return new DatePairParser(annotation.delimiter(), annotation.pattern());
     }
 

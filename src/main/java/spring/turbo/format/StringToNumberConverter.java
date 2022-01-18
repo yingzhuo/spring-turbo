@@ -10,6 +10,7 @@ package spring.turbo.format;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
+import org.springframework.lang.NonNull;
 import spring.turbo.util.NumberParseUtils;
 import spring.turbo.util.SetFactories;
 import spring.turbo.util.StringFormatter;
@@ -45,7 +46,7 @@ public class StringToNumberConverter implements GenericConverter {
     }
 
     @Override
-    public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+    public Object convert(Object source, @NonNull TypeDescriptor sourceType, @NonNull TypeDescriptor targetType) {
 
         if (source == null) {
             return null;
