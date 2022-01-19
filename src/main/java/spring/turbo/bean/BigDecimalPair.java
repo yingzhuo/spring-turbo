@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.lang.NonNull;
 import spring.turbo.format.StringToNumberPairConverter;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringFormatter;
@@ -39,21 +38,18 @@ public final class BigDecimalPair extends NumberPair {
     public static final BigDecimalPair DEFAULT =
             new BigDecimalPair(BigDecimal.valueOf(Double.MIN_VALUE), BigDecimal.valueOf(Double.MAX_VALUE));
 
-    public BigDecimalPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
+    public BigDecimalPair(BigDecimal left, BigDecimal right) {
         super(left, right);
     }
 
-    @NonNull
     public BigDecimal getLeft() {
         return super.getLeft(BigDecimal.class);
     }
 
-    @NonNull
     public BigDecimal getRight() {
         return super.getRight(BigDecimal.class);
     }
 
-    @NonNull
     public BigDecimalPair toTypedOrdered() {
         final NumberPair np = super.toOrdered();
         return new BigDecimalPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));

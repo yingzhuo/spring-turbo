@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
@@ -27,10 +26,13 @@ import java.util.Objects;
 @Immutable
 public final class Pair<A, B> implements Serializable {
 
+    @Nullable
     private final A a;
+
+    @Nullable
     private final B b;
 
-    private Pair(A a, B b) {
+    private Pair(@Nullable A a, @Nullable B b) {
         this.a = a;
         this.b = b;
     }
@@ -39,16 +41,18 @@ public final class Pair<A, B> implements Serializable {
         return new Pair<>(a, b);
     }
 
-    public static <A, B> Pair<A, B> ofNonNull(@NonNull A a, @NonNull B b) {
+    public static <A, B> Pair<A, B> ofNonNull(A a, B b) {
         Asserts.notNull(a);
         Asserts.notNull(b);
         return new Pair<>(a, b);
     }
 
+    @Nullable
     public A getA() {
         return a;
     }
 
+    @Nullable
     public B getB() {
         return b;
     }

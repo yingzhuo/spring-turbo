@@ -10,6 +10,7 @@ package spring.turbo.webmvc.token;
 
 import org.springframework.core.OrderComparator;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.web.context.request.WebRequest;
 import spring.turbo.util.CollectionUtils;
 
@@ -57,7 +58,7 @@ public final class CompositeTokenResolver implements TokenResolver {
     }
 
     // since 1.0.5
-    private Optional<Token> doResolve(TokenResolver resolver, WebRequest request) {
+    private Optional<Token> doResolve(@Nullable TokenResolver resolver, WebRequest request) {
         try {
             if (resolver != null) {
                 return resolver.resolve(request);

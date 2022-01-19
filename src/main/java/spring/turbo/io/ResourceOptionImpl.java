@@ -9,7 +9,6 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
-import org.springframework.lang.NonNull;
 import org.springframework.util.StreamUtils;
 import spring.turbo.util.Asserts;
 
@@ -36,7 +35,6 @@ final class ResourceOptionImpl implements ResourceOption {
         this.resource = resource;
     }
 
-    @NonNull
     @Override
     public Optional<Resource> toOptional() {
         return Optional.of(resource);
@@ -52,7 +50,6 @@ final class ResourceOptionImpl implements ResourceOption {
         return true;
     }
 
-    @NonNull
     @Override
     public String toString(Charset charset) {
         try {
@@ -62,13 +59,11 @@ final class ResourceOptionImpl implements ResourceOption {
         }
     }
 
-    @NonNull
     @Override
     public String toString() {
         return resource.toString();
     }
 
-    @NonNull
     @Override
     public byte[] toByteArray() {
         try {
@@ -78,7 +73,6 @@ final class ResourceOptionImpl implements ResourceOption {
         }
     }
 
-    @NonNull
     @Override
     public File toFile() {
         try {
@@ -88,7 +82,6 @@ final class ResourceOptionImpl implements ResourceOption {
         }
     }
 
-    @NonNull
     @Override
     public Path toPath() {
         try {
@@ -98,7 +91,6 @@ final class ResourceOptionImpl implements ResourceOption {
         }
     }
 
-    @NonNull
     @Override
     public Properties toProperties(PropertiesFormat format) {
         Asserts.notNull(format);
@@ -136,7 +128,6 @@ final class ResourceOptionImpl implements ResourceOption {
         }
     }
 
-    @NonNull
     @Override
     public LineIterator getLineIterator(Charset charset) {
         try {

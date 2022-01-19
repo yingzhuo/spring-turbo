@@ -6,10 +6,15 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+@NonNullApi
+@NonNullFields
 package spring.turbo.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.lang.NonNullApi;
+import org.springframework.lang.NonNullFields;
+import org.springframework.lang.Nullable;
 import spring.turbo.format.*;
 
 /**
@@ -19,7 +24,7 @@ import spring.turbo.format.*;
 class SpringBootAutoConfiguration {
 
     @Autowired(required = false)
-    public SpringBootAutoConfiguration(FormatterRegistry registry) {
+    public SpringBootAutoConfiguration(@Nullable FormatterRegistry registry) {
         if (registry != null) {
             registry.addConverter(new ResourceOptionConverter());
             registry.addConverter(new StringToBooleanConverter());

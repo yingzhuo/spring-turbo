@@ -28,11 +28,16 @@ import java.util.Optional;
 @Immutable
 public final class Tuple<A, B, C> implements Serializable {
 
+    @Nullable
     private final A a;
+
+    @Nullable
     private final B b;
+
+    @Nullable
     private final C c;
 
-    private Tuple(A a, B b, C c) {
+    private Tuple(@Nullable A a, @Nullable B b, @Nullable C c) {
         this.a = a;
         this.b = b;
         this.c = c;
@@ -65,14 +70,17 @@ public final class Tuple<A, B, C> implements Serializable {
         );
     }
 
+    @Nullable
     public A getA() {
         return a;
     }
 
+    @Nullable
     public B getB() {
         return b;
     }
 
+    @Nullable
     public C getC() {
         return c;
     }

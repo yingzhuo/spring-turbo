@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
+import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
 import spring.turbo.util.StringUtils;
 
 import java.util.Arrays;
@@ -29,23 +31,27 @@ public final class EnvironmentUtils {
     }
 
     public static String resolvePlaceholders(String text) {
-        if (text == null) return null;
+        Asserts.notNull(text);
         return SpringUtils.getEnvironment().resolvePlaceholders(text);
     }
 
     public static String resolveRequiredPlaceholders(String text) {
+        Asserts.notNull(text);
         return SpringUtils.getEnvironment().resolveRequiredPlaceholders(text);
     }
 
+    @Nullable
     public static String getPropertyValue(String propertyName) {
         return getPropertyValue(propertyName, String.class);
     }
 
+    @Nullable
     public static <T> T getPropertyValue(String propertyName, Class<T> targetType) {
         return getPropertyValue(propertyName, targetType, null);
     }
 
-    public static <T> T getPropertyValue(String propertyName, Class<T> targetType, T defaultIfNull) {
+    @Nullable
+    public static <T> T getPropertyValue(String propertyName, Class<T> targetType, @Nullable T defaultIfNull) {
         T result = SpringUtils.getEnvironment().getProperty(propertyName, targetType);
         return result != null ? result : defaultIfNull;
     }

@@ -13,7 +13,7 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
-import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * {@code SPEL}相关工具
@@ -44,7 +44,8 @@ public final class ExpressionUtils {
      * @param <T>              表达式值的类型
      * @return 值
      */
-    public static <T> T getValue(@NonNull String expressionString) {
+    @Nullable
+    public static <T> T getValue(String expressionString) {
         Asserts.hasText(expressionString);
         final Expression expression = EXPRESSION_PARSER.parseExpression(expressionString);
         return (T) expression.getValue();
@@ -58,7 +59,8 @@ public final class ExpressionUtils {
      * @param <T>              表达式值的类型
      * @return 值
      */
-    public static <T> T getValue(@NonNull Object rootObj, @NonNull String expressionString) {
+    @Nullable
+    public static <T> T getValue(Object rootObj, String expressionString) {
         Asserts.notNull(rootObj);
         Asserts.hasText(expressionString);
         final Expression expression = EXPRESSION_PARSER.parseExpression(expressionString);

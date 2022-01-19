@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
-
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.time.Duration;
@@ -37,7 +35,7 @@ public final class SocketUtils {
      * @param timeoutInMillis timeout毫秒数
      * @return 能联通时返回 {@code true}  否则返回 {@code false}
      */
-    public static boolean isReachable(@NonNull String address, int port, int timeoutInMillis) {
+    public static boolean isReachable(String address, int port, int timeoutInMillis) {
         Asserts.hasText(address);
 
         try (Socket socket = new Socket()) {
@@ -56,7 +54,7 @@ public final class SocketUtils {
      * @param timeout timeout
      * @return 能联通时返回 {@code true}  否则返回 {@code false}
      */
-    public static boolean isReachable(@NonNull String address, int port, @NonNull Duration timeout) {
+    public static boolean isReachable(String address, int port, Duration timeout) {
         Asserts.notNull(timeout);
         return isReachable(address, port, (int) timeout.toMillis());
     }

@@ -9,6 +9,7 @@
 package spring.turbo.util;
 
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -22,6 +23,7 @@ import java.util.function.Supplier;
  */
 public final class ClassUtils {
 
+    @Nullable
     private static final ClassLoader DEFAULT_CLASSLOADER = org.springframework.util.ClassUtils.getDefaultClassLoader();
 
     /**
@@ -36,7 +38,6 @@ public final class ClassUtils {
      *
      * @return {@link ClassLoader}实例
      */
-    @NonNull
     public static ClassLoader getDefaultClassLoader() {
         // (only null if even the system ClassLoader isn't accessible)
         return Optional.ofNullable(DEFAULT_CLASSLOADER)
@@ -51,7 +52,6 @@ public final class ClassUtils {
      * @see #forName(String)
      * @see #forNameOrThrow(String, Supplier)
      */
-    @NonNull
     public static Class<?> forNameOrThrow(@NonNull String className) {
         return forNameOrThrow(className, new ClassLoadingExceptionSupplier(className));
     }
@@ -63,7 +63,6 @@ public final class ClassUtils {
      * @param exceptionIfCannotLoad 异常提供者，不可为 {@code null}
      * @return 加载结果
      */
-    @NonNull
     public static Class<?> forNameOrThrow(@NonNull String className, @NonNull Supplier<? extends RuntimeException> exceptionIfCannotLoad) {
         Asserts.notNull(exceptionIfCannotLoad);
         return forName(className).orElseThrow(exceptionIfCannotLoad);
@@ -88,7 +87,6 @@ public final class ClassUtils {
      * @see #forNameOrThrow(String)
      * @see #forNameOrThrow(String, Supplier)
      */
-    @NonNull
     public static Optional<Class<?>> forName(@NonNull String className) {
         try {
             final Class<?> clazz = org.springframework.util.ClassUtils.forName(className, DEFAULT_CLASSLOADER);

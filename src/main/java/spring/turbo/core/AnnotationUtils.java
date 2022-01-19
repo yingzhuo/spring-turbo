@@ -9,7 +9,6 @@
 package spring.turbo.core;
 
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
@@ -41,8 +40,7 @@ public final class AnnotationUtils {
      * @see #findAnnotation(Class, Class)
      * @since 1.0.0
      */
-    @NonNull
-    public static AnnotationAttributes findAnnotationAttributes(@NonNull Class<?> annotationSupplier, @NonNull Class<? extends Annotation> annotationType) {
+    public static AnnotationAttributes findAnnotationAttributes(Class<?> annotationSupplier, Class<? extends Annotation> annotationType) {
         Asserts.notNull(annotationSupplier);
         Asserts.notNull(annotationType);
 
@@ -66,8 +64,7 @@ public final class AnnotationUtils {
      * @see #findAnnotation(Method, Class)
      * @since 1.0.0
      */
-    @NonNull
-    public static AnnotationAttributes findAnnotationAttributes(@NonNull Method annotationSupplier, @NonNull Class<? extends Annotation> annotationType) {
+    public static AnnotationAttributes findAnnotationAttributes(Method annotationSupplier, Class<? extends Annotation> annotationType) {
         Asserts.notNull(annotationSupplier);
         Asserts.notNull(annotationType);
 
@@ -91,8 +88,7 @@ public final class AnnotationUtils {
      * @see #findAnnotation(AnnotatedElement, Class)
      * @since 1.0.0
      */
-    @NonNull
-    public static AnnotationAttributes findAnnotationAttributes(@NonNull AnnotatedElement annotationSupplier, @NonNull Class<? extends Annotation> annotationType) {
+    public static AnnotationAttributes findAnnotationAttributes(AnnotatedElement annotationSupplier, Class<? extends Annotation> annotationType) {
         Asserts.notNull(annotationSupplier);
         Asserts.notNull(annotationType);
 

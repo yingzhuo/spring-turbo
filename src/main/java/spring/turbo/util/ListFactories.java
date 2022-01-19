@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.*;
@@ -27,7 +26,6 @@ public final class ListFactories {
         super();
     }
 
-    @NonNull
     @SafeVarargs
     public static <T> List<T> newUnmodifiableList(@Nullable T... elements) {
         if (elements == null) {
@@ -36,7 +34,6 @@ public final class ListFactories {
         return Collections.unmodifiableList(newArrayList(elements));
     }
 
-    @NonNull
     @SafeVarargs
     public static <T> ArrayList<T> newArrayList(@Nullable T... elements) {
         final ArrayList<T> list = new ArrayList<>();
@@ -46,7 +43,6 @@ public final class ListFactories {
         return list;
     }
 
-    @NonNull
     @SafeVarargs
     public static <T> LinkedList<T> newLinkedList(@Nullable T... elements) {
         final LinkedList<T> list = new LinkedList<>();
@@ -56,7 +52,6 @@ public final class ListFactories {
         return list;
     }
 
-    @NonNull
     @SafeVarargs
     public static <T> ArrayList<T> nullSafeNewArrayList(@Nullable T... elements) {
         final ArrayList<T> list = new ArrayList<>();
@@ -64,7 +59,6 @@ public final class ListFactories {
         return list;
     }
 
-    @NonNull
     @SafeVarargs
     public static <T> LinkedList<T> nullSafeNewLinkedList(@Nullable T... elements) {
         final LinkedList<T> list = new LinkedList<>();

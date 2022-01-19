@@ -9,7 +9,6 @@
 package spring.turbo.util;
 
 import org.slf4j.LoggerFactory;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Immutable;
 
@@ -22,9 +21,12 @@ import java.io.Serializable;
 @Immutable
 public final class Logger implements Serializable {
 
+    @Nullable
     private final org.slf4j.Logger log;
-    private final LogLevel level;
+
     private final boolean enabled;
+
+    private final LogLevel level;
 
     public Logger(String loggerName, LogLevel level) {
         Asserts.notNull(level);
@@ -135,16 +137,6 @@ public final class Logger implements Serializable {
 
     private void error(String format, Object... args) {
         log.warn(format, args);
-    }
-
-    @Nullable
-    public org.slf4j.Logger getLog() {
-        return log;
-    }
-
-    @NonNull
-    public LogLevel getLevel() {
-        return level;
     }
 
 }

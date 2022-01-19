@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.lang.NonNull;
 import spring.turbo.format.StringToNumberPairConverter;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringFormatter;
@@ -41,21 +40,18 @@ public final class ShortPair extends NumberPair {
 
     public static final ShortPair DEFAULT = MIN_TO_MAX;
 
-    public ShortPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
+    public ShortPair(BigDecimal left, BigDecimal right) {
         super(left, right);
     }
 
-    @NonNull
     public Short getLeft() {
         return super.getLeft(Short.class);
     }
 
-    @NonNull
     public Short getRight() {
         return super.getRight(Short.class);
     }
 
-    @NonNull
     public ShortPair toTypedOrdered() {
         final NumberPair np = super.toOrdered();
         return new ShortPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));

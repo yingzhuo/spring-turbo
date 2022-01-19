@@ -12,7 +12,6 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.DirectFieldAccessor;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
@@ -31,7 +30,7 @@ public class ValueObjectGetter implements Serializable {
     private final BeanWrapper vow;
     private final DirectFieldAccessor vofa;
 
-    public ValueObjectGetter(@NonNull Object vo) {
+    public ValueObjectGetter(Object vo) {
         Asserts.notNull(vo);
         this.vo = vo;
         this.vow = new BeanWrapperImpl(vo);
@@ -56,18 +55,15 @@ public class ValueObjectGetter implements Serializable {
         return Optional.ofNullable(get(key)).orElse(defaultIfNull);
     }
 
-    @NonNull
     public Object getOrThrow(@Nullable String key, Supplier<? extends RuntimeException> exceptionIfNotFound) {
         Asserts.notNull(exceptionIfNotFound);
         return Optional.ofNullable(get(key)).orElseThrow(exceptionIfNotFound);
     }
 
-    @NonNull
     public Object getOrThrow(@Nullable String key) {
         return getOrThrow(key, () -> new IllegalArgumentException("key not found: " + key));
     }
 
-    @NonNull
     private Optional<Object> getFromWrapper(String key) {
         try {
             return Optional.ofNullable(vow.getPropertyValue(key));
@@ -76,7 +72,6 @@ public class ValueObjectGetter implements Serializable {
         }
     }
 
-    @NonNull
     private Optional<Object> getFromFieldAccessor(String key) {
         try {
             return Optional.ofNullable(vofa.getPropertyValue(key));

@@ -9,7 +9,6 @@
 package spring.turbo.util;
 
 import org.springframework.boot.convert.DurationStyle;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.time.Duration;
@@ -37,8 +36,7 @@ public final class DurationFormatUtils {
      * @param duration {@link Duration}实例
      * @return 格式化字符串
      */
-    @NonNull
-    public static String format(@NonNull Duration duration) {
+    public static String format(Duration duration) {
         return format(duration, null);
     }
 
@@ -49,8 +47,7 @@ public final class DurationFormatUtils {
      * @param unit     默认时间单位，可为空，为空时为毫秒
      * @return 格式化字符串
      */
-    @NonNull
-    public static String format(@NonNull Duration duration, @Nullable ChronoUnit unit) {
+    public static String format(Duration duration, @Nullable ChronoUnit unit) {
         Asserts.notNull(duration);
         return DurationStyle.ISO8601.print(duration, unit);
     }

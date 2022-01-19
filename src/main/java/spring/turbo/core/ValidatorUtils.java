@@ -8,10 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
-import org.springframework.util.Assert;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
+import spring.turbo.util.Asserts;
+import spring.turbo.util.StringFormatter;
 
 /**
  * @author 应卓
@@ -21,19 +22,22 @@ import org.springframework.validation.Validator;
  */
 public final class ValidatorUtils {
 
+    /**
+     * 私有构造方法
+     */
     private ValidatorUtils() {
         super();
     }
 
     public static boolean support(Class<?> targetType) {
-        Assert.notNull(targetType, "targetType is null");
+        Asserts.notNull(targetType);
         final Validator validator = SpringUtils.getValidator();
         return validator.supports(targetType);
     }
 
     public static BindingResult validator(Object obj) {
-        Assert.notNull(obj, "obj is null");
-        final String objectName = "bean[" + System.identityHashCode(obj) + "]";
+        Asserts.notNull(obj);
+        final String objectName = StringFormatter.format("bean[{}]", System.identityHashCode(obj));
         final BeanPropertyBindingResult errors = new BeanPropertyBindingResult(obj, objectName);
         final Validator validator = SpringUtils.getValidator();
         validator.validate(obj, errors);

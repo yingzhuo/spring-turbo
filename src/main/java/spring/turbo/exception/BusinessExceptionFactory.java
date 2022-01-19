@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
+import org.springframework.lang.Nullable;
+
 import java.util.Locale;
 
 /**
@@ -21,10 +23,10 @@ public interface BusinessExceptionFactory {
         return create(code, null, (Object[]) null);
     }
 
-    public default BusinessException create(String code, Locale locale) {
+    public default BusinessException create(String code, @Nullable Locale locale) {
         return create(code, locale, (Object[]) null);
     }
 
-    public BusinessException create(String code, Locale locale, Object... args);
+    public BusinessException create(String code, @Nullable Locale locale, @Nullable Object... args);
 
 }

@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.nio.file.Paths;
@@ -41,8 +40,7 @@ public final class FilenameUtils {
      * @param filename 文件名
      * @return 文件名
      */
-    @NonNull
-    public static String normalize(@NonNull String filename) {
+    public static String normalize(String filename) {
         return contact(filename);
     }
 
@@ -53,8 +51,7 @@ public final class FilenameUtils {
      * @param more 子目录
      * @return 文件名
      */
-    @NonNull
-    public static String contact(@NonNull String path, String... more) {
+    public static String contact(String path, @Nullable String... more) {
         Asserts.notNull(path);
 
         if (more != null)
@@ -76,8 +73,7 @@ public final class FilenameUtils {
      * @param fileName 文件名
      * @return 文件basename
      */
-    @NonNull
-    public static String getBaseName(@NonNull final String fileName) {
+    public static String getBaseName(final String fileName) {
         Asserts.notNull(fileName);
 
         requireNonNullChars(fileName);
@@ -101,8 +97,7 @@ public final class FilenameUtils {
      * @param fileName 文件名
      * @return 文件扩展名
      */
-    @NonNull
-    public static String getExtension(@NonNull final String fileName) {
+    public static String getExtension(final String fileName) {
         Asserts.notNull(fileName);
 
         final int index = indexOfExtension(fileName);
@@ -128,7 +123,7 @@ public final class FilenameUtils {
         return lastSeparator > extensionPos ? -1 : extensionPos;
     }
 
-    private static int indexOfLastSeparator(final String fileName) {
+    private static int indexOfLastSeparator(@Nullable final String fileName) {
         if (fileName == null) {
             return NOT_FOUND;
         }

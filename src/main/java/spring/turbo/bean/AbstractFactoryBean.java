@@ -8,8 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.SmartFactoryBean;
+import org.springframework.lang.Nullable;
 
 import java.util.Optional;
 
@@ -17,10 +17,12 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.0.2
  */
-public abstract class AbstractFactoryBean implements SmartFactoryBean<Object>, FactoryBean<Object> {
+public abstract class AbstractFactoryBean implements SmartFactoryBean<Object> {
 
+    @Nullable
     protected ClassDefinitionResolvable classDefinitionResolvable;
 
+    // 此bean必须有默认构造方法
     public AbstractFactoryBean() {
         super();
     }

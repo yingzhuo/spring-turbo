@@ -9,6 +9,7 @@
 package spring.turbo.webmvc.api;
 
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import spring.turbo.lang.Mutable;
 import spring.turbo.util.Asserts;
 
@@ -24,6 +25,7 @@ import java.util.Optional;
 public class Json implements MutableApiResult<Map<String, Object>> {
 
     private String code = "200";
+    @Nullable
     private String errorMessage;
     private Map<String, Object> payload = new LinkedHashMap<>();
     private boolean deprecated = false;
@@ -72,6 +74,7 @@ public class Json implements MutableApiResult<Map<String, Object>> {
         this.code = code;
     }
 
+    @Nullable
     @Override
     public String getErrorMessage() {
         return errorMessage;

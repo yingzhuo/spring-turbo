@@ -10,7 +10,6 @@ package spring.turbo.bean;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.core.AnnotationUtils;
 import spring.turbo.lang.Immutable;
@@ -32,11 +31,11 @@ public final class ClassDefinition implements ClassDefinitionResolvable {
     private final BeanDefinition beanDefinition;
     private final Class<?> beanClass;
 
-    public ClassDefinition(@NonNull BeanDefinition beanDefinition) {
+    public ClassDefinition(BeanDefinition beanDefinition) {
         Asserts.notNull(beanDefinition);
         this.beanDefinition = beanDefinition;
         this.beanClass = ClassUtils.forNameOrThrow(Optional.ofNullable(beanDefinition.getBeanClassName())
-                .orElseThrow(NullPointerException::new));
+                .orElseThrow(IllegalArgumentException::new));
     }
 
     public BeanDefinition getBeanDefinition() {
@@ -48,6 +47,7 @@ public final class ClassDefinition implements ClassDefinitionResolvable {
         return beanClass;
     }
 
+    @Nullable
     @Override
     public String getBeanClassName() {
         return beanDefinition.getBeanClassName();
@@ -103,17 +103,16 @@ public final class ClassDefinition implements ClassDefinitionResolvable {
         return beanDefinition.getRole();
     }
 
-    public <T extends Annotation> boolean isAnnotationPresent(@NonNull Class<T> annotationType) {
+    public <T extends Annotation> boolean isAnnotationPresent(Class<T> annotationType) {
         return findAnnotation(annotationType) != null;
     }
 
     @Nullable
-    public <T extends Annotation> T findAnnotation(@NonNull Class<T> annotationType) {
+    public <T extends Annotation> T findAnnotation(Class<T> annotationType) {
         return AnnotationUtils.findAnnotation(this.beanClass, annotationType);
     }
 
-    @NonNull
-    public AnnotationAttributes findAnnotationAttributes(@NonNull Class<? extends Annotation> annotationType) {
+    public AnnotationAttributes findAnnotationAttributes(Class<? extends Annotation> annotationType) {
         return AnnotationUtils.findAnnotationAttributes(this.beanClass, annotationType);
     }
 

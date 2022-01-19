@@ -26,7 +26,8 @@ import static spring.turbo.util.StringPool.EMPTY;
  */
 public class StringFactoryBean implements FactoryBean<String>, InitializingBean {
 
-    private String text;
+    @NonNull
+    private String text = EMPTY;
     private boolean trim = false;
     private boolean toOneLine = false;
     private boolean toUpperCase = false;
@@ -36,16 +37,16 @@ public class StringFactoryBean implements FactoryBean<String>, InitializingBean 
         super();
     }
 
-    public StringFactoryBean(@NonNull String text) {
+    public StringFactoryBean(String text) {
         Asserts.notNull(text);
         this.text = text;
     }
 
-    public StringFactoryBean(@NonNull Resource text) {
+    public StringFactoryBean(Resource text) {
         this(text, CharsetPool.UTF_8);
     }
 
-    public StringFactoryBean(@NonNull Resource text, @NonNull Charset charset) {
+    public StringFactoryBean(Resource text, Charset charset) {
         Asserts.notNull(text);
         Asserts.notNull(charset);
 
@@ -87,11 +88,11 @@ public class StringFactoryBean implements FactoryBean<String>, InitializingBean 
         this.text = text;
     }
 
-    public void setText(@NonNull Resource text) {
+    public void setText(Resource text) {
         setText(text, CharsetPool.UTF_8);
     }
 
-    public void setText(@NonNull Resource text, @NonNull Charset charset) {
+    public void setText(Resource text, Charset charset) {
         Asserts.notNull(text);
         Asserts.notNull(charset);
 

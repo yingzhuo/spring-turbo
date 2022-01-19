@@ -10,6 +10,7 @@ package spring.turbo.exception;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
 import java.util.Locale;
@@ -29,7 +30,7 @@ public class MessageSourceBusinessExceptionFactory implements BusinessExceptionF
     }
 
     @Override
-    public BusinessException create(String code, Locale locale, Object... args) {
+    public BusinessException create(String code, @Nullable Locale locale, @Nullable Object... args) {
         String message = null;
         try {
             message = messageSource.getMessage(code, (Object[]) args, Optional.ofNullable(locale).orElse(Locale.getDefault()));

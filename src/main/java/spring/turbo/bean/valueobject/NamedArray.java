@@ -9,6 +9,7 @@
 package spring.turbo.bean.valueobject;
 
 import org.springframework.beans.MutablePropertyValues;
+import org.springframework.lang.Nullable;
 import spring.turbo.lang.Mutable;
 import spring.turbo.util.Asserts;
 
@@ -36,7 +37,7 @@ public class NamedArray<T> implements Iterable<T> {
      * @param array 数据
      * @param names 名称
      */
-    NamedArray(List<T> array, List<String> names, Map<String, String> aliases) {
+    NamedArray(List<T> array, List<String> names, @Nullable Map<String, String> aliases) {
         Asserts.notNull(array);
         Asserts.notNull(names);
         Asserts.noNullElements(names, (String) null);

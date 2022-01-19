@@ -33,6 +33,7 @@ public final class StringUtils {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    @Nullable
     public static String repeat(@Nullable String string, int n) {
         if (string == null) {
             return null;
@@ -122,6 +123,7 @@ public final class StringUtils {
         return toCharStream(charsToCheck).allMatch(charSet::contains);
     }
 
+    @Nullable
     public static String deleteChars(@Nullable String string, String charsToDelete) {
         if (string == null) {
             return null;

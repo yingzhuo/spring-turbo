@@ -9,7 +9,6 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
-import org.springframework.lang.NonNull;
 import spring.turbo.util.CharsetPool;
 
 import java.io.File;
@@ -25,7 +24,6 @@ import java.util.Properties;
  */
 public interface ResourceOption extends Serializable {
 
-    @NonNull
     public Optional<Resource> toOptional();
 
     public boolean isAbsent();
@@ -34,23 +32,17 @@ public interface ResourceOption extends Serializable {
         return !isAbsent();
     }
 
-    @NonNull
     @Override
     public String toString();
 
-    @NonNull
     public String toString(Charset charset);
 
-    @NonNull
     public byte[] toByteArray();
 
-    @NonNull
     public File toFile();
 
-    @NonNull
     public Path toPath();
 
-    @NonNull
     public Properties toProperties(PropertiesFormat propertiesFormat);
 
     public long getChecksumCRC32(int buffSize);
@@ -59,19 +51,16 @@ public interface ResourceOption extends Serializable {
         return getChecksumCRC32(1024);
     }
 
-    @NonNull
     public default Properties toProperties() {
         return toProperties(PropertiesFormat.PROPERTIES);
     }
 
     // since 1.0.8
-    @NonNull
     public default LineIterator getLineIterator() {
         return getLineIterator(CharsetPool.UTF_8);
     }
 
     // since 1.0.8
-    @NonNull
     public LineIterator getLineIterator(Charset charset);
 
 }

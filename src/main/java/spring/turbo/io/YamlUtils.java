@@ -10,9 +10,9 @@ package spring.turbo.io;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.Resource;
-import org.springframework.lang.NonNull;
 import spring.turbo.util.Asserts;
 
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -23,6 +23,9 @@ import java.util.Properties;
  */
 public final class YamlUtils {
 
+    /**
+     * 私有构造方法
+     */
     private YamlUtils() {
         super();
     }
@@ -33,14 +36,14 @@ public final class YamlUtils {
      * @param resources YAML文件
      * @return {@link Properties}实例
      */
-    public static Properties toProperties(@NonNull Resource... resources) {
+    public static Properties toProperties(Resource... resources) {
         Asserts.notEmpty(resources);
         Asserts.noNullElements(resources);
         final YamlPropertiesFactoryBean factory = new YamlPropertiesFactoryBean();
         factory.setSingleton(false);
         factory.setResources(resources);
         factory.afterPropertiesSet();
-        return factory.getObject();
+        return Objects.requireNonNull(factory.getObject());
     }
 
 }

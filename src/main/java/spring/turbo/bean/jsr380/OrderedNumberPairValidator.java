@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.bean.NumberPair;
 
 import javax.validation.ConstraintValidator;
@@ -19,8 +20,12 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class OrderedNumberPairValidator implements ConstraintValidator<OrderedNumberPair, NumberPair> {
 
+    public OrderedNumberPairValidator() {
+        super();
+    }
+
     @Override
-    public boolean isValid(NumberPair value, ConstraintValidatorContext context) {
+    public boolean isValid(@Nullable NumberPair value, ConstraintValidatorContext context) {
         return value == null || value.isOrdered();
     }
 

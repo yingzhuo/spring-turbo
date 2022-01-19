@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.lang.NonNull;
-
 import java.util.List;
 
 /**
@@ -28,7 +26,6 @@ public interface ClassPathScanner {
      *
      * @return 创建器
      */
-    @NonNull
     public static ClassPathScannerBuilder builder() {
         return new ClassPathScannerBuilder();
     }
@@ -39,7 +36,6 @@ public interface ClassPathScanner {
      * @param basePackages 扫描起点
      * @return 扫描结果
      */
-    @NonNull
-    public List<ClassDefinition> scan(@NonNull Iterable<String> basePackages);
+    public List<ClassDefinition> scan(Iterable<String> basePackages);
 
 }

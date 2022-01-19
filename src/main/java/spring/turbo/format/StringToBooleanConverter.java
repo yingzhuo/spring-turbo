@@ -10,7 +10,7 @@ package spring.turbo.format;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
-import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import spring.turbo.util.SetFactories;
 import spring.turbo.util.StringFormatter;
 
@@ -37,7 +37,7 @@ public class StringToBooleanConverter implements GenericConverter {
     }
 
     @Override
-    public Object convert(Object source, @NonNull TypeDescriptor sourceType, @NonNull TypeDescriptor targetType) {
+    public Object convert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         if (source == null) {
             return null;
         }

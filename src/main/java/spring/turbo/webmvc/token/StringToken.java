@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.token;
 
-import org.springframework.lang.NonNull;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 
@@ -25,16 +24,15 @@ public class StringToken implements Token {
 
     private final String string;
 
-    private StringToken(@NonNull String string) {
+    private StringToken(String string) {
         Asserts.hasText(string);
         this.string = string;
     }
 
-    public static StringToken of(@NonNull String token) {
+    public static StringToken of(String token) {
         return new StringToken(token);
     }
 
-    @NonNull
     @Override
     public String asString() {
         return string;

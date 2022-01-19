@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.lang.NonNull;
 import spring.turbo.format.StringToDatePairConverter;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
@@ -43,7 +42,7 @@ public final class DatePair implements Iterable<Date>, Serializable {
     private final Date left;
     private final Date right;
 
-    public DatePair(@NonNull Date left, @NonNull Date right) {
+    public DatePair(Date left, Date right) {
         Asserts.notNull(left);
         Asserts.notNull(right);
         this.left = left;
@@ -54,7 +53,6 @@ public final class DatePair implements Iterable<Date>, Serializable {
         return left.compareTo(right) <= 0;
     }
 
-    @NonNull
     public DatePair toOrdered() {
         if (isOrdered()) {
             return this;
@@ -63,18 +61,15 @@ public final class DatePair implements Iterable<Date>, Serializable {
         }
     }
 
-    @NonNull
     public Date getLeft() {
         return left;
     }
 
-    @NonNull
     public Date getRight() {
         return right;
     }
 
     // since 1.0.8
-    @NonNull
     @Override
     public Iterator<Date> iterator() {
         return Arrays.asList(left, right).iterator();
@@ -93,7 +88,6 @@ public final class DatePair implements Iterable<Date>, Serializable {
         return Objects.hash(left, right);
     }
 
-    @NonNull
     public Pair<Date, Date> toPair() {
         return Pair.ofNonNull(getLeft(), getRight());
     }

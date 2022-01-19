@@ -9,6 +9,7 @@
 package spring.turbo.bean.jsr380;
 
 import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.lang.Nullable;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -24,6 +25,10 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
     private String field;
     private String fieldMatch;
 
+    public FieldsValueMatchValidator() {
+        super();
+    }
+
     @Override
     public void initialize(FieldsValueMatch annotation) {
         this.field = annotation.field();
@@ -31,7 +36,7 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
     }
 
     @Override
-    public boolean isValid(Object value, ConstraintValidatorContext context) {
+    public boolean isValid(@Nullable Object value, ConstraintValidatorContext context) {
         if (value == null) return true;
         Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
         Object fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);

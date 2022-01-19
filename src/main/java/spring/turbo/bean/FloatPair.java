@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.lang.NonNull;
 import spring.turbo.format.StringToNumberPairConverter;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringFormatter;
@@ -41,21 +40,18 @@ public final class FloatPair extends NumberPair {
 
     public static final FloatPair DEFAULT = MIN_TO_MAX;
 
-    public FloatPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
+    public FloatPair(BigDecimal left, BigDecimal right) {
         super(left, right);
     }
 
-    @NonNull
     public Float getLeft() {
         return super.getLeft(Float.class);
     }
 
-    @NonNull
     public Float getRight() {
         return super.getRight(Float.class);
     }
 
-    @NonNull
     public FloatPair toTypedOrdered() {
         final NumberPair np = super.toOrdered();
         return new FloatPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));

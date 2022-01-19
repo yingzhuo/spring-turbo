@@ -9,7 +9,6 @@
 package spring.turbo.format;
 
 import org.springframework.format.Parser;
-import org.springframework.lang.NonNull;
 import spring.turbo.bean.DatePair;
 import spring.turbo.util.Asserts;
 
@@ -30,16 +29,15 @@ class DatePairParser implements Parser<DatePair> {
     private final String delimiter;
     private final DateFormat dateFormat;
 
-    DatePairParser(@NonNull String delimiter, @NonNull String pattern) {
+    DatePairParser(String delimiter, String pattern) {
         Asserts.hasText(delimiter);
         Asserts.hasText(pattern);
         this.delimiter = delimiter;
         this.dateFormat = new SimpleDateFormat(pattern);
     }
 
-    @NonNull
     @Override
-    public DatePair parse(@NonNull String text, @NonNull Locale locale) throws ParseException {
+    public DatePair parse(String text, Locale locale) throws ParseException {
         final String string = text.trim();
         final String[] parts = string.split(delimiter, 2);
         final Date left = dateFormat.parse(parts[0]);

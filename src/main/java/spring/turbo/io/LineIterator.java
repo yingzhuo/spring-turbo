@@ -9,12 +9,14 @@
 package spring.turbo.io;
 
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.CloseUtils;
 
 import java.io.*;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * @author 应卓
@@ -22,8 +24,12 @@ import java.util.NoSuchElementException;
  */
 public class LineIterator implements Iterator<String>, Closeable {
 
+    @NonNull
     private final BufferedReader bufferedReader;
+
+    @Nullable
     private String cachedLine;
+
     private boolean finished;
 
     public LineIterator(@NonNull Reader reader) {
@@ -73,11 +79,11 @@ public class LineIterator implements Iterator<String>, Closeable {
         }
         final String currentLine = cachedLine;
         cachedLine = null;
-        return currentLine;
+        return Objects.requireNonNull(currentLine);
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         finished = true;
         cachedLine = null;
         CloseUtils.closeQuietly(bufferedReader);

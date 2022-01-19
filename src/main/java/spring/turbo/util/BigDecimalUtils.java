@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Null;
@@ -38,8 +37,7 @@ public final class BigDecimalUtils {
      * @param number2 数字2
      * @return 参数中最小的一个
      */
-    @NonNull
-    public static BigDecimal min(@NonNull BigDecimal number1, @NonNull BigDecimal number2) {
+    public static BigDecimal min(BigDecimal number1, BigDecimal number2) {
         Asserts.notNull(number1);
         Asserts.notNull(number2);
         return number1.compareTo(number2) < 0 ? number1 : number2;
@@ -51,8 +49,7 @@ public final class BigDecimalUtils {
      * @param numbers 数字
      * @return 参数中最小的一个
      */
-    @NonNull
-    public static BigDecimal min(@NonNull BigDecimal... numbers) {
+    public static BigDecimal min(BigDecimal... numbers) {
         Asserts.notNull(numbers);
         Asserts.notEmpty(numbers);
         Asserts.noNullElements(numbers);
@@ -71,8 +68,7 @@ public final class BigDecimalUtils {
      * @param numbers 数字
      * @return 参数中最小的一个
      */
-    @NonNull
-    public static BigDecimal min(@NonNull Collection<BigDecimal> numbers) {
+    public static BigDecimal min(Collection<BigDecimal> numbers) {
         Asserts.notNull(numbers);
         return min(numbers.toArray(new BigDecimal[0]));
     }
@@ -84,8 +80,7 @@ public final class BigDecimalUtils {
      * @param number2 数字2
      * @return 参数中最小的一个
      */
-    @NonNull
-    public static BigDecimal max(@NonNull BigDecimal number1, @NonNull BigDecimal number2) {
+    public static BigDecimal max(BigDecimal number1, BigDecimal number2) {
         Asserts.notNull(number1);
         Asserts.notNull(number2);
         return number1.compareTo(number2) > 0 ? number1 : number2;
@@ -97,8 +92,7 @@ public final class BigDecimalUtils {
      * @param numbers 数字
      * @return 参数中最大的一个
      */
-    @NonNull
-    public static BigDecimal max(@NonNull BigDecimal... numbers) {
+    public static BigDecimal max(BigDecimal... numbers) {
         Asserts.notNull(numbers);
         Asserts.notEmpty(numbers);
         Asserts.noNullElements(numbers);
@@ -117,8 +111,7 @@ public final class BigDecimalUtils {
      * @param numbers 数字
      * @return 参数中最大的一个
      */
-    @NonNull
-    public static BigDecimal max(@NonNull Collection<BigDecimal> numbers) {
+    public static BigDecimal max(Collection<BigDecimal> numbers) {
         Asserts.notNull(numbers);
         return max(numbers.toArray(new BigDecimal[0]));
     }
@@ -129,7 +122,6 @@ public final class BigDecimalUtils {
      * @param numbers 若干个数
      * @return 和
      */
-    @NonNull
     public static BigDecimal nullSafeAdd(@Nullable BigDecimal... numbers) {
         BigDecimal x = BigDecimal.ZERO;
         if (numbers != null) {
@@ -148,7 +140,6 @@ public final class BigDecimalUtils {
      * @param numbers 若干个数
      * @return 和
      */
-    @NonNull
     public static BigDecimal nullSafeAdd(@Nullable Collection<BigDecimal> numbers) {
         if (numbers == null) {
             return BigDecimal.ZERO;
@@ -162,7 +153,6 @@ public final class BigDecimalUtils {
      * @param numbers 若干个数
      * @return 积
      */
-    @NonNull
     public static BigDecimal nullSafeMultiply(@Null BigDecimal... numbers) {
         BigDecimal x = BigDecimal.ONE;
         if (numbers != null) {
@@ -181,7 +171,6 @@ public final class BigDecimalUtils {
      * @param numbers 若干个数
      * @return 积
      */
-    @NonNull
     public static BigDecimal nullSafeMultiply(@Null Collection<BigDecimal> numbers) {
         if (numbers == null) {
             return BigDecimal.ONE;
@@ -190,7 +179,7 @@ public final class BigDecimalUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends Number> T getValue(@NonNull BigDecimal number, @NonNull Class<T> numberType) {
+    public static <T extends Number> T getValue(BigDecimal number, Class<T> numberType) {
         Asserts.notNull(number);
         Asserts.notNull(numberType);
 

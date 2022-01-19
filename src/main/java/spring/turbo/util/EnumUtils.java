@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.Nullable;
+
 import java.util.*;
 
 /**
@@ -33,6 +35,7 @@ public final class EnumUtils {
      * @param <E>       枚举类型泛型
      * @return 枚举值
      */
+    @Nullable
     public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName) {
         return getEnum(enumClass, enumName, null);
     }
@@ -46,10 +49,9 @@ public final class EnumUtils {
      * @param <E>         枚举类型泛型
      * @return 枚举值
      */
-    public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName, final E defaultEnum) {
-        if (enumName == null) {
-            return defaultEnum;
-        }
+    @Nullable
+    public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName, @Nullable final E defaultEnum) {
+        Asserts.notNull(enumName);
         try {
             return Enum.valueOf(enumClass, enumName);
         } catch (final IllegalArgumentException ex) {
@@ -65,6 +67,7 @@ public final class EnumUtils {
      * @param <E>       枚举类型泛型
      * @return 枚举值
      */
+    @Nullable
     public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName) {
         return getEnumIgnoreCase(enumClass, enumName, null);
     }
@@ -78,10 +81,11 @@ public final class EnumUtils {
      * @param <E>         枚举类型泛型
      * @return 枚举值
      */
-    public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName, final E defaultEnum) {
-        if (enumName == null || !enumClass.isEnum()) {
-            return defaultEnum;
-        }
+    @Nullable
+    public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName, @Nullable final E defaultEnum) {
+        Asserts.notNull(enumClass);
+        Asserts.notNull(enumName);
+
         for (final E each : enumClass.getEnumConstants()) {
             if (each.name().equalsIgnoreCase(enumName)) {
                 return each;

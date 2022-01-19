@@ -9,7 +9,6 @@
 package spring.turbo.bean.valueobject;
 
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.lang.NonNull;
 import org.springframework.util.ReflectionUtils;
 import spring.turbo.core.AnnotationUtils;
 import spring.turbo.util.Asserts;
@@ -39,8 +38,7 @@ public final class ValueObjectUtils {
      * @param valueObjectType VO类型
      * @return 别名
      */
-    @NonNull
-    public static Map<String, String> getAliases(@NonNull Class<?> valueObjectType) {
+    public static Map<String, String> getAliases(Class<?> valueObjectType) {
         Asserts.notNull(valueObjectType);
 
         final Map<String, String> map = new HashMap<>();
@@ -88,7 +86,7 @@ public final class ValueObjectUtils {
      * @return {@link ValueObjectGetter} 实例
      * @since 1.0.6
      */
-    public static ValueObjectGetter toValueObjectGetter(@NonNull Object valueObject) {
+    public static ValueObjectGetter toValueObjectGetter(Object valueObject) {
         return new ValueObjectGetter(valueObject);
     }
 

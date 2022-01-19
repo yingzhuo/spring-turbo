@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.token;
 
-import org.springframework.lang.NonNull;
-
 import java.io.Serializable;
 
 /**
@@ -25,7 +23,6 @@ public interface Token extends Serializable {
      * @return 将令牌转换为 {@link java.lang.String}
      * @since 1.0.5
      */
-    @NonNull
     public String asString();
 
 }

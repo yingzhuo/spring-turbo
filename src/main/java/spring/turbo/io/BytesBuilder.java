@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
+import spring.turbo.util.Asserts;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -30,9 +32,8 @@ public final class BytesBuilder {
     }
 
     public BytesBuilder append(Object object) {
-        if (object == null) {
-            throw new NullPointerException();
-        }
+        Asserts.notNull(object);
+
         try (ObjectOutputStream oos = new ObjectOutputStream(outputStream)) {
             oos.writeObject(object);
             oos.flush();
