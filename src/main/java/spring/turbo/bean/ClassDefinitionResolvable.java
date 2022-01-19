@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.Nullable;
+
 import java.io.Serializable;
 
 /**
@@ -35,6 +37,7 @@ public interface ClassDefinitionResolvable extends Serializable {
 
     public Class<?> getBeanClass();
 
+    @Nullable
     public String getBeanClassName();
 
     /**

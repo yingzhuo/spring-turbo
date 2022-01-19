@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
-
 /**
  * @author 应卓
  * @since 1.0.8
@@ -23,7 +21,7 @@ public final class InheritanceUtils {
         super();
     }
 
-    public static int distance(@NonNull Class<?> child, @NonNull Class<?> parent) {
+    public static int distance(Class<?> child, Class<?> parent) {
         Asserts.notNull(child);
         Asserts.notNull(parent);
 

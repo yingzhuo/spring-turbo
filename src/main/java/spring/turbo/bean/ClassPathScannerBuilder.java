@@ -76,9 +76,11 @@ public final class ClassPathScannerBuilder {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    private static class NullClassPathScanner implements ClassPathScanner {
+    private static final class NullClassPathScanner implements ClassPathScanner {
+
         @Override
         public List<ClassDefinition> scan(Iterable<String> basePackages) {
+            Asserts.notNull(basePackages);
             return Collections.emptyList();
         }
     }

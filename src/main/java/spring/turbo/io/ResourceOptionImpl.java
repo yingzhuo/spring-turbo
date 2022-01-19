@@ -55,7 +55,7 @@ final class ResourceOptionImpl implements ResourceOption {
         try {
             return StreamUtils.copyToString(resource.getInputStream(), charset);
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -69,7 +69,7 @@ final class ResourceOptionImpl implements ResourceOption {
         try {
             return StreamUtils.copyToByteArray(resource.getInputStream());
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -78,7 +78,7 @@ final class ResourceOptionImpl implements ResourceOption {
         try {
             return resource.getFile();
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -87,7 +87,7 @@ final class ResourceOptionImpl implements ResourceOption {
         try {
             return resource.getFile().toPath().normalize();
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -110,7 +110,7 @@ final class ResourceOptionImpl implements ResourceOption {
                     throw new AssertionError();
             }
         } catch (IOException e) {
-            return null;
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -124,7 +124,7 @@ final class ResourceOptionImpl implements ResourceOption {
             }
             return checkedInputStream.getChecksum().getValue();
         } catch (IOException e) {
-            return -1;
+            throw new UncheckedIOException(e);
         }
     }
 

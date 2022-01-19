@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.core.SpringUtils;
 
 import java.util.Locale;
@@ -20,13 +21,14 @@ import static spring.turbo.core.SpringUtils.UNSUPPORTED;
  */
 public final class BusinessException extends RuntimeException {
 
+    @Nullable
     public final String code;
 
     public BusinessException(String message) {
         this(null, message);
     }
 
-    public BusinessException(String code, String message) {
+    public BusinessException(@Nullable String code, String message) {
         super(message);
         this.code = code;
     }
@@ -35,20 +37,21 @@ public final class BusinessException extends RuntimeException {
         return createInstance(code, null, (Object[]) null);
     }
 
-    public static BusinessException createInstance(String code, Object... args) {
+    public static BusinessException createInstance(String code, @Nullable Object... args) {
         return createInstance(code, null, args);
     }
 
-    public static BusinessException createInstance(String code, Locale local) {
+    public static BusinessException createInstance(String code, @Nullable Locale local) {
         return createInstance(code, local, (Object[]) null);
     }
 
-    public static BusinessException createInstance(String code, Locale locale, Object... args) {
+    public static BusinessException createInstance(String code, @Nullable Locale locale, @Nullable Object... args) {
         return SpringUtils.getBean(BusinessExceptionFactory.class)
                 .orElseThrow(UNSUPPORTED)
                 .create(code, locale, args);
     }
 
+    @Nullable
     public String getCode() {
         return code;
     }

@@ -12,6 +12,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.context.request.WebRequest;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.StringUtils;
 
 import java.util.Optional;
 
@@ -58,6 +59,7 @@ public class QueryTokenResolver implements TokenResolver {
      * @param request HTTP请求
      * @return 令牌Optional，不能成功解析时返回empty-optional
      */
+    @NonNull
     @Override
     public Optional<Token> resolve(WebRequest request) {
         String paramValue = request.getParameter(paramName);
@@ -68,8 +70,8 @@ public class QueryTokenResolver implements TokenResolver {
 
         paramValue = paramValue.substring(prefixLen);
 
-        if (paramValue.split("\\.").length == 2 && !paramValue.endsWith(".")) {
-            paramValue += ".";
+        if (StringUtils.isBlank(paramValue)) {
+            return Optional.empty();
         }
 
         return Optional.of(StringToken.of(paramValue));

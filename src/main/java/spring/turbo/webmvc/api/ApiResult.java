@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.api;
 
+import org.springframework.lang.Nullable;
+
 import java.io.Serializable;
 
 /**
@@ -19,6 +21,7 @@ public interface ApiResult<T> extends Serializable {
 
     public String getCode();
 
+    @Nullable
     public String getErrorMessage();
 
     public T getPayload();

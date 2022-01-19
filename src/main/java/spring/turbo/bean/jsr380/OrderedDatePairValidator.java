@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.bean.DatePair;
 
 import javax.validation.ConstraintValidator;
@@ -19,8 +20,12 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class OrderedDatePairValidator implements ConstraintValidator<OrderedDatePair, DatePair> {
 
+    public OrderedDatePairValidator() {
+        super();
+    }
+
     @Override
-    public boolean isValid(DatePair value, ConstraintValidatorContext context) {
+    public boolean isValid(@Nullable DatePair value, ConstraintValidatorContext context) {
         return value == null || value.isOrdered();
     }
 

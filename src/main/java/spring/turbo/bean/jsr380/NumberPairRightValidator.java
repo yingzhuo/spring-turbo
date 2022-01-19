@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.bean.NumberPair;
 
 import javax.validation.ConstraintValidator;
@@ -21,8 +22,12 @@ public class NumberPairRightValidator implements ConstraintValidator<NumberPairR
 
     private NumberPairRight annotation;
 
+    public NumberPairRightValidator() {
+        super();
+    }
+
     @Override
-    public boolean isValid(NumberPair value, ConstraintValidatorContext context) {
+    public boolean isValid(@Nullable NumberPair value, ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }

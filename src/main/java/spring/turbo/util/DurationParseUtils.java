@@ -81,7 +81,8 @@ public final class DurationParseUtils {
         return duration;
     }
 
-    private static Duration parseFromSimpleStyle(String string, ChronoUnit unit) {
+    @Nullable
+    private static Duration parseFromSimpleStyle(String string, @Nullable ChronoUnit unit) {
         try {
             return DurationStyle.SIMPLE.parse(string, unit);
         } catch (Exception e) {
@@ -89,7 +90,8 @@ public final class DurationParseUtils {
         }
     }
 
-    private static Duration parseFromISO8601Style(String string, ChronoUnit unit) {
+    @Nullable
+    private static Duration parseFromISO8601Style(String string, @Nullable ChronoUnit unit) {
         try {
             return DurationStyle.ISO8601.parse(string, unit);
         } catch (Exception e) {

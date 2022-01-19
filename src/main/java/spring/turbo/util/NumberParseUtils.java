@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
 import org.springframework.util.NumberUtils;
 
 import java.math.BigDecimal;
@@ -45,8 +44,7 @@ public final class NumberParseUtils {
      * @return 结果
      * @throws IllegalArgumentException 解析失败
      */
-    @NonNull
-    public static <T extends Number> T parse(@NonNull String text, @NonNull Class<T> type) {
+    public static <T extends Number> T parse(String text, Class<T> type) {
         Asserts.notNull(text);
         Asserts.notNull(type);
 
@@ -72,7 +70,7 @@ public final class NumberParseUtils {
         }
     }
 
-    private static <T extends Number> T fallback(@NonNull String text, @NonNull Class<T> type) {
+    private static <T extends Number> T fallback(String text, Class<T> type) {
         BigDecimal big;
 
         try {

@@ -38,6 +38,7 @@ public final class InstanceCache {
     /**
      * Spring上下文
      */
+    @Nullable
     private final ApplicationContext applicationContext;
 
     /**

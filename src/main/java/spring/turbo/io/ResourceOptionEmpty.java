@@ -9,7 +9,6 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
-import org.springframework.lang.NonNull;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -34,7 +33,6 @@ final class ResourceOptionEmpty implements ResourceOption {
         return INSTANCE;
     }
 
-    @NonNull
     @Override
     public Optional<Resource> toOptional() {
         return Optional.empty();
@@ -50,43 +48,36 @@ final class ResourceOptionEmpty implements ResourceOption {
         return false;
     }
 
-    @NonNull
     @Override
     public String toString(Charset charset) {
         throw EX;
     }
 
-    @NonNull
     @Override
     public String toString() {
         throw EX;
     }
 
-    @NonNull
     @Override
     public byte[] toByteArray() {
         throw EX;
     }
 
-    @NonNull
     @Override
     public File toFile() {
         throw EX;
     }
 
-    @NonNull
     @Override
     public Path toPath() {
         throw EX;
     }
 
-    @NonNull
     @Override
     public Properties toProperties(PropertiesFormat propertiesFormat) {
         throw EX;
     }
 
-    @NonNull
     @Override
     public Properties toProperties() {
         throw EX;
@@ -102,13 +93,11 @@ final class ResourceOptionEmpty implements ResourceOption {
         throw EX;
     }
 
-    @NonNull
     @Override
     public LineIterator getLineIterator(Charset charset) {
         throw EX;
     }
 
-    @NonNull
     @Override
     public LineIterator getLineIterator() {
         throw EX;

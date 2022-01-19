@@ -10,6 +10,7 @@ package spring.turbo.format;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
+import org.springframework.lang.Nullable;
 import spring.turbo.bean.DatePair;
 import spring.turbo.util.SetFactories;
 
@@ -32,7 +33,7 @@ public class StringToDatePairConverter implements GenericConverter {
     }
 
     @Override
-    public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+    public Object convert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         if (source == null) {
             return null;
         }

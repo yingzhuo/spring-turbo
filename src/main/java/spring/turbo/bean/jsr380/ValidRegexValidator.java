@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.util.RegexUtils;
 
 import javax.validation.ConstraintValidator;
@@ -20,8 +21,12 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class ValidRegexValidator implements ConstraintValidator<ValidRegex, CharSequence> {
 
+    public ValidRegexValidator() {
+        super();
+    }
+
     @Override
-    public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
+    public boolean isValid(@Nullable CharSequence value, ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }

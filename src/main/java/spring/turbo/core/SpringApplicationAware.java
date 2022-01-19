@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.Ordered;
+import org.springframework.lang.Nullable;
 
 /**
  * @author 应卓
@@ -20,7 +21,10 @@ import org.springframework.core.Ordered;
  */
 class SpringApplicationAware implements ApplicationListener<ContextRefreshedEvent>, Ordered {
 
+    @Nullable
     static ApplicationContext AC = null;
+
+    @Nullable
     static SpringContext SC = null;
 
     @Override

@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
-
 /**
  * @author 应卓
  * @since 1.0.0
@@ -29,7 +27,7 @@ public final class HexUtils {
         super();
     }
 
-    public static char[] encode(@NonNull byte[] bytes) {
+    public static char[] encode(byte[] bytes) {
         Asserts.notNull(bytes);
 
         final int nBytes = bytes.length;
@@ -46,7 +44,7 @@ public final class HexUtils {
         return result;
     }
 
-    public static byte[] decode(@NonNull CharSequence s) {
+    public static byte[] decode(CharSequence s) {
         Asserts.notNull(s);
 
         int nChars = s.length();

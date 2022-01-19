@@ -16,14 +16,12 @@ import java.util.NoSuchElementException;
  */
 public final class EmptyLineIterator extends LineIterator {
 
-    private static final EmptyLineIterator INSTANCE = new EmptyLineIterator();
-
     private EmptyLineIterator() {
         super(EmptyReader.getInstance());
     }
 
     public static EmptyLineIterator getInstance() {
-        return INSTANCE;
+        return SyncAvoid.INSTANCE;
     }
 
     @Override
@@ -34,6 +32,11 @@ public final class EmptyLineIterator extends LineIterator {
     @Override
     public String next() {
         throw new NoSuchElementException("No more lines");
+    }
+
+    // 延迟加载
+    private static class SyncAvoid {
+        private static final EmptyLineIterator INSTANCE = new EmptyLineIterator();
     }
 
 }

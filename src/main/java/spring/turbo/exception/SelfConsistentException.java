@@ -23,8 +23,13 @@ import spring.turbo.lang.Immutable;
 @Immutable
 public final class SelfConsistentException extends IllegalStateException implements MessageSourceResolvable {
 
+    @Nullable
     private final String[] codes;
+
+    @Nullable
     private final Object[] arguments;
+
+    @Nullable
     private final String defaultMessage;
 
     public SelfConsistentException(@Nullable String[] codes, @Nullable Object[] arguments, @Nullable String defaultMessage) {
@@ -33,16 +38,19 @@ public final class SelfConsistentException extends IllegalStateException impleme
         this.defaultMessage = defaultMessage;
     }
 
+    @Nullable
     @Override
     public String[] getCodes() {
         return this.codes;
     }
 
+    @Nullable
     @Override
     public Object[] getArguments() {
         return this.arguments;
     }
 
+    @Nullable
     @Override
     public String getDefaultMessage() {
         return this.defaultMessage;

@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.valueobject;
 
+import org.springframework.lang.Nullable;
+
 import java.util.*;
 
 /**
@@ -46,8 +48,10 @@ public final class NamedArrayBuilder<T> {
         return this;
     }
 
-    public final NamedArrayBuilder<T> aliasesMap(Map<String, String> aliases) {
-        this.aliases = aliases;
+    public final NamedArrayBuilder<T> aliasesMap(@Nullable Map<String, String> aliases) {
+        if (aliases != null) {
+            this.aliases = aliases;
+        }
         return this;
     }
 
@@ -62,7 +66,7 @@ public final class NamedArrayBuilder<T> {
                 names.add(Integer.toString(i));
             }
         }
-        return new NamedArray<>(array, names, Optional.ofNullable(aliases).orElseGet(Collections::emptyMap));
+        return new NamedArray<>(array, names, aliases);
     }
 
 }

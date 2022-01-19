@@ -61,7 +61,7 @@ public final class ObjectUtils {
      */
     @Nullable
     @SafeVarargs
-    public static <T> T firstNonNull(final T... values) {
+    public static <T> T firstNonNull(@Nullable final T... values) {
         if (values != null) {
             for (final T val : values) {
                 if (val != null) {
@@ -81,7 +81,7 @@ public final class ObjectUtils {
      */
     @Nullable
     @SafeVarargs
-    public static <T> T getFirstNonNull(final Supplier<T>... suppliers) {
+    public static <T> T getFirstNonNull(@Nullable final Supplier<T>... suppliers) {
         if (suppliers != null) {
             for (final Supplier<T> supplier : suppliers) {
                 if (supplier != null) {

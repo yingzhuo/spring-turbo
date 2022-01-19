@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import org.springframework.lang.NonNull;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.crypto.Base64;
 
@@ -40,7 +39,7 @@ public final class ImageUtils {
      * @param format 格式，如: {@code "png"}
      * @return 字节数组
      */
-    public static byte[] toByteArray(@NonNull BufferedImage image, @NonNull String format) {
+    public static byte[] toByteArray(BufferedImage image, String format) {
         Asserts.notNull(image);
         Asserts.hasText(format);
 
@@ -61,7 +60,7 @@ public final class ImageUtils {
      * @return Base64字符串
      * @see Base64#toString(byte[])
      */
-    public static String encodeToBase64(@NonNull BufferedImage image, @NonNull String format) {
+    public static String encodeToBase64(BufferedImage image, String format) {
         Asserts.notNull(image);
         Asserts.hasText(format);
         return Base64.encode(toByteArray(image, format));

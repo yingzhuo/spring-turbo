@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
 import org.springframework.util.ReflectionUtils;
 
 import java.util.Optional;
@@ -40,8 +39,7 @@ public final class InstanceUtils {
      * @return 实例
      * @throws InstantiationException 创建实例无法成功
      */
-    @NonNull
-    public static <T> T newInstanceOrThrow(@NonNull Class<T> type) {
+    public static <T> T newInstanceOrThrow(Class<T> type) {
         return newInstanceOrThrow(type, new InstantiationExceptionSupplier(type));
     }
 
@@ -53,8 +51,7 @@ public final class InstanceUtils {
      * @param <T>                             实例类型泛型
      * @return 实例
      */
-    @NonNull
-    public static <T> T newInstanceOrThrow(@NonNull Class<T> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
+    public static <T> T newInstanceOrThrow(Class<T> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
         Asserts.notNull(exceptionIfCannotCreateInstance);
         return newInstance(type)
                 .orElseThrow(exceptionIfCannotCreateInstance);
@@ -67,8 +64,7 @@ public final class InstanceUtils {
      * @param <T>  实例类型泛型
      * @return 实例Optional，不成功时返回空的Optional
      */
-    @NonNull
-    public static <T> Optional<T> newInstance(@NonNull Class<T> type) {
+    public static <T> Optional<T> newInstance(Class<T> type) {
         Asserts.notNull(type);
         try {
             return Optional.of(
@@ -89,8 +85,7 @@ public final class InstanceUtils {
      * @return 实例Optional，不成功时返回空的Optional
      * @see ClassUtils#forName(String) 加载类型
      */
-    @NonNull
-    public static <T> Optional<T> newInstance(@NonNull String className) {
+    public static <T> Optional<T> newInstance(String className) {
         Asserts.hasText(className);
         try {
             final Class<?> type = ClassUtils.forNameOrThrow(className);

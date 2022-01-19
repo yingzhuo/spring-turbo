@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.valueobject;
 
-import org.springframework.lang.NonNull;
 import spring.turbo.util.Asserts;
 
 /**
@@ -30,24 +29,24 @@ public final class ValueObjectFilterFactories {
         return data -> false;
     }
 
-    public static <T> ValueObjectFilter<T> not(@NonNull ValueObjectFilter<T> other) {
+    public static <T> ValueObjectFilter<T> not(ValueObjectFilter<T> other) {
         Asserts.notNull(other);
         return data -> !other.filter(data);
     }
 
-    public static <T> ValueObjectFilter<T> or(@NonNull ValueObjectFilter<T> f1, @NonNull ValueObjectFilter<T> f2) {
+    public static <T> ValueObjectFilter<T> or(ValueObjectFilter<T> f1, ValueObjectFilter<T> f2) {
         Asserts.notNull(f1);
         Asserts.notNull(f2);
         return data -> f1.filter(data) || f2.filter(data);
     }
 
-    public static <T> ValueObjectFilter<T> and(@NonNull ValueObjectFilter<T> f1, @NonNull ValueObjectFilter<T> f2) {
+    public static <T> ValueObjectFilter<T> and(ValueObjectFilter<T> f1, ValueObjectFilter<T> f2) {
         Asserts.notNull(f1);
         Asserts.notNull(f2);
         return data -> f1.filter(data) && f2.filter(data);
     }
 
-    public static <T> ValueObjectFilter<T> xor(@NonNull ValueObjectFilter<T> f1, @NonNull ValueObjectFilter<T> f2) {
+    public static <T> ValueObjectFilter<T> xor(ValueObjectFilter<T> f1, ValueObjectFilter<T> f2) {
         Asserts.notNull(f1);
         Asserts.notNull(f2);
         return data -> f1.filter(data) ^ f2.filter(data);

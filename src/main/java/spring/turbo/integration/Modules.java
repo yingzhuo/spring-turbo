@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public enum Modules implements Named {
 
     SPRING_TURBO("spring.turbo"),
-    SPRING_TURBO_CAPTCHA("spring.turbo"),
+    SPRING_TURBO_CAPTCHA("spring.turbo.captcha"),
     SPRING_TURBO_CSV("spring.turbo.csv"),
     SPRING_TURBO_EXCEL("spring.turbo.excel"),
     SPRING_TURBO_FEIGN("spring.turbo.feign"),

@@ -50,7 +50,7 @@ public class NumberPair implements Iterable<BigDecimal>, Serializable {
     private final BigDecimal left;
     private final BigDecimal right;
 
-    public NumberPair(@NonNull BigDecimal left, @NonNull BigDecimal right) {
+    public NumberPair(BigDecimal left, BigDecimal right) {
         Asserts.notNull(left);
         Asserts.notNull(right);
         this.left = left;

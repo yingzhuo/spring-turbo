@@ -10,6 +10,8 @@ package spring.turbo.bean.valueobject;
 
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Validator;
@@ -30,9 +32,16 @@ import java.util.Optional;
  */
 public final class DataBinding {
 
+    @NonNull
     private final List<Validator> validators = new LinkedList<>();
+
+    @Nullable
     private Object valueObject;
+
+    @Nullable
     private MutablePropertyValues data;
+
+    @Nullable
     private ConversionService conversionService;
 
     private DataBinding() {
@@ -83,7 +92,8 @@ public final class DataBinding {
     }
 
     public BindingResult bind() {
-        init();
+        Asserts.state(valueObject != null);
+        Asserts.state(data != null);
 
         final DataBinder dataBinder = new DataBinder(valueObject);
         Optional.ofNullable(conversionService).ifPresent(dataBinder::setConversionService);
@@ -95,11 +105,6 @@ public final class DataBinding {
             dataBinder.validate();
         }
         return dataBinder.getBindingResult();
-    }
-
-    private void init() {
-        Asserts.state(valueObject != null);
-        Asserts.state(data != null);
     }
 
 }

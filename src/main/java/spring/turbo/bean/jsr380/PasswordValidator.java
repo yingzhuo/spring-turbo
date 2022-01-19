@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
@@ -26,6 +27,10 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
     private int minLength;
     private int maxLength;
 
+    public PasswordValidator() {
+        super();
+    }
+
     @Override
     public void initialize(Password annotation) {
         this.complexity = annotation.complexity();
@@ -35,7 +40,7 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
     }
 
     @Override
-    public boolean isValid(CharSequence password, ConstraintValidatorContext context) {
+    public boolean isValid(@Nullable CharSequence password, ConstraintValidatorContext context) {
 
         if (password == null) {
             return true;

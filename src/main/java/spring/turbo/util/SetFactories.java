@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.Collections;
@@ -30,7 +29,6 @@ public final class SetFactories {
         super();
     }
 
-    @NonNull
     @SafeVarargs
     public static <T> Set<T> newUnmodifiableSet(@Nullable T... elements) {
         if (elements == null) {
@@ -39,7 +37,6 @@ public final class SetFactories {
         return Collections.unmodifiableSet(newHashSet(elements));
     }
 
-    @NonNull
     @SafeVarargs
     public static <T> HashSet<T> newHashSet(@Nullable T... elements) {
         final HashSet<T> set = new HashSet<>();
@@ -49,7 +46,6 @@ public final class SetFactories {
         return set;
     }
 
-    @NonNull
     @SafeVarargs
     public static <T> LinkedHashSet<T> newLinkedHashSet(@Nullable T... elements) {
         final LinkedHashSet<T> set = new LinkedHashSet<>();
@@ -59,7 +55,6 @@ public final class SetFactories {
         return set;
     }
 
-    @NonNull
     @SafeVarargs
     public static <T> HashSet<T> nullSafeNewHashSet(@Nullable T... elements) {
         final HashSet<T> set = new HashSet<>();
@@ -67,7 +62,6 @@ public final class SetFactories {
         return set;
     }
 
-    @NonNull
     @SafeVarargs
     public static <T> LinkedHashSet<T> nullSafeNewLinkedHashSet(@Nullable T... elements) {
         final LinkedHashSet<T> set = new LinkedHashSet<>();

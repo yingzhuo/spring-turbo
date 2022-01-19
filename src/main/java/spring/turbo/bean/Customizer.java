@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.lang.Nullable;
-
 import java.util.function.Function;
 
 /**
@@ -22,7 +20,7 @@ import java.util.function.Function;
 @FunctionalInterface
 public interface Customizer<T> extends Function<T, T> {
 
-    public T customize(@Nullable T obj);
+    public T customize(T obj);
 
     @Override
     public default T apply(T t) {

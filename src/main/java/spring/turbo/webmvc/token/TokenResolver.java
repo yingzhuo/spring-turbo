@@ -9,7 +9,6 @@
 package spring.turbo.webmvc.token;
 
 import org.springframework.core.Ordered;
-import org.springframework.lang.NonNull;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Optional;
@@ -28,7 +27,6 @@ public interface TokenResolver extends Ordered {
      *
      * @return 创建器
      */
-    @NonNull
     public static TokenResolverBuilder builder() {
         return new TokenResolverBuilder();
     }
@@ -39,7 +37,6 @@ public interface TokenResolver extends Ordered {
      * @param request HTTP请求
      * @return 令牌Optional，不能成功解析时返回empty-optional
      */
-    @NonNull
     public Optional<Token> resolve(WebRequest request);
 
     /**

@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
@@ -40,7 +39,7 @@ public final class PathUtils {
      * @return Path实例
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static Path create(@NonNull String first, String... more) {
+    public static Path create(String first, String... more) {
         Asserts.notNull(first);
         Path path = Paths.get(first, more).normalize();
         if (!path.toFile().exists()) {
