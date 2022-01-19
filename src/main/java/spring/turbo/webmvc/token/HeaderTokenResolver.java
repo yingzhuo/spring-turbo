@@ -12,6 +12,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.context.request.WebRequest;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.StringUtils;
 
 import java.util.Optional;
 
@@ -58,6 +59,7 @@ public class HeaderTokenResolver implements TokenResolver {
      * @param request HTTP请求
      * @return 令牌Optional，不能成功解析时返回empty-optional
      */
+    @NonNull
     @Override
     public Optional<Token> resolve(WebRequest request) {
 
@@ -69,8 +71,8 @@ public class HeaderTokenResolver implements TokenResolver {
 
         headerValue = headerValue.substring(prefixLen);
 
-        if (headerValue.split("\\.").length == 2 && !headerValue.endsWith(".")) {
-            headerValue += ".";
+        if (StringUtils.isBlank(headerValue)) {
+            return Optional.empty();
         }
 
         return Optional.of(StringToken.of(headerValue));

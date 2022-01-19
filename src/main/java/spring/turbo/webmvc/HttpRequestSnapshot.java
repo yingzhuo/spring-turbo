@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc;
 
+import org.springframework.lang.NonNull;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
@@ -77,6 +78,7 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
         return text;
     }
 
+    @NonNull
     @Override
     public Iterator<String> iterator() {
         return lines.listIterator();

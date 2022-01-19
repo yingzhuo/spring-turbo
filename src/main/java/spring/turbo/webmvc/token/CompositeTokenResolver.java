@@ -9,6 +9,7 @@
 package spring.turbo.webmvc.token;
 
 import org.springframework.core.OrderComparator;
+import org.springframework.lang.NonNull;
 import org.springframework.web.context.request.WebRequest;
 import spring.turbo.util.CollectionUtils;
 
@@ -45,6 +46,7 @@ public final class CompositeTokenResolver implements TokenResolver {
         return new CompositeTokenResolver(resolvers);
     }
 
+    @NonNull
     @Override
     public Optional<Token> resolve(WebRequest request) {
         for (TokenResolver it : resolvers) {

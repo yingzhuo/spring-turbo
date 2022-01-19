@@ -9,6 +9,7 @@
 package spring.turbo.webmvc.token;
 
 import org.springframework.core.Ordered;
+import org.springframework.lang.NonNull;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Optional;
@@ -20,11 +21,6 @@ import java.util.Optional;
  * @since 1.0.0
  */
 public final class NullTokenResolver implements TokenResolver {
-
-    /**
-     * 单例
-     */
-    private static final NullTokenResolver INSTANCE = new NullTokenResolver();
 
     /**
      * 私有构造方法
@@ -39,7 +35,7 @@ public final class NullTokenResolver implements TokenResolver {
      * @return 单例实例
      */
     public static NullTokenResolver getInstance() {
-        return INSTANCE;
+        return SyncAvoid.INSTANCE;
     }
 
     /**
@@ -48,6 +44,7 @@ public final class NullTokenResolver implements TokenResolver {
      * @param request HTTP请求
      * @return empty-optional
      */
+    @NonNull
     @Override
     public Optional<Token> resolve(WebRequest request) {
         return Optional.empty();
@@ -61,6 +58,11 @@ public final class NullTokenResolver implements TokenResolver {
     @Override
     public int getOrder() {
         return Ordered.LOWEST_PRECEDENCE;
+    }
+
+    // 延迟加载
+    private static class SyncAvoid {
+        private static final NullTokenResolver INSTANCE = new NullTokenResolver();
     }
 
 }
