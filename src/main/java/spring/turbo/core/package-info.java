@@ -10,7 +10,6 @@
 @NonNullFields
 package spring.turbo.core;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNullApi;
@@ -23,15 +22,8 @@ import org.springframework.lang.NonNullFields;
 class SpringBootAutoConfiguration {
 
     @Bean
-    @ConditionalOnMissingBean
-    SpringContextAwareBeanPostProcessor springContextAwareBeanPostProcessor(ApplicationContext applicationContext) {
-        return new SpringContextAwareBeanPostProcessor(applicationContext);
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    InstanceCacheAwareBeanPostProcessor instanceCacheAwareBeanPostProcessor(ApplicationContext applicationContext) {
-        return new InstanceCacheAwareBeanPostProcessor(applicationContext);
+    XAwarePostProcessor xAwarePostProcessor(ApplicationContext applicationContext) {
+        return new XAwarePostProcessor(applicationContext);
     }
 
 }
