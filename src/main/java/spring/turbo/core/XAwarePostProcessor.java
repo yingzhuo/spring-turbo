@@ -12,20 +12,19 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.InstanceCache;
 
 /**
  * @author 应卓
- * @see InstanceCache
+ * @see InstanceCacheAware
+ * @see SpringContextAware
  * @since 1.0.10
  */
-public class InstanceCacheAwareBeanPostProcessor implements BeanPostProcessor {
+class XAwarePostProcessor implements BeanPostProcessor {
 
     private final ApplicationContext applicationContext;
 
-    public InstanceCacheAwareBeanPostProcessor(ApplicationContext applicationContext) {
-        Asserts.notNull(applicationContext);
+    public XAwarePostProcessor(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
@@ -35,7 +34,10 @@ public class InstanceCacheAwareBeanPostProcessor implements BeanPostProcessor {
         if (bean instanceof InstanceCacheAware) {
             ((InstanceCacheAware) bean).setInstanceCache(InstanceCache.newInstance(applicationContext));
         }
-        return bean;
+        if (bean instanceof SpringContextAware) {
+            ((SpringContextAware) bean).setSpringContext(SpringContext.of(applicationContext));
+        }
+        return BeanPostProcessor.super.postProcessBeforeInitialization(bean, beanName);
     }
 
 }
