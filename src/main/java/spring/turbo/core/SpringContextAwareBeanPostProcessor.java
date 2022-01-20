@@ -29,7 +29,7 @@ public class SpringContextAwareBeanPostProcessor implements BeanPostProcessor {
 
     @Nullable
     @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (bean instanceof SpringContextAware) {
             ((SpringContextAware) bean).setSpringContext(context);
         }
