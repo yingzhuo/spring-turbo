@@ -8,27 +8,29 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
 
-import java.util.function.Predicate;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @since 1.0.10
  */
-@FunctionalInterface
-public interface ResourceOptionDiscriminator extends Predicate<Resource> {
+public final class IOExceptionUtils {
 
-    public static ResourceOptionDiscriminator getDefault() {
-        return resource -> resource != null && resource.isReadable();
+    private IOExceptionUtils() {
+        super();
     }
 
-    public boolean isExists(@Nullable Resource resource);
+    public static UncheckedIOException toUnchecked(IOException e) {
+        Asserts.notNull(e);
+        return new UncheckedIOException(e.getMessage(), e);
+    }
 
-    @Override
-    public default boolean test(Resource resource) {
-        return isExists(resource);
+    public static UncheckedIOException toUnchecked(@Nullable String message) {
+        return toUnchecked(new IOException(message));
     }
 
 }

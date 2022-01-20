@@ -15,7 +15,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UncheckedIOException;
+
+import static spring.turbo.io.IOExceptionUtils.toUnchecked;
 
 /**
  * {@code BufferedImage}相关工具
@@ -48,7 +49,7 @@ public final class ImageUtils {
             ImageIO.write(image, format, os);
             return os.toByteArray();
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 

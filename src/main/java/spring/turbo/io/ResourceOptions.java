@@ -21,6 +21,9 @@ import java.util.Arrays;
  */
 public final class ResourceOptions {
 
+    /**
+     * 私有构造方法
+     */
     private ResourceOptions() {
         super();
     }

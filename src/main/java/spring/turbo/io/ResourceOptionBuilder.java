@@ -11,6 +11,7 @@ package spring.turbo.io;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 
 import java.util.Collections;
@@ -31,17 +32,17 @@ public final class ResourceOptionBuilder {
         super();
     }
 
-    public ResourceOptionBuilder add(Resource... resources) {
+    public ResourceOptionBuilder add(@Nullable Resource... resources) {
         if (resources != null) {
             Collections.addAll(list, resources);
         }
         return this;
     }
 
-    public ResourceOptionBuilder add(String... resourceLocations) {
+    public ResourceOptionBuilder add(@Nullable String... resourceLocations) {
         if (resourceLocations != null) {
             for (String it : resourceLocations) {
-                Resource resource = load(it);
+                Resource resource = loadQuietly(it);
                 if (resource != null) {
                     this.list.add(resource);
                 }
@@ -60,7 +61,8 @@ public final class ResourceOptionBuilder {
         return this;
     }
 
-    private Resource load(String location) {
+    @Nullable
+    private Resource loadQuietly(String location) {
         try {
             return resourceLoader.getResource(location);
         } catch (Exception e) {
