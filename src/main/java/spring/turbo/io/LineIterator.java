@@ -13,10 +13,15 @@ import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.CloseUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+
+import static spring.turbo.io.IOExceptionUtils.toUnchecked;
 
 /**
  * @author 应卓
@@ -64,7 +69,7 @@ public class LineIterator implements Iterator<String>, Closeable {
             }
         } catch (final IOException ioe) {
             CloseUtils.closeQuietly(bufferedReader);
-            throw new UncheckedIOException(ioe);
+            throw toUnchecked(ioe);
         }
     }
 

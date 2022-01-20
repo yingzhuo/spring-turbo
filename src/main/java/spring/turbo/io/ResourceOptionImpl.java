@@ -15,13 +15,14 @@ import spring.turbo.util.Asserts;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
+
+import static spring.turbo.io.IOExceptionUtils.toUnchecked;
 
 /**
  * @author 应卓
@@ -55,7 +56,7 @@ final class ResourceOptionImpl implements ResourceOption {
         try {
             return StreamUtils.copyToString(resource.getInputStream(), charset);
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -69,7 +70,7 @@ final class ResourceOptionImpl implements ResourceOption {
         try {
             return StreamUtils.copyToByteArray(resource.getInputStream());
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -78,7 +79,7 @@ final class ResourceOptionImpl implements ResourceOption {
         try {
             return resource.getFile();
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -87,7 +88,7 @@ final class ResourceOptionImpl implements ResourceOption {
         try {
             return resource.getFile().toPath().normalize();
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -110,7 +111,7 @@ final class ResourceOptionImpl implements ResourceOption {
                     throw new AssertionError();
             }
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -124,7 +125,7 @@ final class ResourceOptionImpl implements ResourceOption {
             }
             return checkedInputStream.getChecksum().getValue();
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -133,7 +134,7 @@ final class ResourceOptionImpl implements ResourceOption {
         try {
             return new LineIterator(new InputStreamReader(resource.getInputStream(), charset));
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 

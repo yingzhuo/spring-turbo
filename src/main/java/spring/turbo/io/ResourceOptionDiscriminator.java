@@ -9,6 +9,7 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
+import org.springframework.lang.Nullable;
 
 import java.util.function.Predicate;
 
@@ -23,7 +24,7 @@ public interface ResourceOptionDiscriminator extends Predicate<Resource> {
         return resource -> resource != null && resource.isReadable();
     }
 
-    public boolean isExists(Resource resource);
+    public boolean isExists(@Nullable Resource resource);
 
     @Override
     public default boolean test(Resource resource) {

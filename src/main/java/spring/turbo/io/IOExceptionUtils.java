@@ -6,17 +6,31 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.core;
+package spring.turbo.io;
 
-import org.springframework.beans.factory.Aware;
+import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
 
 /**
  * @author 应卓
- * @see SpringContext
  * @since 1.0.10
  */
-public interface SpringContextAware extends Aware {
+public final class IOExceptionUtils {
 
-    public void setSpringContext(SpringContext springContext);
+    private IOExceptionUtils() {
+        super();
+    }
+
+    public static UncheckedIOException toUnchecked(IOException e) {
+        Asserts.notNull(e);
+        return new UncheckedIOException(e.getMessage(), e);
+    }
+
+    public static UncheckedIOException toUnchecked(@Nullable String message) {
+        return toUnchecked(new IOException(message));
+    }
 
 }
