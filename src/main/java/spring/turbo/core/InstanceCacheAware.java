@@ -9,14 +9,14 @@
 package spring.turbo.core;
 
 import org.springframework.beans.factory.Aware;
+import spring.turbo.util.InstanceCache;
 
 /**
  * @author 应卓
- * @see SpringContext
  * @since 1.0.10
  */
-public interface SpringContextAware extends Aware {
+public interface InstanceCacheAware extends Aware {
 
-    public void setSpringContext(SpringContext springContext);
+    public void setInstanceCache(InstanceCache instanceCache);
 
 }
