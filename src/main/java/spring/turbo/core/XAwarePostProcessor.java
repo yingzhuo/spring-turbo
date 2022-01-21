@@ -16,6 +16,8 @@ import spring.turbo.util.InstanceCache;
 import spring.turbo.util.InstanceCacheAware;
 
 /**
+ * 处理 XxxAware
+ *
  * @author 应卓
  * @see InstanceCacheAware
  * @see SpringContextAware
@@ -32,13 +34,18 @@ class XAwarePostProcessor implements BeanPostProcessor {
     @Nullable
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+
+        // 处理InstanceCacheAware
         if (bean instanceof InstanceCacheAware) {
             ((InstanceCacheAware) bean).setInstanceCache(InstanceCache.newInstance(applicationContext));
         }
+
+        // 处理SpringContextAware
         if (bean instanceof SpringContextAware) {
             ((SpringContextAware) bean).setSpringContext(SpringContext.of(applicationContext));
         }
-        return BeanPostProcessor.super.postProcessBeforeInitialization(bean, beanName);
+
+        return bean;
     }
 
 }
