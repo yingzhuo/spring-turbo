@@ -10,6 +10,7 @@ package spring.turbo.bean.jsr380;
 
 import org.springframework.lang.Nullable;
 import spring.turbo.bean.NumberPair;
+import spring.turbo.util.Asserts;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -20,17 +21,17 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class NumberPairLeftValidator implements ConstraintValidator<NumberPairLeft, NumberPair> {
 
+    @Nullable
     private NumberPairLeft annotation;
-
-    public NumberPairLeftValidator() {
-        super();
-    }
 
     @Override
     public boolean isValid(@Nullable NumberPair value, ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }
+
+        Asserts.notNull(annotation);
+
         final double left = value.getLeft(Double.class);
         return left >= annotation.min() && left <= annotation.max();
     }

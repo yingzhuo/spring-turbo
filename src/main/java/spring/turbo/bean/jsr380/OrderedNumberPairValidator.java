@@ -20,10 +20,6 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class OrderedNumberPairValidator implements ConstraintValidator<OrderedNumberPair, NumberPair> {
 
-    public OrderedNumberPairValidator() {
-        super();
-    }
-
     @Override
     public boolean isValid(@Nullable NumberPair value, ConstraintValidatorContext context) {
         return value == null || value.isOrdered();
