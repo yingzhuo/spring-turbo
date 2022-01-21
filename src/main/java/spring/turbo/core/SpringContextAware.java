@@ -13,6 +13,7 @@ import org.springframework.beans.factory.Aware;
 /**
  * @author 应卓
  * @see SpringContext
+ * @see XAwarePostProcessor
  * @since 1.0.10
  */
 public interface SpringContextAware extends Aware {

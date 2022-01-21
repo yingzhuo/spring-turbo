@@ -6,10 +6,9 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.core;
+package spring.turbo.util;
 
 import org.springframework.beans.factory.Aware;
-import spring.turbo.util.InstanceCache;
 
 /**
  * @author 应卓
