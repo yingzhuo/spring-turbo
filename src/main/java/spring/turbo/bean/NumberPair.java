@@ -8,15 +8,14 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.lang.NonNull;
 import spring.turbo.format.StringToNumberPairConverter;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.BigDecimalUtils;
 import spring.turbo.util.StringFormatter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
@@ -41,7 +40,6 @@ import java.util.Objects;
  * @since 1.0.7
  */
 @Immutable
-@SuppressWarnings("unchecked")
 public class NumberPair implements Iterable<BigDecimal>, Serializable {
 
     public static final NumberPair DEFAULT =
@@ -62,104 +60,23 @@ public class NumberPair implements Iterable<BigDecimal>, Serializable {
         return left.compareTo(right) <= 0;
     }
 
-    @NonNull
     public final NumberPair toOrdered() {
         return isOrdered() ? this : new NumberPair(right, left);
     }
 
-    @NonNull
     public <T extends Number> Pair<T, T> toPair(Class<T> type) {
         return Pair.ofNonNull(getLeft(type), getRight(type));
     }
 
     public <T extends Number> T getLeft(Class<T> type) {
-        if (type == Byte.class) {
-            Byte result = left.byteValue();
-            return (T) result;
-        }
-
-        if (type == Short.class) {
-            Short result = left.shortValue();
-            return (T) result;
-        }
-
-        if (type == Integer.class) {
-            Integer result = left.intValue();
-            return (T) result;
-        }
-
-        if (type == Long.class) {
-            Long result = left.longValue();
-            return (T) result;
-        }
-
-        if (type == BigInteger.class) {
-            BigInteger result = left.toBigInteger();
-            return (T) result;
-        }
-
-        if (type == Float.class) {
-            Float result = left.floatValue();
-            return (T) result;
-        }
-
-        if (type == Double.class) {
-            Double result = left.doubleValue();
-            return (T) result;
-        }
-
-        if (type == BigDecimal.class) {
-            return (T) left;
-        }
-
-        throw new UnsupportedOperationException(StringFormatter.format("'{}' type is not supported", type.getSimpleName()));
+        return BigDecimalUtils.getValue(left, type);
     }
 
     public <T extends Number> T getRight(Class<T> type) {
-        if (type == Byte.class) {
-            Byte result = right.byteValue();
-            return (T) result;
-        }
-
-        if (type == Short.class) {
-            Short result = right.shortValue();
-            return (T) result;
-        }
-
-        if (type == Integer.class) {
-            Integer result = right.intValue();
-            return (T) result;
-        }
-
-        if (type == Long.class) {
-            Long result = right.longValue();
-            return (T) result;
-        }
-
-        if (type == BigInteger.class) {
-            BigInteger result = right.toBigInteger();
-            return (T) result;
-        }
-
-        if (type == Float.class) {
-            Float result = right.floatValue();
-            return (T) result;
-        }
-
-        if (type == Double.class) {
-            Double result = right.doubleValue();
-            return (T) result;
-        }
-
-        if (type == BigDecimal.class) {
-            return (T) right;
-        }
-
-        throw new UnsupportedOperationException(StringFormatter.format("'{}' type is not supported", type.getSimpleName()));
+        return BigDecimalUtils.getValue(right, type);
     }
 
     // since 1.0.8
-    @NonNull
     @Override
     public Iterator<BigDecimal> iterator() {
         return Arrays.asList(left, right).iterator();

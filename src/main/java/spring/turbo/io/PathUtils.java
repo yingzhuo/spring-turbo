@@ -100,4 +100,14 @@ public final class PathUtils {
         }
     }
 
+    public static void deleteQuietly(Path path) {
+        Asserts.notNull(path);
+
+        try {
+            delete(path);
+        } catch (Throwable e) {
+            // nop
+        }
+    }
+
 }

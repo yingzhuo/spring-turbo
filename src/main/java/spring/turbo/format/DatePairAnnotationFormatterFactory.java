@@ -35,7 +35,7 @@ public class DatePairAnnotationFormatterFactory implements AnnotationFormatterFa
 
     @Override
     public Parser<?> getParser(DatePairFormat annotation, Class<?> fieldType) {
-        return new DatePairParser(annotation.delimiter(), annotation.pattern());
+        return new DatePairParser(annotation.delimiter(), annotation.pattern(), annotation.fallbackPatterns());
     }
 
 }
