@@ -75,13 +75,31 @@ public final class Tuple<A, B, C> implements Serializable {
         return a;
     }
 
+    // since 1.0.10
+    public A getRequiredA() {
+        Asserts.notNull(a);
+        return a;
+    }
+
     @Nullable
     public B getB() {
         return b;
     }
 
+    // since 1.0.10
+    public B getRequiredB() {
+        Asserts.notNull(b);
+        return b;
+    }
+
     @Nullable
     public C getC() {
+        return c;
+    }
+
+    // since 1.0.10
+    public C getRequiredC() {
+        Asserts.notNull(c);
         return c;
     }
 
