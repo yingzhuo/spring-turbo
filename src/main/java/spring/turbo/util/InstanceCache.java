@@ -24,7 +24,7 @@ import java.util.function.Supplier;
  *
  * @author 应卓
  * @see InstanceUtils
- * @see spring.turbo.core.InstanceCacheAware
+ * @see InstanceCacheAware
  * @since 1.0.0
  */
 @Mutable

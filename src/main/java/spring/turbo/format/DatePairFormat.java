@@ -12,6 +12,8 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
+ * @see spring.turbo.format.DateTimeFormat
+ * @see org.springframework.format.annotation.DateTimeFormat
  * @since 1.0.8
  */
 @Documented
@@ -21,6 +23,25 @@ public @interface DatePairFormat {
 
     public String delimiter() default " @@ ";
 
-    public String pattern() default "yyyy-MM-dd HH:mm:ss";
+    public String pattern() default "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+
+    public String[] fallbackPatterns() default {
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd HH:mm:ss.SSS",
+            "yyyy-MM-dd",
+            "yyyy-MM-dd'T'HH:mm:ss",
+            "yyyy-MM-dd'T'HH:mm:ss.SSS",
+            "yyyy-MM-dd",
+            "yyyy/MM/dd HH:mm:ss",
+            "yyyy/MM/dd HH:mm:ss.SSS",
+            "yyyy/MM/dd",
+            "yyyy-M-d HH:mm:ss",
+            "yyyy-M-d HH:mm:ss.SSS",
+            "yyyy-M-d",
+            "yyyy/M/d HH:mm:ss",
+            "yyyy/M/d HH:mm:ss.SSS",
+            "yyyy/M/d",
+            "HH:mm:ss.SSSXXX"
+    };
 
 }

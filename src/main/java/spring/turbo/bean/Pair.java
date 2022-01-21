@@ -52,8 +52,20 @@ public final class Pair<A, B> implements Serializable {
         return a;
     }
 
+    // since 1.0.10
+    public A getRequiredA() {
+        Asserts.notNull(a);
+        return a;
+    }
+
     @Nullable
     public B getB() {
+        return b;
+    }
+
+    // since 1.0.10
+    public B getRequiredB() {
+        Asserts.notNull(b);
         return b;
     }
 

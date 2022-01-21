@@ -18,11 +18,9 @@ import java.lang.annotation.*;
  * @since 1.0.0
  */
 @Documented
-@org.springframework.format.annotation.DateTimeFormat(
-        iso = org.springframework.format.annotation.DateTimeFormat.ISO.NONE
-)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+@org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.NONE)
 public @interface DateTimeFormat {
 
     @AliasFor(

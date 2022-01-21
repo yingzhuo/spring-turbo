@@ -13,6 +13,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.InstanceCache;
+import spring.turbo.util.InstanceCacheAware;
 
 /**
  * @author 应卓

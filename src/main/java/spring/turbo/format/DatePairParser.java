@@ -10,11 +10,9 @@ package spring.turbo.format;
 
 import org.springframework.format.Parser;
 import spring.turbo.bean.DatePair;
-import spring.turbo.util.Asserts;
+import spring.turbo.util.DateParseUtils;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -27,21 +25,21 @@ import java.util.Locale;
 class DatePairParser implements Parser<DatePair> {
 
     private final String delimiter;
-    private final DateFormat dateFormat;
+    private final String primaryPattern;
+    private final String[] fallbackPatterns;
 
-    DatePairParser(String delimiter, String pattern) {
-        Asserts.hasText(delimiter);
-        Asserts.hasText(pattern);
+    public DatePairParser(String delimiter, String primaryPattern, String[] fallbackPatterns) {
         this.delimiter = delimiter;
-        this.dateFormat = new SimpleDateFormat(pattern);
+        this.primaryPattern = primaryPattern;
+        this.fallbackPatterns = fallbackPatterns;
     }
 
     @Override
     public DatePair parse(String text, Locale locale) throws ParseException {
         final String string = text.trim();
         final String[] parts = string.split(delimiter, 2);
-        final Date left = dateFormat.parse(parts[0]);
-        final Date right = dateFormat.parse(parts[1]);
+        final Date left = DateParseUtils.parse(parts[0], primaryPattern, fallbackPatterns);
+        final Date right = DateParseUtils.parse(parts[1], primaryPattern, fallbackPatterns);
         return new DatePair(left, right);
     }
 
