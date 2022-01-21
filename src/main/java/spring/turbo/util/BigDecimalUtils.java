@@ -10,7 +10,6 @@ package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
 
-import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
@@ -153,7 +152,7 @@ public final class BigDecimalUtils {
      * @param numbers 若干个数
      * @return 积
      */
-    public static BigDecimal nullSafeMultiply(@Null BigDecimal... numbers) {
+    public static BigDecimal nullSafeMultiply(@Nullable BigDecimal... numbers) {
         BigDecimal x = BigDecimal.ONE;
         if (numbers != null) {
             for (BigDecimal number : numbers) {
@@ -171,7 +170,7 @@ public final class BigDecimalUtils {
      * @param numbers 若干个数
      * @return 积
      */
-    public static BigDecimal nullSafeMultiply(@Null Collection<BigDecimal> numbers) {
+    public static BigDecimal nullSafeMultiply(@Nullable Collection<BigDecimal> numbers) {
         if (numbers == null) {
             return BigDecimal.ONE;
         }

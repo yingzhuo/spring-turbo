@@ -11,7 +11,6 @@ package spring.turbo.util;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.ApplicationContext;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Mutable;
 
@@ -92,8 +91,7 @@ public final class InstanceCache {
      * @param <T>  实例泛型
      * @return 实例值
      */
-    @NonNull
-    public synchronized <T> T findOrCreate(@NonNull Class<?> type) {
+    public synchronized <T> T findOrCreate(Class<?> type) {
         return findOrCreate(type, new InstantiationExceptionSupplier(type));
     }
 
@@ -105,8 +103,7 @@ public final class InstanceCache {
      * @param <T>                             实例泛型
      * @return 实例值
      */
-    @NonNull
-    public synchronized <T> T findOrCreate(@NonNull Class<?> type, @NonNull Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
+    public synchronized <T> T findOrCreate(Class<?> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
         Asserts.notNull(type);
         Asserts.notNull(exceptionIfCannotCreateInstance);
 
@@ -126,7 +123,7 @@ public final class InstanceCache {
     }
 
     @Nullable
-    private Object findFromApplicationContext(@NonNull Class<?> type) {
+    private Object findFromApplicationContext(Class<?> type) {
         if (applicationContext == null) {
             return null;
         }

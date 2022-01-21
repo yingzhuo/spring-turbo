@@ -29,6 +29,9 @@ public final class DateParseUtils {
     }
 
     public static Date parse(String string, String pattern, String... fallbackPatterns) {
+        Asserts.notNull(string);
+        Asserts.notNull(pattern);
+
         try {
             final DateFormatter formatter = new DateFormatter();
             formatter.setIso(DateTimeFormat.ISO.NONE);

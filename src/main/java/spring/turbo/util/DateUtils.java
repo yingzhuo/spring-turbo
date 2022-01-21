@@ -218,7 +218,6 @@ public final class DateUtils {
         return gval.getTime();
     }
 
-
     public static Calendar truncate(final Calendar date, final int field) {
         Asserts.notNull(date);
         final Calendar truncated = (Calendar) date.clone();
