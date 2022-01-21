@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import org.springframework.lang.Nullable;
+import org.springframework.util.FileSystemUtils;
 import spring.turbo.util.Asserts;
 
 import java.io.IOException;
@@ -31,39 +31,72 @@ public final class PathUtils {
         super();
     }
 
-    /**
-     * 创建Path并尝试创建文件
-     *
-     * @param first 第一级Path
-     * @param more  次级Path (多个)
-     * @return Path实例
-     */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static Path create(String first, String... more) {
+    public static Path createFile(String first, String... more) {
         Asserts.notNull(first);
+
         Path path = Paths.get(first, more).normalize();
-        if (!path.toFile().exists()) {
-            try {
-                path.toFile().createNewFile();
-            } catch (IOException ignored) {
-                // ignored
+        try {
+            boolean success = path.toFile().createNewFile();
+            if (!success) {
+                throw IOExceptionUtils.toUnchecked("not able to create file");
             }
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
         }
         return path;
     }
 
-    /**
-     * 删除
-     *
-     * @param path 待删除的Path
-     */
-    public static void deleteQuietly(@Nullable Path path) {
-        if (path != null) {
-            try {
+    public static Path createDirectory(String first, String... more) {
+        Asserts.notNull(first);
+
+        Path path = Paths.get(first, more).normalize();
+        try {
+            return Files.createDirectory(path);
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
+        }
+    }
+
+    public static boolean isExists(Path path) {
+        Asserts.notNull(path);
+        return Files.exists(path);
+    }
+
+    public static boolean isDirectory(Path path) {
+        Asserts.notNull(path);
+        return Files.isDirectory(path);
+    }
+
+    public static boolean isFile(Path path) {
+        Asserts.notNull(path);
+        return Files.isRegularFile(path);
+    }
+
+    public static boolean isSymbolicLink(Path path) {
+        Asserts.notNull(path);
+        return Files.isSymbolicLink(path);
+    }
+
+    public static boolean isHidden(Path path) {
+        Asserts.notNull(path);
+        try {
+            return Files.isHidden(path);
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public static void delete(Path path) {
+        Asserts.notNull(path);
+
+        try {
+            if (isFile(path)) {
                 Files.deleteIfExists(path);
-            } catch (IOException ignored) {
-                // nop
+            } else {
+                FileSystemUtils.deleteRecursively(path);
             }
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
         }
     }
 
