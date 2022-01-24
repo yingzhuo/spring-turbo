@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.MessageSource;
@@ -32,6 +33,9 @@ public final class SpringUtils {
 
     public static final Supplier<? extends RuntimeException> UNSUPPORTED =
             () -> new UnsupportedOperationException("this operation is unsupported without ApplicationContext instance");
+
+    public static final Supplier<? extends RuntimeException> BEAN_NOT_FOUND =
+            () -> new NoSuchBeanDefinitionException("bean not found");
 
     private SpringUtils() {
         super();
@@ -99,6 +103,14 @@ public final class SpringUtils {
         return Optional.ofNullable(SpringApplicationAware.SC)
                 .map(sc -> sc.getBean(beanType, beanName))
                 .orElseThrow(UNSUPPORTED);
+    }
+
+    public static <T> T getRequiredBean(final Class<T> beanType) {
+        return getBean(beanType).orElseThrow(BEAN_NOT_FOUND);
+    }
+
+    public static <T> T getRequiredBean(final Class<T> beanType, final String beanName) {
+        return getBean(beanType, beanName).orElseThrow(BEAN_NOT_FOUND);
     }
 
     public static <T> List<T> getBeanList(final Class<T> beanType) {
