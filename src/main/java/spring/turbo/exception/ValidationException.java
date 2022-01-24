@@ -26,7 +26,6 @@ public class ValidationException extends RuntimeException {
 
     public static void raiseIfNecessary(Errors errors) {
         Asserts.notNull(errors);
-
         if (errors.hasErrors()) {
             throw from(errors);
         }
