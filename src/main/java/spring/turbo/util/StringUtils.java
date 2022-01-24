@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.Arrays;
@@ -27,17 +26,15 @@ import static spring.turbo.util.StringPool.EMPTY;
  */
 public final class StringUtils {
 
+    /**
+     * 私有构造方法
+     */
     private StringUtils() {
         super();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    @Nullable
-    public static String repeat(@Nullable String string, int n) {
-        if (string == null) {
-            return null;
-        }
+    public static String repeat(String string, int n) {
+        Asserts.notNull(string);
         StringBuilder builder = new StringBuilder();
         while (n-- != 0) {
             builder.append(string);
@@ -83,10 +80,8 @@ public final class StringUtils {
         return isNull(string) ? 0 : string.length();
     }
 
-    public static boolean containsWhitespace(@Nullable String string) {
-        if (string == null) {
-            return false;
-        }
+    public static boolean containsWhitespace(String string) {
+        Asserts.notNull(string);
 
         int strLen = string.length();
         for (int i = 0; i < strLen; i++) {
@@ -97,10 +92,8 @@ public final class StringUtils {
         return false;
     }
 
-    public static boolean containsAnyChars(@Nullable String string, String charsToCheck) {
-        if (string == null) {
-            return false;
-        }
+    public static boolean containsAnyChars(String string, String charsToCheck) {
+        Asserts.notNull(string);
 
         final Set<Character> charSet = toCharSet(string);
         if (charSet.isEmpty()) {
@@ -110,10 +103,8 @@ public final class StringUtils {
         return toCharStream(charsToCheck).anyMatch(charSet::contains);
     }
 
-    public static boolean containsAllChars(@Nullable String string, String charsToCheck) {
-        if (string == null) {
-            return false;
-        }
+    public static boolean containsAllChars(String string, String charsToCheck) {
+        Asserts.notNull(string);
 
         final Set<Character> charSet = toCharSet(string);
         if (charSet.isEmpty()) {
@@ -123,11 +114,8 @@ public final class StringUtils {
         return toCharStream(charsToCheck).allMatch(charSet::contains);
     }
 
-    @Nullable
-    public static String deleteChars(@Nullable String string, String charsToDelete) {
-        if (string == null) {
-            return null;
-        }
+    public static String deleteChars(String string, String charsToDelete) {
+        Asserts.notNull(string);
         if (isEmpty(charsToDelete)) {
             return string;
         }
@@ -139,7 +127,6 @@ public final class StringUtils {
         return builder.toString();
     }
 
-    @NonNull
     public static Stream<Character> toCharStream(@Nullable String string) {
         if (string == null) {
             return Stream.empty();
@@ -147,12 +134,10 @@ public final class StringUtils {
         return string.chars().mapToObj(ch -> (char) ch);
     }
 
-    @NonNull
     public static List<Character> toCharList(@Nullable String string) {
         return toCharStream(string).collect(Collectors.toList());
     }
 
-    @NonNull
     public static Set<Character> toCharSet(@Nullable String string) {
         return toCharStream(string).collect(Collectors.toSet());
     }
@@ -167,26 +152,19 @@ public final class StringUtils {
         return isBlank(string) ? null : string;
     }
 
-    @NonNull
     public static String nullToEmpty(@Nullable String string) {
         return string == null ? EMPTY : string;
     }
 
-    @Nullable
-    public static String reverse(@Nullable String string) {
-        if (isNull(string)) {
-            return null;
-        } else {
-            return new StringBuilder(string).reverse().toString();
-        }
+    public static String reverse(String string) {
+        Asserts.notNull(string);
+        return new StringBuilder(string).reverse().toString();
     }
 
-    @NonNull
     public static String[] commaDelimitedListToStringArray(@Nullable String string) {
         return commaDelimitedListToStringArray(string, false);
     }
 
-    @NonNull
     public static String[] commaDelimitedListToStringArray(@Nullable String string, boolean trimAllElements) {
         if (string == null || isBlank(string)) {
             return new String[0];
@@ -204,8 +182,9 @@ public final class StringUtils {
         return string != null ? string.length() : 0;
     }
 
-    @Nullable
-    public static String capitalize(@Nullable final String string) {
+    public static String capitalize(final String string) {
+        Asserts.notNull(string);
+
         final int strLen = length(string);
         if (strLen == 0) {
             return string;
@@ -229,8 +208,8 @@ public final class StringUtils {
         return new String(newCodePoints, 0, outOffset);
     }
 
-    @Nullable
-    public static String uncapitalize(@Nullable final String string) {
+    public static String uncapitalize(final String string) {
+        Asserts.notNull(string);
         final int strLen = length(string);
         if (strLen == 0) {
             return string;
@@ -254,19 +233,15 @@ public final class StringUtils {
         return new String(newCodePoints, 0, outOffset);
     }
 
-    @Nullable
-    public static String wrap(@Nullable final String string, @Nullable final String wrapWith) {
-        if (isEmpty(string) || isEmpty(wrapWith)) {
-            return string;
-        }
+    public static String wrap(final String string, final String wrapWith) {
+        Asserts.notNull(string);
+        Asserts.notNull(wrapWith);
         return wrapWith.concat(string).concat(wrapWith);
     }
 
-    @Nullable
-    public static String wrapIfMissing(@Nullable final String string, @Nullable final String wrapWith) {
-        if (isEmpty(string) || isEmpty(wrapWith)) {
-            return string;
-        }
+    public static String wrapIfMissing(final String string, final String wrapWith) {
+        Asserts.notNull(string);
+        Asserts.notNull(wrapWith);
 
         final boolean wrapStart = !string.startsWith(wrapWith);
         final boolean wrapEnd = !string.endsWith(wrapWith);
@@ -285,15 +260,17 @@ public final class StringUtils {
         return builder.toString();
     }
 
-    public static void nullSafeAddAll(@NonNull Collection<String> collection, @Nullable String... elements) {
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static void nullSafeAddAll(Collection<String> collection, @Nullable String... elements) {
         CollectionUtils.nullSafeAddAll(collection, elements);
     }
 
-    public static void nullSafeAddAll(@NonNull Collection<String> collection, @Nullable Collection<String> elements) {
+    public static void nullSafeAddAll(Collection<String> collection, @Nullable Collection<String> elements) {
         CollectionUtils.nullSafeAddAll(collection, elements);
     }
 
-    public static void emptySafeAddAll(@NonNull Collection<String> collection, @Nullable String... elements) {
+    public static void emptySafeAddAll(Collection<String> collection, @Nullable String... elements) {
         Asserts.notNull(collection);
         if (elements != null) {
             for (String element : elements) {
@@ -304,7 +281,7 @@ public final class StringUtils {
         }
     }
 
-    public static void emptySafeAddAll(@NonNull Collection<String> collection, @Nullable Collection<String> elements) {
+    public static void emptySafeAddAll(Collection<String> collection, @Nullable Collection<String> elements) {
         Asserts.notNull(collection);
         if (elements != null) {
             for (String element : elements) {
@@ -315,7 +292,7 @@ public final class StringUtils {
         }
     }
 
-    public static void blankSafeAddAll(@NonNull Collection<String> collection, @Nullable String... elements) {
+    public static void blankSafeAddAll(Collection<String> collection, @Nullable String... elements) {
         Asserts.notNull(collection);
         if (elements != null) {
             for (String element : elements) {
@@ -326,7 +303,7 @@ public final class StringUtils {
         }
     }
 
-    public static void blankSafeAddAll(@NonNull Collection<String> collection, @Nullable Collection<String> elements) {
+    public static void blankSafeAddAll(Collection<String> collection, @Nullable Collection<String> elements) {
         Asserts.notNull(collection);
         if (elements != null) {
             for (String element : elements) {

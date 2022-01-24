@@ -15,7 +15,6 @@ import spring.turbo.bean.DatePair;
 import spring.turbo.util.SetFactories;
 
 import java.text.ParseException;
-import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -39,7 +38,7 @@ public class StringToDatePairConverter implements GenericConverter {
         }
 
         try {
-            return DATE_PAIR_PARSER.parse(source.toString(), Locale.getDefault());
+            return DATE_PAIR_PARSER.parse(source.toString(), null);
         } catch (ParseException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
