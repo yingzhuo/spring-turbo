@@ -21,10 +21,6 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class ValidRegexValidator implements ConstraintValidator<ValidRegex, CharSequence> {
 
-    public ValidRegexValidator() {
-        super();
-    }
-
     @Override
     public boolean isValid(@Nullable CharSequence value, ConstraintValidatorContext context) {
         if (value == null) {

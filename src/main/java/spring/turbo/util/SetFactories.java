@@ -10,10 +10,7 @@ package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author 应卓
@@ -56,6 +53,25 @@ public final class SetFactories {
     }
 
     @SafeVarargs
+    public static <T extends Comparable<T>> TreeSet<T> newTreeSet(@Nullable T... elements) {
+        final TreeSet<T> set = new TreeSet<>(Comparator.naturalOrder());
+        if (elements != null) {
+            Collections.addAll(set, elements);
+        }
+        return set;
+    }
+
+    @SafeVarargs
+    public static <T> TreeSet<T> newTreeSet(Comparator<T> comparator, @Nullable T... elements) {
+        Asserts.notNull(comparator);
+        final TreeSet<T> set = new TreeSet<>(comparator);
+        if (elements != null) {
+            Collections.addAll(set, elements);
+        }
+        return set;
+    }
+
+    @SafeVarargs
     public static <T> HashSet<T> nullSafeNewHashSet(@Nullable T... elements) {
         final HashSet<T> set = new HashSet<>();
         CollectionUtils.nullSafeAddAll(set, elements);
@@ -65,6 +81,22 @@ public final class SetFactories {
     @SafeVarargs
     public static <T> LinkedHashSet<T> nullSafeNewLinkedHashSet(@Nullable T... elements) {
         final LinkedHashSet<T> set = new LinkedHashSet<>();
+        CollectionUtils.nullSafeAddAll(set, elements);
+        return set;
+    }
+
+    @SafeVarargs
+    public static <T extends Comparable<T>> TreeSet<T> nullSafeNewTreeSet(@Nullable T... elements) {
+        final TreeSet<T> set = new TreeSet<>(Comparator.naturalOrder());
+        CollectionUtils.nullSafeAddAll(set, elements);
+        return set;
+    }
+
+    @SafeVarargs
+    public static <T> TreeSet<T> nullSafeNewTreeSet(Comparator<T> comparator, @Nullable T... elements) {
+        Asserts.notNull(comparator);
+
+        final TreeSet<T> set = new TreeSet<>(comparator);
         CollectionUtils.nullSafeAddAll(set, elements);
         return set;
     }

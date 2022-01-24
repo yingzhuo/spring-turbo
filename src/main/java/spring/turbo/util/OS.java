@@ -80,7 +80,7 @@ public enum OS {
      * @author 应卓
      * @since 1.0.0
      */
-    private static final class SyncAvoid {
+    private static class SyncAvoid {
         private static final OS os;
 
         static {

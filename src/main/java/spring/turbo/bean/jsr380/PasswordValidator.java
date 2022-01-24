@@ -9,6 +9,7 @@
 package spring.turbo.bean.jsr380;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
 import spring.turbo.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
@@ -22,11 +23,19 @@ import java.util.stream.Collectors;
  */
 public class PasswordValidator implements ConstraintValidator<Password, CharSequence> {
 
+    @Nullable
     private Password.Complexity complexity;
+
+    @Nullable
     private Set<Character> specialChars;
+
     private int minLength;
+
     private int maxLength;
 
+    /**
+     * 构造方法
+     */
     public PasswordValidator() {
         super();
     }
@@ -45,6 +54,9 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
         if (password == null) {
             return true;
         }
+
+        Asserts.notNull(complexity);
+        Asserts.notNull(specialChars);
 
         final int len = password.length();
         if (len < minLength || len > maxLength) {

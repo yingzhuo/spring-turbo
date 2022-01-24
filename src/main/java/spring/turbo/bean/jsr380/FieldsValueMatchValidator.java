@@ -10,6 +10,7 @@ package spring.turbo.bean.jsr380;
 
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -22,12 +23,11 @@ import java.util.Objects;
  */
 public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValueMatch, Object> {
 
+    @Nullable
     private String field;
-    private String fieldMatch;
 
-    public FieldsValueMatchValidator() {
-        super();
-    }
+    @Nullable
+    private String fieldMatch;
 
     @Override
     public void initialize(FieldsValueMatch annotation) {
@@ -37,7 +37,13 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
 
     @Override
     public boolean isValid(@Nullable Object value, ConstraintValidatorContext context) {
-        if (value == null) return true;
+        if (value == null) {
+            return true;
+        }
+
+        Asserts.notNull(field);
+        Asserts.notNull(fieldMatch);
+
         Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
         Object fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);
         return Objects.equals(fieldValue, fieldMatchValue);
