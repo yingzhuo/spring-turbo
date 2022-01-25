@@ -11,6 +11,7 @@ package spring.turbo.exception;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Immutable;
+import spring.turbo.util.Asserts;
 
 /**
  * 自洽性错误
@@ -54,6 +55,17 @@ public final class SelfConsistentException extends IllegalStateException impleme
     @Override
     public String getDefaultMessage() {
         return this.defaultMessage;
+    }
+
+    public String getRequiredFirstCode() {
+        Asserts.notNull(codes);
+        Asserts.isTrue(codes.length >= 1);
+        return codes[0];
+    }
+
+    public Object[] getRequiredArguments() {
+        Asserts.notNull(arguments);
+        return arguments;
     }
 
 }

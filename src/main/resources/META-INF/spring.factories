@@ -3,5 +3,4 @@ org.springframework.context.ApplicationListener=\
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     spring.turbo.bean.SpringBootAutoConfiguration,\
     spring.turbo.core.SpringBootAutoConfiguration,\
-    spring.turbo.exception.SpringBootAutoConfiguration,\
     spring.turbo.bean.message.SpringBootAutoConfiguration

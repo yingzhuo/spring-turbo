@@ -20,6 +20,7 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.0.0
  */
+@Deprecated
 public class MessageSourceBusinessExceptionFactory implements BusinessExceptionFactory {
 
     private final MessageSource messageSource;
