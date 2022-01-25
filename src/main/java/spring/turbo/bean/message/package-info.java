@@ -25,7 +25,7 @@ import org.springframework.lang.NonNullFields;
 class SpringBootAutoConfiguration {
 
     @Bean
-    @ConditionalOnBean(value = MessageSource.class)
+    @ConditionalOnBean(MessageSource.class)
     MessageSourceAccessor messageSourceAccessor(MessageSource messageSource) {
         return new MessageSourceAccessor(messageSource);
     }

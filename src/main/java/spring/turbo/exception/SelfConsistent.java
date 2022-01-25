@@ -11,6 +11,7 @@ package spring.turbo.exception;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import spring.turbo.util.StringFormatter;
 
 import java.util.Collection;
 import java.util.Map;
@@ -24,6 +25,11 @@ public final class SelfConsistent {
 
     private SelfConsistent() {
         super();
+    }
+
+    public static void raise(String messagePattern, Object... args) {
+        String defaultMessage = StringFormatter.format(messagePattern, args);
+        throw new SelfConsistentException(null, null, defaultMessage);
     }
 
     public static void assertNotNull(@Nullable Object o, String code) {
