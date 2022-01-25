@@ -9,8 +9,8 @@
 package spring.turbo.core;
 
 import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
 
 /**
  * @author 应卓
@@ -20,26 +20,33 @@ import org.springframework.lang.Nullable;
  */
 public final class ConversionUtils {
 
+    /**
+     * 私有构造方法
+     */
     private ConversionUtils() {
         super();
     }
 
-    public static boolean canConverter(@Nullable Class<?> sourceType, Class<?> targetType) {
-        return SpringUtils.getConversionService().canConvert(sourceType, targetType);
-    }
-
-    public static boolean canConvert(@Nullable TypeDescriptor sourceType, TypeDescriptor targetType) {
+    public static boolean canConverter(Class<?> sourceType, Class<?> targetType) {
+        Asserts.notNull(sourceType);
+        Asserts.notNull(targetType);
         return SpringUtils.getConversionService().canConvert(sourceType, targetType);
     }
 
     @Nullable
-    public static <T> T convert(@Nullable Object source, Class<T> targetType) {
-        return SpringUtils.getConversionService().convert(source, targetType);
+    public static <T> T convert(Object source, Class<T> targetType) {
+        Asserts.notNull(source);
+        Asserts.notNull(targetType);
+        return SpringUtils.getConversionService()
+                .convert(source, targetType);
     }
 
-    @Nullable
-    public static Object convert(@Nullable Object source, @Nullable TypeDescriptor sourceType, TypeDescriptor targetType) {
-        return SpringUtils.getConversionService().convert(source, sourceType, targetType);
+    public static <T> T convertOrThrow(Object source, Class<T> targetType) {
+        final T target = convert(source, targetType);
+        if (target == null) {
+            throw new IllegalArgumentException("cannot convert");
+        }
+        return target;
     }
 
 }

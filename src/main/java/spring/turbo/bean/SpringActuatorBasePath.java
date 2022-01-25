@@ -6,28 +6,19 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.exception;
+package spring.turbo.bean;
 
-import org.springframework.lang.Nullable;
+import org.springframework.beans.factory.annotation.Value;
 
-import java.util.Locale;
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @since 1.0.11
  */
-@Deprecated
-@FunctionalInterface
-public interface BusinessExceptionFactory {
-
-    public default BusinessException create(String code) {
-        return create(code, null, (Object[]) null);
-    }
-
-    public default BusinessException create(String code, @Nullable Locale locale) {
-        return create(code, locale, (Object[]) null);
-    }
-
-    public BusinessException create(String code, @Nullable Locale locale, @Nullable Object... args);
-
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+@Value("${management.endpoints.web.base-path}")
+public @interface SpringActuatorBasePath {
 }

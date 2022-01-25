@@ -19,6 +19,7 @@ import static spring.turbo.core.SpringUtils.UNSUPPORTED;
  * @author 应卓
  * @since 1.0.0
  */
+@Deprecated
 public final class BusinessException extends RuntimeException {
 
     @Nullable

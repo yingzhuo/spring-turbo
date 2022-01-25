@@ -10,24 +10,5 @@
 @NonNullFields
 package spring.turbo.exception;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;
-
-/**
- * @author 应卓
- * @since 1.0.0
- */
-class SpringBootAutoConfiguration {
-
-    @Bean
-    @ConditionalOnMissingBean
-    @ConditionalOnBean(MessageSource.class)
-    BusinessExceptionFactory businessExceptionFactory(MessageSource messageSource) {
-        return new MessageSourceBusinessExceptionFactory(messageSource);
-    }
-
-}
