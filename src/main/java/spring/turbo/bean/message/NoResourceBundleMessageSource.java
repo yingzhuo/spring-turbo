@@ -27,6 +27,7 @@ public class NoResourceBundleMessageSource implements MessageSource {
     // 1. defaultMessage
     // 2. StringFormat(code + args)
     // 3. code (first code)
+    // 4. throw NoSuchMessageException
 
     @Override
     public String getMessage(String code, @Nullable Object[] args, @Nullable String defaultMessage, Locale locale) {
@@ -44,7 +45,11 @@ public class NoResourceBundleMessageSource implements MessageSource {
 
     @Override
     public String getMessage(String code, @Nullable Object[] args, Locale locale) throws NoSuchMessageException {
-        throw new NoSuchMessageException(code);
+        if (args != null) {
+            return StringFormatter.format(code, args);
+        } else {
+            return code;
+        }
     }
 
     @Override
@@ -74,11 +79,9 @@ public class NoResourceBundleMessageSource implements MessageSource {
         if (codes == null) {
             return null;
         }
-
         if (codes.length >= 1) {
             return codes[0];
         }
-
         return null;
     }
 

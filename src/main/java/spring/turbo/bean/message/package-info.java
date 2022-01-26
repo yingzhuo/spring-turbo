@@ -24,6 +24,8 @@ import java.util.List;
 /**
  * @author 应卓
  * @see MessageSource
+ * @see MessageSourceAccessor
+ * @see spring.turbo.core.MessageUtils
  * @since 1.0.11
  */
 class SpringBootAutoConfiguration {
