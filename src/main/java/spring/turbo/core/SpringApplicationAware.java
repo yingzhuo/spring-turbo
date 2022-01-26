@@ -28,6 +28,10 @@ class SpringApplicationAware implements ApplicationListener<ContextRefreshedEven
     @Nullable
     static SpringContext SC = null;
 
+    public SpringApplicationAware() {
+        super();
+    }
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         AC = event.getApplicationContext();
