@@ -10,24 +10,20 @@ package spring.turbo.exception;
 
 import org.springframework.lang.Nullable;
 
-import java.util.Locale;
-
 /**
+ * 未实现的功能
+ *
  * @author 应卓
- * @since 1.0.0
+ * @since 1.0.11
  */
-@Deprecated
-@FunctionalInterface
-public interface BusinessExceptionFactory {
+public class NotImplementedException extends UnsupportedOperationException {
 
-    public default BusinessException create(String code) {
-        return create(code, null, (Object[]) null);
+    public NotImplementedException() {
+        super();
     }
 
-    public default BusinessException create(String code, @Nullable Locale locale) {
-        return create(code, locale, (Object[]) null);
+    public NotImplementedException(@Nullable String message) {
+        super(message);
     }
-
-    public BusinessException create(String code, @Nullable Locale locale, @Nullable Object... args);
 
 }

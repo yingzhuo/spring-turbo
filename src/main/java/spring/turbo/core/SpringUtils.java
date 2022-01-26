@@ -12,7 +12,6 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.MessageSource;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -37,6 +36,9 @@ public final class SpringUtils {
     public static final Supplier<? extends RuntimeException> BEAN_NOT_FOUND =
             () -> new NoSuchBeanDefinitionException("bean not found");
 
+    /**
+     * 私有构造方法
+     */
     private SpringUtils() {
         super();
     }
@@ -87,10 +89,6 @@ public final class SpringUtils {
         return Optional.ofNullable(SpringApplicationAware.SC)
                 .map(SpringContext::getMessageSource)
                 .orElseThrow(UNSUPPORTED);
-    }
-
-    public static MessageSourceAccessor getMessageSourceAccessor() {
-        return new MessageSourceAccessor(getMessageSource());
     }
 
     public static <T> Optional<T> getBean(final Class<T> beanType) {

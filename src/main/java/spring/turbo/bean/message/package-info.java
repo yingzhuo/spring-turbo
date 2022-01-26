@@ -10,24 +10,37 @@
 @NonNullFields
 package spring.turbo.bean.message;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;
+import spring.turbo.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * @author 应卓
  * @see MessageSource
- * @since 1.0.0
+ * @see MessageSourceAccessor
+ * @see spring.turbo.core.MessageUtils
+ * @since 1.0.11
  */
 class SpringBootAutoConfiguration {
 
+    @Autowired(required = false)
+    private List<MessageSource> sources;
+
     @Bean
-    @ConditionalOnBean(value = MessageSource.class)
-    MessageSourceAccessor messageSourceAccessor(MessageSource messageSource) {
-        return new MessageSourceAccessor(messageSource);
+    @ConditionalOnMissingBean
+    MessageSourceAccessor messageSourceAccessor() {
+        if (CollectionUtils.isEmpty(sources)) {
+            return new MessageSourceAccessor(new NoResourceBundleMessageSource());
+        } else {
+            return new MessageSourceAccessor(new DelegatingMessageSource(sources.get(0)));
+        }
     }
 
 }
