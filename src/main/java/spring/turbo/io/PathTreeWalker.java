@@ -18,27 +18,39 @@ import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
  * @author 应卓
+ * @see PathPredicate
+ * @see PathPredicateFactories
  * @since 1.0.12
  */
-public final class PathWalker {
+public final class PathTreeWalker {
+
+    private static final PathPredicate DEFAULT_PREDICATE = PathPredicateFactories.alwaysTrue();
 
     /**
      * 私有构造方法
      */
-    private PathWalker() {
+    private PathTreeWalker() {
         super();
+    }
+
+    public static Stream<Path> list(Path path) {
+        return list(path, Integer.MAX_VALUE, DEFAULT_PREDICATE);
+    }
+
+    public static Stream<Path> list(Path path, @Nullable PathPredicate predicate) {
+        return list(path, Integer.MAX_VALUE, predicate);
     }
 
     public static Stream<Path> list(Path path, int maxDepth, @Nullable PathPredicate predicate) {
         Asserts.notNull(path);
+        Asserts.isTrue(maxDepth >= 0);
 
-        if (predicate == null) {
-            predicate = PathPredicateFactories.alwaysTrue();
-        }
+        predicate = Optional.ofNullable(predicate).orElse(DEFAULT_PREDICATE);
 
         if (!PathUtils.isExists(path)) {
             final String msg = StringFormatter.format("'{}' not exists", path);

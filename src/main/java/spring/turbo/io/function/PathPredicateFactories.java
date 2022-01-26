@@ -10,6 +10,9 @@ package spring.turbo.io.function;
 
 import spring.turbo.io.PathUtils;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.FilenameUtils;
+
+import static spring.turbo.util.StringPool.EMPTY;
 
 /**
  * @author 应卓
@@ -65,8 +68,24 @@ public final class PathPredicateFactories {
         return PathUtils::isRegularFile;
     }
 
+    public static PathPredicate isNotRegularFile() {
+        return not(isRegularFile());
+    }
+
     public static PathPredicate isDirectory() {
         return PathUtils::isDirectory;
+    }
+
+    public static PathPredicate isNotDirectory() {
+        return not(isDirectory());
+    }
+
+    public static PathPredicate isSymbolicLink() {
+        return PathUtils::isSymbolicLink;
+    }
+
+    public static PathPredicate isNotSymbolicLink() {
+        return not(isSymbolicLink());
     }
 
     public static PathPredicate isHidden() {
@@ -77,7 +96,7 @@ public final class PathPredicateFactories {
         return not(isHidden());
     }
 
-    public static PathPredicate filenameMatchesPattern(String regexPattern) {
+    public static PathPredicate isFilenameMatchesPattern(String regexPattern) {
         Asserts.notNull(regexPattern);
         return path -> {
             final String filename = path.getFileName().toString();
@@ -85,8 +104,36 @@ public final class PathPredicateFactories {
         };
     }
 
-    public static PathPredicate filenameNotMatchesPattern(String regexPattern) {
-        return not(filenameMatchesPattern(regexPattern));
+    public static PathPredicate isFilenameNotMatchesPattern(String regexPattern) {
+        return not(isFilenameMatchesPattern(regexPattern));
+    }
+
+    public static PathPredicate isExtensionMatches(String ext, boolean ignoreCases) {
+        Asserts.notNull(ext);
+        return path -> {
+            // 扩展名只处理普通文件
+            if (!PathUtils.isRegularFile(path)) {
+                return false;
+            }
+
+            final String filename = path.getFileName().toString();
+            final String extension = FilenameUtils.getExtension(filename);
+
+            // 文件没有扩展名
+            if (EMPTY.equals(ext)) {
+                return false;
+            }
+
+            if (ignoreCases) {
+                return extension.equalsIgnoreCase(ext);
+            } else {
+                return extension.equals(ext);
+            }
+        };
+    }
+
+    public static PathPredicate isNotExtensionMatches(String ext, boolean ignoreCases) {
+        return not(isExtensionMatches(ext, ignoreCases));
     }
 
 }
