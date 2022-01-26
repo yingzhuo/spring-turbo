@@ -10,7 +10,13 @@ package spring.turbo.io.function;
 
 import spring.turbo.io.PathUtils;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.CollectionUtils;
 import spring.turbo.util.FilenameUtils;
+
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import static spring.turbo.util.StringPool.EMPTY;
 
@@ -47,19 +53,25 @@ public final class PathPredicateFactories {
     public static PathPredicate or(PathPredicate p1, PathPredicate p2) {
         Asserts.notNull(p1);
         Asserts.notNull(p2);
-        return path -> p1.test(path) || p2.test(path);
+        return any(p1, p2);
     }
 
     public static PathPredicate and(PathPredicate p1, PathPredicate p2) {
         Asserts.notNull(p1);
         Asserts.notNull(p2);
-        return path -> p1.test(path) && p2.test(path);
+        return all(p1, p2);
     }
 
-    public static PathPredicate xor(PathPredicate p1, PathPredicate p2) {
-        Asserts.notNull(p1);
-        Asserts.notNull(p2);
-        return path -> p1.test(path) ^ p2.test(path);
+    public static PathPredicate any(PathPredicate... ps) {
+        Asserts.notNull(ps);
+        Asserts.noNullElements(ps);
+        return new Any(Arrays.asList(ps));
+    }
+
+    public static PathPredicate all(PathPredicate... ps) {
+        Asserts.notNull(ps);
+        Asserts.noNullElements(ps);
+        return new All(Arrays.asList(ps));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -108,6 +120,10 @@ public final class PathPredicateFactories {
         return not(isFilenameMatchesPattern(regexPattern));
     }
 
+    public static PathPredicate isExtensionMatches(String ext) {
+        return isExtensionMatches(ext, true);
+    }
+
     public static PathPredicate isExtensionMatches(String ext, boolean ignoreCases) {
         Asserts.notNull(ext);
         return path -> {
@@ -132,8 +148,54 @@ public final class PathPredicateFactories {
         };
     }
 
+    public static PathPredicate isNotExtensionMatches(String ext) {
+        return isNotExtensionMatches(ext, true);
+    }
+
     public static PathPredicate isNotExtensionMatches(String ext, boolean ignoreCases) {
         return not(isExtensionMatches(ext, ignoreCases));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private static final class All implements PathPredicate {
+
+        private final List<PathPredicate> list = new LinkedList<>();
+
+        public All(List<PathPredicate> list) {
+            CollectionUtils.nullSafeAddAll(this.list, list);
+            Asserts.isTrue(this.list.size() >= 2);
+        }
+
+        @Override
+        public boolean test(Path path) {
+            for (PathPredicate p : list) {
+                if (!p.test(path)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    private static final class Any implements PathPredicate {
+
+        private final List<PathPredicate> list = new LinkedList<>();
+
+        public Any(List<PathPredicate> list) {
+            CollectionUtils.nullSafeAddAll(this.list, list);
+            Asserts.isTrue(this.list.size() >= 2);
+        }
+
+        @Override
+        public boolean test(Path path) {
+            for (PathPredicate p : list) {
+                if (p.test(path)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
 }
