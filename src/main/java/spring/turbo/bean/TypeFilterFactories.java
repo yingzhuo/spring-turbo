@@ -14,12 +14,13 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.core.type.filter.RegexPatternTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
-import org.springframework.util.CollectionUtils;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.CollectionUtils;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -228,19 +229,6 @@ public final class TypeFilterFactories {
     }
 
     /**
-     * 逻辑异或
-     *
-     * @param f1 实例1
-     * @param f2 实例2
-     * @return 装饰后的TypeFilter实例
-     */
-    public static TypeFilter xor(TypeFilter f1, TypeFilter f2) {
-        Asserts.notNull(f1);
-        Asserts.notNull(f2);
-        return (reader, readerFactory) -> f1.match(reader, readerFactory) ^ f2.match(reader, readerFactory);
-    }
-
-    /**
      * 被装饰的所有TypeFilter任意一个返回true，整体返回true，否则返回false
      *
      * @param filters 代理的TypeFilter实例
@@ -296,20 +284,21 @@ public final class TypeFilterFactories {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    private static class All implements TypeFilter {
+    private static final class All implements TypeFilter {
 
-        private final List<TypeFilter> filters;
+        private final List<TypeFilter> list = new LinkedList<>();
 
-        public All(List<TypeFilter> filters) {
-            this.filters = filters;
+        public All(List<TypeFilter> list) {
+            CollectionUtils.nullSafeAddAll(this.list, list);
+            Asserts.isTrue(this.list.size() >= 2);
         }
 
         @Override
         public boolean match(MetadataReader reader, MetadataReaderFactory readerFactory) throws IOException {
-            if (CollectionUtils.isEmpty(filters)) {
+            if (CollectionUtils.isEmpty(list)) {
                 return false;
             }
-            for (TypeFilter filter : filters) {
+            for (TypeFilter filter : list) {
                 if (!filter.match(reader, readerFactory)) {
                     return false;
                 }
@@ -318,19 +307,20 @@ public final class TypeFilterFactories {
         }
     }
 
-    private static class Any implements TypeFilter {
-        private final List<TypeFilter> filters;
+    private static final class Any implements TypeFilter {
+        private final List<TypeFilter> list = new LinkedList<>();
 
-        public Any(List<TypeFilter> filters) {
-            this.filters = filters;
+        public Any(List<TypeFilter> list) {
+            CollectionUtils.nullSafeAddAll(this.list, list);
+            Asserts.isTrue(this.list.size() >= 2);
         }
 
         @Override
         public boolean match(MetadataReader reader, MetadataReaderFactory readerFactory) throws IOException {
-            if (CollectionUtils.isEmpty(filters)) {
+            if (CollectionUtils.isEmpty(list)) {
                 return false;
             }
-            for (TypeFilter filter : filters) {
+            for (TypeFilter filter : list) {
                 if (filter.match(reader, readerFactory)) {
                     return true;
                 }
@@ -339,7 +329,7 @@ public final class TypeFilterFactories {
         }
     }
 
-    public static class Quiet implements TypeFilter {
+    public static final class Quiet implements TypeFilter {
 
         private final TypeFilter typeFilter;
         private final boolean resultIfError;

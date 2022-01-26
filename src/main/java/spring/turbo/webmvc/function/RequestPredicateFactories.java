@@ -12,9 +12,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
@@ -199,12 +200,6 @@ public final class RequestPredicateFactories {
         return all(p1, p2);
     }
 
-    public static RequestPredicate xor(final RequestPredicate p1, final RequestPredicate p2) {
-        Asserts.notNull(p1);
-        Asserts.notNull(p2);
-        return request -> p1.test(request) ^ p2.test(request);
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
     private static boolean matchMethods(HttpServletRequest request, HttpMethod[] methodArray) {
@@ -213,7 +208,7 @@ public final class RequestPredicateFactories {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    private static class Not implements RequestPredicate {
+    private static final class Not implements RequestPredicate {
         private final Predicate<HttpServletRequest> predicate;
 
         public Not(Predicate<HttpServletRequest> predicate) {
@@ -227,10 +222,11 @@ public final class RequestPredicateFactories {
     }
 
     private static class Any implements RequestPredicate {
-        private final List<RequestPredicate> list;
+        private final List<RequestPredicate> list = new LinkedList<>();
 
         public Any(RequestPredicate... list) {
-            this.list = Arrays.asList(list);
+            CollectionUtils.nullSafeAddAll(this.list, list);
+            Asserts.isTrue(this.list.size() >= 2);
         }
 
         @Override
@@ -243,10 +239,11 @@ public final class RequestPredicateFactories {
     }
 
     private static class All implements RequestPredicate {
-        private final List<RequestPredicate> list;
+        private final List<RequestPredicate> list = new LinkedList<>();
 
         public All(RequestPredicate... list) {
-            this.list = Arrays.asList(list);
+            CollectionUtils.nullSafeAddAll(this.list, list);
+            Asserts.isTrue(this.list.size() >= 2);
         }
 
         @Override

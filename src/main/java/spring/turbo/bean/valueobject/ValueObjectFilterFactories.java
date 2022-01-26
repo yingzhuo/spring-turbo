@@ -17,6 +17,9 @@ import spring.turbo.util.Asserts;
  */
 public final class ValueObjectFilterFactories {
 
+    /**
+     * 私有构造方法
+     */
     private ValueObjectFilterFactories() {
         super();
     }
