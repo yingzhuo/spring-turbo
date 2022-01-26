@@ -31,10 +31,13 @@ public final class PathUtils {
         super();
     }
 
-    public static Path createFile(String first, String... more) {
+    public static Path createPath(String first, String... more) {
         Asserts.notNull(first);
+        return Paths.get(first, more).normalize();
+    }
 
-        Path path = Paths.get(first, more).normalize();
+    public static Path createFile(String first, String... more) {
+        Path path = createPath(first, more);
         try {
             boolean success = path.toFile().createNewFile();
             if (!success) {
@@ -67,7 +70,7 @@ public final class PathUtils {
         return Files.isDirectory(path);
     }
 
-    public static boolean isFile(Path path) {
+    public static boolean isRegularFile(Path path) {
         Asserts.notNull(path);
         return Files.isRegularFile(path);
     }
@@ -90,7 +93,7 @@ public final class PathUtils {
         Asserts.notNull(path);
 
         try {
-            if (isFile(path)) {
+            if (isRegularFile(path)) {
                 Files.deleteIfExists(path);
             } else {
                 FileSystemUtils.deleteRecursively(path);
