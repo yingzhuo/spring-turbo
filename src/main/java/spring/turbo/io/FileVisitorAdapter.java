@@ -19,8 +19,10 @@ import java.util.Set;
  * @author 应卓
  * @see java.nio.file.Files#walkFileTree(Path, FileVisitor)
  * @see java.nio.file.Files#walkFileTree(Path, Set, int, FileVisitor)
+ * @see java.nio.file.SimpleFileVisitor
  * @since 1.0.9
  */
+@Deprecated
 public class FileVisitorAdapter implements FileVisitor<Path> {
 
     @Override
