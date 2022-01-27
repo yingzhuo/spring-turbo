@@ -29,6 +29,7 @@ import java.util.stream.Stream;
  */
 public final class PathTreeWalker {
 
+    private static final int DEFAULT_MAX_DEPTH = Integer.MAX_VALUE;
     private static final PathPredicate DEFAULT_PREDICATE = PathPredicateFactories.alwaysTrue();
 
     /**
@@ -39,11 +40,11 @@ public final class PathTreeWalker {
     }
 
     public static Stream<Path> list(Path path) {
-        return list(path, Integer.MAX_VALUE, DEFAULT_PREDICATE);
+        return list(path, DEFAULT_MAX_DEPTH, DEFAULT_PREDICATE);
     }
 
     public static Stream<Path> list(Path path, @Nullable PathPredicate predicate) {
-        return list(path, Integer.MAX_VALUE, predicate);
+        return list(path, DEFAULT_MAX_DEPTH, predicate);
     }
 
     public static Stream<Path> list(Path path, int maxDepth, @Nullable PathPredicate predicate) {

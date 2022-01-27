@@ -9,6 +9,11 @@
 package spring.turbo.bean.valueobject;
 
 import spring.turbo.util.Asserts;
+import spring.turbo.util.CollectionUtils;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author 应卓
@@ -34,25 +39,71 @@ public final class ValueObjectFilterFactories {
 
     public static <T> ValueObjectFilter<T> not(ValueObjectFilter<T> other) {
         Asserts.notNull(other);
-        return data -> !other.filter(data);
+        return data -> !other.test(data);
+    }
+
+    @SafeVarargs
+    public static <T> ValueObjectFilter<T> any(ValueObjectFilter<T>... filters) {
+        return new Any<>(Arrays.asList(filters));
+    }
+
+    @SafeVarargs
+    public static <T> ValueObjectFilter<T> all(ValueObjectFilter<T>... filters) {
+        return new All<>(Arrays.asList(filters));
     }
 
     public static <T> ValueObjectFilter<T> or(ValueObjectFilter<T> f1, ValueObjectFilter<T> f2) {
         Asserts.notNull(f1);
         Asserts.notNull(f2);
-        return data -> f1.filter(data) || f2.filter(data);
+        return any(f1, f2);
     }
 
     public static <T> ValueObjectFilter<T> and(ValueObjectFilter<T> f1, ValueObjectFilter<T> f2) {
         Asserts.notNull(f1);
         Asserts.notNull(f2);
-        return data -> f1.filter(data) && f2.filter(data);
+        return all(f1, f2);
     }
 
-    public static <T> ValueObjectFilter<T> xor(ValueObjectFilter<T> f1, ValueObjectFilter<T> f2) {
-        Asserts.notNull(f1);
-        Asserts.notNull(f2);
-        return data -> f1.filter(data) ^ f2.filter(data);
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private static final class Any<T> implements ValueObjectFilter<T> {
+
+        private final List<ValueObjectFilter<T>> list = new LinkedList<>();
+
+        public Any(List<ValueObjectFilter<T>> list) {
+            CollectionUtils.nullSafeAddAll(this.list, list);
+            Asserts.isTrue(this.list.size() >= 2);
+        }
+
+        @Override
+        public boolean test(T data) {
+            for (ValueObjectFilter<T> filter : list) {
+                if (filter.test(data)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    private static final class All<T> implements ValueObjectFilter<T> {
+
+        private final List<ValueObjectFilter<T>> list = new LinkedList<>();
+
+        public All(List<ValueObjectFilter<T>> list) {
+            CollectionUtils.nullSafeAddAll(this.list, list);
+            Asserts.isTrue(this.list.size() >= 2);
+        }
+
+        @Override
+        public boolean test(T data) {
+            for (ValueObjectFilter<T> filter : list) {
+                if (!filter.test(data)) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
 }

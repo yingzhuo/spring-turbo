@@ -136,8 +136,8 @@ public final class PathPredicateFactories {
             final String extension = FilenameUtils.getExtension(filename);
 
             // 文件没有扩展名
-            if (EMPTY.equals(ext)) {
-                return false;
+            if (EMPTY.equals(ext) && EMPTY.equals(extension)) {
+                return true;
             }
 
             if (ignoreCases) {

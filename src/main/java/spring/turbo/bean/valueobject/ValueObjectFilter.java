@@ -17,11 +17,7 @@ import java.util.function.Predicate;
 @FunctionalInterface
 public interface ValueObjectFilter<T> extends Predicate<T> {
 
-    public boolean filter(T data);
-
     @Override
-    public default boolean test(T data) {
-        return filter(data);
-    }
+    public boolean test(T data);
 
 }
