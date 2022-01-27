@@ -15,9 +15,12 @@ import spring.turbo.util.ListFactories;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.time.Instant;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static spring.turbo.util.CharsetPool.UTF_8;
 
@@ -164,6 +167,36 @@ public final class PathUtils {
             delete(path);
         } catch (Throwable e) {
             // nop
+        }
+    }
+
+    public static Date getCreationTime(Path path) {
+        Asserts.notNull(path);
+        try {
+            final BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class);
+            return new Date(attributes.creationTime().to(TimeUnit.MILLISECONDS));
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
+        }
+    }
+
+    public static Date getLastModifiedTime(Path path) {
+        Asserts.notNull(path);
+        try {
+            final BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class);
+            return new Date(attributes.lastModifiedTime().to(TimeUnit.MILLISECONDS));
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
+        }
+    }
+
+    public static Date getLastAccessTime(Path path) {
+        Asserts.notNull(path);
+        try {
+            final BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class);
+            return new Date(attributes.lastAccessTime().to(TimeUnit.MILLISECONDS));
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
         }
     }
 
