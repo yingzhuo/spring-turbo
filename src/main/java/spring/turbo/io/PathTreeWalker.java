@@ -25,6 +25,8 @@ import java.util.stream.Stream;
  * @author 应卓
  * @see PathPredicate
  * @see PathPredicateFactories
+ * @see PathUtils
+ * @see Path
  * @since 1.0.12
  */
 public final class PathTreeWalker {

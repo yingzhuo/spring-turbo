@@ -28,6 +28,7 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  * {@link Path}相关工具
  *
  * @author 应卓
+ * @see PathTreeWalker
  * @since 1.0.7
  */
 public final class PathUtils {
@@ -220,6 +221,59 @@ public final class PathUtils {
 
         try {
             return Files.readAllBytes(path);
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
+        }
+    }
+
+    public static void writeBytes(Path path, byte[] bytes, boolean createIfNotExists, boolean append) {
+        Asserts.notNull(path);
+        Asserts.notNull(bytes);
+
+        final List<OpenOption> openOptions =
+                ListFactories.newArrayList(StandardOpenOption.WRITE);
+
+        if (createIfNotExists) {
+            openOptions.add(StandardOpenOption.CREATE);
+        }
+
+        if (append) {
+            openOptions.add(StandardOpenOption.APPEND);
+        } else {
+            openOptions.add(StandardOpenOption.TRUNCATE_EXISTING);
+        }
+
+        try {
+            Files.write(path, bytes, openOptions.toArray(new OpenOption[0]));
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
+        }
+    }
+
+    public static void writeLines(Path path, List<String> lines, boolean createIfNotExists, boolean append) {
+        writeLines(path, lines, UTF_8, createIfNotExists, append);
+    }
+
+    public static void writeLines(Path path, List<String> lines, Charset charset, boolean createIfNotExists, boolean append) {
+        Asserts.notNull(path);
+        Asserts.notNull(lines);
+        Asserts.notNull(charset);
+
+        final List<OpenOption> openOptions =
+                ListFactories.newArrayList(StandardOpenOption.WRITE);
+
+        if (createIfNotExists) {
+            openOptions.add(StandardOpenOption.CREATE);
+        }
+
+        if (append) {
+            openOptions.add(StandardOpenOption.APPEND);
+        } else {
+            openOptions.add(StandardOpenOption.TRUNCATE_EXISTING);
+        }
+
+        try {
+            Files.write(path, lines, charset, openOptions.toArray(new OpenOption[0]));
         } catch (IOException e) {
             throw IOExceptionUtils.toUnchecked(e);
         }
