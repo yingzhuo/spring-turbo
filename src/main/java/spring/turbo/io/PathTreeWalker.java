@@ -22,6 +22,8 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
+ * {@link Path}相关工具
+ *
  * @author 应卓
  * @see PathPredicate
  * @see PathPredicateFactories
