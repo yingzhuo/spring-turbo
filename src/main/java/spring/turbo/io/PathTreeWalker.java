@@ -22,9 +22,13 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
+ * {@link Path}相关工具
+ *
  * @author 应卓
  * @see PathPredicate
  * @see PathPredicateFactories
+ * @see PathUtils
+ * @see Path
  * @since 1.0.12
  */
 public final class PathTreeWalker {
