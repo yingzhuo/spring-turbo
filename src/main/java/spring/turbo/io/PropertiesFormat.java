@@ -13,5 +13,10 @@ package spring.turbo.io;
  * @since 1.0.0
  */
 public enum PropertiesFormat {
-    YAML, XML, PROPERTIES;
+
+    YAML,
+
+    XML,
+
+    PROPERTIES
 }

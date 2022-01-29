@@ -9,9 +9,12 @@
 package spring.turbo.io;
 
 import org.springframework.util.FileSystemUtils;
+import spring.turbo.io.function.PathPredicateFactories;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.ListFactories;
+import spring.turbo.util.StringFormatter;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.*;
@@ -46,26 +49,49 @@ public final class PathUtils {
     }
 
     public static Path createFile(String first, String... more) {
-        Path path = createPath(first, more);
+        final Path path = createPath(first, more);
+        createFile(path);
+        return path;
+    }
+
+    public static void createFile(Path path) {
+        Asserts.notNull(path);
+
         try {
-            boolean success = path.toFile().createNewFile();
+            boolean success = toFile(path).createNewFile();
             if (!success) {
-                throw IOExceptionUtils.toUnchecked("not able to create file");
+                final String msg = StringFormatter.format("unable to create file: {}", path);
+                throw IOExceptionUtils.toUnchecked(msg);
             }
         } catch (IOException e) {
             throw IOExceptionUtils.toUnchecked(e);
         }
-        return path;
     }
 
     public static Path createDirectory(String first, String... more) {
         Asserts.notNull(first);
 
-        Path path = Paths.get(first, more).normalize();
-        try {
-            return Files.createDirectory(path);
-        } catch (IOException e) {
-            throw IOExceptionUtils.toUnchecked(e);
+        final Path path = PathUtils.createPath(first, more);
+        createDirectory(path);
+        return path;
+    }
+
+    public static void createDirectory(Path path) {
+        Asserts.notNull(path);
+
+        if (isExists(path)) {
+            if (isDirectory(path)) {
+                return;
+            } else {
+                final String msg = StringFormatter.format("unable to create dir: {}", path);
+                throw IOExceptionUtils.toUnchecked(msg);
+            }
+        }
+
+        boolean success = toFile(path).mkdirs();
+        if (!success) {
+            final String msg = StringFormatter.format("unable to create dir: {}", path);
+            throw IOExceptionUtils.toUnchecked(msg);
         }
     }
 
@@ -128,6 +154,20 @@ public final class PathUtils {
         return Files.isDirectory(path);
     }
 
+    public static boolean isEmptyDirectory(Path path) {
+        if (!isDirectory(path)) {
+            return false;
+        }
+
+        try {
+            try (DirectoryStream<Path> directory = Files.newDirectoryStream(path)) {
+                return !directory.iterator().hasNext();
+            }
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
+        }
+    }
+
     public static boolean isRegularFile(Path path) {
         Asserts.notNull(path);
         return Files.isRegularFile(path);
@@ -169,6 +209,18 @@ public final class PathUtils {
         } catch (Throwable e) {
             // nop
         }
+    }
+
+    public static void cleanDirectory(Path path) {
+        if (!isDirectory(path)) {
+            return;
+        }
+
+        PathTreeWalker.list(path, 1, PathPredicateFactories.alwaysTrue()).forEach(found -> {
+            if (!found.equals(path)) {
+                deleteQuietly(found);
+            }
+        });
     }
 
     public static Date getCreationTime(Path path) {
@@ -277,6 +329,11 @@ public final class PathUtils {
         } catch (IOException e) {
             throw IOExceptionUtils.toUnchecked(e);
         }
+    }
+
+    public static File toFile(Path path) {
+        Asserts.notNull(path);
+        return path.toFile();
     }
 
 }

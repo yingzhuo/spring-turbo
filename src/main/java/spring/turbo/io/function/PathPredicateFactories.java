@@ -12,12 +12,13 @@ import spring.turbo.io.PathUtils;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.CollectionUtils;
 import spring.turbo.util.FilenameUtils;
+import spring.turbo.util.StringUtils;
 
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import static spring.turbo.util.StringPool.DOT;
 import static spring.turbo.util.StringPool.EMPTY;
 
 /**
@@ -92,6 +93,14 @@ public final class PathPredicateFactories {
         return not(isDirectory());
     }
 
+    public static PathPredicate isEmptyDirectory() {
+        return PathUtils::isEmptyDirectory;
+    }
+
+    public static PathPredicate isNotEmptyDirectory() {
+        return not(isEmptyDirectory());
+    }
+
     public static PathPredicate isSymbolicLink() {
         return PathUtils::isSymbolicLink;
     }
@@ -120,40 +129,20 @@ public final class PathPredicateFactories {
         return not(isFilenameMatchesPattern(regexPattern));
     }
 
-    public static PathPredicate isExtensionMatches(String ext) {
-        return isExtensionMatches(ext, true);
+    public static PathPredicate isExtensionMatches(String... extensions) {
+        return isExtensionMatches(true, extensions);
     }
 
-    public static PathPredicate isExtensionMatches(String ext, boolean ignoreCases) {
-        Asserts.notNull(ext);
-        return path -> {
-            // 扩展名只处理普通文件
-            if (!PathUtils.isRegularFile(path)) {
-                return false;
-            }
-
-            final String filename = path.getFileName().toString();
-            final String extension = FilenameUtils.getExtension(filename);
-
-            // 文件没有扩展名
-            if (EMPTY.equals(ext) && EMPTY.equals(extension)) {
-                return true;
-            }
-
-            if (ignoreCases) {
-                return extension.equalsIgnoreCase(ext);
-            } else {
-                return extension.equals(ext);
-            }
-        };
+    public static PathPredicate isExtensionMatches(boolean ignoreCases, String... extensions) {
+        return new Extension(ignoreCases, new HashSet<>(Arrays.asList(extensions)));
     }
 
-    public static PathPredicate isNotExtensionMatches(String ext) {
-        return isNotExtensionMatches(ext, true);
+    public static PathPredicate isNotExtensionMatches(String... extensions) {
+        return not(isExtensionMatches(extensions));
     }
 
-    public static PathPredicate isNotExtensionMatches(String ext, boolean ignoreCases) {
-        return not(isExtensionMatches(ext, ignoreCases));
+    public static PathPredicate isNotExtensionMatches(boolean ignoreCases, String... extensions) {
+        return not(isExtensionMatches(ignoreCases, extensions));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -194,6 +183,52 @@ public final class PathPredicateFactories {
                     return true;
                 }
             }
+            return false;
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private static final class Extension implements PathPredicate {
+
+        private final boolean ignoreCases;
+        private final Set<String> allowedExtensions;
+
+        public Extension(boolean ignoreCases, Set<String> allowedExtensions) {
+            this.ignoreCases = ignoreCases;
+            this.allowedExtensions = allowedExtensions.stream()
+                    .filter(StringUtils::isNotNull)
+                    .map(ext -> {
+
+                        if (DOT.equals(ext)) {
+                            return EMPTY;
+                        }
+
+                        if (ext.startsWith(DOT)) {
+                            return ext.substring(1);
+                        }
+
+                        return ext;
+                    })
+                    .collect(Collectors.toSet());
+        }
+
+        @Override
+        public boolean test(Path path) {
+            final String e = FilenameUtils.getExtension(path.toString());
+
+            for (String ext : allowedExtensions) {
+                if (ignoreCases) {
+                    if (ext.equalsIgnoreCase(e)) {
+                        return true;
+                    }
+                } else {
+                    if (ext.equals(e)) {
+                        return true;
+                    }
+                }
+            }
+
             return false;
         }
     }
