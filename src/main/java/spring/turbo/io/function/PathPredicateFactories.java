@@ -92,6 +92,14 @@ public final class PathPredicateFactories {
         return not(isDirectory());
     }
 
+    public static PathPredicate isEmptyDirectory() {
+        return PathUtils::isEmptyDirectory;
+    }
+
+    public static PathPredicate isNotEmptyDirectory() {
+        return not(isEmptyDirectory());
+    }
+
     public static PathPredicate isSymbolicLink() {
         return PathUtils::isSymbolicLink;
     }

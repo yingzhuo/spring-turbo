@@ -12,6 +12,7 @@ import org.springframework.util.FileSystemUtils;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.ListFactories;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.*;
@@ -126,6 +127,18 @@ public final class PathUtils {
     public static boolean isDirectory(Path path) {
         Asserts.notNull(path);
         return Files.isDirectory(path);
+    }
+
+    public static boolean isEmptyDirectory(Path path) {
+        Asserts.notNull(path);
+
+        try {
+            try (DirectoryStream<Path> directory = Files.newDirectoryStream(path)) {
+                return !directory.iterator().hasNext();
+            }
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     public static boolean isRegularFile(Path path) {
@@ -277,6 +290,11 @@ public final class PathUtils {
         } catch (IOException e) {
             throw IOExceptionUtils.toUnchecked(e);
         }
+    }
+
+    public static File toFile(Path path) {
+        Asserts.notNull(path);
+        return path.toFile();
     }
 
 }
