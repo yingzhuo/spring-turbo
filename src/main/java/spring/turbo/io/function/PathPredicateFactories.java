@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io.function;
 
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 import spring.turbo.io.PathUtils;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.CollectionUtils;
@@ -145,6 +147,14 @@ public final class PathPredicateFactories {
         return not(isExtensionMatches(ignoreCases, extensions));
     }
 
+    public static PathPredicate isAntStyleMatches(String... patterns) {
+        return new AntPath(new HashSet<>(Arrays.asList(patterns)));
+    }
+
+    public static PathPredicate isNotAntStyleMatches(String... patterns) {
+        return not(isAntStyleMatches(patterns));
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     private static final class All implements PathPredicate {
@@ -229,6 +239,33 @@ public final class PathPredicateFactories {
                 }
             }
 
+            return false;
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private static final class AntPath implements PathPredicate {
+
+        private static final PathMatcher MATCHER = new AntPathMatcher();
+
+        private final Set<String> allowedPatterns;
+
+        public AntPath(Set<String> allowedPatterns) {
+            Asserts.notNull(allowedPatterns);
+
+            this.allowedPatterns = allowedPatterns.stream()
+                    .filter(StringUtils::isNotBlank)
+                    .collect(Collectors.toSet());
+        }
+
+        @Override
+        public boolean test(Path path) {
+            for (String pattern : allowedPatterns) {
+                if (MATCHER.match(pattern, path.toAbsolutePath().toString())) {
+                    return true;
+                }
+            }
             return false;
         }
     }

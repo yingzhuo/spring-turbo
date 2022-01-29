@@ -331,6 +331,11 @@ public final class PathUtils {
         }
     }
 
+    public static Path toAbsolutePath(Path path) {
+        Asserts.notNull(path);
+        return path.toAbsolutePath();
+    }
+
     public static File toFile(Path path) {
         Asserts.notNull(path);
         return path.toFile();
