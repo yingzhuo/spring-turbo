@@ -50,25 +50,38 @@ public final class PathUtils {
 
     public static Path createFile(String first, String... more) {
         final Path path = createPath(first, more);
+        createFile(path);
+        return path;
+    }
+
+    public static void createFile(Path path) {
+        Asserts.notNull(path);
+
         try {
-            boolean success = path.toFile().createNewFile();
+            boolean success = toFile(path).createNewFile();
             if (!success) {
-                throw IOExceptionUtils.toUnchecked("not able to create file");
+                final String msg = StringFormatter.format("unable to create file: {}", path);
+                throw IOExceptionUtils.toUnchecked(msg);
             }
         } catch (IOException e) {
             throw IOExceptionUtils.toUnchecked(e);
         }
-        return path;
     }
 
     public static Path createDirectory(String first, String... more) {
         Asserts.notNull(first);
 
         final Path path = PathUtils.createPath(first, more);
+        createDirectory(path);
+        return path;
+    }
+
+    public static void createDirectory(Path path) {
+        Asserts.notNull(path);
 
         if (isExists(path)) {
             if (isDirectory(path)) {
-                return path;
+                return;
             } else {
                 final String msg = StringFormatter.format("unable to create dir: {}", path);
                 throw IOExceptionUtils.toUnchecked(msg);
@@ -76,9 +89,7 @@ public final class PathUtils {
         }
 
         boolean success = toFile(path).mkdirs();
-        if (success) {
-            return path;
-        } else {
+        if (!success) {
             final String msg = StringFormatter.format("unable to create dir: {}", path);
             throw IOExceptionUtils.toUnchecked(msg);
         }
