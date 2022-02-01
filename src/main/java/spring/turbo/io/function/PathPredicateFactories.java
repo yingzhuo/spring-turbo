@@ -119,6 +119,30 @@ public final class PathPredicateFactories {
         return not(isHidden());
     }
 
+    public static PathPredicate isReadableAndWritable() {
+        return PathUtils::isReadableAndWritable;
+    }
+
+    public static PathPredicate isNotReadableOrWritable() {
+        return not(isReadableAndWritable());
+    }
+
+    public static PathPredicate isReadable() {
+        return PathUtils::isReadable;
+    }
+
+    public static PathPredicate isNotReadable() {
+        return not(isReadable());
+    }
+
+    public static PathPredicate isWritable() {
+        return PathUtils::isWritable;
+    }
+
+    public static PathPredicate isNotWritable() {
+        return not(isWritable());
+    }
+
     public static PathPredicate isFilenameMatchesPattern(String regexPattern) {
         Asserts.notNull(regexPattern);
         return path -> {

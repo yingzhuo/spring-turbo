@@ -187,6 +187,34 @@ public final class PathUtils {
         }
     }
 
+    public static boolean isReadableAndWritable(Path path) {
+        return isReadable(path) && isWritable(path);
+    }
+
+    public static boolean isReadable(Path path) {
+        Asserts.notNull(path);
+        return Files.isReadable(path);
+    }
+
+    public static boolean isWritable(Path path) {
+        Asserts.notNull(path);
+        return Files.isWritable(path);
+    }
+
+    public static long size(Path path) {
+        Asserts.notNull(path);
+
+        if (!isExists(path)) {
+            return -1L;
+        }
+
+        try {
+            return Files.size(path);
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
+        }
+    }
+
     public static void delete(Path path) {
         Asserts.notNull(path);
 
@@ -339,6 +367,17 @@ public final class PathUtils {
     public static File toFile(Path path) {
         Asserts.notNull(path);
         return path.toFile();
+    }
+
+    public static boolean isSameFile(Path p1, Path p2) {
+        Asserts.notNull(p1);
+        Asserts.notNull(p2);
+
+        try {
+            return Files.isSameFile(p1, p2);
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
+        }
     }
 
 }
