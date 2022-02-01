@@ -31,7 +31,7 @@ import java.util.stream.Stream;
  * @see Path
  * @since 1.0.12
  */
-public final class PathTreeWalker {
+public final class PathTreeUtils {
 
     private static final int DEFAULT_MAX_DEPTH = Integer.MAX_VALUE;
     private static final PathPredicate DEFAULT_PREDICATE = PathPredicateFactories.alwaysTrue();
@@ -39,18 +39,39 @@ public final class PathTreeWalker {
     /**
      * 私有构造方法
      */
-    private PathTreeWalker() {
+    private PathTreeUtils() {
         super();
     }
 
+    /**
+     * 列出目录下所有子目录或文件
+     *
+     * @param path 指定目录或文件
+     * @return 所有子目录和文件
+     */
     public static Stream<Path> list(Path path) {
         return list(path, DEFAULT_MAX_DEPTH, DEFAULT_PREDICATE);
     }
 
+    /**
+     * 列出目录下所有子目录或文件
+     *
+     * @param path      指定目录或文件
+     * @param predicate 过滤器
+     * @return 所有子目录和文件
+     */
     public static Stream<Path> list(Path path, @Nullable PathPredicate predicate) {
         return list(path, DEFAULT_MAX_DEPTH, predicate);
     }
 
+    /**
+     * 列出目录下所有子目录或文件
+     *
+     * @param path      指定目录或文件
+     * @param maxDepth  下钻目录层数 (从0开始)
+     * @param predicate 过滤器
+     * @return 所有子目录和文件
+     */
     public static Stream<Path> list(Path path, int maxDepth, @Nullable PathPredicate predicate) {
         Asserts.notNull(path);
         Asserts.isTrue(maxDepth >= 0);
