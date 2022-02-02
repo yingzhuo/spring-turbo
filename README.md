@@ -102,3 +102,36 @@ public class DSATestCases {
     }
 }
 ```
+
+##### 1.4 RSA签名算法工具
+
+```java
+public class RSATestCases {
+
+    @Test
+    @DisplayName("生成RSA加密秘钥")
+    public void test1() {
+        RSAKeys keys = RSAKeys.create(RSAKeys.KEY_SIZE_2048);
+        System.out.println(keys.getBase64PublicKey());
+        System.out.println(keys.getBase64PrivateKey());
+    }
+
+    @Test
+    @DisplayName("使用RSA签名算法")
+    public void test2() {
+        RSAKeys keys = RSAKeys.fromString(
+                "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr8wgjhMPTXZNx07DrCl2KbF5QEdbwcBOC2wwGNi98FKYUw3HzsvoJVZhY041-rrcBM50mnSyv59NVqsJeX4D9dcVr9f3yDv6vWMNINWqy_g4oyx36KwQvQZHuuTbxBXIvF0etBAgmmRh8lqQ_glFKnYY5C0hH-oE1kQYDFexaEizLwRK4-lGqQxz2PfW9MieMS7Y1O903izmbi4-amVW-0jtY6rH3C4gfDmwlQlc-Y2sc6WGQ5xD5qzGRal4cwqEuwnUFqo-jBFrUIifqKztBMSkDfnwMA2bBKdnTrcO40HFLwxnT0Ab9hHMEWDWjQ8WACJ3gv-28_wiUp6IwoCboQIDAQAB",
+                "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCvzCCOEw9Ndk3HTsOsKXYpsXlAR1vBwE4LbDAY2L3wUphTDcfOy-glVmFjTjX6utwEznSadLK_n01Wqwl5fgP11xWv1_fIO_q9Yw0g1arL-DijLHforBC9Bke65NvEFci8XR60ECCaZGHyWpD-CUUqdhjkLSEf6gTWRBgMV7FoSLMvBErj6UapDHPY99b0yJ4xLtjU73TeLOZuLj5qZVb7SO1jqsfcLiB8ObCVCVz5jaxzpYZDnEPmrMZFqXhzCoS7CdQWqj6MEWtQiJ-orO0ExKQN-fAwDZsEp2dOtw7jQcUvDGdPQBv2EcwRYNaNDxYAIneC_7bz_CJSnojCgJuhAgMBAAECggEAUvITYjWoALqTFDkbpf2iHSX5udRxfMeJi2Yug2qwo9W0vWtBHVekXwmUxdA_M-A6s6Hd7oqlVDiLuxrUS5ijsbkcKG3UIYv7UKSNqzJldfvWbVcr9IJLG4T9DzewYaKNpiKhu__oAjDe7gTBaLtjARfbwr1wZah7Q8W5OwmdUUBAkLalXalX1PFOKNPv98xERDVMGMl52Hr6bBsMVtBKpSMgNsByUI2bfX_PFeZq51IeKBH6RNd1OmelQX1k5pMCtSPE2w3pPlzkQ63A8RyCmad0-8pth7DaSrIHwLDMKIfXKTWPgDe4_ZOyuXpDJSkR_3HytcOtG87HRV6zv2CAKQKBgQD-qjzVD60wMiLQsw3l8xUrh8qGEop3Opdg4GQO8jjc4d8wZddhgoz3CJ4cXQUFpQBN-UqaP_yuxVW3CD6b8LrGwxNRNt1Dz6jKueAc1NTuZHaK7NDuI4WzSLQKp9yKx-g0c6EGBsQv5SA5WZbjN1h73DLTS2TzTbzr1if3M4O5ZwKBgQCwuAxwenPXjyCVXvRh_8t9QTbA82R9ImSzrMYXi2iejDXJB7BSUs7xoElU4z7EVRcVo4AKrCJfOB3J-CJePVUc3CzN5Ah8VN8oycWhjTZ1jzeKikHiKFyB5BWEVbdB6hLqczi1EUDzKKHUC5RlwQGIeAzU4gfbNyUkVm4dZ611twKBgQDJZO--vysDVmLaEQAIvfgb-MNczATczWUxo8L9XulBJQ9QQvnVj1zTb-k6HQX_tMFM6Lzqx3eY704d9VMuF25eCZ-ZNn49RlgCGoT1yAqsjJ6Ct01zRnxRkElxs9Zhmj40XM0W6vrztYuKTyNYhUhgi39WQeWP1AZ3q2DnycF-OQKBgQCbHsNUjDhZM_qfAz2zNCyz4uWkE0HXEbShfvxXOHj6Cws_Ti9449VhhZg5GkxDXImp5d4EADsfqAuF-Ph6Do5CigYOKKdGM927WPnQqDrwkGlpg5j3YwRoxAQbKH53LneyMrfJQL7pcnYywoNdmkC1QOPKjinlRA-nSPLZfuNlGwKBgQCRWabMxB6ZmA5WTDxKMxqyqAzcXaPLHS6pEpCCEsI6sJs7mNMurhDndNqNhK602WYdxmrUDKYo0eRprJtYph6Jt1V4LOAkhj_5Bg5wq5ZSUpjv1Oc__XtFESLiwPBAeClBl-VC9hxzt1WL5JhcRVoZzXyBkpoWdUUrs316ga5eQg=="
+        );
+
+        RSA rsa = RSA.builder()
+                .keyPair(keys)
+                .build();
+
+        String sign = rsa.sign("要签名的字符串");
+        System.out.println(sign);
+        System.out.println(rsa.verify("要签名的字符串", sign));
+    }
+
+}
+```
