@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 import javax.crypto.SecretKey;
@@ -21,6 +22,8 @@ public final class AESBuilder {
 
     private final IvParameterSpec ivParameterSpec = AESUtils.generateIv();
     private AES.Mode mode = AES.Mode.CBC;
+
+    @Nullable
     private SecretKey secretKey;
 
     AESBuilder() {

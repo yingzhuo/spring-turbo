@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
 import javax.crypto.Cipher;
@@ -24,7 +25,10 @@ import java.security.spec.X509EncodedKeySpec;
  */
 public final class RSABuilder {
 
+    @Nullable
     private byte[] publicKey;
+
+    @Nullable
     private byte[] privateKey;
 
     RSABuilder() {
@@ -39,6 +43,9 @@ public final class RSABuilder {
     }
 
     public RSA build() {
+        Asserts.notNull(publicKey);
+        Asserts.notNull(privateKey);
+
         return new RSA() {
             @Override
             public byte[] encryptByPublicKey(byte[] data) {

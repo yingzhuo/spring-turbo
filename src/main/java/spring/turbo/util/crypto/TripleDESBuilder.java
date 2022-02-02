@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
 /**
@@ -16,7 +17,10 @@ import spring.turbo.util.Asserts;
  */
 public final class TripleDESBuilder {
 
+    @Nullable
     private String password;
+
+    @Nullable
     private String salt;
 
     TripleDESBuilder() {
@@ -37,8 +41,10 @@ public final class TripleDESBuilder {
 
     public TripleDES build() {
         // double check
+        Asserts.notNull(password);
         Asserts.hasText(password);
         Asserts.isTrue(password.getBytes().length == 24);
+        Asserts.notNull(salt);
         Asserts.hasText(salt);
         Asserts.isTrue(salt.getBytes().length == 8);
         return new TripleDESImpl(password, salt);
