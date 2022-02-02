@@ -8,22 +8,37 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc;
 
+import org.springframework.lang.Nullable;
 import org.springframework.web.context.request.NativeWebRequest;
+import spring.turbo.util.Asserts;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 /**
+ * 远程IP地址工具
+ *
  * @author 应卓
  * @since 1.0.0
  */
 public final class RemoteAddressUtils {
 
+    /**
+     * 私有构造方法
+     */
     private RemoteAddressUtils() {
         super();
     }
 
+    /**
+     * 获取远程IP地址
+     *
+     * @param request HTTP请求
+     * @return ip地址
+     */
+    @Nullable
     public static String getIpAddress(HttpServletRequest request) {
+        Asserts.notNull(request);
         String ip = request.getHeader("X-Forwarded-For");
 
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
@@ -54,7 +69,15 @@ public final class RemoteAddressUtils {
         return ip;
     }
 
+    /**
+     * 获取远程IP地址
+     *
+     * @param request HTTP请求
+     * @return ip地址
+     */
+    @Nullable
     public static String getIpAddress(NativeWebRequest request) {
+        Asserts.notNull(request);
         return getIpAddress(Objects.requireNonNull(request.getNativeRequest(HttpServletRequest.class)));
     }
 

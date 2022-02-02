@@ -14,6 +14,7 @@ import static spring.turbo.util.crypto.Base64.encode;
 
 /**
  * @author 应卓
+ * @see #builder()
  * @since 1.0.0
  */
 public interface RSA extends Crypto {
