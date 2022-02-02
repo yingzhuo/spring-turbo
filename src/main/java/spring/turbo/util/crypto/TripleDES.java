@@ -12,6 +12,7 @@ package spring.turbo.util.crypto;
  * 3DES加密解密工具
  *
  * @author 应卓
+ * @see #builder()
  * @since 1.0.0
  */
 public interface TripleDES extends Crypto {

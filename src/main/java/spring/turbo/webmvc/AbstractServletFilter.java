@@ -10,6 +10,7 @@ package spring.turbo.webmvc;
 
 import org.springframework.lang.Nullable;
 import org.springframework.web.filter.OncePerRequestFilter;
+import spring.turbo.util.CollectionUtils;
 import spring.turbo.webmvc.function.RequestPredicate;
 
 import javax.servlet.FilterChain;
@@ -45,17 +46,7 @@ public abstract class AbstractServletFilter extends OncePerRequestFilter {
     }
 
     public final void addSkipPredicates(@Nullable RequestPredicate predicate, @Nullable RequestPredicate... others) {
-        if (predicate != null) {
-            skipPredicates.add(predicate);
-        }
-
-        if (others != null) {
-            for (RequestPredicate other : others) {
-                if (other != null) {
-                    skipPredicates.add(other);
-                }
-            }
-        }
+        CollectionUtils.nullSafeAddAll(skipPredicates, others);
     }
 
     private static class SkipPredicateSet extends HashSet<RequestPredicate> {
