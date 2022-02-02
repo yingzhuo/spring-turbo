@@ -135,3 +135,23 @@ public class RSATestCases {
 
 }
 ```
+
+##### 1.5 3DES加密算法
+
+```java
+public class TripleDESTestCases {
+
+    @Test
+    @DisplayName("使用3DES加密算法")
+    public void test() {
+        TripleDES _3des = TripleDES.builder()
+                .passwordAndSalt("123456789012345678901224", "12345678")
+                .build();
+
+        String result = _3des.encrypt("hello");
+        System.out.println(result);
+        System.out.println(_3des.decrypt(result));
+    }
+
+}
+```

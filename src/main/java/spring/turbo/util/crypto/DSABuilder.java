@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
 import java.security.KeyFactory;
@@ -21,7 +22,10 @@ import java.security.spec.X509EncodedKeySpec;
  */
 public final class DSABuilder {
 
+    @Nullable
     private byte[] publicKey;
+
+    @Nullable
     private byte[] privateKey;
 
     DSABuilder() {
@@ -36,6 +40,9 @@ public final class DSABuilder {
     }
 
     public DSA build() {
+        Asserts.notNull(publicKey);
+        Asserts.notNull(privateKey);
+
         return new DSA() {
             @Override
             public byte[] sign(byte[] data) {
