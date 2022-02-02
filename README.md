@@ -12,3 +12,48 @@
 ### 使用案例:
 
 [spring-turbo-examples](https://github.com/yingzhuo/spring-turbo-examples)
+
+### 简要说明
+
+#### (1) 加密与数字签名
+
+##### 1.1 AES签名算法工具
+
+```java
+public class AESTestCases {
+
+    @Test
+    @DisplayName("AES加密")
+    public void test() {
+        AES aes = AES.builder()
+                .mode(AES.Mode.CBC)
+                .passwordAndSalt("hello", "AES")
+                .build();
+
+        String ci = aes.encrypt("hello");
+        System.out.println(ci);
+        System.out.println(aes.decrypt(ci));
+    }
+
+}
+```
+
+##### 1.2 AES签名算法工具
+
+```java
+public class DESTestCases {
+
+    @Test
+    @DisplayName("DES签名算法")
+    public void test() {
+        TripleDES des = TripleDES.builder()
+                .passwordAndSalt("9mng65v8jf4lxn93nabf981m", "a76nb5h9")
+                .build();
+
+        String s = des.encrypt("要加密的文本");
+        System.out.println(s);
+        System.out.println(des.decrypt(s));
+    }
+
+}
+```
