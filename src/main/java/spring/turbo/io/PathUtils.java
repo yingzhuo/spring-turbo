@@ -72,6 +72,7 @@ public final class PathUtils {
      * @param first 首个path
      * @param more  其他path
      * @return 文件实例
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static Path createFile(String first, String... more) {
         final Path path = createPath(first, more);
@@ -83,6 +84,7 @@ public final class PathUtils {
      * 创建文件实例
      *
      * @param path path
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static void createFile(Path path) {
         Asserts.notNull(path);
@@ -104,6 +106,7 @@ public final class PathUtils {
      * @param first 首个path
      * @param more  其他path
      * @return 目录实例
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static Path createDirectory(String first, String... more) {
         Asserts.notNull(first);
@@ -117,6 +120,7 @@ public final class PathUtils {
      * 创建目录实例
      *
      * @param path path
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static void createDirectory(Path path) {
         Asserts.notNull(path);
@@ -143,6 +147,7 @@ public final class PathUtils {
      * @param source          源
      * @param target          目标
      * @param replaceExisting 覆盖已存在的目标
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static void move(Path source, Path target, boolean replaceExisting) {
         Asserts.notNull(source);
@@ -168,6 +173,7 @@ public final class PathUtils {
      * @param source          源
      * @param target          目标
      * @param replaceExisting 覆盖已存在的目标
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static void copy(Path source, Path target, boolean replaceExisting) {
         Asserts.notNull(source);
@@ -191,6 +197,7 @@ public final class PathUtils {
      * 创建文件或更新最后更新时间
      *
      * @param path path
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static void touch(Path path) {
         Asserts.notNull(path);
@@ -232,6 +239,7 @@ public final class PathUtils {
      *
      * @param path path
      * @return 是空目录时返回 {@code true} 否则返回 {@code false}
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static boolean isEmptyDirectory(Path path) {
         if (!isDirectory(path)) {
@@ -321,6 +329,7 @@ public final class PathUtils {
      *
      * @param path path
      * @return 文件尺寸
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static long size(Path path) {
         Asserts.notNull(path);
@@ -340,6 +349,7 @@ public final class PathUtils {
      * 删除目录或文件
      *
      * @param path path
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static void delete(Path path) {
         Asserts.notNull(path);
@@ -378,8 +388,26 @@ public final class PathUtils {
      * 清空目录
      *
      * @param path path
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static void cleanDirectory(Path path) {
+        if (!isDirectory(path)) {
+            return;
+        }
+
+        PathTreeUtils.list(path, 1, PathPredicateFactories.alwaysTrue()).forEach(found -> {
+            if (!found.equals(path)) {
+                delete(found);
+            }
+        });
+    }
+
+    /**
+     * 清空目录
+     *
+     * @param path path
+     */
+    public static void cleanDirectoryQuietly(Path path) {
         if (!isDirectory(path)) {
             return;
         }
@@ -396,6 +424,7 @@ public final class PathUtils {
      *
      * @param path path
      * @return 创建时间
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static Date getCreationTime(Path path) {
         Asserts.notNull(path);
@@ -412,6 +441,7 @@ public final class PathUtils {
      *
      * @param path path
      * @return 最后更新时间
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static Date getLastModifiedTime(Path path) {
         Asserts.notNull(path);
@@ -428,6 +458,7 @@ public final class PathUtils {
      *
      * @param path path
      * @return 最后访问时间
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static Date getLastAccessTime(Path path) {
         Asserts.notNull(path);
@@ -444,6 +475,7 @@ public final class PathUtils {
      *
      * @param path path
      * @return 多行数据
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static List<String> readLines(Path path) {
         return readLines(path, UTF_8);
@@ -455,6 +487,7 @@ public final class PathUtils {
      * @param path    path
      * @param charset 字符编码
      * @return 多行数据
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static List<String> readLines(Path path, Charset charset) {
         Asserts.notNull(path);
@@ -472,6 +505,7 @@ public final class PathUtils {
      *
      * @param path path
      * @return 文件内容
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static byte[] readBytes(Path path) {
         Asserts.notNull(path);
@@ -490,6 +524,7 @@ public final class PathUtils {
      * @param bytes             内容
      * @param createIfNotExists 没有文件时是否应该创建之
      * @param append            是否使用追加写入
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static void writeBytes(Path path, byte[] bytes, boolean createIfNotExists, boolean append) {
         Asserts.notNull(path);
@@ -522,6 +557,7 @@ public final class PathUtils {
      * @param lines             文本数据
      * @param createIfNotExists 没有文件时是否应该创建之
      * @param append            是否使用追加写入
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static void writeLines(Path path, List<String> lines, boolean createIfNotExists, boolean append) {
         writeLines(path, lines, UTF_8, createIfNotExists, append);
@@ -535,6 +571,7 @@ public final class PathUtils {
      * @param charset           字符编码
      * @param createIfNotExists 没有文件时是否应该创建之
      * @param append            是否使用追加写入
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static void writeLines(Path path, List<String> lines, Charset charset, boolean createIfNotExists, boolean append) {
         Asserts.notNull(path);
@@ -589,6 +626,7 @@ public final class PathUtils {
      * @param p1 p1
      * @param p2 p2
      * @return 结果
+     * @throws java.io.UncheckedIOException IO异常
      */
     public static boolean isSameFile(Path p1, Path p2) {
         Asserts.notNull(p1);
