@@ -23,7 +23,7 @@
 public class AESTestCases {
 
     @Test
-    @DisplayName("AES加密")
+    @DisplayName("使用AES签名算法")
     public void test() {
         AES aes = AES.builder()
                 .mode(AES.Mode.CBC)
@@ -38,22 +38,67 @@ public class AESTestCases {
 }
 ```
 
-##### 1.2 AES签名算法工具
+##### 1.2 ECDSA签名算法工具
 
 ```java
-public class DESTestCases {
+public class ECDSATestCases {
 
     @Test
-    @DisplayName("DES签名算法")
-    public void test() {
-        TripleDES des = TripleDES.builder()
-                .passwordAndSalt("9mng65v8jf4lxn93nabf981m", "a76nb5h9")
-                .build();
-
-        String s = des.encrypt("要加密的文本");
-        System.out.println(s);
-        System.out.println(des.decrypt(s));
+    @DisplayName("生成ECDSA签名秘钥对")
+    public void test1() {
+        ECDSAKeys keys = ECDSAKeys.create();
+        System.out.println(keys.getBase64PublicKey());
+        System.out.println(keys.getBase64PrivateKey());
     }
 
+    @Test
+    @DisplayName("使用ECDSA签名算法")
+    public void test2() {
+        ECDSAKeys keys = ECDSAKeys.fromString(
+                "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEhWWn0NglDsxRYwOx7OGTUoZEpJ9Zyz3Ex-rIUXG1J4CdxjyGXyz3VowDY2tRx62E1qk32Iw6ZwtcHFpqUjskOQ==",
+                "MEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCCsJWvGUTErvJOYxJZZooeOiEbhbqYeyXTRjqNeczb5Yg=="
+        );
+
+        ECDSA ecdsa = ECDSA.builder()
+                .keyPair(keys)
+                .build();
+
+        String sign = ecdsa.sign("要签名的字符串");
+        System.out.println(sign);
+        System.out.println(ecdsa.verify("要签名的字符串", sign));
+    }
+
+}
+```
+
+##### 1.3 DSA签名算法工具
+
+```java
+public class DSATestCases {
+
+    @Test
+    @DisplayName("生成DSA签名秘钥对")
+    public void test1() {
+        DSAKeys keys = DSAKeys.create(DSAKeys.KEY_SIZE_512);
+        System.out.println(keys.getBase64PublicKey());
+        System.out.println(keys.getBase64PrivateKey());
+    }
+
+    @Test
+    @DisplayName("使用DSA签名算法")
+    public void test2() {
+        DSAKeys keys = DSAKeys.fromString(
+                "MIHxMIGoBgcqhkjOOAQBMIGcAkEA_KaCzo4Syrom78z3EQ5SbbB4sF7ey80etKII864WF64B81uRpH5t9jQTxeEu0ImbzRMqzVDZkVG9xD7nN1kuFwIVAJYu3cw2nLqOuyYO5rahJtk0bjjFAkBnhHGyepz0TukaScUUfbGpqvJE8FpDTWSGkx0tFCcbnjUDC3H9c9oXkGmzLik1Yw4cIGI1TQ2iCmxBblC-eUykA0QAAkEAkVYxw2HgLkF6U6p0tIWqG_m-dnSlCe1buNi1fF6myw-cb9Yh9zeFEYVDyap__O_Ha9nZ9gMSOJWVBIl0ZD0Tlw==",
+                "MIHHAgEAMIGoBgcqhkjOOAQBMIGcAkEA_KaCzo4Syrom78z3EQ5SbbB4sF7ey80etKII864WF64B81uRpH5t9jQTxeEu0ImbzRMqzVDZkVG9xD7nN1kuFwIVAJYu3cw2nLqOuyYO5rahJtk0bjjFAkBnhHGyepz0TukaScUUfbGpqvJE8FpDTWSGkx0tFCcbnjUDC3H9c9oXkGmzLik1Yw4cIGI1TQ2iCmxBblC-eUykBBcCFQCIpwIhH8FcPo_0fXGVHn127xB-cw=="
+        );
+
+        DSA dsa = DSA.builder()
+                .keyPair(keys)
+                .build();
+
+        String sign = dsa.sign("要签名的字符串");
+        System.out.println(sign);
+        System.out.println(dsa.verify("要签名的字符串", sign));
+    }
 }
 ```
