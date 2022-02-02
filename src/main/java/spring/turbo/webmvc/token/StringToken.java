@@ -24,7 +24,7 @@ public class StringToken implements Token {
 
     private final String string;
 
-    private StringToken(String string) {
+    protected StringToken(String string) {
         Asserts.hasText(string);
         this.string = string;
     }
