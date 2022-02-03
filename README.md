@@ -17,13 +17,13 @@
 
 #### (1) 加密与数字签名
 
-##### 1.1 AES签名算法工具
+##### 1.1 AES加密算法工具
 
 ```java
 public class AESTestCases {
 
     @Test
-    @DisplayName("使用AES签名算法")
+    @DisplayName("使用AES加密算法")
     public void test() {
         AES aes = AES.builder()
                 .mode(AES.Mode.CBC)
@@ -136,7 +136,27 @@ public class RSATestCases {
 }
 ```
 
-##### 1.5 3DES加密算法
+##### 1.5 DES签名算法
+
+```java
+public class DESTestCases {
+
+    @Test
+    @DisplayName("DES签名算法")
+    public void test() {
+        TripleDES des = TripleDES.builder()
+                .passwordAndSalt("9mng65v8jf4lxn93nabf981m", "a76nb5h9")
+                .build();
+
+        String s = des.encrypt("要加密的文本");
+        System.out.println(s);
+        System.out.println(des.decrypt(s));
+    }
+
+}
+```
+
+##### 1.6 3DES加密算法
 
 ```java
 public class TripleDESTestCases {
@@ -151,6 +171,23 @@ public class TripleDESTestCases {
         String result = _3des.encrypt("hello");
         System.out.println(result);
         System.out.println(_3des.decrypt(result));
+    }
+
+}
+```
+
+##### 1.7 使用Base64
+
+```java
+public class Base64TestCases {
+
+    @Test
+    @DisplayName("使用Base64")
+    public void test() {
+        String s = "test to hash 你好";
+        String hashed = Base64.toString(s.getBytes(StandardCharsets.UTF_8));
+        System.out.println(hashed);
+        System.out.println(new String(Base64.toBytes(hashed), StandardCharsets.UTF_8));
     }
 
 }
