@@ -192,3 +192,10 @@ public class Base64TestCases {
 
 }
 ```
+
+#### (2) 二元组和三元组
+
+请查看源代码:
+
+* [Pair](src/main/java/spring/turbo/bean/Pair.java)
+* [Tuple](src/main/java/spring/turbo/bean/Tuple.java)
