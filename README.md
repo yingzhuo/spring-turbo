@@ -17,13 +17,13 @@
 
 #### (1) 加密与数字签名
 
-##### 1.1 AES签名算法工具
+##### 1.1 AES加密算法工具
 
 ```java
 public class AESTestCases {
 
     @Test
-    @DisplayName("使用AESj加密算法")
+    @DisplayName("使用AES加密算法")
     public void test() {
         AES aes = AES.builder()
                 .mode(AES.Mode.CBC)
@@ -136,7 +136,7 @@ public class RSATestCases {
 }
 ```
 
-##### 1.5 DES加密算法
+##### 1.5 DES签名算法
 
 ```java
 public class DESTestCases {
