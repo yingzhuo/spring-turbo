@@ -10,6 +10,7 @@ package spring.turbo.util.crypto;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
+import spring.turbo.util.Asserts;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
@@ -30,8 +31,8 @@ public final class AESBuilder {
     }
 
     public AESBuilder passwordAndSalt(String password, String salt) {
-        Assert.hasText(password, "password is blank");
-        Assert.hasText(salt, "salt is blank");
+        Asserts.hasText(password);
+        Asserts.hasText(salt);
 
         try {
             this.secretKey = AESUtils.getKeyFromPassword(password, salt);

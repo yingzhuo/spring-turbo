@@ -23,7 +23,7 @@
 public class AESTestCases {
 
     @Test
-    @DisplayName("使用AES签名算法")
+    @DisplayName("使用AESj加密算法")
     public void test() {
         AES aes = AES.builder()
                 .mode(AES.Mode.CBC)
@@ -136,7 +136,27 @@ public class RSATestCases {
 }
 ```
 
-##### 1.5 3DES加密算法
+##### 1.5 DES加密算法
+
+```java
+public class DESTestCases {
+
+    @Test
+    @DisplayName("DES签名算法")
+    public void test() {
+        TripleDES des = TripleDES.builder()
+                .passwordAndSalt("9mng65v8jf4lxn93nabf981m", "a76nb5h9")
+                .build();
+
+        String s = des.encrypt("要加密的文本");
+        System.out.println(s);
+        System.out.println(des.decrypt(s));
+    }
+
+}
+```
+
+##### 1.6 3DES加密算法
 
 ```java
 public class TripleDESTestCases {
