@@ -175,3 +175,20 @@ public class TripleDESTestCases {
 
 }
 ```
+
+##### 1.7 使用Base64
+
+```java
+public class Base64TestCases {
+
+    @Test
+    @DisplayName("使用Base64")
+    public void test() {
+        String s = "test to hash 你好";
+        String hashed = Base64.toString(s.getBytes(StandardCharsets.UTF_8));
+        System.out.println(hashed);
+        System.out.println(new String(Base64.toBytes(hashed), StandardCharsets.UTF_8));
+    }
+
+}
+```
