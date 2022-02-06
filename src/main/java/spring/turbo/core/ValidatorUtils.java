@@ -35,7 +35,7 @@ public final class ValidatorUtils {
         return validator.supports(targetType);
     }
 
-    public static BindingResult validator(Object obj) {
+    public static BindingResult validate(Object obj) {
         Asserts.notNull(obj);
         final String objectName = StringFormatter.format("bean[{}]", System.identityHashCode(obj));
         final BeanPropertyBindingResult errors = new BeanPropertyBindingResult(obj, objectName);
