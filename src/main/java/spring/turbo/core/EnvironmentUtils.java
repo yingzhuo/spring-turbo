@@ -45,15 +45,36 @@ public final class EnvironmentUtils {
         return getPropertyValue(propertyName, String.class);
     }
 
+    public static String getRequiredPropertyValue(String propertyName) {
+        final String result = getPropertyValue(propertyName);
+        Asserts.notNull(result);
+        return result;
+    }
+
     @Nullable
     public static <T> T getPropertyValue(String propertyName, Class<T> targetType) {
         return getPropertyValue(propertyName, targetType, null);
     }
 
+    public static <T> T getRequiredPropertyValue(String propertyName, Class<T> targetType) {
+        final T result = getPropertyValue(propertyName, targetType);
+        Asserts.notNull(result);
+        return result;
+    }
+
     @Nullable
     public static <T> T getPropertyValue(String propertyName, Class<T> targetType, @Nullable T defaultIfNull) {
+        Asserts.notNull(propertyName);
+        Asserts.notNull(targetType);
+
         T result = SpringUtils.getEnvironment().getProperty(propertyName, targetType);
         return result != null ? result : defaultIfNull;
+    }
+
+    public static <T> T getRequiredPropertyValue(String propertyName, Class<T> targetType, @Nullable T defaultIfNull) {
+        final T result = getPropertyValue(propertyName, targetType, defaultIfNull);
+        Asserts.notNull(result);
+        return result;
     }
 
     public static List<String> getCommaDelimitedPropertyValue(String propertyName) {
