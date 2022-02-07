@@ -28,6 +28,12 @@ public final class ProfilesUtils {
         super();
     }
 
+    /**
+     * 判断profiles是否被激活
+     *
+     * @param profiles profiles实例
+     * @return 结果
+     */
     public static boolean acceptsProfiles(Profiles profiles) {
         Asserts.notNull(profiles);
         return SpringUtils.getEnvironment()
