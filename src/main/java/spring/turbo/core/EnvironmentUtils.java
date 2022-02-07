@@ -83,6 +83,7 @@ public final class EnvironmentUtils {
      *
      * @param propertyName property名
      * @param targetType   目标类型
+     * @param <T>          目标类型泛型
      * @return 结果或{@code null}
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
@@ -96,6 +97,7 @@ public final class EnvironmentUtils {
      *
      * @param propertyName property名
      * @param targetType   目标类型
+     * @param <T>          目标类型泛型
      * @return 结果
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @throws IllegalArgumentException      无法找到property名相对的值
@@ -112,6 +114,7 @@ public final class EnvironmentUtils {
      * @param propertyName  property名
      * @param targetType    目标类型
      * @param defaultIfNull 默认值
+     * @param <T>           目标类型泛型
      * @return 结果或默认值 (可能为null)
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
@@ -130,6 +133,7 @@ public final class EnvironmentUtils {
      * @param propertyName  property名
      * @param targetType    目标类型
      * @param defaultIfNull 默认值
+     * @param <T>           目标类型泛型
      * @return 结果或默认值 (可能为null)
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @throws IllegalArgumentException      无法找到property名相对的值

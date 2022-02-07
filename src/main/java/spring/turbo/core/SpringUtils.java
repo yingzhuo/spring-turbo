@@ -242,11 +242,10 @@ public final class SpringUtils {
      * 判断{@link org.springframework.context.ApplicationContext}是否包含指定bean
      *
      * @param beanName bean名称
-     * @param <T>      bean类型泛型
      * @return 结果
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
-    public static <T> boolean containsBean(String beanName) {
+    public static boolean containsBean(String beanName) {
         return Optional.ofNullable(SpringApplicationAware.SC)
                 .map(sc -> sc.containsBean(beanName))
                 .orElseThrow(UNSUPPORTED);
@@ -260,7 +259,7 @@ public final class SpringUtils {
      * @return 结果
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
-    public boolean containsBean(Class<?> beanType) {
+    public static <T> boolean containsBean(Class<?> beanType) {
         return Optional.ofNullable(SpringApplicationAware.SC)
                 .map(sc -> sc.containsBean(beanType))
                 .orElseThrow(UNSUPPORTED);
