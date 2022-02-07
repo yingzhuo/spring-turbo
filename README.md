@@ -202,6 +202,10 @@ public class Base64TestCases {
 * [ProfilesUtils](src/main/java/spring/turbo/core/ProfilesUtils.java)
 * [ConversionUtils](src/main/java/spring/turbo/core/ConversionUtils.java)
 * [ValidatorUtils](src/main/java/spring/turbo/core/ValidatorUtils.java)
+* [MessageUtils](src/main/java/spring/turbo/core/MessageUtils.java)
+* [AnnotationUtils](src/main/java/spring/turbo/core/AnnotationUtils.java)
+
+**注意:** 不要在没有Spring容器完全启动之前使用以上的工具类。
 
 #### (3) 二元组和三元组
 
