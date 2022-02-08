@@ -40,4 +40,17 @@ public final class ProfilesUtils {
                 .acceptsProfiles(profiles);
     }
 
+    /**
+     * 判断profiles是否被激活
+     *
+     * @param profiles profiles
+     * @return 结果
+     */
+    public static boolean acceptsProfiles(String... profiles) {
+        Asserts.notNull(profiles);
+        Asserts.noNullElements(profiles);
+        return SpringUtils.getEnvironment()
+                .acceptsProfiles(Profiles.of(profiles));
+    }
+
 }

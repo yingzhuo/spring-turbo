@@ -19,6 +19,9 @@ public final class Scopes {
     public static final String SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
     public static final String PROTOTYPE = ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
+    /**
+     * 私有构造方法
+     */
     private Scopes() {
         super();
     }
