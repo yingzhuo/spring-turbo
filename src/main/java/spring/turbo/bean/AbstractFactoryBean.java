@@ -22,7 +22,9 @@ public abstract class AbstractFactoryBean implements SmartFactoryBean<Object> {
     @Nullable
     protected ClassDefinitionResolvable classDefinitionResolvable;
 
-    // 此bean必须有默认构造方法
+    /**
+     * 构造方法
+     */
     public AbstractFactoryBean() {
         super();
     }

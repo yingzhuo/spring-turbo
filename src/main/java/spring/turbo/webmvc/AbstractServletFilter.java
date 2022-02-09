@@ -11,6 +11,7 @@ package spring.turbo.webmvc;
 import org.springframework.lang.Nullable;
 import org.springframework.web.filter.OncePerRequestFilter;
 import spring.turbo.util.CollectionUtils;
+import spring.turbo.webmvc.function.PredicateSet;
 import spring.turbo.webmvc.function.RequestPredicate;
 
 import javax.servlet.FilterChain;
@@ -18,7 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashSet;
 
 /**
  * @author 应卓
@@ -26,7 +26,7 @@ import java.util.HashSet;
  */
 public abstract class AbstractServletFilter extends OncePerRequestFilter {
 
-    private final SkipPredicateSet skipPredicates = new SkipPredicateSet();
+    private final PredicateSet skipPredicates = new PredicateSet();
 
     @Override
     protected final void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -42,22 +42,12 @@ public abstract class AbstractServletFilter extends OncePerRequestFilter {
     protected abstract boolean doFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
     private boolean shouldSkip(HttpServletRequest request) {
-        return skipPredicates.shouldSkip(request);
+        return skipPredicates.anyMatches(request);
     }
 
     public final void addSkipPredicates(@Nullable RequestPredicate predicate, @Nullable RequestPredicate... others) {
+        CollectionUtils.nullSafeAdd(skipPredicates, predicate);
         CollectionUtils.nullSafeAddAll(skipPredicates, others);
-    }
-
-    private static class SkipPredicateSet extends HashSet<RequestPredicate> {
-        boolean shouldSkip(HttpServletRequest request) {
-            for (RequestPredicate predicate : this) {
-                if (predicate.test(request)) {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 
 }
