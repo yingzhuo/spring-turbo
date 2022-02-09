@@ -8,6 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import spring.turbo.util.Asserts;
+import spring.turbo.util.SetFactories;
+
 import java.util.List;
 
 /**
@@ -37,5 +40,17 @@ public interface ClassPathScanner {
      * @return 扫描结果
      */
     public List<ClassDefinition> scan(Iterable<String> basePackages);
+
+    /**
+     * 扫描类路径
+     *
+     * @param basePackages 扫描起点
+     * @return 扫描结果
+     */
+    public default List<ClassDefinition> scan(String... basePackages) {
+        Asserts.notNull(basePackages);
+        Asserts.noNullElements(basePackages);
+        return scan(SetFactories.newHashSet(basePackages));
+    }
 
 }

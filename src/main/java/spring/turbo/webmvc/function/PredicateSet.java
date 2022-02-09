@@ -6,24 +6,33 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.webmvc.function;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @since 1.0.13
  */
-public final class Scopes {
+public final class PredicateSet extends HashSet<RequestPredicate> {
 
-    public static final String SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
-    public static final String PROTOTYPE = ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+    public boolean anyMatches(HttpServletRequest request) {
+        for (RequestPredicate predicate : this) {
+            if (predicate.test(request)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    /**
-     * 私有构造方法
-     */
-    private Scopes() {
-        super();
+    public boolean allMatches(HttpServletRequest request) {
+        for (RequestPredicate predicate : this) {
+            if (!predicate.test(request)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

@@ -262,12 +262,20 @@ public final class StringUtils {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    public static void nullSafeAdd(Collection<String> collection, @Nullable String element) {
+        CollectionUtils.nullSafeAdd(collection, element);
+    }
+
     public static void nullSafeAddAll(Collection<String> collection, @Nullable String... elements) {
         CollectionUtils.nullSafeAddAll(collection, elements);
     }
 
     public static void nullSafeAddAll(Collection<String> collection, @Nullable Collection<String> elements) {
         CollectionUtils.nullSafeAddAll(collection, elements);
+    }
+
+    public static void emptySafeAdd(Collection<String> collection, @Nullable String element) {
+        emptySafeAddAll(collection, element);
     }
 
     public static void emptySafeAddAll(Collection<String> collection, @Nullable String... elements) {
@@ -290,6 +298,10 @@ public final class StringUtils {
                 }
             }
         }
+    }
+
+    public static void blankSafeAdd(Collection<String> collection, @Nullable String element) {
+        blankSafeAddAll(collection, element);
     }
 
     public static void blankSafeAddAll(Collection<String> collection, @Nullable String... elements) {
