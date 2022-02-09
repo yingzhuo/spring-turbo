@@ -50,4 +50,8 @@ public abstract class AbstractServletFilter extends OncePerRequestFilter {
         CollectionUtils.nullSafeAddAll(skipPredicates, others);
     }
 
+    public final void addSkipPredicates(@Nullable PredicateSet predicates) {
+        CollectionUtils.nullSafeAddAll(skipPredicates, predicates);
+    }
+
 }
