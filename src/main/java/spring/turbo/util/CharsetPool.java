@@ -17,10 +17,14 @@ import java.nio.charset.StandardCharsets;
  */
 public final class CharsetPool {
 
-    public static final Charset UTF_8 = StandardCharsets.UTF_8;
     public static final String UTF_8_VALUE = "UTF-8";
+    public static final Charset UTF_8 = StandardCharsets.UTF_8;
+
+    public static final String ISO_8859_1_VALUE = "ISO-8859-1";
     public static final Charset ISO_8859_1 = StandardCharsets.ISO_8859_1;
-    public static final String ISO_8859_1_VALUES = "ISO-8859-1";
+
+    public static final String GBK_VALUE = "GBK";
+    public static final Charset GBK = Charset.forName(GBK_VALUE);
 
     /**
      * 私有构造方法
