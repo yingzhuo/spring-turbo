@@ -69,6 +69,10 @@ public final class DatePair implements Iterable<Date>, Serializable {
         return right;
     }
 
+    public DayRange toDayRange() {
+        return new DayRange(left, right);
+    }
+
     // since 1.0.8
     @Override
     public Iterator<Date> iterator() {
