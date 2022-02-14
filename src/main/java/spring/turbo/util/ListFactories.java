@@ -15,6 +15,7 @@ import java.util.*;
 /**
  * @author 应卓
  * @see SetFactories
+ * @see StreamFactories
  * @since 1.0.9
  */
 public final class ListFactories {
