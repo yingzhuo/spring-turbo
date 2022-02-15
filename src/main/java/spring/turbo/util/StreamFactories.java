@@ -35,8 +35,13 @@ public final class StreamFactories {
     }
 
     public static <T> Stream<T> newStream(Iterator<T> iterator) {
+        return newStream(iterator, false);
+    }
+
+    public static <T> Stream<T> newStream(Iterator<T> iterator, boolean parallel) {
+        Asserts.notNull(iterator);
         final Spliterator<T> spliterator = Spliterators.spliteratorUnknownSize(iterator, 0);
-        return StreamSupport.stream(spliterator, false);
+        return StreamSupport.stream(spliterator, parallel);
     }
 
     @SafeVarargs
