@@ -49,6 +49,10 @@ public final class DayRange implements Serializable, Iterable<Date> {
         Asserts.notNull(rightInclude);
         this.leftInclude = DateUtils.truncate(leftInclude, Calendar.DATE);
         this.rightInclude = DateUtils.truncate(rightInclude, Calendar.DATE);
+
+        if (this.leftInclude.after(this.rightInclude)) {
+            throw new IllegalArgumentException("left is after right");
+        }
     }
 
     public Date getLeftInclude() {
