@@ -8,16 +8,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import spring.turbo.bean.function.DayRangePartitionor;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.DateParseUtils;
 import spring.turbo.util.DateUtils;
 import spring.turbo.util.StreamFactories;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -38,10 +38,7 @@ public final class DayRange implements Serializable, Iterable<Date> {
     }
 
     public DayRange(String datePattern, String left, String right) {
-        this(
-                DateParseUtils.parse(left, datePattern),
-                DateParseUtils.parse(right, datePattern)
-        );
+        this(DateParseUtils.parse(left, datePattern), DateParseUtils.parse(right, datePattern));
     }
 
     public DayRange(Date leftInclude, Date rightInclude) {
@@ -70,6 +67,36 @@ public final class DayRange implements Serializable, Iterable<Date> {
 
     public Stream<Date> toStream() {
         return StreamFactories.newStream(iterator());
+    }
+
+    public Map<String, List<Date>> partition(DayRangePartitionor partitionor) {
+        Asserts.notNull(partitionor);
+
+        final MultiValueMap<String, Date> list = new LinkedMultiValueMap<>();
+
+        for (Date date : this) {
+            final String partitionName = partitionor.test(date);
+            if (partitionName != null) {
+                list.add(partitionName, date);
+            }
+        }
+
+        return Collections.unmodifiableMap(list);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DayRange dates = (DayRange) o;
+        return leftInclude.equals(dates.leftInclude) && rightInclude.equals(dates.rightInclude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(leftInclude, rightInclude);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
