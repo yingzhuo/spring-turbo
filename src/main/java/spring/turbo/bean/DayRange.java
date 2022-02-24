@@ -81,7 +81,17 @@ public final class DayRange implements Serializable, Iterable<Date> {
             }
         }
 
-        return Collections.unmodifiableMap(list);
+        return list;
+    }
+
+    public Map<String, Set<Date>> partitionAsSet(DayRangePartitionor partitionor) {
+        final Map<String, Set<Date>> set = new HashMap<>();
+        final Map<String, List<Date>> ps = this.partition(partitionor);
+        for (final String partitionName : ps.keySet()) {
+            final List<Date> list = ps.get(partitionName);
+            set.put(partitionName, new HashSet<>(list));
+        }
+        return set;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
