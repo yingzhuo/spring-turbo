@@ -78,7 +78,7 @@
 
         <java.version>1.8</java.version>
 
-        <spring.boot.version>2.6.3</spring.boot.version>
+        <spring.boot.version>2.6.4</spring.boot.version>
         <spring.version>5.3.16</spring.version>
         <slf4j.version>1.7.36</slf4j.version>
     </properties>
