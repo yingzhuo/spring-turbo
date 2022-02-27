@@ -21,12 +21,17 @@ import java.util.Date;
  */
 public abstract class AbstractDayRangePartitionor implements DayRangePartitionor {
 
+    /**
+     * 构造方法
+     */
     public AbstractDayRangePartitionor() {
         super();
     }
 
-    @Override
-    public abstract String test(Date date);
+    protected final int getCentury(Date date) {
+        final LocalDate localDate = DateUtils.toLocalDate(date);
+        return (localDate.getYear() / 100) + 1;
+    }
 
     protected final String getYear(Date date) {
         final LocalDate localDate = DateUtils.toLocalDate(date);

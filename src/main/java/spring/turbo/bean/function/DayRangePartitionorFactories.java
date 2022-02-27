@@ -39,6 +39,20 @@ public final class DayRangePartitionorFactories {
     }
 
     /**
+     * 按世纪区分
+     *
+     * @return 分区器实例
+     */
+    public static DayRangePartitionor byCentury() {
+        return new AbstractDayRangePartitionor() {
+            @Override
+            public String test(Date date) {
+                return String.valueOf(getCentury(date));
+            }
+        };
+    }
+
+    /**
      * 按年份区分
      *
      * @return 分区器实例
@@ -67,7 +81,7 @@ public final class DayRangePartitionorFactories {
     }
 
     /**
-     * 按周区分
+     * 按周区分，已周日为一周开始
      *
      * @return 分区器实例
      */
