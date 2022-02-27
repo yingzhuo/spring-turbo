@@ -69,6 +69,14 @@ public final class DayRange implements Serializable, Iterable<Date> {
         return StreamFactories.newStream(iterator());
     }
 
+    /**
+     * 分区
+     *
+     * @param partitionor 分区器实例
+     * @return 分区结果 (可变集合)
+     * @see DayRangePartitionor
+     * @see spring.turbo.bean.function.DayRangePartitionorFactories
+     */
     public Map<String, List<Date>> partition(DayRangePartitionor partitionor) {
         Asserts.notNull(partitionor);
 
@@ -110,7 +118,7 @@ public final class DayRange implements Serializable, Iterable<Date> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private static class DayRangeIterator implements Iterator<Date> {
+    private final static class DayRangeIterator implements Iterator<Date> {
 
         private final Date last;
         private Date it;
@@ -136,5 +144,4 @@ public final class DayRange implements Serializable, Iterable<Date> {
             return nextDay;
         }
     }
-
 }
