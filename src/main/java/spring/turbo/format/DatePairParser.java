@@ -23,11 +23,15 @@ import java.util.Locale;
  * @author 应卓
  * @since 1.0.8
  */
-class DatePairParser implements Parser<DatePair> {
+public class DatePairParser implements Parser<DatePair> {
 
     private final String delimiter;
     private final String primaryPattern;
     private final String[] fallbackPatterns;
+
+    public DatePairParser() {
+        this(" @@ ", "yyyy-MM-dd", new String[0]);
+    }
 
     public DatePairParser(String delimiter, String primaryPattern, String[] fallbackPatterns) {
         this.delimiter = delimiter;
