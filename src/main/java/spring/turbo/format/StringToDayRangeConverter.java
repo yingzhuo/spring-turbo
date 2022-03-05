@@ -21,7 +21,7 @@ import java.util.Set;
  * @author 应卓
  * @since 1.0.13
  */
-public class StringToDayPairConverter implements GenericConverter {
+public class StringToDayRangeConverter implements GenericConverter {
 
     private static final Set<ConvertiblePair> CONVERTIBLE_TYPES = SetFactories.newUnmodifiableSet(
             new ConvertiblePair(String.class, DayRange.class)
