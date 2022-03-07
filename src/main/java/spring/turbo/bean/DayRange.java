@@ -11,10 +11,7 @@ package spring.turbo.bean;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import spring.turbo.bean.function.DayRangePartitionor;
-import spring.turbo.util.Asserts;
-import spring.turbo.util.DateParseUtils;
-import spring.turbo.util.DateUtils;
-import spring.turbo.util.StreamFactories;
+import spring.turbo.util.*;
 
 import java.io.Serializable;
 import java.util.*;
@@ -115,6 +112,14 @@ public final class DayRange implements Serializable, Iterable<Date> {
     @Override
     public int hashCode() {
         return Objects.hash(leftInclude, rightInclude);
+    }
+
+    @Override
+    public String toString() {
+        return StringFormatter.format("{} @@ {}",
+                DateUtils.format(leftInclude, "yyyy-MM-dd"),
+                DateUtils.format(rightInclude, "yyyy-MM-dd")
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
