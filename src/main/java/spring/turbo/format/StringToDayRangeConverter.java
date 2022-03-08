@@ -23,11 +23,30 @@ import java.util.Set;
  */
 public class StringToDayRangeConverter implements GenericConverter {
 
-    private static final Set<ConvertiblePair> CONVERTIBLE_TYPES = SetFactories.newUnmodifiableSet(
-            new ConvertiblePair(String.class, DayRange.class)
-    );
+    private static final Set<ConvertiblePair> CONVERTIBLE_TYPES
+            = SetFactories.newUnmodifiableSet(new ConvertiblePair(String.class, DayRange.class));
 
-    private static final DatePairParser DATE_PAIR_PARSER = new DatePairParser(" @@ ", "yyyy-MM-dd", new String[0]);
+    private static final String DELIMITER = " @@ ";
+    private static final String PRIMARY_PATTERN = "yyyy-MM-dd";
+    private static final String[] BACKUP_PATTERNS = new String[]{
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd HH:mm:ss.SSS",
+            "yyyy-MM-dd",
+            "yyyy-MM-dd'T'HH:mm:ss",
+            "yyyy-MM-dd'T'HH:mm:ss.SSS",
+            "yyyy-MM-dd",
+            "yyyy/MM/dd HH:mm:ss",
+            "yyyy/MM/dd HH:mm:ss.SSS",
+            "yyyy/MM/dd",
+            "yyyy-M-d HH:mm:ss",
+            "yyyy-M-d HH:mm:ss.SSS",
+            "yyyy-M-d",
+            "yyyy/M/d HH:mm:ss",
+            "yyyy/M/d HH:mm:ss.SSS",
+            "yyyy/M/d"
+    };
+
+    private static final DatePairParser DATE_PAIR_PARSER = new DatePairParser(DELIMITER, PRIMARY_PATTERN, BACKUP_PATTERNS);
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
