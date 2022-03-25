@@ -423,6 +423,19 @@ public final class DateUtils {
         return new DateFormatter(pattern).print(date, Locale.getDefault());
     }
 
+    public static String getYearWeek(final Date date) {
+        return getYearWeek(date, Calendar.SUNDAY, 4);
+    }
+
+    public static String getYearWeek(final Date date, final int firstDayOfWeek, final int minimalDaysInFirstWeek) {
+        final Calendar c = toCalendar(date);
+        c.setFirstDayOfWeek(firstDayOfWeek);
+        c.setMinimalDaysInFirstWeek(minimalDaysInFirstWeek);
+        final String year = String.format("%d", c.getWeekYear());
+        final String weekOfYear = String.format("%02d", c.get(Calendar.WEEK_OF_YEAR));
+        return StringFormatter.format("{}-{}", year, weekOfYear);
+    }
+
     /**
      * Calendar modification types.
      */

@@ -12,7 +12,6 @@ import spring.turbo.util.DateUtils;
 import spring.turbo.util.StringFormatter;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -46,12 +45,7 @@ public abstract class AbstractDayRangePartitionor implements DayRangePartitionor
     }
 
     protected final String getYearWeek(Date date, int firstDayOfWeek) {
-        final Calendar calendar = DateUtils.toCalendar(date);
-        calendar.setFirstDayOfWeek(firstDayOfWeek);
-
-        final String year = String.format("%d", calendar.getWeekYear());
-        final String weekOfYear = String.format("%02d", calendar.get(Calendar.WEEK_OF_YEAR));
-        return StringFormatter.format("{}-{}", year, weekOfYear);
+        return DateUtils.getYearWeek(date, firstDayOfWeek, 4);
     }
 
 }
