@@ -8,8 +8,14 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.format.datetime.DateFormatter;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -193,6 +199,18 @@ public final class DateUtils {
         final Calendar c = Calendar.getInstance(tz);
         c.setTime(date);
         return c;
+    }
+
+    public static LocalDate toLocalDate(final Date date) {
+        return date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+    }
+
+    public static LocalDateTime toLocalDateTime(final Date date) {
+        return date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 
     public static Date round(final Date date, final int field) {
@@ -399,6 +417,23 @@ public final class DateUtils {
         final Date truncatedDate1 = truncate(date1, field);
         final Date truncatedDate2 = truncate(date2, field);
         return truncatedDate1.compareTo(truncatedDate2);
+    }
+
+    public static String format(final Date date, final String pattern) {
+        return new DateFormatter(pattern).print(date, Locale.getDefault());
+    }
+
+    public static String getYearWeek(final Date date) {
+        return getYearWeek(date, Calendar.SUNDAY, 4);
+    }
+
+    public static String getYearWeek(final Date date, final int firstDayOfWeek, final int minimalDaysInFirstWeek) {
+        final Calendar c = toCalendar(date);
+        c.setFirstDayOfWeek(firstDayOfWeek);
+        c.setMinimalDaysInFirstWeek(minimalDaysInFirstWeek);
+        final String year = String.format("%d", c.getWeekYear());
+        final String weekOfYear = String.format("%02d", c.get(Calendar.WEEK_OF_YEAR));
+        return StringFormatter.format("{}-{}", year, weekOfYear);
     }
 
     /**

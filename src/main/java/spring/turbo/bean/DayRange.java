@@ -8,16 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import spring.turbo.util.Asserts;
-import spring.turbo.util.DateParseUtils;
-import spring.turbo.util.DateUtils;
-import spring.turbo.util.StreamFactories;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import spring.turbo.bean.function.DayRangePartitionor;
+import spring.turbo.util.*;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -38,10 +35,7 @@ public final class DayRange implements Serializable, Iterable<Date> {
     }
 
     public DayRange(String datePattern, String left, String right) {
-        this(
-                DateParseUtils.parse(left, datePattern),
-                DateParseUtils.parse(right, datePattern)
-        );
+        this(DateParseUtils.parse(left, datePattern), DateParseUtils.parse(right, datePattern));
     }
 
     public DayRange(Date leftInclude, Date rightInclude) {
@@ -72,8 +66,64 @@ public final class DayRange implements Serializable, Iterable<Date> {
         return StreamFactories.newStream(iterator());
     }
 
+    /**
+     * 分区
+     *
+     * @param partitionor 分区器实例
+     * @return 分区结果 (可变集合)
+     * @see DayRangePartitionor
+     * @see spring.turbo.bean.function.DayRangePartitionorFactories
+     */
+    public Map<String, List<Date>> partition(DayRangePartitionor partitionor) {
+        Asserts.notNull(partitionor);
+
+        final MultiValueMap<String, Date> list = new LinkedMultiValueMap<>();
+
+        for (Date date : this) {
+            final String partitionName = partitionor.test(date);
+            if (partitionName != null) {
+                list.add(partitionName, date);
+            }
+        }
+
+        return list;
+    }
+
+    public Map<String, Set<Date>> partitionAsSet(DayRangePartitionor partitionor) {
+        final Map<String, Set<Date>> set = new HashMap<>();
+        final Map<String, List<Date>> ps = this.partition(partitionor);
+        for (final String partitionName : ps.keySet()) {
+            final List<Date> list = ps.get(partitionName);
+            set.put(partitionName, new HashSet<>(list));
+        }
+        return set;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
-    private static class DayRangeIterator implements Iterator<Date> {
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DayRange dates = (DayRange) o;
+        return leftInclude.equals(dates.leftInclude) && rightInclude.equals(dates.rightInclude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(leftInclude, rightInclude);
+    }
+
+    @Override
+    public String toString() {
+        return StringFormatter.format("{} @@ {}",
+                DateUtils.format(leftInclude, "yyyy-MM-dd"),
+                DateUtils.format(rightInclude, "yyyy-MM-dd")
+        );
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    private final static class DayRangeIterator implements Iterator<Date> {
 
         private final Date last;
         private Date it;
@@ -99,5 +149,4 @@ public final class DayRange implements Serializable, Iterable<Date> {
             return nextDay;
         }
     }
-
 }
