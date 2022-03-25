@@ -86,13 +86,14 @@ public final class DayRangePartitionorFactories {
      * @return 分区器实例
      */
     public static DayRangePartitionor byWeek() {
-        return byWeek(SUNDAY);
+        return byWeek(SUNDAY, 4);
     }
 
     /**
      * 按周区分
      *
-     * @param firstDayOfWeek 一周的开始
+     * @param firstDayOfWeek         一周的开始
+     * @param minimalDaysInFirstWeek 第一周最小天数
      * @return 分区器实例
      * @see #SUNDAY
      * @see #MONDAY
@@ -102,7 +103,7 @@ public final class DayRangePartitionorFactories {
      * @see #FRIDAY
      * @see #SATURDAY
      */
-    public static DayRangePartitionor byWeek(final int firstDayOfWeek) {
+    public static DayRangePartitionor byWeek(final int firstDayOfWeek, final int minimalDaysInFirstWeek) {
         return new AbstractDayRangePartitionor() {
             @Override
             public String test(Date date) {
