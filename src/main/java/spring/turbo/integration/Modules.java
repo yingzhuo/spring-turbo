@@ -33,6 +33,7 @@ public enum Modules implements Named {
     SPRING_TURBO_JACKSON("spring.turbo.jackson"),
     SPRING_TURBO_PREDEFINED("spring.turbo.predefined"),
     SPRING_TURBO_QRCODE("spring.turbo.qrcode"),
+    SPRING_TURBO_RABBITMQ("spring.turbo.rabbitmq"),
     SPRING_TURBO_REDIS("spring.turbo.redis"),
     SPRING_TURBO_SECURITY("spring.turbo.security"),
     SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt"),
