@@ -14,6 +14,7 @@ import spring.turbo.util.Asserts;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
@@ -63,6 +64,15 @@ final class ResourceOptionImpl implements ResourceOption {
     @Override
     public String toString() {
         return resource.toString();
+    }
+
+    @Override
+    public InputStream toInputStream() {
+        try {
+            return resource.getInputStream();
+        } catch (IOException e) {
+            throw toUnchecked(e);
+        }
     }
 
     @Override

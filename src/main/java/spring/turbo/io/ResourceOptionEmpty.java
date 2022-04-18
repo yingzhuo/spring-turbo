@@ -11,6 +11,7 @@ package spring.turbo.io;
 import org.springframework.core.io.Resource;
 
 import java.io.File;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -55,6 +56,11 @@ final class ResourceOptionEmpty implements ResourceOption {
 
     @Override
     public String toString() {
+        throw EX;
+    }
+
+    @Override
+    public InputStream toInputStream() {
         throw EX;
     }
 

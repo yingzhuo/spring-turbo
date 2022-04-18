@@ -12,6 +12,7 @@ import org.springframework.core.io.Resource;
 import spring.turbo.util.CharsetPool;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
@@ -36,6 +37,8 @@ public interface ResourceOption extends Serializable {
     public String toString();
 
     public String toString(Charset charset);
+
+    public InputStream toInputStream();
 
     public byte[] toByteArray();
 
