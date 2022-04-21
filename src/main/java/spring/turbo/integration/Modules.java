@@ -39,7 +39,8 @@ public enum Modules implements Named {
     SPRING_TURBO_SECURITY("spring.turbo.security"),
     SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt"),
     SPRING_TURBO_SECURITY_HUTOOL("spring.turbo.security-hutool"),
-    SPRING_TURBO_WEBMVC("spring.turbo.webmvc");
+    SPRING_TURBO_WEBMVC("spring.turbo.webmvc"),
+    SPRING_TURBO_ZOOKEEPER("spring.turbo.zookeeper");
 
     private final String name;
 
