@@ -9,6 +9,7 @@
 package spring.turbo.util;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 线程暂停工具
@@ -36,6 +37,17 @@ public final class SleepUtils {
 
         try {
             Thread.sleep(duration.toMillis());
+        } catch (InterruptedException e) {
+            throw new UncheckedInterruptedException(e);
+        }
+    }
+
+    public static void sleep(long time, TimeUnit timeUnit) {
+        Asserts.isTrue(time > 0);
+        Asserts.notNull(timeUnit);
+
+        try {
+            Thread.sleep(timeUnit.toMillis(time));
         } catch (InterruptedException e) {
             throw new UncheckedInterruptedException(e);
         }
