@@ -14,6 +14,8 @@ import org.springframework.lang.Nullable;
 import java.util.function.Predicate;
 
 /**
+ * 资源选项鉴别器
+ *
  * @author 应卓
  * @since 1.0.0
  */

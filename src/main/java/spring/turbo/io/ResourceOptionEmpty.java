@@ -26,6 +26,9 @@ final class ResourceOptionEmpty implements ResourceOption {
     private static final ResourceOptionEmpty INSTANCE = new ResourceOptionEmpty();
     private static final IllegalStateException EX = new IllegalStateException("empty resource");
 
+    /**
+     * 私有构造方法
+     */
     private ResourceOptionEmpty() {
         super();
     }

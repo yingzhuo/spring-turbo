@@ -21,6 +21,12 @@ import java.util.Properties;
 
 /**
  * @author 应卓
+ * @see ResourceOptions#builder()
+ * @see ResourceOptions#fromSeparatedLocations(String)
+ * @see ResourceOptions#of(String)
+ * @see ResourceOptions#of(Resource)
+ * @see ResourceOptions#contact(ResourceOption...)
+ * @see ResourceOptions#empty()
  * @since 1.0.0
  */
 public interface ResourceOption extends Serializable {
@@ -46,13 +52,13 @@ public interface ResourceOption extends Serializable {
 
     public Path toPath();
 
-    public Properties toProperties(PropertiesFormat propertiesFormat);
-
     public long getChecksumCRC32(int buffSize);
 
     public default long getChecksumCRC32() {
         return getChecksumCRC32(1024);
     }
+
+    public Properties toProperties(PropertiesFormat propertiesFormat);
 
     public default Properties toProperties() {
         return toProperties(PropertiesFormat.PROPERTIES);
