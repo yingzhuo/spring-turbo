@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>spring-turbo</artifactId>
-    <version>1.0.14</version>
+    <version>1.0.15</version>
     <packaging>jar</packaging>
 
     <url>https://github.com/yingzhuo/spring-turbo</url>
@@ -42,14 +42,14 @@
     </licenses>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>oss-snapshot</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
         <repository>
             <id>oss-release</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
+        <snapshotRepository>
+            <id>oss-snapshot</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <issueManagement>
@@ -78,8 +78,8 @@
 
         <java.version>1.8</java.version>
 
-        <spring.boot.version>2.6.5</spring.boot.version>
-        <spring.version>5.3.17</spring.version>
+        <spring.boot.version>2.6.7</spring.boot.version>
+        <spring.version>5.3.20</spring.version>
         <slf4j.version>1.7.36</slf4j.version>
     </properties>
 
@@ -189,7 +189,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
 
@@ -232,7 +232,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.9.0</version>
+                <version>3.10.1</version>
                 <configuration>
                     <debug>false</debug>
                     <encoding>${encoding}</encoding>
@@ -256,7 +256,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.4.0</version>
                 <configuration>
                     <encoding>${encoding}</encoding>
                 </configuration>
@@ -331,4 +331,5 @@
             </build>
         </profile>
     </profiles>
+
 </project>

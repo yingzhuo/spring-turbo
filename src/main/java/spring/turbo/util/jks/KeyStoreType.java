@@ -6,31 +6,27 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.io;
+package spring.turbo.util.jks;
 
-import org.springframework.core.io.Resource;
-import org.springframework.lang.Nullable;
-
-import java.util.function.Predicate;
+import java.io.Serializable;
 
 /**
- * 资源选项鉴别器
- *
  * @author 应卓
- * @since 1.0.0
+ * @since 1.0.15
  */
-@FunctionalInterface
-public interface ResourceOptionDiscriminator extends Predicate<Resource> {
+public enum KeyStoreType implements Serializable {
 
-    public static ResourceOptionDiscriminator getDefault() {
-        return resource -> resource != null && resource.isReadable();
+    JKS("JKS"),
+    PKCS12("pkcs12");
+
+    private final String name;
+
+    private KeyStoreType(String name) {
+        this.name = name;
     }
 
-    public boolean isExists(@Nullable Resource resource);
-
-    @Override
-    public default boolean test(Resource resource) {
-        return isExists(resource);
+    public String getName() {
+        return name;
     }
 
 }
