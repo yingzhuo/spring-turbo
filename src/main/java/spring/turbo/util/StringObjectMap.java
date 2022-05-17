@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import spring.turbo.lang.Mutable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +20,7 @@ import java.util.Map;
  * @see StreamFactories
  * @since 1.1.0
  */
+@Mutable
 public final class StringObjectMap extends HashMap<String, Object> implements Map<String, Object> {
 
     public StringObjectMap() {
