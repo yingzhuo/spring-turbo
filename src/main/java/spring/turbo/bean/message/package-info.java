@@ -11,6 +11,7 @@
 package spring.turbo.bean.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ import java.util.List;
  * @see spring.turbo.core.MessageUtils
  * @since 1.0.11
  */
+@AutoConfiguration
 class SpringBootAutoConfiguration {
 
     @Autowired(required = false)

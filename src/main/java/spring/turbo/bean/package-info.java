@@ -11,6 +11,7 @@
 package spring.turbo.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;
@@ -21,6 +22,7 @@ import spring.turbo.format.*;
  * @author 应卓
  * @since 1.0.0
  */
+@AutoConfiguration
 class SpringBootAutoConfiguration {
 
     @Autowired(required = false)
