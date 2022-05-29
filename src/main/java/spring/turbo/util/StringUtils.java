@@ -10,10 +10,7 @@ package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -324,6 +321,42 @@ public final class StringUtils {
                 }
             }
         }
+    }
+
+    public static String nullSafeJoin(Iterable<?> iterable, @Nullable String separator) {
+        Asserts.notNull(iterable);
+        return nullSafeJoin(iterable.iterator(), separator);
+    }
+
+    public static String nullSafeJoin(Iterator<?> iterator, @Nullable String separator) {
+        Asserts.notNull(iterator);
+
+        if (separator == null) {
+            separator = EMPTY;
+        }
+
+        if (!iterator.hasNext()) {
+            return EMPTY;
+        }
+        final Object first = iterator.next();
+        if (!iterator.hasNext()) {
+            return Objects.toString(first, "");
+        }
+
+        // two or more elements
+        final StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+        if (first != null) {
+            buf.append(first);
+        }
+
+        while (iterator.hasNext()) {
+            buf.append(separator);
+            final Object obj = iterator.next();
+            if (obj != null) {
+                buf.append(obj);
+            }
+        }
+        return buf.toString();
     }
 
 }
