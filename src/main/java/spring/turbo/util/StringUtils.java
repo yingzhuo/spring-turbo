@@ -323,13 +323,17 @@ public final class StringUtils {
         }
     }
 
-    public static String nullSafeJoin(Iterable<?> iterable, @Nullable String separator) {
-        Asserts.notNull(iterable);
+    public static String nullSafeJoin(@Nullable Iterable<?> iterable, @Nullable String separator) {
+        if (iterable == null) {
+            return EMPTY;
+        }
         return nullSafeJoin(iterable.iterator(), separator);
     }
 
-    public static String nullSafeJoin(Iterator<?> iterator, @Nullable String separator) {
-        Asserts.notNull(iterator);
+    public static String nullSafeJoin(@Nullable Iterator<?> iterator, @Nullable String separator) {
+        if (iterator == null) {
+            return EMPTY;
+        }
 
         if (separator == null) {
             separator = EMPTY;
@@ -340,7 +344,7 @@ public final class StringUtils {
         }
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            return Objects.toString(first, "");
+            return Objects.toString(first, EMPTY);
         }
 
         // two or more elements
