@@ -48,7 +48,7 @@ public class Json implements MutableApiResult<Map<String, Object>> {
         return this;
     }
 
-    public Json payload(@NonNull String key, Object value) {
+    public Json payload(@NonNull String key, @Nullable Object value) {
         Asserts.hasText(key);
         this.payload.put(key, value);
         return this;
