@@ -96,7 +96,6 @@ public final class StringUtils {
         if (charSet.isEmpty()) {
             return false;
         }
-
         return toCharStream(charsToCheck).anyMatch(charSet::contains);
     }
 
@@ -107,7 +106,6 @@ public final class StringUtils {
         if (charSet.isEmpty()) {
             return false;
         }
-
         return toCharStream(charsToCheck).allMatch(charSet::contains);
     }
 
@@ -342,6 +340,7 @@ public final class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
+
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
             return Objects.toString(first, EMPTY);
@@ -361,6 +360,14 @@ public final class StringUtils {
             }
         }
         return buf.toString();
+    }
+
+    public static String nullSafeJoinWithComma(@Nullable Iterable<?> iterable) {
+        return nullSafeJoin(iterable, COMMA);
+    }
+
+    public static String nullSafeJoinWithComma(@Nullable Iterator<?> iterator) {
+        return nullSafeJoin(iterator, COMMA);
     }
 
 }
