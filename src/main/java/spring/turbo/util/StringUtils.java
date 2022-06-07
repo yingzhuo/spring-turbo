@@ -96,7 +96,6 @@ public final class StringUtils {
         if (charSet.isEmpty()) {
             return false;
         }
-
         return toCharStream(charsToCheck).anyMatch(charSet::contains);
     }
 
@@ -107,7 +106,6 @@ public final class StringUtils {
         if (charSet.isEmpty()) {
             return false;
         }
-
         return toCharStream(charsToCheck).allMatch(charSet::contains);
     }
 
@@ -323,13 +321,17 @@ public final class StringUtils {
         }
     }
 
-    public static String nullSafeJoin(Iterable<?> iterable, @Nullable String separator) {
-        Asserts.notNull(iterable);
+    public static String nullSafeJoin(@Nullable Iterable<?> iterable, @Nullable String separator) {
+        if (iterable == null) {
+            return EMPTY;
+        }
         return nullSafeJoin(iterable.iterator(), separator);
     }
 
-    public static String nullSafeJoin(Iterator<?> iterator, @Nullable String separator) {
-        Asserts.notNull(iterator);
+    public static String nullSafeJoin(@Nullable Iterator<?> iterator, @Nullable String separator) {
+        if (iterator == null) {
+            return EMPTY;
+        }
 
         if (separator == null) {
             separator = EMPTY;
@@ -338,9 +340,10 @@ public final class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
+
         final Object first = iterator.next();
         if (!iterator.hasNext()) {
-            return Objects.toString(first, "");
+            return Objects.toString(first, EMPTY);
         }
 
         // two or more elements
@@ -357,6 +360,14 @@ public final class StringUtils {
             }
         }
         return buf.toString();
+    }
+
+    public static String nullSafeJoinWithComma(@Nullable Iterable<?> iterable) {
+        return nullSafeJoin(iterable, COMMA);
+    }
+
+    public static String nullSafeJoinWithComma(@Nullable Iterator<?> iterator) {
+        return nullSafeJoin(iterator, COMMA);
     }
 
 }
