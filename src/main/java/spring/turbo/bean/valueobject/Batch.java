@@ -113,4 +113,10 @@ public class Batch<T> implements Iterable<T>, Serializable {
         return threadLocal.get().iterator();
     }
 
+    @NonNull
+    public final List<T> asList() {
+        final List<T> list = threadLocal.get();
+        return list != null ? list : new ArrayList<T>();
+    }
+
 }
