@@ -370,4 +370,16 @@ public final class StringUtils {
         return nullSafeJoin(iterator, COMMA);
     }
 
+    public static boolean startsWithIgnoreCase(@Nullable String str, String prefix) {
+        Asserts.notNull(prefix);
+        return (str != null && str.length() >= prefix.length() &&
+                str.regionMatches(true, 0, prefix, 0, prefix.length()));
+    }
+
+    public static boolean endsWithIgnoreCase(@Nullable String str, String suffix) {
+        Asserts.notNull(suffix);
+        return (str != null && str.length() >= suffix.length() &&
+                str.regionMatches(true, str.length() - suffix.length(), suffix, 0, suffix.length()));
+    }
+
 }
