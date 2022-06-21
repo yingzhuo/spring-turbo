@@ -5,6 +5,24 @@
 
 # spring-turbo
 
+### Maven仓库
+
+```xml
+<repository>
+    <id>sonatype-public</id>
+    <name>Sonatype Maven Repository</name>
+    <url>https://oss.sonatype.org/content/repositories/public</url>
+</repository>
+<repository>
+    <id>sonatype-snapshots</id>
+    <name>Sonatype Maven Repository Snapshots</name>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    <snapshots>
+        <enabled>true</enabled>
+    </snapshots>
+</repository>
+```
+
 ### 关联项目:
 
 [spring-turbo-modules](https://github.com/yingzhuo/spring-turbo-modules)
