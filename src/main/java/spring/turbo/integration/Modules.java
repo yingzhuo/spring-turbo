@@ -31,7 +31,6 @@ public enum Modules implements Named {
     SPRING_TURBO_DATASOURCE("spring.turbo.datasource"),
     SPRING_TURBO_EXCEL("spring.turbo.excel"),
     SPRING_TURBO_FEIGN("spring.turbo.feign"),
-    SPRING_TURBO_FTP("spring.turbo.ftp"),
     SPRING_TURBO_JACKSON("spring.turbo.jackson"),
     SPRING_TURBO_KAFKA("spring.turbo.kafka"),
     SPRING_TURBO_PREDEFINED("spring.turbo.predefined"),
