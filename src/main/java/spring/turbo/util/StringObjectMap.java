@@ -11,7 +11,6 @@ package spring.turbo.util;
 import spring.turbo.lang.Mutable;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author 应卓
@@ -21,7 +20,7 @@ import java.util.Map;
  * @since 1.1.0
  */
 @Mutable
-public final class StringObjectMap extends HashMap<String, Object> implements Map<String, Object> {
+public final class StringObjectMap extends HashMap<String, Object> {
 
     public StringObjectMap() {
         super();
@@ -46,6 +45,19 @@ public final class StringObjectMap extends HashMap<String, Object> implements Ma
         this.put(k1, v1);
         this.put(k2, v2);
         this.put(k3, v3);
+        return this;
+    }
+
+    public StringObjectMap add(String k1, Object v1, String k2, Object v2, String k3, Object v3, String k4, Object v4) {
+        this.put(k1, v1);
+        this.put(k2, v2);
+        this.put(k3, v3);
+        this.put(k4, v4);
+        return this;
+    }
+
+    public StringObjectMap removeAll() {
+        this.clear();
         return this;
     }
 
