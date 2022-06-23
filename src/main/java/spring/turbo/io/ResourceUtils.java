@@ -18,6 +18,8 @@ import java.nio.charset.Charset;
 import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
+ * {@code Resource}相关工具
+ *
  * @author 应卓
  * @since 1.1.0
  */

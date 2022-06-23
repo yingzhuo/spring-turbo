@@ -370,6 +370,18 @@ public final class StringUtils {
         return nullSafeJoin(iterator, COMMA);
     }
 
+    public static boolean startsWith(@Nullable String str, String prefix) {
+        Asserts.notNull(prefix);
+        if (str == null) return false;
+        return str.startsWith(prefix);
+    }
+
+    public static boolean endsWith(@Nullable String str, String prefix) {
+        Asserts.notNull(prefix);
+        if (str == null) return false;
+        return str.endsWith(prefix);
+    }
+
     public static boolean startsWithIgnoreCase(@Nullable String str, String prefix) {
         Asserts.notNull(prefix);
         return (str != null && str.length() >= prefix.length() &&

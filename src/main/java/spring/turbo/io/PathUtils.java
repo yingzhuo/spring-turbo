@@ -31,6 +31,8 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  * {@link Path}相关工具
  *
  * @author 应卓
+ * @see Paths
+ * @see Files
  * @see PathTreeUtils
  * @since 1.0.7
  */
@@ -41,6 +43,17 @@ public final class PathUtils {
      */
     private PathUtils() {
         super();
+    }
+
+    /**
+     * 转换成{@link File}类型
+     *
+     * @param path path
+     * @return 结果
+     */
+    public static File toFile(Path path) {
+        Asserts.notNull(path);
+        return path.toFile();
     }
 
     /**
@@ -111,7 +124,7 @@ public final class PathUtils {
     public static Path createDirectory(String first, String... more) {
         Asserts.notNull(first);
 
-        final Path path = PathUtils.createPath(first, more);
+        final Path path = createPath(first, more);
         createDirectory(path);
         return path;
     }
@@ -607,17 +620,6 @@ public final class PathUtils {
     public static Path toAbsolutePath(Path path) {
         Asserts.notNull(path);
         return path.toAbsolutePath();
-    }
-
-    /**
-     * 转换成{@link File}类型
-     *
-     * @param path path
-     * @return 结果
-     */
-    public static File toFile(Path path) {
-        Asserts.notNull(path);
-        return path.toFile();
     }
 
     /**
