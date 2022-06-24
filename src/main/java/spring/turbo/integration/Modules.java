@@ -29,6 +29,7 @@ public enum Modules implements Named {
     SPRING_TURBO_CAPTCHA("spring.turbo.captcha"),
     SPRING_TURBO_CSV("spring.turbo.csv"),
     SPRING_TURBO_DATASOURCE("spring.turbo.datasource"),
+    SPRING_TURBO_DIRECTORYWATCHER("spring.turbo.directorywatcher"),
     SPRING_TURBO_EXCEL("spring.turbo.excel"),
     SPRING_TURBO_FEIGN("spring.turbo.feign"),
     SPRING_TURBO_JACKSON("spring.turbo.jackson"),
