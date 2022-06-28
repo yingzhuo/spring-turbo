@@ -19,6 +19,7 @@ import java.io.UncheckedIOException;
  * 此工具将多个对象合成一个字节数组
  *
  * @author 应卓
+ * @see #newInstance() 创建实例
  * @since 1.0.0
  */
 public final class BytesBuilder {
@@ -27,6 +28,8 @@ public final class BytesBuilder {
 
     /**
      * 私有构造方法
+     *
+     * @see #newInstance()
      */
     private BytesBuilder() {
         super();
