@@ -37,7 +37,7 @@ public class LineIterator implements Iterator<String>, Closeable {
 
     private boolean finished;
 
-    public LineIterator(@NonNull Reader reader) {
+    public LineIterator(Reader reader) {
         Asserts.notNull(reader);
 
         if (reader instanceof BufferedReader) {

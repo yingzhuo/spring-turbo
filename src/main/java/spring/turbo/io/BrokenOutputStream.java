@@ -9,33 +9,33 @@
 package spring.turbo.io;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author 应卓
- * @since 1.0.9
+ * @see #getInstance()
+ * @since 1.1.1
  */
-public final class BrokenInputStream extends InputStream {
+public class BrokenOutputStream extends OutputStream {
 
     /**
      * 私有构造方法
      */
-    private BrokenInputStream() {
+    private BrokenOutputStream() {
         super();
     }
 
-    public static BrokenInputStream getInstance() {
+    public static BrokenOutputStream getInstance() {
         return SyncAvoid.INSTANCE;
     }
 
     @Override
-    public int read() throws IOException {
+    public void write(int b) throws IOException {
         throw new IOException("broken");
     }
 
-    // 延迟加载
     private static class SyncAvoid {
-        private static final BrokenInputStream INSTANCE = new BrokenInputStream();
+        private static final BrokenOutputStream INSTANCE = new BrokenOutputStream();
     }
 
 }
