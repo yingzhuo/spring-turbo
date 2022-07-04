@@ -17,6 +17,7 @@ import spring.turbo.util.StringPool;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.Date;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -69,6 +70,10 @@ public interface LocalFile extends Serializable {
 
     public default boolean isWritable() {
         return PathUtils.isWritable(asPath());
+    }
+
+    public default boolean isExecutable() {
+        return PathUtils.isExecutable(asPath());
     }
 
     public default boolean isDirectory() {
@@ -134,8 +139,12 @@ public interface LocalFile extends Serializable {
     }
 
     public default String getExtension(boolean startWithDot) {
-        final String ext = FilenameUtils.getExtension(getFilenameAsString());
-        return startWithDot ? StringPool.DOT + ext : ext;
+        String ext = FilenameUtils.getExtension(getFilenameAsString());
+        if (StringPool.EMPTY.equals(ext)) {
+            return ext;
+        } else {
+            return startWithDot ? StringPool.DOT + ext : ext;
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -154,6 +163,21 @@ public interface LocalFile extends Serializable {
         } catch (IOException e) {
             throw IOExceptionUtils.toUnchecked(e);
         }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public default Stream<LocalFile> list(int maxDepth) {
+        if (!isDirectory()) {
+            return Stream.empty();
+        }
+
+        return PathTreeUtils.list(asPath(), maxDepth, null)
+                .map(LocalFile::of);
+    }
+
+    public default Stream<LocalFile> list() {
+        return list(Integer.MAX_VALUE);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

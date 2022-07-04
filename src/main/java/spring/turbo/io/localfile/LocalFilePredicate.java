@@ -12,6 +12,7 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
+ * @see LocalFilePredicateFactories
  * @since 1.1.1
  */
 public interface LocalFilePredicate extends Predicate<LocalFile> {

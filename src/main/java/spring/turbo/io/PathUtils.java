@@ -338,6 +338,17 @@ public final class PathUtils {
     }
 
     /**
+     * 判断path是否可执行
+     *
+     * @param path path
+     * @return 是可执行时返回 {@code true} 否则返回 {@code false}
+     */
+    public static boolean isExecutable(Path path) {
+        Asserts.notNull(path);
+        return Files.isExecutable(path);
+    }
+
+    /**
      * 获取文件的大小
      *
      * @param path path

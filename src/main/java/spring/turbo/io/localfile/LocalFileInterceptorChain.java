@@ -43,6 +43,14 @@ public class LocalFileInterceptorChain implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
+        if (this.predicate == null) {
+            this.predicate = LocalFilePredicateFactories.alwaysTrue();
+        }
+
+        if (this.interceptorList == null) {
+            this.interceptorList = new ArrayList<>();
+        }
+
         OrderComparator.sort(this.interceptorList);
     }
 
