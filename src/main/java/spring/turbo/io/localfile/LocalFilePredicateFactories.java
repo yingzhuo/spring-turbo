@@ -125,6 +125,14 @@ public final class LocalFilePredicateFactories {
         return not(writable());
     }
 
+    public static LocalFilePredicate executable() {
+        return LocalFile::isExecutable;
+    }
+
+    public static LocalFilePredicate notExecutable() {
+        return not(executable());
+    }
+
     public static LocalFilePredicate zeroSize() {
         return localFile -> localFile.size() == 0L;
     }

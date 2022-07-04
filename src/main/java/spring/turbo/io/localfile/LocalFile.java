@@ -71,6 +71,10 @@ public interface LocalFile extends Serializable {
         return PathUtils.isWritable(asPath());
     }
 
+    public default boolean isExecutable() {
+        return PathUtils.isExecutable(asPath());
+    }
+
     public default boolean isDirectory() {
         return PathUtils.isDirectory(asPath());
     }
@@ -134,8 +138,12 @@ public interface LocalFile extends Serializable {
     }
 
     public default String getExtension(boolean startWithDot) {
-        final String ext = FilenameUtils.getExtension(getFilenameAsString());
-        return startWithDot ? StringPool.DOT + ext : ext;
+        String ext = FilenameUtils.getExtension(getFilenameAsString());
+        if (StringPool.EMPTY.equals(ext)) {
+            return ext;
+        } else {
+            return startWithDot ? StringPool.DOT + ext : ext;
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
