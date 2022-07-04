@@ -10,7 +10,9 @@ package spring.turbo.io.localfile;
 
 import spring.turbo.io.PathUtils;
 import spring.turbo.lang.Immutable;
+import spring.turbo.util.Asserts;
 
+import java.io.File;
 import java.nio.file.Path;
 
 /**
@@ -26,6 +28,15 @@ public class PathLocalFile implements LocalFile {
         this.path = PathUtils.createPath(first, more)
                 .normalize()
                 .toAbsolutePath();
+    }
+
+    public PathLocalFile(Path path) {
+        Asserts.notNull(path);
+        this.path = path.normalize().toAbsolutePath();
+    }
+
+    public PathLocalFile(File file) {
+        this(file.toPath());
     }
 
     @Override

@@ -20,9 +20,28 @@ import java.util.Date;
 
 /**
  * @author 应卓
+ * @see Resource
+ * @see ResourceOption
+ * @see PathUtils
+ * @see PathTreeUtils
+ * @see LocalFilePredicate
+ * @see LocalFileInterceptor
+ * @see LocalFileInterceptorChain
  * @since 1.1.1
  */
 public interface LocalFile extends Serializable {
+
+    public static LocalFile of(String first, String... more) {
+        return new PathLocalFile(first, more);
+    }
+
+    public static LocalFile of(File file) {
+        return new PathLocalFile(file);
+    }
+
+    public static LocalFile of(Path path) {
+        return new PathLocalFile(path);
+    }
 
     public Path asPath();
 

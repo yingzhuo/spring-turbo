@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class LocalFileInterceptorChain implements InitializingBean {
 
-    private LocalFilePredicate predicate = lf -> true;
+    private LocalFilePredicate predicate = LocalFilePredicateFactories.alwaysTrue();
     private List<LocalFileInterceptor> interceptorList = new ArrayList<>();
 
     /**

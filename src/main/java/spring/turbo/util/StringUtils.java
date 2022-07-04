@@ -376,10 +376,10 @@ public final class StringUtils {
         return str.startsWith(prefix);
     }
 
-    public static boolean endsWith(@Nullable String str, String prefix) {
-        Asserts.notNull(prefix);
+    public static boolean endsWith(@Nullable String str, String suffix) {
+        Asserts.notNull(suffix);
         if (str == null) return false;
-        return str.endsWith(prefix);
+        return str.endsWith(suffix);
     }
 
     public static boolean startsWithIgnoreCase(@Nullable String str, String prefix) {
