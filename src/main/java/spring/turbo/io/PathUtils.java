@@ -9,7 +9,6 @@
 package spring.turbo.io;
 
 import org.springframework.util.FileSystemUtils;
-import spring.turbo.io.function.PathPredicateFactories;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.ListFactories;
 import spring.turbo.util.StringFormatter;
@@ -419,7 +418,7 @@ public final class PathUtils {
             return;
         }
 
-        PathTreeUtils.list(path, 1, PathPredicateFactories.alwaysTrue()).forEach(found -> {
+        PathTreeUtils.list(path, 1).forEach(found -> {
             if (!found.equals(path)) {
                 delete(found);
             }
@@ -436,7 +435,7 @@ public final class PathUtils {
             return;
         }
 
-        PathTreeUtils.list(path, 1, PathPredicateFactories.alwaysTrue()).forEach(found -> {
+        PathTreeUtils.list(path, 1).forEach(found -> {
             if (!found.equals(path)) {
                 deleteQuietly(found);
             }

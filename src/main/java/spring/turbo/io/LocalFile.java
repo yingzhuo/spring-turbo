@@ -6,17 +6,19 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.io.localfile;
+package spring.turbo.io;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import spring.turbo.io.*;
+import spring.turbo.io.function.LocalFilePredicate;
 import spring.turbo.util.FilenameUtils;
 import spring.turbo.util.StringPool;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -122,6 +124,28 @@ public interface LocalFile extends Serializable {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    public default List<String> readLines() {
+        return PathUtils.readLines(asPath());
+    }
+
+    public default List<String> readLines(Charset charset) {
+        return PathUtils.readLines(asPath(), charset);
+    }
+
+    public default byte[] readBytes() {
+        return PathUtils.readBytes(asPath());
+    }
+
+    public default void writeLines(Path path, List<String> lines, boolean createIfNotExists, boolean append) {
+        PathUtils.writeLines(asPath(), lines, createIfNotExists, append);
+    }
+
+    public default void writeBytes(byte[] bytes, boolean createIfNotExists, boolean append) {
+        PathUtils.writeBytes(asPath(), bytes, createIfNotExists, append);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     public default String getPathAsString() {
         return asPath().toString();
     }
@@ -172,7 +196,7 @@ public interface LocalFile extends Serializable {
             return Stream.empty();
         }
 
-        return PathTreeUtils.list(asPath(), maxDepth, null)
+        return PathTreeUtils.list(asPath(), maxDepth)
                 .map(LocalFile::of);
     }
 
