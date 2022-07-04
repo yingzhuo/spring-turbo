@@ -48,4 +48,9 @@ public class PathLocalFile implements LocalFile {
         return path;
     }
 
+    @Override
+    public String toString() {
+        return getPathAsString();
+    }
+
 }

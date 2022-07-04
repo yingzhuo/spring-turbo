@@ -17,6 +17,7 @@ import spring.turbo.util.StringPool;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.Date;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -162,6 +163,21 @@ public interface LocalFile extends Serializable {
         } catch (IOException e) {
             throw IOExceptionUtils.toUnchecked(e);
         }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public default Stream<LocalFile> list(int maxDepth) {
+        if (!isDirectory()) {
+            return Stream.empty();
+        }
+
+        return PathTreeUtils.list(asPath(), maxDepth, null)
+                .map(LocalFile::of);
+    }
+
+    public default Stream<LocalFile> list() {
+        return list(Integer.MAX_VALUE);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
