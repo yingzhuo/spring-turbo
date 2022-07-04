@@ -87,8 +87,9 @@ public final class ClassUtils {
      * @see #forNameOrThrow(String)
      * @see #forNameOrThrow(String, Supplier)
      */
-    public static Optional<Class<?>> forName(@NonNull String className) {
+    public static Optional<Class<?>> forName(String className) {
         try {
+            Asserts.notNull(className);
             final Class<?> clazz = org.springframework.util.ClassUtils.forName(className, DEFAULT_CLASSLOADER);
             return Optional.of(clazz);
         } catch (Throwable e) {
@@ -102,13 +103,34 @@ public final class ClassUtils {
      * @param className 类型全名
      * @return 存在时返回true，否则返回false
      */
-    public static boolean isPresent(@NonNull String className) {
+    public static boolean isPresent(String className) {
         try {
+            Asserts.notNull(className);
             return org.springframework.util.ClassUtils.isPresent(className, DEFAULT_CLASSLOADER);
         } catch (IllegalAccessError e) {
             // 典型情况，该类型的依赖有缺失
             return false;
         }
+    }
+
+    /**
+     * 获取包名
+     *
+     * @param clz 类型
+     * @return 包名
+     */
+    public static String getPackageName(Class<?> clz) {
+        return org.springframework.util.ClassUtils.getPackageName(clz);
+    }
+
+    /**
+     * 获取包名
+     *
+     * @param className 类型
+     * @return 包名
+     */
+    public static String getPackageName(String className) {
+        return org.springframework.util.ClassUtils.getPackageName(className);
     }
 
 }
