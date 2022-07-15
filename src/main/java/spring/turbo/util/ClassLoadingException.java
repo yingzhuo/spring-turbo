@@ -17,12 +17,20 @@ package spring.turbo.util;
  */
 public class ClassLoadingException extends IllegalStateException {
 
+    /**
+     * 构造方法
+     */
     public ClassLoadingException() {
         super();
     }
 
-    public ClassLoadingException(String s) {
-        super(s);
+    /**
+     * 构造方法
+     *
+     * @param message 消息
+     */
+    public ClassLoadingException(String message) {
+        super(message);
     }
 
 }

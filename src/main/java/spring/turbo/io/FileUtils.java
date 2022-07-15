@@ -216,11 +216,22 @@ public final class FileUtils {
      * 判断path是否为可写
      *
      * @param file file
-     * @return 是可读时返回 {@code true} 否则返回 {@code false}
+     * @return 是可写时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isWritable(File file) {
         Asserts.notNull(file);
         return PathUtils.isWritable(file.toPath());
+    }
+
+    /**
+     * 判断path是否为可执行
+     *
+     * @param file file
+     * @return 是可执行时返回 {@code true} 否则返回 {@code false}
+     */
+    public static boolean isExecutable(File file) {
+        Asserts.notNull(file);
+        return PathUtils.isExecutable(file.toPath());
     }
 
     /**

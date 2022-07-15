@@ -6,10 +6,12 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.io.localfile;
+package spring.turbo.io;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.OrderComparator;
+import spring.turbo.io.function.LocalFilePredicate;
+import spring.turbo.io.function.LocalFilePredicateFactories;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,10 +6,11 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.io.localfile;
+package spring.turbo.io.function;
 
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
+import spring.turbo.io.LocalFile;
 import spring.turbo.util.StringUtils;
 
 /**

@@ -6,14 +6,14 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.io.localfile;
+package spring.turbo.io;
 
-import spring.turbo.io.PathUtils;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * @author 应卓
@@ -51,6 +51,19 @@ public class PathLocalFile implements LocalFile {
     @Override
     public String toString() {
         return getPathAsString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PathLocalFile that = (PathLocalFile) o;
+        return path.equals(that.path);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(path);
     }
 
 }
