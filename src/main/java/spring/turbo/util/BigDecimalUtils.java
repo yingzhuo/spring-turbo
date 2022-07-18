@@ -177,6 +177,14 @@ public final class BigDecimalUtils {
         return nullSafeMultiply(numbers.toArray(new BigDecimal[0]));
     }
 
+    /**
+     * 将{@code BigDecimal}对象转换成其他类型
+     *
+     * @param number     数据
+     * @param numberType 目标类型
+     * @param <T>        目标类型泛型
+     * @return 转换目标
+     */
     @SuppressWarnings("unchecked")
     public static <T extends Number> T getValue(BigDecimal number, Class<T> numberType) {
         Asserts.notNull(number);
