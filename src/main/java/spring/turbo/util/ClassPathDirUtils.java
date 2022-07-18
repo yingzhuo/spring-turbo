@@ -31,15 +31,12 @@ public final class ClassPathDirUtils {
 
     public static String getClassPathDir(Class<?> clz, boolean forceStartsWithSlash, boolean forceEndsWithSlash) {
         String path = ClassUtils.getPackageName(clz).replaceAll("\\.", SLASH);
-        if (forceStartsWithSlash) {
-            if (!StringUtils.startsWithIgnoreCase(path, SLASH)) {
-                path = SLASH + path;
-            }
+        if (forceStartsWithSlash && !StringUtils.startsWithIgnoreCase(path, SLASH)) {
+            path = SLASH + path;
         }
-        if (forceEndsWithSlash) {
-            if (!StringUtils.endsWithIgnoreCase(path, SLASH)) {
-                path += SLASH;
-            }
+
+        if (forceEndsWithSlash && !StringUtils.endsWithIgnoreCase(path, SLASH)) {
+            path += SLASH;
         }
         return path;
     }
