@@ -18,39 +18,39 @@ import java.util.Map;
  * @see ListFactories
  * @see SetFactories
  * @see StreamFactories
- * @see StringStringMap
- * @since 1.1.0
+ * @see StringObjectMap
+ * @since 1.1.2
  */
 @Mutable
-public final class StringObjectMap extends HashMap<String, Object> implements Map<String, Object> {
+public final class StringStringMap extends HashMap<String, String> implements Map<String, String> {
 
-    public StringObjectMap() {
+    public StringStringMap() {
         super();
     }
 
-    public static StringObjectMap newInstance() {
-        return new StringObjectMap();
+    public static StringStringMap newInstance() {
+        return new StringStringMap();
     }
 
-    public StringObjectMap add(String k, Object v) {
+    public StringStringMap add(String k, String v) {
         this.put(k, v);
         return this;
     }
 
-    public StringObjectMap add(String k1, Object v1, String k2, Object v2) {
+    public StringStringMap add(String k1, String v1, String k2, String v2) {
         this.put(k1, v1);
         this.put(k2, v2);
         return this;
     }
 
-    public StringObjectMap add(String k1, Object v1, String k2, Object v2, String k3, Object v3) {
+    public StringStringMap add(String k1, String v1, String k2, String v2, String k3, String v3) {
         this.put(k1, v1);
         this.put(k2, v2);
         this.put(k3, v3);
         return this;
     }
 
-    public StringObjectMap add(String k1, Object v1, String k2, Object v2, String k3, Object v3, String k4, Object v4) {
+    public StringStringMap add(String k1, String v1, String k2, String v2, String k3, String v3, String k4, String v4) {
         this.put(k1, v1);
         this.put(k2, v2);
         this.put(k3, v3);
@@ -58,12 +58,12 @@ public final class StringObjectMap extends HashMap<String, Object> implements Ma
         return this;
     }
 
-    public StringObjectMap removeAll() {
+    public StringStringMap removeAll() {
         this.clear();
         return this;
     }
 
-    public StringObjectMap delete(String... keys) {
+    public StringStringMap delete(String... keys) {
         if (keys != null) {
             for (String key : keys) {
                 if (key != null) {
