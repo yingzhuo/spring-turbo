@@ -8,27 +8,37 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.function;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author 应卓
- * @since 1.0.13
+ * @since 1.1.2
  */
-public final class PredicateSet extends HashSet<RequestPredicate> {
+public class ResponsePredicateSet extends HashSet<ResponsePredicate> implements Set<ResponsePredicate> {
 
-    public boolean anyMatches(HttpServletRequest request) {
-        for (RequestPredicate predicate : this) {
-            if (predicate.test(request)) {
+    public boolean anyMatches(HttpServletResponse response) {
+        for (ResponsePredicate predicate : this) {
+            if (predicate.test(response)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean allMatches(HttpServletRequest request) {
-        for (RequestPredicate predicate : this) {
-            if (!predicate.test(request)) {
+    public boolean allMatches(HttpServletResponse response) {
+        for (ResponsePredicate predicate : this) {
+            if (!predicate.test(response)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean noneMatches(HttpServletResponse response) {
+        for (ResponsePredicate predicate : this) {
+            if (predicate.test(response)) {
                 return false;
             }
         }
