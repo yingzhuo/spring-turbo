@@ -11,6 +11,7 @@ package spring.turbo.core;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
@@ -133,6 +134,19 @@ public final class SpringUtils {
     public static ConversionService getConversionService() {
         return Optional.ofNullable(SpringApplicationAware.SC)
                 .map(SpringContext::getConversionService)
+                .orElseThrow(UNSUPPORTED);
+    }
+
+    /**
+     * 获取{@link ApplicationEventPublisher}实例
+     *
+     * @return {@link ApplicationEventPublisher}实例
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+     *
+     */
+    public static ApplicationEventPublisher getApplicationEventPublisher() {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(SpringContext::getApplicationEventPublisher)
                 .orElseThrow(UNSUPPORTED);
     }
 

@@ -10,7 +10,6 @@ package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.CloseUtils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

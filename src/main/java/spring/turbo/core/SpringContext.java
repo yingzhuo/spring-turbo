@@ -14,6 +14,7 @@ import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.convert.ConversionService;
@@ -65,6 +66,10 @@ public final class SpringContext {
     }
 
     public ResourcePatternResolver getResourcePatternResolver() {
+        return applicationContext;
+    }
+
+    public ApplicationEventPublisher getApplicationEventPublisher() {
         return applicationContext;
     }
 
