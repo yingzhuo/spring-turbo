@@ -13,11 +13,14 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
+ * @see ResponsePredicateSet
+ * @see ResponsePredicateFactories
+ * @see RequestPredicate
  * @since 1.1.2
  */
 public interface ResponsePredicate extends Predicate<HttpServletResponse> {
 
     @Override
-    public boolean test(HttpServletResponse httpServletResponse);
+    public boolean test(HttpServletResponse response);
 
 }
