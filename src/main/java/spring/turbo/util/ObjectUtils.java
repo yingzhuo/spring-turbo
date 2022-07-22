@@ -37,6 +37,7 @@ public final class ObjectUtils {
      * @return 对象或替代值
      */
     public static <T> T defaultIfNull(@Nullable T obj, T defaultValue) {
+        Asserts.notNull(defaultValue);
         return Optional.ofNullable(obj).orElse(defaultValue);
     }
 
@@ -49,6 +50,7 @@ public final class ObjectUtils {
      * @return 对象或替代值
      */
     public static <T> T defaultIfNull(@Nullable T obj, Supplier<T> defaultValue) {
+        Asserts.notNull(defaultValue);
         return Optional.ofNullable(obj).orElseGet(defaultValue);
     }
 

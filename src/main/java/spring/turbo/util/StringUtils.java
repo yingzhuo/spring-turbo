@@ -11,6 +11,7 @@ package spring.turbo.util;
 import org.springframework.lang.Nullable;
 
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -48,7 +49,7 @@ public final class StringUtils {
     }
 
     public static boolean isEmpty(@Nullable String string) {
-        return isNull(string) || EMPTY.equals(string);
+        return string == null || EMPTY.equals(string);
     }
 
     public static boolean isNotEmpty(@Nullable String string) {
@@ -392,6 +393,34 @@ public final class StringUtils {
         Asserts.notNull(suffix);
         return (str != null && str.length() >= suffix.length() &&
                 str.regionMatches(true, str.length() - suffix.length(), suffix, 0, suffix.length()));
+    }
+
+    public static String defaultIfNull(@Nullable String str, String defaultIfNull) {
+        return ObjectUtils.defaultIfNull(str, defaultIfNull);
+    }
+
+    public static String defaultIfNull(@Nullable String str, Supplier<String> defaultIfNull) {
+        return ObjectUtils.defaultIfNull(str, defaultIfNull);
+    }
+
+    public static String defaultIfEmpty(@Nullable String str, String defaultIfEmpty) {
+        Asserts.notNull(defaultIfEmpty);
+        return isNotEmpty(str) ? str : defaultIfEmpty;
+    }
+
+    public static String defaultIfEmpty(@Nullable String str, Supplier<String> defaultIfEmpty) {
+        Asserts.notNull(defaultIfEmpty);
+        return isNotEmpty(str) ? str : defaultIfEmpty.get();
+    }
+
+    public static String defaultIfBlank(@Nullable String str, String defaultIfBlank) {
+        Asserts.notNull(defaultIfBlank);
+        return isNotBlank(str) ? str : defaultIfBlank;
+    }
+
+    public static String defaultIfBlank(@Nullable String str, Supplier<String> defaultIfBlank) {
+        Asserts.notNull(defaultIfBlank);
+        return isNotBlank(str) ? str : defaultIfBlank.get();
     }
 
 }
