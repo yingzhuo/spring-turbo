@@ -17,6 +17,7 @@ import spring.turbo.lang.Mutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -33,13 +34,34 @@ import java.util.function.Supplier;
  */
 @Mutable
 @SuppressWarnings("unchecked")
-public class Attributes extends LinkedMultiValueMap<String, Object> {
+public class Attributes extends LinkedMultiValueMap<String, Object> implements Map<String, List<Object>> {
 
     /**
      * 构造方法
      */
     public Attributes() {
         super();
+    }
+
+    /**
+     * 构造方法
+     *
+     * @param map 其他数据来源
+     */
+    public Attributes(@Nullable Map<String, List<Object>> map) {
+        super();
+        if (map != null) {
+            super.putAll(map);
+        }
+    }
+
+    /**
+     * 构造方法
+     *
+     * @param anotherAttributes 其他数据来源
+     */
+    public Attributes(@Nullable Attributes anotherAttributes) {
+        this((Map<String, List<Object>>) anotherAttributes);
     }
 
     /**
@@ -67,6 +89,28 @@ public class Attributes extends LinkedMultiValueMap<String, Object> {
             }
         }
         return attributes;
+    }
+
+    /**
+     * 从字典构建对象
+     *
+     * @param map 其他数据来源
+     * @return Attributes实例
+     * @since 1.1.2
+     */
+    public static Attributes fromListMap(@Nullable Map<String, List<Object>> map) {
+        return new Attributes(map);
+    }
+
+    /**
+     * 从其他attributes构建本对象
+     *
+     * @param attributes 其他数据来源
+     * @return Attributes实例
+     * @since 1.1.2
+     */
+    public static Attributes fromAttributes(@Nullable Attributes attributes) {
+        return new Attributes(attributes);
     }
 
     /**
@@ -112,6 +156,24 @@ public class Attributes extends LinkedMultiValueMap<String, Object> {
     public <T> T findFirstOrDefault(@NonNull String key, @Nullable T defaultIfNull) {
         Asserts.notNull(key);
         return Optional.<T>ofNullable(findFirst(key)).orElse(defaultIfNull);
+    }
+
+    /**
+     * 获取第一个值
+     *
+     * @param key           key
+     * @param defaultIfNull 找不到时的默认值生成器
+     * @param <T>           返回值类型泛型
+     * @return 值或者默认值
+     * @see #findFirst(String)
+     * @see #findRequiredFirst(String)
+     * @see #findRequiredFirst(String, Supplier)
+     * @since 1.1.2
+     */
+    @Nullable
+    public <T> T findFirstOrDefault(@NonNull String key, @NonNull Supplier<T> defaultIfNull) {
+        Asserts.notNull(key);
+        return Optional.<T>ofNullable(findFirst(key)).orElseGet(defaultIfNull);
     }
 
     /**

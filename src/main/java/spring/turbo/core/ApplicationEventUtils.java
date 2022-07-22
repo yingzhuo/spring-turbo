@@ -6,21 +6,25 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.webmvc.function;
+package spring.turbo.core;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.function.Predicate;
+import org.springframework.context.ApplicationEvent;
 
 /**
  * @author 应卓
- * @see ResponsePredicateSet
- * @see ResponsePredicateFactories
- * @see RequestPredicate
  * @since 1.1.2
  */
-public interface ResponsePredicate extends Predicate<HttpServletResponse> {
+public final class ApplicationEventUtils {
 
-    @Override
-    public boolean test(HttpServletResponse response);
+    /**
+     * 私有构造方法
+     */
+    private ApplicationEventUtils() {
+        super();
+    }
+
+    public static void publish(ApplicationEvent event) {
+        SpringUtils.getApplicationEventPublisher().publishEvent(event);
+    }
 
 }

@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Mutable;
 import spring.turbo.util.Asserts;
@@ -77,17 +78,32 @@ public class Payload extends LinkedHashMap<String, Object> {
     }
 
     /**
+     * 获取key对应值或默认值
+     *
+     * @param key           key
+     * @param defaultIfNull 找不到时的默认值
+     * @param <T>           返回值类型泛型
+     * @return 值或者默认值
+     * @see #find(String)
+     * @since 1.1.2
+     */
+    public <T> T findOrDefault(String key, @NonNull Supplier<T> defaultIfNull) {
+        Asserts.notNull(key);
+        return Optional.<T>ofNullable(find(key)).orElseGet(defaultIfNull);
+    }
+
+    /**
      * 获取key对应值或抛出异常
      *
      * @param key key
      * @param <T> 返回值类型泛型
      * @return 值
      * @throws NoSuchElementException 找不到key值时抛出异常
-     * @see #findRequiredFirst(String, Supplier)
+     * @see #findRequired(String, Supplier)
      * @since 1.0.1
      */
-    public <T> T findRequiredFirst(String key) {
-        return findRequiredFirst(key, () -> new NoSuchElementException(StringFormatter.format("element not found. key: {}", key)));
+    public <T> T findRequired(String key) {
+        return findRequired(key, () -> new NoSuchElementException(StringFormatter.format("element not found. key: {}", key)));
     }
 
     /**
@@ -97,10 +113,10 @@ public class Payload extends LinkedHashMap<String, Object> {
      * @param exceptionIfKeyNotFound 找不到key对应的值时的异常提供器
      * @param <T>                    返回值类型泛型
      * @return 值
-     * @see #findRequiredFirst(String)
+     * @see #findRequired(String)
      * @since 1.0.5
      */
-    public <T> T findRequiredFirst(String key, Supplier<? extends RuntimeException> exceptionIfKeyNotFound) {
+    public <T> T findRequired(String key, Supplier<? extends RuntimeException> exceptionIfKeyNotFound) {
         Asserts.notNull(key);
         Asserts.notNull(exceptionIfKeyNotFound);
 

@@ -14,6 +14,7 @@ import spring.turbo.util.CollectionUtils;
 import javax.servlet.http.HttpServletResponse;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author 应卓
@@ -46,6 +47,10 @@ public final class ResponsePredicateFactories {
 
     public static ResponsePredicate all(ResponsePredicate... predicates) {
         return new All(predicates);
+    }
+
+    public static ResponsePredicate delegating(Predicate<HttpServletResponse> predicate) {
+        return new Delegating(predicate);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -97,6 +102,22 @@ public final class ResponsePredicateFactories {
                 if (!predicate.test(response)) return false;
             }
             return true;
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private static class Delegating implements ResponsePredicate {
+
+        private final Predicate<HttpServletResponse> predicate;
+
+        public Delegating(Predicate<HttpServletResponse> predicate) {
+            this.predicate = predicate;
+        }
+
+        @Override
+        public boolean test(HttpServletResponse response) {
+            return predicate.test(response);
         }
     }
 
