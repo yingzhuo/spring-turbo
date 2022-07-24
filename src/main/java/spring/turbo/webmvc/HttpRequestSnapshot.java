@@ -10,12 +10,11 @@ package spring.turbo.webmvc;
 
 import org.springframework.lang.NonNull;
 import spring.turbo.lang.Immutable;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,7 +28,7 @@ import static spring.turbo.util.StringPool.QUESTION_MARK_X_3;
  * @since 1.0.0
  */
 @Immutable
-public final class HttpRequestSnapshot implements Iterable<String>, Serializable {
+public final class HttpRequestSnapshot extends HttpServletRequestWrapper implements Iterable<String> {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
@@ -37,7 +36,7 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
     private final String text;
 
     private HttpRequestSnapshot(HttpServletRequest request) {
-        Asserts.notNull(request);
+        super(request);
 
         lines.add(StringFormatter.format("Time: {}", DATE_FORMAT.format(new Date())));
         lines.add(StringFormatter.format("Method: {}", request.getMethod()));
@@ -59,7 +58,7 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
             lines.add(StringFormatter.format("\t\t{} = {}", requestHeaderName, requestHeaderValue));
         }
 
-        lines.add(StringFormatter.format("Remote Address: {}", request.getRemoteAddr()));
+        lines.add(StringFormatter.format("Remote Address: {}", getRemoteAddr(request)));
         lines.add(StringFormatter.format("Session ID: {}", getSessionId(request)));
 
         text = String.join(LF, lines).trim();
@@ -73,6 +72,10 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
         return Optional.ofNullable(request.getSession(false)).map(HttpSession::getId).orElse(QUESTION_MARK_X_3);
     }
 
+    private String getRemoteAddr(HttpServletRequest request) {
+        return Optional.ofNullable(RemoteAddressUtils.getIpAddress(request)).orElse(QUESTION_MARK_X_3);
+    }
+
     @Override
     public String toString() {
         return text;
@@ -81,7 +84,7 @@ public final class HttpRequestSnapshot implements Iterable<String>, Serializable
     @NonNull
     @Override
     public Iterator<String> iterator() {
-        return lines.listIterator();
+        return Collections.unmodifiableList(lines).iterator();
     }
 
     public Stream<String> getLines() {
