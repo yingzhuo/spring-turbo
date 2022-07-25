@@ -23,6 +23,8 @@ import java.util.Optional;
  *
  * @author 应卓
  * @see Pair
+ * @see #of(Object, Object, Object)
+ * @see #ofNonNull(Object, Object, Object)
  * @since 1.0.0
  */
 @Immutable
@@ -37,6 +39,13 @@ public final class Tuple<A, B, C> implements Serializable {
     @Nullable
     private final C c;
 
+    /**
+     * 私有构造方法
+     *
+     * @param a a
+     * @param b b
+     * @param c c
+     */
     private Tuple(@Nullable A a, @Nullable B b, @Nullable C c) {
         this.a = a;
         this.b = b;

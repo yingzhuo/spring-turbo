@@ -41,4 +41,20 @@ public final class ClassPathDirUtils {
         return path;
     }
 
+    public static String getClassPathDir(String className) {
+        return getClassPathDir(className, true, true);
+    }
+
+    public static String getClassPathDir(String className, boolean forceStartsWithSlash, boolean forceEndsWithSlash) {
+        String path = ClassUtils.getPackageName(className).replaceAll("\\.", SLASH);
+        if (forceStartsWithSlash && !StringUtils.startsWithIgnoreCase(path, SLASH)) {
+            path = SLASH + path;
+        }
+
+        if (forceEndsWithSlash && !StringUtils.endsWithIgnoreCase(path, SLASH)) {
+            path += SLASH;
+        }
+        return path;
+    }
+
 }

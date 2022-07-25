@@ -20,5 +20,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Value("${management.endpoints.web.base-path}")
+@Deprecated
 public @interface SpringActuatorBasePath {
 }
