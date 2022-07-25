@@ -21,6 +21,8 @@ import java.util.Objects;
  *
  * @author 应卓
  * @see Tuple
+ * @see #of(Object, Object)
+ * @see #ofNonNull(Object, Object)
  * @since 1.0.0
  */
 @Immutable

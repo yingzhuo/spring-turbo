@@ -142,7 +142,6 @@ public final class SpringUtils {
      *
      * @return {@link ApplicationEventPublisher}实例
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
-     *
      */
     public static ApplicationEventPublisher getApplicationEventPublisher() {
         return Optional.ofNullable(SpringApplicationAware.SC)
