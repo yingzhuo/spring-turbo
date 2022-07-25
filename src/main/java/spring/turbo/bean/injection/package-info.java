@@ -6,20 +6,9 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+@NonNullApi
+@NonNullFields
+package spring.turbo.bean.injection;
 
-import org.springframework.beans.factory.annotation.Value;
-
-import java.lang.annotation.*;
-
-/**
- * @author 应卓
- * @since 1.0.0
- */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
-@Value("${spring.application.name}")
-@Deprecated
-public @interface SpringApplicationName {
-}
+import org.springframework.lang.NonNullApi;
+import org.springframework.lang.NonNullFields;

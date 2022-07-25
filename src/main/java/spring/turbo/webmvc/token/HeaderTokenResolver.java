@@ -22,6 +22,7 @@ import static spring.turbo.util.StringPool.EMPTY;
  * 通过HTTP header解析令牌
  *
  * @author 应卓
+ * @see org.springframework.http.HttpHeaders
  * @since 1.0.0
  */
 public class HeaderTokenResolver implements TokenResolver {
