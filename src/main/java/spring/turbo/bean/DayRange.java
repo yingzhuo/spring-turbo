@@ -11,6 +11,7 @@ package spring.turbo.bean;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import spring.turbo.bean.function.DayRangePartitionor;
+import spring.turbo.lang.Immutable;
 import spring.turbo.util.*;
 
 import java.io.Serializable;
@@ -23,6 +24,7 @@ import java.util.stream.Stream;
  * @see DatePair
  * @since 1.0.13
  */
+@Immutable
 public final class DayRange implements Serializable, Iterable<Date> {
 
     public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd";
@@ -148,5 +150,11 @@ public final class DayRange implements Serializable, Iterable<Date> {
             it = nextDay;
             return nextDay;
         }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
     }
+
 }
