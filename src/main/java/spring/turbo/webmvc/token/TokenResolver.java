@@ -17,6 +17,8 @@ import java.util.Optional;
  * 令牌解析器 从{@code HTTP}请求中获取令牌
  *
  * @author 应卓
+ * @see #builder()
+ * @see CompositeTokenResolver
  * @since 1.0.0
  */
 @FunctionalInterface
