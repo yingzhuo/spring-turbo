@@ -16,6 +16,7 @@ import spring.turbo.util.*;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -122,6 +123,23 @@ public final class DayRange implements Serializable, Iterable<Date> {
                 DateUtils.format(leftInclude, "yyyy-MM-dd"),
                 DateUtils.format(rightInclude, "yyyy-MM-dd")
         );
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // since 1.1.3
+    public DayRange map(final Function<Date, Date> fnForLeftAndRight) {
+        return map(fnForLeftAndRight, fnForLeftAndRight);
+    }
+
+    // since 1.1.3
+    public DayRange map(final Function<Date, Date> fnForLeft, final Function<Date, Date> fnFoRight) {
+        Asserts.notNull(fnForLeft);
+        Asserts.notNull(fnFoRight);
+
+        final Date newLeft = fnForLeft.apply(this.getLeftInclude());
+        final Date newRight = fnFoRight.apply(this.getRightInclude());
+        return new DayRange(newLeft, newRight);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
