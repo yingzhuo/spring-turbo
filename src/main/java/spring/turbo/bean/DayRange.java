@@ -23,6 +23,7 @@ import java.util.stream.Stream;
  * @author 应卓
  * @see DateUtils
  * @see DatePair
+ * @see DayRangeFunctions
  * @since 1.0.13
  */
 @Immutable
@@ -127,7 +128,6 @@ public final class DayRange implements Serializable, Iterable<Date> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    // since 1.1.3
     public DayRange map(final Function<Date, Date> fnForLeftAndRight) {
         return map(fnForLeftAndRight, fnForLeftAndRight);
     }
