@@ -17,6 +17,8 @@ import spring.turbo.util.SetFactories;
 import java.text.ParseException;
 import java.util.Set;
 
+import static spring.turbo.util.DateParseUtils.BACKUP_PATTERNS;
+
 /**
  * @author 应卓
  * @since 1.0.13
@@ -27,26 +29,7 @@ public class StringToDayRangeConverter implements GenericConverter {
             = SetFactories.newUnmodifiableSet(new ConvertiblePair(String.class, DayRange.class));
 
     private static final String DELIMITER = " @@ ";
-    private static final String PRIMARY_PATTERN = "yyyy-MM-dd";
-    private static final String[] BACKUP_PATTERNS = new String[]{
-            "yyyy-MM-dd HH:mm:ss",
-            "yyyy-MM-dd HH:mm:ss.SSS",
-            "yyyy-MM-dd",
-            "yyyy-MM-dd'T'HH:mm:ss",
-            "yyyy-MM-dd'T'HH:mm:ss.SSS",
-            "yyyy-MM-dd",
-            "yyyy/MM/dd HH:mm:ss",
-            "yyyy/MM/dd HH:mm:ss.SSS",
-            "yyyy/MM/dd",
-            "yyyy-M-d HH:mm:ss",
-            "yyyy-M-d HH:mm:ss.SSS",
-            "yyyy-M-d",
-            "yyyy/M/d HH:mm:ss",
-            "yyyy/M/d HH:mm:ss.SSS",
-            "yyyy/M/d"
-    };
-
-    private static final DatePairParser DATE_PAIR_PARSER = new DatePairParser(DELIMITER, PRIMARY_PATTERN, BACKUP_PATTERNS);
+    private static final DatePairParser DATE_PAIR_PARSER = new DatePairParser(DELIMITER, "yyyy-MM-dd", BACKUP_PATTERNS);
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {

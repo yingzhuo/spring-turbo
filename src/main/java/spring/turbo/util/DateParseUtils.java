@@ -10,8 +10,10 @@ package spring.turbo.util;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.datetime.DateFormatter;
+import org.springframework.lang.Nullable;
 
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 
@@ -20,6 +22,26 @@ import java.util.Locale;
  * @since 1.0.10
  */
 public final class DateParseUtils {
+
+    public static final String PRIMARY_PATTERN = "yyyy-MM-dd";
+
+    public static final String[] BACKUP_PATTERNS = new String[]{
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd HH:mm:ss.SSS",
+            "yyyy-MM-dd",
+            "yyyy-MM-dd'T'HH:mm:ss",
+            "yyyy-MM-dd'T'HH:mm:ss.SSS",
+            "yyyy-MM-dd",
+            "yyyy/MM/dd HH:mm:ss",
+            "yyyy/MM/dd HH:mm:ss.SSS",
+            "yyyy/MM/dd",
+            "yyyy-M-d HH:mm:ss",
+            "yyyy-M-d HH:mm:ss.SSS",
+            "yyyy-M-d",
+            "yyyy/M/d HH:mm:ss",
+            "yyyy/M/d HH:mm:ss.SSS",
+            "yyyy/M/d"
+    };
 
     /**
      * 私有构造方法
@@ -40,6 +62,14 @@ public final class DateParseUtils {
             return formatter.parse(string, Locale.getDefault());
         } catch (ParseException e) {
             throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
+    public static Date parse(String string, String pattern, @Nullable Collection<String> fallbackPatterns) {
+        if (fallbackPatterns != null && !fallbackPatterns.isEmpty()) {
+            return parse(string, pattern, fallbackPatterns.toArray(new String[0]));
+        } else {
+            return parse(string, pattern);
         }
     }
 
