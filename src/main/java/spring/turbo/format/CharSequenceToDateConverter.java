@@ -15,8 +15,7 @@ import spring.turbo.util.DateParseUtils;
 import spring.turbo.util.DateUtils;
 import spring.turbo.util.SetFactories;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
@@ -35,6 +34,8 @@ public class CharSequenceToDateConverter implements GenericConverter {
                 new ConvertiblePair(CharSequence.class, Calendar.class),
                 new ConvertiblePair(CharSequence.class, LocalDate.class),
                 new ConvertiblePair(CharSequence.class, LocalDateTime.class),
+                new ConvertiblePair(CharSequence.class, Year.class),
+                new ConvertiblePair(CharSequence.class, Instant.class),
                 new ConvertiblePair(CharSequence.class, java.sql.Date.class)
         );
     }
@@ -48,11 +49,10 @@ public class CharSequenceToDateConverter implements GenericConverter {
         }
 
         final String string = source.toString();
-
-        Date date = null;
+        final Date date;
 
         try {
-            date = DateParseUtils.parse(string, DateParseUtils.PRIMARY_PATTERN, DateParseUtils.BACKUP_PATTERNS);
+            date = DateParseUtils.parseWildly(string);
         } catch (Exception e) {
             return null;
         }
@@ -71,6 +71,18 @@ public class CharSequenceToDateConverter implements GenericConverter {
 
         if (targetType.isAssignableTo(TypeDescriptor.valueOf(LocalDateTime.class))) {
             return DateUtils.toLocalDateTime(date);
+        }
+
+        if (targetType.isAssignableTo(TypeDescriptor.valueOf(Year.class))) {
+            return DateUtils.toYear(date);
+        }
+
+        if (targetType.isAssignableTo(TypeDescriptor.valueOf(YearMonth.class))) {
+            return DateUtils.toYearMonth(date);
+        }
+
+        if (targetType.isAssignableTo(TypeDescriptor.valueOf(Instant.class))) {
+            return DateUtils.toInstant(date);
         }
 
         if (targetType.isAssignableTo(TypeDescriptor.valueOf(java.sql.Date.class))) {

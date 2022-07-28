@@ -10,9 +10,7 @@ package spring.turbo.util;
 
 import org.springframework.format.datetime.DateFormatter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -211,6 +209,18 @@ public final class DateUtils {
         return date.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
+    }
+
+    public static Year toYear(final Date date) {
+        return Year.from(toLocalDate(date));
+    }
+
+    public static YearMonth toYearMonth(final Date date) {
+        return YearMonth.from(toLocalDate(date));
+    }
+
+    public static Instant toInstant(final Date date) {
+        return date.toInstant();
     }
 
     public static Date round(final Date date, final int field) {
