@@ -12,8 +12,12 @@ import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.DateParseUtils;
+import spring.turbo.util.DateUtils;
 import spring.turbo.util.SetFactories;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
@@ -27,7 +31,11 @@ public class CharSequenceToDateConverter implements GenericConverter {
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
         return SetFactories.newUnmodifiableSet(
-                new ConvertiblePair(CharSequence.class, Date.class)
+                new ConvertiblePair(CharSequence.class, Date.class),
+                new ConvertiblePair(CharSequence.class, Calendar.class),
+                new ConvertiblePair(CharSequence.class, LocalDate.class),
+                new ConvertiblePair(CharSequence.class, LocalDateTime.class),
+                new ConvertiblePair(CharSequence.class, java.sql.Date.class)
         );
     }
 
@@ -51,10 +59,25 @@ public class CharSequenceToDateConverter implements GenericConverter {
 
         if (targetType.isAssignableTo(TypeDescriptor.valueOf(Date.class))) {
             return date;
-        } else {
-            // TODO: 支持LocalDate, LocalDateTime
-            return null;
         }
+
+        if (targetType.isAssignableTo(TypeDescriptor.valueOf(Calendar.class))) {
+            return DateUtils.toCalendar(date);
+        }
+
+        if (targetType.isAssignableTo(TypeDescriptor.valueOf(LocalDate.class))) {
+            return DateUtils.toLocalDate(date);
+        }
+
+        if (targetType.isAssignableTo(TypeDescriptor.valueOf(LocalDateTime.class))) {
+            return DateUtils.toLocalDateTime(date);
+        }
+
+        if (targetType.isAssignableTo(TypeDescriptor.valueOf(java.sql.Date.class))) {
+            return new java.sql.Date(date.getTime());
+        }
+
+        return null;
     }
 
 }
