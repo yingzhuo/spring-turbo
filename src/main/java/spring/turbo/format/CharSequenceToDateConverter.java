@@ -11,41 +11,49 @@ package spring.turbo.format;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.lang.Nullable;
-import spring.turbo.bean.DatePair;
+import spring.turbo.util.DateParseUtils;
 import spring.turbo.util.SetFactories;
 
-import java.text.ParseException;
+import java.util.Date;
 import java.util.Set;
-
-import static spring.turbo.util.DateParseUtils.BACKUP_PATTERNS;
 
 /**
  * @author 应卓
- * @since 1.0.8
+ * @since 1.1.3
  */
-public class StringToDatePairConverter implements GenericConverter {
+public class CharSequenceToDateConverter implements GenericConverter {
 
-    private static final String DELIMITER = " @@ ";
-    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS
-            = SetFactories.newUnmodifiableSet(new ConvertiblePair(String.class, DatePair.class));
-
-    private static final DatePairParser DATE_PAIR_PARSER = new DatePairParser(DELIMITER, "yyyy-MM-dd HH:mm:ss", BACKUP_PATTERNS);
-
+    @Nullable
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return CONVERTIBLE_PAIRS;
+        return SetFactories.newUnmodifiableSet(
+                new ConvertiblePair(CharSequence.class, Date.class)
+        );
     }
 
+    @Nullable
     @Override
     public Object convert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+
         if (source == null) {
             return null;
         }
 
+        final String string = source.toString();
+
+        Date date = null;
+
         try {
-            return DATE_PAIR_PARSER.parse(source.toString(), null);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            date = DateParseUtils.parse(string, DateParseUtils.PRIMARY_PATTERN, DateParseUtils.BACKUP_PATTERNS);
+        } catch (Exception e) {
+            return null;
+        }
+
+        if (targetType.isAssignableTo(TypeDescriptor.valueOf(Date.class))) {
+            return date;
+        } else {
+            // TODO: 支持LocalDate, LocalDateTime
+            return null;
         }
     }
 
