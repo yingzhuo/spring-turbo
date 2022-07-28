@@ -40,7 +40,10 @@ public final class DateParseUtils {
             "yyyy-M-d",
             "yyyy/M/d HH:mm:ss",
             "yyyy/M/d HH:mm:ss.SSS",
-            "yyyy/M/d"
+            "yyyy/M/d",
+            "yyyy",
+            "yyyy-MM",
+            "yyyy-M",
     };
 
     /**
@@ -71,6 +74,10 @@ public final class DateParseUtils {
         } else {
             return parse(string, pattern);
         }
+    }
+
+    public static Date parseWildly(String string) {
+        return parse(string, PRIMARY_PATTERN, BACKUP_PATTERNS);
     }
 
 }
