@@ -16,14 +16,13 @@ import java.time.ZoneId;
  */
 public final class ZoneIdPool {
 
+    public static final String ASIA_SHANGHAI_VALUE = "Asia/Shanghai";
+    public static final ZoneId ASIA_SHANGHAI = ZoneId.of(ASIA_SHANGHAI_VALUE);
     /**
      * 私有构造方法
      */
     private ZoneIdPool() {
         super();
     }
-
-    public static final String ASIA_SHANGHAI_VALUE = "Asia/Shanghai";
-    public static final ZoneId ASIA_SHANGHAI = ZoneId.of(ASIA_SHANGHAI_VALUE);
 
 }
