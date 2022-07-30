@@ -8,8 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.Nullable;
+
 import java.io.Serializable;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 
 /**
@@ -23,8 +26,20 @@ import java.time.temporal.WeekFields;
  */
 public interface DateDimensions extends Serializable {
 
-    public static DateDimensions of(String text, WeekOption weekOption) {
-        return new DateDimensionsImpl(text, weekOption);
+    public static DateDimensions of(String text) {
+        return of(text, null);
+    }
+
+    public static DateDimensions of(String text, @Nullable WeekOption weekOption) {
+        return new DateDimensionsImpl(text, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
+    }
+
+    public static DateDimensions of(LocalDate date) {
+        return of(date, null);
+    }
+
+    public static DateDimensions of(LocalDate date, @Nullable WeekOption weekOption) {
+        return new DateDimensionsImpl(date, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
     }
 
     public String getDayString();
