@@ -32,6 +32,7 @@ public class DateDimensionsImpl implements DateDimensions {
     private final LocalDate date;
     private final String dayString;
     private final String yearString;
+    private final boolean isLeapYear;
     private final String yearMonthString;
     private final String yearQuarterString;
     private final String weekString;
@@ -67,6 +68,7 @@ public class DateDimensionsImpl implements DateDimensions {
         this.weekOption = weekOption;
         this.dayString = YYYY_MM_DD.format(this.date);
         this.yearString = YYYY.format(this.date);
+        this.isLeapYear = this.date.isLeapYear();
         this.yearMonthString = YYYY_MM.format(this.date);
         this.yearQuarterString = calcQuarter(0);
         this.weekString = calcWeek(0, this.weekOption);
@@ -109,6 +111,11 @@ public class DateDimensionsImpl implements DateDimensions {
     @Override
     public String getYearString() {
         return this.yearString;
+    }
+
+    @Override
+    public boolean isLeapYear() {
+        return this.isLeapYear;
     }
 
     @Override

@@ -13,7 +13,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import spring.turbo.util.Asserts;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
 
 /**
  * 远程IP地址工具
@@ -75,10 +74,36 @@ public final class RemoteAddressUtils {
      * @param request HTTP请求
      * @return ip地址
      */
+    public static String getRequiredIpAddress(HttpServletRequest request) {
+        String ip = getIpAddress(request);
+        Asserts.notNull(ip);
+        return ip;
+    }
+
+    /**
+     * 获取远程IP地址
+     *
+     * @param request HTTP请求
+     * @return ip地址
+     */
     @Nullable
     public static String getIpAddress(NativeWebRequest request) {
         Asserts.notNull(request);
-        return getIpAddress(Objects.requireNonNull(request.getNativeRequest(HttpServletRequest.class)));
+        final HttpServletRequest httpServletRequest = request.getNativeRequest(HttpServletRequest.class);
+        Asserts.notNull(httpServletRequest);
+        return getIpAddress(httpServletRequest);
+    }
+
+    /**
+     * 获取远程IP地址
+     *
+     * @param request HTTP请求
+     * @return ip地址
+     */
+    public static String getRequiredIpAddress(NativeWebRequest request) {
+        String ip = getIpAddress(request);
+        Asserts.notNull(ip);
+        return ip;
     }
 
 }
