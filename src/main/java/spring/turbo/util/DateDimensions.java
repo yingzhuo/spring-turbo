@@ -35,6 +35,8 @@ public interface DateDimensions extends Serializable {
 
     public String getYearString();
 
+    public boolean isLeapYear();
+
     public String getPrevYearString();
 
     public String getNextYearString();
