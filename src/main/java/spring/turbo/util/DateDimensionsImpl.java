@@ -61,7 +61,14 @@ public class DateDimensionsImpl implements DateDimensions {
     }
 
     public DateDimensionsImpl(String string, WeekOption weekOption) {
-        final LocalDate date = LocalDate.from(YYYY_MM_DD.parse(string));
+        this(LocalDate.from(YYYY_MM_DD.parse(string)), weekOption);
+    }
+
+    public DateDimensionsImpl(LocalDate date) {
+        this(date, WeekOption.SUNDAY_START);
+    }
+
+    public DateDimensionsImpl(LocalDate date, WeekOption weekOption) {
         Asserts.notNull(date);
         Asserts.notNull(weekOption);
         this.date = date;
