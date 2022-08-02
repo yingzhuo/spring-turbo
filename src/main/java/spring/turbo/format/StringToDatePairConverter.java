@@ -29,7 +29,7 @@ public class StringToDatePairConverter implements GenericConverter {
     private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS
             = SetFactories.newUnmodifiableSet(new ConvertiblePair(String.class, DatePair.class));
 
-    private static final DatePairParser DATE_PAIR_PARSER = new DatePairParser(DELIMITER, "yyyy-MM-dd HH:mm:ss", BACKUP_PATTERNS);
+    private static final DatePairParser DATE_PAIR_PARSER = new DatePairParser(DELIMITER, "yyyy-MM-dd", BACKUP_PATTERNS);
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
