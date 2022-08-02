@@ -23,7 +23,7 @@ import java.util.Optional;
  *
  * @author 应卓
  * @see Pair
- * @see #of(Object, Object, Object)
+ * @see #ofNullable(Object, Object, Object)
  * @see #ofNonNull(Object, Object, Object)
  * @since 1.0.0
  */
@@ -52,7 +52,12 @@ public final class Tuple<A, B, C> implements Serializable {
         this.c = c;
     }
 
+    @Deprecated
     public static <A, B, C> Tuple<A, B, C> of(@Nullable A a, @Nullable B b, @Nullable C c) {
+        return new Tuple<>(a, b, c);
+    }
+
+    public static <A, B, C> Tuple<A, B, C> ofNullable(@Nullable A a, @Nullable B b, @Nullable C c) {
         return new Tuple<>(a, b, c);
     }
 

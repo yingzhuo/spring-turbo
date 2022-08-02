@@ -32,8 +32,8 @@ class SpringBootAutoConfiguration {
             registry.addConverter(new StringToBooleanConverter());
             registry.addConverter(new StringToNumberConverter());
             registry.addConverter(new StringToNumberPairConverter());
-            registry.addConverter(new StringToDatePairConverter());
             registry.addConverter(new StringToDayRangeConverter());
+            registry.addConverter(new StringToDatePairConverter());
             registry.addFormatterForFieldAnnotation(new DatePairAnnotationFormatterFactory());
             registry.addConverter(new CharSequenceToDateConverter());
         }
