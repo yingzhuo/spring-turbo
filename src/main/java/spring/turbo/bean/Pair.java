@@ -21,7 +21,7 @@ import java.util.Objects;
  *
  * @author 应卓
  * @see Tuple
- * @see #of(Object, Object)
+ * @see #ofNullable(Object, Object)
  * @see #ofNonNull(Object, Object)
  * @since 1.0.0
  */
@@ -39,7 +39,12 @@ public final class Pair<A, B> implements Serializable {
         this.b = b;
     }
 
+    @Deprecated
     public static <A, B> Pair<A, B> of(@Nullable A a, @Nullable B b) {
+        return new Pair<>(a, b);
+    }
+
+    public static <A, B> Pair<A, B> ofNullable(@Nullable A a, @Nullable B b) {
         return new Pair<>(a, b);
     }
 

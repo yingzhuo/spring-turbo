@@ -11,6 +11,7 @@ package spring.turbo.core;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
@@ -43,6 +44,13 @@ public final class SpringUtils {
      */
     private SpringUtils() {
         super();
+    }
+
+    public static ApplicationContext getApplicationContext() {
+        if (SpringApplicationAware.AC == null) {
+            throw BEAN_NOT_FOUND.get();
+        }
+        return SpringApplicationAware.AC;
     }
 
     /**
