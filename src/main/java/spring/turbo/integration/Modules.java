@@ -28,6 +28,7 @@ public enum Modules implements Named {
     SPRING_TURBO("spring.turbo"),
     SPRING_TURBO_CAPTCHA("spring.turbo.captcha"),
     SPRING_TURBO_CSV("spring.turbo.csv"),
+    SPRING_TURBO_DATA("spring.turbo.data"),
     SPRING_TURBO_DATASOURCE("spring.turbo.datasource"),
     SPRING_TURBO_EXCEL("spring.turbo.excel"),
     SPRING_TURBO_FEIGN("spring.turbo.feign"),
@@ -47,7 +48,7 @@ public enum Modules implements Named {
 
     private final String name;
 
-    private Modules(String name) {
+    Modules(String name) {
         this.name = name;
     }
 
