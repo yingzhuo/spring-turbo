@@ -31,6 +31,7 @@ import java.util.Objects;
  * @see spring.turbo.bean.jsr380.OrderedDatePair
  * @see NumberPair
  * @since 1.0.8
+ * @deprecated 请使用 {@link DayRange}
  */
 @Immutable
 @Deprecated
