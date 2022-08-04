@@ -9,6 +9,7 @@
 package spring.turbo.bean;
 
 import spring.turbo.format.StringToDatePairConverter;
+import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
@@ -31,6 +32,7 @@ import java.util.Objects;
  * @see NumberPair
  * @since 1.0.8
  */
+@Immutable
 public final class DatePair implements Iterable<Date>, Serializable {
 
     public static final DatePair DEFAULT =
