@@ -33,6 +33,7 @@ import java.util.Objects;
  * @since 1.0.8
  */
 @Immutable
+@Deprecated
 public final class DatePair implements Iterable<Date>, Serializable {
 
     public static final DatePair DEFAULT =

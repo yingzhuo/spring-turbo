@@ -19,6 +19,7 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+@Deprecated
 public @interface DatePairFormat {
 
     public String delimiter() default " @@ ";

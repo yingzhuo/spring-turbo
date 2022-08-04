@@ -29,6 +29,7 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Constraint(validatedBy = OrderedDatePairValidator.class)
+@Deprecated
 public @interface OrderedDatePair {
 
     public String message();

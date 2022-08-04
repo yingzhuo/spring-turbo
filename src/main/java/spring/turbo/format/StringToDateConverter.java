@@ -25,20 +25,20 @@ import java.util.Set;
  * @author 应卓
  * @since 1.1.3
  */
-public class CharSequenceToDateConverter implements GenericConverter {
+public class StringToDateConverter implements GenericConverter {
 
     @Nullable
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
         return SetFactories.newUnmodifiableSet(
-                new ConvertiblePair(CharSequence.class, Date.class),
-                new ConvertiblePair(CharSequence.class, Calendar.class),
-                new ConvertiblePair(CharSequence.class, LocalDate.class),
-                new ConvertiblePair(CharSequence.class, LocalDateTime.class),
-                new ConvertiblePair(CharSequence.class, Year.class),
-                new ConvertiblePair(CharSequence.class, Instant.class),
-                new ConvertiblePair(CharSequence.class, java.sql.Date.class),
-                new ConvertiblePair(CharSequence.class, DateDimensions.class)
+                new ConvertiblePair(String.class, Date.class),
+                new ConvertiblePair(String.class, Calendar.class),
+                new ConvertiblePair(String.class, LocalDate.class),
+                new ConvertiblePair(String.class, LocalDateTime.class),
+                new ConvertiblePair(String.class, Year.class),
+                new ConvertiblePair(String.class, Instant.class),
+                new ConvertiblePair(String.class, java.sql.Date.class),
+                new ConvertiblePair(String.class, DateDimensions.class)
         );
     }
 
@@ -50,7 +50,7 @@ public class CharSequenceToDateConverter implements GenericConverter {
             return null;
         }
 
-        final String string = source.toString();
+        final String string = (String) source;
         final Date date;
 
         try {
