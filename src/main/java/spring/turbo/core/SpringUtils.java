@@ -46,6 +46,11 @@ public final class SpringUtils {
         super();
     }
 
+    /**
+     * 获得{@link ApplicationContext}实例
+     *
+     * @return {@link ApplicationContext}实例
+     */
     public static ApplicationContext getApplicationContext() {
         if (SpringApplicationAware.AC == null) {
             throw BEAN_NOT_FOUND.get();
