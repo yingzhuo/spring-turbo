@@ -23,6 +23,7 @@ import static spring.turbo.util.DateParseUtils.BACKUP_PATTERNS;
  * @author 应卓
  * @since 1.0.8
  */
+@Deprecated
 public class StringToDatePairConverter implements GenericConverter {
 
     private static final String DELIMITER = " @@ ";

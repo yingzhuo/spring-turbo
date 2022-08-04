@@ -6,14 +6,18 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util;
+package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.util.ObjectUtils;
 
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.WeekFields;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 时间维度
@@ -22,24 +26,36 @@ import java.time.temporal.WeekFields;
  * @see java.util.Date
  * @see java.time.LocalDate
  * @see #of(String, WeekOption)
- * @since 1.1.1
+ * @since 1.1.3
  */
-public interface DateDimensions extends Serializable {
+public interface DateDim extends Comparable<DateDim>, Serializable {
 
-    public static DateDimensions of(String text) {
+    public static DateDim of(String text) {
         return of(text, null);
     }
 
-    public static DateDimensions of(String text, @Nullable WeekOption weekOption) {
-        return new DateDimensionsImpl(text, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
+    public static DateDim of(String text, @Nullable WeekOption weekOption) {
+        return new DateDimImpl(text, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
     }
 
-    public static DateDimensions of(LocalDate date) {
+    public static DateDim of(LocalDate date) {
         return of(date, null);
     }
 
-    public static DateDimensions of(LocalDate date, @Nullable WeekOption weekOption) {
-        return new DateDimensionsImpl(date, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
+    public static DateDim of(Date date) {
+        return of(date, null);
+    }
+
+    public static DateDim of(Date date, @Nullable ZoneId zone) {
+        return of(date, zone, null);
+    }
+
+    public static DateDim of(Date date, @Nullable ZoneId zone, @Nullable WeekOption weekOption) {
+        return of(date.toInstant().atZone(ObjectUtils.defaultIfNull(zone, ZoneId.systemDefault())).toLocalDate(), weekOption);
+    }
+
+    public static DateDim of(LocalDate date, @Nullable WeekOption weekOption) {
+        return new DateDimImpl(date, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
     }
 
     public String getDayString();
@@ -83,6 +99,38 @@ public interface DateDimensions extends Serializable {
     public String getNextWeekString();
 
     public WeekOption getWeekOption();
+
+    public default boolean before(DateDim other) {
+        return this.compareTo(other) < 0;
+    }
+
+    public default boolean after(DateDim other) {
+        return this.compareTo(other) > 0;
+    }
+
+    public default boolean beforeOrSame(DateDim other) {
+        return this.compareTo(other) <= 0;
+    }
+
+    public default boolean afterOrSame(DateDim other) {
+        return this.compareTo(other) >= 0;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public LocalDate toLocalDate();
+
+    public Date toDate(@Nullable ZoneId zone);
+
+    public default Date toDate() {
+        return toDate(ZoneId.systemDefault());
+    }
+
+    public Calendar toCalendar(@Nullable ZoneId zone);
+
+    public default Calendar toCalendar() {
+        return toCalendar(ZoneId.systemDefault());
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
 

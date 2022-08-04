@@ -23,6 +23,7 @@ import java.util.Locale;
  * @author 应卓
  * @since 1.0.8
  */
+@Deprecated
 public class DatePairParser implements Parser<DatePair> {
 
     private final String delimiter;

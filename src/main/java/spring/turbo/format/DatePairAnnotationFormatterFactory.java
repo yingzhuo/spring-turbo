@@ -21,6 +21,7 @@ import java.util.Set;
  * @see DatePairParser
  * @since 1.0.8
  */
+@Deprecated
 public class DatePairAnnotationFormatterFactory implements AnnotationFormatterFactory<DatePairFormat> {
 
     @Override

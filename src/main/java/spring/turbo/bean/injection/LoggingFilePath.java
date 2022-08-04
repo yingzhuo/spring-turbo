@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import java.lang.annotation.*;
 
 /**
+ * (shortcut for ${logging.file.path})
+ *
  * @author 应卓
  * @see Value
  * @since 1.1.3
@@ -20,6 +22,6 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
-@Value("${server.port}")
-public @interface ServerPort {
+@Value("${logging.file.path}")
+public @interface LoggingFilePath {
 }
