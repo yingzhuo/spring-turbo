@@ -6,15 +6,22 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util;
+package spring.turbo.bean;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.lang.Immutable;
+import spring.turbo.util.Asserts;
+import spring.turbo.util.DateUtils;
+import spring.turbo.util.ObjectUtils;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.IsoFields;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -22,7 +29,7 @@ import java.util.Objects;
  * @since 1.1.1
  */
 @Immutable
-public class DateDimensionsImpl implements DateDimensions {
+class DateDimImpl implements DateDim {
 
     private final static DateTimeFormatter YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final static DateTimeFormatter YYYY_MM = DateTimeFormatter.ofPattern("yyyy-MM");
@@ -56,21 +63,22 @@ public class DateDimensionsImpl implements DateDimensions {
     private final String prevWeekString;
     private final String nextWeekString;
 
-    public DateDimensionsImpl(String string) {
+    public DateDimImpl(String string) {
         this(string, WeekOption.SUNDAY_START);
     }
 
-    public DateDimensionsImpl(String string, WeekOption weekOption) {
+    public DateDimImpl(String string, WeekOption weekOption) {
         this(LocalDate.from(YYYY_MM_DD.parse(string)), weekOption);
     }
 
-    public DateDimensionsImpl(LocalDate date) {
+    public DateDimImpl(LocalDate date) {
         this(date, WeekOption.SUNDAY_START);
     }
 
-    public DateDimensionsImpl(LocalDate date, WeekOption weekOption) {
+    public DateDimImpl(LocalDate date, WeekOption weekOption) {
         Asserts.notNull(date);
         Asserts.notNull(weekOption);
+
         this.date = date;
         this.weekOption = weekOption;
         this.dayString = YYYY_MM_DD.format(this.date);
@@ -201,6 +209,23 @@ public class DateDimensionsImpl implements DateDimensions {
     }
 
     @Override
+    public LocalDate toLocalDate() {
+        return this.date;
+    }
+
+    @Override
+    public Date toDate(@Nullable ZoneId zone) {
+        zone = ObjectUtils.defaultIfNull(zone, ZoneId.systemDefault());
+        return Date.from(this.date.atStartOfDay().atZone(zone).toInstant());
+    }
+
+    @Override
+    public Calendar toCalendar(@Nullable ZoneId zone) {
+        zone = ObjectUtils.defaultIfNull(zone, ZoneId.systemDefault());
+        return DateUtils.toCalendar(toDate(zone));
+    }
+
+    @Override
     public WeekOption getWeekOption() {
         return this.weekOption;
     }
@@ -211,7 +236,7 @@ public class DateDimensionsImpl implements DateDimensions {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DateDimensionsImpl that = (DateDimensionsImpl) o;
+        DateDimImpl that = (DateDimImpl) o;
         return date.equals(that.date);
     }
 
@@ -223,6 +248,12 @@ public class DateDimensionsImpl implements DateDimensions {
     @Override
     public String toString() {
         return this.dayString;
+    }
+
+    @Override
+    public int compareTo(DateDim o) {
+        Asserts.notNull(o);
+        return this.getDayString().compareTo(o.getDayString());
     }
 
     // -----------------------------------------------------------------------------------------------------------------

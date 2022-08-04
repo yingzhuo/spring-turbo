@@ -621,6 +621,9 @@ public final class ZoneIdPool {
         Zulu: 协调世界时间
     */
 
+    // SYSTEM
+    public static final ZoneId SYS = ZoneId.systemDefault();
+
     // UTC
     public static final String EUROPE_LONDON_VALUE = "Europe/London";
     public static final ZoneId EUROPE_LONDON = ZoneId.of(EUROPE_LONDON_VALUE);
