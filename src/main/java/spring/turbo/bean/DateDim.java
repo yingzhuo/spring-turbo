@@ -102,6 +102,10 @@ public interface DateDim extends Comparable<DateDim>, Serializable {
 
     public WeekOption getWeekOption();
 
+    public default boolean same(DateDim other) {
+        return equals(other);
+    }
+
     public default boolean before(DateDim other) {
         return this.compareTo(other) < 0;
     }

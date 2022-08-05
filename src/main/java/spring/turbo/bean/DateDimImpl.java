@@ -38,6 +38,8 @@ class DateDimImpl implements DateDim {
     private final WeekOption weekOption;
     private final LocalDate date;
     private final String dayString;
+
+    private final String centuryString;
     private final String yearString;
     private final boolean isLeapYear;
     private final String yearMonthString;
@@ -82,6 +84,7 @@ class DateDimImpl implements DateDim {
         this.date = date;
         this.weekOption = weekOption;
         this.dayString = YYYY_MM_DD.format(this.date);
+        this.centuryString = String.format("%d", (date.getYear() + 99) / 100);
         this.yearString = YYYY.format(this.date);
         this.isLeapYear = this.date.isLeapYear();
         this.yearMonthString = YYYY_MM.format(this.date);
@@ -110,7 +113,7 @@ class DateDimImpl implements DateDim {
 
     @Override
     public String getCenturyString() {
-        return String.format("%d", (date.getYear() + 99) / 100);
+        return this.centuryString;
     }
 
     @Override
