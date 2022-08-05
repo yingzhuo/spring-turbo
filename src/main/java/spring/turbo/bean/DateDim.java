@@ -12,10 +12,8 @@ import org.springframework.lang.Nullable;
 import spring.turbo.util.ObjectUtils;
 
 import java.io.Serializable;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.temporal.WeekFields;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,7 +23,9 @@ import java.util.Date;
  * @author 应卓
  * @see java.util.Date
  * @see java.time.LocalDate
+ * @see #of(Date)
  * @see #of(String, WeekOption)
+ * @see #of(Date, ZoneId)
  * @since 1.1.3
  */
 public interface DateDim extends Comparable<DateDim>, Serializable {
@@ -130,25 +130,6 @@ public interface DateDim extends Comparable<DateDim>, Serializable {
 
     public default Calendar toCalendar() {
         return toCalendar(ZoneId.systemDefault());
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    public enum WeekOption {
-
-        IOS(WeekFields.ISO),
-        SUNDAY_START(WeekFields.of(DayOfWeek.SUNDAY, 1)),
-        MONDAY_START(WeekFields.of(DayOfWeek.MONDAY, 1));
-
-        private final WeekFields weekFields;
-
-        WeekOption(WeekFields weekFields) {
-            this.weekFields = weekFields;
-        }
-
-        public WeekFields getWeekFields() {
-            return weekFields;
-        }
     }
 
 }
