@@ -11,32 +11,30 @@ package spring.turbo.format;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
-import spring.turbo.bean.DatePair;
+import spring.turbo.bean.DateRange;
+import spring.turbo.util.SetFactories;
 
-import java.util.Collections;
 import java.util.Set;
 
 /**
  * @author 应卓
- * @see DatePairParser
- * @since 1.0.8
+ * @since 1.1.4
  */
-@Deprecated
-public class DatePairAnnotationFormatterFactory implements AnnotationFormatterFactory<DatePairFormat> {
+public class DateRangeAnnotationFormatterFactory implements AnnotationFormatterFactory<DateRangeFormat> {
 
     @Override
     public Set<Class<?>> getFieldTypes() {
-        return Collections.singleton(DatePair.class);
+        return SetFactories.newUnmodifiableSet(DateRange.class);
     }
 
     @Override
-    public Printer<?> getPrinter(DatePairFormat annotation, Class<?> fieldType) {
+    public Printer<?> getPrinter(DateRangeFormat annotation, Class<?> fieldType) {
         return ToStringPrint.getInstance();
     }
 
     @Override
-    public Parser<?> getParser(DatePairFormat annotation, Class<?> fieldType) {
-        return new DatePairParser(annotation.delimiter(), annotation.pattern(), annotation.fallbackPatterns());
+    public Parser<?> getParser(DateRangeFormat annotation, Class<?> fieldType) {
+        return new DateRangeParser(annotation);
     }
 
 }

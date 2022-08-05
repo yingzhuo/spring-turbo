@@ -9,18 +9,25 @@
 package spring.turbo.bean.function;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.bean.DateDim;
 
-import java.util.Date;
+import java.util.function.Function;
 
 /**
  * @author 应卓
- * @see DayRangePartitionorFactories
- * @since 1.0.14
+ * @see DateRangePartitionorFactories
+ * @since 1.1.4
  */
 @FunctionalInterface
-public interface DayRangePartitionor {
+public interface DateRangePartitionor extends Function<DateDim, String> {
 
     @Nullable
-    public String test(Date date);
+    public String test(DateDim dateDim);
+
+    @Override
+    @Nullable
+    public default String apply(DateDim dateDim) {
+        return test(dateDim);
+    }
 
 }

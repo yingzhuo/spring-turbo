@@ -29,7 +29,6 @@ import java.math.BigDecimal;
  * @see FloatPair
  * @see DoublePair
  * @see BigDecimalPair
- * @see DatePair
  * @since 1.0.7
  */
 @Immutable

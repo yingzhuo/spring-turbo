@@ -6,34 +6,27 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.format;
 
-import spring.turbo.util.DateUtils;
+import spring.turbo.bean.WeekOption;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.function.Function;
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @see DayRange
- * @since 1.1.3
+ * @since 1.1.4
  */
-public final class DayRangeFunctions {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+public @interface DateRangeFormat {
 
-    /**
-     * 私有构造方法
-     */
-    private DayRangeFunctions() {
-        super();
-    }
+    public String datePattern() default "yyyy-MM-dd";
 
-    public static Function<Date, Date> nop() {
-        return d -> d;
-    }
+    public String delimiter() default " @@ ";
 
-    public static Function<Date, Date> nextDayAndTruncate() {
-        return d -> DateUtils.addDays(DateUtils.truncate(d, Calendar.DATE), 1);
-    }
+    public String timezone() default "Etc/GMT";
+
+    public WeekOption weekOption() default WeekOption.SUNDAY_START;
 
 }

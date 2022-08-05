@@ -58,6 +58,8 @@ public interface DateDim extends Comparable<DateDim>, Serializable {
         return new DateDimImpl(date, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
     }
 
+    public String getCenturyString();
+
     public String getDayString();
 
     public String getPrevDayString();
