@@ -26,19 +26,16 @@ import spring.turbo.format.*;
 class SpringBootAutoConfiguration {
 
     @Autowired(required = false)
-    @SuppressWarnings("deprecation")
     public SpringBootAutoConfiguration(@Nullable FormatterRegistry registry) {
         if (registry != null) {
             registry.addConverter(new StringToDateConverter());
-
             registry.addConverter(new ResourceOptionConverter());
             registry.addConverter(new StringToBooleanConverter());
             registry.addConverter(new StringToNumberConverter());
             registry.addConverter(new StringToNumberPairConverter());
-            registry.addConverter(new StringToDayRangeConverter());
 
-            registry.addConverter(new StringToDatePairConverter());
-            registry.addFormatterForFieldAnnotation(new DatePairAnnotationFormatterFactory());
+            registry.addConverter(new DateRangeParser());
+            registry.addFormatterForFieldAnnotation(new DateRangeAnnotationFormatterFactory());
         }
     }
 

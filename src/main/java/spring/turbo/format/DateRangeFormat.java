@@ -6,21 +6,27 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.function;
+package spring.turbo.format;
 
-import org.springframework.lang.Nullable;
+import spring.turbo.bean.WeekOption;
 
-import java.util.Date;
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @see DayRangePartitionorFactories
- * @since 1.0.14
+ * @since 1.1.4
  */
-@FunctionalInterface
-public interface DayRangePartitionor {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+public @interface DateRangeFormat {
 
-    @Nullable
-    public String test(Date date);
+    public String datePattern() default "yyyy-MM-dd";
+
+    public String delimiter() default " @@ ";
+
+    public String timezone() default "Etc/GMT";
+
+    public WeekOption weekOption() default WeekOption.SUNDAY_START;
 
 }

@@ -6,23 +6,28 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.jsr380;
+package spring.turbo.bean.function;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.bean.DatePair;
+import spring.turbo.bean.DateDim;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import java.util.function.Function;
 
 /**
  * @author 应卓
- * @since 1.0.8
+ * @see DateRangePartitionorFactories
+ * @since 1.1.4
  */
-public class OrderedDatePairValidator implements ConstraintValidator<OrderedDatePair, DatePair> {
+@FunctionalInterface
+public interface DateRangePartitionor extends Function<DateDim, String> {
+
+    @Nullable
+    public String test(DateDim dateDim);
 
     @Override
-    public boolean isValid(@Nullable DatePair value, ConstraintValidatorContext context) {
-        return value == null || value.isOrdered();
+    @Nullable
+    public default String apply(DateDim dateDim) {
+        return test(dateDim);
     }
 
 }

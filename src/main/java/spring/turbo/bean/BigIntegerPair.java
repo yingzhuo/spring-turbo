@@ -30,7 +30,6 @@ import java.math.BigInteger;
  * @see FloatPair
  * @see DoublePair
  * @see BigDecimalPair
- * @see DatePair
  * @since 1.0.7
  */
 @Immutable

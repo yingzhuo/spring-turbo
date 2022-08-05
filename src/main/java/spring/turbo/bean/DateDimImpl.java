@@ -109,6 +109,11 @@ class DateDimImpl implements DateDim {
     }
 
     @Override
+    public String getCenturyString() {
+        return String.format("%d", (date.getYear() + 99) / 100);
+    }
+
+    @Override
     public String getDayString() {
         return this.dayString;
     }

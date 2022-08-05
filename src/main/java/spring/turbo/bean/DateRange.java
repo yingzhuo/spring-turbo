@@ -10,59 +10,51 @@ package spring.turbo.bean;
 
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import spring.turbo.bean.function.DayRangePartitionor;
+import spring.turbo.bean.function.DateRangePartitionor;
+import spring.turbo.bean.function.DateRangePartitionorFactories;
 import spring.turbo.lang.Immutable;
-import spring.turbo.util.*;
+import spring.turbo.util.Asserts;
+import spring.turbo.util.DateUtils;
+import spring.turbo.util.StreamFactories;
+import spring.turbo.util.StringFormatter;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
  * @author 应卓
  * @see DateUtils
- * @see DayRangeFunctions
  * @since 1.0.13
  */
 @Immutable
-public final class DayRange implements Serializable, Iterable<Date> {
+public final class DateRange implements Serializable, Iterable<Date> {
 
-    public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd";
+    private final DateDim leftInclude;
+    private final DateDim rightInclude;
 
-    private final Date leftInclude;
-    private final Date rightInclude;
-
-    public DayRange(String left, String right) {
-        this(DEFAULT_DATE_PATTERN, left, right);
-    }
-
-    public DayRange(String datePattern, String left, String right) {
-        this(DateParseUtils.parse(left, datePattern), DateParseUtils.parse(right, datePattern));
-    }
-
-    public DayRange(Date leftInclude, Date rightInclude) {
+    public DateRange(DateDim leftInclude, DateDim rightInclude) {
         Asserts.notNull(leftInclude);
         Asserts.notNull(rightInclude);
-        this.leftInclude = DateUtils.truncate(leftInclude, Calendar.DATE);
-        this.rightInclude = DateUtils.truncate(rightInclude, Calendar.DATE);
+        this.leftInclude = leftInclude;
+        this.rightInclude = rightInclude;
+    }
 
-        if (this.leftInclude.after(this.rightInclude)) {
-            throw new IllegalArgumentException("left is after right");
-        }
+    public boolean isEmpty() {
+        return leftInclude.after(rightInclude);
     }
 
     public Date getLeftInclude() {
-        return leftInclude;
+        return leftInclude.toDate();
     }
 
     public Date getRightInclude() {
-        return rightInclude;
+        return rightInclude.toDate();
     }
 
     @Override
     public Iterator<Date> iterator() {
-        return new DayRangeIterator(leftInclude, rightInclude);
+        return new DayRangeIterator(getLeftInclude(), getRightInclude());
     }
 
     public Stream<Date> toStream() {
@@ -74,16 +66,16 @@ public final class DayRange implements Serializable, Iterable<Date> {
      *
      * @param partitionor 分区器实例
      * @return 分区结果 (可变集合)
-     * @see DayRangePartitionor
-     * @see spring.turbo.bean.function.DayRangePartitionorFactories
+     * @see DateRangePartitionor
+     * @see DateRangePartitionorFactories
      */
-    public Map<String, List<Date>> partition(DayRangePartitionor partitionor) {
+    public Map<String, List<Date>> partition(DateRangePartitionor partitionor) {
         Asserts.notNull(partitionor);
 
         final MultiValueMap<String, Date> list = new LinkedMultiValueMap<>();
 
         for (Date date : this) {
-            final String partitionName = partitionor.test(date);
+            final String partitionName = partitionor.test(DateDim.of(date));
             if (partitionName != null) {
                 list.add(partitionName, date);
             }
@@ -92,7 +84,7 @@ public final class DayRange implements Serializable, Iterable<Date> {
         return list;
     }
 
-    public Map<String, Set<Date>> partitionAsSet(DayRangePartitionor partitionor) {
+    public Map<String, Set<Date>> partitionAsSet(DateRangePartitionor partitionor) {
         final Map<String, Set<Date>> set = new HashMap<>();
         final Map<String, List<Date>> ps = this.partition(partitionor);
         for (final String partitionName : ps.keySet()) {
@@ -108,7 +100,7 @@ public final class DayRange implements Serializable, Iterable<Date> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DayRange dates = (DayRange) o;
+        DateRange dates = (DateRange) o;
         return leftInclude.equals(dates.leftInclude) && rightInclude.equals(dates.rightInclude);
     }
 
@@ -119,26 +111,7 @@ public final class DayRange implements Serializable, Iterable<Date> {
 
     @Override
     public String toString() {
-        return StringFormatter.format("{} @@ {}",
-                DateUtils.format(leftInclude, "yyyy-MM-dd"),
-                DateUtils.format(rightInclude, "yyyy-MM-dd")
-        );
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    public DayRange map(final Function<Date, Date> fnForLeftAndRight) {
-        return map(fnForLeftAndRight, fnForLeftAndRight);
-    }
-
-    // since 1.1.3
-    public DayRange map(final Function<Date, Date> fnForLeft, final Function<Date, Date> fnFoRight) {
-        Asserts.notNull(fnForLeft);
-        Asserts.notNull(fnFoRight);
-
-        final Date newLeft = fnForLeft.apply(this.getLeftInclude());
-        final Date newRight = fnFoRight.apply(this.getRightInclude());
-        return new DayRange(newLeft, newRight);
+        return StringFormatter.format("{} @@ {}", leftInclude.getDayString(), rightInclude.getDayString());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -163,14 +136,9 @@ public final class DayRange implements Serializable, Iterable<Date> {
             if (!hasNext()) {
                 throw new NoSuchElementException("no such day");
             }
-            Date nextDay = DateUtils.addDays(it, 1);
+            final Date nextDay = DateUtils.addDays(it, 1);
             it = nextDay;
             return nextDay;
-        }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException();
         }
     }
 

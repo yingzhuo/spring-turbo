@@ -8,32 +8,28 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import spring.turbo.util.DateUtils;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.function.Function;
+import java.time.DayOfWeek;
+import java.time.temporal.WeekFields;
 
 /**
  * @author 应卓
- * @see DayRange
+ * @see DateDim
  * @since 1.1.3
  */
-public final class DayRangeFunctions {
+public enum WeekOption {
 
-    /**
-     * 私有构造方法
-     */
-    private DayRangeFunctions() {
-        super();
+    IOS(WeekFields.ISO),
+    SUNDAY_START(WeekFields.of(DayOfWeek.SUNDAY, 1)),
+    MONDAY_START(WeekFields.of(DayOfWeek.MONDAY, 1));
+
+    private final WeekFields weekFields;
+
+    WeekOption(WeekFields weekFields) {
+        this.weekFields = weekFields;
     }
 
-    public static Function<Date, Date> nop() {
-        return d -> d;
-    }
-
-    public static Function<Date, Date> nextDayAndTruncate() {
-        return d -> DateUtils.addDays(DateUtils.truncate(d, Calendar.DATE), 1);
+    public WeekFields getWeekFields() {
+        return weekFields;
     }
 
 }
