@@ -48,8 +48,16 @@ public final class DateRange implements Serializable, Iterable<Date> {
         return leftInclude.toDate();
     }
 
+    public DateDim getLeftIncludeAsDateDim() {
+        return leftInclude;
+    }
+
     public Date getRightInclude() {
         return rightInclude.toDate();
+    }
+
+    public DateDim getRightIncludeAsDateDim() {
+        return rightInclude;
     }
 
     @Override
