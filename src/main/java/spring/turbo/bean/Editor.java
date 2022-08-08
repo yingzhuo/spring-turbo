@@ -8,39 +8,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.lang.Nullable;
-import spring.turbo.util.StringPool;
-
-import java.io.Serializable;
-import java.util.Optional;
+import java.util.function.Function;
 
 /**
- * 空值占位对象
- *
+ * @param <T> 泛型
  * @author 应卓
- * @since 1.0.0
  */
-public final class Null implements Serializable {
-
-    private Null() {
-        super();
-    }
-
-    public static Null getInstance() {
-        return AsyncVoid.INSTANCE;
-    }
-
-    public static Object replaceIfNull(@Nullable Object obj) {
-        return Optional.ofNullable(obj).orElse(getInstance());
-    }
+@FunctionalInterface
+public interface Editor<T> extends Function<T, T> {
 
     @Override
-    public String toString() {
-        return StringPool.NULL;
-    }
-
-    private static class AsyncVoid {
-        private static final Null INSTANCE = new Null();
-    }
+    public T apply(T t);
 
 }
