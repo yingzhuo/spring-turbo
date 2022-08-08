@@ -6,41 +6,45 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.util;
 
-import org.springframework.lang.Nullable;
-import spring.turbo.util.StringPool;
-
-import java.io.Serializable;
-import java.util.Optional;
+import java.util.Comparator;
 
 /**
- * 空值占位对象
- *
+ * @param <E> 泛型
  * @author 应卓
- * @since 1.0.0
  */
-public final class Null implements Serializable {
+@SuppressWarnings({"rawtypes"})
+public class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E> {
 
-    private Null() {
+    /**
+     * 私有构造方法
+     */
+    private ComparableComparator() {
         super();
     }
 
-    public static Null getInstance() {
+    public static ComparableComparator getInstance() {
         return AsyncVoid.INSTANCE;
     }
 
-    public static Object replaceIfNull(@Nullable Object obj) {
-        return Optional.ofNullable(obj).orElse(getInstance());
+    @Override
+    public int compare(final E obj1, final E obj2) {
+        return obj1.compareTo(obj2);
     }
 
     @Override
-    public String toString() {
-        return StringPool.NULL;
+    public int hashCode() {
+        return ComparableComparator.class.getName().hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        return this == object || null != object && object.getClass().equals(this.getClass());
     }
 
     private static class AsyncVoid {
-        private static final Null INSTANCE = new Null();
+        public static final ComparableComparator INSTANCE = new ComparableComparator<>();
     }
 
 }
