@@ -8,22 +8,18 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import java.util.function.Function;
-
 /**
  * @param <T> 泛型
  * @author 应卓
- * @see Customizer
- * @since 1.1.4
  */
 @FunctionalInterface
-public interface Editor<T> extends Function<T, T> {
+public interface Builder<T> {
 
-    public T edit(T t);
-
-    @Override
-    public default T apply(T t) {
-        return edit(t);
-    }
+    /**
+     * 构建
+     *
+     * @return 被构建的对象
+     */
+    public T build();
 
 }

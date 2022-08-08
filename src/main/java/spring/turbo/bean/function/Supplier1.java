@@ -6,24 +6,33 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.bean.function;
 
-import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
- * @param <T> 泛型
  * @author 应卓
- * @see Customizer
  * @since 1.1.4
  */
 @FunctionalInterface
-public interface Editor<T> extends Function<T, T> {
+public interface Supplier1<T, P1> {
 
-    public T edit(T t);
+    /**
+     * 生成实例的方法
+     *
+     * @param p1 参数一
+     * @return 目标对象
+     */
+    public T get(P1 p1);
 
-    @Override
-    public default T apply(T t) {
-        return edit(t);
+    /**
+     * 将带有参数的Supplier转换为无参{@link Supplier}
+     *
+     * @param p1 参数1
+     * @return {@link Supplier}
+     */
+    public default Supplier<T> toSupplier(P1 p1) {
+        return () -> get(p1);
     }
 
 }
