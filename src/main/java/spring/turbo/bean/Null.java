@@ -22,23 +22,25 @@ import java.util.Optional;
  */
 public final class Null implements Serializable {
 
-    private static final Null INSTANCE = new Null();
+    public static Null getInstance() {
+        return AsyncVoid.INSTANCE;
+    }
 
     private Null() {
         super();
     }
 
     public static Object replaceIfNull(@Nullable Object obj) {
-        return Optional.ofNullable(obj).orElse(INSTANCE);
-    }
-
-    public static Null getInstance() {
-        return INSTANCE;
+        return Optional.ofNullable(obj).orElse(getInstance());
     }
 
     @Override
     public String toString() {
         return StringPool.NULL;
+    }
+
+    private static class AsyncVoid {
+        private static final Null INSTANCE = new Null();
     }
 
 }

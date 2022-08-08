@@ -10,6 +10,8 @@ package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
 
+import java.util.function.Supplier;
+
 /**
  * 工厂
  *
@@ -18,9 +20,15 @@ import org.springframework.lang.Nullable;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface Factory<T> {
+public interface Factory<T> extends Supplier<T> {
 
     @Nullable
     public T create();
+
+    @Override
+    @Nullable
+    public default T get() {
+        return create();
+    }
 
 }

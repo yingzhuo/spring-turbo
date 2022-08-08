@@ -28,7 +28,7 @@ import java.util.function.Supplier;
  */
 @Mutable
 @SuppressWarnings("unchecked")
-public class Payload extends LinkedHashMap<String, Object> {
+public class Payload extends LinkedHashMap<String, Object> implements Map<String, Object> {
 
     /**
      * 构造方法

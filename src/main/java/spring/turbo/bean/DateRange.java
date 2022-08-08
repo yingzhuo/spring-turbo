@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 /**
  * @author 应卓
  * @see DateUtils
- * @since 1.0.13
+ * @since 1.1.4
  */
 @Immutable
 public final class DateRange implements Serializable, Iterable<Date> {
@@ -48,8 +48,16 @@ public final class DateRange implements Serializable, Iterable<Date> {
         return leftInclude.toDate();
     }
 
+    public DateDim getLeftIncludeAsDateDim() {
+        return leftInclude;
+    }
+
     public Date getRightInclude() {
         return rightInclude.toDate();
+    }
+
+    public DateDim getRightIncludeAsDateDim() {
+        return rightInclude;
     }
 
     @Override
