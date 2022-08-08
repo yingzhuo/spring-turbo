@@ -10,7 +10,6 @@ package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -19,12 +18,16 @@ import java.util.Objects;
  * @author 应卓
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
-public final class NullComparator<T> implements Comparator<T>, Serializable {
+public class NullComparator<T> implements Comparator<T> {
 
     private final boolean nullGreater;
 
     @Nullable
     private final Comparator<T> comparator;
+
+    public NullComparator(boolean nullGreater) {
+        this(nullGreater, null);
+    }
 
     public NullComparator(boolean nullGreater, @Nullable Comparator<? super T> comparator) {
         this.nullGreater = nullGreater;

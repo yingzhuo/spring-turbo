@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -16,7 +15,7 @@ import java.util.Comparator;
  * @author 应卓
  */
 @SuppressWarnings({"rawtypes"})
-public class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E>, Serializable {
+public class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E> {
 
     /**
      * 私有构造方法
@@ -36,7 +35,7 @@ public class ComparableComparator<E extends Comparable<? super E>> implements Co
 
     @Override
     public int hashCode() {
-        return "ComparableComparator".hashCode();
+        return ComparableComparator.class.getName().hashCode();
     }
 
     @Override

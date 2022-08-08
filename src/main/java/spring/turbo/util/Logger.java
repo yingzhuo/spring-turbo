@@ -16,6 +16,7 @@ import java.io.Serializable;
 
 /**
  * @author 应卓
+ * @see LogLevel
  * @since 1.0.0
  */
 @Immutable
@@ -68,15 +69,15 @@ public final class Logger implements Serializable {
             case STDERR:
                 return true;
             case TRACE:
-                return log.isTraceEnabled();
+                return log != null && log.isTraceEnabled();
             case DEBUG:
-                return log.isDebugEnabled();
+                return log != null && log.isDebugEnabled();
             case INFO:
-                return log.isInfoEnabled();
+                return log != null && log.isInfoEnabled();
             case WARN:
-                return log.isWarnEnabled();
+                return log != null && log.isWarnEnabled();
             case ERROR:
-                return log.isErrorEnabled();
+                return log != null && log.isErrorEnabled();
             case OFF:
             default:
                 return false;
@@ -120,23 +121,33 @@ public final class Logger implements Serializable {
     }
 
     private void trace(String format, Object... args) {
-        log.trace(format, args);
+        if (log != null) {
+            log.trace(format, args);
+        }
     }
 
     private void debug(String format, Object... args) {
-        log.debug(format, args);
+        if (log != null) {
+            log.debug(format, args);
+        }
     }
 
     private void info(String format, Object... args) {
-        log.info(format, args);
+        if (log != null) {
+            log.info(format, args);
+        }
     }
 
     private void warn(String format, Object... args) {
-        log.warn(format, args);
+        if (log != null) {
+            log.warn(format, args);
+        }
     }
 
     private void error(String format, Object... args) {
-        log.warn(format, args);
+        if (log != null) {
+            log.warn(format, args);
+        }
     }
 
 }
