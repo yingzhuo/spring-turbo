@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.token;
 
+import spring.turbo.bean.Builder;
 import spring.turbo.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.List;
  * @author 应卓
  * @since 1.0.0
  */
-public final class TokenResolverBuilder {
+public final class TokenResolverBuilder implements Builder<TokenResolver> {
 
     private final List<TokenResolver> list = new ArrayList<>();
 
@@ -126,6 +127,7 @@ public final class TokenResolverBuilder {
      *
      * @return 解析器实例
      */
+    @Override
     public TokenResolver build() {
         if (list.isEmpty()) {
             return NullTokenResolver.getInstance();

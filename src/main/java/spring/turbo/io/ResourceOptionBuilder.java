@@ -13,6 +13,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
+import spring.turbo.bean.Builder;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author 应卓
  * @since 1.0.0
  */
-public final class ResourceOptionBuilder {
+public final class ResourceOptionBuilder implements Builder<ResourceOption> {
 
     private final List<Resource> list = new LinkedList<>();
     private ResourceLoader resourceLoader = new DefaultResourceLoader(ClassUtils.getDefaultClassLoader());
@@ -70,6 +71,7 @@ public final class ResourceOptionBuilder {
         }
     }
 
+    @Override
     public ResourceOption build() {
         for (Resource resource : list) {
             if (this.discriminator.isExists(resource)) {

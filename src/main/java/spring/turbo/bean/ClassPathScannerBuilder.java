@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * @see TypeFilterFactories
  * @since 1.0.0
  */
-public final class ClassPathScannerBuilder {
+public final class ClassPathScannerBuilder implements Builder<ClassPathScanner> {
 
     private final List<TypeFilter> includeFilters = new LinkedList<>();
     private final List<TypeFilter> excludeFilters = new LinkedList<>();
@@ -61,6 +61,7 @@ public final class ClassPathScannerBuilder {
         return this;
     }
 
+    @Override
     public ClassPathScanner build() {
         if (includeFilters.isEmpty()) {
             return new NullClassPathScanner();
