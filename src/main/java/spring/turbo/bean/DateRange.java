@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 /**
  * @author 应卓
  * @see DateUtils
- * @since 1.0.13
+ * @since 1.1.4
  */
 @Immutable
 public final class DateRange implements Serializable, Iterable<Date> {
