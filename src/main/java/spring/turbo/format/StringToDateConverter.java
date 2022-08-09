@@ -11,7 +11,7 @@ package spring.turbo.format;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.lang.Nullable;
-import spring.turbo.bean.DateDim;
+import spring.turbo.bean.DateDescriptor;
 import spring.turbo.util.DateParseUtils;
 import spring.turbo.util.DateUtils;
 import spring.turbo.util.SetFactories;
@@ -38,7 +38,7 @@ public class StringToDateConverter implements GenericConverter {
                 new ConvertiblePair(String.class, Year.class),
                 new ConvertiblePair(String.class, Instant.class),
                 new ConvertiblePair(String.class, java.sql.Date.class),
-                new ConvertiblePair(String.class, DateDim.class)
+                new ConvertiblePair(String.class, DateDescriptor.class)
         );
     }
 
@@ -91,8 +91,8 @@ public class StringToDateConverter implements GenericConverter {
             return new java.sql.Date(date.getTime());
         }
 
-        if (targetType.isAssignableTo(TypeDescriptor.valueOf(DateDim.class))) {
-            return DateDim.of(DateUtils.toLocalDate(date));
+        if (targetType.isAssignableTo(TypeDescriptor.valueOf(DateDescriptor.class))) {
+            return DateDescriptor.of(DateUtils.toLocalDate(date));
         }
 
         return null;

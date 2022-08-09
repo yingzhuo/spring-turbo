@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.function;
 
-import spring.turbo.bean.DateDim;
+import spring.turbo.bean.DateDescriptor;
 import spring.turbo.bean.DateRange;
 
 /**
@@ -32,7 +32,7 @@ public final class DateRangePartitionorFactories {
      * @return 分区器实例
      */
     public static DateRangePartitionor byCentury() {
-        return DateDim::getCenturyString;
+        return DateDescriptor::getCenturyString;
     }
 
     /**
@@ -41,7 +41,7 @@ public final class DateRangePartitionorFactories {
      * @return 分区器实例
      */
     public static DateRangePartitionor byYear() {
-        return DateDim::getDayString;
+        return DateDescriptor::getDayString;
     }
 
     /**
@@ -50,7 +50,7 @@ public final class DateRangePartitionorFactories {
      * @return 分区器实例
      */
     public static DateRangePartitionor byMonth() {
-        return DateDim::getYearMonthString;
+        return DateDescriptor::getYearMonthString;
     }
 
     /**
@@ -59,7 +59,7 @@ public final class DateRangePartitionorFactories {
      * @return 分区器实例
      */
     public static DateRangePartitionor byWeek() {
-        return DateDim::getWeekString;
+        return DateDescriptor::getWeekString;
     }
 
     /**
@@ -68,7 +68,7 @@ public final class DateRangePartitionorFactories {
      * @return 分区器实例
      */
     public static DateRangePartitionor byDate() {
-        return DateDim::getDayString;
+        return DateDescriptor::getDayString;
     }
 
     /**

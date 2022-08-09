@@ -26,10 +26,10 @@ import java.util.Objects;
 
 /**
  * @author 应卓
- * @since 1.1.1
+ * @since 1.1.4
  */
 @Immutable
-class DateDimImpl implements DateDim {
+class DateDescriptorImpl implements DateDescriptor {
 
     private final static DateTimeFormatter YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final static DateTimeFormatter YYYY_MM = DateTimeFormatter.ofPattern("yyyy-MM");
@@ -65,19 +65,19 @@ class DateDimImpl implements DateDim {
     private final String prevWeekString;
     private final String nextWeekString;
 
-    public DateDimImpl(String string) {
+    public DateDescriptorImpl(String string) {
         this(string, WeekOption.SUNDAY_START);
     }
 
-    public DateDimImpl(String string, WeekOption weekOption) {
+    public DateDescriptorImpl(String string, WeekOption weekOption) {
         this(LocalDate.from(YYYY_MM_DD.parse(string)), weekOption);
     }
 
-    public DateDimImpl(LocalDate date) {
+    public DateDescriptorImpl(LocalDate date) {
         this(date, WeekOption.SUNDAY_START);
     }
 
-    public DateDimImpl(LocalDate date, WeekOption weekOption) {
+    public DateDescriptorImpl(LocalDate date, WeekOption weekOption) {
         Asserts.notNull(date);
         Asserts.notNull(weekOption);
 
@@ -244,7 +244,7 @@ class DateDimImpl implements DateDim {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DateDimImpl that = (DateDimImpl) o;
+        DateDescriptorImpl that = (DateDescriptorImpl) o;
         return date.equals(that.date);
     }
 
@@ -259,7 +259,7 @@ class DateDimImpl implements DateDim {
     }
 
     @Override
-    public int compareTo(DateDim o) {
+    public int compareTo(DateDescriptor o) {
         Asserts.notNull(o);
         return this.getDayString().compareTo(o.getDayString());
     }
