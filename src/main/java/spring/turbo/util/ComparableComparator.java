@@ -25,7 +25,7 @@ public class ComparableComparator<E extends Comparable<? super E>> implements Co
     }
 
     public static ComparableComparator getInstance() {
-        return AsyncVoid.INSTANCE;
+        return AsyncAvoid.INSTANCE;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ComparableComparator<E extends Comparable<? super E>> implements Co
         return this == object || null != object && object.getClass().equals(this.getClass());
     }
 
-    private static class AsyncVoid {
+    private static class AsyncAvoid {
         public static final ComparableComparator INSTANCE = new ComparableComparator<>();
     }
 

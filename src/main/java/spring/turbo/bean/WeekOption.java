@@ -13,7 +13,7 @@ import java.time.temporal.WeekFields;
 
 /**
  * @author 应卓
- * @see DateDim
+ * @see DateDescriptor
  * @since 1.1.3
  */
 public enum WeekOption {

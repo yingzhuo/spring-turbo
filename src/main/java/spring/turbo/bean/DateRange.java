@@ -30,10 +30,10 @@ import java.util.stream.Stream;
 @Immutable
 public final class DateRange implements Serializable, Iterable<Date> {
 
-    private final DateDim leftInclude;
-    private final DateDim rightInclude;
+    private final DateDescriptor leftInclude;
+    private final DateDescriptor rightInclude;
 
-    public DateRange(DateDim leftInclude, DateDim rightInclude) {
+    public DateRange(DateDescriptor leftInclude, DateDescriptor rightInclude) {
         Asserts.notNull(leftInclude);
         Asserts.notNull(rightInclude);
         this.leftInclude = leftInclude;
@@ -48,7 +48,7 @@ public final class DateRange implements Serializable, Iterable<Date> {
         return leftInclude.toDate();
     }
 
-    public DateDim getLeftIncludeAsDateDim() {
+    public DateDescriptor getLeftIncludeAsDateDim() {
         return leftInclude;
     }
 
@@ -56,7 +56,7 @@ public final class DateRange implements Serializable, Iterable<Date> {
         return rightInclude.toDate();
     }
 
-    public DateDim getRightIncludeAsDateDim() {
+    public DateDescriptor getRightIncludeAsDateDim() {
         return rightInclude;
     }
 
@@ -83,7 +83,7 @@ public final class DateRange implements Serializable, Iterable<Date> {
         final MultiValueMap<String, Date> list = new LinkedMultiValueMap<>();
 
         for (Date date : this) {
-            final String partitionName = partitionor.test(DateDim.of(date));
+            final String partitionName = partitionor.test(DateDescriptor.of(date));
             if (partitionName != null) {
                 list.add(partitionName, date);
             }

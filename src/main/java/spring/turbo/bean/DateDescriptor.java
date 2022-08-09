@@ -26,36 +26,36 @@ import java.util.Date;
  * @see #of(Date)
  * @see #of(String, WeekOption)
  * @see #of(Date, ZoneId)
- * @since 1.1.3
+ * @since 1.1.4
  */
-public interface DateDim extends Comparable<DateDim>, Serializable {
+public interface DateDescriptor extends Comparable<DateDescriptor>, Serializable {
 
-    public static DateDim of(String text) {
+    public static DateDescriptor of(String text) {
         return of(text, null);
     }
 
-    public static DateDim of(String text, @Nullable WeekOption weekOption) {
-        return new DateDimImpl(text, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
+    public static DateDescriptor of(String text, @Nullable WeekOption weekOption) {
+        return new DateDescriptorImpl(text, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
     }
 
-    public static DateDim of(LocalDate date) {
+    public static DateDescriptor of(LocalDate date) {
         return of(date, null);
     }
 
-    public static DateDim of(Date date) {
+    public static DateDescriptor of(Date date) {
         return of(date, null);
     }
 
-    public static DateDim of(Date date, @Nullable ZoneId zone) {
+    public static DateDescriptor of(Date date, @Nullable ZoneId zone) {
         return of(date, zone, null);
     }
 
-    public static DateDim of(Date date, @Nullable ZoneId zone, @Nullable WeekOption weekOption) {
+    public static DateDescriptor of(Date date, @Nullable ZoneId zone, @Nullable WeekOption weekOption) {
         return of(date.toInstant().atZone(ObjectUtils.defaultIfNull(zone, ZoneId.systemDefault())).toLocalDate(), weekOption);
     }
 
-    public static DateDim of(LocalDate date, @Nullable WeekOption weekOption) {
-        return new DateDimImpl(date, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
+    public static DateDescriptor of(LocalDate date, @Nullable WeekOption weekOption) {
+        return new DateDescriptorImpl(date, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
     }
 
     public String getCenturyString();
@@ -102,23 +102,25 @@ public interface DateDim extends Comparable<DateDim>, Serializable {
 
     public WeekOption getWeekOption();
 
-    public default boolean same(DateDim other) {
+    public Zodiac getZodiac();
+
+    public default boolean sameDate(DateDescriptor other) {
         return equals(other);
     }
 
-    public default boolean before(DateDim other) {
+    public default boolean before(DateDescriptor other) {
         return this.compareTo(other) < 0;
     }
 
-    public default boolean after(DateDim other) {
+    public default boolean after(DateDescriptor other) {
         return this.compareTo(other) > 0;
     }
 
-    public default boolean beforeOrSame(DateDim other) {
+    public default boolean beforeOrSameDate(DateDescriptor other) {
         return this.compareTo(other) <= 0;
     }
 
-    public default boolean afterOrSame(DateDim other) {
+    public default boolean afterOrSameDate(DateDescriptor other) {
         return this.compareTo(other) >= 0;
     }
 

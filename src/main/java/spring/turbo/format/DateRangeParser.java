@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.format.Parser;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
-import spring.turbo.bean.DateDim;
+import spring.turbo.bean.DateDescriptor;
 import spring.turbo.bean.DateRange;
 import spring.turbo.bean.WeekOption;
 import spring.turbo.util.DateParseUtils;
@@ -77,8 +77,8 @@ public class DateRangeParser implements Parser<DateRange>, GenericConverter {
             final Date right = DateParseUtils.parse(rightDateString, annotation.datePattern());
 
             return new DateRange(
-                    DateDim.of(left, ZoneId.of(annotation.timezone()), annotation.weekOption()),
-                    DateDim.of(right, ZoneId.of(annotation.timezone()), annotation.weekOption())
+                    DateDescriptor.of(left, ZoneId.of(annotation.timezone()), annotation.weekOption()),
+                    DateDescriptor.of(right, ZoneId.of(annotation.timezone()), annotation.weekOption())
             );
         } catch (Exception e) {
             throw new ParseException(error, 0);

@@ -9,6 +9,7 @@
 package spring.turbo.util.crypto;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.bean.Builder;
 import spring.turbo.util.Asserts;
 
 import javax.crypto.Cipher;
@@ -23,7 +24,7 @@ import java.security.spec.X509EncodedKeySpec;
  * @author 应卓
  * @since 1.0.0
  */
-public final class RSABuilder {
+public final class RSABuilder implements Builder<RSA> {
 
     @Nullable
     private byte[] publicKey;
@@ -42,6 +43,7 @@ public final class RSABuilder {
         return this;
     }
 
+    @Override
     public RSA build() {
         Asserts.notNull(publicKey);
         Asserts.notNull(privateKey);

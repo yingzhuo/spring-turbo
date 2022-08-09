@@ -9,6 +9,7 @@
 package spring.turbo.util.crypto;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.bean.Builder;
 import spring.turbo.util.Asserts;
 
 import java.security.KeyFactory;
@@ -20,7 +21,7 @@ import java.security.spec.X509EncodedKeySpec;
  * @see #build()
  * @since 1.0.0
  */
-public final class DSABuilder {
+public final class DSABuilder implements Builder<DSA> {
 
     @Nullable
     private byte[] publicKey;
@@ -39,6 +40,7 @@ public final class DSABuilder {
         return this;
     }
 
+    @Override
     public DSA build() {
         Asserts.notNull(publicKey);
         Asserts.notNull(privateKey);

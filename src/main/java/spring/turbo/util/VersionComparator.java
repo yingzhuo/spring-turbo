@@ -21,7 +21,7 @@ import java.util.Objects;
 public class VersionComparator implements Comparator<String> {
 
     public static VersionComparator getInstance() {
-        return AsyncVoid.INSTANCE;
+        return AsyncAvoid.INSTANCE;
     }
 
     /**
@@ -92,7 +92,7 @@ public class VersionComparator implements Comparator<String> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    private static class AsyncVoid {
+    private static class AsyncAvoid {
         public static final VersionComparator INSTANCE = new VersionComparator();
     }
 
