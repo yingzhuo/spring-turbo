@@ -102,6 +102,8 @@ public interface DateDescriptor extends Comparable<DateDescriptor>, Serializable
 
     public WeekOption getWeekOption();
 
+    public Zodiac getZodiac();
+
     public default boolean sameDate(DateDescriptor other) {
         return equals(other);
     }

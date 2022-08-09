@@ -29,7 +29,7 @@ import java.util.Objects;
  * @since 1.1.4
  */
 @Immutable
-class DateDescriptorImpl implements DateDescriptor {
+public class DateDescriptorImpl implements DateDescriptor {
 
     private final static DateTimeFormatter YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final static DateTimeFormatter YYYY_MM = DateTimeFormatter.ofPattern("yyyy-MM");
@@ -236,6 +236,11 @@ class DateDescriptorImpl implements DateDescriptor {
     @Override
     public WeekOption getWeekOption() {
         return this.weekOption;
+    }
+
+    @Override
+    public Zodiac getZodiac() {
+        return Zodiac.getZodiac(this.date.getMonthValue(), this.date.getDayOfMonth());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
