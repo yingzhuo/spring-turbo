@@ -22,12 +22,15 @@ import java.util.Optional;
  */
 public final class Null implements Serializable {
 
+    /**
+     * 私有构造方法
+     */
     private Null() {
         super();
     }
 
     public static Null getInstance() {
-        return AsyncVoid.INSTANCE;
+        return AsyncAvoid.INSTANCE;
     }
 
     public static Object replaceIfNull(@Nullable Object obj) {
@@ -39,7 +42,7 @@ public final class Null implements Serializable {
         return StringPool.NULL;
     }
 
-    private static class AsyncVoid {
+    private static class AsyncAvoid {
         private static final Null INSTANCE = new Null();
     }
 
