@@ -54,7 +54,7 @@ public class NumberZones implements Iterable<NumberPair> {
 
     @Override
     public String toString() {
-        return StringUtils.nullSafeJoin(this, StringPool.COMMA);
+        return StringUtils.nullSafeJoin(this, StringPool.SEMICOLON);
     }
 
     @Override
