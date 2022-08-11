@@ -19,6 +19,10 @@ import java.util.List;
 
 /**
  * @author 应卓
+ * @see spring.turbo.format.NumberZonesFormat
+ * @see spring.turbo.format.NumberZonesAnnotationFormatterFactory
+ * @see spring.turbo.format.NumberZonesParser
+ * @see spring.turbo.bean.jsr380.DecentNumberZones
  * @since 1.1.4
  */
 @Immutable
@@ -39,9 +43,7 @@ public class NumberZones implements Iterable<NumberPair> {
      * @param list NumberPair
      */
     public NumberZones(@Nullable List<NumberPair> list) {
-        this.list = list != null ?
-                Collections.unmodifiableList(list) :
-                Collections.emptyList();
+        this.list = list != null ? Collections.unmodifiableList(list) : Collections.emptyList();
     }
 
     public boolean isEmpty() {
