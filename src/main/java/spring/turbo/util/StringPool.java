@@ -22,6 +22,7 @@ public final class StringPool {
     public static final String EMPTY = "";
     public static final String SPACE = " ";
     public static final String TAB = "\t";
+    public static final String SEMICOLON = ";";
     public static final String DOT = ".";
     public static final String DOT_DOT = "..";
     public static final String SLASH = "/";
