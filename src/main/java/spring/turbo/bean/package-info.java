@@ -36,6 +36,9 @@ class SpringBootAutoConfiguration {
 
             registry.addConverter(new DateRangeParser());
             registry.addFormatterForFieldAnnotation(new DateRangeAnnotationFormatterFactory());
+
+            registry.addConverter(new NumberZonesParser());
+            registry.addFormatterForFieldAnnotation(new NumberZonesAnnotationFormatterFactory());
         }
     }
 
