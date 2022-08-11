@@ -25,7 +25,7 @@ public @interface DateRangeFormat {
 
     public String delimiter() default " @@ ";
 
-    public String timezone() default "Etc/GMT";
+    public String timezone() default "";
 
     public WeekOption weekOption() default WeekOption.SUNDAY_START;
 

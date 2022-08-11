@@ -18,6 +18,7 @@ import spring.turbo.bean.DateRange;
 import spring.turbo.bean.WeekOption;
 import spring.turbo.util.DateParseUtils;
 import spring.turbo.util.SetFactories;
+import spring.turbo.util.StringPool;
 
 import java.lang.annotation.Annotation;
 import java.text.ParseException;
@@ -49,7 +50,7 @@ public class DateRangeParser implements Parser<DateRange>, GenericConverter {
 
                     @Override
                     public String timezone() {
-                        return "Etc/GMT";
+                        return "";
                     }
 
                     @Override
@@ -85,12 +86,16 @@ public class DateRangeParser implements Parser<DateRange>, GenericConverter {
             final Date right = DateParseUtils.parse(rightDateString, annotation.datePattern());
 
             return new DateRange(
-                    DateDescriptor.of(left, ZoneId.of(annotation.timezone()), annotation.weekOption()),
-                    DateDescriptor.of(right, ZoneId.of(annotation.timezone()), annotation.weekOption())
+                    DateDescriptor.of(left, getZoneId(annotation.timezone()), annotation.weekOption()),
+                    DateDescriptor.of(right, getZoneId(annotation.timezone()), annotation.weekOption())
             );
         } catch (Exception e) {
             throw new ParseException(error, 0);
         }
+    }
+
+    private ZoneId getZoneId(@Nullable String zoneIdName) {
+        return zoneIdName != null && !StringPool.EMPTY.equals(zoneIdName) ? ZoneId.of(zoneIdName) : ZoneId.systemDefault();
     }
 
     @Nullable
