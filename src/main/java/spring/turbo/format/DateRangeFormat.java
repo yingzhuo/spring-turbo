@@ -9,6 +9,7 @@
 package spring.turbo.format;
 
 import spring.turbo.bean.WeekOption;
+import spring.turbo.util.StringPool;
 
 import java.lang.annotation.*;
 
@@ -25,7 +26,7 @@ public @interface DateRangeFormat {
 
     public String delimiter() default " @@ ";
 
-    public String timezone() default "";
+    public String timezone() default StringPool.EMPTY;
 
     public WeekOption weekOption() default WeekOption.SUNDAY_START;
 

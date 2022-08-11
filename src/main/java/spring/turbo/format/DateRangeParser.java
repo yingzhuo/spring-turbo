@@ -50,7 +50,7 @@ public class DateRangeParser implements Parser<DateRange>, GenericConverter {
 
                     @Override
                     public String timezone() {
-                        return "";
+                        return StringPool.EMPTY;
                     }
 
                     @Override
@@ -94,8 +94,12 @@ public class DateRangeParser implements Parser<DateRange>, GenericConverter {
         }
     }
 
-    private ZoneId getZoneId(@Nullable String zoneIdName) {
-        return zoneIdName != null && !StringPool.EMPTY.equals(zoneIdName) ? ZoneId.of(zoneIdName) : ZoneId.systemDefault();
+    private ZoneId getZoneId(String id) {
+        if (StringUtils.hasText(id)) {
+            return ZoneId.of(id);
+        } else {
+            return ZoneId.systemDefault();
+        }
     }
 
     @Nullable
