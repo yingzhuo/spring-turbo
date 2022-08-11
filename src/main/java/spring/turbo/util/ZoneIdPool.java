@@ -8,6 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.Nullable;
+
+import java.time.DateTimeException;
 import java.time.ZoneId;
 
 /**
@@ -621,8 +624,26 @@ public final class ZoneIdPool {
         Zulu: 协调世界时间
     */
 
+    public static ZoneId toZoneIdOrDefault(@Nullable String name) {
+        return toZoneIdOrDefault(name, SYSTEM_DEFAULT);
+    }
+
+    public static ZoneId toZoneIdOrDefault(@Nullable String name, ZoneId defaultIfNullOrError) {
+        Asserts.notNull(defaultIfNullOrError);
+
+        if (name != null) {
+            try {
+                return ZoneId.of(name);
+            } catch (DateTimeException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            return defaultIfNullOrError;
+        }
+    }
+
     // SYSTEM
-    public static final ZoneId SYS = ZoneId.systemDefault();
+    public static final ZoneId SYSTEM_DEFAULT = ZoneId.systemDefault();
 
     // UTC
     public static final String EUROPE_LONDON_VALUE = "Europe/London";
