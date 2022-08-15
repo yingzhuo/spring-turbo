@@ -28,6 +28,14 @@ public @interface DecentNumberZones {
 
     public String message();
 
+    public int mixSize() default Integer.MIN_VALUE;
+
+    public int maxSize() default Integer.MAX_VALUE;
+
+    public boolean mustBeContinuous() default true;
+
+    public double interval() default 1.0D;
+
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};

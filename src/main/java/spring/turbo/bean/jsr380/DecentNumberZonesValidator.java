@@ -9,11 +9,13 @@
 package spring.turbo.bean.jsr380;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.bean.NumberPair;
 import spring.turbo.bean.NumberZones;
 import spring.turbo.util.Asserts;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.math.BigDecimal;
 
 /**
  * @author 应卓
@@ -31,9 +33,40 @@ public class DecentNumberZonesValidator implements ConstraintValidator<DecentNum
     }
 
     @Override
-    public boolean isValid(NumberZones value, ConstraintValidatorContext context) {
-        Asserts.notNull(value);
-        // TODO: 有时间补全
+    public boolean isValid(@Nullable NumberZones value, ConstraintValidatorContext context) {
+
+        if (value == null) {
+            return true;
+        }
+
+        Asserts.notNull(this.annotation);
+
+        // 检查长度
+        if (value.size() < annotation.mixSize() || value.size() > annotation.maxSize()) {
+            return false;
+        }
+
+        // 检查连续
+        if (annotation.mustBeContinuous()) {
+
+            int index = 0;
+            NumberPair last = null;
+
+            for (final NumberPair current : value) {
+                if (index != 0) {
+                    final BigDecimal a = last.getRight(BigDecimal.class);
+                    final BigDecimal b = current.getLeft(BigDecimal.class);
+
+                    if (b.subtract(a).compareTo(BigDecimal.valueOf(annotation.interval())) != 0) {
+                        return false;
+                    }
+                }
+                index++;
+                last = current;
+            }
+
+        }
+
         return true;
     }
 
