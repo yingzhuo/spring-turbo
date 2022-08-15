@@ -20,15 +20,15 @@ import java.util.Objects;
  */
 public class VersionComparator implements Comparator<String> {
 
-    public static VersionComparator getInstance() {
-        return AsyncAvoid.INSTANCE;
-    }
-
     /**
      * 私有构造方法
      */
     private VersionComparator() {
         super();
+    }
+
+    public static VersionComparator getInstance() {
+        return AsyncAvoid.INSTANCE;
     }
 
     /**

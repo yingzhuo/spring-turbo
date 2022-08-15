@@ -19,10 +19,10 @@ import spring.turbo.bean.WeekOption;
 import spring.turbo.util.DateParseUtils;
 import spring.turbo.util.SetFactories;
 import spring.turbo.util.StringPool;
+import spring.turbo.util.ZoneIdPool;
 
 import java.lang.annotation.Annotation;
 import java.text.ParseException;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
@@ -50,7 +50,7 @@ public class DateRangeParser implements Parser<DateRange>, GenericConverter {
 
                     @Override
                     public String timezone() {
-                        return "";
+                        return StringPool.EMPTY;
                     }
 
                     @Override
@@ -86,16 +86,12 @@ public class DateRangeParser implements Parser<DateRange>, GenericConverter {
             final Date right = DateParseUtils.parse(rightDateString, annotation.datePattern());
 
             return new DateRange(
-                    DateDescriptor.of(left, getZoneId(annotation.timezone()), annotation.weekOption()),
-                    DateDescriptor.of(right, getZoneId(annotation.timezone()), annotation.weekOption())
+                    DateDescriptor.of(left, ZoneIdPool.toZoneIdOrDefault(annotation.timezone()), annotation.weekOption()),
+                    DateDescriptor.of(right, ZoneIdPool.toZoneIdOrDefault(annotation.timezone()), annotation.weekOption())
             );
         } catch (Exception e) {
             throw new ParseException(error, 0);
         }
-    }
-
-    private ZoneId getZoneId(@Nullable String zoneIdName) {
-        return zoneIdName != null && !StringPool.EMPTY.equals(zoneIdName) ? ZoneId.of(zoneIdName) : ZoneId.systemDefault();
     }
 
     @Nullable

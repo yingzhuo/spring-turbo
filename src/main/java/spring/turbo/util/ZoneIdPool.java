@@ -8,6 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.Nullable;
+
+import java.time.DateTimeException;
 import java.time.ZoneId;
 
 /**
@@ -622,16 +625,13 @@ public final class ZoneIdPool {
     */
 
     // SYSTEM
-    public static final ZoneId SYS = ZoneId.systemDefault();
-
+    public static final ZoneId SYSTEM_DEFAULT = ZoneId.systemDefault();
     // UTC
     public static final String EUROPE_LONDON_VALUE = "Europe/London";
     public static final ZoneId EUROPE_LONDON = ZoneId.of(EUROPE_LONDON_VALUE);
-
     // UTC+8
     public static final String ASIA_SHANGHAI_VALUE = "Asia/Shanghai";
     public static final ZoneId ASIA_SHANGHAI = ZoneId.of(ASIA_SHANGHAI_VALUE);
-
     // UTC+9
     public static final String ASIA_TOKYO_VALUE = "Asia/Tokyo";
     public static final ZoneId ASIA_TOKYO = ZoneId.of(ASIA_TOKYO_VALUE);
@@ -641,6 +641,24 @@ public final class ZoneIdPool {
      */
     private ZoneIdPool() {
         super();
+    }
+
+    public static ZoneId toZoneIdOrDefault(@Nullable String name) {
+        return toZoneIdOrDefault(name, SYSTEM_DEFAULT);
+    }
+
+    public static ZoneId toZoneIdOrDefault(@Nullable String name, ZoneId defaultIfNullOrError) {
+        Asserts.notNull(defaultIfNullOrError);
+
+        if (name != null) {
+            try {
+                return ZoneId.of(name);
+            } catch (DateTimeException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            return defaultIfNullOrError;
+        }
     }
 
 }
