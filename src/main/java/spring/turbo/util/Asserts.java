@@ -28,7 +28,7 @@ public final class Asserts {
         super();
     }
 
-    public static void state(boolean expression, String message) {
+    public static void state(boolean expression, @Nullable String message) {
         if (!expression) {
             throw new IllegalStateException(message);
         }
@@ -44,7 +44,7 @@ public final class Asserts {
         state(expression, "[Assertion failed] - this state invariant must be true");
     }
 
-    public static void isTrue(boolean expression, String message) {
+    public static void isTrue(boolean expression, @Nullable String message) {
         if (!expression) {
             throw new IllegalArgumentException(message);
         }
@@ -60,7 +60,7 @@ public final class Asserts {
         isTrue(expression, "[Assertion failed] - this expression must be true");
     }
 
-    public static void isNull(@Nullable Object object, String message) {
+    public static void isNull(@Nullable Object object, @Nullable String message) {
         if (object != null) {
             throw new IllegalArgumentException(message);
         }
@@ -76,7 +76,7 @@ public final class Asserts {
         isNull(object, "[Assertion failed] - the object argument must be null");
     }
 
-    public static void notNull(@Nullable Object object, String message) {
+    public static void notNull(@Nullable Object object, @Nullable String message) {
         if (object == null) {
             throw new IllegalArgumentException(message);
         }
@@ -92,7 +92,7 @@ public final class Asserts {
         notNull(object, "[Assertion failed] - this argument is required; it must not be null");
     }
 
-    public static void hasLength(@Nullable String text, String message) {
+    public static void hasLength(@Nullable String text, @Nullable String message) {
         if (!StringUtils.hasLength(text)) {
             throw new IllegalArgumentException(message);
         }
@@ -109,7 +109,7 @@ public final class Asserts {
                 "[Assertion failed] - this String argument must have length; it must not be null or empty");
     }
 
-    public static void hasText(@Nullable String text, String message) {
+    public static void hasText(@Nullable String text, @Nullable String message) {
         if (!StringUtils.hasText(text)) {
             throw new IllegalArgumentException(message);
         }
@@ -126,7 +126,7 @@ public final class Asserts {
                 "[Assertion failed] - this String argument must have text; it must not be null, empty, or blank");
     }
 
-    public static void doesNotContain(@Nullable String textToSearch, String substring, String message) {
+    public static void doesNotContain(@Nullable String textToSearch, String substring, @Nullable String message) {
         if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring) &&
                 textToSearch.contains(substring)) {
             throw new IllegalArgumentException(message);
@@ -145,7 +145,7 @@ public final class Asserts {
                 () -> "[Assertion failed] - this String argument must not contain the substring [" + substring + "]");
     }
 
-    public static void notEmpty(@Nullable Object[] array, String message) {
+    public static void notEmpty(@Nullable Object[] array, @Nullable String message) {
         if (ObjectUtils.isEmpty(array)) {
             throw new IllegalArgumentException(message);
         }
@@ -161,7 +161,7 @@ public final class Asserts {
         notEmpty(array, "[Assertion failed] - this array must not be empty: it must contain at least 1 element");
     }
 
-    public static void noNullElements(@Nullable Object[] array, String message) {
+    public static void noNullElements(@Nullable Object[] array, @Nullable String message) {
         if (array != null) {
             for (Object element : array) {
                 if (element == null) {
@@ -185,7 +185,7 @@ public final class Asserts {
         noNullElements(array, "[Assertion failed] - this array must not contain any null elements");
     }
 
-    public static void notEmpty(@Nullable Collection<?> collection, String message) {
+    public static void notEmpty(@Nullable Collection<?> collection, @Nullable String message) {
         if (CollectionUtils.isEmpty(collection)) {
             throw new IllegalArgumentException(message);
         }
@@ -202,7 +202,7 @@ public final class Asserts {
                 "[Assertion failed] - this collection must not be empty: it must contain at least 1 element");
     }
 
-    public static void noNullElements(@Nullable Collection<?> collection, String message) {
+    public static void noNullElements(@Nullable Collection<?> collection, @Nullable String message) {
         if (collection != null) {
             for (Object element : collection) {
                 if (element == null) {
@@ -222,7 +222,7 @@ public final class Asserts {
         }
     }
 
-    public static void notEmpty(@Nullable Map<?, ?> map, String message) {
+    public static void notEmpty(@Nullable Map<?, ?> map, @Nullable String message) {
         if (CollectionUtils.isEmpty(map)) {
             throw new IllegalArgumentException(message);
         }
@@ -238,7 +238,7 @@ public final class Asserts {
         notEmpty(map, "[Assertion failed] - this map must not be empty; it must contain at least one entry");
     }
 
-    public static void isInstanceOf(Class<?> type, @Nullable Object obj, String message) {
+    public static void isInstanceOf(Class<?> type, @Nullable Object obj, @Nullable String message) {
         notNull(type, "Type to check against must not be null");
         if (!type.isInstance(obj)) {
             instanceCheckFailed(type, obj, message);
@@ -256,7 +256,7 @@ public final class Asserts {
         isInstanceOf(type, obj, "");
     }
 
-    public static void isAssignable(Class<?> superType, @Nullable Class<?> subType, String message) {
+    public static void isAssignable(Class<?> superType, @Nullable Class<?> subType, @Nullable String message) {
         notNull(superType, "Super type to check against must not be null");
         if (subType == null || !superType.isAssignableFrom(subType)) {
             assignableCheckFailed(superType, subType, message);

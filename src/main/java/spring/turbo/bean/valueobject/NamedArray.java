@@ -17,6 +17,8 @@ import java.util.*;
 
 /**
  * @author 应卓
+ * @see NamedArrayBuilder
+ * @see #builder()
  * @since 1.0.0
  */
 @Mutable
@@ -41,7 +43,7 @@ public class NamedArray<T> implements Iterable<T> {
         Asserts.notNull(array);
         Asserts.notNull(names);
         Asserts.noNullElements(names, (String) null);
-        Asserts.isTrue(array.size() == names.size());
+        Asserts.isTrue(array.size() >= names.size());
 
         this.array = Collections.unmodifiableList(array);
         this.names = Collections.unmodifiableList(names);
@@ -71,7 +73,7 @@ public class NamedArray<T> implements Iterable<T> {
 
     public MutablePropertyValues toMutablePropertyValues() {
         final MutablePropertyValues mpv = new MutablePropertyValues();
-        for (int i = 0; i < array.size(); i++) {
+        for (int i = 0; i < names.size(); i++) {
             mpv.add(toAliasIfNecessary(names.get(i)), array.get(i));
         }
         return mpv;
