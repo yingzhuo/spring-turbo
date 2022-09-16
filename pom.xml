@@ -92,7 +92,7 @@
         <java.version>1.8</java.version>
 
         <spring.boot.version>2.7.3</spring.boot.version>
-        <spring.version>5.3.22</spring.version>
+        <spring.version>5.3.23</spring.version>
         <slf4j.version>1.7.36</slf4j.version>
     </properties>
 
@@ -113,6 +113,12 @@
                     <artifactId>android-json</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure-processor</artifactId>
+            <version>${spring.boot.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -220,6 +226,13 @@
             <artifactId>jsr305</artifactId>
             <version>3.0.2</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- yaml -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.32</version>
         </dependency>
     </dependencies>
 
