@@ -16,6 +16,7 @@ import spring.turbo.util.StringPool;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
@@ -32,18 +33,26 @@ import java.util.stream.Stream;
  * @see LocalFileInterceptorChain
  * @since 1.1.1
  */
-public interface LocalFile extends Serializable {
+public interface LocalFileDescriptor extends Serializable {
 
-    public static LocalFile of(String first, String... more) {
-        return new PathLocalFile(first, more);
+    public static LocalFileDescriptor of(String first, String... more) {
+        return new LocalFileDescriptorImpl(first, more);
     }
 
-    public static LocalFile of(File file) {
-        return new PathLocalFile(file);
+    public static LocalFileDescriptor of(File file) {
+        return new LocalFileDescriptorImpl(file);
     }
 
-    public static LocalFile of(Path path) {
-        return new PathLocalFile(path);
+    public static LocalFileDescriptor of(Path path) {
+        return new LocalFileDescriptorImpl(path);
+    }
+
+    public static LocalFileDescriptor of(Resource resource) {
+        try {
+            return new LocalFileDescriptorImpl(resource.getFile());
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
+        }
     }
 
     public Path asPath();
@@ -175,7 +184,7 @@ public interface LocalFile extends Serializable {
 
     public default InputStream openAsInputStream() {
         try {
-            return new BufferedInputStream(new FileInputStream(asFile()));
+            return new BufferedInputStream(Files.newInputStream(asPath()));
         } catch (IOException e) {
             throw IOExceptionUtils.toUnchecked(e);
         }
@@ -191,17 +200,17 @@ public interface LocalFile extends Serializable {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public default Stream<LocalFile> list(int maxDepth) {
+    public default Stream<LocalFileDescriptor> list() {
+        return list(Integer.MAX_VALUE);
+    }
+
+    public default Stream<LocalFileDescriptor> list(int maxDepth) {
         if (!isDirectory()) {
             return Stream.empty();
         }
 
         return PathTreeUtils.list(asPath(), maxDepth)
-                .map(LocalFile::of);
-    }
-
-    public default Stream<LocalFile> list() {
-        return list(Integer.MAX_VALUE);
+                .map(LocalFileDescriptor::of);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

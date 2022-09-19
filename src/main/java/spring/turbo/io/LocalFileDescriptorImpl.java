@@ -20,22 +20,22 @@ import java.util.Objects;
  * @since 1.1.1
  */
 @Immutable
-public class PathLocalFile implements LocalFile {
+public class LocalFileDescriptorImpl implements LocalFileDescriptor {
 
     private final Path path;
 
-    public PathLocalFile(String first, String... more) {
+    public LocalFileDescriptorImpl(String first, String... more) {
         this.path = PathUtils.createPath(first, more)
                 .normalize()
                 .toAbsolutePath();
     }
 
-    public PathLocalFile(Path path) {
+    public LocalFileDescriptorImpl(Path path) {
         Asserts.notNull(path);
         this.path = path.normalize().toAbsolutePath();
     }
 
-    public PathLocalFile(File file) {
+    public LocalFileDescriptorImpl(File file) {
         this(file.toPath());
     }
 
@@ -57,7 +57,7 @@ public class PathLocalFile implements LocalFile {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PathLocalFile that = (PathLocalFile) o;
+        LocalFileDescriptorImpl that = (LocalFileDescriptorImpl) o;
         return path.equals(that.path);
     }
 

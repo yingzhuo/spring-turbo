@@ -17,7 +17,7 @@ import org.springframework.core.Ordered;
 @FunctionalInterface
 public interface LocalFileInterceptor extends Ordered {
 
-    public boolean execute(LocalFile localFile);
+    public boolean execute(LocalFileDescriptor localFileDescriptor);
 
     @Override
     public default int getOrder() {

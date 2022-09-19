@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io.function;
 
-import spring.turbo.io.LocalFile;
+import spring.turbo.io.LocalFileDescriptor;
 
 import java.util.function.Predicate;
 
@@ -17,5 +17,5 @@ import java.util.function.Predicate;
  * @see LocalFilePredicateFactories
  * @since 1.1.1
  */
-public interface LocalFilePredicate extends Predicate<LocalFile> {
+public interface LocalFilePredicate extends Predicate<LocalFileDescriptor> {
 }
