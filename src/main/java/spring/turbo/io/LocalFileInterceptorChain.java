@@ -32,10 +32,10 @@ public class LocalFileInterceptorChain implements InitializingBean {
         super();
     }
 
-    public void execute(LocalFile localFile) {
-        if (!predicate.test(localFile)) {
+    public void execute(LocalFileDescriptor localFileDescriptor) {
+        if (!predicate.test(localFileDescriptor)) {
             for (LocalFileInterceptor interceptor : interceptorList) {
-                boolean next = interceptor.execute(localFile);
+                boolean next = interceptor.execute(localFileDescriptor);
                 if (!next) {
                     break;
                 }

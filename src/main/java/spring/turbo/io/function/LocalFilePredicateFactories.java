@@ -10,7 +10,7 @@ package spring.turbo.io.function;
 
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
-import spring.turbo.io.LocalFile;
+import spring.turbo.io.LocalFileDescriptor;
 import spring.turbo.util.StringUtils;
 
 /**
@@ -63,7 +63,7 @@ public final class LocalFilePredicateFactories {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static LocalFilePredicate exists() {
-        return LocalFile::exists;
+        return LocalFileDescriptor::exists;
     }
 
     public static LocalFilePredicate notExists() {
@@ -71,7 +71,7 @@ public final class LocalFilePredicateFactories {
     }
 
     public static LocalFilePredicate hidden() {
-        return LocalFile::isHidden;
+        return LocalFileDescriptor::isHidden;
     }
 
     public static LocalFilePredicate notHidden() {
@@ -79,7 +79,7 @@ public final class LocalFilePredicateFactories {
     }
 
     public static LocalFilePredicate directory() {
-        return LocalFile::isDirectory;
+        return LocalFileDescriptor::isDirectory;
     }
 
     public static LocalFilePredicate notDirectory() {
@@ -87,7 +87,7 @@ public final class LocalFilePredicateFactories {
     }
 
     public static LocalFilePredicate regularFile() {
-        return LocalFile::isRegularFile;
+        return LocalFileDescriptor::isRegularFile;
     }
 
     public static LocalFilePredicate notRegularFile() {
@@ -95,7 +95,7 @@ public final class LocalFilePredicateFactories {
     }
 
     public static LocalFilePredicate symbolicLink() {
-        return LocalFile::isSymbolicLink;
+        return LocalFileDescriptor::isSymbolicLink;
     }
 
     public static LocalFilePredicate notSymbolicLink() {
@@ -103,7 +103,7 @@ public final class LocalFilePredicateFactories {
     }
 
     public static LocalFilePredicate emptyDirectory() {
-        return LocalFile::isEmptyDirectory;
+        return LocalFileDescriptor::isEmptyDirectory;
     }
 
     public static LocalFilePredicate notEmptyDirectory() {
@@ -111,7 +111,7 @@ public final class LocalFilePredicateFactories {
     }
 
     public static LocalFilePredicate readable() {
-        return LocalFile::isReadable;
+        return LocalFileDescriptor::isReadable;
     }
 
     public static LocalFilePredicate notReadable() {
@@ -119,7 +119,7 @@ public final class LocalFilePredicateFactories {
     }
 
     public static LocalFilePredicate writable() {
-        return LocalFile::isWritable;
+        return LocalFileDescriptor::isWritable;
     }
 
     public static LocalFilePredicate notWritable() {
@@ -127,7 +127,7 @@ public final class LocalFilePredicateFactories {
     }
 
     public static LocalFilePredicate executable() {
-        return LocalFile::isExecutable;
+        return LocalFileDescriptor::isExecutable;
     }
 
     public static LocalFilePredicate notExecutable() {
