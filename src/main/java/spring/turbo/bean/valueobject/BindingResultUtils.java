@@ -13,7 +13,6 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.ObjectUtils;
 import spring.turbo.util.StringUtils;
 
 import java.util.Collections;
@@ -76,7 +75,7 @@ public final class BindingResultUtils {
         Asserts.notNull(bindingResult);
         Asserts.notNull(messageSource);
 
-        final Locale localeToUse = ObjectUtils.defaultIfNull(locale, Locale::getDefault);
+        final Locale localeToUse = locale != null ? locale : Locale.getDefault();
         if (bindingResult.hasErrors()) {
             return bindingResult
                     .getAllErrors()

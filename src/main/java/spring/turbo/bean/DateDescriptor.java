@@ -9,7 +9,6 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.ObjectUtils;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -35,7 +34,8 @@ public interface DateDescriptor extends Comparable<DateDescriptor>, Serializable
     }
 
     public static DateDescriptor of(String text, @Nullable WeekOption weekOption) {
-        return new DateDescriptorImpl(text, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
+        weekOption = weekOption != null ? weekOption : WeekOption.SUNDAY_START;
+        return new DateDescriptorImpl(text, weekOption);
     }
 
     public static DateDescriptor of(LocalDate date) {
@@ -51,11 +51,13 @@ public interface DateDescriptor extends Comparable<DateDescriptor>, Serializable
     }
 
     public static DateDescriptor of(Date date, @Nullable ZoneId zone, @Nullable WeekOption weekOption) {
-        return of(date.toInstant().atZone(ObjectUtils.defaultIfNull(zone, ZoneId.systemDefault())).toLocalDate(), weekOption);
+        zone = zone != null ? zone : ZoneId.systemDefault();
+        return of(date.toInstant().atZone(zone).toLocalDate(), weekOption);
     }
 
     public static DateDescriptor of(LocalDate date, @Nullable WeekOption weekOption) {
-        return new DateDescriptorImpl(date, ObjectUtils.defaultIfNull(weekOption, WeekOption.SUNDAY_START));
+        weekOption = weekOption != null ? weekOption : WeekOption.SUNDAY_START;
+        return new DateDescriptorImpl(date, weekOption);
     }
 
     public String getCenturyString();
