@@ -396,11 +396,12 @@ public final class StringUtils {
     }
 
     public static String defaultIfNull(@Nullable String str, String defaultIfNull) {
-        return ObjectUtils.defaultIfNull(str, defaultIfNull);
+        return str == null ? defaultIfNull : str;
     }
 
     public static String defaultIfNull(@Nullable String str, Supplier<String> defaultIfNull) {
-        return ObjectUtils.defaultIfNull(str, defaultIfNull);
+        Asserts.notNull(defaultIfNull);
+        return str == null ? defaultIfNull.get() : str;
     }
 
     public static String defaultIfEmpty(@Nullable String str, String defaultIfEmpty) {

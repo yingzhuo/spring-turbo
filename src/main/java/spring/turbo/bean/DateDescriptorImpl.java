@@ -12,7 +12,6 @@ import org.springframework.lang.Nullable;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.DateUtils;
-import spring.turbo.util.ObjectUtils;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -223,13 +222,13 @@ public class DateDescriptorImpl implements DateDescriptor {
 
     @Override
     public Date toDate(@Nullable ZoneId zone) {
-        zone = ObjectUtils.defaultIfNull(zone, ZoneId.systemDefault());
+        zone = zone != null ? zone : ZoneId.systemDefault();
         return Date.from(this.date.atStartOfDay().atZone(zone).toInstant());
     }
 
     @Override
     public Calendar toCalendar(@Nullable ZoneId zone) {
-        zone = ObjectUtils.defaultIfNull(zone, ZoneId.systemDefault());
+        zone = zone != null ? zone : ZoneId.systemDefault();
         return DateUtils.toCalendar(toDate(zone));
     }
 

@@ -10,7 +10,6 @@ package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -26,32 +25,6 @@ public final class ObjectUtils {
      */
     private ObjectUtils() {
         super();
-    }
-
-    /**
-     * 空值替代
-     *
-     * @param obj          一个对象
-     * @param defaultValue 空值时的替代值
-     * @param <T>          对象类型泛型
-     * @return 对象或替代值
-     */
-    public static <T> T defaultIfNull(@Nullable T obj, T defaultValue) {
-        Asserts.notNull(defaultValue);
-        return Optional.ofNullable(obj).orElse(defaultValue);
-    }
-
-    /**
-     * 空值替代
-     *
-     * @param obj          一个对象
-     * @param defaultValue 空值时的替代值的提供器
-     * @param <T>          对象类型泛型
-     * @return 对象或替代值
-     */
-    public static <T> T defaultIfNull(@Nullable T obj, Supplier<T> defaultValue) {
-        Asserts.notNull(defaultValue);
-        return Optional.ofNullable(obj).orElseGet(defaultValue);
     }
 
     /**
