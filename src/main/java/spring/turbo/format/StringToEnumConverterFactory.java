@@ -11,6 +11,7 @@ package spring.turbo.format;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.lang.Nullable;
+import org.springframework.util.ReflectionUtils;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringPool;
 import spring.turbo.util.StringUtils;
@@ -49,7 +50,7 @@ public class StringToEnumConverterFactory implements ConverterFactory<String, En
 
         private final Class<T> enumType;
 
-        public StringToEnumConverter(Class<T> enumType) {
+        private StringToEnumConverter(Class<T> enumType) {
             this.enumType = enumType;
         }
 
@@ -105,28 +106,15 @@ public class StringToEnumConverterFactory implements ConverterFactory<String, En
 
         @Nullable
         private Method findConvertingMethod() {
-            final List<Method> ret = new ArrayList<>();
-            final Method[] methods = this.enumType.getDeclaredMethods();
+            final List<Method> ret = new ArrayList<>(20);
+            ReflectionUtils.doWithMethods(enumType,
+                    ret::add,
+                    m -> Modifier.isPublic(m.getModifiers()) &&
+                            Modifier.isStatic(m.getModifiers()) &&
+                            m.getAnnotation(EnumConvertingMethod.class) != null
+            );
 
-            for (Method m : methods) {
-                // 只要 public 的方法
-                if (!Modifier.isPublic(m.getModifiers())) {
-                    continue;
-                }
-
-                // 只要 static 的方法
-                if (!Modifier.isStatic(m.getModifiers())) {
-                    continue;
-                }
-
-                // 只要 有EnumConvertingMethod元注释的方法 的方法
-                if (m.getAnnotation(EnumConvertingMethod.class) == null) {
-                    continue;
-                }
-                ret.add(m);
-            }
-
-            // 找到多个形同于没有找到
+            // 找到多个形同没有找到
             if (ret.size() != 1) {
                 return null;
             }
