@@ -15,10 +15,17 @@ import spring.turbo.util.Asserts;
 import spring.turbo.util.StringPool;
 import spring.turbo.util.StringUtils;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 替代Spring原厂的 String -&gt; Enum转换器
  *
  * @author 应卓
+ * @see EnumConvertingMethod
  * @since 1.2.1
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
@@ -26,7 +33,7 @@ public class StringToEnumConverterFactory implements ConverterFactory<String, En
 
     @Override
     public <T extends Enum> Converter<String, T> getConverter(Class<T> targetType) {
-        return new StringToEnum(getEnumType(targetType));
+        return new StringToEnumConverter(getEnumType(targetType));
     }
 
     private Class<?> getEnumType(Class<?> targetType) {
@@ -38,17 +45,20 @@ public class StringToEnumConverterFactory implements ConverterFactory<String, En
         return enumType;
     }
 
-    private static class StringToEnum<T extends Enum> implements Converter<String, T> {
+    private static class StringToEnumConverter<T extends Enum> implements Converter<String, T> {
 
         private final Class<T> enumType;
 
-        StringToEnum(Class<T> enumType) {
+        public StringToEnumConverter(Class<T> enumType) {
             this.enumType = enumType;
         }
 
         @Override
         @Nullable
         public T convert(String source) {
+
+            final String oriSource = source;
+
             if (StringUtils.isBlank(source)) {
                 return null;
             }
@@ -58,12 +68,70 @@ public class StringToEnumConverterFactory implements ConverterFactory<String, En
                     .trim();
 
             try {
+                // 一般性尝试
                 return (T) Enum.valueOf(this.enumType, source);
             } catch (Exception e) {
-                // 如果不行，尝试转成大写再试一次。
+                // 尝试转成大写再试一次。
                 source = source.toUpperCase();
-                return (T) Enum.valueOf(this.enumType, source);
+                try {
+                    return (T) Enum.valueOf(this.enumType, source);
+                } catch (Exception ex) {
+                    // 都不行的话动用反射
+                    T ret = convertViaReflection(oriSource);
+                    if (ret != null) {
+                        return ret;
+                    } else {
+                        throw ex;
+                    }
+                }
             }
+        }
+
+        @Nullable
+        private T convertViaReflection(String source) {
+
+            final Method method = this.findConvertingMethod();
+            if (method == null) {
+                return null;
+            }
+
+            // 反射调用方法
+            try {
+                return (T) method.invoke(null, source);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                return null;
+            }
+        }
+
+        @Nullable
+        private Method findConvertingMethod() {
+            final List<Method> ret = new ArrayList<>();
+            final Method[] methods = this.enumType.getDeclaredMethods();
+
+            for (Method m : methods) {
+                // 只要 public 的方法
+                if (!Modifier.isPublic(m.getModifiers())) {
+                    continue;
+                }
+
+                // 只要 static 的方法
+                if (!Modifier.isStatic(m.getModifiers())) {
+                    continue;
+                }
+
+                // 只要 有EnumConvertingMethod元注释的方法 的方法
+                if (m.getAnnotation(EnumConvertingMethod.class) == null) {
+                    continue;
+                }
+                ret.add(m);
+            }
+
+            // 找到多个形同于没有找到
+            if (ret.size() != 1) {
+                return null;
+            }
+
+            return ret.get(0);
         }
     }
 
