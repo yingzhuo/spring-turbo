@@ -11,16 +11,16 @@ package spring.turbo.format;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.lang.Nullable;
-import org.springframework.util.ReflectionUtils;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringPool;
 import spring.turbo.util.StringUtils;
+import spring.turbo.util.reflection.MethodUtils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static spring.turbo.util.reflection.MethodPredicateFactories.*;
 
 /**
  * 替代Spring原厂的 String -&gt; Enum转换器
@@ -99,20 +99,22 @@ public class StringToEnumConverterFactory implements ConverterFactory<String, En
             // 反射调用方法
             try {
                 return (T) method.invoke(null, source);
-            } catch (IllegalAccessException | InvocationTargetException e) {
+            } catch (Throwable e) {
                 return null;
             }
         }
 
         @Nullable
         private Method findConvertingMethod() {
-            final List<Method> ret = new ArrayList<>(20);
-            ReflectionUtils.doWithMethods(enumType,
-                    ret::add,
-                    m -> Modifier.isPublic(m.getModifiers()) &&
-                            Modifier.isStatic(m.getModifiers()) &&
-                            m.getAnnotation(EnumConvertingMethod.class) != null
-            );
+            List<Method> ret = MethodUtils.find(enumType);
+            ret = ret.stream().filter(
+                    all(
+                            isUserDeclaredMethod(),
+                            isPublic(),
+                            isStatic(),
+                            withAnnotation(EnumConvertingMethod.class)
+                    )
+            ).collect(Collectors.toList());
 
             // 找到多个形同没有找到
             if (ret.size() != 1) {
