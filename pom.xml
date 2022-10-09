@@ -277,6 +277,27 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Group-Id>${project.groupId}</Group-Id>
+                            <Artifact-Id>${project.artifactId}</Artifact-Id>
+                            <Version>${project.version}</Version>
+                            <Packaging>${project.packaging}</Packaging>
+
+                            <Name>playground</Name>
+                            <Implementation-Title>Another tool of SpringBoot and SpringFramework</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Implementation-Vendor>应卓 &lt;yingzhor@gmail.com&gt;</Implementation-Vendor>
+                            <Sealed>false</Sealed>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.2.1</version>
                 <executions>
