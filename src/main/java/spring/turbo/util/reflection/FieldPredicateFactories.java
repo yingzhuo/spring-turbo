@@ -10,6 +10,7 @@ package spring.turbo.util.reflection;
 
 import spring.turbo.util.Asserts;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.function.Predicate;
@@ -81,5 +82,53 @@ public final class FieldPredicateFactories {
         return not(isCopyableField());
     }
 
+
+    public static Predicate<Field> withAnnotation(Class<? extends Annotation> annotationClass) {
+        return m -> m.getAnnotation(annotationClass) != null;
+    }
+
+    public static Predicate<Field> withoutAnnotation(Class<? extends Annotation> annotationClass) {
+        return not(withAnnotation(annotationClass));
+    }
+
+    public static Predicate<Field> isPublic() {
+        return m -> Modifier.isPublic(m.getModifiers());
+    }
+
+    public static Predicate<Field> isNotPublic() {
+        return not(isPublic());
+    }
+
+    public static Predicate<Field> isPrivate() {
+        return m -> Modifier.isPrivate(m.getModifiers());
+    }
+
+    public static Predicate<Field> isNotPrivate() {
+        return not(isPrivate());
+    }
+
+    public static Predicate<Field> isProtected() {
+        return m -> Modifier.isProtected(m.getModifiers());
+    }
+
+    public static Predicate<Field> isNotProtected() {
+        return not(isProtected());
+    }
+
+    public static Predicate<Field> isStatic() {
+        return m -> Modifier.isStatic(m.getModifiers());
+    }
+
+    public static Predicate<Field> isNotStatic() {
+        return not(isStatic());
+    }
+
+    public static Predicate<Field> isFinal() {
+        return m -> Modifier.isFinal(m.getModifiers());
+    }
+
+    public static Predicate<Field> isNotFinal() {
+        return not(isFinal());
+    }
 
 }
