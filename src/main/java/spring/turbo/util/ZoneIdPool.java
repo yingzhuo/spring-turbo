@@ -650,7 +650,7 @@ public final class ZoneIdPool {
     public static ZoneId toZoneIdOrDefault(@Nullable String name, ZoneId defaultIfNullOrError) {
         Asserts.notNull(defaultIfNullOrError);
 
-        if (name != null) {
+        if (name != null && !StringPool.EMPTY.equals(name)) {
             try {
                 return ZoneId.of(name);
             } catch (DateTimeException e) {
