@@ -20,6 +20,8 @@ import java.util.Optional;
  *
  * @author 应卓
  * @see MethodPredicateFactories
+ * @see ConstructorUtils
+ * @see FieldUtils
  * @since 1.2.1
  */
 public final class MethodUtils {
@@ -30,6 +32,14 @@ public final class MethodUtils {
     private MethodUtils() {
         super();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static void makeAccessible(Method method) {
+        ReflectionUtils.makeAccessible(method);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static List<Method> find(Class<?> clazz) {
         final List<Method> list = new ArrayList<>();

@@ -8,60 +8,43 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.reflection;
 
+import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Constructor;
 
 /**
- * 反射工具 - Field
+ * 反射工具 - 构造方法
  *
  * @author 应卓
- * @see FieldPredicateFactories
- * @see ConstructorUtils
  * @see MethodUtils
+ * @see FieldUtils
  * @since 1.2.1
  */
-public final class FieldUtils {
+public final class ConstructorUtils {
 
     /**
      * 私有构造方法
      */
-    private FieldUtils() {
+    private ConstructorUtils() {
         super();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static void makeAccessible(Field field) {
-        ReflectionUtils.makeAccessible(field);
+    public static <T> void makeAccessible(Constructor<T> constructor) {
+        ReflectionUtils.makeAccessible(constructor);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static List<Field> find(Class<?> clazz) {
-        final List<Field> list = new ArrayList<>();
-        ReflectionUtils.doWithFields(clazz, list::add);
-        return list;
-    }
-
-    public static List<Field> find(Class<?> clazz, String name) {
-        final List<Field> list = new ArrayList<>();
-        final Field field = ReflectionUtils.findField(clazz, name);
-        if (field != null) {
-            list.add(field);
+    @Nullable
+    public static <T> Constructor<T> accessibleConstructor(Class<T> clazz, Class<?>... parameterTypes) {
+        try {
+            return ReflectionUtils.accessibleConstructor(clazz, parameterTypes);
+        } catch (NoSuchMethodException e) {
+            return null;
         }
-        return list;
-    }
-
-    public static List<Field> find(Class<?> clazz, String name, Class<?> fieldType) {
-        final List<Field> list = new ArrayList<>();
-        final Field field = ReflectionUtils.findField(clazz, name, fieldType);
-        if (field != null) {
-            list.add(field);
-        }
-        return list;
     }
 
 }
