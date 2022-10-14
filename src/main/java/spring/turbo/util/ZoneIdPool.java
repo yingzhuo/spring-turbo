@@ -650,14 +650,21 @@ public final class ZoneIdPool {
     public static ZoneId toZoneIdOrDefault(@Nullable String name, ZoneId defaultIfNullOrError) {
         Asserts.notNull(defaultIfNullOrError);
 
-        if (name != null) {
-            try {
-                return ZoneId.of(name);
-            } catch (DateTimeException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
+        // null to default
+        if (name == null) {
             return defaultIfNullOrError;
+        }
+
+        // blank to default
+        if (StringPool.EMPTY.equals(name.trim())) {
+            return defaultIfNullOrError;
+        }
+
+        try {
+            return ZoneId.of(name);
+        } catch (DateTimeException e) {
+            // rethrow it
+            throw e;
         }
     }
 

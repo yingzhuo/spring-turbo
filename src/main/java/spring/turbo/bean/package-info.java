@@ -39,6 +39,8 @@ class SpringBootAutoConfiguration {
 
             registry.addConverter(new NumberZonesParser());
             registry.addFormatterForFieldAnnotation(new NumberZonesAnnotationFormatterFactory());
+
+            registry.addConverterFactory(new StringToEnumConverterFactory());
         }
     }
 
