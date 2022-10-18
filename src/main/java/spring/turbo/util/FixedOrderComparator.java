@@ -12,6 +12,8 @@ import java.util.Comparator;
 import java.util.Objects;
 
 /**
+ * 固定顺序比较器
+ *
  * @param <T> 泛型
  * @author 应卓
  */
@@ -22,7 +24,7 @@ public class FixedOrderComparator<T> implements Comparator<T> {
     private final T[] array;
 
     /**
-     * 构造
+     * 构造方法
      *
      * @param objs 参与排序的数组，数组的元素位置决定了对象的排序先后
      */
@@ -31,7 +33,7 @@ public class FixedOrderComparator<T> implements Comparator<T> {
     }
 
     /**
-     * 构造
+     * 构造方法
      *
      * @param atEndIfMiss 如果不在列表中是否排在后边
      * @param objs        参与排序的数组，数组的元素位置决定了对象的排序先后
