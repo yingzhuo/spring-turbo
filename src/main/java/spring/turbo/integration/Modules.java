@@ -33,6 +33,7 @@ public enum Modules implements Named {
     SPRING_TURBO_EXCEL("spring.turbo.excel"),
     SPRING_TURBO_FEIGN("spring.turbo.feign"),
     SPRING_TURBO_JACKSON("spring.turbo.jackson"),
+    SPRING_TURBO_JAVASSIST("spring.turbo.javassist"),
     SPRING_TURBO_KAFKA("spring.turbo.kafka"),
     SPRING_TURBO_PDF("spring.turbo.pdf"),
     SPRING_TURBO_QRCODE("spring.turbo.qrcode"),
