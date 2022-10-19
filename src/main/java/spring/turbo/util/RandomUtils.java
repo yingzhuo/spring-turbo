@@ -24,7 +24,7 @@ public final class RandomUtils {
     /**
      * 私有构造方法
      */
-    public RandomUtils() {
+    private RandomUtils() {
         super();
     }
 

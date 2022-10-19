@@ -6,7 +6,7 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util;
+package spring.turbo.util.collection;
 
 import java.util.Comparator;
 
@@ -14,18 +14,13 @@ import java.util.Comparator;
  * @param <E> 泛型
  * @author 应卓
  */
-@SuppressWarnings({"rawtypes"})
 public class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E> {
 
     /**
      * 私有构造方法
      */
-    private ComparableComparator() {
+    public ComparableComparator() {
         super();
-    }
-
-    public static ComparableComparator getInstance() {
-        return AsyncAvoid.INSTANCE;
     }
 
     @Override
@@ -41,10 +36,6 @@ public class ComparableComparator<E extends Comparable<? super E>> implements Co
     @Override
     public boolean equals(final Object object) {
         return this == object || null != object && object.getClass().equals(this.getClass());
-    }
-
-    private static class AsyncAvoid {
-        public static final ComparableComparator INSTANCE = new ComparableComparator<>();
     }
 
 }
