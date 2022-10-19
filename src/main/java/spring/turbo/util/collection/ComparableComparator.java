@@ -14,6 +14,7 @@ import java.util.Comparator;
  * @param <E> 泛型
  * @author 应卓
  */
+@Deprecated
 public class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E> {
 
     /**

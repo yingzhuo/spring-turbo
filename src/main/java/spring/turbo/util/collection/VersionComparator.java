@@ -38,8 +38,8 @@ public class VersionComparator implements Comparator<String> {
      * null版本排在最小：即：
      * <pre>
      * compare(null, "v1") &lt; 0
-     * compare("v1", "v1")  = 0
-     * compare(null, null)   = 0
+     * compare("v1", "v1") = 0
+     * compare(null, null) = 0
      * compare("v1", null) &gt; 0
      * compare("1.0.0", "1.0.2") &lt; 0
      * compare("1.0.2", "1.0.2a") &lt; 0

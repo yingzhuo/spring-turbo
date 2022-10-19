@@ -16,7 +16,10 @@ import java.util.Objects;
 /**
  * @param <T> 泛型
  * @author 应卓
+ * @see Comparator#nullsFirst(Comparator)
+ * @see Comparator#nullsLast(Comparator)
  */
+@Deprecated // Collections.null
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class NullComparator<T> implements Comparator<T> {
 
