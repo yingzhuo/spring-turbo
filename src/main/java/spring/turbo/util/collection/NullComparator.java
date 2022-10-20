@@ -14,6 +14,8 @@ import java.util.Comparator;
 import java.util.Objects;
 
 /**
+ * 对 {@code null} 值友好的比较器
+ *
  * @param <T> 泛型
  * @author 应卓
  * @see Comparator#nullsFirst(Comparator)

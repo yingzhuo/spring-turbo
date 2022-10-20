@@ -12,14 +12,21 @@ import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * @param <T> 泛型
  * @author 应卓
+ * @see org.springframework.util.comparator.InstanceComparator
  */
+@Deprecated
 public class InstanceComparator<T> implements Comparator<T> {
 
     private final Class<?>[] instanceOrder;
+
+    public InstanceComparator(List<Class<?>> instanceOrder) {
+        this(instanceOrder.toArray(new Class<?>[0]));
+    }
 
     public InstanceComparator(Class<?>... instanceOrder) {
         Asserts.notNull(instanceOrder);

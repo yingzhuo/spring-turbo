@@ -17,7 +17,10 @@ import java.util.Comparator;
 import java.util.Objects;
 
 /**
+ * 版本号比较器
+ *
  * @author 应卓
+ * @see #getInstance()
  * @since 1.1.4
  */
 public class VersionComparator implements Comparator<String> {
