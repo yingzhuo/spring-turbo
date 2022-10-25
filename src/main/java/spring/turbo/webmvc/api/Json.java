@@ -30,6 +30,9 @@ public class Json implements MutableApiResult<Map<String, Object>> {
     private Map<String, Object> payload = new LinkedHashMap<>();
     private boolean deprecated = false;
 
+    /**
+     * 构造方法
+     */
     public Json() {
         super();
     }
@@ -103,6 +106,10 @@ public class Json implements MutableApiResult<Map<String, Object>> {
     @Override
     public void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
+    }
+
+    public void clearPayload() {
+        this.payload.clear();
     }
 
 }

@@ -9,7 +9,6 @@
 package spring.turbo.util.crypto;
 
 import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
 import spring.turbo.bean.Builder;
 import spring.turbo.util.Asserts;
 
@@ -45,14 +44,14 @@ public final class AESBuilder implements Builder<AES> {
     }
 
     public AESBuilder mode(AES.Mode mode) {
-        Assert.notNull(mode, "mode is null");
+        Asserts.notNull(mode, "mode is null");
         this.mode = mode;
         return this;
     }
 
     @Override
     public AES build() {
-        Assert.notNull(secretKey, "secretKey is null");
+        Asserts.notNull(secretKey, "secretKey is null");
 
         return new AES() {
             @Override
