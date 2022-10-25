@@ -6,7 +6,7 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util;
+package spring.turbo.util.collection;
 
 import org.springframework.lang.Nullable;
 
@@ -14,9 +14,14 @@ import java.util.Comparator;
 import java.util.Objects;
 
 /**
+ * 对 {@code null} 值友好的比较器
+ *
  * @param <T> 泛型
  * @author 应卓
+ * @see Comparator#nullsFirst(Comparator)
+ * @see Comparator#nullsLast(Comparator)
  */
+@Deprecated // Collections.null
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class NullComparator<T> implements Comparator<T> {
 

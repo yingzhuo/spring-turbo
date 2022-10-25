@@ -6,19 +6,27 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util;
+package spring.turbo.util.collection;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
 
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * @param <T> 泛型
  * @author 应卓
+ * @see org.springframework.util.comparator.InstanceComparator
  */
+@Deprecated
 public class InstanceComparator<T> implements Comparator<T> {
 
     private final Class<?>[] instanceOrder;
+
+    public InstanceComparator(List<Class<?>> instanceOrder) {
+        this(instanceOrder.toArray(new Class<?>[0]));
+    }
 
     public InstanceComparator(Class<?>... instanceOrder) {
         Asserts.notNull(instanceOrder);
@@ -42,4 +50,5 @@ public class InstanceComparator<T> implements Comparator<T> {
         }
         return this.instanceOrder.length;
     }
+
 }

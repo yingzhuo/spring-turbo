@@ -14,7 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptions;
-import spring.turbo.util.SetFactories;
+import spring.turbo.util.collection.SetFactories;
 
 import java.util.Set;
 

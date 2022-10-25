@@ -12,7 +12,7 @@ import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
 import spring.turbo.bean.NumberZones;
-import spring.turbo.util.SetFactories;
+import spring.turbo.util.collection.SetFactories;
 
 import java.util.Set;
 

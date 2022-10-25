@@ -9,6 +9,7 @@
 package spring.turbo.webmvc;
 
 import org.springframework.lang.NonNull;
+import org.springframework.web.cors.CorsUtils;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringFormatter;
 
@@ -60,6 +61,7 @@ public final class HttpRequestSnapshot extends HttpServletRequestWrapper impleme
 
         lines.add(StringFormatter.format("Remote Address: {}", getRemoteAddr(request)));
         lines.add(StringFormatter.format("Session ID: {}", getSessionId(request)));
+        lines.add(StringFormatter.format("Is Cors PreFlight: {}", CorsUtils.isPreFlightRequest(request)));
 
         text = String.join(LF, lines).trim();
     }

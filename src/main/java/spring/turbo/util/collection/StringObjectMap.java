@@ -6,7 +6,7 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util;
+package spring.turbo.util.collection;
 
 import spring.turbo.lang.Mutable;
 
@@ -18,39 +18,39 @@ import java.util.Map;
  * @see ListFactories
  * @see SetFactories
  * @see StreamFactories
- * @see StringObjectMap
- * @since 1.1.2
+ * @see StringStringMap
+ * @since 1.1.0
  */
 @Mutable
-public final class StringStringMap extends HashMap<String, String> implements Map<String, String> {
+public final class StringObjectMap extends HashMap<String, Object> implements Map<String, Object> {
 
-    public StringStringMap() {
+    public StringObjectMap() {
         super();
     }
 
-    public static StringStringMap newInstance() {
-        return new StringStringMap();
+    public static StringObjectMap newInstance() {
+        return new StringObjectMap();
     }
 
-    public StringStringMap add(String k, String v) {
+    public StringObjectMap add(String k, Object v) {
         this.put(k, v);
         return this;
     }
 
-    public StringStringMap add(String k1, String v1, String k2, String v2) {
+    public StringObjectMap add(String k1, Object v1, String k2, Object v2) {
         this.put(k1, v1);
         this.put(k2, v2);
         return this;
     }
 
-    public StringStringMap add(String k1, String v1, String k2, String v2, String k3, String v3) {
+    public StringObjectMap add(String k1, Object v1, String k2, Object v2, String k3, Object v3) {
         this.put(k1, v1);
         this.put(k2, v2);
         this.put(k3, v3);
         return this;
     }
 
-    public StringStringMap add(String k1, String v1, String k2, String v2, String k3, String v3, String k4, String v4) {
+    public StringObjectMap add(String k1, Object v1, String k2, Object v2, String k3, Object v3, String k4, Object v4) {
         this.put(k1, v1);
         this.put(k2, v2);
         this.put(k3, v3);
@@ -58,12 +58,12 @@ public final class StringStringMap extends HashMap<String, String> implements Ma
         return this;
     }
 
-    public StringStringMap removeAll() {
+    public StringObjectMap removeAll() {
         this.clear();
         return this;
     }
 
-    public StringStringMap delete(String... keys) {
+    public StringObjectMap delete(String... keys) {
         if (keys != null) {
             for (String key : keys) {
                 if (key != null) {

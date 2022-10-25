@@ -6,16 +6,21 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util;
+package spring.turbo.util.collection;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
+import spring.turbo.util.Asserts;
+import spring.turbo.util.StringPool;
 
 import java.util.Comparator;
 import java.util.Objects;
 
 /**
+ * 版本号比较器
+ *
  * @author 应卓
+ * @see #getInstance()
  * @since 1.1.4
  */
 public class VersionComparator implements Comparator<String> {
@@ -36,8 +41,8 @@ public class VersionComparator implements Comparator<String> {
      * null版本排在最小：即：
      * <pre>
      * compare(null, "v1") &lt; 0
-     * compare("v1", "v1")  = 0
-     * compare(null, null)   = 0
+     * compare("v1", "v1") = 0
+     * compare(null, null) = 0
      * compare("v1", null) &gt; 0
      * compare("1.0.0", "1.0.2") &lt; 0
      * compare("1.0.2", "1.0.2a") &lt; 0

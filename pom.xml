@@ -91,7 +91,7 @@
 
         <java.version>1.8</java.version>
 
-        <spring.boot.version>2.7.4</spring.boot.version>
+        <spring.boot.version>2.7.5</spring.boot.version>
         <spring.version>5.3.23</spring.version>
         <slf4j.version>1.7.36</slf4j.version>
     </properties>
@@ -118,7 +118,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure-processor</artifactId>
             <version>${spring.boot.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -265,6 +265,50 @@
 
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <!-- setup构建时间戳变量 (helper.build.timestamp) -->
+                    <execution>
+                        <id>setup-buildts-var</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>timestamp-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>helper.build.timestamp</name>
+                            <pattern>yyyyMMddHHmm</pattern>
+                            <timeZone>Asia/Shanghai</timeZone>
+                            <locale>zh_CN</locale>
+                        </configuration>
+                    </execution>
+                    <!-- setup构建根目录变量 (helper.build.root) -->
+                    <execution>
+                        <id>setup-rootlocation-var</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>rootlocation</goal>
+                        </goals>
+                        <configuration>
+                            <rootLocationProperty>helper.build.root</rootLocationProperty>
+                            <runOnlyAtExecutionRoot>false</runOnlyAtExecutionRoot>
+                        </configuration>
+                    </execution>
+                    <!-- setup Maven版本号 (helper.build.mavenversion) -->
+                    <execution>
+                        <id>setup-mavenversion-var</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>maven-version</goal>
+                        </goals>
+                        <configuration>
+                            <versionProperty>helper.build.mavenversion</versionProperty>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
@@ -273,6 +317,13 @@
                     <encoding>${encoding}</encoding>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                            <version>${spring.boot.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>
@@ -292,6 +343,7 @@
                             <Implementation-Version>${project.version}</Implementation-Version>
                             <Implementation-Vendor>应卓 &lt;yingzhor@gmail.com&gt;</Implementation-Vendor>
                             <Sealed>false</Sealed>
+                            <Created-By>Apache Maven ${helper.build.mavenversion}</Created-By>
                         </manifestEntries>
                     </archive>
                 </configuration>

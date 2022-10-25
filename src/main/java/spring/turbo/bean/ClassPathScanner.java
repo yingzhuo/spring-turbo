@@ -9,7 +9,7 @@
 package spring.turbo.bean;
 
 import spring.turbo.util.Asserts;
-import spring.turbo.util.SetFactories;
+import spring.turbo.util.collection.SetFactories;
 
 import java.util.List;
 
