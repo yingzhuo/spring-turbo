@@ -248,9 +248,9 @@
                     <exclude>**/.gitkeep</exclude>
                     <exclude>**/*.bak</exclude>
                     <exclude>**/*.java</exclude>
+                    <exclude>**/*.kt</exclude>
                     <exclude>**/*.groovy</exclude>
                     <exclude>**/*.scala</exclude>
-                    <exclude>**/*.kotlin</exclude>
                 </excludes>
             </resource>
             <resource>
@@ -340,7 +340,7 @@
                         <configuration>
                             <target>
                                 <copy todir="${project.build.directory}/classes/META-INF">
-                                    <fileset dir="${helper.build.root}" includes="LICENSE"/>
+                                    <fileset dir="${helper.build.root}" includes="LICENSE*"/>
                                 </copy>
                             </target>
                         </configuration>
