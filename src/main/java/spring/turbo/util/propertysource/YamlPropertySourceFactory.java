@@ -17,8 +17,6 @@ import org.springframework.lang.Nullable;
 import spring.turbo.io.YamlUtils;
 import spring.turbo.util.RandomStringUtils;
 
-import java.util.Properties;
-
 /**
  * @author 应卓
  * @see YamlUtils
@@ -38,8 +36,7 @@ public class YamlPropertySourceFactory implements PropertySourceFactory {
             name = RandomStringUtils.randomAlphanumeric(10);
         }
 
-        final Properties properties = YamlUtils.toProperties(resource);
-        return new PropertiesPropertySource(name, properties);
+        return new PropertiesPropertySource(name, YamlUtils.toProperties(resource));
     }
 
 }

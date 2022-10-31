@@ -28,6 +28,10 @@ public final class RandomUtils {
         super();
     }
 
+    public static Random getRandomInstance() {
+        return RANDOM;
+    }
+
     /**
      * 随机生成布尔值
      *
@@ -106,7 +110,6 @@ public final class RandomUtils {
     }
 
     private static long nextLong(final long n) {
-        // Extracted from o.a.c.rng.core.BaseProvider.nextLong(long)
         long bits;
         long val;
         do {
