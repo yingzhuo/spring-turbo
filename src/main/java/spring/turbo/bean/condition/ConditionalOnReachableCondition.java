@@ -19,6 +19,7 @@ import spring.turbo.util.SocketUtils;
  * @author 应卓
  * @since 1.0.0
  */
+@Deprecated
 final class ConditionalOnReachableCondition implements Condition {
 
     @Override
