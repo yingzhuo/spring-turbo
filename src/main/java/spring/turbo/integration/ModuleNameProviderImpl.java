@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.integration;
 
-import static spring.turbo.integration.Modules.SPRING_TURBO;
-
 /**
  * @author 应卓
  * @since 1.0.0
@@ -18,7 +16,7 @@ public final class ModuleNameProviderImpl implements ModuleNameProvider {
 
     @Override
     public String getModuleName() {
-        return SPRING_TURBO.getName();
+        return Modules.SPRING_TURBO.getName();
     }
 
 }

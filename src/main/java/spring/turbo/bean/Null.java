@@ -18,9 +18,10 @@ import java.util.Optional;
  * 空值占位对象
  *
  * @author 应卓
+ * @see #getInstance()
  * @since 1.0.0
  */
-public final class Null implements Serializable {
+public final class Null extends Object implements Serializable {
 
     /**
      * 私有构造方法

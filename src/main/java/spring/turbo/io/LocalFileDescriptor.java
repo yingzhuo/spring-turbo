@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * 本地文件
+ *
  * @author 应卓
  * @see Resource
  * @see ResourceOption
