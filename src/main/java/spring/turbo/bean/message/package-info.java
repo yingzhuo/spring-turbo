@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 @NonNullApi
 @NonNullFields
+@Deprecated
 package spring.turbo.bean.message;
 
 import org.springframework.beans.factory.annotation.Autowired;

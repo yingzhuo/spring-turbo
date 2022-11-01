@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
+ * 业务自洽性检查工具
+ *
  * @author 应卓
  * @since 1.0.0
  */

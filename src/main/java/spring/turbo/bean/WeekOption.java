@@ -12,6 +12,8 @@ import java.time.DayOfWeek;
 import java.time.temporal.WeekFields;
 
 /**
+ * 星期的选项
+ *
  * @author 应卓
  * @see DateDescriptor
  * @since 1.1.3

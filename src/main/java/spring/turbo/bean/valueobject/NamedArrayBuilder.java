@@ -9,6 +9,7 @@
 package spring.turbo.bean.valueobject;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.bean.Builder;
 
 import java.util.*;
 
@@ -17,7 +18,7 @@ import java.util.*;
  * @author 应卓
  * @since 1.0.0
  */
-public final class NamedArrayBuilder<T> {
+public final class NamedArrayBuilder<T> implements Builder<NamedArray<T>> {
 
     private final List<T> array = new LinkedList<>();
     private final List<String> names = new LinkedList<>();
@@ -55,6 +56,7 @@ public final class NamedArrayBuilder<T> {
         return this;
     }
 
+    @Override
     public NamedArray<T> build() {
         return build(false);
     }

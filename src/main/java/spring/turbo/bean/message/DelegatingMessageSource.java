@@ -21,6 +21,7 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.0.11
  */
+@Deprecated
 public class DelegatingMessageSource implements MessageSource {
 
     private final MessageSource primaryMessageSource;

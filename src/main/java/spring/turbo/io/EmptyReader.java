@@ -13,6 +13,7 @@ import java.io.Reader;
 
 /**
  * @author 应卓
+ * @see #getInstance()
  * @since 1.0.8
  */
 public final class EmptyReader extends Reader {

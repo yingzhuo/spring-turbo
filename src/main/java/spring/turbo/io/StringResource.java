@@ -15,6 +15,7 @@ import java.util.Objects;
  *
  * @author 应卓
  * @see org.springframework.core.io.Resource
+ * @see StringResource
  * @since 1.1.0
  */
 public class StringResource extends InMemoryResource {

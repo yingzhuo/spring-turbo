@@ -14,10 +14,15 @@ import java.io.Serializable;
  * 令牌
  *
  * @author 应卓
+ * @see #ofString(String)
  * @since 1.0.0
  */
 @FunctionalInterface
 public interface Token extends Serializable {
+
+    public static Token ofString(String string) {
+        return StringToken.of(string);
+    }
 
     /**
      * @return 将令牌转换为 {@link java.lang.String}

@@ -16,6 +16,7 @@ import java.lang.annotation.*;
  * @author 应卓
  * @since 1.0.0
  */
+@Deprecated
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

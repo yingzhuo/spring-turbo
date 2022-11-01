@@ -15,7 +15,6 @@ import java.util.function.Function;
  *
  * @param <T> 类型
  * @author 应卓
- * @see Editor
  * @since 1.0.0
  */
 @FunctionalInterface
