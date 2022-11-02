@@ -340,8 +340,7 @@
                         <configuration>
                             <target>
                                 <copy todir="${project.build.directory}/classes/META-INF">
-                                    <fileset dir="${helper.build.root}" includes="LICENSE*"/>
-                                    <fileset dir="${helper.build.root}" includes="NOTICE*"/>
+                                    <fileset dir="${helper.build.root}" includes="LICENSE* NOTICE*"/>
                                 </copy>
                             </target>
                         </configuration>
