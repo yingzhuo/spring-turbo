@@ -333,7 +333,7 @@
                 <executions>
                     <execution>
                         <id>copy-license-file</id>
-                        <phase>prepare-package</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
@@ -341,6 +341,7 @@
                             <target>
                                 <copy todir="${project.build.directory}/classes/META-INF">
                                     <fileset dir="${helper.build.root}" includes="LICENSE*"/>
+                                    <fileset dir="${helper.build.root}" includes="NOTICE*"/>
                                 </copy>
                             </target>
                         </configuration>
