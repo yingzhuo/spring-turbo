@@ -13,6 +13,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import java.lang.annotation.*;
 
 /**
+ * 每小时启动
+ *
  * @author 应卓
  * @since 1.2.3
  */

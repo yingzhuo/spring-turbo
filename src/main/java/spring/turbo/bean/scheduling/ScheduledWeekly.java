@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import java.lang.annotation.*;
 
 /**
- * 每月启动一次
+ * 每星期启动
  *
  * @author 应卓
  * @since 1.2.3
@@ -22,6 +22,6 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-@Scheduled(cron = "@monthly")
-public @interface ScheduledMonthly {
+@Scheduled(cron = "0 0 0 * * SUN")
+public @interface ScheduledWeekly {
 }
