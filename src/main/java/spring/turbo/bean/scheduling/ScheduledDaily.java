@@ -13,7 +13,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import java.lang.annotation.*;
 
 /**
+ * 每日午夜启动
+ *
  * @author 应卓
+ * @see ScheduledMidnight 两者功能相同
  * @since 1.2.3
  */
 @Documented
