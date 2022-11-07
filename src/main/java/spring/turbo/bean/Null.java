@@ -21,7 +21,7 @@ import java.util.Optional;
  * @see #getInstance()
  * @since 1.0.0
  */
-public final class Null extends Object implements Serializable {
+public final class Null implements Serializable {
 
     /**
      * 私有构造方法

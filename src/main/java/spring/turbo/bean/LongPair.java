@@ -34,11 +34,6 @@ import java.math.BigDecimal;
 @Immutable
 public final class LongPair extends NumberPair {
 
-    public static final LongPair MIN_TO_MAX =
-            new LongPair(BigDecimal.valueOf(Long.MIN_VALUE), BigDecimal.valueOf(Long.MAX_VALUE));
-
-    public static final LongPair DEFAULT = MIN_TO_MAX;
-
     public LongPair(BigDecimal left, BigDecimal right) {
         super(left, right);
     }

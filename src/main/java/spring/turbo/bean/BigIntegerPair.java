@@ -35,9 +35,6 @@ import java.math.BigInteger;
 @Immutable
 public final class BigIntegerPair extends NumberPair {
 
-    public static final BigIntegerPair DEFAULT =
-            new BigIntegerPair(BigDecimal.valueOf(Double.MIN_VALUE), BigDecimal.valueOf(Double.MAX_VALUE));
-
     public BigIntegerPair(BigDecimal left, BigDecimal right) {
         super(left, right);
     }
