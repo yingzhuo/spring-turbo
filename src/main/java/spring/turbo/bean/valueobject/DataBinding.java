@@ -92,8 +92,8 @@ public final class DataBinding {
     }
 
     public BindingResult bind() {
-        Asserts.state(valueObject != null);
-        Asserts.state(data != null);
+        Asserts.isTrue(valueObject != null);
+        Asserts.isTrue(data != null);
 
         final DataBinder dataBinder = new DataBinder(valueObject);
         Optional.ofNullable(conversionService).ifPresent(dataBinder::setConversionService);

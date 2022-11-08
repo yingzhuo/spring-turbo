@@ -24,22 +24,28 @@ import java.util.function.Supplier;
  */
 public final class Asserts {
 
+    /**
+     * 私有构造方法
+     */
     private Asserts() {
         super();
     }
 
+    @Deprecated
     public static void state(boolean expression, @Nullable String message) {
         if (!expression) {
             throw new IllegalStateException(message);
         }
     }
 
+    @Deprecated
     public static void state(boolean expression, Supplier<String> messageSupplier) {
         if (!expression) {
             throw new IllegalStateException(nullSafeGet(messageSupplier));
         }
     }
 
+    @Deprecated
     public static void state(boolean expression) {
         state(expression, "[Assertion failed] - this state invariant must be true");
     }
