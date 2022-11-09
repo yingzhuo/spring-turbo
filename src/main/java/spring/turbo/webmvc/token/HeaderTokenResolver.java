@@ -63,7 +63,6 @@ public class HeaderTokenResolver implements TokenResolver {
     @NonNull
     @Override
     public Optional<Token> resolve(WebRequest request) {
-
         String headerValue = request.getHeader(headerName);
 
         if (headerValue == null || !headerValue.startsWith(prefix)) {

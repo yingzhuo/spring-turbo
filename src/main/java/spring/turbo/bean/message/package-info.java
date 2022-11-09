@@ -30,6 +30,7 @@ import java.util.List;
  * @see spring.turbo.core.MessageUtils
  * @since 1.0.11
  */
+@Deprecated
 @AutoConfiguration
 class SpringBootAutoConfiguration {
 
