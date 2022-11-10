@@ -14,8 +14,10 @@ import spring.turbo.util.Asserts;
 
 /**
  * @author 应卓
+ * @see DebugLogUtils
  * @since 1.2.3
  */
+@Deprecated
 public final class TraceLogUtils {
 
     /**
@@ -26,18 +28,13 @@ public final class TraceLogUtils {
     }
 
     public static boolean isTraceLogEnabled() {
-        return isTraceLogEnabled(
-                SpringUtils.getEnvironment(),
-                SpringUtils.getApplicationArguments()
-        );
+        return isTraceLogEnabled(SpringUtils.getEnvironment(), SpringUtils.getApplicationArguments());
     }
 
     public static boolean isTraceLogEnabled(Environment environment, ApplicationArguments applicationArguments) {
         Asserts.notNull(environment);
         Asserts.notNull(applicationArguments);
-
-        return environment.getProperty("trace", Boolean.class, Boolean.FALSE) ||
-                applicationArguments.containsOption("trace");
+        return environment.getProperty("trace", Boolean.class, Boolean.FALSE) || applicationArguments.containsOption("trace");
     }
 
 }
