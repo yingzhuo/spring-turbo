@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;
+import spring.turbo.lang.BetaWarningBeanPostProcessor;
 
 /**
  * @author 应卓
@@ -26,6 +27,11 @@ class SpringBootAutoConfiguration {
     @Bean
     XAwarePostProcessor xAwarePostProcessor(ApplicationContext applicationContext) {
         return new XAwarePostProcessor(applicationContext);
+    }
+
+    @Bean
+    BetaWarningBeanPostProcessor betaWarningBeanPostProcessor() {
+        return new BetaWarningBeanPostProcessor();
     }
 
 }
