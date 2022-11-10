@@ -307,24 +307,4 @@ public final class SpringUtils {
                 .orElseThrow(UNSUPPORTED);
     }
 
-    public static boolean isTraceLogEnabled() {
-        return isTraceLogEnabled(getEnvironment(), getApplicationArguments());
-    }
-
-    public static boolean isTraceLogEnabled(Environment environment, ApplicationArguments applicationArguments) {
-        Asserts.notNull(environment);
-        Asserts.notNull(applicationArguments);
-        return environment.getProperty("trace", Boolean.class, Boolean.FALSE) || applicationArguments.containsOption("trace");
-    }
-
-    public static boolean isDebugLogEnabled() {
-        return isDebugLogEnabled(getEnvironment(), getApplicationArguments());
-    }
-
-    public static boolean isDebugLogEnabled(Environment environment, ApplicationArguments applicationArguments) {
-        Asserts.notNull(environment);
-        Asserts.notNull(applicationArguments);
-        return environment.getProperty("debug", Boolean.class, Boolean.FALSE) || applicationArguments.containsOption("debug");
-    }
-
 }
