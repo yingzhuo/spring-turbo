@@ -13,12 +13,15 @@ import org.springframework.beans.factory.annotation.Value;
 import java.lang.annotation.*;
 
 /**
+ * 注入{@code boolean}值表达应用程序是否处于trace模式
+ *
  * @author 应卓
  * @see IsTraceOrDebugMode
  * @see IsDebugMode
+ * @see Value
  * @since 1.2.3
  */
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Value("#{environment.getProperty('trace') != null && environment.getProperty('trace') != 'false'}")
