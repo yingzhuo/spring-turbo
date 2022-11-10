@@ -16,7 +16,24 @@ package spring.turbo.bean;
  */
 public enum Gender {
 
-    FEMALE,
+    /**
+     * 女
+     */
+    FEMALE(0),
 
-    MALE
+    /**
+     * 男
+     */
+    MALE(1);
+
+    private final int integerValue;
+
+    private Gender(int integerValue) {
+        this.integerValue = integerValue;
+    }
+
+    public int getIntegerValue() {
+        return integerValue;
+    }
+
 }

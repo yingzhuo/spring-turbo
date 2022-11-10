@@ -11,6 +11,7 @@ package spring.turbo.core;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -130,6 +131,21 @@ public final class SpringUtils {
     public static Environment getEnvironment() {
         return Optional.ofNullable(SpringApplicationAware.SC)
                 .map(SpringContext::getEnvironment)
+                .orElseThrow(UNSUPPORTED);
+    }
+
+    /**
+     * 获取{@link ApplicationArguments}实例
+     *
+     * @return {@link ApplicationArguments}实例
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+     * @see Environment
+     * @see EnvironmentUtils
+     * @see ProfilesUtils
+     */
+    public static ApplicationArguments getApplicationArguments() {
+        return Optional.ofNullable(SpringApplicationAware.SC)
+                .map(SpringContext::getApplicationArguments)
                 .orElseThrow(UNSUPPORTED);
     }
 

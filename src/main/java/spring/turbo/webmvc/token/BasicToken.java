@@ -6,21 +6,36 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.webmvc.function;
+package spring.turbo.webmvc.token;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.function.Predicate;
+import spring.turbo.lang.Immutable;
+import spring.turbo.util.Asserts;
 
 /**
  * @author 应卓
- * @see ResponsePredicateSet
- * @see ResponsePredicateFactories
- * @see RequestPredicate
- * @since 1.1.2
+ * @see BasicTokenResolver
+ * @since 1.2.3
  */
-public interface ResponsePredicate extends Predicate<HttpServletResponse> {
+@Immutable
+public class BasicToken extends StringToken {
 
-    @Override
-    public boolean test(HttpServletResponse response);
+    private final String username;
+    private final String password;
+
+    public BasicToken(String stringValue, String username, String password) {
+        super(stringValue);
+        Asserts.hasText(username);
+        Asserts.hasText(password);
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
 }

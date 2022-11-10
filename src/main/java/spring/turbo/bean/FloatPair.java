@@ -34,9 +34,11 @@ import java.math.BigDecimal;
 @Immutable
 public final class FloatPair extends NumberPair {
 
+    @Deprecated
     public static final FloatPair MIN_TO_MAX =
             new FloatPair(BigDecimal.valueOf(Float.MIN_VALUE), BigDecimal.valueOf(Float.MAX_VALUE));
 
+    @Deprecated
     public static final FloatPair DEFAULT = MIN_TO_MAX;
 
     public FloatPair(BigDecimal left, BigDecimal right) {

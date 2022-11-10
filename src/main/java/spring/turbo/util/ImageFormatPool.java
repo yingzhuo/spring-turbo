@@ -6,22 +6,21 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.webmvc.function;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.function.Predicate;
+package spring.turbo.util;
 
 /**
  * @author 应卓
- * @see org.springframework.web.servlet.function.RequestPredicate
- * @see org.springframework.web.servlet.function.RequestPredicates
- * @see RequestPredicateFactories
- * @since 1.0.0
+ * @since 1.2.3
  */
-@FunctionalInterface
-public interface RequestPredicate extends Predicate<HttpServletRequest> {
+public final class ImageFormatPool {
 
-    @Override
-    public boolean test(HttpServletRequest request);
+    public static final String PNG = "png";
+
+    /**
+     * 私有构造方法
+     */
+    private ImageFormatPool() {
+        super();
+    }
 
 }

@@ -34,11 +34,6 @@ import java.math.BigDecimal;
 @Immutable
 public final class ShortPair extends NumberPair {
 
-    public static final ShortPair MIN_TO_MAX =
-            new ShortPair(BigDecimal.valueOf(Short.MIN_VALUE), BigDecimal.valueOf(Short.MAX_VALUE));
-
-    public static final ShortPair DEFAULT = MIN_TO_MAX;
-
     public ShortPair(BigDecimal left, BigDecimal right) {
         super(left, right);
     }

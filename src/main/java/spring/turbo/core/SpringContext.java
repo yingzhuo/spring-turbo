@@ -13,6 +13,7 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -76,6 +77,11 @@ public final class SpringContext {
     @Nullable
     public Environment getEnvironment() {
         return getBean(Environment.class).orElse(null);
+    }
+
+    @Nullable
+    public ApplicationArguments getApplicationArguments() {
+        return getBean(ApplicationArguments.class).orElse(null);
     }
 
     @Nullable
