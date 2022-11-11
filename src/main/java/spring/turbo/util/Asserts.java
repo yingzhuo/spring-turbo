@@ -31,25 +31,6 @@ public final class Asserts {
         super();
     }
 
-    @Deprecated
-    public static void state(boolean expression, @Nullable String message) {
-        if (!expression) {
-            throw new IllegalStateException(message);
-        }
-    }
-
-    @Deprecated
-    public static void state(boolean expression, Supplier<String> messageSupplier) {
-        if (!expression) {
-            throw new IllegalStateException(nullSafeGet(messageSupplier));
-        }
-    }
-
-    @Deprecated
-    public static void state(boolean expression) {
-        state(expression, "[Assertion failed] - this state invariant must be true");
-    }
-
     public static void isTrue(boolean expression, @Nullable String message) {
         if (!expression) {
             throw new IllegalArgumentException(message);
