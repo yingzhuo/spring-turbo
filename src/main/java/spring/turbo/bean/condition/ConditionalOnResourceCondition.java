@@ -27,6 +27,7 @@ import java.util.stream.Stream;
  * @see ConditionalOnResource
  * @since 1.0.0
  */
+@Deprecated
 final class ConditionalOnResourceCondition implements Condition {
 
     @Override
