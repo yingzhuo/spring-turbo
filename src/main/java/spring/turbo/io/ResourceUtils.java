@@ -10,11 +10,10 @@ package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.CharsetPool;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-
-import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
  * {@code Resource}相关工具
@@ -32,7 +31,7 @@ public final class ResourceUtils {
     }
 
     public static String toString(Resource resource) {
-        return toString(resource, UTF_8);
+        return toString(resource, CharsetPool.UTF_8);
     }
 
     public static String toString(Resource resource, Charset charset) {
@@ -41,6 +40,18 @@ public final class ResourceUtils {
 
         try {
             return IOUtils.copyToString(resource.getInputStream(), charset);
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
+        } finally {
+            CloseUtils.closeQuietly(resource);
+        }
+    }
+
+    public static byte[] toByteArray(Resource resource) {
+        Asserts.notNull(resource);
+
+        try {
+            return IOUtils.copyToByteArray(resource.getInputStream());
         } catch (IOException e) {
             throw IOExceptionUtils.toUnchecked(e);
         } finally {
