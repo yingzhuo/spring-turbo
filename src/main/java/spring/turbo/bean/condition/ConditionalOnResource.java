@@ -22,6 +22,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Conditional(ConditionalOnResourceCondition.class)
+@Deprecated
 public @interface ConditionalOnResource {
 
     @AliasFor("value")

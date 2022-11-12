@@ -11,11 +11,13 @@ package spring.turbo.lang;
 import java.lang.annotation.*;
 
 /**
+ * 不稳定的Bean或不推荐用在开发环境的Bean
+ *
  * @author 应卓
  * @since 1.0.0
  */
 @Documented
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Beta {
 }
