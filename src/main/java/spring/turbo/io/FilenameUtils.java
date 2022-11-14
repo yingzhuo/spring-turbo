@@ -6,9 +6,10 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util;
+package spring.turbo.io;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
 
 import java.nio.file.Paths;
 
@@ -62,6 +63,25 @@ public final class FilenameUtils {
     }
 
     /**
+     * 获取文件全名
+     * <pre>
+     * a/b/c.txt --&gt; c.txt
+     * a.txt     --&gt; a.txt
+     * a/b/c     --&gt; c
+     * a/b/c/    --&gt; ""
+     * </pre>
+     *
+     * @param fileName 文件名
+     * @return 文件名
+     */
+    public static String getName(final String fileName) {
+        Asserts.notNull(fileName);
+        requireNonNullChars(fileName);
+        final int index = indexOfLastSeparator(fileName);
+        return fileName.substring(index + 1);
+    }
+
+    /**
      * 获取文件BaseName
      * <pre>
      * a/b/c.txt --&gt; c
@@ -74,15 +94,7 @@ public final class FilenameUtils {
      * @return 文件basename
      */
     public static String getBaseName(final String fileName) {
-        Asserts.notNull(fileName);
-
-        requireNonNullChars(fileName);
-
-        final int index = indexOfExtension(fileName);
-        if (index == NOT_FOUND) {
-            return fileName;
-        }
-        return fileName.substring(0, index);
+        return removeExtension(getName(fileName));
     }
 
     /**
@@ -105,6 +117,29 @@ public final class FilenameUtils {
             return EMPTY;
         }
         return fileName.substring(index + 1);
+    }
+
+    /**
+     * 去除扩展名
+     * <pre>
+     * foo.txt    --gt; foo
+     * a\b\c.jpg  --gt; a\b\c
+     * a\b\c      --gt; a\b\c
+     * a.b\c      --gt; a.b\c
+     * </pre>
+     *
+     * @param fileName 文件名
+     * @return 结果
+     */
+    public static String removeExtension(final String fileName) {
+        Asserts.notNull(fileName);
+        requireNonNullChars(fileName);
+
+        final int index = indexOfExtension(fileName);
+        if (index == NOT_FOUND) {
+            return fileName;
+        }
+        return fileName.substring(0, index);
     }
 
     /**
