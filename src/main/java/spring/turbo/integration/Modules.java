@@ -26,12 +26,10 @@ import java.util.stream.Collectors;
 public enum Modules implements Named {
 
     SPRING_TURBO("spring.turbo"),
-    SPRING_TURBO_CAPTCHA("spring.turbo.captcha"),
     SPRING_TURBO_CSV("spring.turbo.csv"),
     SPRING_TURBO_EXCEL("spring.turbo.excel"),
     SPRING_TURBO_FEIGN("spring.turbo.feign"),
     SPRING_TURBO_JACKSON("spring.turbo.jackson"),
-    SPRING_TURBO_JAVASSIST("spring.turbo.javassist"),
     SPRING_TURBO_QUERYSELECTOR("spring.turbo.queryselector"),
     SPRING_TURBO_QUERYSELECTOR_SQL("spring.turbo.queryselector-sql"),
     SPRING_TURBO_SECURITY("spring.turbo.security"),
