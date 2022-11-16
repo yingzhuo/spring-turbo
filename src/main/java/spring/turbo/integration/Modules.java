@@ -42,10 +42,9 @@ public enum Modules implements Named {
     SPRING_TURBO_RABBITMQ("spring.turbo.rabbitmq", false),
     SPRING_TURBO_REDIS("spring.turbo.redis", false),
     SPRING_TURBO_SECURITY("spring.turbo.security", false),
-    SPRING_TURBO_SECURITY_JWT("spring.turbo.security-jwt", false),
-    SPRING_TURBO_SECURITY_HUTOOL("spring.turbo.security-hutool", false),
     SPRING_TURBO_WEBMVC("spring.turbo.webmvc", false),
-    SPRING_TURBO_ZOOKEEPER("spring.turbo.zookeeper", false);
+    SPRING_TURBO_ZOOKEEPER("spring.turbo.zookeeper", false),
+    ;
 
     private final String name;
     private final boolean beta;
