@@ -26,8 +26,6 @@ import java.util.stream.Collectors;
 public enum Modules implements Named {
 
     SPRING_TURBO("spring.turbo"),
-    SPRING_TURBO_CSV("spring.turbo.csv"),
-    SPRING_TURBO_EXCEL("spring.turbo.excel"),
     SPRING_TURBO_FEIGN("spring.turbo.feign"),
     SPRING_TURBO_JACKSON("spring.turbo.jackson"),
     SPRING_TURBO_QUERYSELECTOR("spring.turbo.queryselector"),
@@ -35,7 +33,8 @@ public enum Modules implements Named {
     SPRING_TURBO_SECURITY("spring.turbo.security"),
     SPRING_TURBO_WEBMVC("spring.turbo.webmvc"),
     SPRING_TURBO_MISC("spring.turbo.misc"),
-    SPRING_TURBO_DATA_ACCESSING("spring-turbo-data-accessing");
+    SPRING_TURBO_DATA_ACCESSING("spring.turbo.data-accessing"),
+    SPRING_TURBO_DATA_HANDLING("spring.turbo.data-handling");
 
     private final String name;
 
