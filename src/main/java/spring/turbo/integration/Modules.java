@@ -32,16 +32,10 @@ public enum Modules implements Named {
     SPRING_TURBO_FEIGN("spring.turbo.feign"),
     SPRING_TURBO_JACKSON("spring.turbo.jackson"),
     SPRING_TURBO_JAVASSIST("spring.turbo.javassist"),
-    SPRING_TURBO_KAFKA("spring.turbo.kafka"),
-    SPRING_TURBO_PDF("spring.turbo.pdf"),
-    SPRING_TURBO_QRCODE("spring.turbo.qrcode"),
     SPRING_TURBO_QUERYSELECTOR("spring.turbo.queryselector"),
     SPRING_TURBO_QUERYSELECTOR_SQL("spring.turbo.queryselector-sql"),
-    SPRING_TURBO_RABBITMQ("spring.turbo.rabbitmq"),
     SPRING_TURBO_SECURITY("spring.turbo.security"),
     SPRING_TURBO_WEBMVC("spring.turbo.webmvc"),
-    SPRING_TURBO_ZOOKEEPER("spring.turbo.zookeeper"),
-
     SPRING_TURBO_MISC("spring.turbo.misc"),
     SPRING_TURBO_DATA_ACCESSING("spring-turbo-data-accessing");
 
