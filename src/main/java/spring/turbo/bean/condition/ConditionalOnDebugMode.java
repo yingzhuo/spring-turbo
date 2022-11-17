@@ -27,6 +27,6 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Conditional(ConditionalOnTraceDebugModeCondition.class)
-public @interface ConditionalOnTraceDebugMode {
+@Conditional(ConditionalOnDebugModeCondition.class)
+public @interface ConditionalOnDebugMode {
 }

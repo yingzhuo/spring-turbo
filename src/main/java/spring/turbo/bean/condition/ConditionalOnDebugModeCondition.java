@@ -13,19 +13,21 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
+import static spring.turbo.util.StringPool.*;
+
 /**
  * @author 应卓
  * @since 1.3.0
  */
-public final class ConditionalOnTraceDebugModeCondition implements Condition {
+public final class ConditionalOnDebugModeCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
         try {
             final Environment env = context.getEnvironment();
-            return (env.getProperty("debug") != null && !"false".equalsIgnoreCase(env.getProperty("debug"))) ||
-                    (env.getProperty("trace") != null && !"false".equalsIgnoreCase(env.getProperty("trace")));
-        } catch (Throwable e) {
+            return (env.getProperty(DEBUG) != null && !FALSE.equalsIgnoreCase(env.getProperty(DEBUG))) ||
+                    (env.getProperty(TRACE) != null && !FALSE.equalsIgnoreCase(env.getProperty(TRACE)));
+        } catch (Exception e) {
             return false;
         }
     }
