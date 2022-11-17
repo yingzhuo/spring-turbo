@@ -8,10 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.autoconfiguration;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.lang.Nullable;
 import spring.turbo.format.*;
 
 /**
@@ -19,25 +19,30 @@ import spring.turbo.format.*;
  * @since 1.3.0
  */
 @AutoConfiguration
-public class FormatterEditingAutoConfiguration {
+@ConditionalOnBean(FormatterRegistry.class)
+public class FormatterEditingAutoConfiguration implements InitializingBean {
 
-    @Autowired(required = false)
-    public FormatterEditingAutoConfiguration(@Nullable FormatterRegistry registry) {
-        if (registry != null) {
-            registry.addConverter(new StringToDateConverter());
-            registry.addConverter(new ResourceOptionConverter());
-            registry.addConverter(new StringToBooleanConverter());
-            registry.addConverter(new StringToNumberConverter());
-            registry.addConverter(new StringToNumberPairConverter());
+    private final FormatterRegistry registry;
 
-            registry.addConverter(new DateRangeParser());
-            registry.addFormatterForFieldAnnotation(new DateRangeAnnotationFormatterFactory());
+    public FormatterEditingAutoConfiguration(FormatterRegistry registry) {
+        this.registry = registry;
+    }
 
-            registry.addConverter(new NumberZonesParser());
-            registry.addFormatterForFieldAnnotation(new NumberZonesAnnotationFormatterFactory());
+    @Override
+    public void afterPropertiesSet() {
+        registry.addConverter(new StringToDateConverter());
+        registry.addConverter(new ResourceOptionConverter());
+        registry.addConverter(new StringToBooleanConverter());
+        registry.addConverter(new StringToNumberConverter());
+        registry.addConverter(new StringToNumberPairConverter());
 
-            registry.addConverterFactory(new StringToEnumConverterFactory());
-        }
+        registry.addConverter(new DateRangeParser());
+        registry.addFormatterForFieldAnnotation(new DateRangeAnnotationFormatterFactory());
+
+        registry.addConverter(new NumberZonesParser());
+        registry.addFormatterForFieldAnnotation(new NumberZonesAnnotationFormatterFactory());
+
+        registry.addConverterFactory(new StringToEnumConverterFactory());
     }
 
 }

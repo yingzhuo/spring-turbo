@@ -9,11 +9,10 @@
 package spring.turbo.autoconfiguration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.lang.Nullable;
 import spring.turbo.jackson2.CoreModuleJackson2Module;
 
 /**
@@ -23,13 +22,17 @@ import spring.turbo.jackson2.CoreModuleJackson2Module;
 @AutoConfiguration
 @ConditionalOnClass(name = "com.fasterxml.jackson.databind.ObjectMapper")
 @ConditionalOnBean(type = "com.fasterxml.jackson.databind.ObjectMapper")
-public class ObjectMapperEditingAutoConfiguration {
+public class ObjectMapperEditingAutoConfiguration implements InitializingBean {
 
-    @Autowired(required = false)
-    public ObjectMapperEditingAutoConfiguration(@Nullable ObjectMapper om) {
-        if (om != null) {
-            om.registerModule(new CoreModuleJackson2Module());
-        }
+    private final ObjectMapper objectMapper;
+
+    public ObjectMapperEditingAutoConfiguration(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        objectMapper.registerModule(new CoreModuleJackson2Module());
     }
 
 }
