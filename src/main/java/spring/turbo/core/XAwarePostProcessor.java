@@ -23,7 +23,7 @@ import spring.turbo.util.InstanceCacheAware;
  * @see SpringContextAware
  * @since 1.0.10
  */
-class XAwarePostProcessor implements BeanPostProcessor {
+public class XAwarePostProcessor implements BeanPostProcessor {
 
     private final ApplicationContext applicationContext;
 

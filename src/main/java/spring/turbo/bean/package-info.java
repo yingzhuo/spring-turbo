@@ -10,38 +10,5 @@
 @NonNullFields
 package spring.turbo.bean;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;
-import org.springframework.lang.Nullable;
-import spring.turbo.format.*;
-
-/**
- * @author 应卓
- * @since 1.0.0
- */
-@AutoConfiguration
-class SpringBootAutoConfiguration {
-
-    @Autowired(required = false)
-    public SpringBootAutoConfiguration(@Nullable FormatterRegistry registry) {
-        if (registry != null) {
-            registry.addConverter(new StringToDateConverter());
-            registry.addConverter(new ResourceOptionConverter());
-            registry.addConverter(new StringToBooleanConverter());
-            registry.addConverter(new StringToNumberConverter());
-            registry.addConverter(new StringToNumberPairConverter());
-
-            registry.addConverter(new DateRangeParser());
-            registry.addFormatterForFieldAnnotation(new DateRangeAnnotationFormatterFactory());
-
-            registry.addConverter(new NumberZonesParser());
-            registry.addFormatterForFieldAnnotation(new NumberZonesAnnotationFormatterFactory());
-
-            registry.addConverterFactory(new StringToEnumConverterFactory());
-        }
-    }
-
-}
