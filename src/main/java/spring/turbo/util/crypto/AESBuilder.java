@@ -27,6 +27,9 @@ public final class AESBuilder implements Builder<AES> {
     @Nullable
     private SecretKey secretKey;
 
+    /**
+     * 构造方法
+     */
     AESBuilder() {
         super();
     }
