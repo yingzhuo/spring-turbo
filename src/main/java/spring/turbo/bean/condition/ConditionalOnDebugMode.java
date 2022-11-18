@@ -9,28 +9,24 @@
 package spring.turbo.bean.condition;
 
 import org.springframework.context.annotation.Conditional;
-import org.springframework.core.annotation.AliasFor;
-import spring.turbo.core.Logic;
 
 import java.lang.annotation.*;
 
 /**
+ * 在trace或debug模式下生效
+ *
  * @author 应卓
- * @since 1.0.0
+ * @see spring.turbo.bean.injection.IsTraceMode
+ * @see spring.turbo.bean.injection.IsDebugMode
+ * @see spring.turbo.bean.injection.IsTraceOrDebugMode
+ * @see org.springframework.core.env.Environment
+ * @see org.springframework.boot.ApplicationArguments
+ * @since 1.3.0
  */
+@Inherited
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Conditional(ConditionalOnResourceCondition.class)
-@Deprecated
-public @interface ConditionalOnResource {
-
-    @AliasFor("value")
-    public String[] locations() default {};
-
-    @AliasFor("locations")
-    public String[] value() default {};
-
-    public Logic logic() default Logic.ALL;
-
+@Conditional(ConditionalOnDebugModeCondition.class)
+public @interface ConditionalOnDebugMode {
 }

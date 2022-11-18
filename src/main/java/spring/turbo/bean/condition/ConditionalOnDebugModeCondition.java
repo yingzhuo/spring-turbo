@@ -10,42 +10,25 @@ package spring.turbo.bean.condition;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
-import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
-import org.springframework.util.CollectionUtils;
-import spring.turbo.core.Logic;
-import spring.turbo.integration.Modules;
 
-import java.util.stream.Stream;
+import static spring.turbo.util.StringPool.*;
 
 /**
  * @author 应卓
- * @see ConditionalOnModule
- * @since 1.0.0
+ * @since 1.3.0
  */
-final class ConditionalOnModuleCondition implements Condition {
+public final class ConditionalOnDebugModeCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-
-        AnnotationAttributes annotationAttributes =
-                AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnModule.class.getName()));
-
-        if (CollectionUtils.isEmpty(annotationAttributes)) {
+        try {
+            final Environment env = context.getEnvironment();
+            return (env.getProperty(DEBUG) != null && !FALSE.equalsIgnoreCase(env.getProperty(DEBUG))) ||
+                    (env.getProperty(TRACE) != null && !FALSE.equalsIgnoreCase(env.getProperty(TRACE)));
+        } catch (Exception e) {
             return false;
-        }
-
-        final Logic logic = annotationAttributes.getEnum("logic");
-        final Modules[] modules = (Modules[]) annotationAttributes.get("value");
-
-        if (modules.length == 0) {
-            return false;
-        }
-
-        if (logic == Logic.ANY) {
-            return Stream.of(modules).anyMatch(Modules::isPresent);
-        } else {
-            return Stream.of(modules).allMatch(Modules::isPresent);
         }
     }
 

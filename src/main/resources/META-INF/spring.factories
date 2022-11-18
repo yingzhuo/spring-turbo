@@ -1,6 +1,6 @@
 org.springframework.context.ApplicationListener=\
-    spring.turbo.core.SpringApplicationAware
+spring.turbo.core.SpringApplicationAware
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    spring.turbo.bean.SpringBootAutoConfiguration,\
-    spring.turbo.core.SpringBootAutoConfiguration,\
-    spring.turbo.bean.message.SpringBootAutoConfiguration
+spring.turbo.autoconfiguration.SpringUtilsSupportAutoConfiguration,\
+spring.turbo.autoconfiguration.FormatterEditingAutoConfiguration,\
+spring.turbo.autoconfiguration.ObjectMapperEditingAutoConfiguration

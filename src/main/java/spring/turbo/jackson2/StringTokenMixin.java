@@ -6,31 +6,26 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.condition;
+package spring.turbo.jackson2;
 
-import org.springframework.context.annotation.Conditional;
-import org.springframework.core.annotation.AliasFor;
-import spring.turbo.core.Logic;
-import spring.turbo.integration.Modules;
-
-import java.lang.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import spring.turbo.webmvc.token.StringToken;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @see StringToken
+ * @since 1.2.3
  */
-@Target({ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Conditional(ConditionalOnModuleCondition.class)
-public @interface ConditionalOnModule {
+public abstract class StringTokenMixin {
 
-    @AliasFor("value")
-    public Modules[] modules() default {};
+    // 反序列化
+    @JsonCreator
+    public static StringToken toToken(String tokenValue) {
+        return StringToken.of(tokenValue);
+    }
 
-    @AliasFor("modules")
-    public Modules[] value() default {};
-
-    public Logic logic() default Logic.ALL;
+    @JsonValue
+    public abstract String asString();
 
 }

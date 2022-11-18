@@ -6,15 +6,9 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.integration;
+@NonNullApi
+@NonNullFields
+package spring.turbo.jackson2;
 
-/**
- * @author 应卓
- * @since 1.0.0
- */
-@FunctionalInterface
-public interface ModuleNameProvider {
-
-    public String getModuleName();
-
-}
+import org.springframework.lang.NonNullApi;
+import org.springframework.lang.NonNullFields;

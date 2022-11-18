@@ -20,6 +20,9 @@ final class B64 {
     static final String B64T_STRING = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static final char[] B64T_ARRAY = B64T_STRING.toCharArray();
 
+    /**
+     * 私有构造方法
+     */
     private B64() {
         super();
     }

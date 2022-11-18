@@ -10,28 +10,5 @@
 @NonNullFields
 package spring.turbo.core;
 
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;
-import spring.turbo.lang.BetaWarningBeanPostProcessor;
-
-/**
- * @author 应卓
- * @since 1.0.10
- */
-@AutoConfiguration
-class SpringBootAutoConfiguration {
-
-    @Bean
-    XAwarePostProcessor xAwarePostProcessor(ApplicationContext applicationContext) {
-        return new XAwarePostProcessor(applicationContext);
-    }
-
-    @Bean
-    BetaWarningBeanPostProcessor betaWarningBeanPostProcessor() {
-        return new BetaWarningBeanPostProcessor();
-    }
-
-}

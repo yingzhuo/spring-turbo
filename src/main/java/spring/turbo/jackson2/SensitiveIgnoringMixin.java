@@ -6,9 +6,22 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-@NonNullApi
-@NonNullFields
-package spring.turbo.integration;
+package spring.turbo.jackson2;
 
-import org.springframework.lang.NonNullApi;
-import org.springframework.lang.NonNullFields;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+/**
+ * @author 应卓
+ * @since 1.3.0
+ */
+@JsonIgnoreProperties(
+        ignoreUnknown = true,
+        value = {
+                "password",
+                "passwd",
+                "pwd",
+                "secret",
+                "hidden"
+        })
+public abstract class SensitiveIgnoringMixin {
+}
