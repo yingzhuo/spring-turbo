@@ -32,7 +32,7 @@ public enum Modules implements Named {
     SPRING_TURBO_QUERYSELECTOR_SQL("spring.turbo.queryselector-sql"),
     SPRING_TURBO_SECURITY("spring.turbo.security"),
     SPRING_TURBO_WEBMVC("spring.turbo.webmvc"),
-    SPRING_TURBO_MISC("spring.turbo.misc"),
+    SPRING_TURBO_MISCELLANEOUS("spring.turbo.miscellaneous"),
     SPRING_TURBO_DATA_ACCESSING("spring.turbo.data-accessing"),
     SPRING_TURBO_DATA_HANDLING("spring.turbo.data-handling");
 
