@@ -10,9 +10,19 @@ package spring.turbo;
 
 /**
  * 版本
+ *
+ * @author 应卓
+ * @since 1.3.1
  */
 public final class SpringTurboVersion {
 
     public static final String VERSION = "1.3.1";
+
+    /**
+     * 私有构造方法
+     */
+    private SpringTurboVersion() {
+        super();
+    }
 
 }

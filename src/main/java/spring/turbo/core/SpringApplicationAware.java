@@ -16,6 +16,8 @@ import org.springframework.core.PriorityOrdered;
 import org.springframework.lang.Nullable;
 
 /**
+ * ApplicationContext实例保存
+ *
  * @author 应卓
  * @see SpringUtils
  * @since 1.0.2
