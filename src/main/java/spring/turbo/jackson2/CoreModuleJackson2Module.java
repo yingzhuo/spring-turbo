@@ -8,8 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.core.json.PackageVersion;
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.core.util.VersionUtil;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import spring.turbo.SpringTurboVersion;
 import spring.turbo.bean.*;
 import spring.turbo.webmvc.token.BasicToken;
 import spring.turbo.webmvc.token.StringToken;
@@ -20,8 +22,14 @@ import spring.turbo.webmvc.token.StringToken;
  */
 public class CoreModuleJackson2Module extends SimpleModule {
 
+    public static final Version VERSION = VersionUtil.parseVersion(
+            SpringTurboVersion.VERSION,
+            "com.github.yingzhuo",
+            "spring-turbo"
+    );
+
     public CoreModuleJackson2Module() {
-        super(CoreModuleJackson2Module.class.getName(), PackageVersion.VERSION);
+        super(CoreModuleJackson2Module.class.getName(), VERSION);
     }
 
     @Override
