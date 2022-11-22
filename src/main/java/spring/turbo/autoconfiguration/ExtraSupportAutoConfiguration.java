@@ -9,6 +9,7 @@
 package spring.turbo.autoconfiguration;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import spring.turbo.core.XAwarePostProcessor;
@@ -16,17 +17,19 @@ import spring.turbo.lang.BetaWarningBeanPostProcessor;
 
 /**
  * @author 应卓
- * @since 1.3.0
+ * @since 1.3.1
  */
 @AutoConfiguration
-public class SpringUtilsSupportAutoConfiguration {
+public class ExtraSupportAutoConfiguration {
 
     @Bean
+    @ConditionalOnMissingBean
     public XAwarePostProcessor xAwarePostProcessor(ApplicationContext applicationContext) {
         return new XAwarePostProcessor(applicationContext);
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public BetaWarningBeanPostProcessor betaWarningBeanPostProcessor() {
         return new BetaWarningBeanPostProcessor();
     }

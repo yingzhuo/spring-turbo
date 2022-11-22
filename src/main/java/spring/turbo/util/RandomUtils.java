@@ -28,10 +28,6 @@ public final class RandomUtils {
         super();
     }
 
-    public static Random getRandomInstance() {
-        return RANDOM;
-    }
-
     /**
      * 随机生成布尔值
      *
