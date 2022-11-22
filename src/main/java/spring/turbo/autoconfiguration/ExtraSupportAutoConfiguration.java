@@ -17,10 +17,10 @@ import spring.turbo.lang.BetaWarningBeanPostProcessor;
 
 /**
  * @author 应卓
- * @since 1.3.0
+ * @since 1.3.1
  */
 @AutoConfiguration
-public class SpringUtilsSupportAutoConfiguration {
+public class ExtraSupportAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
