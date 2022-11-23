@@ -19,9 +19,7 @@ import java.util.List;
 
 /**
  * @author 应卓
- * @see spring.turbo.format.NumberZonesFormat
- * @see spring.turbo.format.NumberZonesAnnotationFormatterFactory
- * @see spring.turbo.format.NumberZonesParser
+ * @see spring.turbo.format.NumberPairFormatter
  * @see spring.turbo.bean.jsr380.DecentNumberZones
  * @since 1.1.4
  */

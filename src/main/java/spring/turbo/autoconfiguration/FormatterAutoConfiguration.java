@@ -26,6 +26,16 @@ public class FormatterAutoConfiguration {
         return new DateRangeFormatter();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    @ConditionalOnMissingBean
+    public NumberZonesFormatter defaultNumberZonesFormatter() {
+        return new NumberZonesFormatter();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     @Bean
     @ConditionalOnMissingBean
     public NumberPairFormatter defaultNumberPairFormatter() {
@@ -56,18 +66,36 @@ public class FormatterAutoConfiguration {
         return new BigDecimalPairFormatter();
     }
 
-//    @Override
-//    public void afterPropertiesSet() {
-//        registry.addConverter(new StringToDateConverter());
-//        registry.addConverter(new ResourceOptionConverter());
-//        registry.addConverter(new StringToBooleanConverter());
-//        registry.addConverter(new StringToNumberConverter());
-//        registry.addConverter(new StringToNumberPairConverter());
-//
-//        registry.addConverter(new NumberZonesParser());
-//        registry.addFormatterForFieldAnnotation(new NumberZonesAnnotationFormatterFactory());
-//
-//        registry.addConverterFactory(new StringToEnumConverterFactory());
-//    }
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    @ConditionalOnMissingBean
+    public StringToBooleanConverter extendedStringToBooleanConverter() {
+        return new StringToBooleanConverter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public StringToDateConverter extendedStringToDateConverter() {
+        return new StringToDateConverter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public StringToNumberConverter extendedStringToNumberConverter() {
+        return new StringToNumberConverter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public StringToEnumConverterFactory extendedStringToEnumConverterFactory() {
+        return new StringToEnumConverterFactory();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ResourceOptionConverter resourceOptionConverter() {
+        return new ResourceOptionConverter();
+    }
 
 }
