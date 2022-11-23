@@ -8,11 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.BigIntegerPair;
 import spring.turbo.bean.NumberPair;
-import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
+import spring.turbo.format.BigIntegerPairFormatter;
+import spring.turbo.jackson2.support.ParserJsonDeserializer;
+import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
  * @author 应卓
@@ -20,15 +22,19 @@ import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
  * @see BigIntegerPair
  * @since 1.3.0
  */
-@JsonDeserialize(using = BigIntegerPairMixin.BigIntegerPairJsonDeserializer.class)
+@JsonSerialize(using = BigIntegerPairMixin.S.class)
+@JsonDeserialize(using = BigIntegerPairMixin.D.class)
 public abstract class BigIntegerPairMixin {
 
-    @JsonValue
-    public abstract String toString();
+    public static class S extends PrinterJsonSerializer {
+        public S() {
+            super(BigIntegerPairFormatter.class, new BigIntegerPairFormatter());
+        }
+    }
 
-    public static class BigIntegerPairJsonDeserializer extends AbstractNumberPairJsonDeserializer<BigIntegerPair> {
-        public BigIntegerPairJsonDeserializer() {
-            super(BigIntegerPair.class);
+    public static class D extends ParserJsonDeserializer {
+        public D() {
+            super(BigIntegerPairFormatter.class, new BigIntegerPairFormatter());
         }
     }
 

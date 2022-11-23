@@ -8,11 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.LongPair;
 import spring.turbo.bean.NumberPair;
-import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
+import spring.turbo.format.LongPairFormatter;
+import spring.turbo.jackson2.support.ParserJsonDeserializer;
+import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
  * @author 应卓
@@ -20,15 +22,19 @@ import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
  * @see LongPair
  * @since 1.3.0
  */
-@JsonDeserialize(using = LongPairMixin.LongPairJsonDeserializer.class)
+@JsonSerialize(using = LongPairMixin.S.class)
+@JsonDeserialize(using = LongPairMixin.D.class)
 public abstract class LongPairMixin {
 
-    @JsonValue
-    public abstract String toString();
+    public static class S extends PrinterJsonSerializer {
+        public S() {
+            super(LongPairFormatter.class, new LongPairFormatter());
+        }
+    }
 
-    public static class LongPairJsonDeserializer extends AbstractNumberPairJsonDeserializer<LongPair> {
-        public LongPairJsonDeserializer() {
-            super(LongPair.class);
+    public static class D extends ParserJsonDeserializer {
+        public D() {
+            super(LongPairFormatter.class, new LongPairFormatter());
         }
     }
 

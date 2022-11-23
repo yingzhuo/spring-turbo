@@ -8,28 +8,31 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import spring.turbo.bean.DoublePair;
-import spring.turbo.bean.FloatPair;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.NumberPair;
-import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
+import spring.turbo.format.DoublePairFormatter;
+import spring.turbo.jackson2.support.ParserJsonDeserializer;
+import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
  * @author 应卓
  * @see NumberPair
- * @see FloatPair
  * @since 1.3.0
  */
-@JsonDeserialize(using = DoublePairMixin.DoublePairJsonDeserializer.class)
+@JsonSerialize(using = DoublePairMixin.S.class)
+@JsonDeserialize(using = DoublePairMixin.D.class)
 public abstract class DoublePairMixin {
 
-    @JsonValue
-    public abstract String toString();
+    public static class S extends PrinterJsonSerializer {
+        public S() {
+            super(DoublePairFormatter.class, new DoublePairFormatter());
+        }
+    }
 
-    public static class DoublePairJsonDeserializer extends AbstractNumberPairJsonDeserializer<DoublePair> {
-        public DoublePairJsonDeserializer() {
-            super(DoublePair.class);
+    public static class D extends ParserJsonDeserializer {
+        public D() {
+            super(DoublePairFormatter.class, new DoublePairFormatter());
         }
     }
 

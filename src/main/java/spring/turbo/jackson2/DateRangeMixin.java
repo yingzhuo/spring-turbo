@@ -20,18 +20,18 @@ import spring.turbo.jackson2.support.PrinterJsonSerializer;
  * @see DateRange
  * @since 1.3.0
  */
-@JsonSerialize(using = DateRangeMixin.DateRangeJsonSerializer.class)
-@JsonDeserialize(using = DateRangeMixin.DateRangeJsonDeserializer.class)
+@JsonSerialize(using = DateRangeMixin.S.class)
+@JsonDeserialize(using = DateRangeMixin.D.class)
 public abstract class DateRangeMixin {
 
-    public static class DateRangeJsonSerializer extends PrinterJsonSerializer {
-        public DateRangeJsonSerializer() {
+    public static class S extends PrinterJsonSerializer {
+        public S() {
             super(DateRangeFormatter.class, new DateRangeFormatter());
         }
     }
 
-    public static class DateRangeJsonDeserializer extends ParserJsonDeserializer {
-        public DateRangeJsonDeserializer() {
+    public static class D extends ParserJsonDeserializer {
+        public D() {
             super(DateRangeFormatter.class, new DateRangeFormatter());
         }
     }

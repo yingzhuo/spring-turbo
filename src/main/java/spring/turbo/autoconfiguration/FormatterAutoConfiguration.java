@@ -9,19 +9,16 @@
 package spring.turbo.autoconfiguration;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.format.FormatterRegistry;
-import spring.turbo.format.DateRangeFormatter;
+import spring.turbo.format.*;
 
 /**
  * @author 应卓
  * @since 1.3.0
  */
 @AutoConfiguration
-@ConditionalOnBean(FormatterRegistry.class)
-public class FormatterEditingAutoConfiguration {
+public class FormatterAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
@@ -29,12 +26,36 @@ public class FormatterEditingAutoConfiguration {
         return new DateRangeFormatter();
     }
 
-//    private final FormatterRegistry registry;
-//
-//    public FormatterEditingAutoConfiguration(FormatterRegistry registry) {
-//        this.registry = registry;
-//    }
-//
+    @Bean
+    @ConditionalOnMissingBean
+    public NumberPairFormatter defaultNumberPairFormatter() {
+        return new NumberPairFormatter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public LongPairFormatter defaultLongPairFormatter() {
+        return new LongPairFormatter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public BigIntegerPairFormatter defaultBigIntegerPairFormatter() {
+        return new BigIntegerPairFormatter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DoublePairFormatter defaultDoublePairFormatter() {
+        return new DoublePairFormatter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public BigDecimalPairFormatter defaultBigDecimalPairFormatter() {
+        return new BigDecimalPairFormatter();
+    }
+
 //    @Override
 //    public void afterPropertiesSet() {
 //        registry.addConverter(new StringToDateConverter());
@@ -42,9 +63,6 @@ public class FormatterEditingAutoConfiguration {
 //        registry.addConverter(new StringToBooleanConverter());
 //        registry.addConverter(new StringToNumberConverter());
 //        registry.addConverter(new StringToNumberPairConverter());
-//
-//        registry.addConverter(new DateRangeParser());
-//        registry.addFormatterForFieldAnnotation(new DateRangeAnnotationFormatterFactory());
 //
 //        registry.addConverter(new NumberZonesParser());
 //        registry.addFormatterForFieldAnnotation(new NumberZonesAnnotationFormatterFactory());

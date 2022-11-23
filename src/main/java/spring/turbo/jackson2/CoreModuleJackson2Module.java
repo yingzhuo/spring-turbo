@@ -45,11 +45,7 @@ public class CoreModuleJackson2Module extends SimpleModule {
 
         // ---
         context.setMixInAnnotations(NumberPair.class, NumberPairMixin.class);
-        context.setMixInAnnotations(IntegerPair.class, IntegerPairMixin.class);
         context.setMixInAnnotations(LongPair.class, LongPairMixin.class);
-        context.setMixInAnnotations(BytePair.class, BytePairMixin.class);
-        context.setMixInAnnotations(ShortPair.class, ShortPairMixin.class);
-        context.setMixInAnnotations(FloatPair.class, FloatPairMixin.class);
         context.setMixInAnnotations(DoublePair.class, DoublePairMixin.class);
         context.setMixInAnnotations(BigIntegerPair.class, BigIntegerPairMixin.class);
         context.setMixInAnnotations(BigDecimalPair.class, BigDecimalPairMixin.class);
