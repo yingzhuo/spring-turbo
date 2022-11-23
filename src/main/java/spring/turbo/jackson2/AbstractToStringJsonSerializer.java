@@ -8,21 +8,22 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+import java.io.IOException;
 
 /**
+ * @param <T> 泛型
  * @author 应卓
- * @since 1.3.0
+ * @since 1.3.1
  */
-@JsonIgnoreProperties(
-        ignoreUnknown = true,
-        value = {
-                "password",
-                "passwd",
-                "pwd",
-                "secret",
-                "hidden",
-                "key"
-        })
-public abstract class SensitiveIgnoringMixin {
+public abstract class AbstractToStringJsonSerializer<T> extends JsonSerializer<T> {
+
+    @Override
+    public final void serialize(T value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        gen.writeString(value.toString());
+    }
+
 }

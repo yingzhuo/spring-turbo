@@ -8,12 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.NumberZones;
@@ -34,11 +31,7 @@ public abstract class NumberZonesMixin {
 
     private static final NumberZonesParser PARSER = new NumberZonesParser();
 
-    public static class NumberZonesJsonSerializer extends JsonSerializer<NumberZones> {
-        @Override
-        public void serialize(NumberZones value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.toString());
-        }
+    public static class NumberZonesJsonSerializer extends AbstractToStringJsonSerializer<NumberZones> {
     }
 
     public static class NumberZonesJsonDeserializer extends JsonDeserializer<NumberZones> {

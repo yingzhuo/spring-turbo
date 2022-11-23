@@ -8,16 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.BigDecimalPair;
 import spring.turbo.bean.NumberPair;
 import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
-
-import java.io.IOException;
 
 /**
  * @author 应卓
@@ -29,11 +24,7 @@ import java.io.IOException;
 @JsonDeserialize(using = BigDecimalPairMixin.BigDecimalPairJsonDeserializer.class)
 public abstract class BigDecimalPairMixin {
 
-    public static class BigDecimalPairJsonSerializer extends JsonSerializer<BigDecimalPair> {
-        @Override
-        public void serialize(BigDecimalPair value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.toString());
-        }
+    public static class BigDecimalPairJsonSerializer extends AbstractToStringJsonSerializer<BigDecimalPair> {
     }
 
     public static class BigDecimalPairJsonDeserializer extends AbstractNumberPairJsonDeserializer<BigDecimalPair> {
