@@ -8,48 +8,32 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.NumberZones;
-import spring.turbo.format.NumberZonesParser;
-
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Locale;
+import spring.turbo.format.NumberPairFormatter;
+import spring.turbo.format.NumberZonesFormatter;
+import spring.turbo.jackson2.support.ParserJsonDeserializer;
+import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
  * @author 应卓
  * @see NumberZones
- * @since 1.3.0
+ * @since 1.3.1
  */
-@JsonSerialize(using = NumberZonesMixin.NumberZonesJsonSerializer.class)
-@JsonDeserialize(using = NumberZonesMixin.NumberZonesJsonDeserializer.class)
+@JsonSerialize(using = NumberZonesMixin.S.class)
+@JsonDeserialize(using = NumberZonesMixin.D.class)
 public abstract class NumberZonesMixin {
 
-    private static final NumberZonesParser PARSER = new NumberZonesParser();
-
-    public static class NumberZonesJsonSerializer extends JsonSerializer<NumberZones> {
-        @Override
-        public void serialize(NumberZones value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.toString());
+    public static class S extends PrinterJsonSerializer {
+        public S() {
+            super(NumberZonesFormatter.class, new NumberPairFormatter());
         }
     }
 
-    public static class NumberZonesJsonDeserializer extends JsonDeserializer<NumberZones> {
-        @Override
-        public NumberZones deserialize(JsonParser p, DeserializationContext context) throws IOException {
-            try {
-                final String source = p.readValueAs(String.class);
-                return PARSER.parse(source, Locale.getDefault());
-            } catch (ParseException e) {
-                throw new IllegalStateException(e.getMessage());
-            }
+    public static class D extends ParserJsonDeserializer {
+        public D() {
+            super(NumberZonesFormatter.class, new NumberPairFormatter());
         }
     }
 

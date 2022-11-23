@@ -8,35 +8,31 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.NumberPair;
-import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
-
-import java.io.IOException;
+import spring.turbo.format.NumberPairFormatter;
+import spring.turbo.jackson2.support.ParserJsonDeserializer;
+import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
  * @author 应卓
  * @see NumberPair
  * @since 1.3.0
  */
-@JsonSerialize(using = NumberPairMixin.NumberPairJsonSerializer.class)
-@JsonDeserialize(using = NumberPairMixin.NumberPairJsonDeserializer.class)
+@JsonSerialize(using = NumberPairMixin.S.class)
+@JsonDeserialize(using = NumberPairMixin.D.class)
 public abstract class NumberPairMixin {
 
-    public static class NumberPairJsonSerializer extends JsonSerializer<NumberPair> {
-        @Override
-        public void serialize(NumberPair value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.toString());
+    public static class S extends PrinterJsonSerializer {
+        public S() {
+            super(NumberPairFormatter.class, new NumberPairFormatter());
         }
     }
 
-    public static class NumberPairJsonDeserializer extends AbstractNumberPairJsonDeserializer<NumberPair> {
-        public NumberPairJsonDeserializer() {
-            super(NumberPair.class);
+    public static class D extends ParserJsonDeserializer {
+        public D() {
+            super(NumberPairFormatter.class, new NumberPairFormatter());
         }
     }
 

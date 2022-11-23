@@ -8,28 +8,32 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.format;
 
+import org.springframework.format.Formatter;
+import org.springframework.format.Parser;
 import org.springframework.format.Printer;
+import spring.turbo.bean.BigDecimalPair;
+import spring.turbo.bean.NumberPair;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.Locale;
 
 /**
  * @author 应卓
- * @since 1.0.8
+ * @since 1.3.1
  */
-public final class ToStringPrint implements Printer<Object> {
+public class BigDecimalPairFormatter implements Formatter<BigDecimalPair>, Printer<BigDecimalPair>, Parser<BigDecimalPair> {
 
-    public static final ToStringPrint INSTANCE = new ToStringPrint();
+    private final NumberPairFormatter inner = new NumberPairFormatter();
 
-    private ToStringPrint() {
-        super();
-    }
-
-    public static ToStringPrint getInstance() {
-        return INSTANCE;
+    @Override
+    public BigDecimalPair parse(String text, Locale locale) throws ParseException {
+        NumberPair np = inner.parse(text, locale);
+        return new BigDecimalPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));
     }
 
     @Override
-    public String print(Object object, Locale locale) {
+    public String print(BigDecimalPair object, Locale locale) {
         return object.toString();
     }
 

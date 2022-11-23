@@ -8,16 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.BigIntegerPair;
 import spring.turbo.bean.NumberPair;
-import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
-
-import java.io.IOException;
+import spring.turbo.format.BigIntegerPairFormatter;
+import spring.turbo.jackson2.support.ParserJsonDeserializer;
+import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
  * @author 应卓
@@ -25,20 +22,19 @@ import java.io.IOException;
  * @see BigIntegerPair
  * @since 1.3.0
  */
-@JsonSerialize(using = BigIntegerPairMixin.BigIntegerPairJsonSerializer.class)
-@JsonDeserialize(using = BigIntegerPairMixin.BigIntegerPairJsonDeserializer.class)
+@JsonSerialize(using = BigIntegerPairMixin.S.class)
+@JsonDeserialize(using = BigIntegerPairMixin.D.class)
 public abstract class BigIntegerPairMixin {
 
-    public static class BigIntegerPairJsonSerializer extends JsonSerializer<BigIntegerPair> {
-        @Override
-        public void serialize(BigIntegerPair value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.toString());
+    public static class S extends PrinterJsonSerializer {
+        public S() {
+            super(BigIntegerPairFormatter.class, new BigIntegerPairFormatter());
         }
     }
 
-    public static class BigIntegerPairJsonDeserializer extends AbstractNumberPairJsonDeserializer<BigIntegerPair> {
-        public BigIntegerPairJsonDeserializer() {
-            super(BigIntegerPair.class);
+    public static class D extends ParserJsonDeserializer {
+        public D() {
+            super(BigIntegerPairFormatter.class, new BigIntegerPairFormatter());
         }
     }
 

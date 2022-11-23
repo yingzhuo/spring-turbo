@@ -8,16 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.LongPair;
 import spring.turbo.bean.NumberPair;
-import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
-
-import java.io.IOException;
+import spring.turbo.format.LongPairFormatter;
+import spring.turbo.jackson2.support.ParserJsonDeserializer;
+import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
  * @author 应卓
@@ -25,20 +22,19 @@ import java.io.IOException;
  * @see LongPair
  * @since 1.3.0
  */
-@JsonSerialize(using = LongPairMixin.LongPairJsonSerializer.class)
-@JsonDeserialize(using = LongPairMixin.LongPairJsonDeserializer.class)
+@JsonSerialize(using = LongPairMixin.S.class)
+@JsonDeserialize(using = LongPairMixin.D.class)
 public abstract class LongPairMixin {
 
-    public static class LongPairJsonSerializer extends JsonSerializer<LongPair> {
-        @Override
-        public void serialize(LongPair value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.toString());
+    public static class S extends PrinterJsonSerializer {
+        public S() {
+            super(LongPairFormatter.class, new LongPairFormatter());
         }
     }
 
-    public static class LongPairJsonDeserializer extends AbstractNumberPairJsonDeserializer<LongPair> {
-        public LongPairJsonDeserializer() {
-            super(LongPair.class);
+    public static class D extends ParserJsonDeserializer {
+        public D() {
+            super(LongPairFormatter.class, new LongPairFormatter());
         }
     }
 

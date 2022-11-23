@@ -8,38 +8,31 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import spring.turbo.bean.DoublePair;
-import spring.turbo.bean.FloatPair;
 import spring.turbo.bean.NumberPair;
-import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
-
-import java.io.IOException;
+import spring.turbo.format.DoublePairFormatter;
+import spring.turbo.jackson2.support.ParserJsonDeserializer;
+import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
  * @author 应卓
  * @see NumberPair
- * @see FloatPair
  * @since 1.3.0
  */
-@JsonSerialize(using = DoublePairMixin.DoublePairJsonSerializer.class)
-@JsonDeserialize(using = DoublePairMixin.DoublePairJsonDeserializer.class)
+@JsonSerialize(using = DoublePairMixin.S.class)
+@JsonDeserialize(using = DoublePairMixin.D.class)
 public abstract class DoublePairMixin {
 
-    public static class DoublePairJsonSerializer extends JsonSerializer<DoublePair> {
-        @Override
-        public void serialize(DoublePair value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.toString());
+    public static class S extends PrinterJsonSerializer {
+        public S() {
+            super(DoublePairFormatter.class, new DoublePairFormatter());
         }
     }
 
-    public static class DoublePairJsonDeserializer extends AbstractNumberPairJsonDeserializer<DoublePair> {
-        public DoublePairJsonDeserializer() {
-            super(DoublePair.class);
+    public static class D extends ParserJsonDeserializer {
+        public D() {
+            super(DoublePairFormatter.class, new DoublePairFormatter());
         }
     }
 

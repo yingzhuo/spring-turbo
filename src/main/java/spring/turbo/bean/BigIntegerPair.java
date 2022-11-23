@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import spring.turbo.format.StringToNumberPairConverter;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringFormatter;
 
@@ -19,15 +18,10 @@ import java.math.BigInteger;
  * {@link BigInteger}对
  *
  * @author 应卓
- * @see StringToNumberPairConverter
  * @see spring.turbo.bean.jsr380.OrderedNumberPair
  * @see spring.turbo.bean.jsr380.NumberPairLeft
  * @see spring.turbo.bean.jsr380.NumberPairRight
- * @see BytePair
- * @see ShortPair
- * @see IntegerPair
  * @see LongPair
- * @see FloatPair
  * @see DoublePair
  * @see BigDecimalPair
  * @since 1.0.7

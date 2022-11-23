@@ -21,7 +21,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
                 "passwd",
                 "pwd",
                 "secret",
-                "hidden"
+                "hidden",
+                "key"
         })
 public abstract class SensitiveIgnoringMixin {
 }

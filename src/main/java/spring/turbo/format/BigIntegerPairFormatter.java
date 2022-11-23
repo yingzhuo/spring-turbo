@@ -8,33 +8,33 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.format;
 
-import org.springframework.format.AnnotationFormatterFactory;
+import org.springframework.format.Formatter;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
-import spring.turbo.bean.NumberZones;
-import spring.turbo.util.collection.SetFactories;
+import spring.turbo.bean.BigIntegerPair;
+import spring.turbo.bean.NumberPair;
 
-import java.util.Set;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.Locale;
 
 /**
  * @author 应卓
- * @since 1.1.4
+ * @since 1.3.1
  */
-public class NumberZonesAnnotationFormatterFactory implements AnnotationFormatterFactory<NumberZonesFormat> {
+public class BigIntegerPairFormatter implements Formatter<BigIntegerPair>, Printer<BigIntegerPair>, Parser<BigIntegerPair> {
+
+    private final NumberPairFormatter inner = new NumberPairFormatter();
 
     @Override
-    public Set<Class<?>> getFieldTypes() {
-        return SetFactories.newUnmodifiableSet(NumberZones.class);
+    public BigIntegerPair parse(String text, Locale locale) throws ParseException {
+        NumberPair np = inner.parse(text, locale);
+        return new BigIntegerPair(np.getLeft(BigDecimal.class), np.getRight(BigDecimal.class));
     }
 
     @Override
-    public Printer<?> getPrinter(NumberZonesFormat annotation, Class<?> fieldType) {
-        return ToStringPrint.getInstance();
-    }
-
-    @Override
-    public Parser<?> getParser(NumberZonesFormat annotation, Class<?> fieldType) {
-        return new NumberZonesParser(annotation);
+    public String print(BigIntegerPair object, Locale locale) {
+        return object.toString();
     }
 
 }
