@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.core.convert.TypeDescriptor;
 import spring.turbo.bean.DateRange;
 import spring.turbo.format.DateRangeParser;
+import spring.turbo.jackson2.support.AbstractToStringJsonSerializer;
 import spring.turbo.util.Asserts;
 
 import java.io.IOException;

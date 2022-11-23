@@ -14,6 +14,7 @@ import spring.turbo.bean.DoublePair;
 import spring.turbo.bean.FloatPair;
 import spring.turbo.bean.NumberPair;
 import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
+import spring.turbo.jackson2.support.AbstractToStringJsonSerializer;
 
 /**
  * @author 应卓

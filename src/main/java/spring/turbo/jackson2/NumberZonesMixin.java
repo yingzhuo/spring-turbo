@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.NumberZones;
 import spring.turbo.format.NumberZonesParser;
+import spring.turbo.jackson2.support.AbstractToStringJsonSerializer;
 
 import java.io.IOException;
 import java.text.ParseException;
