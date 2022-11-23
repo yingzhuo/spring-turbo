@@ -8,12 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.BytePair;
 import spring.turbo.bean.NumberPair;
 import spring.turbo.jackson2.support.AbstractNumberPairJsonDeserializer;
-import spring.turbo.jackson2.support.AbstractToStringJsonSerializer;
 
 /**
  * @author 应卓
@@ -21,12 +20,11 @@ import spring.turbo.jackson2.support.AbstractToStringJsonSerializer;
  * @see BytePair
  * @since 1.3.0
  */
-@JsonSerialize(using = BytePairMixin.BytePairJsonSerializer.class)
 @JsonDeserialize(using = BytePairMixin.BytePairJsonDeserializer.class)
 public abstract class BytePairMixin {
 
-    public static class BytePairJsonSerializer extends AbstractToStringJsonSerializer<BytePair> {
-    }
+    @JsonValue
+    public abstract String toString();
 
     public static class BytePairJsonDeserializer extends AbstractNumberPairJsonDeserializer<BytePair> {
         public BytePairJsonDeserializer() {

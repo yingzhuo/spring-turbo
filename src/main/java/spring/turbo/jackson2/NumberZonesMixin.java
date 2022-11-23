@@ -8,14 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.turbo.bean.NumberZones;
 import spring.turbo.format.NumberZonesParser;
-import spring.turbo.jackson2.support.AbstractToStringJsonSerializer;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -26,14 +25,13 @@ import java.util.Locale;
  * @see NumberZones
  * @since 1.3.0
  */
-@JsonSerialize(using = NumberZonesMixin.NumberZonesJsonSerializer.class)
 @JsonDeserialize(using = NumberZonesMixin.NumberZonesJsonDeserializer.class)
 public abstract class NumberZonesMixin {
 
     private static final NumberZonesParser PARSER = new NumberZonesParser();
 
-    public static class NumberZonesJsonSerializer extends AbstractToStringJsonSerializer<NumberZones> {
-    }
+    @JsonValue
+    public abstract String toString();
 
     public static class NumberZonesJsonDeserializer extends JsonDeserializer<NumberZones> {
         @Override

@@ -8,15 +8,14 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.core.convert.TypeDescriptor;
 import spring.turbo.bean.DateRange;
 import spring.turbo.format.DateRangeParser;
-import spring.turbo.jackson2.support.AbstractToStringJsonSerializer;
 import spring.turbo.util.Asserts;
 
 import java.io.IOException;
@@ -26,14 +25,13 @@ import java.io.IOException;
  * @see DateRange
  * @since 1.3.0
  */
-@JsonSerialize(using = DateRangeMixin.DateRangeJsonSerializer.class)
 @JsonDeserialize(using = DateRangeMixin.DateRangeJsonDeserializer.class)
 public abstract class DateRangeMixin {
 
     private static final DateRangeParser CONVERTER = new DateRangeParser();
 
-    public static class DateRangeJsonSerializer extends AbstractToStringJsonSerializer<DateRange> {
-    }
+    @JsonValue
+    public abstract String toString();
 
     public static class DateRangeJsonDeserializer extends JsonDeserializer<DateRange> {
         @Override
