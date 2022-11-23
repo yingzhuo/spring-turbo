@@ -20,6 +20,7 @@ import java.util.Set;
  * @author 应卓
  * @since 1.1.4
  */
+@Deprecated
 public class DateRangeAnnotationFormatterFactory implements AnnotationFormatterFactory<DateRangeFormat> {
 
     @Override
