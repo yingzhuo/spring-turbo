@@ -13,6 +13,7 @@ import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringPool;
 import spring.turbo.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.List;
  * @since 1.1.4
  */
 @Immutable
-public class NumberZones implements Iterable<NumberPair> {
+public class NumberZones implements Iterable<NumberPair>, Serializable {
 
     private final List<NumberPair> list;
 
