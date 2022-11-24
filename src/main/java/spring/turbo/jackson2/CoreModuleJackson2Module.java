@@ -43,6 +43,7 @@ public class CoreModuleJackson2Module extends SimpleModule {
         // ---
         context.setMixInAnnotations(DateRange.class, DateRangeMixin.class);
         context.setMixInAnnotations(NumberZones.class, NumberZonesMixin.class);
+        context.setMixInAnnotations(DateZones.class, DateZonesMixin.class);
 
         // ---
         context.setMixInAnnotations(NumberPair.class, NumberPairMixin.class);
