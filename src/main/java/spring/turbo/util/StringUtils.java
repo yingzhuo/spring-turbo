@@ -256,8 +256,6 @@ public final class StringUtils {
         return builder.toString();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static void nullSafeAdd(Collection<String> collection, @Nullable String element) {
         CollectionUtils.nullSafeAdd(collection, element);
     }
@@ -424,4 +422,27 @@ public final class StringUtils {
         return isNotBlank(str) ? str : defaultIfBlank.get();
     }
 
+    public static String deleteWhitespace(String str) {
+        Asserts.notNull(str);
+
+        if (EMPTY.equals(str)) {
+            return str;
+        }
+
+        final int sz = str.length();
+        final char[] chs = new char[sz];
+        int count = 0;
+        for (int i = 0; i < sz; i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                chs[count++] = str.charAt(i);
+            }
+        }
+        if (count == sz) {
+            return str;
+        }
+        if (count == 0) {
+            return EMPTY;
+        }
+        return new String(chs, 0, count);
+    }
 }
