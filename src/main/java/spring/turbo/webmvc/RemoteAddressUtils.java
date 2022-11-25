@@ -8,11 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.lang.Nullable;
 import org.springframework.web.context.request.NativeWebRequest;
 import spring.turbo.util.Asserts;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 远程IP地址工具
