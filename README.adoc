@@ -1,5 +1,12 @@
 = spring-turbo
 
+== 需求
+
+* Java 17+
+* SpringFramework 6.0.0+
+* SpringBoot 3.0.0+
+* SpringSecurity 6.0.0+
+
 == 许可证
 
 * link:{docdir}/LICENSE[Apache 2]
