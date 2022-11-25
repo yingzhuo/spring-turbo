@@ -20,47 +20,37 @@ import java.util.List;
 
 /**
  * @author 应卓
- * @see spring.turbo.format.NumberPairFormatter
- * @see spring.turbo.bean.jsr380.DecentNumberZones
- * @since 1.1.4
+ * @since 1.3.1
  */
 @Immutable
-public class NumberZones implements Iterable<NumberPair>, Serializable {
+public class DateZones implements Iterable<DateRange>, Serializable {
 
-    private final List<NumberPair> list;
+    private final List<DateRange> list;
 
-    /**
-     * 构造方法
-     */
-    public NumberZones() {
+    public DateZones() {
         this(null);
     }
 
-    /**
-     * 构造方法
-     *
-     * @param list NumberPair
-     */
-    public NumberZones(@Nullable List<NumberPair> list) {
+    public DateZones(@Nullable List<DateRange> list) {
         this.list = list != null ? Collections.unmodifiableList(list) : Collections.emptyList();
     }
 
-    public boolean isEmpty() {
-        return this.list.isEmpty();
+    @Override
+    public Iterator<DateRange> iterator() {
+        return list.iterator();
     }
 
     public int size() {
-        return this.list.size();
+        return list.size();
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
     }
 
     @Override
     public String toString() {
         return StringUtils.nullSafeJoin(this, StringPool.SEMICOLON);
-    }
-
-    @Override
-    public Iterator<NumberPair> iterator() {
-        return list.iterator();
     }
 
 }

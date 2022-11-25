@@ -34,6 +34,12 @@ public class FormatterAutoConfiguration {
         return new NumberZonesFormatter();
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public DateZonesFormatter defaultDateZonesFormatter() {
+        return new DateZonesFormatter();
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     @Bean

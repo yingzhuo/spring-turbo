@@ -45,7 +45,6 @@ public class NumberPair implements Iterable<BigDecimal>, Serializable {
         this.right = right;
     }
 
-    // since 1.0.8
     public final boolean isOrdered() {
         return left.compareTo(right) <= 0;
     }
@@ -66,7 +65,6 @@ public class NumberPair implements Iterable<BigDecimal>, Serializable {
         return BigDecimalUtils.getValue(right, type);
     }
 
-    // since 1.0.8
     @Override
     public Iterator<BigDecimal> iterator() {
         return Arrays.asList(left, right).iterator();
