@@ -93,7 +93,7 @@
 
         <spring.boot.version>3.0.0</spring.boot.version>
         <spring.version>6.0.2</spring.version>
-        <slf4j.version>1.7.36</slf4j.version>
+        <slf4j.version>2.0.4</slf4j.version>
     </properties>
 
     <dependencies>
@@ -195,7 +195,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- servlet-api -->
+        <!-- jakarta-servlet-api -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
