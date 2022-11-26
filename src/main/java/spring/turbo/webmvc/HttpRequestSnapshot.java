@@ -25,7 +25,10 @@ import static spring.turbo.util.StringPool.LF;
 import static spring.turbo.util.StringPool.QUESTION_MARK_X_3;
 
 /**
+ * HTTP(s)请求快照
+ *
  * @author 应卓
+ * @see jakarta.servlet.http.HttpServletRequest
  * @since 1.0.0
  */
 @Immutable
@@ -39,6 +42,7 @@ public final class HttpRequestSnapshot extends HttpServletRequestWrapper impleme
     private HttpRequestSnapshot(HttpServletRequest request) {
         super(request);
 
+        lines.add(StringFormatter.format("Request Type: {}", request.getClass().getName()));
         lines.add(StringFormatter.format("Time: {}", DATE_FORMAT.format(new Date())));
         lines.add(StringFormatter.format("Method: {}", request.getMethod()));
         lines.add(StringFormatter.format("Path: {}", request.getRequestURI()));
@@ -89,8 +93,11 @@ public final class HttpRequestSnapshot extends HttpServletRequestWrapper impleme
         return Collections.unmodifiableList(lines).iterator();
     }
 
+    public List<String> getLinesList() {
+        return lines;
+    }
+
     public Stream<String> getLines() {
         return lines.stream();
     }
-
 }
