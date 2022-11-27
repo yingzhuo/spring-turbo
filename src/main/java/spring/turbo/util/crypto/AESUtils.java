@@ -30,6 +30,9 @@ public final class AESUtils {
     public static final int KEY_SIZE_192 = 192;
     public static final int KEY_SIZE_256 = 256;
 
+    /**
+     * 私有构造方法
+     */
     private AESUtils() {
         super();
     }
