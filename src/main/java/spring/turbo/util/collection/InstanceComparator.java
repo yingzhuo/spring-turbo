@@ -15,11 +15,13 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+ * 按照对象类型排序的比较器
+ *
  * @param <T> 泛型
  * @author 应卓
- * @see org.springframework.util.comparator.InstanceComparator
+ * @deprecated 使用 {@link org.springframework.util.comparator.InstanceComparator} 替代
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class InstanceComparator<T> implements Comparator<T> {
 
     private final Class<?>[] instanceOrder;

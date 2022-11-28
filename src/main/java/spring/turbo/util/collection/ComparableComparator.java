@@ -15,9 +15,9 @@ import java.util.Comparator;
  *
  * @param <E> 泛型
  * @author 应卓
- * @see org.springframework.util.comparator.ComparableComparator
+ * @deprecated 使用 {@link  org.springframework.util.comparator.ComparableComparator} 代替
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E> {
 
     /**
