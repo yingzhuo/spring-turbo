@@ -9,8 +9,11 @@
 package spring.turbo.core;
 
 import org.springframework.context.ApplicationEvent;
+import spring.turbo.util.Asserts;
 
 /**
+ * {@link ApplicationEvent}相关工具
+ *
  * @author 应卓
  * @since 1.1.2
  */
@@ -23,7 +26,13 @@ public final class ApplicationEventUtils {
         super();
     }
 
+    /**
+     * 发布事件
+     *
+     * @param event 事件实例
+     */
     public static void publish(ApplicationEvent event) {
+        Asserts.notNull(event);
         SpringUtils.getApplicationEventPublisher().publishEvent(event);
     }
 

@@ -16,6 +16,7 @@ import java.lang.annotation.*;
  * 每星期启动
  *
  * @author 应卓
+ * @see Scheduled
  * @since 1.2.3
  */
 @Documented

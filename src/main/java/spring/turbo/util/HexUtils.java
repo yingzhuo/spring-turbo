@@ -9,6 +9,8 @@
 package spring.turbo.util;
 
 /**
+ * HEX相关工具
+ *
  * @author 应卓
  * @since 1.0.0
  */
