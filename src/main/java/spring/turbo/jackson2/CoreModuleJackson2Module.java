@@ -22,14 +22,14 @@ import spring.turbo.webmvc.token.StringToken;
  */
 public class CoreModuleJackson2Module extends SimpleModule {
 
-    public static final Version VERSION = VersionUtil.parseVersion(
+    public static final Version MODULE_VERSION = VersionUtil.parseVersion(
             SpringTurboVersion.VERSION,
             "com.github.yingzhuo",
             "spring-turbo"
     );
 
     public CoreModuleJackson2Module() {
-        super(CoreModuleJackson2Module.class.getName(), VERSION);
+        super(CoreModuleJackson2Module.class.getName(), MODULE_VERSION);
     }
 
     @Override
