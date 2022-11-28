@@ -344,11 +344,6 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Group-Id>${project.groupId}</Group-Id>
-                            <Artifact-Id>${project.artifactId}</Artifact-Id>
-                            <Version>${project.version}</Version>
-                            <Packaging>${project.packaging}</Packaging>
-
                             <Name>${project.artifactId}</Name>
                             <Implementation-Title>Another tool of SpringBoot and SpringFramework</Implementation-Title>
                             <Implementation-Version>${project.version}</Implementation-Version>
