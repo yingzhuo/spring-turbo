@@ -6,10 +6,9 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.jackson2.support;
+package spring.turbo.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import spring.turbo.core.SpringUtils;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringPool;
 
@@ -19,6 +18,8 @@ import java.net.URL;
 
 /**
  * @author 应卓
+ * @see SpringUtils
+ * @see ObjectMapper
  * @since 1.0.12
  */
 public final class JacksonUtils {

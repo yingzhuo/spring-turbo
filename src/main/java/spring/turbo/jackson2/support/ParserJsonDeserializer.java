@@ -22,6 +22,8 @@ import java.util.Locale;
 
 /**
  * @author 应卓
+ * @see Parser
+ * @see org.springframework.format.Formatter
  * @since 1.3.1
  */
 @SuppressWarnings({"rawtypes", "unchecked"})

@@ -46,6 +46,10 @@ public final class HexUtils {
         return result;
     }
 
+    public static String encodeToString(byte[] bytes) {
+        return new String(encode(bytes));
+    }
+
     public static byte[] decode(CharSequence s) {
         Asserts.notNull(s);
 
