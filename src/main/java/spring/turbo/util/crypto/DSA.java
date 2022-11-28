@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+import static spring.turbo.util.CharsetPool.UTF_8;
 import static spring.turbo.util.crypto.Base64.decode;
 import static spring.turbo.util.crypto.Base64.encode;
 
@@ -37,4 +37,5 @@ public interface DSA extends Crypto {
                 decode(sign)
         );
     }
+
 }

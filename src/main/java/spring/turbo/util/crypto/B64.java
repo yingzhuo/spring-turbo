@@ -12,6 +12,8 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 /**
+ * (内部使用工具)
+ *
  * @author 应卓
  * @since 1.0.13
  */

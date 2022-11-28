@@ -1,5 +1,14 @@
 = spring-turbo
 
+image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
+
+== 需求
+
+* Java 17+
+* SpringFramework 6.0.0+
+* SpringBoot 3.0.0+
+* SpringSecurity 6.0.0+
+
 == 许可证
 
 * link:{docdir}/LICENSE[Apache 2]
