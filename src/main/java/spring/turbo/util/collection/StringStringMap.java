@@ -24,6 +24,9 @@ import java.util.Map;
 @Mutable
 public final class StringStringMap extends HashMap<String, String> implements Map<String, String> {
 
+    /**
+     * 构造方法
+     */
     public StringStringMap() {
         super();
     }

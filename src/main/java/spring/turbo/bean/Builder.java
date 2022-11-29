@@ -9,6 +9,8 @@
 package spring.turbo.bean;
 
 /**
+ * 构建器
+ *
  * @param <T> 泛型
  * @author 应卓
  */

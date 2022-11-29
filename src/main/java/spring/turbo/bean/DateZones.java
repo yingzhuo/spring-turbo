@@ -19,6 +19,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * 日期范围组
+ *
  * @author 应卓
  * @since 1.3.1
  */

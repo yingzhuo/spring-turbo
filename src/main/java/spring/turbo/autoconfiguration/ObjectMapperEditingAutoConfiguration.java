@@ -26,8 +26,8 @@ public class ObjectMapperEditingAutoConfiguration implements InitializingBean {
 
     private final ObjectMapper objectMapper;
 
-    public ObjectMapperEditingAutoConfiguration(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public ObjectMapperEditingAutoConfiguration(ObjectMapper om) {
+        this.objectMapper = om;
     }
 
     @Override

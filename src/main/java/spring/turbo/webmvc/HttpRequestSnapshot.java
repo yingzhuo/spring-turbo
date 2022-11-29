@@ -39,6 +39,11 @@ public final class HttpRequestSnapshot extends HttpServletRequestWrapper impleme
     private final List<String> lines = new LinkedList<>();
     private final String text;
 
+    /**
+     * 私有构造方法
+     *
+     * @param request HTTP(s)请求
+     */
     private HttpRequestSnapshot(HttpServletRequest request) {
         super(request);
 
@@ -100,4 +105,5 @@ public final class HttpRequestSnapshot extends HttpServletRequestWrapper impleme
     public Stream<String> getLines() {
         return lines.stream();
     }
+
 }
