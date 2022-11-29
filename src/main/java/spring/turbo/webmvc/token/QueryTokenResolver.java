@@ -87,4 +87,16 @@ public class QueryTokenResolver implements TokenResolver {
         return -100;
     }
 
+    public String getParamName() {
+        return paramName;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public int getPrefixLen() {
+        return prefixLen;
+    }
+
 }

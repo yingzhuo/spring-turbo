@@ -88,4 +88,16 @@ public class HeaderTokenResolver implements TokenResolver {
         return -100;
     }
 
+    public String getHeaderName() {
+        return headerName;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public int getPrefixLen() {
+        return prefixLen;
+    }
+
 }
