@@ -17,7 +17,7 @@ import java.lang.annotation.*;
  * @since 1.0.0
  */
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
 public @interface Beta {
 }

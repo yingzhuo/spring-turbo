@@ -9,6 +9,8 @@
 package spring.turbo.util;
 
 /**
+ * HEX相关工具
+ *
  * @author 应卓
  * @since 1.0.0
  */
@@ -42,6 +44,10 @@ public final class HexUtils {
         }
 
         return result;
+    }
+
+    public static String encodeToString(byte[] bytes) {
+        return new String(encode(bytes));
     }
 
     public static byte[] decode(CharSequence s) {

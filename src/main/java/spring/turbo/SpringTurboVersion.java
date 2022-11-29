@@ -9,7 +9,7 @@
 package spring.turbo;
 
 /**
- * 版本
+ * 本软件版本
  *
  * @author 应卓
  * @since 1.3.1

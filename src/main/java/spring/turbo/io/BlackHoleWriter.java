@@ -9,30 +9,42 @@
 package spring.turbo.io;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
 /**
  * @author 应卓
- * @since 1.0.8
+ * @see #getInstance()
+ * @since 2.0.0
  */
-public final class BlackholeOutputStream extends OutputStream {
+public final class BlackHoleWriter extends Writer {
 
-    private BlackholeOutputStream() {
+    /**
+     * 私有构造方法
+     */
+    private BlackHoleWriter() {
         super();
     }
 
-    public static BlackholeOutputStream getInstance() {
+    public static BlackHoleWriter getInstance() {
         return SyncAvoid.INSTANCE;
     }
 
     @Override
-    public void write(int b) throws IOException {
+    public void write(char[] cbuf, int off, int len) throws IOException {
         // nop
+    }
+
+    @Override
+    public void flush() throws IOException {
+    }
+
+    @Override
+    public void close() throws IOException {
     }
 
     // 延迟加载
     private static class SyncAvoid {
-        private static final BlackholeOutputStream INSTANCE = new BlackholeOutputStream();
+        private static final BlackHoleWriter INSTANCE = new BlackHoleWriter();
     }
 
 }

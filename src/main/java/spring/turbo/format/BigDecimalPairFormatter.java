@@ -9,8 +9,6 @@
 package spring.turbo.format;
 
 import org.springframework.format.Formatter;
-import org.springframework.format.Parser;
-import org.springframework.format.Printer;
 import spring.turbo.bean.BigDecimalPair;
 import spring.turbo.bean.NumberPair;
 
@@ -22,7 +20,7 @@ import java.util.Locale;
  * @author 应卓
  * @since 1.3.1
  */
-public class BigDecimalPairFormatter implements Formatter<BigDecimalPair>, Printer<BigDecimalPair>, Parser<BigDecimalPair> {
+public class BigDecimalPairFormatter implements Formatter<BigDecimalPair> {
 
     private final NumberPairFormatter inner = new NumberPairFormatter();
 

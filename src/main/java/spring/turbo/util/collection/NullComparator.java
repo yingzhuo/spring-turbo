@@ -18,11 +18,10 @@ import java.util.Objects;
  *
  * @param <T> 泛型
  * @author 应卓
- * @see Comparator#nullsFirst(Comparator)
- * @see Comparator#nullsLast(Comparator)
+ * @deprecated 使用 {@link Comparator#nullsFirst(Comparator)} 或 {@link Comparator#nullsLast(Comparator)} 替代
  */
-@Deprecated // Collections.null
 @SuppressWarnings({"rawtypes", "unchecked"})
+@Deprecated(forRemoval = true)
 public class NullComparator<T> implements Comparator<T> {
 
     private final boolean nullGreater;

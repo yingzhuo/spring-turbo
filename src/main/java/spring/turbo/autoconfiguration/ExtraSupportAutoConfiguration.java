@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import spring.turbo.core.XAwarePostProcessor;
-import spring.turbo.lang.BetaWarningBeanPostProcessor;
 
 /**
  * @author 应卓
@@ -26,12 +25,6 @@ public class ExtraSupportAutoConfiguration {
     @ConditionalOnMissingBean
     public XAwarePostProcessor xAwarePostProcessor(ApplicationContext applicationContext) {
         return new XAwarePostProcessor(applicationContext);
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public BetaWarningBeanPostProcessor betaWarningBeanPostProcessor() {
-        return new BetaWarningBeanPostProcessor();
     }
 
 }

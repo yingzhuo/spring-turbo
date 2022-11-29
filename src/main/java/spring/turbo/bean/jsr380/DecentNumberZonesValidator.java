@@ -46,7 +46,7 @@ public class DecentNumberZonesValidator implements ConstraintValidator<DecentNum
             return false;
         }
 
-        // 检查连续
+        // 检查连续性
         if (annotation.mustBeContinuous()) {
 
             int index = 0;

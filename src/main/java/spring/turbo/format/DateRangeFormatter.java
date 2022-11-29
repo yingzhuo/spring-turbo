@@ -9,8 +9,6 @@
 package spring.turbo.format;
 
 import org.springframework.format.Formatter;
-import org.springframework.format.Parser;
-import org.springframework.format.Printer;
 import org.springframework.util.StringUtils;
 import spring.turbo.bean.DateDescriptor;
 import spring.turbo.bean.DateRange;
@@ -28,7 +26,7 @@ import java.util.Locale;
  * @author 应卓
  * @since 1.3.1
  */
-public class DateRangeFormatter implements Formatter<DateRange>, Printer<DateRange>, Parser<DateRange> {
+public class DateRangeFormatter implements Formatter<DateRange> {
 
     private String delimiter = " @@ ";
     private String datePattern = "yyyy-MM-dd";

@@ -17,6 +17,9 @@ import java.util.NoSuchElementException;
  */
 public final class EmptyLineIterator extends LineIterator {
 
+    /**
+     * 私有构造方法
+     */
     private EmptyLineIterator() {
         super(EmptyReader.getInstance());
     }

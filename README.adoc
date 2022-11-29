@@ -9,6 +9,14 @@ image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://ww
 * SpringBoot 3.0.0+
 * SpringSecurity 6.0.0+
 
+== 关联项目
+
+* link:https://github.com/yingzhuo/spring-turbo-modules[spring-turbo-modules]
+
+== 例子
+
+* link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-spring-security-jwt[SpringSecurity - 基于JWT认证和授权]
+
 == 许可证
 
 * link:{docdir}/LICENSE[Apache 2]

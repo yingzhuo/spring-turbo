@@ -21,7 +21,10 @@ public class OrderedNumberPairValidator implements ConstraintValidator<OrderedNu
 
     @Override
     public boolean isValid(@Nullable NumberPair value, ConstraintValidatorContext context) {
-        return value == null || value.isOrdered();
+        if (value == null) {
+            return true;
+        }
+        return value.isOrdered();
     }
 
 }
