@@ -13,11 +13,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import java.lang.annotation.*;
 
 /**
- * 每日午夜启动
+ * 每日午夜启动 <br>
+ * {@code @Scheduled(cron = "@daily")} 的快捷方式
  *
  * @author 应卓
  * @see Scheduled
- * @see ScheduledMidnight 两者功能相同
+ * @see ScheduledMidnight
  * @since 1.2.3
  */
 @Documented

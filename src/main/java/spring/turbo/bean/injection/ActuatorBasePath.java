@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import java.lang.annotation.*;
 
 /**
+ * {@code @Value("${management.endpoints.web.base-path}")} 的快捷方法
+ *
  * @author 应卓
  * @see Value
  * @since 1.1.3

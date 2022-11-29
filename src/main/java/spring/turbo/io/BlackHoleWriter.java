@@ -8,39 +8,43 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import java.util.NoSuchElementException;
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * @author 应卓
  * @see #getInstance()
- * @since 1.0.8
+ * @since 2.0.0
  */
-public final class EmptyLineIterator extends LineIterator {
+public final class BlackHoleWriter extends Writer {
 
     /**
      * 私有构造方法
      */
-    private EmptyLineIterator() {
-        super(EmptyReader.getInstance());
+    private BlackHoleWriter() {
+        super();
     }
 
-    public static EmptyLineIterator getInstance() {
+    public static BlackHoleWriter getInstance() {
         return SyncAvoid.INSTANCE;
     }
 
     @Override
-    public boolean hasNext() {
-        return false;
+    public void write(char[] cbuf, int off, int len) throws IOException {
+        // nop
     }
 
     @Override
-    public String next() {
-        throw new NoSuchElementException("No more lines");
+    public void flush() throws IOException {
+    }
+
+    @Override
+    public void close() throws IOException {
     }
 
     // 延迟加载
     private static class SyncAvoid {
-        private static final EmptyLineIterator INSTANCE = new EmptyLineIterator();
+        private static final BlackHoleWriter INSTANCE = new BlackHoleWriter();
     }
 
 }

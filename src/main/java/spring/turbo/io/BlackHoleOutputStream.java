@@ -13,15 +13,16 @@ import java.io.OutputStream;
 
 /**
  * @author 应卓
+ * @see #getInstance()
  * @since 1.0.8
  */
-public final class BlackholeOutputStream extends OutputStream {
+public final class BlackHoleOutputStream extends OutputStream {
 
-    private BlackholeOutputStream() {
+    private BlackHoleOutputStream() {
         super();
     }
 
-    public static BlackholeOutputStream getInstance() {
+    public static BlackHoleOutputStream getInstance() {
         return SyncAvoid.INSTANCE;
     }
 
@@ -32,7 +33,7 @@ public final class BlackholeOutputStream extends OutputStream {
 
     // 延迟加载
     private static class SyncAvoid {
-        private static final BlackholeOutputStream INSTANCE = new BlackholeOutputStream();
+        private static final BlackHoleOutputStream INSTANCE = new BlackHoleOutputStream();
     }
 
 }

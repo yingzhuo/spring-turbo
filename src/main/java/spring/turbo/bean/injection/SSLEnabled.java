@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import java.lang.annotation.*;
 
 /**
+ * {@code @Value("${server.ssl.enabled}")} 的快捷方式
+ *
  * @author 应卓
  * @see Value
  * @since 1.1.3

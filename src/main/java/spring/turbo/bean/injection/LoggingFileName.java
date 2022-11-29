@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.lang.annotation.*;
 
 /**
- * (shortcut for ${logging.file.name})
+ * {@code @Value("${logging.file.name}")} 的快捷方式
  *
  * @author 应卓
  * @see Value
