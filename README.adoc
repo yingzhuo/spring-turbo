@@ -1,13 +1,29 @@
 = spring-turbo
 
-image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
+image:https://img.shields.io/badge/License-Apache%202.0-red.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
+image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.svg?label=Maven%20Central[link="https://search.maven.org/search?q=g:%22com.github.yingzhuo%22%20AND%20a:%22spring-turbo%22"]
 
 == 需求
 
-* Java 17+
-* SpringFramework 6.0.0+
-* SpringBoot 3.0.0+
-* SpringSecurity 6.0.0+
+[options="header",format="psv"]
+|==========================
+| 软件             | 版本
+| JDK             | 17+
+| SpringFramework | 6.0.0+
+| SpringBoot      | 3.0.0+
+| SpringSecurity  | 6.0.0+
+|==========================
+
+== 安装
+
+[maven,xml]
+----
+<dependency>
+    <groupId>com.github.yingzhuo</groupId>
+    <artifactId>spring-turbo</artifactId>
+    <version>${spring.turbo.latest}</version>
+</dependency>
+----
 
 == 关联项目
 
@@ -21,6 +37,6 @@ image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://ww
 
 * link:{docdir}/LICENSE[Apache 2]
 
-== 作者
+== 联系我
 
-* link:https://github.com/yingzhuo[yingzhuo]
+* mailto:yingzhor@gmail.com[GMAIL]
