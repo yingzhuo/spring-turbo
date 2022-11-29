@@ -9,8 +9,6 @@
 package spring.turbo.format;
 
 import org.springframework.format.Formatter;
-import org.springframework.format.Parser;
-import org.springframework.format.Printer;
 import org.springframework.util.StringUtils;
 import spring.turbo.bean.NumberPair;
 import spring.turbo.util.NumberParseUtils;
@@ -25,7 +23,7 @@ import java.util.regex.Pattern;
  * @author 应卓
  * @since 1.3.1
  */
-public class NumberPairFormatter implements Formatter<NumberPair>, Printer<NumberPair>, Parser<NumberPair> {
+public class NumberPairFormatter implements Formatter<NumberPair> {
 
     private static final Pattern REGEX =
             Pattern.compile("^([+\\-]?[#a-fA-F0-9.xX]+)-([+\\-]?[#a-fA-F0-9.xX]+)$");

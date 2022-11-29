@@ -9,8 +9,6 @@
 package spring.turbo.format;
 
 import org.springframework.format.Formatter;
-import org.springframework.format.Parser;
-import org.springframework.format.Printer;
 import org.springframework.util.StringUtils;
 import spring.turbo.bean.NumberPair;
 import spring.turbo.bean.NumberZones;
@@ -25,7 +23,7 @@ import java.util.Locale;
  * @author 应卓
  * @since 1.3.1
  */
-public class NumberZonesFormatter implements Formatter<NumberZones>, Printer<NumberZones>, Parser<NumberZones> {
+public class NumberZonesFormatter implements Formatter<NumberZones> {
 
     private String delimiter = StringPool.SEMICOLON;
     private NumberPairFormatter numberPairFormatter = new NumberPairFormatter();
