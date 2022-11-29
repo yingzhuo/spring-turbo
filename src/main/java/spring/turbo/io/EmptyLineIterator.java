@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
+import spring.turbo.lang.Singleton;
+
 import java.util.NoSuchElementException;
 
 /**
@@ -15,6 +17,7 @@ import java.util.NoSuchElementException;
  * @see #getInstance()
  * @since 1.0.8
  */
+@Singleton
 public final class EmptyLineIterator extends LineIterator {
 
     /**

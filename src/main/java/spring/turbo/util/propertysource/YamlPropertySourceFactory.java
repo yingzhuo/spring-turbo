@@ -24,6 +24,13 @@ import spring.turbo.util.RandomStringUtils;
  */
 public class YamlPropertySourceFactory implements PropertySourceFactory {
 
+    /**
+     * 构造方法
+     */
+    public YamlPropertySourceFactory() {
+        super();
+    }
+
     @Override
     public PropertySource<?> createPropertySource(@Nullable String name, EncodedResource encodedResource) {
         final Resource resource = encodedResource.getResource();

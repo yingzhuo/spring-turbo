@@ -15,8 +15,6 @@ import spring.turbo.util.StringFormatter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -33,7 +31,7 @@ import java.util.Objects;
  * @since 1.0.7
  */
 @Immutable
-public class NumberPair implements Iterable<BigDecimal>, Serializable {
+public class NumberPair implements Serializable {
 
     private final BigDecimal left;
     private final BigDecimal right;
@@ -63,11 +61,6 @@ public class NumberPair implements Iterable<BigDecimal>, Serializable {
 
     public <T extends Number> T getRight(Class<T> type) {
         return BigDecimalUtils.getValue(right, type);
-    }
-
-    @Override
-    public Iterator<BigDecimal> iterator() {
-        return Arrays.asList(left, right).iterator();
     }
 
     @Override

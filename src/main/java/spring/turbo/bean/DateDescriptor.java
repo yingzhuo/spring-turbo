@@ -17,7 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * 时间维度
+ * 日期维度
  *
  * @author 应卓
  * @see java.util.Date
