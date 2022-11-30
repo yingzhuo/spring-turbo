@@ -25,6 +25,7 @@ import static java.util.Optional.ofNullable;
  * @see org.springframework.context.MessageSource
  * @see org.springframework.context.support.MessageSourceAccessor
  * @see org.springframework.context.support.ApplicationObjectSupport
+ * @see spring.turbo.core.MessageUtils
  * @since 2.0.1
  */
 @Immutable

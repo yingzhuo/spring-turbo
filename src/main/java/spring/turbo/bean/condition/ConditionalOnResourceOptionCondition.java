@@ -41,7 +41,7 @@ final class ConditionalOnResourceOptionCondition extends SpringBootCondition {
                 .isPresent();
 
         if (match) {
-            return ConditionOutcome.match();
+            return ConditionOutcome.match("resources at least 1 absent");
         } else {
             return ConditionOutcome.noMatch("resources absent");
         }

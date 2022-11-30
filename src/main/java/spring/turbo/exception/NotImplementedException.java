@@ -28,11 +28,12 @@ public class NotImplementedException extends UnsupportedOperationException {
         this.contact = null;
     }
 
-    public NotImplementedException(@Nullable String contact) {
-        this.contact = contact;
+    public NotImplementedException(@Nullable String message) {
+        super(message);
+        this.contact = null;
     }
 
-    public NotImplementedException(String message, @Nullable String contact) {
+    public NotImplementedException(@Nullable String message, @Nullable String contact) {
         super(message);
         this.contact = contact;
     }

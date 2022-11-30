@@ -29,4 +29,7 @@ import java.lang.annotation.*;
 @Documented
 @Conditional(ConditionalOnDebugModeCondition.class)
 public @interface ConditionalOnDebugMode {
+
+    public boolean traceAsDebug() default true;
+
 }
