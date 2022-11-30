@@ -31,7 +31,8 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 
 == 例子
 
-* link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-spring-security-jwt[SpringSecurity - 基于JWT认证和授权]
+* link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-spring-security-jwt[基于JWT认证和授权]
+* link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-stateless-captcha/[无状态人机验证码生成]
 
 == 许可证
 

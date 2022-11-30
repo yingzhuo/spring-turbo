@@ -18,12 +18,28 @@ import org.springframework.lang.Nullable;
  */
 public class NotImplementedException extends UnsupportedOperationException {
 
+    /**
+     * 联系人 (workmate)
+     */
+    @Nullable
+    private final String contact;
+
     public NotImplementedException() {
-        super();
+        this.contact = null;
     }
 
-    public NotImplementedException(@Nullable String message) {
+    public NotImplementedException(@Nullable String contact) {
+        this.contact = contact;
+    }
+
+    public NotImplementedException(String message, @Nullable String contact) {
         super(message);
+        this.contact = contact;
+    }
+
+    @Nullable
+    public String getContact() {
+        return contact;
     }
 
 }
