@@ -25,12 +25,15 @@ import java.util.Objects;
  */
 public final class SelfConsistent {
 
+    /**
+     * 私有构造方法
+     */
     private SelfConsistent() {
         super();
     }
 
     public static void raise(String messagePattern, Object... args) {
-        String defaultMessage = StringFormatter.format(messagePattern, args);
+        var defaultMessage = StringFormatter.format(messagePattern, args);
         throw new SelfConsistentException(null, null, defaultMessage);
     }
 

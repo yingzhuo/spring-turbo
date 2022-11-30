@@ -10,36 +10,38 @@ package spring.turbo.exception;
 
 import org.springframework.lang.Nullable;
 
+import static java.util.Optional.ofNullable;
+
 /**
- * 未实现的功能
+ * 业务异常
  *
  * @author 应卓
- * @since 1.0.11
+ * @since 2.0.1
  */
-public class NotImplementedException extends UnsupportedOperationException {
+public class BusinessException extends RuntimeException {
+
+    public static BusinessException of(@Nullable String msg) {
+        return new BusinessException(msg);
+    }
+
+    public static BusinessException of(@Nullable Throwable ex) {
+        return of(ofNullable(ex).map(Throwable::getMessage).orElse(null));
+    }
 
     /**
-     * 联系人 (workmate)
+     * 构造方法
      */
-    @Nullable
-    private final String contact;
-
-    public NotImplementedException() {
-        this.contact = null;
+    public BusinessException() {
+        this(null);
     }
 
-    public NotImplementedException(@Nullable String contact) {
-        this.contact = contact;
-    }
-
-    public NotImplementedException(String message, @Nullable String contact) {
+    /**
+     * 构造方法
+     *
+     * @param message 异常信息
+     */
+    public BusinessException(@Nullable String message) {
         super(message);
-        this.contact = contact;
-    }
-
-    @Nullable
-    public String getContact() {
-        return contact;
     }
 
 }
