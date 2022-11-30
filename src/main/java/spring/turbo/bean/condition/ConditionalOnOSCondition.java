@@ -21,7 +21,7 @@ import java.util.HashSet;
 /**
  * @author 应卓
  * @see ConditionalOnOS
- * @since 2.0.0
+ * @since 2.0.1
  */
 final class ConditionalOnOSCondition extends SpringBootCondition {
 
