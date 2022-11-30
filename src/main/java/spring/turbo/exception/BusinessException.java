@@ -32,21 +32,24 @@ public final class BusinessException extends RuntimeException implements Message
 
     @Nullable
     private final String[] codes;
+
     @Nullable
     private final Object[] arguments;
+
     @Nullable
     private final String defaultMessage;
 
     /**
-     * 创建器专用构造方法
+     * 创建器用构造方法
      *
      * @param codes          I18n codes
      * @param arguments      I18n arguments
      * @param defaultMessage I18n defaultMessage
      * @see org.springframework.context.MessageSource
      * @see MessageSourceResolvable
+     * @see BusinessExceptionBuilder
      */
-    BusinessException(@Nullable String[] codes, @Nullable Object[] arguments, @Nullable String defaultMessage) {
+    public BusinessException(@Nullable String[] codes, @Nullable Object[] arguments, @Nullable String defaultMessage) {
         super(defaultMessage);
         this.codes = codes;
         this.arguments = arguments;

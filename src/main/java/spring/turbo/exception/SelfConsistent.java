@@ -11,7 +11,6 @@ package spring.turbo.exception;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import spring.turbo.util.StringFormatter;
 
 import java.util.Collection;
 import java.util.Map;
@@ -21,6 +20,7 @@ import java.util.Objects;
  * 业务自洽性检查工具
  *
  * @author 应卓
+ * @see BusinessException
  * @since 1.0.0
  */
 public final class SelfConsistent {
@@ -32,103 +32,151 @@ public final class SelfConsistent {
         super();
     }
 
-    public static void raise(String messagePattern, Object... args) {
-        var defaultMessage = StringFormatter.format(messagePattern, args);
-        throw new SelfConsistentException(null, null, defaultMessage);
-    }
-
-    public static void assertNotNull(@Nullable Object o, String code) {
-        assertNotNull(o, code, (Object[]) null);
+    public static void assertNotNull(@Nullable Object o, String message) {
+        if (o == null) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertNotNull(@Nullable Object o, String code, @Nullable Object... args) {
         if (o == null) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static <T> void assertNotEmpty(@Nullable Collection<T> o, String code) {
-        assertNotEmpty(o, code, (Object[]) null);
+    public static <T> void assertNotEmpty(@Nullable Collection<T> o, String message) {
+        if (CollectionUtils.isEmpty(o)) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static <T> void assertNotEmpty(@Nullable Collection<T> o, String code, @Nullable Object... args) {
         if (CollectionUtils.isEmpty(o)) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static <K, V> void assertNotEmpty(@Nullable Map<K, V> o, String code) {
-        assertNotEmpty(o, code, (Object[]) null);
+    public static <K, V> void assertNotEmpty(@Nullable Map<K, V> o, String message) {
+        if (CollectionUtils.isEmpty(o)) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static <K, V> void assertNotEmpty(@Nullable Map<K, V> o, String code, @Nullable Object... args) {
         if (CollectionUtils.isEmpty(o)) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static <T> void assertNoNullElements(@Nullable Collection<T> o, String code) {
-        assertNoNullElements(o, code, (Object[]) null);
-    }
-
-    public static <T> void assertNoNullElements(@Nullable Collection<T> o, String code, @Nullable Object... args) {
+    public static <T> void assertNoNullElements(@Nullable Collection<T> o, String message) {
         if (CollectionUtils.isEmpty(o)) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.of(message);
         }
         for (T it : o) {
             if (it == null) {
-                throw new SelfConsistentException(new String[]{code}, args, null);
+                throw BusinessException.of(message);
             }
         }
     }
 
-    public static void assertNotEmpty(@Nullable CharSequence string, String code) {
-        assertNotEmpty(string, code, (Object[]) null);
+    public static <T> void assertNoNullElements(@Nullable Collection<T> o, String code, @Nullable Object... args) {
+        if (CollectionUtils.isEmpty(o)) {
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
+        }
+        for (T it : o) {
+            if (it == null) {
+                throw BusinessException.builder()
+                        .codes(code)
+                        .arguments(args)
+                        .build();
+            }
+        }
+    }
+
+    public static void assertNotEmpty(@Nullable CharSequence string, String message) {
+        if (!StringUtils.hasLength(string)) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertNotEmpty(@Nullable CharSequence string, String code, @Nullable Object... args) {
         if (!StringUtils.hasLength(string)) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static void assertNotBlank(@Nullable CharSequence string, String code) {
-        assertNotBlank(string, code, (Object[]) null);
+    public static void assertNotBlank(@Nullable CharSequence string, String message) {
+        if (!StringUtils.hasText(string)) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertNotBlank(@Nullable CharSequence string, String code, @Nullable Object... args) {
         if (!StringUtils.hasText(string)) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static void assertPositive(@Nullable Number number, String code) {
-        assertPositive(number, code, (Object[]) null);
+    public static void assertPositive(@Nullable Number number, String message) {
+        if (number == null || number.doubleValue() <= 0D) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertPositive(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() <= 0D) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static void assertPositiveOrZero(@Nullable Number number, String code) {
-        assertPositiveOrZero(number, code, (Object[]) null);
+    public static void assertPositiveOrZero(@Nullable Number number, String message) {
+        if (number == null || number.doubleValue() < 0D) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertPositiveOrZero(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() < 0D) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static void assertZero(@Nullable Number number, String code) {
-        assertZero(number, code, (Object[]) null);
+    public static void assertZero(@Nullable Number number, String message) {
+        if (number == null || number.doubleValue() != 0D) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertZero(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() != 0D) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
