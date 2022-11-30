@@ -22,6 +22,7 @@ import spring.turbo.util.Asserts;
  * @since 1.0.0
  */
 @Immutable
+@Deprecated(since = "2.0.1", forRemoval = true)
 public final class SelfConsistentException extends IllegalStateException implements MessageSourceResolvable {
 
     @Nullable

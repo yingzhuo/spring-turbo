@@ -8,10 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.bean.Builder;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -38,18 +36,17 @@ public final class BusinessExceptionBuilder implements Builder<BusinessException
         super();
     }
 
-    public BusinessExceptionBuilder codes(String... codes) {
+    public BusinessExceptionBuilder codes(@Nullable String... codes) {
         CollectionUtils.nullSafeAddAll(this.codes, codes);
         return this;
     }
 
-    public BusinessExceptionBuilder arguments(Object... arguments) {
+    public BusinessExceptionBuilder arguments(@Nullable Object... arguments) {
         CollectionUtils.nullSafeAddAll(this.arguments, arguments);
         return this;
     }
 
-    public BusinessExceptionBuilder defaultMessage(@NonNull String message) {
-        Asserts.notNull(message);
+    public BusinessExceptionBuilder defaultMessage(@Nullable String message) {
         this.defaultMessage = message;
         return this;
     }

@@ -24,7 +24,7 @@ import java.lang.annotation.*;
  * @since 1.3.0
  */
 @Inherited
-@Target({ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Conditional(ConditionalOnDebugModeCondition.class)

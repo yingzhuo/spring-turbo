@@ -11,7 +11,6 @@ package spring.turbo.webmvc.token;
 import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -20,7 +19,7 @@ import java.util.Objects;
  * @since 1.2.3
  */
 @Immutable
-public class BasicToken implements Token, Serializable {
+public class BasicToken implements Token {
 
     private final String username;
     private final String password;
