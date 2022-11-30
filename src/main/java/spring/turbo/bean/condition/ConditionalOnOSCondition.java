@@ -13,37 +13,33 @@ import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
-import spring.turbo.io.ResourceOptions;
+import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.OS;
+
+import java.util.HashSet;
 
 /**
  * @author 应卓
- * @since 2.0.1
+ * @see ConditionalOnOS
+ * @since 2.0.0
  */
-final class ConditionalOnResourceOptionCondition extends SpringBootCondition {
+final class ConditionalOnOSCondition extends SpringBootCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        final var attributes =
-                AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnResourceOption.class.getName()));
-
+        final var current = OS.get();
+        final var attributes = AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnOS.class.getName()));
         if (attributes == null) {
-            return ConditionOutcome.noMatch("resources absent");
+            return ConditionOutcome.noMatch("not match on current operation-system");
         }
 
-        final var resources = attributes.getStringArray("resources");
-        if (resources.length == 0) {
-            return ConditionOutcome.noMatch("resources absent");
-        }
+        final var stringSet = new HashSet<OS>();
+        CollectionUtils.nullSafeAddAll(stringSet, (OS[]) attributes.get("value"));
 
-        final var match = ResourceOptions.builder()
-                .add(resources)
-                .build()
-                .isPresent();
-
-        if (match) {
-            return ConditionOutcome.match("resources at least 1 absent");
+        if (stringSet.contains(current)) {
+            return ConditionOutcome.match();
         } else {
-            return ConditionOutcome.noMatch("resources absent");
+            return ConditionOutcome.noMatch("not match on current operation-system");
         }
     }
 

@@ -9,27 +9,23 @@
 package spring.turbo.bean.condition;
 
 import org.springframework.context.annotation.Conditional;
+import spring.turbo.util.OS;
 
 import java.lang.annotation.*;
 
 /**
- * 在trace或debug模式下生效
+ * 基于OS系统的条件
  *
  * @author 应卓
- * @see spring.turbo.bean.injection.IsTraceMode
- * @see spring.turbo.bean.injection.IsDebugMode
- * @see spring.turbo.bean.injection.IsTraceOrDebugMode
- * @see org.springframework.core.env.Environment
- * @see org.springframework.boot.ApplicationArguments
- * @since 1.3.0
+ * @since 2.0.0
  */
 @Inherited
-@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Conditional(ConditionalOnDebugModeCondition.class)
-public @interface ConditionalOnDebugMode {
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Conditional(ConditionalOnOSCondition.class)
+public @interface ConditionalOnOS {
 
-    public boolean traceAsDebug() default true;
+    public OS[] value() default {};
 
 }

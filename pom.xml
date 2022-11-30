@@ -343,6 +343,7 @@
                 <version>3.3.0</version>
                 <configuration>
                     <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
                         <manifestEntries>
                             <Name>${project.artifactId}</Name>
                             <Implementation-Title>Another tool of SpringBoot and SpringFramework</Implementation-Title>
