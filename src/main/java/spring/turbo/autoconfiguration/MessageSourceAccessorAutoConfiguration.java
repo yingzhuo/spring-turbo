@@ -9,7 +9,6 @@
 package spring.turbo.autoconfiguration;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +21,6 @@ import java.util.Locale;
  * @since 2.0.1
  */
 @AutoConfiguration
-@ConditionalOnBean(MessageSource.class)
 @ConditionalOnMissingBean(MessageSourceAccessor.class)
 public class MessageSourceAccessorAutoConfiguration {
 

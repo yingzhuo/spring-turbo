@@ -14,6 +14,8 @@ import org.springframework.boot.system.JavaVersion;
 import java.lang.annotation.*;
 
 /**
+ * Java 17
+ *
  * @author 应卓
  * @since 2.0.0
  */

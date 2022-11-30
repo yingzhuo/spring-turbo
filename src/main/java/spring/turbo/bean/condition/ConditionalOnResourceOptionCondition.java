@@ -11,33 +11,39 @@ package spring.turbo.bean.condition;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
 import org.springframework.context.annotation.ConditionContext;
-import org.springframework.core.env.Environment;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
-
-import static spring.turbo.util.StringPool.*;
+import spring.turbo.io.ResourceOptions;
 
 /**
  * @author 应卓
- * @since 1.3.0
+ * @since 2.0.1
  */
-final class ConditionalOnDebugModeCondition extends SpringBootCondition {
+final class ConditionalOnResourceOptionCondition extends SpringBootCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        if (doMatches(context)) {
-            return ConditionOutcome.match("trace/debug mode enabled");
-        } else {
-            return ConditionOutcome.noMatch("trace/debug mode not enabled");
-        }
-    }
+        final var attributes =
+                AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnResourceOption.class.getName()));
 
-    private boolean doMatches(ConditionContext context) {
-        try {
-            final Environment env = context.getEnvironment();
-            return (env.getProperty(DEBUG) != null && !FALSE.equalsIgnoreCase(env.getProperty(DEBUG))) ||
-                    (env.getProperty(TRACE) != null && !FALSE.equalsIgnoreCase(env.getProperty(TRACE)));
-        } catch (Exception e) {
-            return false;
+        if (attributes == null) {
+            return ConditionOutcome.noMatch("resources absent");
+        }
+
+        final var resources = attributes.getStringArray("resources");
+        if (resources.length == 0) {
+            return ConditionOutcome.noMatch("resources absent");
+        }
+
+        final var match = ResourceOptions.builder()
+                .add(resources)
+                .build()
+                .isPresent();
+
+        if (match) {
+            return ConditionOutcome.match();
+        } else {
+            return ConditionOutcome.noMatch("resources absent");
         }
     }
 
