@@ -11,6 +11,7 @@ package spring.turbo.exception;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import spring.turbo.util.Asserts;
 
 import java.util.Collection;
 import java.util.Map;
@@ -33,6 +34,7 @@ public final class SelfConsistent {
     }
 
     public static void assertNotNull(@Nullable Object o, String message) {
+        Asserts.notNull(message);
         if (o == null) {
             throw BusinessException.of(message);
         }
@@ -48,6 +50,7 @@ public final class SelfConsistent {
     }
 
     public static <T> void assertNotEmpty(@Nullable Collection<T> o, String message) {
+        Asserts.notNull(message);
         if (CollectionUtils.isEmpty(o)) {
             throw BusinessException.of(message);
         }
@@ -63,6 +66,7 @@ public final class SelfConsistent {
     }
 
     public static <K, V> void assertNotEmpty(@Nullable Map<K, V> o, String message) {
+        Asserts.notNull(message);
         if (CollectionUtils.isEmpty(o)) {
             throw BusinessException.of(message);
         }
@@ -78,6 +82,7 @@ public final class SelfConsistent {
     }
 
     public static <T> void assertNoNullElements(@Nullable Collection<T> o, String message) {
+        Asserts.notNull(message);
         if (CollectionUtils.isEmpty(o)) {
             throw BusinessException.of(message);
         }
@@ -106,6 +111,7 @@ public final class SelfConsistent {
     }
 
     public static void assertNotEmpty(@Nullable CharSequence string, String message) {
+        Asserts.notNull(message);
         if (!StringUtils.hasLength(string)) {
             throw BusinessException.of(message);
         }
@@ -121,6 +127,7 @@ public final class SelfConsistent {
     }
 
     public static void assertNotBlank(@Nullable CharSequence string, String message) {
+        Asserts.notNull(message);
         if (!StringUtils.hasText(string)) {
             throw BusinessException.of(message);
         }
@@ -136,6 +143,7 @@ public final class SelfConsistent {
     }
 
     public static void assertPositive(@Nullable Number number, String message) {
+        Asserts.notNull(message);
         if (number == null || number.doubleValue() <= 0D) {
             throw BusinessException.of(message);
         }
@@ -151,6 +159,7 @@ public final class SelfConsistent {
     }
 
     public static void assertPositiveOrZero(@Nullable Number number, String message) {
+        Asserts.notNull(message);
         if (number == null || number.doubleValue() < 0D) {
             throw BusinessException.of(message);
         }
@@ -166,6 +175,7 @@ public final class SelfConsistent {
     }
 
     public static void assertZero(@Nullable Number number, String message) {
+        Asserts.notNull(message);
         if (number == null || number.doubleValue() != 0D) {
             throw BusinessException.of(message);
         }
@@ -180,63 +190,99 @@ public final class SelfConsistent {
         }
     }
 
-    public static void assertNegative(@Nullable Number number, String code) {
-        assertNegative(number, code, (Object[]) null);
+    public static void assertNegative(@Nullable Number number, String message) {
+        Asserts.notNull(message);
+        if (number == null || number.doubleValue() >= 0D) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertNegative(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() >= 0D) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static void assertNegativeOrZero(@Nullable Number number, String code) {
-        assertNegativeOrZero(number, code, (Object[]) null);
+    public static void assertNegativeOrZero(@Nullable Number number, String message) {
+        Asserts.notNull(message);
+        if (number == null || number.doubleValue() > 0D) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertNegativeOrZero(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() > 0D) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static void assertEquals(@Nullable Object o1, @Nullable Object o2, String code) {
-        assertEquals(o1, o2, code, (Object[]) null);
+    public static void assertEquals(@Nullable Object o1, @Nullable Object o2, String message) {
+        Asserts.notNull(message);
+        if (!Objects.equals(o1, o2)) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertEquals(@Nullable Object o1, @Nullable Object o2, String code, @Nullable Object... args) {
         if (!Objects.equals(o1, o2)) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static void assertSameObject(@Nullable Object o1, @Nullable Object o2, String code) {
-        assertSameObject(o1, o2, code, (Object[]) null);
+    public static void assertSameObject(@Nullable Object o1, @Nullable Object o2, String message) {
+        Asserts.notNull(message);
+        if (o1 != o2) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertSameObject(@Nullable Object o1, @Nullable Object o2, String code, @Nullable Object... args) {
         if (o1 != o2) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static void assertTrue(boolean state, String code) {
-        assertTrue(state, code, (Object[]) null);
+    public static void assertTrue(boolean state, String message) {
+        Asserts.notNull(message);
+        if (!state) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertTrue(boolean state, String code, @Nullable Object... args) {
         if (!state) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
-    public static void assertFalse(boolean state, String code) {
-        assertFalse(state, code, (Object[]) null);
+    public static void assertFalse(boolean state, String message) {
+        Asserts.notNull(message);
+        if (state) {
+            throw BusinessException.of(message);
+        }
     }
 
     public static void assertFalse(boolean state, String code, @Nullable Object... args) {
         if (state) {
-            throw new SelfConsistentException(new String[]{code}, args, null);
+            throw BusinessException.builder()
+                    .codes(code)
+                    .arguments(args)
+                    .build();
         }
     }
 
