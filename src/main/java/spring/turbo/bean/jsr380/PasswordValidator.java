@@ -106,28 +106,18 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
             }
         }
 
-        switch (complexity) {
-            case ALPHABETIC_AND_NUMERIC:
-                return hasAlphabetic && hasNumeric;
-            case ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS:
-                return hasAlphabetic && hasNumeric && hasSpecial;
-            case LOWER_AND_UPPER_AND_NUMERIC:
-                return hasLower && hasUpper && hasNumeric;
-            case LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS:
-                return hasLower && hasUpper && hasNumeric && hasSpecial;
-            case AT_LEAST_TWO_KIND_OF_ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS:
-                return point >= 2;
-            case HAS_NUMERIC:
-                return hasNumeric;
-            case ONLY_NUMERIC:
-                return hasNumeric && !hasAlphabetic && !hasSpecial;
-            case HAS_ALPHABETIC:
-                return hasAlphabetic;
-            case ONLY_ALPHABETIC:
-                return hasAlphabetic && !hasNumeric && !hasSpecial;
-            default:
-                return true;
-        }
+        return switch (complexity) {
+            case ALPHABETIC_AND_NUMERIC -> hasAlphabetic && hasNumeric;
+            case ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS -> hasAlphabetic && hasNumeric && hasSpecial;
+            case LOWER_AND_UPPER_AND_NUMERIC -> hasLower && hasUpper && hasNumeric;
+            case LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS -> hasLower && hasUpper && hasNumeric && hasSpecial;
+            case AT_LEAST_TWO_KIND_OF_ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS -> point >= 2;
+            case HAS_NUMERIC -> hasNumeric;
+            case ONLY_NUMERIC -> hasNumeric && !hasAlphabetic && !hasSpecial;
+            case HAS_ALPHABETIC -> hasAlphabetic;
+            case ONLY_ALPHABETIC -> hasAlphabetic && !hasNumeric && !hasSpecial;
+            default -> true;
+        };
     }
 
 }
