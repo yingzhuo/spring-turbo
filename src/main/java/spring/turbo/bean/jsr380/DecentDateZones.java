@@ -17,15 +17,15 @@ import static java.lang.annotation.ElementType.*;
 
 /**
  * @author 应卓
- * @see spring.turbo.bean.NumberZones
- * @since 1.1.4
+ * @see spring.turbo.bean.DateZones
+ * @since 2.0.1
  */
 @Inherited
 @Documented
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = DecentNumberZonesValidator.class)
-public @interface DecentNumberZones {
+@Constraint(validatedBy = DecentDateZonesConstraintValidator.class)
+public @interface DecentDateZones {
 
     public String message();
 
@@ -34,8 +34,6 @@ public @interface DecentNumberZones {
     public int maxSize() default Integer.MAX_VALUE;
 
     public boolean mustBeContinuous() default true;
-
-    public double interval() default 1.0D;
 
     public Class<?>[] groups() default {};
 

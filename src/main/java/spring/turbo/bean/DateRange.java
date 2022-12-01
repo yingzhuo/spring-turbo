@@ -124,6 +124,10 @@ public final class DateRange implements Serializable, Iterable<Date> {
         return StringFormatter.format("{} @@ {}", leftInclude.getDayString(), rightInclude.getDayString());
     }
 
+    public boolean isOrdered() {
+        return this.leftInclude.beforeOrSameDate(this.rightInclude);
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     private final static class DayRangeIterator implements Iterator<Date> {
 
