@@ -9,18 +9,15 @@
 package spring.turbo.format;
 
 import org.springframework.format.Formatter;
+import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 import spring.turbo.bean.DateDescriptor;
 import spring.turbo.bean.DateRange;
 import spring.turbo.bean.WeekOption;
-import spring.turbo.util.DateParseUtils;
-import spring.turbo.util.DateUtils;
-import spring.turbo.util.StringFormatter;
-import spring.turbo.util.ZoneIdPool;
+import spring.turbo.util.*;
 
 import java.text.ParseException;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * @author 应卓
@@ -32,6 +29,7 @@ public class DateRangeFormatter implements Formatter<DateRange> {
     private String datePattern = "yyyy-MM-dd";
     private String timezone = "";
     private WeekOption weekOption = WeekOption.SUNDAY_START;
+    private List<String> backupDelimiters = List.of("@@");
 
     /**
      * 构造方法
@@ -42,10 +40,25 @@ public class DateRangeFormatter implements Formatter<DateRange> {
 
     @Override
     public DateRange parse(String text, Locale locale) throws ParseException {
-        final String error = "text is not a valid DateRange.";
-        final String[] parts = StringUtils.split(text, delimiter);
+        final List<String> delimiterList = new ArrayList<>();
+        CollectionUtils.nullSafeAdd(delimiterList, this.delimiter);
+        CollectionUtils.nullSafeAddAll(delimiterList, this.backupDelimiters);
+
+        for (String delimiter : delimiterList) {
+            final var ret = this.doParse(text, locale, delimiter);
+            if (ret != null) {
+                return ret;
+            }
+        }
+
+        throw new ParseException("text is not a valid DateRange.", 0);
+    }
+
+    @Nullable
+    private DateRange doParse(String text, Locale locale, String delimiterToUse) {
+        final String[] parts = StringUtils.split(text, delimiterToUse);
         if (parts == null || parts.length != 2) {
-            throw new ParseException(error, 0);
+            return null;
         }
 
         final String leftDateString = parts[0];
@@ -60,7 +73,7 @@ public class DateRangeFormatter implements Formatter<DateRange> {
                     DateDescriptor.of(right, ZoneIdPool.toZoneIdOrDefault(timezone), weekOption)
             );
         } catch (Exception e) {
-            throw new ParseException(error, 0);
+            return null;
         }
     }
 
@@ -88,6 +101,12 @@ public class DateRangeFormatter implements Formatter<DateRange> {
 
     public void setWeekOption(WeekOption weekOption) {
         this.weekOption = weekOption;
+    }
+
+    public final void setBackupDelimiters(String... backupDelimiters) {
+        List<String> list = new ArrayList<>();
+        CollectionUtils.nullSafeAddAll(list, backupDelimiters);
+        this.backupDelimiters = Collections.unmodifiableList(list);
     }
 
 }

@@ -9,6 +9,7 @@
 package spring.turbo.bean.jsr380;
 
 import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 import spring.turbo.bean.DateRange;
 
 import java.lang.annotation.Documented;
@@ -31,4 +32,11 @@ import static java.lang.annotation.ElementType.*;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Constraint(validatedBy = OrderedDateRangeValidator.class)
 public @interface OrderedDateRange {
+
+    public String message();
+
+    public Class<?>[] groups() default {};
+
+    public Class<? extends Payload>[] payload() default {};
+
 }
