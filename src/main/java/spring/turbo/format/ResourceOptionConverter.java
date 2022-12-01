@@ -14,7 +14,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptions;
-import spring.turbo.util.collection.SetFactories;
 
 import java.util.Set;
 
@@ -24,14 +23,19 @@ import java.util.Set;
  */
 public class ResourceOptionConverter implements GenericConverter {
 
-    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS = SetFactories.newUnmodifiableSet(
-            new ConvertiblePair(CharSequence.class, ResourceOption.class),
-            new ConvertiblePair(Resource.class, ResourceOption.class)
-    );
+    /**
+     * 构造方法
+     */
+    public ResourceOptionConverter() {
+        super();
+    }
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return CONVERTIBLE_PAIRS;
+        return Set.of(
+                new ConvertiblePair(CharSequence.class, ResourceOption.class),
+                new ConvertiblePair(Resource.class, ResourceOption.class)
+        );
     }
 
     @Override

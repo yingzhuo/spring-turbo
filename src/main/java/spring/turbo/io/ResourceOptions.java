@@ -52,7 +52,7 @@ public final class ResourceOptions {
         final String[] array =
                 Arrays.stream(locations.split("[\\s,]"))
                         .filter(StringUtils::hasText)
-                        .map(StringUtils::trimWhitespace)
+                        .map(String::strip)
                         .toArray(String[]::new);
 
         return builder()
@@ -60,6 +60,7 @@ public final class ResourceOptions {
                 .build();
     }
 
+    @Deprecated(since = "2.0.1", forRemoval = true)
     public static ResourceOption contact(ResourceOption... options) {
         for (final ResourceOption option : options) {
             if (option != null && option.isPresent()) {

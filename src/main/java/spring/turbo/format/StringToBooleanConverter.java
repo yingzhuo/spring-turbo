@@ -12,9 +12,10 @@ import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.StringFormatter;
-import spring.turbo.util.collection.SetFactories;
 
 import java.util.Set;
+
+import static spring.turbo.util.StringPool.*;
 
 /**
  * @author 应卓
@@ -22,18 +23,16 @@ import java.util.Set;
  */
 public class StringToBooleanConverter implements GenericConverter {
 
-    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS = SetFactories.newUnmodifiableSet(new ConvertiblePair(String.class, Boolean.class));
-
-    private static final String TRUE = "true";
-    private static final String FALSE = "false";
-    private static final String ON = "on";
-    private static final String OFF = "off";
-    private static final String ONE = "1";
-    private static final String ZERO = "0";
+    /**
+     * 构造方法
+     */
+    public StringToBooleanConverter() {
+        super();
+    }
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return CONVERTIBLE_PAIRS;
+        return Set.of(new ConvertiblePair(String.class, Boolean.class));
     }
 
     @Override
@@ -45,7 +44,7 @@ public class StringToBooleanConverter implements GenericConverter {
         final String text = source.toString().trim();
 
         if (TRUE.equalsIgnoreCase(text) || ON.equalsIgnoreCase(text) || ONE.equalsIgnoreCase(text)) {
-            return Boolean.TRUE;
+            return TRUE;
         }
 
         if (FALSE.equalsIgnoreCase(text) || OFF.equalsIgnoreCase(text) || ZERO.equalsIgnoreCase(text)) {

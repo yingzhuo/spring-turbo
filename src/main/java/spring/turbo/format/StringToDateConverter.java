@@ -14,7 +14,6 @@ import org.springframework.lang.Nullable;
 import spring.turbo.bean.DateDescriptor;
 import spring.turbo.util.DateParseUtils;
 import spring.turbo.util.DateUtils;
-import spring.turbo.util.collection.SetFactories;
 
 import java.time.*;
 import java.util.Calendar;
@@ -27,10 +26,17 @@ import java.util.Set;
  */
 public class StringToDateConverter implements GenericConverter {
 
+    /**
+     * 构造方法
+     */
+    public StringToDateConverter() {
+        super();
+    }
+
     @Nullable
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return SetFactories.newUnmodifiableSet(
+        return Set.of(
                 new ConvertiblePair(String.class, Date.class),
                 new ConvertiblePair(String.class, Calendar.class),
                 new ConvertiblePair(String.class, LocalDate.class),
