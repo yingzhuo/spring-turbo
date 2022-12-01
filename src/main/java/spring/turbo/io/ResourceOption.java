@@ -29,7 +29,7 @@ import java.util.Properties;
  * @see ResourceOptions#empty()
  * @since 1.0.0
  */
-public interface ResourceOption extends Serializable {
+public sealed interface ResourceOption extends Serializable permits ResourceOptionEmpty, ResourceOptionImpl {
 
     public Optional<Resource> toOptional();
 
@@ -64,12 +64,10 @@ public interface ResourceOption extends Serializable {
         return toProperties(PropertiesFormat.PROPERTIES);
     }
 
-    // since 1.0.8
     public default LineIterator getLineIterator() {
         return getLineIterator(CharsetPool.UTF_8);
     }
 
-    // since 1.0.8
     public LineIterator getLineIterator(Charset charset);
 
 }

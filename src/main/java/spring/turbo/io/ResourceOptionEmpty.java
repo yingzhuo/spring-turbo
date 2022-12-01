@@ -9,6 +9,7 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
+import spring.turbo.lang.Singleton;
 
 import java.io.File;
 import java.io.InputStream;
@@ -21,10 +22,8 @@ import java.util.Properties;
  * @author 应卓
  * @since 1.0.0
  */
-final class ResourceOptionEmpty implements ResourceOption {
-
-    private static final ResourceOptionEmpty INSTANCE = new ResourceOptionEmpty();
-    private static final IllegalStateException EX = new IllegalStateException("empty resource");
+@Singleton
+public final class ResourceOptionEmpty implements ResourceOption {
 
     /**
      * 私有构造方法
@@ -33,8 +32,8 @@ final class ResourceOptionEmpty implements ResourceOption {
         super();
     }
 
-    public static ResourceOption getInstance() {
-        return INSTANCE;
+    public static ResourceOptionEmpty getInstance() {
+        return SyncAvoid.INSTANCE;
     }
 
     @Override
@@ -54,62 +53,68 @@ final class ResourceOptionEmpty implements ResourceOption {
 
     @Override
     public String toString(Charset charset) {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public String toString() {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public InputStream toInputStream() {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public byte[] toByteArray() {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public File toFile() {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public Path toPath() {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public Properties toProperties(PropertiesFormat propertiesFormat) {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public Properties toProperties() {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public long getChecksumCRC32(int buffSize) {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public long getChecksumCRC32() {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public LineIterator getLineIterator(Charset charset) {
-        throw EX;
+        throw SyncAvoid.EX;
     }
 
     @Override
     public LineIterator getLineIterator() {
-        throw EX;
+        throw SyncAvoid.EX;
+    }
+
+    // 延迟加载
+    private static class SyncAvoid {
+        private static final ResourceOptionEmpty INSTANCE = new ResourceOptionEmpty();
+        private static final IllegalStateException EX = new IllegalStateException("empty resource");
     }
 
 }

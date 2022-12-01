@@ -29,11 +29,11 @@ import static spring.turbo.io.IOExceptionUtils.toUnchecked;
  * @author 应卓
  * @since 1.0.0
  */
-final class ResourceOptionImpl implements ResourceOption {
+public final class ResourceOptionImpl implements ResourceOption {
 
     private final Resource resource;
 
-    ResourceOptionImpl(Resource resource) {
+    public ResourceOptionImpl(Resource resource) {
         this.resource = resource;
     }
 
