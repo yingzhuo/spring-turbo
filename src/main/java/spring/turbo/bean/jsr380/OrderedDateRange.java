@@ -12,10 +12,7 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import spring.turbo.bean.DateRange;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 
@@ -27,6 +24,7 @@ import static java.lang.annotation.ElementType.*;
  * @see DateRange#isOrdered()
  * @since 2.0.1
  */
+@Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})

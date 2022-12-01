@@ -12,10 +12,7 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import spring.turbo.bean.NumberPair;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 
@@ -25,6 +22,7 @@ import static java.lang.annotation.ElementType.*;
  * @see NumberPairLeft
  * @since 1.0.8
  */
+@Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})

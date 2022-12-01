@@ -104,7 +104,7 @@ public class DateRangeFormatter implements Formatter<DateRange> {
     }
 
     public final void setBackupDelimiters(String... backupDelimiters) {
-        List<String> list = new ArrayList<>();
+        final List<String> list = new ArrayList<>();
         CollectionUtils.nullSafeAddAll(list, backupDelimiters);
         this.backupDelimiters = Collections.unmodifiableList(list);
     }

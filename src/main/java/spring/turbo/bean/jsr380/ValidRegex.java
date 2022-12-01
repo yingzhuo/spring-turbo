@@ -21,8 +21,8 @@ import static java.lang.annotation.ElementType.*;
  * @author 应卓
  * @since 1.0.6
  */
-@Documented
 @Inherited
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Constraint(validatedBy = ValidRegexValidator.class)
