@@ -57,7 +57,6 @@ public class NumberZonesFormatter implements Formatter<NumberZones> {
 
     @Nullable
     private NumberZones doParse(String text, Locale locale, String delimiterToUse) {
-        final String error = "text is not a valid NumberZones.";
         final String[] parts = StringUtils.delimitedListToStringArray(text, delimiterToUse);
 
         if (parts.length == 0) {
