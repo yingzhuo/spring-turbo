@@ -8,33 +8,23 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
-import jakarta.validation.Constraint;
-import jakarta.validation.Payload;
-import spring.turbo.bean.NumberPair;
-
-import java.lang.annotation.*;
-
-import static java.lang.annotation.ElementType.*;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+import org.springframework.lang.Nullable;
+import spring.turbo.bean.DateRange;
 
 /**
- * 检查 {@link NumberPair} 是否有序
- *
  * @author 应卓
- * @see NumberPair
- * @see NumberPair#isOrdered()
- * @since 1.0.8
+ * @since 2.0.1
  */
-@Inherited
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
-@Constraint(validatedBy = OrderedNumberPairValidator.class)
-public @interface OrderedNumberPair {
+public class OrderedDateRangeValidator implements ConstraintValidator<OrderedDateRange, DateRange> {
 
-    public String message();
-
-    public Class<?>[] groups() default {};
-
-    public Class<? extends Payload>[] payload() default {};
+    @Override
+    public boolean isValid(@Nullable DateRange value, ConstraintValidatorContext context) {
+        if (value == null) {
+            return true;
+        }
+        return value.isOrdered();
+    }
 
 }

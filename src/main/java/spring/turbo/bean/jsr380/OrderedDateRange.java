@@ -10,26 +10,26 @@ package spring.turbo.bean.jsr380;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import spring.turbo.bean.NumberPair;
+import spring.turbo.bean.DateRange;
 
 import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 
 /**
- * 检查 {@link NumberPair} 是否有序
+ * 检查 {@link DateRange} 是否有序
  *
  * @author 应卓
- * @see NumberPair
- * @see NumberPair#isOrdered()
- * @since 1.0.8
+ * @see spring.turbo.bean.DateRange
+ * @see DateRange#isOrdered()
+ * @since 2.0.1
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
-@Constraint(validatedBy = OrderedNumberPairValidator.class)
-public @interface OrderedNumberPair {
+@Constraint(validatedBy = OrderedDateRangeValidator.class)
+public @interface OrderedDateRange {
 
     public String message();
 
