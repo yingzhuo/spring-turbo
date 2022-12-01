@@ -354,15 +354,16 @@
                 <version>3.3.0</version>
                 <configuration>
                     <archive>
+                        <index>false</index>
                         <addMavenDescriptor>false</addMavenDescriptor>
-                        <manifestEntries>
-                            <Name>${project.artifactId}</Name>
-                            <Implementation-Title>Another tool of SpringBoot and SpringFramework</Implementation-Title>
-                            <Implementation-Version>${project.version}</Implementation-Version>
-                            <Implementation-Vendor>应卓 &lt;yingzhor@gmail.com&gt;</Implementation-Vendor>
-                            <Sealed>false</Sealed>
-                            <Created-By>Apache Maven ${helper.build.mavenversion}</Created-By>
-                        </manifestEntries>
+                        <manifest>
+                            <addClasspath>false</addClasspath>
+                            <addDefaultEntries>true</addDefaultEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+                            <addExtensions>false</addExtensions>
+                        </manifest>
                     </archive>
                 </configuration>
             </plugin>
