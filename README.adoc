@@ -1,9 +1,9 @@
-= spring-turbo
+== spring-turbo
 
 image:https://img.shields.io/badge/License-Apache%202.0-red.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
 image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.svg?label=Maven%20Central[link="https://search.maven.org/search?q=g:%22com.github.yingzhuo%22%20AND%20a:%22spring-turbo%22"]
 
-== 需求
+=== 需求
 
 [options="header",format="psv"]
 |==========================
@@ -14,7 +14,7 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 | SpringSecurity  | 6.0.0+
 |==========================
 
-== 安装
+=== 安装
 
 [maven,xml]
 ----
@@ -25,19 +25,20 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 </dependency>
 ----
 
-== 关联项目
+=== 关联项目
 
 * link:https://github.com/yingzhuo/spring-turbo-modules[spring-turbo-modules]
 
-== 例子
+=== 例子
 
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-spring-security-jwt[基于JWT认证和授权]
+* link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-stateful-captcha/[有状态人机验证码生成]
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-stateless-captcha/[无状态人机验证码生成]
 
-== 许可证
+=== 许可证
 
 * link:{docdir}/LICENSE[Apache 2]
 
-== 联系我
+=== 联系我
 
-* mailto:yingzhor@gmail.com[GMAIL]
+* mailto:yingzhor@gmail.com[gmail]
