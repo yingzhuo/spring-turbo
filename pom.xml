@@ -88,7 +88,6 @@
 
     <properties>
         <encoding>UTF-8</encoding>
-
         <java.version>17</java.version>
 
         <spring.boot.version>3.0.0</spring.boot.version>

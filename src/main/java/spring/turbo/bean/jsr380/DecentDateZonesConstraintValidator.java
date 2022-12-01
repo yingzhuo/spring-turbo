@@ -11,29 +11,29 @@ package spring.turbo.bean.jsr380;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.lang.Nullable;
-import spring.turbo.bean.NumberPair;
-import spring.turbo.bean.NumberZones;
+import spring.turbo.bean.DateRange;
+import spring.turbo.bean.DateZones;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.DateUtils;
 
-import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author 应卓
- * @see NumberZones
- * @since 1.1.4
+ * @since 2.0.1
  */
-public class DecentNumberZonesValidator implements ConstraintValidator<DecentNumberZones, NumberZones> {
+public class DecentDateZonesConstraintValidator implements ConstraintValidator<DecentDateZones, DateZones> {
 
     @Nullable
-    private DecentNumberZones annotation;
+    private DecentDateZones annotation;
 
     @Override
-    public void initialize(DecentNumberZones annotation) {
-        this.annotation = annotation;
+    public void initialize(DecentDateZones constraintAnnotation) {
+        this.annotation = constraintAnnotation;
     }
 
     @Override
-    public boolean isValid(@Nullable NumberZones value, ConstraintValidatorContext context) {
+    public boolean isValid(@Nullable DateZones value, ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }
@@ -54,16 +54,15 @@ public class DecentNumberZonesValidator implements ConstraintValidator<DecentNum
 
         // 检查连续性
         if (annotation.mustBeContinuous()) {
-
             int index = 0;
-            NumberPair last = null;
+            DateRange last = null;
 
-            for (final var current : value) {
+            for (final DateRange current : value) {
                 if (index != 0) {
-                    final BigDecimal a = last.getRight(BigDecimal.class);
-                    final BigDecimal b = current.getLeft(BigDecimal.class);
+                    final Date a = last.getRightInclude();
+                    final Date b = current.getLeftInclude();
 
-                    if (b.subtract(a).compareTo(BigDecimal.valueOf(annotation.interval())) != 0) {
+                    if (!DateUtils.isSameDay(b, DateUtils.addDays(a, 1))) {
                         return false;
                     }
                 }
@@ -71,7 +70,6 @@ public class DecentNumberZonesValidator implements ConstraintValidator<DecentNum
                 last = current;
             }
         }
-
         return true;
     }
 
