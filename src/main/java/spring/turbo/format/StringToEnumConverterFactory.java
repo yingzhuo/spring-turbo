@@ -32,6 +32,13 @@ import static spring.turbo.util.reflection.MethodPredicateFactories.*;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class StringToEnumConverterFactory implements ConverterFactory<String, Enum> {
 
+    /**
+     * 构造方法
+     */
+    public StringToEnumConverterFactory() {
+        super();
+    }
+
     @Override
     public <T extends Enum> Converter<String, T> getConverter(Class<T> targetType) {
         return new StringToEnumConverter(getEnumType(targetType));

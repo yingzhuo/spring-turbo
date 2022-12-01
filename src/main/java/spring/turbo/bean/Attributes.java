@@ -34,7 +34,7 @@ import java.util.function.Supplier;
  */
 @Mutable
 @SuppressWarnings("unchecked")
-public class Attributes extends LinkedMultiValueMap<String, Object> implements Map<String, List<Object>> {
+public class Attributes extends LinkedMultiValueMap<String, Object> {
 
     /**
      * 构造方法

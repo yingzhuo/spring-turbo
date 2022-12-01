@@ -13,7 +13,6 @@ import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.NumberParseUtils;
 import spring.turbo.util.StringFormatter;
-import spring.turbo.util.collection.SetFactories;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -25,24 +24,25 @@ import java.util.Set;
  */
 public class StringToNumberConverter implements GenericConverter {
 
-    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS = SetFactories.newUnmodifiableSet(
-            new ConvertiblePair(String.class, Byte.class),
-            new ConvertiblePair(String.class, Short.class),
-            new ConvertiblePair(String.class, Integer.class),
-            new ConvertiblePair(String.class, Long.class),
-            new ConvertiblePair(String.class, Float.class),
-            new ConvertiblePair(String.class, Double.class),
-            new ConvertiblePair(String.class, BigInteger.class),
-            new ConvertiblePair(String.class, BigDecimal.class)
-    );
-
+    /**
+     * 构造方法
+     */
     public StringToNumberConverter() {
         super();
     }
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return CONVERTIBLE_PAIRS;
+        return Set.of(
+                new ConvertiblePair(String.class, Byte.class),
+                new ConvertiblePair(String.class, Short.class),
+                new ConvertiblePair(String.class, Integer.class),
+                new ConvertiblePair(String.class, Long.class),
+                new ConvertiblePair(String.class, Float.class),
+                new ConvertiblePair(String.class, Double.class),
+                new ConvertiblePair(String.class, BigInteger.class),
+                new ConvertiblePair(String.class, BigDecimal.class)
+        );
     }
 
     @Override

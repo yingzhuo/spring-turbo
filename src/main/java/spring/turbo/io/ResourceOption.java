@@ -20,16 +20,15 @@ import java.util.Optional;
 import java.util.Properties;
 
 /**
+ * {@link Resource} 的包装工具
+ *
  * @author 应卓
- * @see ResourceOptions#builder()
- * @see ResourceOptions#fromSeparatedLocations(String)
- * @see ResourceOptions#of(String)
- * @see ResourceOptions#of(Resource)
- * @see ResourceOptions#contact(ResourceOption...)
- * @see ResourceOptions#empty()
+ * @see ResourceOptions
+ * @see ResourceOptionBuilder
  * @since 1.0.0
  */
-public interface ResourceOption extends Serializable {
+public sealed interface ResourceOption extends Serializable
+        permits ResourceOptionEmpty, ResourceOptionImpl {
 
     public Optional<Resource> toOptional();
 
@@ -64,12 +63,10 @@ public interface ResourceOption extends Serializable {
         return toProperties(PropertiesFormat.PROPERTIES);
     }
 
-    // since 1.0.8
     public default LineIterator getLineIterator() {
         return getLineIterator(CharsetPool.UTF_8);
     }
 
-    // since 1.0.8
     public LineIterator getLineIterator(Charset charset);
 
 }
