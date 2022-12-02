@@ -10,12 +10,16 @@ package spring.turbo.jackson2;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import spring.turbo.bean.DateZones;
 import spring.turbo.format.DateZonesFormatter;
 import spring.turbo.jackson2.support.ParserJsonDeserializer;
 import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
+ * {@link DateZones} Jackson Mixin
+ *
  * @author 应卓
+ * @see DateZones
  * @since 1.3.1
  */
 @JsonSerialize(using = DateZonesMixin.S.class)

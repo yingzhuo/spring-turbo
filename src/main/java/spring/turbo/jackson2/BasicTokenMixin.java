@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.*;
 import spring.turbo.webmvc.token.BasicToken;
 
 /**
+ * {@link BasicToken} Jackson Mixin
+ *
  * @author 应卓
  * @see BasicToken
  * @since 1.2.3

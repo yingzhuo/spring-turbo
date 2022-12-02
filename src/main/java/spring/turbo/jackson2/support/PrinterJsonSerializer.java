@@ -39,8 +39,12 @@ public abstract class PrinterJsonSerializer extends JsonSerializer {
 
     @Override
     public final void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        final Printer printer = (Printer) SpringUtils.getBean(printerBeanType).orElse(defaultPrinter);
-        gen.writeString(printer.print(value, Locale.getDefault()));
+        try {
+            final Printer printer = (Printer) SpringUtils.getBean(printerBeanType).orElse(defaultPrinter);
+            gen.writeString(printer.print(value, Locale.getDefault()));
+        } catch (Exception e) {
+            throw new IOException(e.getMessage());
+        }
     }
 
 }

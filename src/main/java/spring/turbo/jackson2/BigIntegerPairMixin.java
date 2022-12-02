@@ -17,6 +17,8 @@ import spring.turbo.jackson2.support.ParserJsonDeserializer;
 import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
+ * {@link BigIntegerPair} Jackson Mixin
+ *
  * @author 应卓
  * @see NumberPair
  * @see BigIntegerPair
