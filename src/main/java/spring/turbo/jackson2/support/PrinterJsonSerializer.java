@@ -42,7 +42,7 @@ public abstract class PrinterJsonSerializer extends JsonSerializer {
         try {
             final Printer printer = (Printer) SpringUtils.getBean(printerBeanType).orElse(defaultPrinter);
             gen.writeString(printer.print(value, Locale.getDefault()));
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new IOException(e.getMessage());
         }
     }
