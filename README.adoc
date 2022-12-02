@@ -35,6 +35,10 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-stateful-captcha/[有状态人机验证码生成]
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-stateless-captcha/[无状态人机验证码生成]
 
+=== ISSUES
+
+* link:https://github.com/yingzhuo/spring-turbo/issues[Github Issues]
+
 === 许可证
 
 * link:{docdir}/LICENSE[Apache 2]
