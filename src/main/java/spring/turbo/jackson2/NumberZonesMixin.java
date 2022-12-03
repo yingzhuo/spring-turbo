@@ -17,6 +17,8 @@ import spring.turbo.jackson2.support.ParserJsonDeserializer;
 import spring.turbo.jackson2.support.PrinterJsonSerializer;
 
 /**
+ * {@link NumberZones} Jackson Mixin
+ *
  * @author 应卓
  * @see NumberZones
  * @since 1.3.1

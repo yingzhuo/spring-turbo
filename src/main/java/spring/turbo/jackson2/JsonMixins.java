@@ -17,14 +17,15 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.NumberParseUtils;
+import spring.turbo.webmvc.api.Json;
 
 import java.io.IOException;
 
 /**
- * {@link spring.turbo.webmvc.api.Json} 相关Mixin
+ * {@link Json} 相关Mixin
  *
  * @author 应卓
- * @see spring.turbo.webmvc.api.Json
+ * @see Json
  * @since 1.3.0
  */
 public final class JsonMixins {
@@ -33,7 +34,6 @@ public final class JsonMixins {
      * 私有构造方法
      */
     private JsonMixins() {
-        super();
     }
 
     // -----------------------------------------------------------------------------------------------------------------

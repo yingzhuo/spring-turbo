@@ -13,6 +13,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import spring.turbo.webmvc.token.StringToken;
 
 /**
+ * {@link StringToken} Jackson Mixin
+ *
  * @author 应卓
  * @see StringToken
  * @since 1.2.3

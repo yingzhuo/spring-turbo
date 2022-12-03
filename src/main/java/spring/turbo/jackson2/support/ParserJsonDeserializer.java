@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2.support;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -17,7 +16,6 @@ import spring.turbo.core.SpringUtils;
 import spring.turbo.util.Asserts;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Locale;
 
 /**
@@ -44,8 +42,8 @@ public abstract class ParserJsonDeserializer extends JsonDeserializer {
         try {
             final Parser parser = (Parser) SpringUtils.getBean(parserBeanType).orElse(defaultParser);
             return parser.parse(p.getValueAsString(), Locale.getDefault());
-        } catch (ParseException e) {
-            throw new JsonParseException(p, e.getMessage());
+        } catch (Throwable e) {
+            throw new IOException(e.getMessage());
         }
     }
 

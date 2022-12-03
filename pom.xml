@@ -53,8 +53,8 @@
     </distributionManagement>
 
     <issueManagement>
-        <url>https://github.com/yingzhuo/spring-turbo/issues</url>
         <system>GitHub Issues</system>
+        <url>https://github.com/yingzhuo/spring-turbo/issues</url>
     </issueManagement>
 
     <repositories>
