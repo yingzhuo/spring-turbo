@@ -10,14 +10,17 @@ package spring.turbo.bean.jsr380;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import spring.turbo.bean.NumberZones;
 
 import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 
 /**
+ * {@link NumberZones} 检查用元注释
+ *
  * @author 应卓
- * @see spring.turbo.bean.NumberZones
+ * @see NumberZones
  * @since 1.1.4
  */
 @Inherited

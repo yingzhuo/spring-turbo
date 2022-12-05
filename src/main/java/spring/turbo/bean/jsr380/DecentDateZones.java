@@ -10,14 +10,17 @@ package spring.turbo.bean.jsr380;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import spring.turbo.bean.DateZones;
 
 import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 
 /**
+ * {@link DateZones} 检查用元注释
+ *
  * @author 应卓
- * @see spring.turbo.bean.DateZones
+ * @see DateZones
  * @since 2.0.1
  */
 @Inherited

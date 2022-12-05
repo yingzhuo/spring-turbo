@@ -16,6 +16,8 @@ import java.lang.annotation.*;
 import static java.lang.annotation.ElementType.*;
 
 /**
+ * 口令验证元注释
+ *
  * @author 应卓
  * @since 1.0.0
  */
@@ -26,9 +28,11 @@ import static java.lang.annotation.ElementType.*;
 @Constraint(validatedBy = PasswordValidator.class)
 public @interface Password {
 
+    public static final String DEFAULT_SPECIAL_CHARS = "\"',./<>?;:'{}[]+=-_!@#$%^&*()`~";
+
     public Complexity complexity() default Complexity.ANY;
 
-    public String specialChars() default "\"',./<>?;:'{}[]+=-_!@#$%^&*()`~";
+    public String specialChars() default DEFAULT_SPECIAL_CHARS;
 
     public int min() default Integer.MIN_VALUE;
 

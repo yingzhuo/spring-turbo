@@ -8,12 +8,15 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import spring.turbo.lang.Immutable;
+
 /**
  * 性别
  *
  * @author 应卓
  * @since 1.1.0
  */
+@Immutable
 public enum Gender {
 
     /**
@@ -28,8 +31,13 @@ public enum Gender {
 
     private final int integerValue;
 
-    private Gender(int integerValue) {
-        this.integerValue = integerValue;
+    /**
+     * 构造方法
+     *
+     * @param intValue 整形值
+     */
+    Gender(int intValue) {
+        this.integerValue = intValue;
     }
 
     public int getIntegerValue() {

@@ -11,7 +11,6 @@ package spring.turbo.util;
 import org.springframework.lang.Nullable;
 
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,6 +18,8 @@ import static spring.turbo.util.StringPool.COMMA;
 import static spring.turbo.util.StringPool.EMPTY;
 
 /**
+ * {@link String} 相关工具
+ *
  * @author 应卓
  * @since 1.0.0
  */
@@ -31,33 +32,36 @@ public final class StringUtils {
         super();
     }
 
-    public static String repeat(String string, int n) {
-        Asserts.notNull(string);
-        StringBuilder builder = new StringBuilder();
-        while (n-- != 0) {
-            builder.append(string);
-        }
-        return builder.toString();
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
-    public static boolean isNull(@Nullable String string) {
-        return string == null;
-    }
-
-    public static boolean isNotNull(@Nullable String string) {
-        return string != null;
-    }
-
+    /**
+     * 判断字符串是否为空串
+     *
+     * @param string 字符串
+     * @return 判断结果
+     */
     public static boolean isEmpty(@Nullable String string) {
         return string == null || EMPTY.equals(string);
     }
 
+    /**
+     * 判断字符串是否不为空串
+     *
+     * @param string 字符串
+     * @return 判断结果
+     */
     public static boolean isNotEmpty(@Nullable String string) {
         return !isEmpty(string);
     }
 
+    /**
+     * 判断字符串是否为空白串
+     *
+     * @param string 字符串
+     * @return 判断结果
+     */
     public static boolean isBlank(@Nullable String string) {
-        if (isNull(string) || EMPTY.equals(string)) {
+        if (string == null || EMPTY.equals(string)) {
             return true;
         }
 
@@ -70,14 +74,47 @@ public final class StringUtils {
         return true;
     }
 
+    /**
+     * 判断字符串是否不为空白串
+     *
+     * @param string 字符串
+     * @return 判断结果
+     */
     public static boolean isNotBlank(@Nullable String string) {
         return !isBlank(string);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 获取字符串的长度
+     *
+     * @param string 字符串
+     * @return 长度
+     */
+    @Deprecated(forRemoval = true)
     public static int size(@Nullable String string) {
-        return isNull(string) ? 0 : string.length();
+        return string == null ? 0 : string.length();
     }
 
+    /**
+     * 获取字符串的长度
+     *
+     * @param string 字符串
+     * @return 长度
+     */
+    public static int length(@Nullable final String string) {
+        return string == null ? 0 : string.length();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 判断字符串是否包含白字符
+     *
+     * @param string 字符串
+     * @return 判断结果
+     */
     public static boolean containsWhitespace(String string) {
         Asserts.notNull(string);
 
@@ -90,6 +127,13 @@ public final class StringUtils {
         return false;
     }
 
+    /**
+     * 判断字符串是否包含任意一个指定的字符
+     *
+     * @param string       字符串
+     * @param charsToCheck 需要检查的字符集
+     * @return 检测结果
+     */
     public static boolean containsAnyChars(String string, String charsToCheck) {
         Asserts.notNull(string);
 
@@ -100,6 +144,13 @@ public final class StringUtils {
         return toCharStream(charsToCheck).anyMatch(charSet::contains);
     }
 
+    /**
+     * 判断字符串是否包含所有的指定的字符
+     *
+     * @param string       字符串
+     * @param charsToCheck 需要检查的字符集
+     * @return 检测结果
+     */
     public static boolean containsAllChars(String string, String charsToCheck) {
         Asserts.notNull(string);
 
@@ -110,6 +161,45 @@ public final class StringUtils {
         return toCharStream(charsToCheck).allMatch(charSet::contains);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 删除白字符
+     *
+     * @param string 字符串
+     * @return 结果
+     */
+    public static String deleteWhitespace(String string) {
+        Asserts.notNull(string);
+
+        if (EMPTY.equals(string)) {
+            return string;
+        }
+
+        final int sz = string.length();
+        final char[] chs = new char[sz];
+        int count = 0;
+        for (int i = 0; i < sz; i++) {
+            if (!Character.isWhitespace(string.charAt(i))) {
+                chs[count++] = string.charAt(i);
+            }
+        }
+        if (count == sz) {
+            return string;
+        }
+        if (count == 0) {
+            return EMPTY;
+        }
+        return new String(chs, 0, count);
+    }
+
+    /**
+     * 删除字符串中的指定字符
+     *
+     * @param string        字符串
+     * @param charsToDelete 待删除的字符集合
+     * @return 结果
+     */
     public static String deleteChars(String string, String charsToDelete) {
         Asserts.notNull(string);
         if (isEmpty(charsToDelete)) {
@@ -123,6 +213,14 @@ public final class StringUtils {
         return builder.toString();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 字符串转换为字符{@link Stream}
+     *
+     * @param string 字符串
+     * @return 实例
+     */
     public static Stream<Character> toCharStream(@Nullable String string) {
         if (string == null) {
             return Stream.empty();
@@ -130,37 +228,58 @@ public final class StringUtils {
         return string.chars().mapToObj(ch -> (char) ch);
     }
 
+    /**
+     * 字符串转换为字符{@link List}
+     *
+     * @param string 字符串
+     * @return 实例
+     */
     public static List<Character> toCharList(@Nullable String string) {
         return toCharStream(string).collect(Collectors.toList());
     }
 
+    /**
+     * 字符串转换为字符{@link Set}
+     *
+     * @param string 字符串
+     * @return 实例
+     */
     public static Set<Character> toCharSet(@Nullable String string) {
         return toCharStream(string).collect(Collectors.toSet());
     }
 
-    @Nullable
-    public static String emptyToNull(@Nullable String string) {
-        return isEmpty(string) ? null : string;
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
-    @Nullable
-    public static String blankToNull(@Nullable String string) {
-        return isBlank(string) ? null : string;
-    }
-
-    public static String nullToEmpty(@Nullable String string) {
-        return string == null ? EMPTY : string;
-    }
-
+    /**
+     * 字符串逆向
+     *
+     * @param string 字符串
+     * @return 结果
+     */
     public static String reverse(String string) {
         Asserts.notNull(string);
         return new StringBuilder(string).reverse().toString();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 逗号分隔字符串转化成字符串数组
+     *
+     * @param string 逗号分隔的字符串
+     * @return 结果
+     */
     public static String[] commaDelimitedListToStringArray(@Nullable String string) {
         return commaDelimitedListToStringArray(string, false);
     }
 
+    /**
+     * 逗号分隔字符串转化成字符串数组
+     *
+     * @param string          逗号分隔的字符串
+     * @param trimAllElements 是否trim所有的子字符串
+     * @return 结果
+     */
     public static String[] commaDelimitedListToStringArray(@Nullable String string, boolean trimAllElements) {
         if (string == null || isBlank(string)) {
             return new String[0];
@@ -174,10 +293,15 @@ public final class StringUtils {
         }
     }
 
-    public static int length(@Nullable final String string) {
-        return string != null ? string.length() : 0;
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
+    /**
+     * 首字母大写
+     *
+     * @param string 字符串
+     * @return 结果
+     * @see #uncapitalize(String)
+     */
     public static String capitalize(final String string) {
         Asserts.notNull(string);
 
@@ -204,6 +328,13 @@ public final class StringUtils {
         return new String(newCodePoints, 0, outOffset);
     }
 
+    /**
+     * 取消首字母大写
+     *
+     * @param string 字符串
+     * @return 结果
+     * @see #capitalize(String)
+     */
     public static String uncapitalize(final String string) {
         Asserts.notNull(string);
         final int strLen = length(string);
@@ -229,49 +360,54 @@ public final class StringUtils {
         return new String(newCodePoints, 0, outOffset);
     }
 
-    public static String wrap(final String string, final String wrapWith) {
-        Asserts.notNull(string);
-        Asserts.notNull(wrapWith);
-        return wrapWith.concat(string).concat(wrapWith);
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
-    public static String wrapIfMissing(final String string, final String wrapWith) {
-        Asserts.notNull(string);
-        Asserts.notNull(wrapWith);
-
-        final boolean wrapStart = !string.startsWith(wrapWith);
-        final boolean wrapEnd = !string.endsWith(wrapWith);
-        if (!wrapStart && !wrapEnd) {
-            return string;
-        }
-
-        final StringBuilder builder = new StringBuilder(string.length() + wrapWith.length() + wrapWith.length());
-        if (wrapStart) {
-            builder.append(wrapWith);
-        }
-        builder.append(string);
-        if (wrapEnd) {
-            builder.append(wrapWith);
-        }
-        return builder.toString();
-    }
-
+    /**
+     * 非{@code null} 字符串加入集合
+     *
+     * @param collection 集合
+     * @param element    字符串
+     */
     public static void nullSafeAdd(Collection<String> collection, @Nullable String element) {
         CollectionUtils.nullSafeAdd(collection, element);
     }
 
+    /**
+     * 非{@code null} 字符串加入集合
+     *
+     * @param collection 集合
+     * @param elements   字符串(多个)
+     */
     public static void nullSafeAddAll(Collection<String> collection, @Nullable String... elements) {
         CollectionUtils.nullSafeAddAll(collection, elements);
     }
 
+    /**
+     * 非{@code null} 字符串加入集合
+     *
+     * @param collection 集合
+     * @param elements   字符串(多个)
+     */
     public static void nullSafeAddAll(Collection<String> collection, @Nullable Collection<String> elements) {
         CollectionUtils.nullSafeAddAll(collection, elements);
     }
 
+    /**
+     * 非空字符串加入集合
+     *
+     * @param collection 集合
+     * @param element    字符串
+     */
     public static void emptySafeAdd(Collection<String> collection, @Nullable String element) {
         emptySafeAddAll(collection, element);
     }
 
+    /**
+     * 非空字符串加入集合
+     *
+     * @param collection 集合
+     * @param elements   字符串(多个)
+     */
     public static void emptySafeAddAll(Collection<String> collection, @Nullable String... elements) {
         Asserts.notNull(collection);
         if (elements != null) {
@@ -283,6 +419,12 @@ public final class StringUtils {
         }
     }
 
+    /**
+     * 非空字符串加入集合
+     *
+     * @param collection 集合
+     * @param elements   字符串(多个)
+     */
     public static void emptySafeAddAll(Collection<String> collection, @Nullable Collection<String> elements) {
         Asserts.notNull(collection);
         if (elements != null) {
@@ -294,10 +436,22 @@ public final class StringUtils {
         }
     }
 
+    /**
+     * 非空白字符串加入集合
+     *
+     * @param collection 集合
+     * @param element    字符串
+     */
     public static void blankSafeAdd(Collection<String> collection, @Nullable String element) {
         blankSafeAddAll(collection, element);
     }
 
+    /**
+     * 非空白字符串加入集合
+     *
+     * @param collection 集合
+     * @param elements   字符串(多个)
+     */
     public static void blankSafeAddAll(Collection<String> collection, @Nullable String... elements) {
         Asserts.notNull(collection);
         if (elements != null) {
@@ -309,6 +463,12 @@ public final class StringUtils {
         }
     }
 
+    /**
+     * 非空白字符串加入集合
+     *
+     * @param collection 集合
+     * @param elements   字符串(多个)
+     */
     public static void blankSafeAddAll(Collection<String> collection, @Nullable Collection<String> elements) {
         Asserts.notNull(collection);
         if (elements != null) {
@@ -320,6 +480,15 @@ public final class StringUtils {
         }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 多个元素合成一个字符串
+     *
+     * @param iterable  多个元素
+     * @param separator 分隔符
+     * @return 结果
+     */
     public static String nullSafeJoin(@Nullable Iterable<?> iterable, @Nullable String separator) {
         if (iterable == null) {
             return EMPTY;
@@ -327,14 +496,19 @@ public final class StringUtils {
         return nullSafeJoin(iterable.iterator(), separator);
     }
 
+    /**
+     * 多个元素合成一个字符串
+     *
+     * @param iterator  多个元素
+     * @param separator 分隔符
+     * @return 结果
+     */
     public static String nullSafeJoin(@Nullable Iterator<?> iterator, @Nullable String separator) {
         if (iterator == null) {
             return EMPTY;
         }
 
-        if (separator == null) {
-            separator = EMPTY;
-        }
+        separator = separator == null ? EMPTY : separator;
 
         if (!iterator.hasNext()) {
             return EMPTY;
@@ -346,7 +520,7 @@ public final class StringUtils {
         }
 
         // two or more elements
-        final StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+        final StringBuilder buf = new StringBuilder(256);
         if (first != null) {
             buf.append(first);
         }
@@ -361,88 +535,82 @@ public final class StringUtils {
         return buf.toString();
     }
 
-    public static String nullSafeJoinWithComma(@Nullable Iterable<?> iterable) {
-        return nullSafeJoin(iterable, COMMA);
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
-    public static String nullSafeJoinWithComma(@Nullable Iterator<?> iterator) {
-        return nullSafeJoin(iterator, COMMA);
-    }
-
-    public static boolean startsWith(@Nullable String str, String prefix) {
+    /**
+     * 判断一个字符串是否有指定的前缀
+     *
+     * @param string 字符串
+     * @param prefix 前缀
+     * @return 结果
+     */
+    public static boolean startsWith(@Nullable String string, String prefix) {
         Asserts.notNull(prefix);
-        if (str == null) return false;
-        return str.startsWith(prefix);
+        if (string == null) return false;
+        return string.startsWith(prefix);
     }
 
-    public static boolean endsWith(@Nullable String str, String suffix) {
+    /**
+     * 判断一个字符串是否有指定的后缀
+     *
+     * @param string 字符串
+     * @param suffix 后缀
+     * @return 结果
+     */
+    public static boolean endsWith(@Nullable String string, String suffix) {
         Asserts.notNull(suffix);
-        if (str == null) return false;
-        return str.endsWith(suffix);
+        if (string == null) return false;
+        return string.endsWith(suffix);
     }
 
-    public static boolean startsWithIgnoreCase(@Nullable String str, String prefix) {
+    /**
+     * 判断一个字符串是否有指定的前缀 (大小写不敏感)
+     *
+     * @param string 字符串
+     * @param prefix 前缀
+     * @return 结果
+     */
+    public static boolean startsWithIgnoreCase(@Nullable String string, String prefix) {
         Asserts.notNull(prefix);
-        return (str != null && str.length() >= prefix.length() &&
-                str.regionMatches(true, 0, prefix, 0, prefix.length()));
+        return (string != null && string.length() >= prefix.length() &&
+                string.regionMatches(true, 0, prefix, 0, prefix.length()));
     }
 
-    public static boolean endsWithIgnoreCase(@Nullable String str, String suffix) {
+    /**
+     * 判断一个字符串是否有指定的后缀 (大小写不敏感)
+     *
+     * @param string 字符串
+     * @param suffix 后缀
+     * @return 结果
+     */
+    public static boolean endsWithIgnoreCase(@Nullable String string, String suffix) {
         Asserts.notNull(suffix);
-        return (str != null && str.length() >= suffix.length() &&
-                str.regionMatches(true, str.length() - suffix.length(), suffix, 0, suffix.length()));
+        return (string != null && string.length() >= suffix.length() &&
+                string.regionMatches(true, string.length() - suffix.length(), suffix, 0, suffix.length()));
     }
 
-    public static String defaultIfNull(@Nullable String str, String defaultIfNull) {
-        return str == null ? defaultIfNull : str;
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
-    public static String defaultIfNull(@Nullable String str, Supplier<String> defaultIfNull) {
-        Asserts.notNull(defaultIfNull);
-        return str == null ? defaultIfNull.get() : str;
-    }
+    /**
+     * 重复字符串
+     *
+     * @param string 字符串
+     * @param n      重复的次数
+     * @return 结果
+     */
+    public static String repeat(String string, int n) {
+        Asserts.notNull(string);
+        Asserts.isTrue(n >= 1);
 
-    public static String defaultIfEmpty(@Nullable String str, String defaultIfEmpty) {
-        Asserts.notNull(defaultIfEmpty);
-        return isNotEmpty(str) ? str : defaultIfEmpty;
-    }
-
-    public static String defaultIfEmpty(@Nullable String str, Supplier<String> defaultIfEmpty) {
-        Asserts.notNull(defaultIfEmpty);
-        return isNotEmpty(str) ? str : defaultIfEmpty.get();
-    }
-
-    public static String defaultIfBlank(@Nullable String str, String defaultIfBlank) {
-        Asserts.notNull(defaultIfBlank);
-        return isNotBlank(str) ? str : defaultIfBlank;
-    }
-
-    public static String defaultIfBlank(@Nullable String str, Supplier<String> defaultIfBlank) {
-        Asserts.notNull(defaultIfBlank);
-        return isNotBlank(str) ? str : defaultIfBlank.get();
-    }
-
-    public static String deleteWhitespace(String str) {
-        Asserts.notNull(str);
-
-        if (EMPTY.equals(str)) {
-            return str;
+        if (n == 1) {
+            return string;
         }
 
-        final int sz = str.length();
-        final char[] chs = new char[sz];
-        int count = 0;
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isWhitespace(str.charAt(i))) {
-                chs[count++] = str.charAt(i);
-            }
+        StringBuilder builder = new StringBuilder();
+        while (n-- != 0) {
+            builder.append(string);
         }
-        if (count == sz) {
-            return str;
-        }
-        if (count == 0) {
-            return EMPTY;
-        }
-        return new String(chs, 0, count);
+        return builder.toString();
     }
+
 }
