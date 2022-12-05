@@ -30,10 +30,6 @@ public class InMemoryResource extends AbstractResource {
     @Nullable
     private final String description;
 
-    public InMemoryResource(String source) {
-        this(source.getBytes());
-    }
-
     public InMemoryResource(byte[] source) {
         this(source, null);
     }
