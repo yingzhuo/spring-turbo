@@ -8,9 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_SINGLETON;
-
 /**
  * Bean Scope
  *
@@ -19,8 +16,8 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
  */
 public final class BeanScopes {
 
-    public static final String SINGLETON = SCOPE_SINGLETON;
-    public static final String PROTOTYPE = SCOPE_PROTOTYPE;
+    public static final String SINGLETON = "singleton";
+    public static final String PROTOTYPE = "prototype";
 
     /**
      * 私有构造方法

@@ -30,10 +30,6 @@ public class InMemoryResource extends AbstractResource {
     @Nullable
     private final String description;
 
-    public InMemoryResource(String source) {
-        this(source.getBytes());
-    }
-
     public InMemoryResource(byte[] source) {
         this(source, null);
     }
@@ -65,7 +61,7 @@ public class InMemoryResource extends AbstractResource {
 
     @Override
     public int hashCode() {
-        return 1;
+        return Arrays.hashCode(this.source);
     }
 
 }

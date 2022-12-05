@@ -9,6 +9,7 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.lang.Singleton;
 import spring.turbo.util.StringPool;
 
 import java.io.Serializable;
@@ -21,6 +22,7 @@ import java.util.Optional;
  * @see #getInstance()
  * @since 1.0.0
  */
+@Singleton
 public final class Null implements Serializable {
 
     /**
@@ -43,6 +45,7 @@ public final class Null implements Serializable {
         return StringPool.NULL;
     }
 
+    // 延迟加载
     private static class AsyncAvoid {
         private static final Null INSTANCE = new Null();
     }

@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
+import spring.turbo.lang.Singleton;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -15,6 +17,7 @@ import java.io.InputStream;
  * @author 应卓
  * @since 1.0.9
  */
+@Singleton
 public final class BrokenInputStream extends InputStream {
 
     /**

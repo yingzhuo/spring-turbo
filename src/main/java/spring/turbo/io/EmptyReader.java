@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
+import spring.turbo.lang.Singleton;
+
 import java.io.IOException;
 import java.io.Reader;
 
@@ -16,8 +18,12 @@ import java.io.Reader;
  * @see #getInstance()
  * @since 1.0.8
  */
+@Singleton
 public final class EmptyReader extends Reader {
 
+    /**
+     * 私有构造方法
+     */
     private EmptyReader() {
         super();
     }
