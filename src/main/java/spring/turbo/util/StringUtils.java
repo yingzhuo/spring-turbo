@@ -152,6 +152,47 @@ public final class StringUtils {
         return toCharStream(charsToCheck).allMatch(charSet::contains);
     }
 
+    /**
+     * 判断字符串是否不包含任意一个指定的字符
+     *
+     * @param string       字符串
+     * @param charsToCheck 需要检查的字符集
+     * @return 检测结果
+     */
+    public static boolean containsNoneChars(String string, String charsToCheck) {
+        Asserts.notNull(string);
+
+        final Set<Character> charSet = toCharSet(string);
+        if (charSet.isEmpty()) {
+            return true;
+        }
+        return toCharStream(charsToCheck).noneMatch(charSet::contains);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 字符出现个数计数
+     *
+     * @param string 字符串
+     * @param ch     要查找的字符
+     * @return 结果
+     */
+    public static int countMatches(String string, char ch) {
+        Asserts.notNull(string);
+        if (isEmpty(string)) {
+            return 0;
+        }
+        int count = 0;
+        // We could also call str.toCharArray() for faster look ups but that would generate more garbage.
+        for (int i = 0; i < string.length(); i++) {
+            if (ch == string.charAt(i)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
@@ -668,6 +709,44 @@ public final class StringUtils {
             return nullIsLess ? 1 : -1;
         }
         return string1.compareToIgnoreCase(string2);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 查找第一个非Empty字符串
+     *
+     * @param strings 字符串组
+     * @return 结果或 {@code null}
+     */
+    @Nullable
+    public static String firstNonEmpty(@Nullable String... strings) {
+        if (strings != null) {
+            for (String val : strings) {
+                if (isNotEmpty(val)) {
+                    return val;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 查找第一个非Blank字符串
+     *
+     * @param values 字符串组
+     * @return 结果或 {@code null}
+     */
+    @Nullable
+    public static String firstNonBlank(@Nullable String... values) {
+        if (values != null) {
+            for (String val : values) {
+                if (isNotBlank(val)) {
+                    return val;
+                }
+            }
+        }
+        return null;
     }
 
 }
