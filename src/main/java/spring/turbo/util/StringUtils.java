@@ -482,6 +482,13 @@ public final class StringUtils {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    /**
+     * 多个元素合成一个字符串
+     *
+     * @param iterable  多个元素
+     * @param separator 分隔符
+     * @return 结果
+     */
     public static String nullSafeJoin(@Nullable Iterable<?> iterable, @Nullable String separator) {
         if (iterable == null) {
             return EMPTY;
@@ -489,6 +496,13 @@ public final class StringUtils {
         return nullSafeJoin(iterable.iterator(), separator);
     }
 
+    /**
+     * 多个元素合成一个字符串
+     *
+     * @param iterator  多个元素
+     * @param separator 分隔符
+     * @return 结果
+     */
     public static String nullSafeJoin(@Nullable Iterator<?> iterator, @Nullable String separator) {
         if (iterator == null) {
             return EMPTY;
@@ -523,28 +537,56 @@ public final class StringUtils {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static boolean startsWith(@Nullable String str, String prefix) {
+    /**
+     * 判断一个字符串是否有指定的前缀
+     *
+     * @param string 字符串
+     * @param prefix 前缀
+     * @return 结果
+     */
+    public static boolean startsWith(@Nullable String string, String prefix) {
         Asserts.notNull(prefix);
-        if (str == null) return false;
-        return str.startsWith(prefix);
+        if (string == null) return false;
+        return string.startsWith(prefix);
     }
 
-    public static boolean endsWith(@Nullable String str, String suffix) {
+    /**
+     * 判断一个字符串是否有指定的后缀
+     *
+     * @param string 字符串
+     * @param suffix 后缀
+     * @return 结果
+     */
+    public static boolean endsWith(@Nullable String string, String suffix) {
         Asserts.notNull(suffix);
-        if (str == null) return false;
-        return str.endsWith(suffix);
+        if (string == null) return false;
+        return string.endsWith(suffix);
     }
 
-    public static boolean startsWithIgnoreCase(@Nullable String str, String prefix) {
+    /**
+     * 判断一个字符串是否有指定的前缀 (大小写不敏感)
+     *
+     * @param string 字符串
+     * @param prefix 前缀
+     * @return 结果
+     */
+    public static boolean startsWithIgnoreCase(@Nullable String string, String prefix) {
         Asserts.notNull(prefix);
-        return (str != null && str.length() >= prefix.length() &&
-                str.regionMatches(true, 0, prefix, 0, prefix.length()));
+        return (string != null && string.length() >= prefix.length() &&
+                string.regionMatches(true, 0, prefix, 0, prefix.length()));
     }
 
-    public static boolean endsWithIgnoreCase(@Nullable String str, String suffix) {
+    /**
+     * 判断一个字符串是否有指定的后缀 (大小写不敏感)
+     *
+     * @param string 字符串
+     * @param suffix 后缀
+     * @return 结果
+     */
+    public static boolean endsWithIgnoreCase(@Nullable String string, String suffix) {
         Asserts.notNull(suffix);
-        return (str != null && str.length() >= suffix.length() &&
-                str.regionMatches(true, str.length() - suffix.length(), suffix, 0, suffix.length()));
+        return (string != null && string.length() >= suffix.length() &&
+                string.regionMatches(true, string.length() - suffix.length(), suffix, 0, suffix.length()));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
