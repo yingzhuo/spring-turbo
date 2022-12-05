@@ -19,7 +19,7 @@ import spring.turbo.io.ResourceOptions;
  * @author 应卓
  * @since 2.0.1
  */
-final class ConditionalOnResourceOptionCondition extends SpringBootCondition {
+public final class ConditionalOnResourceOptionCondition extends SpringBootCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {

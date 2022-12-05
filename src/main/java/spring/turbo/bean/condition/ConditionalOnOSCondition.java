@@ -23,7 +23,7 @@ import java.util.HashSet;
  * @see ConditionalOnOS
  * @since 2.0.1
  */
-final class ConditionalOnOSCondition extends SpringBootCondition {
+public final class ConditionalOnOSCondition extends SpringBootCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {

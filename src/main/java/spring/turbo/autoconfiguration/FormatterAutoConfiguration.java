@@ -20,6 +20,15 @@ import spring.turbo.format.*;
 @AutoConfiguration
 public class FormatterAutoConfiguration {
 
+    /**
+     * 构造方法
+     */
+    public FormatterAutoConfiguration() {
+        super();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     @Bean
     @ConditionalOnMissingBean
     public DateRangeFormatter defaultDateRangeFormatter() {

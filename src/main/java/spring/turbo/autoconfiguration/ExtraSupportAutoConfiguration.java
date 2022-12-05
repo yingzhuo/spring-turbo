@@ -22,6 +22,13 @@ import spring.turbo.core.XAwarePostProcessor;
 @ConditionalOnMissingBean(XAwarePostProcessor.class)
 public class ExtraSupportAutoConfiguration {
 
+    /**
+     * 构造方法
+     */
+    public ExtraSupportAutoConfiguration() {
+        super();
+    }
+
     @Bean
     public XAwarePostProcessor xAwarePostProcessor(ApplicationContext applicationContext) {
         return new XAwarePostProcessor(applicationContext);

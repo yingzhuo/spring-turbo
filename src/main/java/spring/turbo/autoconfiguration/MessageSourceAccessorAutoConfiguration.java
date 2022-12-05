@@ -24,6 +24,13 @@ import java.util.Locale;
 @ConditionalOnMissingBean(MessageSourceAccessor.class)
 public class MessageSourceAccessorAutoConfiguration {
 
+    /**
+     * 构造方法
+     */
+    public MessageSourceAccessorAutoConfiguration() {
+        super();
+    }
+
     @Bean
     public MessageSourceAccessor messageSourceAccessor(MessageSource messageSource) {
         return new MessageSourceAccessor(messageSource, Locale.getDefault());

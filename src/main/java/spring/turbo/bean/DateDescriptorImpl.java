@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
+ * 时间维度的具体实现
+ *
  * @author 应卓
  * @since 1.1.4
  */

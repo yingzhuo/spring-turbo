@@ -35,6 +35,11 @@ public final class ClassPathScannerBuilder implements Builder<ClassPathScanner> 
     private Environment environment = new StandardEnvironment();
     private ResourceLoader resourceLoader = new DefaultResourceLoader();
 
+    /**
+     * 构造方法
+     *
+     * @see ClassPathScanner#builder()
+     */
     ClassPathScannerBuilder() {
         super();
     }
@@ -121,9 +126,11 @@ public final class ClassPathScannerBuilder implements Builder<ClassPathScanner> 
         }
     }
 
-    private static class ClassPathScanningCandidateComponentProvider
-            extends org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider {
+    private static class ClassPathScanningCandidateComponentProvider extends org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider {
 
+        /**
+         * 私有构造方法
+         */
         private ClassPathScanningCandidateComponentProvider() {
             super(false);
         }

@@ -21,7 +21,7 @@ import static spring.turbo.util.StringPool.*;
  * @see ConditionalOnDebugMode
  * @since 1.3.0
  */
-final class ConditionalOnDebugModeCondition extends SpringBootCondition {
+public final class ConditionalOnDebugModeCondition extends SpringBootCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {

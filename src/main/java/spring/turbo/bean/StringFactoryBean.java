@@ -14,13 +14,15 @@ import org.springframework.core.io.Resource;
 import org.springframework.lang.NonNull;
 import spring.turbo.io.ResourceOptions;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.CharsetPool;
 
 import java.nio.charset.Charset;
 
+import static spring.turbo.util.CharsetPool.UTF_8;
 import static spring.turbo.util.StringPool.EMPTY;
 
 /**
+ * {@link String} 类型的Bean工厂
+ *
  * @author 应卓
  * @since 1.0.8
  */
@@ -43,17 +45,14 @@ public class StringFactoryBean implements FactoryBean<String>, InitializingBean 
     }
 
     public StringFactoryBean(Resource text) {
-        this(text, CharsetPool.UTF_8);
+        this(text, UTF_8);
     }
 
     public StringFactoryBean(Resource text, Charset charset) {
         Asserts.notNull(text);
         Asserts.notNull(charset);
 
-        this.text = ResourceOptions.builder()
-                .add(text)
-                .build()
-                .toString(charset);
+        this.text = ResourceOptions.builder().add(text).build().toString(charset);
     }
 
     @Override
@@ -89,17 +88,13 @@ public class StringFactoryBean implements FactoryBean<String>, InitializingBean 
     }
 
     public void setText(Resource text) {
-        setText(text, CharsetPool.UTF_8);
+        setText(text, UTF_8);
     }
 
     public void setText(Resource text, Charset charset) {
         Asserts.notNull(text);
         Asserts.notNull(charset);
-
-        this.text = ResourceOptions.builder()
-                .add(text)
-                .build()
-                .toString(charset);
+        this.text = ResourceOptions.builder().add(text).build().toString(charset);
     }
 
     public void setTrim(boolean trim) {
@@ -117,5 +112,4 @@ public class StringFactoryBean implements FactoryBean<String>, InitializingBean 
     public void setToLowerCase(boolean toLowerCase) {
         this.toLowerCase = toLowerCase;
     }
-
 }

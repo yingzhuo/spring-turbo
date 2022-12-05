@@ -26,6 +26,11 @@ public class ObjectMapperEditingAutoConfiguration implements InitializingBean {
 
     private final ObjectMapper objectMapper;
 
+    /**
+     * 构造方法
+     *
+     * @param om 要注入的 {@link ObjectMapper} 实例
+     */
     public ObjectMapperEditingAutoConfiguration(ObjectMapper om) {
         this.objectMapper = om;
     }
