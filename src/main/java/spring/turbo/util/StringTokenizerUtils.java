@@ -28,7 +28,7 @@ public final class StringTokenizerUtils {
     /**
      * 默认分隔符
      */
-    private static final String DEFAULT_DELIMITER = " \t\n\r\f";
+    private static final String DEFAULT_DELIMITERS = " \t\n\r\f";
 
     /**
      * 私有构造方法
@@ -50,12 +50,12 @@ public final class StringTokenizerUtils {
     /**
      * 字符串转换为字符串数组
      *
-     * @param string    字符串
-     * @param delimiter 分隔符
+     * @param string     字符串
+     * @param delimiters 分隔符
      * @return 结果
      */
-    public static String[] getTokensAsArray(String string, @Nullable String delimiter) {
-        return getTokensAsList(string, delimiter).toArray(new String[0]);
+    public static String[] getTokensAsArray(String string, @Nullable String delimiters) {
+        return getTokensAsList(string, delimiters).toArray(new String[0]);
     }
 
     /**
@@ -71,14 +71,14 @@ public final class StringTokenizerUtils {
     /**
      * 字符串转换为字符串列表
      *
-     * @param string    字符串
-     * @param delimiter 分隔符
+     * @param string     字符串
+     * @param delimiters 分隔符
      * @return 结果
      */
-    public static List<String> getTokensAsList(String string, @Nullable String delimiter) {
+    public static List<String> getTokensAsList(String string, @Nullable String delimiters) {
         Asserts.notNull(string);
-        delimiter = delimiter == null ? DEFAULT_DELIMITER : delimiter;
-        return Collections.list(new StringTokenizer(string, delimiter))
+        delimiters = delimiters == null ? DEFAULT_DELIMITERS : delimiters;
+        return Collections.list(new StringTokenizer(string, delimiters))
                 .stream()
                 .map(token -> (String) token)
                 .collect(Collectors.toList());
@@ -97,14 +97,14 @@ public final class StringTokenizerUtils {
     /**
      * 字符串转换为字符串集合
      *
-     * @param string    字符串
-     * @param delimiter 分隔符
+     * @param string     字符串
+     * @param delimiters 分隔符
      * @return 结果
      */
-    public static Set<String> getTokensAsSet(String string, @Nullable String delimiter) {
+    public static Set<String> getTokensAsSet(String string, @Nullable String delimiters) {
         Asserts.notNull(string);
-        delimiter = delimiter == null ? DEFAULT_DELIMITER : delimiter;
-        return Collections.list(new StringTokenizer(string, delimiter))
+        delimiters = delimiters == null ? DEFAULT_DELIMITERS : delimiters;
+        return Collections.list(new StringTokenizer(string, delimiters))
                 .stream()
                 .map(token -> (String) token)
                 .collect(Collectors.toSet());
