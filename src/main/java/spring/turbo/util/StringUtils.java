@@ -21,6 +21,8 @@ import static spring.turbo.util.StringPool.EMPTY;
  * {@link String} 相关工具
  *
  * @author 应卓
+ * @see StringPool
+ * @see RandomStringUtils
  * @since 1.0.0
  */
 public final class StringUtils {

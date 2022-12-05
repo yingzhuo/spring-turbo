@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.Nullable;
+
 import java.util.Random;
 import java.util.UUID;
 
@@ -19,10 +21,14 @@ import static spring.turbo.util.StringPool.HYPHEN;
  *
  * @author 应卓
  * @see RandomUtils
+ * @see StringUtils
  * @since 1.0.0
  */
 public final class RandomStringUtils {
 
+    /**
+     * 随机子
+     */
     private static final Random RANDOM = new Random();
 
     /**
@@ -276,7 +282,7 @@ public final class RandomStringUtils {
      * @param chars 随机字符串的可能的字符从此参数中获得
      * @return 随机字符串
      */
-    public static String random(final int count, final String chars) {
+    public static String random(final int count, final @Nullable String chars) {
         if (chars == null) {
             return random(count, 0, 0, false, false, null, RANDOM);
         }
@@ -290,7 +296,7 @@ public final class RandomStringUtils {
      * @param chars 随机字符串的可能的字符从此参数中获得
      * @return 随机字符串
      */
-    public static String random(final int count, final char... chars) {
+    public static String random(final int count, @Nullable final char... chars) {
         if (chars == null) {
             return random(count, 0, 0, false, false, null, RANDOM);
         }
@@ -313,7 +319,7 @@ public final class RandomStringUtils {
      * @return 随机UUID字符串
      */
     public static String randomUUID(boolean removeHyphen) {
-        String uuid = UUID.randomUUID().toString();
+        final var uuid = UUID.randomUUID().toString();
         return removeHyphen ? uuid.replaceAll(HYPHEN, EMPTY) : uuid;
     }
 
