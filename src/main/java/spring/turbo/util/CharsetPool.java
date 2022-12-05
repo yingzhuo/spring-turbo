@@ -23,6 +23,10 @@ public final class CharsetPool {
     public static final String UTF_8_VALUE = "UTF-8";
     public static final Charset UTF_8 = StandardCharsets.UTF_8;
 
+    // UTF-16
+    public static final String UTF_16_VALUE = "UTF-16";
+    public static final Charset UTF_16 = StandardCharsets.UTF_16;
+
     // ISO-8859-1
     public static final String ISO_8859_1_VALUE = "ISO-8859-1";
     public static final Charset ISO_8859_1 = StandardCharsets.ISO_8859_1;
