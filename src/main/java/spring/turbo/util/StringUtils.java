@@ -21,6 +21,8 @@ import static spring.turbo.util.StringPool.EMPTY;
  * {@link String} 相关工具
  *
  * @author 应卓
+ * @see StringPool
+ * @see RandomStringUtils
  * @since 1.0.0
  */
 public final class StringUtils {
@@ -92,17 +94,6 @@ public final class StringUtils {
      * @param string 字符串
      * @return 长度
      */
-    @Deprecated(forRemoval = true)
-    public static int size(@Nullable String string) {
-        return string == null ? 0 : string.length();
-    }
-
-    /**
-     * 获取字符串的长度
-     *
-     * @param string 字符串
-     * @return 长度
-     */
     public static int length(@Nullable final String string) {
         return string == null ? 0 : string.length();
     }
@@ -159,6 +150,47 @@ public final class StringUtils {
             return false;
         }
         return toCharStream(charsToCheck).allMatch(charSet::contains);
+    }
+
+    /**
+     * 判断字符串是否不包含任意一个指定的字符
+     *
+     * @param string       字符串
+     * @param charsToCheck 需要检查的字符集
+     * @return 检测结果
+     */
+    public static boolean containsNoneChars(String string, String charsToCheck) {
+        Asserts.notNull(string);
+
+        final Set<Character> charSet = toCharSet(string);
+        if (charSet.isEmpty()) {
+            return true;
+        }
+        return toCharStream(charsToCheck).noneMatch(charSet::contains);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 字符出现个数计数
+     *
+     * @param string 字符串
+     * @param ch     要查找的字符
+     * @return 结果
+     */
+    public static int countMatches(String string, char ch) {
+        Asserts.notNull(string);
+        if (isEmpty(string)) {
+            return 0;
+        }
+        int count = 0;
+        // We could also call str.toCharArray() for faster look ups but that would generate more garbage.
+        for (int i = 0; i < string.length(); i++) {
+            if (ch == string.charAt(i)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -611,6 +643,110 @@ public final class StringUtils {
             builder.append(string);
         }
         return builder.toString();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 比较两个字符串
+     *
+     * @param string1 字符串1
+     * @param string2 字符串2
+     * @return 结果
+     */
+    public static int compare(@Nullable String string1, @Nullable String string2) {
+        return compare(string1, string2, true);
+    }
+
+    /**
+     * 比较两个字符串
+     *
+     * @param string1    字符串1
+     * @param string2    字符串2
+     * @param nullIsLess 为{@code true}时 {@code null}排在前面
+     * @return 结果
+     */
+    public static int compare(@Nullable String string1, @Nullable String string2, final boolean nullIsLess) {
+        if (string1 == string2) {
+            return 0;
+        }
+        if (string1 == null) {
+            return nullIsLess ? -1 : 1;
+        }
+        if (string2 == null) {
+            return nullIsLess ? 1 : -1;
+        }
+        return string1.compareTo(string2);
+    }
+
+    /**
+     * 比较两个字符串 (大小写不敏感)
+     *
+     * @param string1 字符串1
+     * @param string2 字符串2
+     * @return 结果
+     */
+    public static int compareIgnoreCase(@Nullable String string1, @Nullable String string2) {
+        return compareIgnoreCase(string1, string2, true);
+    }
+
+    /**
+     * 比较两个字符串 (大小写不敏感)
+     *
+     * @param string1    字符串1
+     * @param string2    字符串2
+     * @param nullIsLess 为{@code true}时 {@code null}排在前面
+     * @return 结果
+     */
+    public static int compareIgnoreCase(@Nullable String string1, @Nullable String string2, final boolean nullIsLess) {
+        if (string1 == string2) {
+            return 0;
+        }
+        if (string1 == null) {
+            return nullIsLess ? -1 : 1;
+        }
+        if (string2 == null) {
+            return nullIsLess ? 1 : -1;
+        }
+        return string1.compareToIgnoreCase(string2);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 查找第一个非Empty字符串
+     *
+     * @param strings 字符串组
+     * @return 结果或 {@code null}
+     */
+    @Nullable
+    public static String firstNonEmpty(@Nullable String... strings) {
+        if (strings != null) {
+            for (String val : strings) {
+                if (isNotEmpty(val)) {
+                    return val;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 查找第一个非Blank字符串
+     *
+     * @param values 字符串组
+     * @return 结果或 {@code null}
+     */
+    @Nullable
+    public static String firstNonBlank(@Nullable String... values) {
+        if (values != null) {
+            for (String val : values) {
+                if (isNotBlank(val)) {
+                    return val;
+                }
+            }
+        }
+        return null;
     }
 
 }
