@@ -61,7 +61,7 @@ public class InMemoryResource extends AbstractResource {
 
     @Override
     public int hashCode() {
-        return 1;
+        return Arrays.hashCode(this.source);
     }
 
 }
