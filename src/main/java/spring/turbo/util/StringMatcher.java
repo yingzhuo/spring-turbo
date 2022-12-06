@@ -17,11 +17,6 @@ package spring.turbo.util;
  */
 public interface StringMatcher {
 
-    public default StringMatcher andThen(StringMatcher stringMatcher) {
-        Asserts.notNull(stringMatcher);
-        return StringMatcherFactories.INSTANCE.andMatcher(this, stringMatcher);
-    }
-
     public default int isMatch(final char[] buffer, final int pos) {
         return isMatch(buffer, pos, 0, buffer.length);
     }
@@ -39,5 +34,4 @@ public interface StringMatcher {
     public default int size() {
         return 0;
     }
-
 }

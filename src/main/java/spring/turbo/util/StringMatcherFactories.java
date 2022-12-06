@@ -8,61 +8,63 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import spring.turbo.lang.Singleton;
+
 /**
  * @author 应卓
  * @since 2.0.2
  */
+@Singleton
 public final class StringMatcherFactories {
 
-    /**
-     * Defines the singleton for this class.
-     */
-    public static final StringMatcherFactories INSTANCE = new StringMatcherFactories();
+    public static StringMatcherFactories getInstance() {
+        return SyncAvoid.INSTANCE;
+    }
 
     /**
      * Matches the comma character.
      */
-    private static final AbstractStringMatcher.CharMatcher COMMA_MATCHER = new AbstractStringMatcher.CharMatcher(',');
+    private static final PredefinedStringMatchers.Char COMMA_MATCHER = new PredefinedStringMatchers.Char(',');
 
     /**
      * Matches the double quote character.
      */
-    private static final AbstractStringMatcher.CharMatcher DOUBLE_QUOTE_MATCHER = new AbstractStringMatcher.CharMatcher(
+    private static final PredefinedStringMatchers.Char DOUBLE_QUOTE_MATCHER = new PredefinedStringMatchers.Char(
             '"');
     /**
      * Matches no characters.
      */
-    private static final AbstractStringMatcher.NoneMatcher NONE_MATCHER = new AbstractStringMatcher.NoneMatcher();
+    private static final PredefinedStringMatchers.None NONE_MATCHER = new PredefinedStringMatchers.None();
 
     /**
      * Matches the single or double quote character.
      */
-    private static final AbstractStringMatcher.CharSetMatcher QUOTE_MATCHER = new AbstractStringMatcher.CharSetMatcher(
+    private static final PredefinedStringMatchers.CharSet QUOTE_MATCHER = new PredefinedStringMatchers.CharSet(
             "'\"".toCharArray());
     /**
      * Matches the double quote character.
      */
-    private static final AbstractStringMatcher.CharMatcher SINGLE_QUOTE_MATCHER = new AbstractStringMatcher.CharMatcher(
+    private static final PredefinedStringMatchers.Char SINGLE_QUOTE_MATCHER = new PredefinedStringMatchers.Char(
             '\'');
     /**
      * Matches the space character.
      */
-    private static final AbstractStringMatcher.CharMatcher SPACE_MATCHER = new AbstractStringMatcher.CharMatcher(' ');
+    private static final PredefinedStringMatchers.Char SPACE_MATCHER = new PredefinedStringMatchers.Char(' ');
 
     /**
      * Matches the same characters as StringTokenizer, namely space, tab, newline, form feed.
      */
-    private static final AbstractStringMatcher.CharSetMatcher SPLIT_MATCHER = new AbstractStringMatcher.CharSetMatcher(
+    private static final PredefinedStringMatchers.CharSet SPLIT_MATCHER = new PredefinedStringMatchers.CharSet(
             " \t\n\r\f".toCharArray());
     /**
      * Matches the tab character.
      */
-    private static final AbstractStringMatcher.CharMatcher TAB_MATCHER = new AbstractStringMatcher.CharMatcher('\t');
+    private static final PredefinedStringMatchers.Char TAB_MATCHER = new PredefinedStringMatchers.Char('\t');
 
     /**
      * Matches the String trim() whitespace characters.
      */
-    private static final AbstractStringMatcher.TrimMatcher TRIM_MATCHER = new AbstractStringMatcher.TrimMatcher();
+    private static final PredefinedStringMatchers.Trim TRIM_MATCHER = new PredefinedStringMatchers.Trim();
 
     /**
      * 私有构造方法
@@ -86,7 +88,7 @@ public final class StringMatcherFactories {
         if (len == 1) {
             return stringMatchers[0];
         }
-        return new AbstractStringMatcher.AndStringMatcher(stringMatchers);
+        return new PredefinedStringMatchers.And(stringMatchers);
     }
 
     /**
@@ -96,7 +98,7 @@ public final class StringMatcherFactories {
      * @return a new Matcher for the given char
      */
     public StringMatcher charMatcher(final char ch) {
-        return new AbstractStringMatcher.CharMatcher(ch);
+        return new PredefinedStringMatchers.Char(ch);
     }
 
     /**
@@ -111,9 +113,9 @@ public final class StringMatcherFactories {
             return NONE_MATCHER;
         }
         if (len == 1) {
-            return new AbstractStringMatcher.CharMatcher(chars[0]);
+            return new PredefinedStringMatchers.Char(chars[0]);
         }
-        return new AbstractStringMatcher.CharSetMatcher(chars);
+        return new PredefinedStringMatchers.CharSet(chars);
     }
 
     /**
@@ -128,9 +130,9 @@ public final class StringMatcherFactories {
             return NONE_MATCHER;
         }
         if (len == 1) {
-            return new AbstractStringMatcher.CharMatcher(chars.charAt(0));
+            return new PredefinedStringMatchers.Char(chars.charAt(0));
         }
-        return new AbstractStringMatcher.CharSetMatcher(chars.toCharArray());
+        return new PredefinedStringMatchers.CharSet(chars.toCharArray());
     }
 
     /**
@@ -206,8 +208,8 @@ public final class StringMatcherFactories {
     public StringMatcher stringMatcher(final char... chars) {
         final int length = chars != null ? chars.length : 0;
         return length == 0 ? NONE_MATCHER
-                : length == 1 ? new AbstractStringMatcher.CharMatcher(chars[0])
-                : new AbstractStringMatcher.CharArrayMatcher(chars);
+                : length == 1 ? new PredefinedStringMatchers.Char(chars[0])
+                : new PredefinedStringMatchers.CharArray(chars);
     }
 
     /**
@@ -236,6 +238,12 @@ public final class StringMatcherFactories {
      */
     public StringMatcher trimMatcher() {
         return TRIM_MATCHER;
+    }
+
+
+    // 延迟加载
+    private static final class SyncAvoid {
+        private static final StringMatcherFactories INSTANCE = new StringMatcherFactories();
     }
 
 }
