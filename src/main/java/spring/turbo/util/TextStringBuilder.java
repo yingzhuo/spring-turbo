@@ -25,97 +25,42 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Builds a string from constituent parts providing a more flexible and powerful API than {@link StringBuffer} and
- * {@link StringBuilder}.
- * <p>
- * The main differences from StringBuffer/StringBuilder are:
- * </p>
- * <ul>
- * <li>Not synchronized</li>
- * <li>Subclasses have direct access to character array</li>
- * <li>Additional methods
- * <ul>
- * <li>appendWithSeparators - adds an array of values, with a separator</li>
- * <li>appendPadding - adds a length padding characters</li>
- * <li>appendFixedLength - adds a fixed width field to the builder</li>
- * <li>toCharArray/getChars - simpler ways to get a range of the character array</li>
- * <li>delete - delete char or string</li>
- * <li>replace - search and replace for a char or string</li>
- * <li>leftString/rightString/midString - substring without exceptions</li>
- * <li>contains - whether the builder contains a char or string</li>
- * <li>size/clear/isEmpty - collections style API methods</li>
- * </ul>
- * </li>
- * <li>Views
- * <ul>
- * <li>asTokenizer - uses the internal buffer as the source of a StrTokenizer</li>
- * <li>asReader - uses the internal buffer as the source of a Reader</li>
- * <li>asWriter - allows a Writer to write directly to the internal buffer</li>
- * </ul>
- * </li>
- * </ul>
- * <p>
- * The aim has been to provide an API that mimics very closely what StringBuffer provides, but with additional methods.
- * It should be noted that some edge cases, with invalid indices or null input, have been altered - see individual
- * methods. The biggest of these changes is that by default, null will not output the text 'null'. This can be
- * controlled by a property, {@link #setNullText(String)}.
- * </p>
- * <p>
- * This class is called {@code TextStringBuilder} instead of {@code StringBuilder} to avoid clashing with
- * {@link StringBuilder}.
- * </p>
+ * 增强型 {@link  String} 创建器。功能比 {@link StringBuffer} 和 {@link StringBuilder}更强大。
+ *
+ * @author 应卓
+ * @see StringBuilder
+ * @see StringBuffer
+ * @since 2.0.2
  */
 @Mutable
-public final class TextStringBuilder implements CharSequence, Appendable, Serializable, Builder<String> {
+public final class TextStringBuilder implements Serializable, CharSequence, Appendable, Builder<String> {
 
     /**
-     * Inner class to allow StrBuilder to operate as a reader.
+     * {@link Reader} 实现
      */
-    class TextStringBuilderReader extends Reader {
-
-        /**
-         * The last mark position.
-         */
+    private class TextStringBuilderReader extends Reader {
         private int mark;
-
-        /**
-         * The current stream position.
-         */
         private int pos;
 
-        /**
-         * Default constructor.
-         */
-        TextStringBuilderReader() {
+        private TextStringBuilderReader() {
+            super();
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void close() {
-            // do nothing
+            // nop
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void mark(final int readAheadLimit) {
             mark = pos;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public boolean markSupported() {
             return true;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public int read() {
             if (!ready()) {
@@ -124,9 +69,6 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
             return TextStringBuilder.this.charAt(pos++);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public int read(final char[] b, final int off, int len) {
             if (off < 0 || len < 0 || off > b.length || off + len > b.length || off + len < 0) {
@@ -146,25 +88,16 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
             return len;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public boolean ready() {
             return pos < TextStringBuilder.this.size();
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void reset() {
             pos = mark;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public long skip(long n) {
             if (pos + n > TextStringBuilder.this.size()) {
@@ -179,19 +112,55 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Inner class to allow StrBuilder to operate as a tokenizer.
+     * {@link Writer} 实现
      */
-    class TextStringBuilderTokenizer extends StringTokenizer {
+    private class TextStringBuilderWriter extends Writer {
 
-        /**
-         * Default constructor.
-         */
-        TextStringBuilderTokenizer() {
+        private TextStringBuilderWriter() {
+            super();
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        @Override
+        public void close() {
+            // nop
+        }
+
+        @Override
+        public void flush() {
+            // nop
+        }
+
+        @Override
+        public void write(final char[] cbuf) {
+            TextStringBuilder.this.append(cbuf);
+        }
+
+        @Override
+        public void write(final char[] cbuf, final int off, final int len) {
+            TextStringBuilder.this.append(cbuf, off, len);
+        }
+
+        @Override
+        public void write(final int c) {
+            TextStringBuilder.this.append((char) c);
+        }
+
+        @Override
+        public void write(final String str) {
+            TextStringBuilder.this.append(str);
+        }
+
+        @Override
+        public void write(final String str, final int off, final int len) {
+            TextStringBuilder.this.append(str, off, len);
+        }
+    }
+
+    private class TextStringBuilderTokenizer extends StringTokenizer {
+
+        private TextStringBuilderTokenizer() {
+        }
+
         @Override
         public String getContent() {
             final String str = super.getContent();
@@ -201,11 +170,8 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
             return str;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
-        protected List<String> tokenize(final char[] chars, final int offset, final int count) {
+        protected List<String> tokenize(@Nullable final char[] chars, final int offset, final int count) {
             if (chars == null) {
                 return super.tokenize(TextStringBuilder.this.getBuffer(), 0, TextStringBuilder.this.size());
             }
@@ -213,151 +179,23 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
         }
     }
 
-    /**
-     * Inner class to allow StrBuilder to operate as a writer.
-     */
-    class TextStringBuilderWriter extends Writer {
 
-        /**
-         * Default constructor.
-         */
-        TextStringBuilderWriter() {
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void close() {
-            // do nothing
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void flush() {
-            // do nothing
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void write(final char[] cbuf) {
-            TextStringBuilder.this.append(cbuf);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void write(final char[] cbuf, final int off, final int len) {
-            TextStringBuilder.this.append(cbuf, off, len);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void write(final int c) {
-            TextStringBuilder.this.append((char) c);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void write(final String str) {
-            TextStringBuilder.this.append(str);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void write(final String str, final int off, final int len) {
-            TextStringBuilder.this.append(str, off, len);
-        }
-    }
-
-    /**
-     * The space character.
-     */
+    public static final int CAPACITY = 32;
     private static final char SPACE = CharPool.SPACE;
-
-    /**
-     * The extra capacity for new builders.
-     */
-    static final int CAPACITY = 32;
-
-    /**
-     * End-Of-Stream.
-     */
     private static final int EOS = -1;
-
-    /**
-     * The size of the string {@code "false"}.
-     */
     private static final int FALSE_STRING_SIZE = Boolean.FALSE.toString().length();
-
-    /**
-     * The size of the string {@code "true"}.
-     */
     private static final int TRUE_STRING_SIZE = Boolean.TRUE.toString().length();
 
-    /**
-     * Constructs an instance from a reference to a character array. Changes to the input chars are reflected in this
-     * instance until the internal buffer needs to be reallocated. Using a reference to an array allows the instance to
-     * be initialized without copying the input array.
-     *
-     * @param initialBuffer The initial array that will back the new builder.
-     * @return A new instance.
-     */
-    public static TextStringBuilder wrap(final char[] initialBuffer) {
-        Asserts.notNull(initialBuffer);
-        return new TextStringBuilder(initialBuffer, initialBuffer.length);
-    }
-
-    /**
-     * Constructs an instance from a reference to a character array. Changes to the input chars are reflected in this
-     * instance until the internal buffer needs to be reallocated. Using a reference to an array allows the instance to
-     * be initialized without copying the input array.
-     *
-     * @param initialBuffer The initial array that will back the new builder.
-     * @param length        The length of the subarray to be used; must be non-negative and no larger than
-     *                      {@code initialBuffer.length}. The new builder's size will be set to {@code length}.
-     * @return A new instance.
-     */
-    public static TextStringBuilder wrap(final char[] initialBuffer, final int length) {
-        return new TextStringBuilder(initialBuffer, length);
-    }
-
-    /**
-     * Internal data storage.
-     */
     private char[] buffer;
 
-    /**
-     * The new line.
-     */
     @Nullable
     private String newLine;
 
-    /**
-     * The null text.
-     */
     @Nullable
     private String nullText;
 
-    /**
-     * Incremented when the buffer is reallocated.
-     */
     private int reallocations;
 
-    /**
-     * Current size of the buffer.
-     */
     private int size;
 
     /**
@@ -368,13 +206,7 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Constructs an instance from a reference to a character array.
-     *
-     * @param initialBuffer a reference to a character array, must not be null.
-     * @param length        The length of the subarray to be used; must be non-negative and no larger than
-     *                      {@code initialBuffer.length}. The new builder's size will be set to {@code length}.
-     * @throws NullPointerException     If {@code initialBuffer} is null.
-     * @throws IllegalArgumentException if {@code length} is bad.
+     * 本构造方法仅供内部使用
      */
     private TextStringBuilder(final char[] initialBuffer, final int length) {
         Asserts.notNull(initialBuffer);
@@ -384,21 +216,21 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Constructs an instance from a character sequence, allocating 32 extra characters for growth.
+     * 构造方法
      *
-     * @param seq the string to copy, null treated as blank string
+     * @param string 初始化字符串
      */
-    public TextStringBuilder(@Nullable CharSequence seq) {
-        this(CharSequenceUtils.length(seq) + CAPACITY);
-        if (seq != null) {
-            append(seq);
+    public TextStringBuilder(@Nullable CharSequence string) {
+        this(CharSequenceUtils.length(string) + CAPACITY);
+        if (string != null) {
+            append(string);
         }
     }
 
     /**
-     * Constructs an instance with the specified initial capacity.
+     * 构造方法
      *
-     * @param initialCapacity the initial capacity, zero or less will be converted to 32
+     * @param initialCapacity 初始容量
      */
     public TextStringBuilder(int initialCapacity) {
         buffer = new char[initialCapacity <= 0 ? CAPACITY : initialCapacity];
@@ -487,24 +319,24 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends the contents of a char buffer to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param str the char buffer to append
-     * @return this, to enable chaining
+     * @param str 追加对象
+     * @return this
      */
     public TextStringBuilder append(@Nullable CharBuffer str) {
         return append(str, 0, CharSequenceUtils.length(str));
     }
 
     /**
-     * Appends the contents of a char buffer to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param buf        the char buffer to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param length     the length to append, must be valid
-     * @return this, to enable chaining
+     * @param buf        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
+     * @return this
      */
-    public TextStringBuilder append(@Nullable CharBuffer buf, final int startIndex, final int length) {
+    public TextStringBuilder append(@Nullable CharBuffer buf, int startIndex, int length) {
         if (buf == null) {
             return appendNull();
         }
@@ -527,10 +359,10 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends a CharSequence to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param seq the CharSequence to append
-     * @return this, to enable chaining
+     * @param seq 追加对象
+     * @return this
      */
     @Override
     public TextStringBuilder append(@Nullable CharSequence seq) {
@@ -553,15 +385,15 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends part of a CharSequence to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param seq        the CharSequence to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param endIndex   the end index, exclusive, must be valid
-     * @return this, to enable chaining
+     * @param seq        追加对象
+     * @param startIndex 初始位置
+     * @param endIndex   结束位置
+     * @return this
      */
     @Override
-    public TextStringBuilder append(@Nullable CharSequence seq, final int startIndex, final int endIndex) {
+    public TextStringBuilder append(@Nullable CharSequence seq, int startIndex, int endIndex) {
         if (seq == null) {
             return appendNull();
         }
@@ -575,50 +407,50 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends a double value to the string builder using {@code String.valueOf}.
+     * 追加
      *
-     * @param value the value to append
-     * @return this, to enable chaining
+     * @param value 追加对象
+     * @return this
      */
     public TextStringBuilder append(double value) {
         return append(String.valueOf(value));
     }
 
     /**
-     * Appends a float value to the string builder using {@code String.valueOf}.
+     * 追加
      *
-     * @param value the value to append
-     * @return this, to enable chaining
+     * @param value 追加对象
+     * @return this
      */
     public TextStringBuilder append(float value) {
         return append(String.valueOf(value));
     }
 
     /**
-     * Appends an int value to the string builder using {@code String.valueOf}.
+     * 追加
      *
-     * @param value the value to append
-     * @return this, to enable chaining
+     * @param value 追加对象
+     * @return this
      */
     public TextStringBuilder append(int value) {
         return append(String.valueOf(value));
     }
 
     /**
-     * Appends a long value to the string builder using {@code String.valueOf}.
+     * 追加
      *
-     * @param value the value to append
-     * @return this, to enable chaining
+     * @param value 追加对象
+     * @return this
      */
-    public TextStringBuilder append(final long value) {
+    public TextStringBuilder append(long value) {
         return append(String.valueOf(value));
     }
 
     /**
-     * Appends an object to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param obj the object to append
-     * @return this, to enable chaining
+     * @param obj 追加对象
+     * @return this
      */
     public TextStringBuilder append(@Nullable Object obj) {
         if (obj == null) {
@@ -631,28 +463,24 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends a string to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param str the string to append
-     * @return this, to enable chaining
+     * @param str 追加对象
+     * @return this
      */
     public TextStringBuilder append(@Nullable String str) {
-        return append(str, 0, StringUtils.length(str));
+        return append(str, 0, CharSequenceUtils.length(str));
     }
 
     /**
-     * Appends part of a string to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param str        the string to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param length     the length to append, must be valid
-     * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if {@code startIndex} is not in the
-     *                                         range {@code 0 <= startIndex <= str.length()}
-     * @throws StringIndexOutOfBoundsException if {@code length < 0}
-     * @throws StringIndexOutOfBoundsException if {@code startIndex + length > str.length()}
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
+     * @return this
      */
-    public TextStringBuilder append(@Nullable String str, final int startIndex, final int length) {
+    public TextStringBuilder append(@Nullable String str, int startIndex, int length) {
         if (str == null) {
             return appendNull();
         }
@@ -672,37 +500,24 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Calls {@link String#format(String, Object...)} and appends the result.
+     * 追加
      *
-     * @param format the format string
-     * @param objs   the objects to use in the format string
-     * @return {@code this} to enable chaining
-     * @see String#format(String, Object...)
-     */
-    public TextStringBuilder append(String format, final Object... objs) {
-        Asserts.notNull(format);
-        return append(String.format(format, objs));
-    }
-
-    /**
-     * Appends a string buffer to this string builder. Appending null will call {@link #appendNull()}.
-     *
-     * @param str the string buffer to append
-     * @return this, to enable chaining
+     * @param str 追加对象
+     * @return this
      */
     public TextStringBuilder append(@Nullable StringBuffer str) {
         return append(str, 0, CharSequenceUtils.length(str));
     }
 
     /**
-     * Appends part of a string buffer to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param str        the string to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param length     the length to append, must be valid
-     * @return this, to enable chaining
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
+     * @return this
      */
-    public TextStringBuilder append(@Nullable StringBuffer str, final int startIndex, final int length) {
+    public TextStringBuilder append(@Nullable StringBuffer str, int startIndex, int length) {
         if (str == null) {
             return appendNull();
         }
@@ -722,24 +537,24 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends a StringBuilder to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param str the StringBuilder to append
-     * @return this, to enable chaining
+     * @param str 追加对象
+     * @return this
      */
     public TextStringBuilder append(@Nullable StringBuilder str) {
         return append(str, 0, CharSequenceUtils.length(str));
     }
 
     /**
-     * Appends part of a StringBuilder to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param str        the StringBuilder to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param length     the length to append, must be valid
-     * @return this, to enable chaining
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
+     * @return this
      */
-    public TextStringBuilder append(@Nullable StringBuilder str, final int startIndex, final int length) {
+    public TextStringBuilder append(@Nullable StringBuilder str, int startIndex, int length) {
         if (str == null) {
             return appendNull();
         }
@@ -759,22 +574,22 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends another string builder to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param str the string builder to append
-     * @return this, to enable chaining
+     * @param str 追加对象
+     * @return this
      */
     public TextStringBuilder append(@Nullable TextStringBuilder str) {
         return append(str, 0, CharSequenceUtils.length(str));
     }
 
     /**
-     * Appends part of a string builder to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加
      *
-     * @param str        the string to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param length     the length to append, must be valid
-     * @return this, to enable chaining
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
+     * @return this
      */
     public TextStringBuilder append(@Nullable TextStringBuilder str, final int startIndex, final int length) {
         if (str == null) {
@@ -796,11 +611,10 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends each item in an iterable to the builder without any separators. Appending a null iterable will have no
-     * effect. Each object is appended using {@link #append(Object)}.
+     * 追加
      *
-     * @param iterable the iterable to append
-     * @return this, to enable chaining
+     * @param iterable 追加对象(多个)
+     * @return this
      */
     public TextStringBuilder appendAll(@Nullable Iterable<?> iterable) {
         if (iterable != null) {
@@ -810,11 +624,10 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends each item in an iterator to the builder without any separators. Appending a null iterator will have no
-     * effect. Each object is appended using {@link #append(Object)}.
+     * 追加
      *
-     * @param it the iterator to append
-     * @return this, to enable chaining
+     * @param it 追加对象(多个)
+     * @return this
      */
     public TextStringBuilder appendAll(@Nullable Iterator<?> it) {
         if (it != null) {
@@ -824,12 +637,10 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends each item in an array to the builder without any separators. Appending a null array will have no effect.
-     * Each object is appended using {@link #append(Object)}.
+     * 追加
      *
-     * @param <T>   the element type
-     * @param array the array to append
-     * @return this, to enable chaining
+     * @param array 追加对象(多个)
+     * @return this
      */
     @SuppressWarnings("unchecked")
     public <T> TextStringBuilder appendAll(@Nullable T... array) {
@@ -841,37 +652,25 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
         return this;
     }
 
-    private void appendFalse(int index) {
-        buffer[index++] = 'f';
-        buffer[index++] = 'a';
-        buffer[index++] = 'l';
-        buffer[index++] = 's';
-        buffer[index] = 'e';
-        size += FALSE_STRING_SIZE;
-    }
-
     /**
-     * Appends an object to the builder padding on the left to a fixed width. The {@code String.valueOf} of the
-     * {@code int} value is used. If the formatted value is larger than the length, the left hand side is lost.
+     * 带左填充的追加
      *
-     * @param value   the value to append
-     * @param width   the fixed field width, zero or negative has no effect
-     * @param padChar the pad character to use
-     * @return this, to enable chaining
+     * @param value   追加对象
+     * @param width   固定宽度
+     * @param padChar 填充字符
+     * @return this
      */
     public TextStringBuilder appendFixedWidthPadLeft(int value, int width, char padChar) {
         return appendFixedWidthPadLeft(String.valueOf(value), width, padChar);
     }
 
     /**
-     * Appends an object to the builder padding on the left to a fixed width. The {@code toString} of the object is
-     * used. If the object is larger than the length, the left hand side is lost. If the object is null, the null text
-     * value is used.
+     * 带左填充的追加
      *
-     * @param obj     the object to append, null uses null text
-     * @param width   the fixed field width, zero or negative has no effect
-     * @param padChar the pad character to use
-     * @return this, to enable chaining
+     * @param obj     追加对象
+     * @param width   固定宽度
+     * @param padChar 填充字符
+     * @return this
      */
     public TextStringBuilder appendFixedWidthPadLeft(@Nullable Object obj, int width, char padChar) {
         if (width > 0) {
@@ -896,27 +695,24 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends an object to the builder padding on the right to a fixed length. The {@code String.valueOf} of the
-     * {@code int} value is used. If the object is larger than the length, the right hand side is lost.
+     * 带右填充的追加
      *
-     * @param value   the value to append
-     * @param width   the fixed field width, zero or negative has no effect
-     * @param padChar the pad character to use
-     * @return this, to enable chaining
+     * @param value   追加对象
+     * @param width   固定宽度
+     * @param padChar 填充字符
+     * @return this
      */
     public TextStringBuilder appendFixedWidthPadRight(int value, int width, char padChar) {
         return appendFixedWidthPadRight(String.valueOf(value), width, padChar);
     }
 
     /**
-     * Appends an object to the builder padding on the right to a fixed length. The {@code toString} of the object is
-     * used. If the object is larger than the length, the right hand side is lost. If the object is null, null text
-     * value is used.
+     * 带右填充的追加
      *
-     * @param obj     the object to append, null uses null text
-     * @param width   the fixed field width, zero or negative has no effect
-     * @param padChar the pad character to use
-     * @return this, to enable chaining
+     * @param obj     追加对象
+     * @param width   固定宽度
+     * @param padChar 填充字符
+     * @return this
      */
     public TextStringBuilder appendFixedWidthPadRight(@Nullable Object obj, int width, char padChar) {
         if (width > 0) {
@@ -941,214 +737,190 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends a boolean value followed by a new line to the string builder.
+     * 追加并追加一个新行
      *
-     * @param value the value to append
-     * @return this, to enable chaining
+     * @param value 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(boolean value) {
         return append(value).appendNewLine();
     }
 
     /**
-     * Appends a char value followed by a new line to the string builder.
+     * 追加并追加一个新行
      *
-     * @param ch the value to append
-     * @return this, to enable chaining
+     * @param ch 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(char ch) {
         return append(ch).appendNewLine();
     }
 
     /**
-     * Appends a char array followed by a new line to the string builder. Appending null will call
-     * {@link #appendNull()}.
+     * 追加并追加一个新行
      *
-     * @param chars the char array to append
-     * @return this, to enable chaining
+     * @param chars 追加对象
+     * @return this
      */
-    public TextStringBuilder appendln(char[] chars) {
+    public TextStringBuilder appendln(@Nullable char[] chars) {
         return append(chars).appendNewLine();
     }
 
     /**
-     * Appends a char array followed by a new line to the string builder. Appending null will call
-     * {@link #appendNull()}.
+     * 追加并追加一个新行
      *
-     * @param chars      the char array to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param length     the length to append, must be valid
-     * @return this, to enable chaining
+     * @param chars      追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
+     * @return this
      */
     public TextStringBuilder appendln(char[] chars, int startIndex, int length) {
         return append(chars, startIndex, length).appendNewLine();
     }
 
     /**
-     * Appends a double value followed by a new line to the string builder using {@code String.valueOf}.
+     * 追加并追加一个新行
      *
-     * @param value the value to append
-     * @return this, to enable chaining
+     * @param value 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(double value) {
         return append(value).appendNewLine();
     }
 
     /**
-     * Appends a float value followed by a new line to the string builder using {@code String.valueOf}.
+     * 追加并追加一个新行
      *
-     * @param value the value to append
-     * @return this, to enable chaining
+     * @param value 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(float value) {
         return append(value).appendNewLine();
     }
 
     /**
-     * Appends an int value followed by a new line to the string builder using {@code String.valueOf}.
+     * 追加并追加一个新行
      *
-     * @param value the value to append
-     * @return this, to enable chaining
+     * @param value 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(int value) {
         return append(value).appendNewLine();
     }
 
     /**
-     * Appends a long value followed by a new line to the string builder using {@code String.valueOf}.
+     * 追加并追加一个新行
      *
-     * @param value the value to append
-     * @return this, to enable chaining
+     * @param value 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(long value) {
         return append(value).appendNewLine();
     }
 
     /**
-     * Appends an object followed by a new line to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加并追加一个新行
      *
-     * @param obj the object to append
-     * @return this, to enable chaining
+     * @param obj 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(@Nullable Object obj) {
         return append(obj).appendNewLine();
     }
 
     /**
-     * Appends a string followed by a new line to this string builder. Appending null will call {@link #appendNull()}.
+     * 追加并追加一个新行
      *
-     * @param str the string to append
-     * @return this, to enable chaining
+     * @param str 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(@Nullable String str) {
         return append(str).appendNewLine();
     }
 
     /**
-     * Appends part of a string followed by a new line to this string builder. Appending null will call
-     * {@link #appendNull()}.
+     * 追加并追加一个新行
      *
-     * @param str        the string to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param length     the length to append, must be valid
-     * @return this, to enable chaining
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
+     * @return this
      */
     public TextStringBuilder appendln(@Nullable String str, int startIndex, int length) {
         return append(str, startIndex, length).appendNewLine();
     }
 
     /**
-     * Calls {@link String#format(String, Object...)} and appends the result.
+     * 追加并追加一个新行
      *
-     * @param format the format string
-     * @param objs   the objects to use in the format string
-     * @return {@code this} to enable chaining
-     * @see String#format(String, Object...)
-     */
-    public TextStringBuilder appendln(String format, Object... objs) {
-        return append(format, objs).appendNewLine();
-    }
-
-    /**
-     * Appends a string buffer followed by a new line to this string builder. Appending null will call
-     * {@link #appendNull()}.
-     *
-     * @param str the string buffer to append
-     * @return this, to enable chaining
+     * @param str 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(@Nullable StringBuffer str) {
         return append(str).appendNewLine();
     }
 
     /**
-     * Appends part of a string buffer followed by a new line to this string builder. Appending null will call
-     * {@link #appendNull()}.
+     * 追加并追加一个新行
      *
-     * @param str        the string to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param length     the length to append, must be valid
-     * @return this, to enable chaining
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
+     * @return this
      */
     public TextStringBuilder appendln(@Nullable StringBuffer str, int startIndex, int length) {
         return append(str, startIndex, length).appendNewLine();
     }
 
     /**
-     * Appends a string builder followed by a new line to this string builder. Appending null will call
-     * {@link #appendNull()}.
+     * 追加并追加一个新行
      *
-     * @param str the string builder to append
-     * @return this, to enable chaining
+     * @param str 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(@Nullable StringBuilder str) {
         return append(str).appendNewLine();
     }
 
     /**
-     * Appends part of a string builder followed by a new line to this string builder. Appending null will call
-     * {@link #appendNull()}.
+     * 追加并追加一个新行
      *
-     * @param str        the string builder to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param length     the length to append, must be valid
-     * @return this, to enable chaining
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
+     * @return this
      */
     public TextStringBuilder appendln(StringBuilder str, int startIndex, int length) {
         return append(str, startIndex, length).appendNewLine();
     }
 
     /**
-     * Appends another string builder followed by a new line to this string builder. Appending null will call
-     * {@link #appendNull()}.
+     * 追加并追加一个新行
      *
-     * @param str the string builder to append
-     * @return this, to enable chaining
+     * @param str 追加对象
+     * @return this
      */
     public TextStringBuilder appendln(TextStringBuilder str) {
         return append(str).appendNewLine();
     }
 
     /**
-     * Appends part of a string builder followed by a new line to this string builder. Appending null will call
-     * {@link #appendNull()}.
+     * 追加并追加一个新行
      *
-     * @param str        the string to append
-     * @param startIndex the start index, inclusive, must be valid
-     * @param length     the length to append, must be valid
-     * @return this, to enable chaining
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
+     * @return this
      */
     public TextStringBuilder appendln(TextStringBuilder str, int startIndex, int length) {
         return append(str, startIndex, length).appendNewLine();
     }
 
     /**
-     * Appends the new line string to this string builder.
-     * <p>
-     * The new line string can be altered using {@link #setNewLineText(String)}. This might be used to force the output
-     * to always use Unix line endings even when on Windows.
-     * </p>
+     * 追加并追加一个新行
      *
-     * @return this, to enable chaining
+     * @return this
+     * @see #setNewLineText(String)
      */
     public TextStringBuilder appendNewLine() {
         if (newLine == null) {
@@ -1159,9 +931,10 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends the text representing {@code null} to this string builder.
+     * 追加并追加一个控制
      *
-     * @return this, to enable chaining
+     * @return this
+     * @see #setNullText(String)
      */
     public TextStringBuilder appendNull() {
         if (nullText == null) {
@@ -1171,11 +944,11 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends the pad character to the builder the specified number of times.
+     * 追加一个填充
      *
-     * @param length  the length to append, negative means no append
-     * @param padChar the character to append
-     * @return this, to enable chaining
+     * @param length  填充的长度
+     * @param padChar 填充的字符
+     * @return this
      */
     public TextStringBuilder appendPadding(int length, char padChar) {
         if (length >= 0) {
@@ -1188,24 +961,10 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends a separator if the builder is currently non-empty. The separator is appended using {@link #append(char)}.
-     * <p>
-     * This method is useful for adding a separator each time around the loop except the first.
-     * </p>
+     * 追加一个分隔符。当 {@link TextStringBuilder}是空的时候，本方法不会起作用。
      *
-     * <pre>
-     * for (Iterator it = list.iterator(); it.hasNext();) {
-     *     appendSeparator(',');
-     *     append(it.next());
-     * }
-     * </pre>
-     *
-     * <p>
-     * Note that for this simple example, you should use {@link #appendWithSeparators(Iterable, String)}.
-     * </p>
-     *
-     * @param separator the separator to use
-     * @return this, to enable chaining
+     * @param separator 分隔符
+     * @return this
      */
     public TextStringBuilder appendSeparator(char separator) {
         if (isNotEmpty()) {
@@ -1215,49 +974,17 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
     }
 
     /**
-     * Appends one of both separators to the builder If the builder is currently empty it will append the
-     * defaultIfEmpty-separator Otherwise it will append the standard-separator
-     * <p>
-     * The separator is appended using {@link #append(char)}.
+     * 追加一个分隔符。 当 {@link TextStringBuilder}是空的时候，追加 defaultIfEmpty，否则追加 standard。
      *
-     * @param standard       the separator if builder is not empty
-     * @param defaultIfEmpty the separator if builder is empty
-     * @return this, to enable chaining
+     * @param standard       标准分隔符
+     * @param defaultIfEmpty {@link TextStringBuilder} 为空时使用的分隔符。
+     * @return this
      */
     public TextStringBuilder appendSeparator(char standard, char defaultIfEmpty) {
         if (isEmpty()) {
             append(defaultIfEmpty);
         } else {
             append(standard);
-        }
-        return this;
-    }
-
-    /**
-     * Appends a separator to the builder if the loop index is greater than zero. The separator is appended using
-     * {@link #append(char)}.
-     * <p>
-     * This method is useful for adding a separator each time around the loop except the first.
-     * </p>
-     *
-     * <pre>
-     * for (int i = 0; i &lt; list.size(); i++) {
-     *     appendSeparator(",", i);
-     *     append(list.get(i));
-     * }
-     * </pre>
-     *
-     * <p>
-     * Note that for this simple example, you should use {@link #appendWithSeparators(Iterable, String)}.
-     * </p>
-     *
-     * @param separator the separator to use
-     * @param loopIndex the loop index
-     * @return this, to enable chaining
-     */
-    public TextStringBuilder appendSeparator(char separator, int loopIndex) {
-        if (loopIndex > 0) {
-            append(separator);
         }
         return this;
     }
@@ -1285,35 +1012,6 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
      */
     public TextStringBuilder appendSeparator(String separator) {
         return appendSeparator(separator, null);
-    }
-
-    /**
-     * Appends a separator to the builder if the loop index is greater than zero. Appending a null separator will have
-     * no effect. The separator is appended using {@link #append(String)}.
-     * <p>
-     * This method is useful for adding a separator each time around the loop except the first.
-     * </p>
-     *
-     * <pre>
-     * for (int i = 0; i &lt; list.size(); i++) {
-     *     appendSeparator(",", i);
-     *     append(list.get(i));
-     * }
-     * </pre>
-     *
-     * <p>
-     * Note that for this simple example, you should use {@link #appendWithSeparators(Iterable, String)}.
-     * </p>
-     *
-     * @param separator the separator to use, null means no separator
-     * @param loopIndex the loop index
-     * @return this, to enable chaining
-     */
-    public TextStringBuilder appendSeparator(@Nullable String separator, int loopIndex) {
-        if (separator != null && loopIndex > 0) {
-            append(separator);
-        }
-        return this;
     }
 
     /**
@@ -1374,15 +1072,21 @@ public final class TextStringBuilder implements CharSequence, Appendable, Serial
         }
     }
 
-    /**
-     * Appends {@code "true"}.
-     */
     private void appendTrue(int index) {
         buffer[index++] = 't';
         buffer[index++] = 'r';
         buffer[index++] = 'u';
         buffer[index] = 'e';
         size += TRUE_STRING_SIZE;
+    }
+
+    private void appendFalse(int index) {
+        buffer[index++] = 'f';
+        buffer[index++] = 'a';
+        buffer[index++] = 'l';
+        buffer[index++] = 's';
+        buffer[index] = 'e';
+        size += FALSE_STRING_SIZE;
     }
 
     /**
