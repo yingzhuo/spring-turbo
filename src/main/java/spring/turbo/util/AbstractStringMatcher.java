@@ -6,17 +6,18 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util.stringtokenizer;
+package spring.turbo.util;
 
 import java.util.Arrays;
 
 /**
  * @author 应卓
+ * @see StringMatcher
  * @since 2.0.2
  */
-public abstract class AbstractStringMatcher implements StringMatcher {
+abstract class AbstractStringMatcher implements StringMatcher {
 
-    static final class AndStringMatcher extends AbstractStringMatcher {
+    public static final class AndStringMatcher extends AbstractStringMatcher {
 
         private final StringMatcher[] stringMatchers;
 
@@ -70,7 +71,7 @@ public abstract class AbstractStringMatcher implements StringMatcher {
         }
     }
 
-    static final class CharArrayMatcher extends AbstractStringMatcher {
+    public static final class CharArrayMatcher extends AbstractStringMatcher {
 
         private final char[] chars;
         private final String string;
@@ -119,10 +120,9 @@ public abstract class AbstractStringMatcher implements StringMatcher {
         public String toString() {
             return super.toString() + "[\"" + string + "\"]";
         }
-
     }
 
-    static final class CharMatcher extends AbstractStringMatcher {
+    public static final class CharMatcher extends AbstractStringMatcher {
 
         private final char ch;
 
@@ -151,7 +151,7 @@ public abstract class AbstractStringMatcher implements StringMatcher {
         }
     }
 
-    static final class CharSetMatcher extends AbstractStringMatcher {
+    public static final class CharSetMatcher extends AbstractStringMatcher {
 
         private final char[] chars;
 
@@ -182,7 +182,7 @@ public abstract class AbstractStringMatcher implements StringMatcher {
 
     }
 
-    static final class NoneMatcher extends AbstractStringMatcher {
+    public static final class NoneMatcher extends AbstractStringMatcher {
 
         NoneMatcher() {
         }
@@ -204,7 +204,7 @@ public abstract class AbstractStringMatcher implements StringMatcher {
 
     }
 
-    static final class TrimMatcher extends AbstractStringMatcher {
+    public static final class TrimMatcher extends AbstractStringMatcher {
         private static final int SPACE_INT = 32;
 
         TrimMatcher() {

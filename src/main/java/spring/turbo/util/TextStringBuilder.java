@@ -11,8 +11,6 @@ package spring.turbo.util;
 import org.springframework.lang.Nullable;
 import spring.turbo.bean.Builder;
 import spring.turbo.lang.Mutable;
-import spring.turbo.util.stringtokenizer.StringMatcher;
-import spring.turbo.util.stringtokenizer.StringTokenizer;
 
 import java.io.Serializable;
 import java.nio.CharBuffer;
@@ -32,47 +30,17 @@ import java.util.Objects;
 @Mutable
 public final class TextStringBuilder implements Serializable, CharSequence, Appendable, Builder<String> {
 
-    private class TextStringBuilderTokenizer extends StringTokenizer {
-
-        private TextStringBuilderTokenizer() {
-            super();
-        }
-
-        @Override
-        public String getContent() {
-            final String str = super.getContent();
-            if (str == null) {
-                return TextStringBuilder.this.toString();
-            }
-            return str;
-        }
-
-        @Override
-        protected List<String> tokenize(@Nullable final char[] chars, final int offset, final int count) {
-            if (chars == null) {
-                return super.tokenize(TextStringBuilder.this.getBuffer(), 0, TextStringBuilder.this.size());
-            }
-            return super.tokenize(chars, offset, count);
-        }
-    }
-
-
     public static final int CAPACITY = 32;
     private static final char SPACE = CharPool.SPACE;
     private static final int EOS = -1;
     private static final int FALSE_STRING_SIZE = Boolean.FALSE.toString().length();
     private static final int TRUE_STRING_SIZE = Boolean.TRUE.toString().length();
-
     private char[] buffer;
-
     @Nullable
     private String newLine;
-
     @Nullable
     private String nullText;
-
     private int reallocations;
-
     private int size;
 
     /**
@@ -1286,6 +1254,17 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
+     * 设置新行字符串
+     *
+     * @param newLine 新行字符串
+     * @return this
+     */
+    public TextStringBuilder setNewLineText(@Nullable String newLine) {
+        this.newLine = newLine;
+        return this;
+    }
+
+    /**
      * 获取空值文本
      *
      * @return 结果
@@ -1293,6 +1272,20 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     @Nullable
     public String getNullText() {
         return nullText;
+    }
+
+    /**
+     * 设置空值字符串
+     *
+     * @param nullText 空值字符串
+     * @return this
+     */
+    public TextStringBuilder setNullText(@Nullable String nullText) {
+        if (nullText != null && nullText.isEmpty()) {
+            nullText = null;
+        }
+        this.nullText = nullText;
+        return this;
     }
 
     /**
@@ -1945,31 +1938,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * 设置新行字符串
-     *
-     * @param newLine 新行字符串
-     * @return this
-     */
-    public TextStringBuilder setNewLineText(@Nullable String newLine) {
-        this.newLine = newLine;
-        return this;
-    }
-
-    /**
-     * 设置空值字符串
-     *
-     * @param nullText 空值字符串
-     * @return this
-     */
-    public TextStringBuilder setNullText(@Nullable String nullText) {
-        if (nullText != null && nullText.isEmpty()) {
-            nullText = null;
-        }
-        this.nullText = nullText;
-        return this;
-    }
-
-    /**
      * 获取长度
      *
      * @return 长度
@@ -2153,6 +2121,30 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
 
     private char[] getBuffer() {
         return this.buffer;
+    }
+
+    private class TextStringBuilderTokenizer extends StringTokenizer {
+
+        private TextStringBuilderTokenizer() {
+            super();
+        }
+
+        @Override
+        public String getContent() {
+            final String str = super.getContent();
+            if (str == null) {
+                return TextStringBuilder.this.toString();
+            }
+            return str;
+        }
+
+        @Override
+        protected List<String> tokenize(@Nullable final char[] chars, final int offset, final int count) {
+            if (chars == null) {
+                return super.tokenize(TextStringBuilder.this.getBuffer(), 0, TextStringBuilder.this.size());
+            }
+            return super.tokenize(chars, offset, count);
+        }
     }
 
 }

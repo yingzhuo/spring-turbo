@@ -6,10 +6,7 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util.stringtokenizer;
-
-import spring.turbo.util.ArrayUtils;
-import spring.turbo.util.StringUtils;
+package spring.turbo.util;
 
 /**
  * @author 应卓
@@ -18,11 +15,9 @@ import spring.turbo.util.StringUtils;
 public final class StringMatcherFactories {
 
     /**
-     * 私有构造方法
+     * Defines the singleton for this class.
      */
-    private StringMatcherFactories() {
-        super();
-    }
+    public static final StringMatcherFactories INSTANCE = new StringMatcherFactories();
 
     /**
      * Matches the comma character.
@@ -34,12 +29,6 @@ public final class StringMatcherFactories {
      */
     private static final AbstractStringMatcher.CharMatcher DOUBLE_QUOTE_MATCHER = new AbstractStringMatcher.CharMatcher(
             '"');
-
-    /**
-     * Defines the singleton for this class.
-     */
-    public static final StringMatcherFactories INSTANCE = new StringMatcherFactories();
-
     /**
      * Matches no characters.
      */
@@ -50,13 +39,11 @@ public final class StringMatcherFactories {
      */
     private static final AbstractStringMatcher.CharSetMatcher QUOTE_MATCHER = new AbstractStringMatcher.CharSetMatcher(
             "'\"".toCharArray());
-
     /**
      * Matches the double quote character.
      */
     private static final AbstractStringMatcher.CharMatcher SINGLE_QUOTE_MATCHER = new AbstractStringMatcher.CharMatcher(
             '\'');
-
     /**
      * Matches the space character.
      */
@@ -67,7 +54,6 @@ public final class StringMatcherFactories {
      */
     private static final AbstractStringMatcher.CharSetMatcher SPLIT_MATCHER = new AbstractStringMatcher.CharSetMatcher(
             " \t\n\r\f".toCharArray());
-
     /**
      * Matches the tab character.
      */
@@ -77,6 +63,13 @@ public final class StringMatcherFactories {
      * Matches the String trim() whitespace characters.
      */
     private static final AbstractStringMatcher.TrimMatcher TRIM_MATCHER = new AbstractStringMatcher.TrimMatcher();
+
+    /**
+     * 私有构造方法
+     */
+    private StringMatcherFactories() {
+        super();
+    }
 
     /**
      * Creates a matcher that matches all of the given matchers in order.
