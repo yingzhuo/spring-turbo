@@ -47,6 +47,22 @@ public final class Asserts {
         isTrue(expression, "[Assertion failed] - this expression must be true");
     }
 
+    public static void isFalse(boolean expression, @Nullable String message) {
+        if (expression) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static void isFalse(boolean expression, Supplier<String> messageSupplier) {
+        if (expression) {
+            throw new IllegalArgumentException(nullSafeGet(messageSupplier));
+        }
+    }
+
+    public static void isFalse(boolean expression) {
+        isTrue(expression, "[Assertion failed] - this expression must be false");
+    }
+
     public static void isNull(@Nullable Object object, @Nullable String message) {
         if (object != null) {
             throw new IllegalArgumentException(message);
