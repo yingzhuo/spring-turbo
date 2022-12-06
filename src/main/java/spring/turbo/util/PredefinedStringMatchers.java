@@ -11,27 +11,38 @@ package spring.turbo.util;
 import java.util.Arrays;
 
 /**
+ * 预定义的 {@link StringMatcher} 实现
+ *
  * @author 应卓
  * @see StringMatcher
+ * @see StringMatcherFactories
  * @since 2.0.2
  */
-abstract class AbstractStringMatcher implements StringMatcher {
+public final class PredefinedStringMatchers {
 
-    public static final class AndStringMatcher extends AbstractStringMatcher {
+    /**
+     * 私有构造方法
+     */
+    private PredefinedStringMatchers() {
+        super();
+    }
 
-        private final StringMatcher[] stringMatchers;
+    public static final class And implements StringMatcher {
 
-        AndStringMatcher(final StringMatcher... stringMatchers) {
-            this.stringMatchers = stringMatchers.clone();
+        private final StringMatcher[] matchers;
+
+        public And(StringMatcher... matchers) {
+            Asserts.notNull(matchers);
+            this.matchers = matchers.clone();
         }
 
         @Override
-        public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
+        public int isMatch(char[] buffer, int start, int bufferStart, int bufferEnd) {
             int total = 0;
             int curStart = start;
-            for (final StringMatcher stringMatcher : stringMatchers) {
+            for (StringMatcher stringMatcher : matchers) {
                 if (stringMatcher != null) {
-                    final int len = stringMatcher.isMatch(buffer, curStart, bufferStart, bufferEnd);
+                    int len = stringMatcher.isMatch(buffer, curStart, bufferStart, bufferEnd);
                     if (len == 0) {
                         return 0;
                     }
@@ -43,12 +54,12 @@ abstract class AbstractStringMatcher implements StringMatcher {
         }
 
         @Override
-        public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
+        public int isMatch(CharSequence buffer, int start, int bufferStart, int bufferEnd) {
             int total = 0;
             int curStart = start;
-            for (final StringMatcher stringMatcher : stringMatchers) {
+            for (StringMatcher stringMatcher : matchers) {
                 if (stringMatcher != null) {
-                    final int len = stringMatcher.isMatch(buffer, curStart, bufferStart, bufferEnd);
+                    int len = stringMatcher.isMatch(buffer, curStart, bufferStart, bufferEnd);
                     if (len == 0) {
                         return 0;
                     }
@@ -62,7 +73,7 @@ abstract class AbstractStringMatcher implements StringMatcher {
         @Override
         public int size() {
             int total = 0;
-            for (final StringMatcher stringMatcher : stringMatchers) {
+            for (StringMatcher stringMatcher : matchers) {
                 if (stringMatcher != null) {
                     total += stringMatcher.size();
                 }
@@ -71,19 +82,20 @@ abstract class AbstractStringMatcher implements StringMatcher {
         }
     }
 
-    public static final class CharArrayMatcher extends AbstractStringMatcher {
+    public static final class CharArray implements StringMatcher {
 
         private final char[] chars;
         private final String string;
 
-        CharArrayMatcher(final char... chars) {
-            this.string = String.valueOf(chars);
+        public CharArray(char... chars) {
+            Asserts.notNull(chars);
             this.chars = chars.clone();
+            this.string = String.valueOf(chars);
         }
 
         @Override
-        public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
-            final int len = size();
+        public int isMatch(char[] buffer, int start, int bufferStart, int bufferEnd) {
+            int len = size();
             if (start + len > bufferEnd) {
                 return 0;
             }
@@ -97,8 +109,8 @@ abstract class AbstractStringMatcher implements StringMatcher {
         }
 
         @Override
-        public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
-            final int len = size();
+        public int isMatch(CharSequence buffer, int start, int bufferStart, int bufferEnd) {
+            int len = size();
             if (start + len > bufferEnd) {
                 return 0;
             }
@@ -115,28 +127,23 @@ abstract class AbstractStringMatcher implements StringMatcher {
         public int size() {
             return chars.length;
         }
-
-        @Override
-        public String toString() {
-            return super.toString() + "[\"" + string + "\"]";
-        }
     }
 
-    public static final class CharMatcher extends AbstractStringMatcher {
+    public static final class Char implements StringMatcher {
 
         private final char ch;
 
-        CharMatcher(final char ch) {
+        public Char(char ch) {
             this.ch = ch;
         }
 
         @Override
-        public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
+        public int isMatch(char[] buffer, int start, int bufferStart, int bufferEnd) {
             return ch == buffer[start] ? 1 : 0;
         }
 
         @Override
-        public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
+        public int isMatch(CharSequence buffer, int start, int bufferStart, int bufferEnd) {
             return ch == buffer.charAt(start) ? 1 : 0;
         }
 
@@ -144,29 +151,25 @@ abstract class AbstractStringMatcher implements StringMatcher {
         public int size() {
             return 1;
         }
-
-        @Override
-        public String toString() {
-            return super.toString() + "['" + ch + "']";
-        }
     }
 
-    public static final class CharSetMatcher extends AbstractStringMatcher {
+    public static class CharSet implements StringMatcher {
 
         private final char[] chars;
 
-        CharSetMatcher(final char[] chars) {
+        public CharSet(char[] chars) {
+            Asserts.notNull(chars);
             this.chars = chars.clone();
             Arrays.sort(this.chars);
         }
 
         @Override
-        public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
+        public int isMatch(char[] buffer, int start, int bufferStart, int bufferEnd) {
             return Arrays.binarySearch(chars, buffer[start]) >= 0 ? 1 : 0;
         }
 
         @Override
-        public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
+        public int isMatch(CharSequence buffer, int start, int bufferStart, int bufferEnd) {
             return Arrays.binarySearch(chars, buffer.charAt(start)) >= 0 ? 1 : 0;
         }
 
@@ -174,26 +177,21 @@ abstract class AbstractStringMatcher implements StringMatcher {
         public int size() {
             return 1;
         }
-
-        @Override
-        public String toString() {
-            return super.toString() + Arrays.toString(chars);
-        }
-
     }
 
-    public static final class NoneMatcher extends AbstractStringMatcher {
+    public static final class None implements StringMatcher {
 
-        NoneMatcher() {
+        public None() {
+            super();
         }
 
         @Override
-        public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
+        public int isMatch(char[] buffer, int start, int bufferStart, int bufferEnd) {
             return 0;
         }
 
         @Override
-        public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
+        public int isMatch(CharSequence buffer, int start, int bufferStart, int bufferEnd) {
             return 0;
         }
 
@@ -201,22 +199,23 @@ abstract class AbstractStringMatcher implements StringMatcher {
         public int size() {
             return 0;
         }
-
     }
 
-    public static final class TrimMatcher extends AbstractStringMatcher {
-        private static final int SPACE_INT = 32;
+    public static final class Trim implements StringMatcher {
 
-        TrimMatcher() {
+        private static final int SPACE_INT = (int) CharPool.SPACE; // 32
+
+        public Trim() {
+            super();
         }
 
         @Override
-        public int isMatch(final char[] buffer, final int start, final int bufferStart, final int bufferEnd) {
+        public int isMatch(char[] buffer, int start, int bufferStart, int bufferEnd) {
             return buffer[start] <= SPACE_INT ? 1 : 0;
         }
 
         @Override
-        public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
+        public int isMatch(CharSequence buffer, int start, int bufferStart, int bufferEnd) {
             return buffer.charAt(start) <= SPACE_INT ? 1 : 0;
         }
 

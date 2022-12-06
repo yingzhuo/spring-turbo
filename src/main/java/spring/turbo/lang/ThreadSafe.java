@@ -6,25 +6,18 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.lang;
+
+import java.lang.annotation.*;
 
 /**
- * Bean Scope
+ * 标记线程安全的类
  *
  * @author 应卓
- * @see org.springframework.beans.factory.config.ConfigurableBeanFactory
- * @since 1.0.0
+ * @since 2.0.2
  */
-public final class BeanScopes {
-
-    public static final String SINGLETON = "singleton";
-    public static final String PROTOTYPE = "prototype";
-
-    /**
-     * 私有构造方法
-     */
-    private BeanScopes() {
-        super();
-    }
-
+@Documented
+@Retention(RetentionPolicy.SOURCE)
+@Target(ElementType.TYPE)
+public @interface ThreadSafe {
 }
