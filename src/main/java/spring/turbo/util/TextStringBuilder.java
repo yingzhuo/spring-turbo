@@ -14,10 +14,7 @@ import spring.turbo.lang.Mutable;
 import spring.turbo.util.stringtokenizer.StringMatcher;
 import spring.turbo.util.stringtokenizer.StringTokenizer;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.io.Serializable;
-import java.io.Writer;
 import java.nio.CharBuffer;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -34,127 +31,6 @@ import java.util.Objects;
  */
 @Mutable
 public final class TextStringBuilder implements Serializable, CharSequence, Appendable, Builder<String> {
-
-    /**
-     * {@link Reader} 实现
-     */
-    private class TextStringBuilderReader extends Reader {
-        private int mark;
-        private int pos;
-
-        private TextStringBuilderReader() {
-            super();
-        }
-
-        @Override
-        public void close() {
-            // nop
-        }
-
-        @Override
-        public void mark(final int readAheadLimit) {
-            mark = pos;
-        }
-
-        @Override
-        public boolean markSupported() {
-            return true;
-        }
-
-        @Override
-        public int read() {
-            if (!ready()) {
-                return -1;
-            }
-            return TextStringBuilder.this.charAt(pos++);
-        }
-
-        @Override
-        public int read(final char[] b, final int off, int len) {
-            if (off < 0 || len < 0 || off > b.length || off + len > b.length || off + len < 0) {
-                throw new IndexOutOfBoundsException();
-            }
-            if (len == 0) {
-                return 0;
-            }
-            if (pos >= TextStringBuilder.this.size()) {
-                return -1;
-            }
-            if (pos + len > size()) {
-                len = TextStringBuilder.this.size() - pos;
-            }
-            TextStringBuilder.this.getChars(pos, pos + len, b, off);
-            pos += len;
-            return len;
-        }
-
-        @Override
-        public boolean ready() {
-            return pos < TextStringBuilder.this.size();
-        }
-
-        @Override
-        public void reset() {
-            pos = mark;
-        }
-
-        @Override
-        public long skip(long n) {
-            if (pos + n > TextStringBuilder.this.size()) {
-                n = TextStringBuilder.this.size() - pos;
-            }
-            if (n < 0) {
-                return 0;
-            }
-            pos = Math.addExact(pos, Math.toIntExact(n));
-            return n;
-        }
-    }
-
-    /**
-     * {@link Writer} 实现
-     */
-    private class TextStringBuilderWriter extends Writer {
-
-        private TextStringBuilderWriter() {
-            super();
-        }
-
-        @Override
-        public void close() {
-            // nop
-        }
-
-        @Override
-        public void flush() {
-            // nop
-        }
-
-        @Override
-        public void write(final char[] cbuf) {
-            TextStringBuilder.this.append(cbuf);
-        }
-
-        @Override
-        public void write(final char[] cbuf, final int off, final int len) {
-            TextStringBuilder.this.append(cbuf, off, len);
-        }
-
-        @Override
-        public void write(final int c) {
-            TextStringBuilder.this.append((char) c);
-        }
-
-        @Override
-        public void write(final String str) {
-            TextStringBuilder.this.append(str);
-        }
-
-        @Override
-        public void write(final String str, final int off, final int len) {
-            TextStringBuilder.this.append(str, off, len);
-        }
-    }
 
     private class TextStringBuilderTokenizer extends StringTokenizer {
 
@@ -990,57 +866,23 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Appends a separator if the builder is currently non-empty. Appending a null separator will have no effect. The
-     * separator is appended using {@link #append(String)}.
-     * <p>
-     * This method is useful for adding a separator each time around the loop except the first.
-     * </p>
+     * 追加一个分隔符。当 {@link TextStringBuilder}是空的时候，本方法不会起作用。
      *
-     * <pre>
-     * for (Iterator it = list.iterator(); it.hasNext();) {
-     *     appendSeparator(",");
-     *     append(it.next());
-     * }
-     * </pre>
-     *
-     * <p>
-     * Note that for this simple example, you should use {@link #appendWithSeparators(Iterable, String)}.
-     * </p>
-     *
-     * @param separator the separator to use, null means no separator
-     * @return this, to enable chaining
+     * @param separator 分隔符
+     * @return this
      */
     public TextStringBuilder appendSeparator(String separator) {
         return appendSeparator(separator, null);
     }
 
     /**
-     * Appends one of both separators to the StrBuilder. If the builder is currently empty it will append the
-     * defaultIfEmpty-separator Otherwise it will append the standard-separator
-     * <p>
-     * Appending a null separator will have no effect. The separator is appended using {@link #append(String)}.
-     * <p>
-     * This method is for example useful for constructing queries
-     * </p>
+     * 追加一个分隔符。 当 {@link TextStringBuilder}是空的时候，追加 defaultIfEmpty，否则追加 standard。
      *
-     * <pre>
-     * StrBuilder whereClause = new StrBuilder();
-     * if(searchCommand.getPriority() != null) {
-     *  whereClause.appendSeparator(" and", " where");
-     *  whereClause.append(" priority = ?")
-     * }
-     * if(searchCommand.getComponent() != null) {
-     *  whereClause.appendSeparator(" and", " where");
-     *  whereClause.append(" component = ?")
-     * }
-     * selectClause.append(whereClause)
-     * </pre>
-     *
-     * @param standard       the separator if builder is not empty, null means no separator
-     * @param defaultIfEmpty the separator if builder is empty, null means no separator
-     * @return this, to enable chaining
+     * @param standard       标准分隔符
+     * @param defaultIfEmpty {@link TextStringBuilder} 为空时使用的分隔符。
+     * @return this
      */
-    public TextStringBuilder appendSeparator(String standard, @Nullable String defaultIfEmpty) {
+    public TextStringBuilder appendSeparator(@Nullable String standard, @Nullable String defaultIfEmpty) {
         final String str = isEmpty() ? defaultIfEmpty : standard;
         if (str != null) {
             append(str);
@@ -1049,53 +891,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Appends current contents of this {@code StrBuilder} to the provided {@link Appendable}.
-     * <p>
-     * This method tries to avoid doing any extra copies of contents.
-     * </p>
+     * 追加多个元素并在其之中添加分隔符
      *
-     * @param appendable the appendable to append data to
-     * @throws IOException if an I/O error occurs.
-     * @see #readFrom(Readable)
-     */
-    public void appendTo(Appendable appendable) throws IOException {
-        if (appendable instanceof Writer) {
-            ((Writer) appendable).write(buffer, 0, size);
-        } else if (appendable instanceof StringBuilder) {
-            ((StringBuilder) appendable).append(buffer, 0, size);
-        } else if (appendable instanceof StringBuffer) {
-            ((StringBuffer) appendable).append(buffer, 0, size);
-        } else if (appendable instanceof CharBuffer) {
-            ((CharBuffer) appendable).put(buffer, 0, size);
-        } else {
-            appendable.append(this);
-        }
-    }
-
-    private void appendTrue(int index) {
-        buffer[index++] = 't';
-        buffer[index++] = 'r';
-        buffer[index++] = 'u';
-        buffer[index] = 'e';
-        size += TRUE_STRING_SIZE;
-    }
-
-    private void appendFalse(int index) {
-        buffer[index++] = 'f';
-        buffer[index++] = 'a';
-        buffer[index++] = 'l';
-        buffer[index++] = 's';
-        buffer[index] = 'e';
-        size += FALSE_STRING_SIZE;
-    }
-
-    /**
-     * Appends an iterable placing separators between each value, but not before the first or after the last. Appending
-     * a null iterable will have no effect. Each object is appended using {@link #append(Object)}.
-     *
-     * @param iterable  the iterable to append
-     * @param separator the separator to use, null means no separator
-     * @return this, to enable chaining
+     * @param iterable  多个元素
+     * @param separator 分隔符，{@code null} 时意味着没有分隔符。
+     * @return this
      */
     public TextStringBuilder appendWithSeparators(@Nullable Iterable<?> iterable, @Nullable String separator) {
         if (iterable != null) {
@@ -1105,12 +905,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Appends an iterator placing separators between each value, but not before the first or after the last. Appending
-     * a null iterator will have no effect. Each object is appended using {@link #append(Object)}.
+     * 追加多个元素并在其之中添加分隔符
      *
-     * @param it        the iterator to append
-     * @param separator the separator to use, null means no separator
-     * @return this, to enable chaining
+     * @param it        多个元素
+     * @param separator 分隔符，{@code null} 时意味着没有分隔符。
+     * @return this
      */
     public TextStringBuilder appendWithSeparators(@Nullable Iterator<?> it, @Nullable String separator) {
         if (it != null) {
@@ -1126,12 +925,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Appends an array placing separators between each value, but not before the first or after the last. Appending a
-     * null array will have no effect. Each object is appended using {@link #append(Object)}.
+     * 追加多个元素并在其之中添加分隔符
      *
-     * @param array     the array to append
-     * @param separator the separator to use, null means no separator
-     * @return this, to enable chaining
+     * @param array     多个元素
+     * @param separator 分隔符，{@code null} 时意味着没有分隔符。
+     * @return this
      */
     public TextStringBuilder appendWithSeparators(@Nullable Object[] array, @Nullable String separator) {
         if (array != null && array.length > 0) {
@@ -1146,95 +944,18 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Gets the contents of this builder as a Reader.
-     * <p>
-     * This method allows the contents of the builder to be read using any standard method that expects a Reader.
-     * </p>
-     * <p>
-     * To use, simply create a {@code StrBuilder}, populate it with data, call {@code asReader}, and then read away.
-     * </p>
-     * <p>
-     * The internal character array is shared between the builder and the reader. This allows you to append to the
-     * builder after creating the reader, and the changes will be picked up. Note however, that no synchronization
-     * occurs, so you must perform all operations with the builder and the reader in one thread.
-     * </p>
-     * <p>
-     * The returned reader supports marking, and ignores the flush method.
-     * </p>
+     * 转换成 {@link spring.turbo.webmvc.token.StringToken} 对象
      *
-     * @return a reader that reads from this builder
-     */
-    public Reader asReader() {
-        return new TextStringBuilderReader();
-    }
-
-    /**
-     * Creates a tokenizer that can tokenize the contents of this builder.
-     * <p>
-     * This method allows the contents of this builder to be tokenized. The tokenizer will be setup by default to
-     * tokenize on space, tab, newline and form feed (as per StringTokenizer). These values can be changed on the
-     * tokenizer class, before retrieving the tokens.
-     * </p>
-     * <p>
-     * The returned tokenizer is linked to this builder. You may intermix calls to the builder and tokenizer within
-     * certain limits, however there is no synchronization. Once the tokenizer has been used once, it must be
-     * {@link StringTokenizer#reset() reset} to pickup the latest changes in the builder. For example:
-     * </p>
-     *
-     * <pre>
-     * StrBuilder b = new StrBuilder();
-     * b.append("a b ");
-     * StrTokenizer t = b.asTokenizer();
-     * String[] tokens1 = t.getTokenArray(); // returns a,b
-     * b.append("c d ");
-     * String[] tokens2 = t.getTokenArray(); // returns a,b (c and d ignored)
-     * t.reset(); // reset causes builder changes to be picked up
-     * String[] tokens3 = t.getTokenArray(); // returns a,b,c,d
-     * </pre>
-     *
-     * <p>
-     * In addition to simply intermixing appends and tokenization, you can also call the set methods on the tokenizer to
-     * alter how it tokenizes. Just remember to call reset when you want to pickup builder changes.
-     * </p>
-     * <p>
-     * Calling {@link StringTokenizer#reset(String)} or {@link StringTokenizer#reset(char[])} with a non-null value will
-     * break the link with the builder.
-     * </p>
-     *
-     * @return a tokenizer that is linked to this builder
+     * @return 结果
      */
     public StringTokenizer asTokenizer() {
         return new TextStringBuilderTokenizer();
     }
 
     /**
-     * Gets this builder as a Writer that can be written to.
-     * <p>
-     * This method allows you to populate the contents of the builder using any standard method that takes a Writer.
-     * </p>
-     * <p>
-     * To use, simply create a {@code StrBuilder}, call {@code asWriter}, and populate away. The data is available at
-     * any time using the methods of the {@code StrBuilder}.
-     * </p>
-     * <p>
-     * The internal character array is shared between the builder and the writer. This allows you to intermix calls that
-     * append to the builder and write using the writer and the changes will be occur correctly. Note however, that no
-     * synchronization occurs, so you must perform all operations with the builder and the writer in one thread.
-     * </p>
-     * <p>
-     * The returned writer ignores the close and flush methods.
-     * </p>
+     * 构建字符串
      *
-     * @return a writer that populates this builder
-     */
-    public Writer asWriter() {
-        return new TextStringBuilderWriter();
-    }
-
-    /**
-     * Implement the {@link Builder} interface.
-     *
-     * @return The builder as a String
+     * @return 字符串
      * @see #toString()
      */
     @Override
@@ -1243,22 +964,16 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Gets the current size of the internal character array buffer.
+     * 获取容量
      *
-     * @return The capacity
+     * @return 容量
      */
     public int capacity() {
         return buffer.length;
     }
 
     /**
-     * Gets the character at the specified index.
-     *
-     * @param index the index to retrieve, must be valid
-     * @return The character at the index
-     * @throws IndexOutOfBoundsException if the index is invalid
-     * @see #setCharAt(int, char)
-     * @see #deleteCharAt(int)
+     * {@inheritDoc}
      */
     @Override
     public char charAt(int index) {
@@ -1267,17 +982,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Clears the string builder (convenience Collections API style method).
-     * <p>
-     * This method does not reduce the size of the internal character buffer. To do that, call {@code clear()} followed
-     * by {@link #minimizeCapacity()}.
-     * </p>
-     * <p>
-     * This method is the same as {@link #setLength(int)} called with zero and is provided to match the API of
-     * Collections.
-     * </p>
+     * 清空所有内容
      *
-     * @return this, to enable chaining
+     * @return this
      */
     public TextStringBuilder clear() {
         size = 0;
@@ -1285,10 +992,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Tests if the string builder contains the specified char.
+     * 判断是否包含指定的字符
      *
-     * @param ch the character to find
-     * @return true if the builder contains the character
+     * @param ch 待查找的字符
+     * @return 结果
      */
     public boolean contains(char ch) {
         final char[] thisBuf = buffer;
@@ -1301,36 +1008,32 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Tests if the string builder contains the specified string.
+     * 判断是否包含指定的子串
      *
-     * @param str the string to find
-     * @return true if the builder contains the string
+     * @param str 待查找的子串
+     * @return 结果
      */
     public boolean contains(String str) {
         return indexOf(str, 0) >= 0;
     }
 
     /**
-     * Tests if the string builder contains a string matched using the specified matcher.
-     * <p>
-     * Matchers can be used to perform advanced searching behavior. For example you could write a matcher to search for
-     * the character 'a' followed by a number.
-     * </p>
+     * 判断是否包含指定的子串
      *
-     * @param matcher the matcher to use, null returns -1
-     * @return true if the matcher finds a match in the builder
+     * @param matcher 匹配器
+     * @return 结果
      */
     public boolean contains(StringMatcher matcher) {
+        Asserts.notNull(matcher);
         return indexOf(matcher, 0) >= 0;
     }
 
     /**
-     * Deletes the characters between the two specified indices.
+     * 删除一部分
      *
-     * @param startIndex the start index, inclusive, must be valid
-     * @param endIndex   the end index, exclusive, must be valid except that if too large it is treated as end of string
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param startIndex 开始位置 (包含)
+     * @param endIndex   结束位置 (不包含)
+     * @return this
      */
     public TextStringBuilder delete(int startIndex, int endIndex) {
         final int actualEndIndex = validateRange(startIndex, endIndex);
@@ -1342,10 +1045,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Deletes the character wherever it occurs in the builder.
+     * 删除单个所有的固定字符
      *
-     * @param ch the character to delete
-     * @return this, to enable chaining
+     * @param ch 待删除的字符
+     * @return this
      */
     public TextStringBuilder deleteAll(char ch) {
         for (int i = 0; i < size; i++) {
@@ -1365,10 +1068,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Deletes the string wherever it occurs in the builder.
+     * 删除单个所有的固定字符串
      *
-     * @param str the string to delete, null causes no action
-     * @return this, to enable chaining
+     * @param str 待删除的字符串
+     * @return this
      */
     public TextStringBuilder deleteAll(@Nullable String str) {
         final int len = str == null ? 0 : str.length();
@@ -1383,14 +1086,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Deletes all parts of the builder that the matcher matches.
-     * <p>
-     * Matchers can be used to perform advanced deletion behavior. For example you could write a matcher to delete all
-     * occurrences where the character 'a' is followed by a number.
-     * </p>
+     * 删除单个所有的固定字符串
      *
-     * @param matcher the matcher to use to find the deletion, null causes no action
-     * @return this, to enable chaining
+     * @param matcher 字符串匹配器
+     * @return this
      */
     public TextStringBuilder deleteAll(StringMatcher matcher) {
         Asserts.notNull(matcher);
@@ -1398,11 +1097,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Deletes the character at the specified index.
+     * 删除指定位置的字符
      *
-     * @param index the index to delete
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param index 位置
+     * @return this
      * @see #charAt(int)
      * @see #setCharAt(int, char)
      */
@@ -1413,10 +1111,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Deletes the character wherever it occurs in the builder.
+     * 删除首个出现的字符
      *
-     * @param ch the character to delete
-     * @return this, to enable chaining
+     * @param ch 待删除的字符
+     * @return this
      */
     public TextStringBuilder deleteFirst(char ch) {
         for (int i = 0; i < size; i++) {
@@ -1429,10 +1127,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Deletes the string wherever it occurs in the builder.
+     * 删除首个出现的字符串
      *
-     * @param str the string to delete, null causes no action
-     * @return this, to enable chaining
+     * @param str 待删除的字符串
+     * @return this
      */
     public TextStringBuilder deleteFirst(@Nullable String str) {
         final int len = str == null ? 0 : str.length();
@@ -1446,83 +1144,29 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Deletes the first match within the builder using the specified matcher.
-     * <p>
-     * Matchers can be used to perform advanced deletion behavior. For example you could write a matcher to delete where
-     * the character 'a' is followed by a number.
-     * </p>
+     * 删除首个出现的字符串
      *
-     * @param matcher the matcher to use to find the deletion, null causes no action
-     * @return this, to enable chaining
+     * @param matcher 待删除的字符串匹配器
+     * @return this
      */
     public TextStringBuilder deleteFirst(StringMatcher matcher) {
         Asserts.notNull(matcher);
         return replace(matcher, null, 0, size, 1);
     }
 
-    /**
-     * Internal method to delete a range without validation.
-     *
-     * @param startIndex the start index, must be valid
-     * @param endIndex   the end index (exclusive), must be valid
-     * @param len        the length, must be valid
-     * @throws IndexOutOfBoundsException if any index is invalid
-     */
     private void deleteImpl(int startIndex, int endIndex, int len) {
         System.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);
         size -= len;
     }
 
     /**
-     * Gets the character at the specified index before deleting it.
+     * 判断是否为指定的后缀
      *
-     * @param index the index to retrieve, must be valid
-     * @return The character at the index
-     * @throws IndexOutOfBoundsException if the index is invalid
-     * @see #charAt(int)
-     * @see #deleteCharAt(int)
+     * @param str 待测试的后缀
+     * @return 结果
      */
-    public char drainChar(int index) {
-        validateIndex(index);
-        final char c = buffer[index];
-        deleteCharAt(index);
-        return c;
-    }
-
-    /**
-     * Drains (copies, then deletes) this character sequence into the specified array. This is equivalent to copying the
-     * characters from this sequence into the target and then deleting those character from this sequence.
-     *
-     * @param startIndex  first index to copy, inclusive.
-     * @param endIndex    last index to copy, exclusive.
-     * @param target      the target array, must not be {@code null}.
-     * @param targetIndex the index to start copying in the target.
-     * @return How many characters where copied (then deleted). If this builder is empty, return {@code 0}.
-     */
-    public int drainChars(int startIndex, int endIndex, char[] target, int targetIndex) {
-        final int length = endIndex - startIndex;
-        if (isEmpty() || length == 0 || target.length == 0) {
-            return 0;
-        }
-        final int actualLen = Math.min(Math.min(size, length), target.length - targetIndex);
-        getChars(startIndex, actualLen, target, targetIndex);
-        delete(startIndex, actualLen);
-        return actualLen;
-    }
-
-    /**
-     * Checks whether this builder ends with the specified string.
-     * <p>
-     * Note that this method handles null input quietly, unlike String.
-     * </p>
-     *
-     * @param str the string to search for, null returns false
-     * @return true if the builder ends with the string
-     */
-    public boolean endsWith(@Nullable String str) {
-        if (str == null) {
-            return false;
-        }
+    public boolean endsWith(String str) {
+        Asserts.notNull(str);
         final int len = str.length();
         if (len == 0) {
             return true;
@@ -1540,10 +1184,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Tests the capacity and ensures that it is at least the size specified.
+     * 确保容量不小于指定值
      *
-     * @param capacity the capacity to ensure
-     * @return this, to enable chaining
+     * @param capacity 容量指定值
+     * @return this
      */
     public TextStringBuilder ensureCapacity(int capacity) {
         // checks for overflow
@@ -1554,10 +1198,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Tests the contents of this builder against another to see if they contain the same character content.
-     *
-     * @param obj the object to check, null returns false
-     * @return true if the builders contain the same characters in the same order
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object obj) {
@@ -1565,10 +1206,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Tests the contents of this builder against another to see if they contain the same character content.
+     * 相等性测试
      *
-     * @param other the object to check, null returns false
-     * @return true if the builders contain the same characters in the same order
+     * @param other 右值
+     * @return 结果
      */
     public boolean equals(@Nullable TextStringBuilder other) {
         if (this == other) {
@@ -1593,11 +1234,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Tests the contents of this builder against another to see if they contain the same character content ignoring
-     * case.
+     * 相等性测试 (大小写不敏感)
      *
-     * @param other the object to check, null returns false
-     * @return true if the builders contain the same characters in the same order
+     * @param other 右值
+     * @return 结果
      */
     public boolean equalsIgnoreCase(@Nullable TextStringBuilder other) {
         if (this == other) {
@@ -1621,39 +1261,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
         return true;
     }
 
-    /**
-     * Gets a direct reference to internal storage, not for public consumption.
-     */
-    char[] getBuffer() {
-        return buffer;
-    }
-
-    /**
-     * Copies this character array into the specified array.
-     *
-     * @param target the target array, null will cause an array to be created
-     * @return The input array, unless that was null or too small
-     */
-    public char[] getChars(@Nullable char[] target) {
-        final int len = length();
-        if (target == null || target.length < len) {
-            target = new char[len];
-        }
-        System.arraycopy(buffer, 0, target, 0, len);
-        return target;
-    }
-
-    /**
-     * Copies this character array into the specified array.
-     *
-     * @param startIndex  first index to copy, inclusive, must be valid.
-     * @param endIndex    last index to copy, exclusive, must be valid.
-     * @param target      the target array, must not be null or too small.
-     * @param targetIndex the index to start copying in target.
-     * @throws NullPointerException      if the array is null.
-     * @throws IndexOutOfBoundsException if any index is invalid.
-     */
-    public void getChars(int startIndex, int endIndex, char[] target, int targetIndex) {
+    private void getChars(int startIndex, int endIndex, char[] target, int targetIndex) {
         if (startIndex < 0) {
             throw new StringIndexOutOfBoundsException(startIndex);
         }
@@ -1667,9 +1275,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Gets the text to be appended when a new line is added.
+     * 获取空行文本
      *
-     * @return The new line text, null means use system default
+     * @return 结果
      */
     @Nullable
     public String getNewLineText() {
@@ -1677,9 +1285,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Gets the text to be appended when null is added.
+     * 获取空值文本
      *
-     * @return The null text, null means no append
+     * @return 结果
      */
     @Nullable
     public String getNullText() {
@@ -1687,9 +1295,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Gets a suitable hash code for this builder.
-     *
-     * @return a hash code
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -1697,21 +1303,21 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Searches the string builder to find the first reference to the specified char.
+     * 查找指定字符
      *
-     * @param ch the character to find
-     * @return The first index of the character, or -1 if not found
+     * @param ch 待查找的字符
+     * @return 第一次出现的位置，找不到时返回 -1
      */
     public int indexOf(char ch) {
         return indexOf(ch, 0);
     }
 
     /**
-     * Searches the string builder to find the first reference to the specified char.
+     * 查找指定字符
      *
-     * @param ch         the character to find
-     * @param startIndex the index to start at, invalid index rounded to edge
-     * @return The first index of the character, or -1 if not found
+     * @param ch         待查找的字符
+     * @param startIndex 查找起点
+     * @return 第一次出现的位置，找不到时返回 -1
      */
     public int indexOf(char ch, int startIndex) {
         startIndex = Math.max(0, startIndex);
@@ -1728,28 +1334,21 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Searches the string builder to find the first reference to the specified string.
-     * <p>
-     * Note that a null input string will return -1, whereas the JDK throws an exception.
-     * </p>
+     * 查找指定字符串
      *
-     * @param str the string to find, null returns -1
-     * @return The first index of the string, or -1 if not found
+     * @param str 待查找的字符
+     * @return 第一次出现的位置，找不到时返回 -1
      */
-    public int indexOf(String str) {
+    public int indexOf(@Nullable String str) {
         return indexOf(str, 0);
     }
 
     /**
-     * Searches the string builder to find the first reference to the specified string starting searching from the given
-     * index.
-     * <p>
-     * Note that a null input string will return -1, whereas the JDK throws an exception.
-     * </p>
+     * 查找指定字符
      *
-     * @param str        the string to find, null returns -1
-     * @param startIndex the index to start at, invalid index rounded to edge
-     * @return The first index of the string, or -1 if not found
+     * @param str        待查找的字符
+     * @param startIndex 查找起点
+     * @return 第一次出现的位置，找不到时返回 -1
      */
     public int indexOf(@Nullable String str, int startIndex) {
         startIndex = Math.max(0, startIndex);
@@ -1781,29 +1380,21 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Searches the string builder using the matcher to find the first match.
-     * <p>
-     * Matchers can be used to perform advanced searching behavior. For example you could write a matcher to find the
-     * character 'a' followed by a number.
-     * </p>
+     * 查找指定字符串
      *
-     * @param matcher the matcher to use, null returns -1
-     * @return The first index matched, or -1 if not found
+     * @param matcher 待查找的字符匹配器
+     * @return 第一次出现的位置，找不到时返回 -1
      */
-    public int indexOf(StringMatcher matcher) {
+    public int indexOf(@Nullable StringMatcher matcher) {
         return indexOf(matcher, 0);
     }
 
     /**
-     * Searches the string builder using the matcher to find the first match searching from the given index.
-     * <p>
-     * Matchers can be used to perform advanced searching behavior. For example you could write a matcher to find the
-     * character 'a' followed by a number.
-     * </p>
+     * 查找指定字符串
      *
-     * @param matcher    the matcher to use, null returns -1
-     * @param startIndex the index to start at, invalid index rounded to edge
-     * @return The first index matched, or -1 if not found
+     * @param matcher    待查找的字符匹配器
+     * @param startIndex 查找起点
+     * @return 第一次出现的位置，找不到时返回 -1
      */
     public int indexOf(@Nullable StringMatcher matcher, int startIndex) {
         startIndex = Math.max(0, startIndex);
@@ -1821,12 +1412,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Inserts the value into this builder.
+     * 插入值
      *
-     * @param index the index to add at, must be valid
-     * @param value the value to insert
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param index 插入位置
+     * @param value 值
+     * @return this
      */
     public TextStringBuilder insert(int index, boolean value) {
         validateIndex(index);
@@ -1843,12 +1433,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Inserts the value into this builder.
+     * 插入值
      *
-     * @param index the index to add at, must be valid
-     * @param value the value to insert
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param index 插入位置
+     * @param value 值
+     * @return this
      */
     public TextStringBuilder insert(int index, char value) {
         validateIndex(index);
@@ -1860,12 +1449,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Inserts the character array into this builder. Inserting null will use the stored null text value.
+     * 插入值
      *
-     * @param index the index to add at, must be valid
-     * @param chars the char array to insert
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param index 插入位置
+     * @param chars 值
+     * @return this
      */
     public TextStringBuilder insert(int index, @Nullable char[] chars) {
         validateIndex(index);
@@ -1883,14 +1471,13 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Inserts part of the character array into this builder. Inserting null will use the stored null text value.
+     * 插入值
      *
-     * @param index  the index to add at, must be valid
-     * @param chars  the char array to insert
-     * @param offset the offset into the character array to start at, must be valid
-     * @param length the length of the character array part to copy, must be positive
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if any index is invalid
+     * @param index  插入位置
+     * @param chars  值
+     * @param offset 偏移量
+     * @param length 长度
+     * @return this
      */
     public TextStringBuilder insert(int index, @Nullable char[] chars, int offset, int length) {
         validateIndex(index);
@@ -1913,61 +1500,55 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Inserts the value into this builder.
+     * 插入值
      *
-     * @param index the index to add at, must be valid
-     * @param value the value to insert
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param index 插入位置
+     * @param value 值
+     * @return this
      */
     public TextStringBuilder insert(int index, double value) {
         return insert(index, String.valueOf(value));
     }
 
     /**
-     * Inserts the value into this builder.
+     * 插入值
      *
-     * @param index the index to add at, must be valid
-     * @param value the value to insert
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param index 插入位置
+     * @param value 值
+     * @return this
      */
     public TextStringBuilder insert(int index, float value) {
         return insert(index, String.valueOf(value));
     }
 
     /**
-     * Inserts the value into this builder.
+     * 插入值
      *
-     * @param index the index to add at, must be valid
-     * @param value the value to insert
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param index 插入位置
+     * @param value 值
+     * @return this
      */
     public TextStringBuilder insert(int index, int value) {
         return insert(index, String.valueOf(value));
     }
 
     /**
-     * Inserts the value into this builder.
+     * 插入值
      *
-     * @param index the index to add at, must be valid
-     * @param value the value to insert
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param index 插入位置
+     * @param value 值
+     * @return this
      */
     public TextStringBuilder insert(int index, long value) {
         return insert(index, String.valueOf(value));
     }
 
     /**
-     * Inserts the string representation of an object into this builder. Inserting null will use the stored null text
-     * value.
+     * 插入值
      *
-     * @param index the index to add at, must be valid
-     * @param obj   the object to insert
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param index 插入位置
+     * @param obj   值
+     * @return this
      */
     public TextStringBuilder insert(int index, @Nullable Object obj) {
         if (obj == null) {
@@ -1977,12 +1558,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Inserts the string into this builder. Inserting null will use the stored null text value.
+     * 插入值
      *
-     * @param index the index to add at, must be valid
-     * @param str   the string to insert
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param index 插入位置
+     * @param str   值
+     * @return this
      */
     public TextStringBuilder insert(int index, @Nullable String str) {
         validateIndex(index);
@@ -2003,55 +1583,39 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Checks is the string builder is empty (convenience Collections API style method).
-     * <p>
-     * This method is the same as checking {@link #length()} and is provided to match the API of Collections.
-     * </p>
+     * 判断本创建器是否为空
      *
-     * @return {@code true} if the size is {@code 0}.
+     * @return 结果
      */
     public boolean isEmpty() {
         return size == 0;
     }
 
     /**
-     * Checks is the string builder is not empty.
-     * <p>
-     * This method is the same as checking {@link #length()}.
-     * </p>
+     * 判断本创建器是否不为空
      *
-     * @return {@code true} if the size is not {@code 0}.
+     * @return 结果
      */
     public boolean isNotEmpty() {
         return size != 0;
     }
 
     /**
-     * Gets whether the internal buffer has been reallocated.
+     * 反向查找
      *
-     * @return Whether the internal buffer has been reallocated.
-     * @since 1.9
-     */
-    public boolean isReallocated() {
-        return reallocations > 0;
-    }
-
-    /**
-     * Searches the string builder to find the last reference to the specified char.
-     *
-     * @param ch the character to find
-     * @return The last index of the character, or -1 if not found
+     * @param ch 待查找的东西
+     * @return 索引或-1
      */
     public int lastIndexOf(char ch) {
         return lastIndexOf(ch, size - 1);
     }
 
     /**
-     * Searches the string builder to find the last reference to the specified char.
+     * 反向查找
      *
-     * @param ch         the character to find
-     * @param startIndex the index to start at, invalid index rounded to edge
-     * @return The last index of the character, or -1 if not found
+     * @param ch         待查找的东西
+     * @param startIndex 查找起点
+     * @return 索引或-1
      */
     public int lastIndexOf(char ch, int startIndex) {
         startIndex = startIndex >= size ? size - 1 : startIndex;
@@ -2067,28 +1631,21 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Searches the string builder to find the last reference to the specified string.
-     * <p>
-     * Note that a null input string will return -1, whereas the JDK throws an exception.
-     * </p>
+     * 反向查找
      *
-     * @param str the string to find, null returns -1
-     * @return The last index of the string, or -1 if not found
+     * @param str 待查找的东西
+     * @return 索引或-1
      */
-    public int lastIndexOf(String str) {
+    public int lastIndexOf(@Nullable String str) {
         return lastIndexOf(str, size - 1);
     }
 
     /**
-     * Searches the string builder to find the last reference to the specified string starting searching from the given
-     * index.
-     * <p>
-     * Note that a null input string will return -1, whereas the JDK throws an exception.
-     * </p>
+     * 反向查找
      *
-     * @param str        the string to find, null returns -1
-     * @param startIndex the index to start at, invalid index rounded to edge
-     * @return The last index of the string, or -1 if not found
+     * @param str        待查找的东西
+     * @param startIndex 查找起点
+     * @return 索引或-1
      */
     public int lastIndexOf(@Nullable String str, int startIndex) {
         startIndex = startIndex >= size ? size - 1 : startIndex;
@@ -2118,33 +1675,26 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Searches the string builder using the matcher to find the last match.
-     * <p>
-     * Matchers can be used to perform advanced searching behavior. For example you could write a matcher to find the
-     * character 'a' followed by a number.
-     * </p>
+     * 反向查找
      *
-     * @param matcher the matcher to use, null returns -1
-     * @return The last index matched, or -1 if not found
+     * @param matcher 待查找的东西
+     * @return 索引或-1
      */
-    public int lastIndexOf(@Nullable StringMatcher matcher) {
+    public int lastIndexOf(StringMatcher matcher) {
         return lastIndexOf(matcher, size);
     }
 
     /**
-     * Searches the string builder using the matcher to find the last match searching from the given index.
-     * <p>
-     * Matchers can be used to perform advanced searching behavior. For example you could write a matcher to find the
-     * character 'a' followed by a number.
-     * </p>
+     * 反向查找
      *
-     * @param matcher    the matcher to use, null returns -1
-     * @param startIndex the index to start at, invalid index rounded to edge
-     * @return The last index matched, or -1 if not found
+     * @param matcher    待查找的东西
+     * @param startIndex 查找起点
+     * @return 索引或-1
      */
-    public int lastIndexOf(@Nullable StringMatcher matcher, int startIndex) {
+    public int lastIndexOf(StringMatcher matcher, int startIndex) {
+        Asserts.notNull(matcher);
         startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (matcher == null || startIndex < 0) {
+        if (startIndex < 0) {
             return -1;
         }
         final char[] buf = buffer;
@@ -2158,29 +1708,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Extracts the leftmost characters from the string builder without throwing an exception.
-     * <p>
-     * This method extracts the left {@code length} characters from the builder. If this many characters are not
-     * available, the whole builder is returned. Thus the returned string may be shorter than the length requested.
-     * </p>
+     * 获取字符串长度
      *
-     * @param length the number of characters to extract, negative returns empty string
-     * @return The new string
-     */
-    public String leftString(int length) {
-        if (length <= 0) {
-            return StringPool.EMPTY;
-        }
-        if (length >= size) {
-            return new String(buffer, 0, size);
-        }
-        return new String(buffer, 0, length);
-    }
-
-    /**
-     * Gets the length of the string builder.
-     *
-     * @return The length
+     * @return 长度
      */
     @Override
     public int length() {
@@ -2188,35 +1718,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Extracts some characters from the middle of the string builder without throwing an exception.
-     * <p>
-     * This method extracts {@code length} characters from the builder at the specified index. If the index is negative
-     * it is treated as zero. If the index is greater than the builder size, it is treated as the builder size. If the
-     * length is negative, the empty string is returned. If insufficient characters are available in the builder, as
-     * much as possible is returned. Thus the returned string may be shorter than the length requested.
-     * </p>
+     * 最小化容量
      *
-     * @param index  the index to start at, negative means zero
-     * @param length the number of characters to extract, negative returns empty string
-     * @return The new string
-     */
-    public String midString(int index, int length) {
-        if (index < 0) {
-            index = 0;
-        }
-        if (length <= 0 || index >= size) {
-            return StringPool.EMPTY;
-        }
-        if (size <= index + length) {
-            return new String(buffer, index, size - index);
-        }
-        return new String(buffer, index, length);
-    }
-
-    /**
-     * Minimizes the capacity to the actual length of the string.
-     *
-     * @return this, to enable chaining
+     * @return this
      */
     public TextStringBuilder minimizeCapacity() {
         if (buffer.length > size) {
@@ -2225,118 +1729,12 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
         return this;
     }
 
-    /**
-     * If possible, reads chars from the provided {@link CharBuffer} directly into underlying character buffer without
-     * making extra copies.
-     *
-     * @param charBuffer CharBuffer to read.
-     * @return The number of characters read.
-     * @see #appendTo(Appendable)
-     * @since 1.9
-     */
-    public int readFrom(CharBuffer charBuffer) {
-        final int oldSize = size;
-        final int remaining = charBuffer.remaining();
-        ensureCapacity(size + remaining);
-        charBuffer.get(buffer, size, remaining);
-        size += remaining;
-        return size - oldSize;
-    }
-
-    /**
-     * If possible, reads all chars from the provided {@link Readable} directly into underlying character buffer without
-     * making extra copies.
-     *
-     * @param readable object to read from
-     * @return The number of characters read
-     * @throws IOException if an I/O error occurs.
-     * @see #appendTo(Appendable)
-     */
-    public int readFrom(Readable readable) throws IOException {
-        if (readable instanceof Reader) {
-            return readFrom((Reader) readable);
-        }
-        if (readable instanceof CharBuffer) {
-            return readFrom((CharBuffer) readable);
-        }
-        final int oldSize = size;
-        while (true) {
-            ensureCapacity(size + 1);
-            final CharBuffer buf = CharBuffer.wrap(buffer, size, buffer.length - size);
-            final int read = readable.read(buf);
-            if (read == EOS) {
-                break;
-            }
-            size += read;
-        }
-        return size - oldSize;
-    }
-
-    /**
-     * If possible, reads all chars from the provided {@link Reader} directly into underlying character buffer without
-     * making extra copies.
-     *
-     * @param reader Reader to read.
-     * @return The number of characters read or -1 if we reached the end of stream.
-     * @throws IOException if an I/O error occurs.
-     * @see #appendTo(Appendable)
-     * @since 1.9
-     */
-    public int readFrom(Reader reader) throws IOException {
-        int oldSize = size;
-        ensureCapacity(size + 1);
-        int readCount = reader.read(buffer, size, buffer.length - size);
-        if (readCount == EOS) {
-            return EOS;
-        }
-        do {
-            size += readCount;
-            ensureCapacity(size + 1);
-            readCount = reader.read(buffer, size, buffer.length - size);
-        } while (readCount != EOS);
-        return size - oldSize;
-    }
-
-    /**
-     * If possible, reads {@code count} chars from the provided {@link Reader} directly into underlying character buffer
-     * without making extra copies.
-     *
-     * @param reader Reader to read.
-     * @param count  The maximum characters to read, a value &lt;= 0 returns 0.
-     * @return The number of characters read. If less than {@code count}, then we've reached the end-of-stream, or -1 if
-     * we reached the end of stream.
-     * @throws IOException if an I/O error occurs.
-     * @see #appendTo(Appendable)
-     * @since 1.9
-     */
-    public int readFrom(Reader reader, int count) throws IOException {
-        if (count <= 0) {
-            return 0;
-        }
-        final int oldSize = size;
-        ensureCapacity(size + count);
-        int target = count;
-        int readCount = reader.read(buffer, size, target);
-        if (readCount == EOS) {
-            return EOS;
-        }
-        do {
-            target -= readCount;
-            size += readCount;
-            readCount = reader.read(buffer, size, target);
-        } while (target > 0 && readCount != EOS);
-        return size - oldSize;
-    }
-
-    /**
-     * Reallocates the buffer to the new length.
-     *
-     * @param newLength the length of the copy to be returned
-     */
     private void reallocate(int newLength) {
         this.buffer = Arrays.copyOf(buffer, newLength);
         this.reallocations++;
     }
+
+    // TODO:
 
     /**
      * Replaces a portion of the string builder with another string. The length of the inserted string does not have to
@@ -2826,27 +2224,13 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
         return this;
     }
 
-    /**
-     * Validates that an index is in the range {@code 0 <= index <= size}.
-     *
-     * @param index the index to test.
-     * @throws IndexOutOfBoundsException Thrown when the index is not the range {@code 0 <= index <= size}.
-     */
-    protected void validateIndex(int index) {
+    private void validateIndex(int index) {
         if (index < 0 || index >= size) {
             throw new StringIndexOutOfBoundsException(index);
         }
     }
 
-    /**
-     * Validates parameters defining a range of the builder.
-     *
-     * @param startIndex the start index, inclusive, must be valid
-     * @param endIndex   the end index, exclusive, must be valid except that if too large it is treated as end of string
-     * @return A valid end index.
-     * @throws StringIndexOutOfBoundsException if the index is invalid
-     */
-    protected int validateRange(int startIndex, int endIndex) {
+    private int validateRange(int startIndex, int endIndex) {
         if (startIndex < 0) {
             throw new StringIndexOutOfBoundsException(startIndex);
         }
@@ -2857,6 +2241,27 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
             throw new StringIndexOutOfBoundsException("end < start");
         }
         return endIndex;
+    }
+
+    private void appendTrue(int index) {
+        buffer[index++] = 't';
+        buffer[index++] = 'r';
+        buffer[index++] = 'u';
+        buffer[index] = 'e';
+        size += TRUE_STRING_SIZE;
+    }
+
+    private void appendFalse(int index) {
+        buffer[index++] = 'f';
+        buffer[index++] = 'a';
+        buffer[index++] = 'l';
+        buffer[index++] = 's';
+        buffer[index] = 'e';
+        size += FALSE_STRING_SIZE;
+    }
+
+    private char[] getBuffer() {
+        return this.buffer;
     }
 
 }
