@@ -35,6 +35,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     private class TextStringBuilderTokenizer extends StringTokenizer {
 
         private TextStringBuilderTokenizer() {
+            super();
         }
 
         @Override
@@ -1734,17 +1735,13 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
         this.reallocations++;
     }
 
-    // TODO:
-
     /**
-     * Replaces a portion of the string builder with another string. The length of the inserted string does not have to
-     * match the removed length.
+     * 替换字符串
      *
-     * @param startIndex the start index, inclusive, must be valid
-     * @param endIndex   the end index, exclusive, must be valid except that if too large it is treated as end of string
-     * @param replaceStr the string to replace with, null means delete range
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param startIndex 替换开始位置 (包含)
+     * @param endIndex   替换结束位置 (不包含)
+     * @param replaceStr 替换字符串
+     * @return this
      */
     public TextStringBuilder replace(int startIndex, int endIndex, String replaceStr) {
         endIndex = validateRange(startIndex, endIndex);
@@ -1754,19 +1751,14 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Advanced search and replaces within the builder using a matcher.
-     * <p>
-     * Matchers can be used to perform advanced behavior. For example you could write a matcher to delete all
-     * occurrences where the character 'a' is followed by a number.
-     * </p>
+     * 替换字符串 (高级)
      *
-     * @param matcher      the matcher to use to find the deletion, null causes no action
-     * @param replaceStr   the string to replace the match with, null is a delete
-     * @param startIndex   the start index, inclusive, must be valid
-     * @param endIndex     the end index, exclusive, must be valid except that if too large it is treated as end of string
-     * @param replaceCount the number of times to replace, -1 for replace all
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if start index is invalid
+     * @param matcher      需要替换的部分字符串匹配器
+     * @param replaceStr   要替换的字符串
+     * @param startIndex   要替换的字符串开始位置 (包含)
+     * @param endIndex     要替换的字符串结束位置 (不包含)
+     * @param replaceCount 查找并替换的次数, -1 为不限次数
+     * @return this
      */
     public TextStringBuilder replace(StringMatcher matcher, String replaceStr, int startIndex,
                                      int endIndex, int replaceCount) {
@@ -1775,11 +1767,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Replaces the search character with the replace character throughout the builder.
+     * 替换所有的指定字符
      *
-     * @param search  the search character
-     * @param replace the replace character
-     * @return this, to enable chaining
+     * @param search  查找字符
+     * @param replace 替换字符
+     * @return this
      */
     public TextStringBuilder replaceAll(char search, char replace) {
         if (search != replace) {
@@ -1793,11 +1785,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Replaces the search string with the replace string throughout the builder.
+     * 替换所有的指定字符串
      *
-     * @param searchStr  the search string, null causes no action to occur
-     * @param replaceStr the replace string, null is equivalent to an empty string
-     * @return this, to enable chaining
+     * @param searchStr  查找字符串
+     * @param replaceStr 替换字符串
+     * @return this
      */
     public TextStringBuilder replaceAll(@Nullable String searchStr, String replaceStr) {
         int searchLen = searchStr == null ? 0 : searchStr.length();
@@ -1813,26 +1805,22 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Replaces all matches within the builder with the replace string.
-     * <p>
-     * Matchers can be used to perform advanced replace behavior. For example you could write a matcher to replace all
-     * occurrences where the character 'a' is followed by a number.
-     * </p>
+     * 替换所有的指定字符串
      *
-     * @param matcher    the matcher to use to find the deletion, null causes no action
-     * @param replaceStr the replace string, null is equivalent to an empty string
-     * @return this, to enable chaining
+     * @param matcher    查找字符串匹配器
+     * @param replaceStr 替换字符串
+     * @return this
      */
     public TextStringBuilder replaceAll(StringMatcher matcher, String replaceStr) {
         return replace(matcher, replaceStr, 0, size, -1);
     }
 
     /**
-     * Replaces the first instance of the search character with the replace character in the builder.
+     * 替换首个指定字符
      *
-     * @param search  the search character
-     * @param replace the replace character
-     * @return this, to enable chaining
+     * @param search  查找字符
+     * @param replace 替换字符
+     * @return this
      */
     public TextStringBuilder replaceFirst(char search, char replace) {
         if (search != replace) {
@@ -1847,11 +1835,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Replaces the first instance of the search string with the replace string.
+     * 替换首个指定字符串
      *
-     * @param searchStr  the search string, null causes no action to occur
-     * @param replaceStr the replace string, null is equivalent to an empty string
-     * @return this, to enable chaining
+     * @param searchStr  查找字符
+     * @param replaceStr 替换字符
+     * @return this
      */
     public TextStringBuilder replaceFirst(String searchStr, String replaceStr) {
         final int searchLen = CharSequenceUtils.length(searchStr);
@@ -1866,30 +1854,17 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Replaces the first match within the builder with the replace string.
-     * <p>
-     * Matchers can be used to perform advanced replace behavior. For example you could write a matcher to replace where
-     * the character 'a' is followed by a number.
-     * </p>
+     * 替换首个指定字符串
      *
-     * @param matcher    the matcher to use to find the deletion, null causes no action
-     * @param replaceStr the replace string, null is equivalent to an empty string
-     * @return this, to enable chaining
+     * @param matcher    查找字符匹配器
+     * @param replaceStr 替换字符
+     * @return this
      */
     public TextStringBuilder replaceFirst(StringMatcher matcher, String replaceStr) {
+        Asserts.notNull(matcher);
         return replace(matcher, replaceStr, 0, size, 1);
     }
 
-    /**
-     * Internal method to delete a range without validation.
-     *
-     * @param startIndex the start index, must be valid
-     * @param endIndex   the end index (exclusive), must be valid
-     * @param removeLen  the length to remove (endIndex - startIndex), must be valid
-     * @param insertStr  the string to replace with, null means delete range
-     * @param insertLen  the length of the insert string, must be valid
-     * @throws IndexOutOfBoundsException if any index is invalid
-     */
     private void replaceImpl(int startIndex, int endIndex, int removeLen, String insertStr,
                              int insertLen) {
         int newSize = size - removeLen + insertLen;
@@ -1903,21 +1878,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
         }
     }
 
-    /**
-     * Replaces within the builder using a matcher.
-     * <p>
-     * Matchers can be used to perform advanced behavior. For example you could write a matcher to delete all
-     * occurrences where the character 'a' is followed by a number.
-     * </p>
-     *
-     * @param matcher      the matcher to use to find the deletion, null causes no action
-     * @param replaceStr   the string to replace the match with, null is a delete
-     * @param from         the start index, must be valid
-     * @param to           the end index (exclusive), must be valid
-     * @param replaceCount the number of times to replace, -1 for replace all
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if any index is invalid
-     */
     private TextStringBuilder replaceImpl(@Nullable StringMatcher matcher, String replaceStr, int from, int to,
                                           int replaceCount) {
         if (matcher == null || size == 0) {
@@ -1940,9 +1900,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Reverses the string builder placing each character in the opposite index.
+     * 反向
      *
-     * @return this, to enable chaining
+     * @return this
      */
     public TextStringBuilder reverse() {
         if (size == 0) {
@@ -1960,33 +1920,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Extracts the rightmost characters from the string builder without throwing an exception.
-     * <p>
-     * This method extracts the right {@code length} characters from the builder. If this many characters are not
-     * available, the whole builder is returned. Thus the returned string may be shorter than the length requested.
-     * </p>
+     * 重置字符串
      *
-     * @param length the number of characters to extract, negative returns empty string
-     * @return The new string
-     */
-    public String rightString(int length) {
-        if (length <= 0) {
-            return StringPool.EMPTY;
-        }
-        if (length >= size) {
-            return new String(buffer, 0, size);
-        }
-        return new String(buffer, size - length, length);
-    }
-
-    /**
-     * Clears and sets this builder to the given value.
-     *
-     * @param str the new value.
-     * @return this, to enable chaining
-     * @see #charAt(int)
-     * @see #deleteCharAt(int)
-     * @since 1.9
+     * @param str 要重置的字符串
+     * @return this
      */
     public TextStringBuilder set(CharSequence str) {
         clear();
@@ -1995,14 +1932,11 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Sets the character at the specified index.
+     * 设置指定位置上的字符
      *
-     * @param index the index to set
-     * @param ch    the new character
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
-     * @see #charAt(int)
-     * @see #deleteCharAt(int)
+     * @param index 位置
+     * @param ch    要设置的字符
+     * @return this
      */
     public TextStringBuilder setCharAt(int index, char ch) {
         validateIndex(index);
@@ -2011,43 +1945,21 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Updates the length of the builder by either dropping the last characters or adding filler of Unicode zero.
+     * 设置新行字符串
      *
-     * @param length the length to set to, must be zero or positive
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the length is negative
+     * @param newLine 新行字符串
+     * @return this
      */
-    public TextStringBuilder setLength(int length) {
-        if (length < 0) {
-            throw new StringIndexOutOfBoundsException(length);
-        }
-        if (length < size) {
-            size = length;
-        } else if (length > size) {
-            ensureCapacity(length);
-            final int oldEnd = size;
-            size = length;
-            Arrays.fill(buffer, oldEnd, length, '\0');
-        }
-        return this;
-    }
-
-    /**
-     * Sets the text to be appended when a new line is added.
-     *
-     * @param newLine the new line text, null means use system default
-     * @return this, to enable chaining
-     */
-    public TextStringBuilder setNewLineText(String newLine) {
+    public TextStringBuilder setNewLineText(@Nullable String newLine) {
         this.newLine = newLine;
         return this;
     }
 
     /**
-     * Sets the text to be appended when null is added.
+     * 设置空值字符串
      *
-     * @param nullText the null text, null means no append
-     * @return this, to enable chaining
+     * @param nullText 空值字符串
+     * @return this
      */
     public TextStringBuilder setNullText(@Nullable String nullText) {
         if (nullText != null && nullText.isEmpty()) {
@@ -2058,30 +1970,22 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Gets the length of the string builder.
-     * <p>
-     * This method is the same as {@link #length()} and is provided to match the API of Collections.
-     * </p>
+     * 获取长度
      *
-     * @return The length
+     * @return 长度
      */
     public int size() {
         return size;
     }
 
     /**
-     * Checks whether this builder starts with the specified string.
-     * <p>
-     * Note that this method handles null input quietly, unlike String.
-     * </p>
+     * 判断是否为指定的字符串开始
      *
-     * @param str the string to search for, null returns false
-     * @return true if the builder starts with the string
+     * @param str 待测试的前缀
+     * @return 结果
      */
-    public boolean startsWith(@Nullable String str) {
-        if (str == null) {
-            return false;
-        }
+    public boolean startsWith(String str) {
+        Asserts.notNull(str);
         final int len = str.length();
         if (len == 0) {
             return true;
@@ -2095,6 +1999,28 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
             }
         }
         return true;
+    }
+
+    /**
+     * 取子串
+     *
+     * @param start 开始位置
+     * @return 结果
+     */
+    public String substring(int start) {
+        return substring(start, size);
+    }
+
+    /**
+     * 取子串
+     *
+     * @param startIndex 开始位置 (包含)
+     * @param endIndex   结束位置 (不包含)
+     * @return 结果
+     */
+    public String substring(int startIndex, int endIndex) {
+        endIndex = validateRange(startIndex, endIndex);
+        return new String(buffer, startIndex, endIndex - startIndex);
     }
 
     /**
@@ -2115,50 +2041,20 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Extracts a portion of this string builder as a string.
+     * 转换成 char[]
      *
-     * @param start the start index, inclusive, must be valid
-     * @return The new string
-     * @throws IndexOutOfBoundsException if the index is invalid
-     */
-    public String substring(int start) {
-        return substring(start, size);
-    }
-
-    /**
-     * Extracts a portion of this string builder as a string.
-     * <p>
-     * Note: This method treats an endIndex greater than the length of the builder as equal to the length of the
-     * builder, and continues without error, unlike StringBuffer or String.
-     * </p>
-     *
-     * @param startIndex the start index, inclusive, must be valid
-     * @param endIndex   the end index, exclusive, must be valid except that if too large it is treated as end of string
-     * @return The new string
-     * @throws IndexOutOfBoundsException if the index is invalid
-     */
-    public String substring(int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        return new String(buffer, startIndex, endIndex - startIndex);
-    }
-
-    /**
-     * Copies the builder's character array into a new character array.
-     *
-     * @return a new array that represents the contents of the builder
+     * @return 结果
      */
     public char[] toCharArray() {
         return size == 0 ? new char[0] : Arrays.copyOf(buffer, size);
     }
 
     /**
-     * Copies part of the builder's character array into a new character array.
+     * 转换成 char[]
      *
-     * @param startIndex the start index, inclusive, must be valid
-     * @param endIndex   the end index, exclusive, must be valid except that if too large it is treated as end of string
-     * @return a new array that holds part of the contents of the builder
-     * @throws IndexOutOfBoundsException if startIndex is invalid, or if endIndex is invalid (but endIndex greater than
-     *                                   size is valid)
+     * @param startIndex 开始位置 (包含)
+     * @param endIndex   结束位置 (不包含)
+     * @return 结果
      */
     public char[] toCharArray(int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
@@ -2167,12 +2063,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Gets a String version of the string builder, creating a new instance each time the method is called.
-     * <p>
-     * Note that unlike StringBuffer, the string version returned is independent of the string builder.
-     * </p>
-     *
-     * @return The builder as a String
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
@@ -2180,27 +2071,27 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * Gets a StringBuffer version of the string builder, creating a new instance each time the method is called.
+     * 转换为 {@link StringBuffer}
      *
-     * @return The builder as a StringBuffer
+     * @return 结果
      */
     public StringBuffer toStringBuffer() {
         return new StringBuffer(size).append(buffer, 0, size);
     }
 
     /**
-     * Gets a StringBuilder version of the string builder, creating a new instance each time the method is called.
+     * 转换为 {@link StringBuilder}
      *
-     * @return The builder as a StringBuilder
+     * @return 结果
      */
     public StringBuilder toStringBuilder() {
         return new StringBuilder(size).append(buffer, 0, size);
     }
 
     /**
-     * Trims the builder by removing characters less than or equal to a space from the beginning and end.
+     * 消除两端的空白字符
      *
-     * @return this, to enable chaining
+     * @return this
      */
     public TextStringBuilder trim() {
         if (size == 0) {

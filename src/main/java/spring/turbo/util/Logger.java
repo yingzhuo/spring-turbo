@@ -64,24 +64,15 @@ public final class Logger implements Serializable {
     }
 
     private boolean checkEnabled() {
-        switch (level) {
-            case STDOUT:
-            case STDERR:
-                return true;
-            case TRACE:
-                return log != null && log.isTraceEnabled();
-            case DEBUG:
-                return log != null && log.isDebugEnabled();
-            case INFO:
-                return log != null && log.isInfoEnabled();
-            case WARN:
-                return log != null && log.isWarnEnabled();
-            case ERROR:
-                return log != null && log.isErrorEnabled();
-            case OFF:
-            default:
-                return false;
-        }
+        return switch (level) {
+            case STDOUT, STDERR -> true;
+            case TRACE -> log != null && log.isTraceEnabled();
+            case DEBUG -> log != null && log.isDebugEnabled();
+            case INFO -> log != null && log.isInfoEnabled();
+            case WARN -> log != null && log.isWarnEnabled();
+            case ERROR -> log != null && log.isErrorEnabled();
+            default -> false;
+        };
     }
 
     public void log(String format, Object... args) {
