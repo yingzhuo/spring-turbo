@@ -8,63 +8,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import spring.turbo.lang.Singleton;
+import org.springframework.lang.Nullable;
+import spring.turbo.util.PredefinedStringMatchers.*;
+
+import static spring.turbo.util.CharPool.*;
 
 /**
  * @author 应卓
  * @since 2.0.2
  */
-@Singleton
 public final class StringMatcherFactories {
-
-    public static StringMatcherFactories getInstance() {
-        return SyncAvoid.INSTANCE;
-    }
-
-    /**
-     * Matches the comma character.
-     */
-    private static final PredefinedStringMatchers.Char COMMA_MATCHER = new PredefinedStringMatchers.Char(',');
-
-    /**
-     * Matches the double quote character.
-     */
-    private static final PredefinedStringMatchers.Char DOUBLE_QUOTE_MATCHER = new PredefinedStringMatchers.Char(
-            '"');
-    /**
-     * Matches no characters.
-     */
-    private static final PredefinedStringMatchers.None NONE_MATCHER = new PredefinedStringMatchers.None();
-
-    /**
-     * Matches the single or double quote character.
-     */
-    private static final PredefinedStringMatchers.CharSet QUOTE_MATCHER = new PredefinedStringMatchers.CharSet(
-            "'\"".toCharArray());
-    /**
-     * Matches the double quote character.
-     */
-    private static final PredefinedStringMatchers.Char SINGLE_QUOTE_MATCHER = new PredefinedStringMatchers.Char(
-            '\'');
-    /**
-     * Matches the space character.
-     */
-    private static final PredefinedStringMatchers.Char SPACE_MATCHER = new PredefinedStringMatchers.Char(' ');
-
-    /**
-     * Matches the same characters as StringTokenizer, namely space, tab, newline, form feed.
-     */
-    private static final PredefinedStringMatchers.CharSet SPLIT_MATCHER = new PredefinedStringMatchers.CharSet(
-            " \t\n\r\f".toCharArray());
-    /**
-     * Matches the tab character.
-     */
-    private static final PredefinedStringMatchers.Char TAB_MATCHER = new PredefinedStringMatchers.Char('\t');
-
-    /**
-     * Matches the String trim() whitespace characters.
-     */
-    private static final PredefinedStringMatchers.Trim TRIM_MATCHER = new PredefinedStringMatchers.Trim();
 
     /**
      * 私有构造方法
@@ -74,176 +27,179 @@ public final class StringMatcherFactories {
     }
 
     /**
-     * Creates a matcher that matches all of the given matchers in order.
+     * 链接多个 {@link StringMatcher}
      *
-     * @param stringMatchers the matcher
-     * @return a matcher that matches all of the given matchers in order.
-     * @since 1.9
+     * @param matchers 要连接的多个实例
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher andMatcher(final StringMatcher... stringMatchers) {
-        final int len = ArrayUtils.size(stringMatchers);
-        if (len == 0) {
-            return NONE_MATCHER;
+    public static StringMatcher andMatcher(@Nullable StringMatcher... matchers) {
+        if (matchers == null || matchers.length == 0) {
+            return new None();
         }
-        if (len == 1) {
-            return stringMatchers[0];
+        if (matchers.length == 1) {
+            return matchers[0];
+        } else {
+            return new And(matchers);
         }
-        return new PredefinedStringMatchers.And(stringMatchers);
     }
 
     /**
-     * Constructor that creates a matcher from a character.
+     * 返回任何字符都不匹配的匹配器
      *
-     * @param ch the character to match, must not be null
-     * @return a new Matcher for the given char
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher charMatcher(final char ch) {
-        return new PredefinedStringMatchers.Char(ch);
+    public static StringMatcher noneMatcher() {
+        return new None();
     }
 
     /**
-     * Constructor that creates a matcher from a set of characters.
+     * 返回指定单个字符的匹配器
      *
-     * @param chars the characters to match, null or empty matches nothing
-     * @return a new matcher for the given char[]
+     * @param ch 指定的字符
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher charSetMatcher(final char... chars) {
+    public static StringMatcher charMatcher(char ch) {
+        return new Char(ch);
+    }
+
+    /**
+     * 返回指定多个字符的匹配器
+     *
+     * @param chars 指定的多个字符
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher charSetMatcher(@Nullable char... chars) {
         final int len = chars != null ? chars.length : 0;
         if (len == 0) {
-            return NONE_MATCHER;
+            return new None();
         }
         if (len == 1) {
-            return new PredefinedStringMatchers.Char(chars[0]);
+            return new Char(chars[0]);
         }
-        return new PredefinedStringMatchers.CharSet(chars);
+        return new CharSet(chars);
     }
 
     /**
-     * Creates a matcher from a string representing a set of characters.
+     * 返回指定多个字符的匹配器
      *
-     * @param chars the characters to match, null or empty matches nothing
-     * @return a new Matcher for the given characters
+     * @param chars 指定的多个字符
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher charSetMatcher(final String chars) {
-        final int len = StringUtils.length(chars);
+    public static StringMatcher charSetMatcher(@Nullable String chars) {
+        if (chars == null) {
+            return new None();
+        }
+        final int len = chars.length();
         if (len == 0) {
-            return NONE_MATCHER;
+            return new None();
         }
         if (len == 1) {
-            return new PredefinedStringMatchers.Char(chars.charAt(0));
+            return new Char(chars.charAt(0));
         }
-        return new PredefinedStringMatchers.CharSet(chars.toCharArray());
+        return new CharSet(chars.toCharArray());
     }
 
     /**
-     * Returns a matcher which matches the comma character.
+     * 匹配逗号的匹配器
      *
-     * @return a matcher for a comma
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher commaMatcher() {
-        return COMMA_MATCHER;
+    public static StringMatcher commaMatcher() {
+        return new Char(COMMA);
     }
 
     /**
-     * Returns a matcher which matches the double quote character.
+     * 匹配单引号的匹配器
      *
-     * @return a matcher for a double quote
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher doubleQuoteMatcher() {
-        return DOUBLE_QUOTE_MATCHER;
+    public static StringMatcher singleQuoteMatcher() {
+        return new Char(SINGLE_QUOTE);
     }
 
     /**
-     * Matches no characters.
+     * 匹配双引号的匹配器
      *
-     * @return a matcher that matches nothing
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher noneMatcher() {
-        return NONE_MATCHER;
+    public static StringMatcher doubleQuoteMatcher() {
+        return new Char(DOUBLE_QUOTE);
     }
 
     /**
-     * Returns a matcher which matches the single or double quote character.
+     * 匹配单双引号的匹配器
      *
-     * @return a matcher for a single or double quote
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher quoteMatcher() {
-        return QUOTE_MATCHER;
+    public static StringMatcher quoteMatcher() {
+        return new CharSet("'\"".toCharArray());
     }
 
     /**
-     * Returns a matcher which matches the single quote character.
+     * 匹配单双引号的匹配器
      *
-     * @return a matcher for a single quote
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher singleQuoteMatcher() {
-        return SINGLE_QUOTE_MATCHER;
+    public static StringMatcher spaceMatcher() {
+        return new Char(SPACE);
     }
 
     /**
-     * Returns a matcher which matches the space character.
+     * 匹配制表符的匹配器
      *
-     * @return a matcher for a space
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher spaceMatcher() {
-        return SPACE_MATCHER;
+    public static StringMatcher tabMatcher() {
+        return new Char(TAB);
     }
 
     /**
-     * Matches the same characters as StringTokenizer, namely space, tab, newline and form feed.
+     * 匹配HYPHEN的匹配器
      *
-     * @return The split matcher
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher splitMatcher() {
-        return SPLIT_MATCHER;
+    public static StringMatcher HyphenMatcher() {
+        return new Char(HYPHEN);
     }
 
     /**
-     * Creates a matcher from a string.
+     * 匹配白字符的匹配器
      *
-     * @param chars the string to match, null or empty matches nothing
-     * @return a new Matcher for the given String
-     * @since 1.9
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher stringMatcher(final char... chars) {
-        final int length = chars != null ? chars.length : 0;
-        return length == 0 ? NONE_MATCHER
-                : length == 1 ? new PredefinedStringMatchers.Char(chars[0])
-                : new PredefinedStringMatchers.CharArray(chars);
+    public static StringMatcher whitespaceMatcher() {
+        return new Whitespace();
     }
 
     /**
-     * Creates a matcher from a string.
+     * 返回 {@link StringTokenizer} 默认风格的匹配器
      *
-     * @param str the string to match, null or empty matches nothing
-     * @return a new Matcher for the given String
+     * @return {@link StringMatcher} 实例
+     * @see StringTokenizer
      */
-    public StringMatcher stringMatcher(final String str) {
-        return StringUtils.isEmpty(str) ? NONE_MATCHER : stringMatcher(str.toCharArray());
+    public static StringMatcher splitMatcher() {
+        return new CharSet(" \t\n\r\f".toCharArray());
     }
 
     /**
-     * Returns a matcher which matches the tab character.
+     * 返回指定字符串的匹配器
      *
-     * @return a matcher for a tab
+     * @param string 字符串
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher tabMatcher() {
-        return TAB_MATCHER;
+    public static StringMatcher stringMatcher(@Nullable char... string) {
+        final int length = string != null ? string.length : 0;
+        return length == 0 ? new None() : length == 1 ? new Char(string[0]) : new CharArray(string);
     }
 
     /**
-     * Matches the String trim() whitespace characters.
+     * 返回指定字符串的匹配器
      *
-     * @return The trim matcher
+     * @param string 字符串
+     * @return {@link StringMatcher} 实例
      */
-    public StringMatcher trimMatcher() {
-        return TRIM_MATCHER;
-    }
-
-
-    // 延迟加载
-    private static final class SyncAvoid {
-        private static final StringMatcherFactories INSTANCE = new StringMatcherFactories();
+    public static StringMatcher stringMatcher(final String string) {
+        return StringUtils.isEmpty(string) ? new None() : stringMatcher(string.toCharArray());
     }
 
 }
