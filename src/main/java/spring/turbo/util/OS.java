@@ -73,14 +73,7 @@ public enum OS {
         return get() == OTHER;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * 延迟加载
-     *
-     * @author 应卓
-     * @since 1.0.0
-     */
+    // 延迟加载
     private static class SyncAvoid {
         private static final OS os;
 
