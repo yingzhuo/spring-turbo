@@ -15,7 +15,10 @@ import spring.turbo.lang.Immutable;
 import java.io.Serializable;
 
 /**
+ * {@link Logger} 的包装工具
+ *
  * @author 应卓
+ * @see org.slf4j.Logger
  * @see LogLevel
  * @since 1.0.0
  */
