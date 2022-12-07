@@ -33,34 +33,33 @@ public final class SetFactories {
     }
 
     @SafeVarargs
-    public static <T> Set<T> newUnmodifiableSet(@Nullable T... elements) {
-        if (elements == null) {
-            return Collections.emptySet();
-        }
+    public static <T> Set<T> newUnmodifiableSet(T... elements) {
+        Asserts.notNull(elements);
+        Asserts.noNullElements(elements);
         return Collections.unmodifiableSet(newHashSet(elements));
     }
 
     @SafeVarargs
-    public static <T> HashSet<T> newHashSet(@Nullable T... elements) {
-        final HashSet<T> set = new HashSet<>();
-        if (elements != null) {
-            Collections.addAll(set, elements);
-        }
+    public static <T> HashSet<T> newHashSet(T... elements) {
+        Asserts.notNull(elements);
+        Asserts.noNullElements(elements);
+        final var set = new HashSet<T>();
+        Collections.addAll(set, elements);
         return set;
     }
 
     @SafeVarargs
-    public static <T> LinkedHashSet<T> newLinkedHashSet(@Nullable T... elements) {
-        final LinkedHashSet<T> set = new LinkedHashSet<>();
-        if (elements != null) {
-            Collections.addAll(set, elements);
-        }
+    public static <T> LinkedHashSet<T> newLinkedHashSet(T... elements) {
+        Asserts.notNull(elements);
+        Asserts.noNullElements(elements);
+        final var set = new LinkedHashSet<T>();
+        Collections.addAll(set, elements);
         return set;
     }
 
     @SafeVarargs
     public static <T extends Comparable<T>> TreeSet<T> newTreeSet(@Nullable T... elements) {
-        final TreeSet<T> set = new TreeSet<>(Comparator.naturalOrder());
+        final var set = new TreeSet<T>(Comparator.naturalOrder());
         if (elements != null) {
             Collections.addAll(set, elements);
         }
@@ -68,32 +67,32 @@ public final class SetFactories {
     }
 
     @SafeVarargs
-    public static <T> TreeSet<T> newTreeSet(Comparator<T> comparator, @Nullable T... elements) {
+    public static <T> TreeSet<T> newTreeSet(Comparator<T> comparator, T... elements) {
         Asserts.notNull(comparator);
-        final TreeSet<T> set = new TreeSet<>(comparator);
-        if (elements != null) {
-            Collections.addAll(set, elements);
-        }
+        Asserts.notNull(elements);
+        Asserts.noNullElements(elements);
+        final var set = new TreeSet<T>(comparator);
+        Collections.addAll(set, elements);
         return set;
     }
 
     @SafeVarargs
     public static <T> HashSet<T> nullSafeNewHashSet(@Nullable T... elements) {
-        final HashSet<T> set = new HashSet<>();
+        final var set = new HashSet<T>();
         CollectionUtils.nullSafeAddAll(set, elements);
         return set;
     }
 
     @SafeVarargs
     public static <T> LinkedHashSet<T> nullSafeNewLinkedHashSet(@Nullable T... elements) {
-        final LinkedHashSet<T> set = new LinkedHashSet<>();
+        final var set = new LinkedHashSet<T>();
         CollectionUtils.nullSafeAddAll(set, elements);
         return set;
     }
 
     @SafeVarargs
     public static <T extends Comparable<T>> TreeSet<T> nullSafeNewTreeSet(@Nullable T... elements) {
-        final TreeSet<T> set = new TreeSet<>(Comparator.naturalOrder());
+        final var set = new TreeSet<T>(Comparator.naturalOrder());
         CollectionUtils.nullSafeAddAll(set, elements);
         return set;
     }
@@ -101,8 +100,7 @@ public final class SetFactories {
     @SafeVarargs
     public static <T> TreeSet<T> nullSafeNewTreeSet(Comparator<T> comparator, @Nullable T... elements) {
         Asserts.notNull(comparator);
-
-        final TreeSet<T> set = new TreeSet<>(comparator);
+        final var set = new TreeSet<T>(comparator);
         CollectionUtils.nullSafeAddAll(set, elements);
         return set;
     }

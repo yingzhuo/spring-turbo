@@ -11,7 +11,9 @@ package spring.turbo.util.collection;
 import org.springframework.lang.Nullable;
 import spring.turbo.lang.Mutable;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 应卓
@@ -75,6 +77,10 @@ public final class StringStringMap extends HashMap<String, String> {
             }
         }
         return this;
+    }
+
+    public Map<String, String> toUnmodifiable() {
+        return Collections.unmodifiableMap(this);
     }
 
 }

@@ -39,6 +39,7 @@ public final class StreamFactories {
     @SafeVarargs
     public static <T> Stream<T> newStream(T... elements) {
         Asserts.notNull(elements);
+        Asserts.noNullElements(elements);
         return Stream.of(elements);
     }
 
