@@ -14,6 +14,8 @@ import spring.turbo.util.PredefinedStringMatchers.*;
 import static spring.turbo.util.CharPool.*;
 
 /**
+ * {@link StringMatcher} 相关创建工具
+ *
  * @author 应卓
  * @since 2.0.2
  */
@@ -27,7 +29,7 @@ public final class StringMatcherFactories {
     }
 
     /**
-     * 链接多个 {@link StringMatcher}
+     * 连接多个 {@link StringMatcher}
      *
      * @param matchers 要连接的多个实例
      * @return {@link StringMatcher} 实例
@@ -100,7 +102,7 @@ public final class StringMatcherFactories {
     }
 
     /**
-     * 匹配逗号的匹配器
+     * 返回匹配逗号的匹配器
      *
      * @return {@link StringMatcher} 实例
      */
@@ -109,7 +111,7 @@ public final class StringMatcherFactories {
     }
 
     /**
-     * 匹配单引号的匹配器
+     * 返回匹配单引号的匹配器
      *
      * @return {@link StringMatcher} 实例
      */
@@ -118,7 +120,7 @@ public final class StringMatcherFactories {
     }
 
     /**
-     * 匹配双引号的匹配器
+     * 返回匹配双引号的匹配器
      *
      * @return {@link StringMatcher} 实例
      */
@@ -127,12 +129,12 @@ public final class StringMatcherFactories {
     }
 
     /**
-     * 匹配单双引号的匹配器
+     * 返回匹配单双引号的匹配器
      *
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher quoteMatcher() {
-        return new CharSet("'\"".toCharArray());
+        return new CharSet(new char[]{'\'', '"'});
     }
 
     /**
@@ -145,7 +147,7 @@ public final class StringMatcherFactories {
     }
 
     /**
-     * 匹配制表符的匹配器
+     * 返回匹配制表符的匹配器
      *
      * @return {@link StringMatcher} 实例
      */
@@ -154,21 +156,163 @@ public final class StringMatcherFactories {
     }
 
     /**
-     * 匹配HYPHEN的匹配器
+     * 返回匹配 {@code -} 的匹配器
      *
      * @return {@link StringMatcher} 实例
      */
-    public static StringMatcher HyphenMatcher() {
+    public static StringMatcher hyphenMatcher() {
         return new Char(HYPHEN);
     }
 
     /**
-     * 匹配白字符的匹配器
+     * 返回匹配 {@code /} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher slashMatcher() {
+        return new Char(SLASH);
+    }
+
+    /**
+     * 返回匹配 {@code _} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher underscoreMatcher() {
+        return new Char(UNDERSCORE);
+    }
+
+    /**
+     * 返回匹配 {@code @} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher atSignMatcher() {
+        return new Char(AT_SIGN);
+    }
+
+    /**
+     * 返回匹配 {@code \} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher backslashMatcher() {
+        return new Char(BACKSLASH);
+    }
+
+    /**
+     * 返回匹配 {@code /} 和 {@code \} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher slashAndBackslashMatcher() {
+        return new CharSet(new char[]{SLASH, BACKSLASH});
+    }
+
+    /**
+     * 返回匹配白字符的匹配器
      *
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher whitespaceMatcher() {
         return new Whitespace();
+    }
+
+    /**
+     * 返回匹配数字的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher numericMatcher() {
+        return new CharSet(new char[]{
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+        });
+    }
+
+    /**
+     * 返回匹配小写字母的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher lowerMatcher() {
+        return new CharSet(new char[]{
+                'a', 'b', 'c', 'd',
+                'e', 'f', 'g', 'h',
+                'i', 'j', 'k', 'l',
+                'm', 'n', 'o', 'p',
+                'q', 'r', 's', 't',
+                'u', 'v', 'w', 'x',
+                'y', 'z'
+        });
+    }
+
+    /**
+     * 返回匹配大写字母的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher upperMatcher() {
+        return new CharSet(new char[]{
+                'A', 'B', 'C', 'D',
+                'E', 'F', 'G', 'H',
+                'I', 'J', 'K', 'L',
+                'M', 'N', 'O', 'P',
+                'Q', 'R', 'S', 'T',
+                'U', 'V', 'W', 'X',
+                'Y', 'Z'
+        });
+    }
+
+    /**
+     * 返回匹配英文字母的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher alphaMatcher() {
+        return new CharSet(new char[]{
+                'A', 'B', 'C', 'D',
+                'E', 'F', 'G', 'H',
+                'I', 'J', 'K', 'L',
+                'M', 'N', 'O', 'P',
+                'Q', 'R', 'S', 'T',
+                'U', 'V', 'W', 'X',
+                'Y', 'Z',
+                // ------
+                'a', 'b', 'c', 'd',
+                'e', 'f', 'g', 'h',
+                'i', 'j', 'k', 'l',
+                'm', 'n', 'o', 'p',
+                'q', 'r', 's', 't',
+                'u', 'v', 'w', 'x',
+                'y', 'z'
+        });
+    }
+
+    /**
+     * 返回匹配英文字母和数字的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher alphanumericMatcher() {
+        return new CharSet(new char[]{
+                'A', 'B', 'C', 'D',
+                'E', 'F', 'G', 'H',
+                'I', 'J', 'K', 'L',
+                'M', 'N', 'O', 'P',
+                'Q', 'R', 'S', 'T',
+                'U', 'V', 'W', 'X',
+                'Y', 'Z',
+                // ------
+                'a', 'b', 'c', 'd',
+                'e', 'f', 'g', 'h',
+                'i', 'j', 'k', 'l',
+                'm', 'n', 'o', 'p',
+                'q', 'r', 's', 't',
+                'u', 'v', 'w', 'x',
+                'y', 'z',
+                // ------
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+        });
     }
 
     /**
@@ -198,8 +342,12 @@ public final class StringMatcherFactories {
      * @param string 字符串
      * @return {@link StringMatcher} 实例
      */
-    public static StringMatcher stringMatcher(final String string) {
-        return StringUtils.isEmpty(string) ? new None() : stringMatcher(string.toCharArray());
+    public static StringMatcher stringMatcher(@Nullable String string) {
+        if (string == null) {
+            return new None();
+        } else {
+            return string.isEmpty() ? new None() : stringMatcher(string.toCharArray());
+        }
     }
 
 }
