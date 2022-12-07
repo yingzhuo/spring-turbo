@@ -10,6 +10,7 @@ package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -17,7 +18,7 @@ import java.util.stream.Stream;
  * @author 应卓
  * @since 2.0.2
  */
-public class StringTokenizer implements ListIterator<String>, Cloneable {
+public class StringTokenizer implements ListIterator<String>, Serializable, Cloneable {
 
     private static final StringTokenizer CSV_TOKENIZER_PROTOTYPE;
     private static final StringTokenizer TSV_TOKENIZER_PROTOTYPE;
@@ -579,6 +580,9 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String next() {
         if (hasNext()) {
@@ -587,11 +591,17 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         throw new NoSuchElementException();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int nextIndex() {
         return tokenPos;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String previous() {
         if (hasPrevious()) {
@@ -600,6 +610,9 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         throw new NoSuchElementException();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int previousIndex() {
         return tokenPos - 1;

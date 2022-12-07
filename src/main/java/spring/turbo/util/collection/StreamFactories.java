@@ -19,6 +19,8 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
+ * {@link Stream} 创建工具
+ *
  * @author 应卓
  * @see SetFactories
  * @see ListFactories

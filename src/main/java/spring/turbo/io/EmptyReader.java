@@ -10,7 +10,6 @@ package spring.turbo.io;
 
 import spring.turbo.lang.Singleton;
 
-import java.io.IOException;
 import java.io.Reader;
 
 /**
@@ -33,12 +32,12 @@ public final class EmptyReader extends Reader {
     }
 
     @Override
-    public int read(char[] buf, int off, int len) throws IOException {
+    public int read(char[] buf, int off, int len) {
         return -1;
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
     }
 
     // 延迟加载

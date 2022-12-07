@@ -30,6 +30,7 @@ public final class CharPool {
     public static final char SINGLE_QUOTE = '\'';
     public static final char DOUBLE_QUOTE = '"';
     public static final char AT_SIGN = '@';
+    public static final char SEMICOLON = ';';
 
     /**
      * 私有构造方法
