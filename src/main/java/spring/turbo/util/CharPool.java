@@ -27,6 +27,8 @@ public final class CharPool {
     public static final char HYPHEN = '-';
     public static final char UNDERSCORE = '_';
     public static final char COMMA = ',';
+    public static final char SINGLE_QUOTE = '\'';
+    public static final char DOUBLE_QUOTE = '"';
 
     /**
      * 私有构造方法

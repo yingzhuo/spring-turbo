@@ -21,18 +21,18 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
 
     static {
         CSV_TOKENIZER_PROTOTYPE = new StringTokenizer();
-        CSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(StringMatcherFactories.getInstance().commaMatcher());
-        CSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(StringMatcherFactories.getInstance().doubleQuoteMatcher());
-        CSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(StringMatcherFactories.getInstance().noneMatcher());
-        CSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(StringMatcherFactories.getInstance().trimMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(StringMatcherFactories.commaMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(StringMatcherFactories.doubleQuoteMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(StringMatcherFactories.noneMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(StringMatcherFactories.whitespaceMatcher());
         CSV_TOKENIZER_PROTOTYPE.setEmptyTokenAsNull(false);
         CSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
 
         TSV_TOKENIZER_PROTOTYPE = new StringTokenizer();
-        TSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(StringMatcherFactories.getInstance().tabMatcher());
-        TSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(StringMatcherFactories.getInstance().doubleQuoteMatcher());
-        TSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(StringMatcherFactories.getInstance().noneMatcher());
-        TSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(StringMatcherFactories.getInstance().trimMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(StringMatcherFactories.tabMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(StringMatcherFactories.doubleQuoteMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(StringMatcherFactories.noneMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(StringMatcherFactories.whitespaceMatcher());
         TSV_TOKENIZER_PROTOTYPE.setEmptyTokenAsNull(false);
         TSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
     }
@@ -40,10 +40,10 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
     private char[] chars;
     private String[] tokens;
     private int tokenPos;
-    private StringMatcher delimMatcher = StringMatcherFactories.getInstance().splitMatcher();
-    private StringMatcher quoteMatcher = StringMatcherFactories.getInstance().noneMatcher();
-    private StringMatcher ignoredMatcher = StringMatcherFactories.getInstance().noneMatcher();
-    private StringMatcher trimmerMatcher = StringMatcherFactories.getInstance().noneMatcher();
+    private StringMatcher delimMatcher = StringMatcherFactories.splitMatcher();
+    private StringMatcher quoteMatcher = StringMatcherFactories.noneMatcher();
+    private StringMatcher ignoredMatcher = StringMatcherFactories.noneMatcher();
+    private StringMatcher trimmerMatcher = StringMatcherFactories.noneMatcher();
     private boolean emptyAsNull;
     private boolean ignoreEmptyTokens = true;
 
@@ -202,7 +202,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
     }
 
     public StringTokenizer setDelimiterMatcher(final StringMatcher delim) {
-        this.delimMatcher = delim == null ? StringMatcherFactories.getInstance().noneMatcher() : delim;
+        this.delimMatcher = delim == null ? StringMatcherFactories.noneMatcher() : delim;
         return this;
     }
 
@@ -473,19 +473,19 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
     }
 
     public StringTokenizer setDelimiterChar(final char delim) {
-        return setDelimiterMatcher(StringMatcherFactories.getInstance().charMatcher(delim));
+        return setDelimiterMatcher(StringMatcherFactories.charMatcher(delim));
     }
 
     public StringTokenizer setDelimiterString(final String delim) {
-        return setDelimiterMatcher(StringMatcherFactories.getInstance().stringMatcher(delim));
+        return setDelimiterMatcher(StringMatcherFactories.stringMatcher(delim));
     }
 
     public StringTokenizer setIgnoredChar(final char ignored) {
-        return setIgnoredMatcher(StringMatcherFactories.getInstance().charMatcher(ignored));
+        return setIgnoredMatcher(StringMatcherFactories.charMatcher(ignored));
     }
 
     public StringTokenizer setQuoteChar(final char quote) {
-        return setQuoteMatcher(StringMatcherFactories.getInstance().charMatcher(quote));
+        return setQuoteMatcher(StringMatcherFactories.charMatcher(quote));
     }
 
     public int size() {

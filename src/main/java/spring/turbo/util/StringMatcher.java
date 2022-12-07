@@ -34,4 +34,5 @@ public interface StringMatcher {
     public default int size() {
         return 0;
     }
+
 }

@@ -201,11 +201,11 @@ public final class PredefinedStringMatchers {
         }
     }
 
-    public static final class Trim implements StringMatcher {
+    public static final class Whitespace implements StringMatcher {
 
         private static final int SPACE_INT = (int) CharPool.SPACE; // 32
 
-        public Trim() {
+        public Whitespace() {
             super();
         }
 
