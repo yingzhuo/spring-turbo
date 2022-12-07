@@ -8,8 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.collection;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.Spliterators;
@@ -34,22 +36,49 @@ public final class StreamFactories {
 
     @SafeVarargs
     public static <T> Stream<T> newStream(T... elements) {
+        Asserts.notNull(elements);
         return Stream.of(elements);
     }
 
-    public static <T> Stream<T> newStream(Iterator<T> iterator) {
-        return newStream(iterator, false);
+    @SafeVarargs
+    public static <T> Stream<T> nullSafeNewStream(@Nullable T... elements) {
+        return ListFactories.nullSafeNewArrayList(elements).stream();
     }
 
-    public static <T> Stream<T> newStream(Iterator<T> iterator, boolean parallel) {
-        Asserts.notNull(iterator);
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static <T> Stream<T> newStream(@Nullable Iterator<T> iterator) {
+        if (iterator == null) {
+            return Stream.empty();
+        }
+        final Spliterator<T> spliterator = Spliterators.spliteratorUnknownSize(iterator, 0);
+        return StreamSupport.stream(spliterator, false);
+    }
+
+    public static <T> Stream<T> newStream(@Nullable Iterator<T> iterator, boolean parallel) {
+        if (iterator == null) {
+            return Stream.empty();
+        }
         final Spliterator<T> spliterator = Spliterators.spliteratorUnknownSize(iterator, 0);
         return StreamSupport.stream(spliterator, parallel);
     }
 
-    @SafeVarargs
-    public static <T> Stream<T> nullSafeNewStream(T... elements) {
-        return ListFactories.nullSafeNewArrayList(elements).stream();
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static <T> Stream<T> newSteam(@Nullable Enumeration<T> enumeration) {
+        if (enumeration == null) {
+            return Stream.empty();
+        }
+        final Spliterator<T> spliterator = Spliterators.spliteratorUnknownSize(new EnumerationIterator<>(enumeration), 0);
+        return StreamSupport.stream(spliterator, false);
+    }
+
+    public static <T> Stream<T> newSteam(@Nullable Enumeration<T> enumeration, boolean parallel) {
+        if (enumeration == null) {
+            return Stream.empty();
+        }
+        final Spliterator<T> spliterator = Spliterators.spliteratorUnknownSize(new EnumerationIterator<>(enumeration), 0);
+        return StreamSupport.stream(spliterator, parallel);
     }
 
 }

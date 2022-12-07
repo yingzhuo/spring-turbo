@@ -9,14 +9,12 @@
 package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.util.collection.StreamFactories;
 
 import java.util.List;
 import java.util.Set;
-import java.util.Spliterator;
-import java.util.Spliterators;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 /**
  * {@link StringTokenizer}相关工具
@@ -52,10 +50,7 @@ public final class StringTokenizerUtils {
     }
 
     public static Stream<String> toStream(@Nullable StringTokenizer tokenizer, boolean parallel) {
-        if (tokenizer == null) {
-            return Stream.empty();
-        }
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(tokenizer, Spliterator.ORDERED), parallel);
+        return StreamFactories.newStream(tokenizer, parallel);
     }
 
 }
