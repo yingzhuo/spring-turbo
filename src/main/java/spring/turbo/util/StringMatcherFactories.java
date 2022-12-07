@@ -165,15 +165,6 @@ public final class StringMatcherFactories {
     }
 
     /**
-     * 返回匹配 {@code /} 的匹配器
-     *
-     * @return {@link StringMatcher} 实例
-     */
-    public static StringMatcher slashMatcher() {
-        return new Char(SLASH);
-    }
-
-    /**
      * 返回匹配 {@code _} 的匹配器
      *
      * @return {@link StringMatcher} 实例
@@ -189,6 +180,24 @@ public final class StringMatcherFactories {
      */
     public static StringMatcher atSignMatcher() {
         return new Char(AT_SIGN);
+    }
+
+    /**
+     * 返回匹配 {@code ;} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher semicolonMatcher() {
+        return new Char(SEMICOLON);
+    }
+
+    /**
+     * 返回匹配 {@code /} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher slashMatcher() {
+        return new Char(SLASH);
     }
 
     /**

@@ -16,7 +16,7 @@ package spring.turbo;
  */
 public final class SpringTurboVersion {
 
-    public static final String VERSION = "2.0.2-SNAPSHOT";
+    public static final String VERSION = "2.0.2";
 
     /**
      * 私有构造方法

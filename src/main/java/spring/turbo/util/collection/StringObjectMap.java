@@ -8,10 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.collection;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.lang.Mutable;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author 应卓
@@ -22,7 +22,7 @@ import java.util.Map;
  * @since 1.1.0
  */
 @Mutable
-public final class StringObjectMap extends HashMap<String, Object> implements Map<String, Object> {
+public final class StringObjectMap extends HashMap<String, Object> {
 
     /**
      * 构造方法
@@ -66,7 +66,7 @@ public final class StringObjectMap extends HashMap<String, Object> implements Ma
         return this;
     }
 
-    public StringObjectMap delete(String... keys) {
+    public StringObjectMap delete(@Nullable String... keys) {
         if (keys != null) {
             for (String key : keys) {
                 if (key != null) {

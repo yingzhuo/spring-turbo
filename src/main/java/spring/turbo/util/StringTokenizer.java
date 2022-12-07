@@ -8,13 +8,17 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.Nullable;
+
+import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
  * @since 2.0.2
  */
-public class StringTokenizer implements ListIterator<String>, Cloneable {
+public class StringTokenizer implements ListIterator<String>, Serializable, Cloneable {
 
     private static final StringTokenizer CSV_TOKENIZER_PROTOTYPE;
     private static final StringTokenizer TSV_TOKENIZER_PROTOTYPE;
@@ -37,74 +41,186 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         TSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
     }
 
+    @Nullable
     private char[] chars;
-    private String[] tokens;
-    private int tokenPos;
-    private StringMatcher delimMatcher = StringMatcherFactories.splitMatcher();
-    private StringMatcher quoteMatcher = StringMatcherFactories.noneMatcher();
-    private StringMatcher ignoredMatcher = StringMatcherFactories.noneMatcher();
-    private StringMatcher trimmerMatcher = StringMatcherFactories.noneMatcher();
-    private boolean emptyAsNull;
-    private boolean ignoreEmptyTokens = true;
 
+    @Nullable
+    private String[] tokens;
+
+    private int tokenPos = 0;
+
+    private StringMatcher delimMatcher = StringMatcherFactories.splitMatcher();
+
+    private StringMatcher quoteMatcher = StringMatcherFactories.noneMatcher();
+
+    private StringMatcher ignoredMatcher = StringMatcherFactories.noneMatcher();
+
+    private StringMatcher trimmerMatcher = StringMatcherFactories.noneMatcher();
+
+    private boolean emptyAsNull = false;
+
+    private boolean ignoreEmptyTokens = false;
+
+    /**
+     * 构造方法
+     *
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
     public StringTokenizer() {
         this.chars = null;
     }
 
-    public StringTokenizer(final char[] input) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable char[] input) {
         this.chars = input != null ? input.clone() : null;
     }
 
-    public StringTokenizer(final char[] input, final char delim) {
+    /**
+     * 构造方法
+     *
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable char[] input, char delim) {
         this(input);
         setDelimiterChar(delim);
     }
 
-    public StringTokenizer(final char[] input, final char delim, final char quote) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @param delim 分隔符
+     * @param quote 引号
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable char[] input, char delim, char quote) {
         this(input, delim);
         setQuoteChar(quote);
     }
 
-    public StringTokenizer(final char[] input, final String delim) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @param delim 分隔符
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable char[] input, String delim) {
         this(input);
         setDelimiterString(delim);
     }
 
-    public StringTokenizer(final char[] input, final StringMatcher delim) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @param delim 分隔符
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable char[] input, StringMatcher delim) {
         this(input);
         setDelimiterMatcher(delim);
     }
 
-    public StringTokenizer(final char[] input, final StringMatcher delim, final StringMatcher quote) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @param delim 分隔符
+     * @param quote 引号
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable char[] input, final StringMatcher delim, final StringMatcher quote) {
         this(input, delim);
         setQuoteMatcher(quote);
     }
 
-    public StringTokenizer(final String input) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable String input) {
         this.chars = input != null ? input.toCharArray() : null;
     }
 
-    public StringTokenizer(final String input, final char delim) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @param delim 分隔符
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable String input, char delim) {
         this(input);
         setDelimiterChar(delim);
     }
 
-    public StringTokenizer(final String input, final char delim, final char quote) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @param delim 分隔符
+     * @param quote 引号
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable String input, char delim, char quote) {
         this(input, delim);
         setQuoteChar(quote);
     }
 
-    public StringTokenizer(final String input, final String delim) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @param delim 分隔符
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable String input, String delim) {
         this(input);
         setDelimiterString(delim);
     }
 
-    public StringTokenizer(final String input, final StringMatcher delim) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @param delim 分隔符
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable String input, StringMatcher delim) {
         this(input);
         setDelimiterMatcher(delim);
     }
 
-    public StringTokenizer(final String input, final StringMatcher delim, final StringMatcher quote) {
+    /**
+     * 构造方法
+     *
+     * @param input 初始化内容
+     * @param delim 分隔符
+     * @param quote 引号
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
+    public StringTokenizer(@Nullable String input, StringMatcher delim, StringMatcher quote) {
         this(input, delim);
         setQuoteMatcher(quote);
     }
@@ -113,14 +229,37 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         return (StringTokenizer) CSV_TOKENIZER_PROTOTYPE.clone();
     }
 
+    /**
+     * 返回CSV文件专用 {@link StringTokenizer}
+     *
+     * @return CSV文件专用 {@link StringTokenizer}
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
     public static StringTokenizer getCSVInstance() {
         return getCSVClone();
     }
 
+    /**
+     * 返回CSV文件专用 {@link StringTokenizer}
+     *
+     * @param input 初始化内容
+     * @return CSV文件专用 {@link StringTokenizer}
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
     public static StringTokenizer getCSVInstance(final char[] input) {
         return getCSVClone().reset(input);
     }
 
+    /**
+     * 返回CSV文件专用 {@link StringTokenizer}
+     *
+     * @param input 初始化内容
+     * @return CSV文件专用 {@link StringTokenizer}
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
     public static StringTokenizer getCSVInstance(final String input) {
         return getCSVClone().reset(input);
     }
@@ -129,24 +268,79 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         return (StringTokenizer) TSV_TOKENIZER_PROTOTYPE.clone();
     }
 
+    /**
+     * 获取实例
+     *
+     * @param input 初始化内容
+     * @return 实例
+     */
+    public static StringTokenizer newInstance(@Nullable char[] input) {
+        return new StringTokenizer(input);
+    }
+
+    /**
+     * 获取实例
+     *
+     * @param input 初始化内容
+     * @return 实例
+     */
+    public static StringTokenizer newInstance(@Nullable String input) {
+        return new StringTokenizer(input);
+    }
+
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
+    public static StringTokenizer newInstance() {
+        return new StringTokenizer();
+    }
+
+    /**
+     * 返回TSV文件专用 {@link StringTokenizer}
+     *
+     * @return TSV文件专用 {@link StringTokenizer}
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
     public static StringTokenizer getTSVInstance() {
         return getTSVClone();
     }
 
+    /**
+     * 返回TSV文件专用 {@link StringTokenizer}
+     *
+     * @param input 初始化内容
+     * @return TSV文件专用 {@link StringTokenizer}
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
     public static StringTokenizer getTSVInstance(final char[] input) {
         return getTSVClone().reset(input);
     }
 
+    /**
+     * 返回TSV文件专用 {@link StringTokenizer}
+     *
+     * @param input 初始化内容
+     * @return TSV文件专用 {@link StringTokenizer}
+     * @see #reset(char[])
+     * @see #reset(String)
+     */
     public static StringTokenizer getTSVInstance(final String input) {
         return getTSVClone().reset(input);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void add(final String obj) {
+    public void add(String obj) {
         throw new UnsupportedOperationException("add() is unsupported");
     }
 
-    private void addToken(final List<String> list, String tok) {
+    private void addToken(List<String> list, @Nullable String tok) {
         if (tok == null || tok.isEmpty()) {
             if (isIgnoreEmptyTokens()) {
                 return;
@@ -171,6 +365,9 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object clone() {
         try {
@@ -190,6 +387,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         return cloned;
     }
 
+    @Nullable
     public String getContent() {
         if (chars == null) {
             return null;
@@ -197,90 +395,183 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         return new String(chars);
     }
 
+    /**
+     * 获取分隔符用匹配器
+     *
+     * @return 匹配器实例
+     */
     public StringMatcher getDelimiterMatcher() {
         return this.delimMatcher;
     }
 
-    public StringTokenizer setDelimiterMatcher(final StringMatcher delim) {
-        this.delimMatcher = delim == null ? StringMatcherFactories.noneMatcher() : delim;
+    /**
+     * 设置分隔符用匹配器
+     *
+     * @param matcher 匹配器
+     * @return this
+     */
+    public StringTokenizer setDelimiterMatcher(StringMatcher matcher) {
+        Asserts.notNull(matcher);
+        this.delimMatcher = matcher;
         return this;
     }
 
+    /**
+     * 获取忽略匹配器
+     *
+     * @return 匹配器实例
+     */
     public StringMatcher getIgnoredMatcher() {
         return ignoredMatcher;
     }
 
-    public StringTokenizer setIgnoredMatcher(final StringMatcher ignored) {
-        if (ignored != null) {
-            this.ignoredMatcher = ignored;
-        }
+    /**
+     * 设置字符忽略匹配器
+     *
+     * @param matcher 匹配器
+     * @return this
+     */
+    public StringTokenizer setIgnoredMatcher(StringMatcher matcher) {
+        Asserts.notNull(matcher);
+        this.ignoredMatcher = matcher;
         return this;
     }
 
+    /**
+     * 获取引号匹配器
+     *
+     * @return 匹配器实例
+     */
     public StringMatcher getQuoteMatcher() {
         return quoteMatcher;
     }
 
-    public StringTokenizer setQuoteMatcher(final StringMatcher quote) {
-        if (quote != null) {
-            this.quoteMatcher = quote;
-        }
+    /**
+     * 设置引号匹配器
+     *
+     * @param matcher 匹配器
+     * @return this
+     */
+    public StringTokenizer setQuoteMatcher(StringMatcher matcher) {
+        Asserts.notNull(matcher);
+        this.quoteMatcher = matcher;
         return this;
     }
 
-    public String[] getTokenArray() {
-        checkTokenized();
-        return tokens.clone();
-    }
-
-    public List<String> getTokenList() {
-        checkTokenized();
-        return Arrays.asList(tokens);
-    }
-
+    /**
+     * 获取 Trimmer字符匹配器
+     *
+     * @return 匹配器实例
+     */
     public StringMatcher getTrimmerMatcher() {
         return trimmerMatcher;
     }
 
-    public StringTokenizer setTrimmerMatcher(final StringMatcher trimmer) {
-        if (trimmer != null) {
-            this.trimmerMatcher = trimmer;
-        }
+    /**
+     * 设置 Trimmer字符匹配器
+     *
+     * @param matcher 匹配器
+     * @return this
+     */
+    public StringTokenizer setTrimmerMatcher(StringMatcher matcher) {
+        Asserts.notNull(matcher);
+        this.trimmerMatcher = matcher;
         return this;
     }
 
+    /**
+     * 是否把空令牌当成 {@code null}
+     *
+     * @return 结果
+     */
+    public boolean isEmptyTokenAsNull() {
+        return this.emptyAsNull;
+    }
+
+    /**
+     * 设置是否把空令牌当成 {@code null}
+     *
+     * @param emptyAsNull 设置项
+     * @return this
+     */
+    public StringTokenizer setEmptyTokenAsNull(boolean emptyAsNull) {
+        this.emptyAsNull = emptyAsNull;
+        return this;
+    }
+
+    /**
+     * 是否忽略空令牌
+     *
+     * @return 结果
+     */
+    public boolean isIgnoreEmptyTokens() {
+        return ignoreEmptyTokens;
+    }
+
+    /**
+     * 设置是否忽略空令牌
+     *
+     * @param ignoreEmptyTokens true
+     * @return this
+     */
+    public StringTokenizer setIgnoreEmptyTokens(boolean ignoreEmptyTokens) {
+        this.ignoreEmptyTokens = ignoreEmptyTokens;
+        return this;
+    }
+
+    /**
+     * 获取所有的令牌
+     *
+     * @return 获取所有的令牌
+     */
+    public String[] getTokenArray() {
+        checkTokenized();
+        Asserts.notNull(tokens);
+        return tokens.clone();
+    }
+
+    /**
+     * 获取所有的令牌
+     *
+     * @return 获取所有的令牌
+     */
+    public List<String> getTokenList() {
+        checkTokenized();
+        Asserts.notNull(tokens);
+        return Arrays.asList(tokens);
+    }
+
+    /**
+     * 获取所有的令牌
+     *
+     * @return 获取所有的令牌
+     */
+    public Stream<String> getTokenStream() {
+        checkTokenized();
+        Asserts.notNull(tokens);
+        return Stream.of(tokens);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasNext() {
         checkTokenized();
+        Asserts.notNull(tokens);
         return tokenPos < tokens.length;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasPrevious() {
         checkTokenized();
         return tokenPos > 0;
     }
 
-    public boolean isEmptyTokenAsNull() {
-        return this.emptyAsNull;
-    }
-
-    public StringTokenizer setEmptyTokenAsNull(final boolean emptyAsNull) {
-        this.emptyAsNull = emptyAsNull;
-        return this;
-    }
-
-    public boolean isIgnoreEmptyTokens() {
-        return ignoreEmptyTokens;
-    }
-
-    public StringTokenizer setIgnoreEmptyTokens(final boolean ignoreEmptyTokens) {
-        this.ignoreEmptyTokens = ignoreEmptyTokens;
-        return this;
-    }
-
-    private boolean isQuote(final char[] srcChars, final int pos, final int len, final int quoteStart,
-                            final int quoteLen) {
+    private boolean isQuote(final char[] srcChars, final int pos, final int len, final int quoteStart, final int quoteLen) {
         for (int i = 0; i < quoteLen; i++) {
             if (pos + i >= len || srcChars[pos + i] != srcChars[quoteStart + i]) {
                 return false;
@@ -289,6 +580,9 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String next() {
         if (hasNext()) {
@@ -297,18 +591,17 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         throw new NoSuchElementException();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int nextIndex() {
         return tokenPos;
     }
 
-    public String nextToken() {
-        if (hasNext()) {
-            return tokens[tokenPos++];
-        }
-        return null;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String previous() {
         if (hasPrevious()) {
@@ -317,27 +610,20 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         throw new NoSuchElementException();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int previousIndex() {
         return tokenPos - 1;
     }
 
-    public String previousToken() {
-        if (hasPrevious()) {
-            return tokens[--tokenPos];
-        }
-        return null;
-    }
-
-    private int readNextToken(final char[] srcChars, int start, final int len, final TextStringBuilder workArea,
-                              final List<String> tokenList) {
+    private int readNextToken(final char[] srcChars, int start, final int len, final TextStringBuilder workArea, final List<String> tokenList) {
         // skip all leading whitespace, unless it is the
         // field delimiter or the quote character
         while (start < len) {
-            final int removeLen = Math.max(getIgnoredMatcher().isMatch(srcChars, start, start, len),
-                    getTrimmerMatcher().isMatch(srcChars, start, start, len));
-            if (removeLen == 0 || getDelimiterMatcher().isMatch(srcChars, start, start, len) > 0
-                    || getQuoteMatcher().isMatch(srcChars, start, start, len) > 0) {
+            final int removeLen = Math.max(getIgnoredMatcher().isMatch(srcChars, start, start, len), getTrimmerMatcher().isMatch(srcChars, start, start, len));
+            if (removeLen == 0 || getDelimiterMatcher().isMatch(srcChars, start, start, len) > 0 || getQuoteMatcher().isMatch(srcChars, start, start, len) > 0) {
                 break;
             }
             start += removeLen;
@@ -364,8 +650,7 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         return readWithQuotes(srcChars, start, len, workArea, tokenList, 0, 0);
     }
 
-    private int readWithQuotes(final char[] srcChars, final int start, final int len, final TextStringBuilder workArea,
-                               final List<String> tokenList, final int quoteStart, final int quoteLen) {
+    private int readWithQuotes(final char[] srcChars, final int start, final int len, final TextStringBuilder workArea, final List<String> tokenList, final int quoteStart, final int quoteLen) {
         // Loop until we've found the end of the quoted
         // string or the end of the input
         workArea.clear();
@@ -444,56 +729,109 @@ public class StringTokenizer implements ListIterator<String>, Cloneable {
         return -1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void remove() {
         throw new UnsupportedOperationException("remove() is unsupported");
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void set(final String obj) {
+        throw new UnsupportedOperationException("set() is unsupported");
+    }
+
+    /**
+     * 重置
+     *
+     * @return this
+     */
     public StringTokenizer reset() {
         tokenPos = 0;
         tokens = null;
         return this;
     }
 
-    public StringTokenizer reset(final char[] input) {
+    /**
+     * 重置
+     *
+     * @param input 新的内容
+     * @return this
+     */
+    public StringTokenizer reset(@Nullable char[] input) {
         reset();
         this.chars = input != null ? input.clone() : null;
         return this;
     }
 
-    public StringTokenizer reset(final String input) {
+    /**
+     * 重置
+     *
+     * @param input 新的内容
+     * @return this
+     */
+    public StringTokenizer reset(@Nullable String input) {
         reset();
         this.chars = input != null ? input.toCharArray() : null;
         return this;
     }
 
-    @Override
-    public void set(final String obj) {
-        throw new UnsupportedOperationException("set() is unsupported");
-    }
-
-    public StringTokenizer setDelimiterChar(final char delim) {
+    /**
+     * 设置分隔符
+     *
+     * @param delim 分隔符
+     * @return this
+     */
+    public StringTokenizer setDelimiterChar(char delim) {
         return setDelimiterMatcher(StringMatcherFactories.charMatcher(delim));
     }
 
-    public StringTokenizer setDelimiterString(final String delim) {
+    /**
+     * 设置分隔符
+     *
+     * @param delim 分隔符
+     * @return this
+     */
+    public StringTokenizer setDelimiterString(String delim) {
         return setDelimiterMatcher(StringMatcherFactories.stringMatcher(delim));
     }
 
-    public StringTokenizer setIgnoredChar(final char ignored) {
+    /**
+     * 设置忽略字符
+     *
+     * @param ignored 要忽略的字符
+     * @return this
+     */
+    public StringTokenizer setIgnoredChar(char ignored) {
         return setIgnoredMatcher(StringMatcherFactories.charMatcher(ignored));
     }
 
-    public StringTokenizer setQuoteChar(final char quote) {
+    /**
+     * 设置忽略字符
+     *
+     * @param quote 引号
+     * @return this
+     */
+    public StringTokenizer setQuoteChar(char quote) {
         return setQuoteMatcher(StringMatcherFactories.charMatcher(quote));
     }
 
+    /**
+     * 获取令牌个数
+     *
+     * @return 令牌个数
+     */
     public int size() {
         checkTokenized();
+        Asserts.notNull(tokens);
         return tokens.length;
     }
 
-    protected List<String> tokenize(final char[] srcChars, final int offset, final int count) {
+    protected List<String> tokenize(@Nullable char[] srcChars, int offset, int count) {
         if (srcChars == null || count == 0) {
             return Collections.emptyList();
         }

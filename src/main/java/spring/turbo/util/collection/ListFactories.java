@@ -14,6 +14,8 @@ import spring.turbo.util.CollectionUtils;
 import java.util.*;
 
 /**
+ * {@link List} 创建工具
+ *
  * @author 应卓
  * @see SetFactories
  * @see StreamFactories
