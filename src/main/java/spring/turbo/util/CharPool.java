@@ -29,6 +29,7 @@ public final class CharPool {
     public static final char COMMA = ',';
     public static final char SINGLE_QUOTE = '\'';
     public static final char DOUBLE_QUOTE = '"';
+    public static final char AT_SIGN = '@';
 
     /**
      * 私有构造方法

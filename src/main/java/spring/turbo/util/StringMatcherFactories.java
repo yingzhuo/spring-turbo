@@ -29,7 +29,7 @@ public final class StringMatcherFactories {
     }
 
     /**
-     * 链接多个 {@link StringMatcher}
+     * 连接多个 {@link StringMatcher}
      *
      * @param matchers 要连接的多个实例
      * @return {@link StringMatcher} 实例
@@ -134,7 +134,7 @@ public final class StringMatcherFactories {
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher quoteMatcher() {
-        return new CharSet("'\"".toCharArray());
+        return new CharSet(new char[]{'\'', '"'});
     }
 
     /**
@@ -183,6 +183,15 @@ public final class StringMatcherFactories {
     }
 
     /**
+     * 返回匹配 {@code @} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher atSignMatcher() {
+        return new Char(AT_SIGN);
+    }
+
+    /**
      * 返回匹配 {@code \} 的匹配器
      *
      * @return {@link StringMatcher} 实例
@@ -214,7 +223,7 @@ public final class StringMatcherFactories {
      *
      * @return {@link StringMatcher} 实例
      */
-    public static StringMatcher digitMatcher() {
+    public static StringMatcher numericMatcher() {
         return new CharSet(new char[]{
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
         });
@@ -259,7 +268,7 @@ public final class StringMatcherFactories {
      *
      * @return {@link StringMatcher} 实例
      */
-    public static StringMatcher letterMatcher() {
+    public static StringMatcher alphaMatcher() {
         return new CharSet(new char[]{
                 'A', 'B', 'C', 'D',
                 'E', 'F', 'G', 'H',
@@ -275,6 +284,31 @@ public final class StringMatcherFactories {
                 'q', 'r', 's', 't',
                 'u', 'v', 'w', 'x',
                 'y', 'z'
+        });
+    }
+
+    /**
+     * 返回匹配英文字母和数字的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher alphanumericMatcher() {
+        return new CharSet(new char[]{
+                'A', 'B', 'C', 'D',
+                'E', 'F', 'G', 'H',
+                'I', 'J', 'K', 'L',
+                'M', 'N', 'O', 'P',
+                'Q', 'R', 'S', 'T',
+                'U', 'V', 'W', 'X',
+                'Y', 'Z',
+                'a', 'b', 'c', 'd',
+                'e', 'f', 'g', 'h',
+                'i', 'j', 'k', 'l',
+                'm', 'n', 'o', 'p',
+                'q', 'r', 's', 't',
+                'u', 'v', 'w', 'x',
+                'y', 'z',
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
         });
     }
 
