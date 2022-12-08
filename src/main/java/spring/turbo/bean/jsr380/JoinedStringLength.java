@@ -17,32 +17,30 @@ import static java.lang.annotation.ElementType.*;
 
 /**
  * @author 应卓
- * @since 1.0.0
+ * @since 2.0.3
  */
-@Repeatable(FieldsValueNotMatch.List.class)
 @Inherited
 @Documented
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = FieldsValueNotMatchValidator.class)
-public @interface FieldsValueNotMatch {
+@Constraint(validatedBy = {
+        JoinedStringLengthValidators.ForArray.class,
+        JoinedStringLengthValidators.ForIterable.class
+})
+public @interface JoinedStringLength {
+
+    public int min() default 0;
+
+    public int max() default Integer.MAX_VALUE;
+
+    public String separator() default ",";
+
+    public boolean ignoreNull() default true;
 
     public String message();
-
-    public String field();
-
-    public String fieldMatch();
 
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};
-
-    @Inherited
-    @Documented
-    @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface List {
-        public FieldsValueNotMatch[] value();
-    }
 
 }

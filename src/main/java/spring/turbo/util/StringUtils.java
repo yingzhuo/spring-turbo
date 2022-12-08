@@ -63,17 +63,6 @@ public final class StringUtils {
      * @return 判断结果
      */
     public static boolean isBlank(@Nullable String string) {
-//        if (string == null || EMPTY.equals(string)) {
-//            return true;
-//        }
-//
-//        int strLen = string.length();
-//        for (int i = 0; i < strLen; i++) {
-//            if (!Character.isWhitespace(string.charAt(i))) {
-//                return false;
-//            }
-//        }
-//        return true;
         return string == null || string.isBlank(); // since java 11
     }
 
