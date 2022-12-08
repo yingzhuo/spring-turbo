@@ -10,25 +10,27 @@ package spring.turbo.bean.jsr380;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import spring.turbo.bean.DateRange;
 
 import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 
 /**
- * 判断正则表达式本身是否合法
+ * {@link DateRange} 检查用元注释
  *
  * @author 应卓
- * @since 1.0.6
+ * @see DateRange
+ * @since 2.0.3
  */
 @Inherited
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
-@Constraint(validatedBy = ValidRegexValidator.class)
-public @interface ValidRegex {
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = DecentDateRangeValidator.class)
+public @interface DecentDateRange {
 
-    public String message() default "{spring.turbo.bean.jsr380.ValidRegex.message}";
+    public String message() default "{spring.turbo.bean.jsr380.DecentDateRange.message}";
 
     public Class<?>[] groups() default {};
 

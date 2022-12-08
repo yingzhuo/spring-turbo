@@ -30,7 +30,7 @@ import static java.lang.annotation.ElementType.*;
 @Constraint(validatedBy = DecentNumberZonesValidator.class)
 public @interface DecentNumberZones {
 
-    public String message();
+    public String message() default "{spring.turbo.bean.jsr380.DecentNumberZones.message}";
 
     public int mixSize() default Integer.MIN_VALUE;
 
