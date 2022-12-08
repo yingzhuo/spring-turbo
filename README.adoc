@@ -35,6 +35,21 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-stateful-captcha/[有状态人机验证码生成]
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-stateless-captcha/[无状态人机验证码生成]
 
+=== 注意事项
+
+==== (1) 使用 "JSR-380" 与 "i18n" 功能
+
+[config,yaml]
+----
+# 在application.yaml
+# 务必在 MessageSource 中指定 ResourceBundle
+spring:
+  messages:
+    basename: |
+      my/company/my_project/i18n/message,
+      spring/turbo/bean/jsr380/ValidationMessages
+----
+
 === ISSUES
 
 * link:https://github.com/yingzhuo/spring-turbo/issues[Github Issues]
