@@ -15,7 +15,6 @@ import spring.turbo.util.Asserts;
 import spring.turbo.util.StringUtils;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -45,7 +44,7 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
         this.complexity = annotation.complexity();
         this.minLength = annotation.min();
         this.maxLength = annotation.max();
-        this.specialChars = StringUtils.toCharStream(annotation.specialChars()).collect(Collectors.toSet());
+        this.specialChars = StringUtils.toCharSet(annotation.specialChars());
     }
 
     @Override

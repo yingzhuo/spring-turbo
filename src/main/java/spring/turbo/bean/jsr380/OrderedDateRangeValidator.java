@@ -17,6 +17,7 @@ import spring.turbo.bean.DateRange;
  * @author 应卓
  * @since 2.0.1
  */
+@Deprecated(forRemoval = true) // 逻辑过于混乱，不好用
 public class OrderedDateRangeValidator implements ConstraintValidator<OrderedDateRange, DateRange> {
 
     @Override

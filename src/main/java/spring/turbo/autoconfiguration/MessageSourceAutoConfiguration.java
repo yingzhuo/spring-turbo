@@ -18,20 +18,20 @@ import java.util.Locale;
 
 /**
  * @author 应卓
- * @since 2.0.1
+ * @since 2.0.3
  */
 @AutoConfiguration
-@ConditionalOnMissingBean(MessageSourceAccessor.class)
-public class MessageSourceAccessorAutoConfiguration {
+public class MessageSourceAutoConfiguration {
 
     /**
      * 构造方法
      */
-    public MessageSourceAccessorAutoConfiguration() {
+    public MessageSourceAutoConfiguration() {
         super();
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public MessageSourceAccessor messageSourceAccessor(MessageSource messageSource) {
         return new MessageSourceAccessor(messageSource, Locale.getDefault());
     }

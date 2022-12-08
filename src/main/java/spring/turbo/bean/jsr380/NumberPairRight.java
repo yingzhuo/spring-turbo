@@ -27,6 +27,7 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Constraint(validatedBy = NumberPairRightValidator.class)
+@Deprecated(forRemoval = true) // 逻辑过于混乱，不好用
 public @interface NumberPairRight {
 
     public String message();

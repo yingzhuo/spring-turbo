@@ -10,29 +10,34 @@ package spring.turbo.bean.jsr380;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import spring.turbo.bean.NumberPair;
 
 import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 
 /**
- * 检查 {@link NumberPair} 是否有序
- *
  * @author 应卓
- * @see NumberPair
- * @see NumberPair#isOrdered()
- * @since 1.0.8
+ * @since 2.0.3
  */
 @Inherited
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
-@Constraint(validatedBy = OrderedNumberPairValidator.class)
-@Deprecated(forRemoval = true) // 逻辑过于混乱，不好用
-public @interface OrderedNumberPair {
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = {
+        JoinedStringLengthValidators.ForArray.class,
+        JoinedStringLengthValidators.ForIterable.class
+})
+public @interface JoinedStringLength {
 
-    public String message();
+    public int min() default 0;
+
+    public int max() default Integer.MAX_VALUE;
+
+    public String separator() default ",";
+
+    public boolean ignoreNull() default true;
+
+    public String message() default "{spring.turbo.bean.jsr380.JoinedStringLength.message}";
 
     public Class<?>[] groups() default {};
 

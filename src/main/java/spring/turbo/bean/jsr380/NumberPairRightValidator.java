@@ -18,6 +18,7 @@ import spring.turbo.util.Asserts;
  * @author 应卓
  * @since 1.0.8
  */
+@Deprecated(forRemoval = true) // 逻辑过于混乱，不好用
 public class NumberPairRightValidator implements ConstraintValidator<NumberPairRight, NumberPair> {
 
     @Nullable

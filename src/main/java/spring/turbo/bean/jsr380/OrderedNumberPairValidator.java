@@ -17,6 +17,7 @@ import spring.turbo.bean.NumberPair;
  * @author 应卓
  * @since 1.0.8
  */
+@Deprecated(forRemoval = true) // 逻辑过于混乱，不好用
 public class OrderedNumberPairValidator implements ConstraintValidator<OrderedNumberPair, NumberPair> {
 
     @Override
