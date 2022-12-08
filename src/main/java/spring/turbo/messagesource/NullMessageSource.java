@@ -27,15 +27,15 @@ import static spring.turbo.util.StringPool.EMPTY;
 @Singleton
 public final class NullMessageSource implements MessageSource {
 
-    public static NullMessageSource getInstance() {
-        return SyncAvoid.INSTANCE;
-    }
-
     /**
      * 私有构造方法
      */
     private NullMessageSource() {
         super();
+    }
+
+    public static NullMessageSource getInstance() {
+        return SyncAvoid.INSTANCE;
     }
 
     @Override
