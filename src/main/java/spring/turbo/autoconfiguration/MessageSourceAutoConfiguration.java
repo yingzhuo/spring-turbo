@@ -12,11 +12,8 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.MessageSourceAccessor;
-import spring.turbo.message.CompositeMessageSource;
 
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -31,12 +28,6 @@ public class MessageSourceAutoConfiguration {
      */
     public MessageSourceAutoConfiguration() {
         super();
-    }
-
-    @Bean
-    @Primary
-    public CompositeMessageSource compositeMessageSource(List<MessageSource> sources) {
-        return new CompositeMessageSource(sources.toArray(new MessageSource[0]));
     }
 
     @Bean

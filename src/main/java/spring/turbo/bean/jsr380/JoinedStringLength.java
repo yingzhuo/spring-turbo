@@ -37,7 +37,7 @@ public @interface JoinedStringLength {
 
     public boolean ignoreNull() default true;
 
-    public String message();
+    public String message() default "{spring.turbo.bean.jsr380.JoinedStringLength.message}";
 
     public Class<?>[] groups() default {};
 
