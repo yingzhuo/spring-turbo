@@ -29,7 +29,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Locale;
 
 /**
  * @author 应卓
@@ -43,29 +42,31 @@ public class MessageSourceAutoConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "spring.messages")
     public MessageSourceProperties messageSourceProperties() {
-        return new MessageSourceProperties();
+        return new MessageSourceProperties() {
+            {
+                // 重新设置默认值
+                super.setBasename(null);
+            }
+        };
     }
 
     @Bean(name = AbstractApplicationContext.MESSAGE_SOURCE_BEAN_NAME)
     public MessageSource messageSource(MessageSourceProperties properties) {
-        final var messageSource = new ResourceBundleMessageSource();
-
-        if (StringUtils.hasText(properties.getBasename())) {
-            messageSource.setBasenames(this.mergeBasename(properties));
-        }
+        final var bean = new ResourceBundleMessageSource();
+        bean.setFallbackToSystemLocale(properties.isFallbackToSystemLocale());
+        bean.setAlwaysUseMessageFormat(properties.isAlwaysUseMessageFormat());
+        bean.setUseCodeAsDefaultMessage(properties.isUseCodeAsDefaultMessage());
+        bean.setBasenames(this.mergeBasename(properties));
 
         if (properties.getEncoding() != null) {
-            messageSource.setDefaultEncoding(properties.getEncoding().name());
+            bean.setDefaultEncoding(properties.getEncoding().name());
         }
 
-        messageSource.setFallbackToSystemLocale(properties.isFallbackToSystemLocale());
         Duration cacheDuration = properties.getCacheDuration();
         if (cacheDuration != null) {
-            messageSource.setCacheMillis(cacheDuration.toMillis());
+            bean.setCacheMillis(cacheDuration.toMillis());
         }
-        messageSource.setAlwaysUseMessageFormat(properties.isAlwaysUseMessageFormat());
-        messageSource.setUseCodeAsDefaultMessage(properties.isUseCodeAsDefaultMessage());
-        return messageSource;
+        return bean;
     }
 
     private String[] mergeBasename(MessageSourceProperties properties) {
@@ -99,7 +100,7 @@ public class MessageSourceAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public MessageSourceAccessor messageSourceAccessor(MessageSource messageSource) {
-        return new MessageSourceAccessor(messageSource, Locale.getDefault());
+        return new MessageSourceAccessor(messageSource);
     }
 
 }
