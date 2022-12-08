@@ -15,8 +15,6 @@ import spring.turbo.util.Asserts;
 import spring.turbo.util.StringUtils;
 import spring.turbo.util.collection.StreamFactories;
 
-import java.util.Arrays;
-
 import static spring.turbo.util.StringPool.NULL;
 
 /**
@@ -66,7 +64,7 @@ public final class JoinedStringLengthValidators {
         @Override
         protected String joinAsString(String[] value, String separator, boolean ignoreNull) {
             if (ignoreNull) {
-                return StringUtils.nullSafeJoin(Arrays.asList(value), separator);
+                return StringUtils.nullSafeJoin(value, separator);
             } else {
                 return String.join(separator, value);
             }

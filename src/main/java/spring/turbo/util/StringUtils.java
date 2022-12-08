@@ -505,56 +505,88 @@ public final class StringUtils {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * 多个元素合成一个字符串
+     * 多个元素拼接成一个字符串 (忽略null元素)
      *
-     * @param iterable  多个元素
+     * @param elements  多个元素
      * @param separator 分隔符
      * @return 结果
      */
-    public static String nullSafeJoin(@Nullable Iterable<?> iterable, @Nullable String separator) {
-        if (iterable == null) {
+    public static String nullSafeJoin(@Nullable Iterable<?> elements, @Nullable String separator) {
+        if (elements == null) {
             return EMPTY;
         }
-        return nullSafeJoin(iterable.iterator(), separator);
+
+        var strJoiner = new StringJoiner(Objects.requireNonNullElse(separator, EMPTY));
+        for (var ele : elements) {
+            if (ele != null) {
+                strJoiner.add(String.valueOf(ele));
+            }
+        }
+        return strJoiner.toString();
     }
 
     /**
-     * 多个元素合成一个字符串
+     * 多个元素拼接成一个字符串 (忽略null元素)
      *
-     * @param iterator  多个元素
+     * @param elements  多个元素
      * @param separator 分隔符
      * @return 结果
      */
-    public static String nullSafeJoin(@Nullable Iterator<?> iterator, @Nullable String separator) {
-        if (iterator == null) {
+    public static String nullSafeJoin(@Nullable Iterator<?> elements, @Nullable String separator) {
+        if (elements == null) {
             return EMPTY;
         }
 
-        separator = separator == null ? EMPTY : separator;
-
-        if (!iterator.hasNext()) {
-            return EMPTY;
-        }
-
-        final Object first = iterator.next();
-        if (!iterator.hasNext()) {
-            return Objects.toString(first, EMPTY);
-        }
-
-        // two or more elements
-        final StringBuilder buf = new StringBuilder(256);
-        if (first != null) {
-            buf.append(first);
-        }
-
-        while (iterator.hasNext()) {
-            buf.append(separator);
-            final Object obj = iterator.next();
-            if (obj != null) {
-                buf.append(obj);
+        var strJoiner = new StringJoiner(Objects.requireNonNullElse(separator, EMPTY));
+        while (elements.hasNext()) {
+            var ele = elements.next();
+            if (ele != null) {
+                strJoiner.add(String.valueOf(ele));
             }
         }
-        return buf.toString();
+        return strJoiner.toString();
+    }
+
+    /**
+     * 多个元素拼接成一个字符串 (忽略null元素)
+     *
+     * @param elements  多个元素
+     * @param separator 分隔符
+     * @return 结果
+     */
+    public static String nullSafeJoin(@Nullable Object[] elements, @Nullable String separator) {
+        if (elements == null) {
+            return EMPTY;
+        }
+
+        var strJoiner = new StringJoiner(Objects.requireNonNullElse(separator, EMPTY));
+        for (var ele : elements) {
+            if (ele != null) {
+                strJoiner.add(String.valueOf(ele));
+            }
+        }
+        return strJoiner.toString();
+    }
+
+    /**
+     * 多个元素拼接成一个字符串 (忽略null元素)
+     *
+     * @param elements  多个元素
+     * @param separator 分隔符
+     * @return 结果
+     */
+    public static String nullSafeJoin(@Nullable String[] elements, @Nullable String separator) {
+        if (elements == null) {
+            return EMPTY;
+        }
+
+        var strJoiner = new StringJoiner(Objects.requireNonNullElse(separator, EMPTY));
+        for (var ele : elements) {
+            if (ele != null) {
+                strJoiner.add(ele);
+            }
+        }
+        return strJoiner.toString();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
