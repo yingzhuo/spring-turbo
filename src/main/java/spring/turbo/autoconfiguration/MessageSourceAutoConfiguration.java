@@ -12,26 +12,35 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.MessageSourceAccessor;
+import spring.turbo.message.CompositeMessageSource;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
  * @author 应卓
- * @since 2.0.1
+ * @since 2.0.3
  */
 @AutoConfiguration
-@ConditionalOnMissingBean(MessageSourceAccessor.class)
-public class MessageSourceAccessorAutoConfiguration {
+public class MessageSourceAutoConfiguration {
 
     /**
      * 构造方法
      */
-    public MessageSourceAccessorAutoConfiguration() {
+    public MessageSourceAutoConfiguration() {
         super();
     }
 
     @Bean
+    @Primary
+    public CompositeMessageSource compositeMessageSource(List<MessageSource> sources) {
+        return new CompositeMessageSource(sources.toArray(new MessageSource[0]));
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
     public MessageSourceAccessor messageSourceAccessor(MessageSource messageSource) {
         return new MessageSourceAccessor(messageSource, Locale.getDefault());
     }

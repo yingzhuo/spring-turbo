@@ -6,26 +6,23 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.jsr380;
+package spring.turbo.message;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.lang.Nullable;
-import spring.turbo.bean.NumberPair;
+import org.springframework.lang.NonNull;
+import spring.turbo.lang.Beta;
+
+import java.util.List;
 
 /**
  * @author 应卓
- * @since 1.0.8
+ * @see org.springframework.context.MessageSource
+ * @since 2.0.3
  */
-@Deprecated(forRemoval = true) // 逻辑过于混乱，不好用
-public class OrderedNumberPairValidator implements ConstraintValidator<OrderedNumberPair, NumberPair> {
+@Beta
+@FunctionalInterface
+public interface MessageSourceLocatorService {
 
-    @Override
-    public boolean isValid(@Nullable NumberPair value, ConstraintValidatorContext context) {
-        if (value == null) {
-            return true;
-        }
-        return value.isOrdered();
-    }
+    @NonNull
+    public List<String> getBasenames();
 
 }

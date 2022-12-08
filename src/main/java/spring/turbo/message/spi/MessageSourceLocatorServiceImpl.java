@@ -6,26 +6,30 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.jsr380;
+package spring.turbo.message.spi;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.lang.Nullable;
-import spring.turbo.bean.NumberPair;
+import spring.turbo.lang.Beta;
+import spring.turbo.message.MessageSourceLocatorService;
+
+import java.util.List;
 
 /**
  * @author 应卓
- * @since 1.0.8
+ * @since 2.0.3
  */
-@Deprecated(forRemoval = true) // 逻辑过于混乱，不好用
-public class OrderedNumberPairValidator implements ConstraintValidator<OrderedNumberPair, NumberPair> {
+@Beta
+public class MessageSourceLocatorServiceImpl implements MessageSourceLocatorService {
+
+    /**
+     * 默认构造方法
+     */
+    public MessageSourceLocatorServiceImpl() {
+        super();
+    }
 
     @Override
-    public boolean isValid(@Nullable NumberPair value, ConstraintValidatorContext context) {
-        if (value == null) {
-            return true;
-        }
-        return value.isOrdered();
+    public List<String> getBasenames() {
+        return List.of("META-INF/spring_turbo_i18n/common");
     }
 
 }
