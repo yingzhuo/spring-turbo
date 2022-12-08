@@ -24,7 +24,6 @@ import java.util.stream.StreamSupport;
  * @author 应卓
  * @see SetFactories
  * @see ListFactories
- * @see StringObjectMap
  * @since 1.0.13
  */
 public final class StreamFactories {

@@ -8,20 +8,21 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.jks;
 
-import java.io.Serializable;
-
 /**
+ * KeyStore类型
+ *
  * @author 应卓
+ * @see KeyStoreUtils
  * @since 1.0.15
  */
-public enum KeyStoreType implements Serializable {
+public enum KeyStoreType {
 
     JKS("JKS"),
     PKCS12("pkcs12");
 
     private final String name;
 
-    private KeyStoreType(String name) {
+    KeyStoreType(String name) {
         this.name = name;
     }
 

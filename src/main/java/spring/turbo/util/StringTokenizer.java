@@ -12,6 +12,7 @@ import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
@@ -533,11 +534,65 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 获取所有的令牌
      *
+     * @param expectCount 期望的Token数量
+     * @return 获取所有的Token
+     */
+    public String[] getCheckedTokenArray(int expectCount) {
+        return getCheckedTokenArray(expectCount, () -> new IllegalArgumentException("expect count not match"));
+    }
+
+    /**
+     * 获取所有的令牌
+     *
+     * @param expectCount       期望的Token数量
+     * @param exceptionSupplier 当期望的Token数量不满足时如何抛出异常
+     * @return 获取所有的Token
+     */
+    public String[] getCheckedTokenArray(int expectCount, Supplier<RuntimeException> exceptionSupplier) {
+        Asserts.notNull(exceptionSupplier);
+        checkTokenized();
+        Asserts.notNull(tokens);
+        if (tokens.length != expectCount) {
+            throw exceptionSupplier.get();
+        }
+        return tokens.clone();
+    }
+
+    /**
+     * 获取所有的令牌
+     *
      * @return 获取所有的令牌
      */
     public List<String> getTokenList() {
         checkTokenized();
         Asserts.notNull(tokens);
+        return Arrays.asList(tokens);
+    }
+
+    /**
+     * 获取所有的令牌
+     *
+     * @param expectCount 期望的Token数量
+     * @return 获取所有的Token
+     */
+    public List<String> getCheckedTokenList(int expectCount) {
+        return getCheckedTokenList(expectCount, () -> new IllegalArgumentException("expect count not match"));
+    }
+
+    /**
+     * 获取所有的令牌
+     *
+     * @param expectCount       期望的Token数量
+     * @param exceptionSupplier 当期望的Token数量不满足时如何抛出异常
+     * @return 获取所有的Token
+     */
+    public List<String> getCheckedTokenList(int expectCount, Supplier<RuntimeException> exceptionSupplier) {
+        Asserts.notNull(exceptionSupplier);
+        checkTokenized();
+        Asserts.notNull(tokens);
+        if (tokens.length != expectCount) {
+            throw exceptionSupplier.get();
+        }
         return Arrays.asList(tokens);
     }
 
