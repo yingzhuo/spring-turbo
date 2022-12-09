@@ -16,10 +16,12 @@ import java.util.Collection;
  * 扩展 basename 规约
  *
  * @author 应卓
+ * @see spring.turbo.autoconfiguration.properties.MessageSourceProps
+ * @see org.springframework.boot.autoconfigure.context.MessageSourceProperties
  * @since 2.0.3
  */
 @FunctionalInterface
-public interface ExtraMessageSourceBasenameConvention extends Convention {
+public interface ExtraMessageSourceBasenameConvention {
 
     @Nullable
     public Collection<String> getExtraMessageSourceBasename();

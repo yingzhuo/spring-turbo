@@ -11,8 +11,6 @@ package spring.turbo.autoconfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +18,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.Ordered;
-import org.springframework.util.StringUtils;
+import spring.turbo.autoconfiguration.properties.MessageSourceProps;
 import spring.turbo.convention.ExtraMessageSourceBasenameConvention;
 import spring.turbo.util.CollectionUtils;
 import spring.turbo.util.ServiceLoaderUtils;
@@ -28,63 +26,56 @@ import spring.turbo.util.ServiceLoaderUtils;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Locale;
+import java.util.LinkedList;
 
 /**
  * @author 应卓
+ * @see org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration
  * @since 2.0.3
  */
 @AutoConfiguration
 @AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
-@EnableConfigurationProperties
+@EnableConfigurationProperties(MessageSourceProps.class)
 public class MessageSourceAutoConfiguration {
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.messages")
-    public MessageSourceProperties messageSourceProperties() {
-        return new MessageSourceProperties();
+    /**
+     * 默认构造方法
+     */
+    public MessageSourceAutoConfiguration() {
+        super();
     }
 
     @Bean(name = AbstractApplicationContext.MESSAGE_SOURCE_BEAN_NAME)
-    public MessageSource messageSource(MessageSourceProperties properties) {
-        final var messageSource = new ResourceBundleMessageSource();
-
-        if (StringUtils.hasText(properties.getBasename())) {
-            messageSource.setBasenames(this.mergeBasename(properties));
-        }
+    public MessageSource messageSource(MessageSourceProps properties) {
+        final var bean = new ResourceBundleMessageSource();
+        bean.setFallbackToSystemLocale(properties.isFallbackToSystemLocale());
+        bean.setAlwaysUseMessageFormat(properties.isAlwaysUseMessageFormat());
+        bean.setUseCodeAsDefaultMessage(properties.isUseCodeAsDefaultMessage());
+        bean.setBasenames(this.mergeBasename(properties));
 
         if (properties.getEncoding() != null) {
-            messageSource.setDefaultEncoding(properties.getEncoding().name());
+            bean.setDefaultEncoding(properties.getEncoding().name());
         }
 
-        messageSource.setFallbackToSystemLocale(properties.isFallbackToSystemLocale());
         Duration cacheDuration = properties.getCacheDuration();
         if (cacheDuration != null) {
-            messageSource.setCacheMillis(cacheDuration.toMillis());
+            bean.setCacheMillis(cacheDuration.toMillis());
         }
-        messageSource.setAlwaysUseMessageFormat(properties.isAlwaysUseMessageFormat());
-        messageSource.setUseCodeAsDefaultMessage(properties.isUseCodeAsDefaultMessage());
-        return messageSource;
+        return bean;
     }
 
-    private String[] mergeBasename(MessageSourceProperties properties) {
-        var basename1 = StringUtils
-                .commaDelimitedListToStringArray(StringUtils.trimAllWhitespace(properties.getBasename()));
-        var basename2 = getAllExtraBasename();
-
-        var ret = new ArrayList<String>();
-        CollectionUtils.nullSafeAddAll(ret, basename1);
-        CollectionUtils.nullSafeAddAll(ret, basename2);
-        return ret.toArray(new String[0]);
+    private String[] mergeBasename(MessageSourceProps properties) {
+        final var list = new LinkedList<String>();
+        CollectionUtils.nullSafeAddAll(list, properties.getBasenameArray());
+        CollectionUtils.nullSafeAddAll(list, getExtraBasename());
+        return list.toArray(new String[0]);
     }
 
-    public Collection<String> getAllExtraBasename() {
+    public Collection<String> getExtraBasename() {
         final var list = new ArrayList<String>();
-
         final var services = ServiceLoaderUtils.loadQuietly(ExtraMessageSourceBasenameConvention.class);
 
-        for (var service : services) {
+        for (final var service : services) {
             if (service != null) {
                 try {
                     CollectionUtils.nullSafeAddAll(list, service.getExtraMessageSourceBasename());
@@ -93,13 +84,13 @@ public class MessageSourceAutoConfiguration {
                 }
             }
         }
-        return Collections.unmodifiableCollection(list);
+        return list;
     }
 
     @Bean
     @ConditionalOnMissingBean
     public MessageSourceAccessor messageSourceAccessor(MessageSource messageSource) {
-        return new MessageSourceAccessor(messageSource, Locale.getDefault());
+        return new MessageSourceAccessor(messageSource);
     }
 
 }

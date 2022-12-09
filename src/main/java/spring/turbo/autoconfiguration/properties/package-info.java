@@ -6,13 +6,13 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.convention;
 
 /**
- * 规约
- *
- * @author 应卓
- * @since 2.0.3
+ * SpringBoot 自动配置相关 Properties (POJO)
  */
-public interface Convention {
-}
+@NonNullApi
+@NonNullFields
+package spring.turbo.autoconfiguration.properties;
+
+import org.springframework.lang.NonNullApi;
+import org.springframework.lang.NonNullFields;
