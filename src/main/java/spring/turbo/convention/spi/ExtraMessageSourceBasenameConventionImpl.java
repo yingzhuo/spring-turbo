@@ -21,7 +21,7 @@ public final class ExtraMessageSourceBasenameConventionImpl implements ExtraMess
 
     @Override
     public Collection<String> getExtraMessageSourceBasename() {
-        return List.of("spring/turbo/ValidationMessages");
+        return List.of("spring.turbo.ValidationMessages");
     }
 
 }

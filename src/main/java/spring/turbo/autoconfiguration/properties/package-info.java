@@ -8,11 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /**
- * SpringBoot 自动配置
+ * SpringBoot 自动配置相关 Properties (POJO)
  */
 @NonNullApi
 @NonNullFields
-package spring.turbo.autoconfiguration;
+package spring.turbo.autoconfiguration.properties;
 
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;
