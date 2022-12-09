@@ -6,13 +6,20 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+package spring.turbo.convention;
+
+import org.springframework.lang.Nullable;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Map;
 
 /**
- * 条件
+ * @author 应卓
+ * @since 2.0.3
  */
-@NonNullApi
-@NonNullFields
-package spring.turbo.bean.condition;
+public interface ExtraPasswordEncoderConvention {
 
-import org.springframework.lang.NonNullApi;
-import org.springframework.lang.NonNullFields;
+    @Nullable
+    public Map<String, PasswordEncoder> getExtraPasswordEncoderWithName();
+
+}

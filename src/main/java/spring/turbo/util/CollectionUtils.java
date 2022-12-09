@@ -146,4 +146,19 @@ public final class CollectionUtils {
         }
     }
 
+    /**
+     * 为映射添加元素，并小心地处理空值
+     *
+     * @param map      要加入的映射
+     * @param elements 待添加的元素
+     * @param <K>      集合的泛型类型 key
+     * @param <V>      集合的泛型类型 vakue
+     */
+    public static <K, V> void nullSafeAddAll(Map<K, V> map, @Nullable Map<K, V> elements) {
+        Asserts.notNull(map);
+        if (elements != null) {
+            map.putAll(elements);
+        }
+    }
+
 }

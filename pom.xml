@@ -92,6 +92,7 @@
 
         <spring.boot.version>3.0.0</spring.boot.version>
         <spring.version>6.0.2</spring.version>
+        <spring.security.version>6.0.0</spring.security.version>
         <slf4j.version>2.0.5</slf4j.version>
     </properties>
 
@@ -203,6 +204,14 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- spring-security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>${spring.security.version}</version>
             <scope>provided</scope>
         </dependency>
 
