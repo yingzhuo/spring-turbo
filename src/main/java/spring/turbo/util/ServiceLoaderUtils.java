@@ -9,6 +9,7 @@
 package spring.turbo.util;
 
 import org.springframework.core.OrderComparator;
+import org.springframework.lang.Nullable;
 
 import java.util.*;
 
@@ -37,7 +38,7 @@ public final class ServiceLoaderUtils {
      * @throws ServiceConfigurationError 加载失败时抛出此错误
      */
     public static <T> List<T> load(Class<T> targetType) {
-        return load(targetType, ClassUtils.getDefaultClassLoader());
+        return load(targetType, null);
     }
 
     /**
@@ -49,10 +50,10 @@ public final class ServiceLoaderUtils {
      * @return Service实例
      * @throws ServiceConfigurationError 加载失败时抛出此错误
      */
-    public static <T> List<T> load(Class<T> targetType, ClassLoader classLoader) {
+    public static <T> List<T> load(Class<T> targetType, @Nullable ClassLoader classLoader) {
         Asserts.notNull(targetType);
-        Asserts.notNull(classLoader);
 
+        classLoader = Objects.requireNonNullElseGet(classLoader, ClassUtils::getDefaultClassLoader);
         final ServiceLoader<T> loader = ServiceLoader.load(targetType, classLoader);
         List<T> list = new LinkedList<>();
         for (T it : loader) {
@@ -70,7 +71,7 @@ public final class ServiceLoaderUtils {
      * @return Service实例
      */
     public static <T> List<T> loadQuietly(Class<T> targetType) {
-        return loadQuietly(targetType, ClassUtils.getDefaultClassLoader());
+        return loadQuietly(targetType, null);
     }
 
     /**
@@ -81,7 +82,7 @@ public final class ServiceLoaderUtils {
      * @param <T>         Service类型泛型
      * @return Service实例
      */
-    public static <T> List<T> loadQuietly(Class<T> targetType, ClassLoader classLoader) {
+    public static <T> List<T> loadQuietly(Class<T> targetType, @Nullable ClassLoader classLoader) {
         try {
             return load(targetType, classLoader);
         } catch (ServiceConfigurationError e) {

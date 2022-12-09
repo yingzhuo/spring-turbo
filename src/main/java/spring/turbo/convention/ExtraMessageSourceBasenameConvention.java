@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.convention;
 
+import org.springframework.core.Ordered;
 import org.springframework.lang.Nullable;
 
 import java.util.Collection;
@@ -18,12 +19,18 @@ import java.util.Collection;
  * @author 应卓
  * @see spring.turbo.autoconfiguration.properties.MessageSourceProps
  * @see org.springframework.boot.autoconfigure.context.MessageSourceProperties
+ * @see spring.turbo.util.ServiceLoaderUtils
  * @since 2.0.3
  */
 @FunctionalInterface
-public interface ExtraMessageSourceBasenameConvention {
+public interface ExtraMessageSourceBasenameConvention extends Ordered {
 
     @Nullable
     public Collection<String> getExtraMessageSourceBasename();
+
+    @Override
+    public default int getOrder() {
+        return 0;
+    }
 
 }
