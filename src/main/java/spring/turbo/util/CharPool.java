@@ -12,6 +12,7 @@ package spring.turbo.util;
  * 字符池
  *
  * @author 应卓
+ * @see StringPool
  * @since 1.0.0
  */
 public final class CharPool {
@@ -31,6 +32,7 @@ public final class CharPool {
     public static final char DOUBLE_QUOTE = '"';
     public static final char AT_SIGN = '@';
     public static final char SEMICOLON = ';';
+    public static final char COLON = ':';
 
     /**
      * 私有构造方法

@@ -913,7 +913,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     /**
-     * 转换成 {@link spring.turbo.webmvc.token.StringToken} 对象
+     * 转换成 {@link StringTokenizer} 对象
      *
      * @return 结果
      */

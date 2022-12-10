@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.convention.spi;
 
+import org.springframework.core.Ordered;
 import spring.turbo.convention.ExtraMessageSourceBasenameConvention;
 
 import java.util.Collection;
@@ -22,6 +23,11 @@ public final class ExtraMessageSourceBasenameConventionImpl implements ExtraMess
     @Override
     public Collection<String> getExtraMessageSourceBasename() {
         return List.of("spring.turbo.ValidationMessages");
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 
 }
