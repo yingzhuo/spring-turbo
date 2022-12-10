@@ -13,8 +13,6 @@ import com.fasterxml.jackson.core.util.VersionUtil;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import spring.turbo.SpringTurboVersion;
 import spring.turbo.bean.*;
-import spring.turbo.webmvc.token.BasicToken;
-import spring.turbo.webmvc.token.StringToken;
 
 /**
  * @author 应卓
@@ -37,8 +35,8 @@ public class CoreModuleJackson2Module extends SimpleModule {
         super.setupModule(context);
 
         // ---
-        context.setMixInAnnotations(StringToken.class, StringTokenMixin.class);
-        context.setMixInAnnotations(BasicToken.class, BasicTokenMixin.class);
+//        context.setMixInAnnotations(StringToken.class, StringTokenMixin.class);
+//        context.setMixInAnnotations(BasicToken.class, BasicTokenMixin.class);
 
         // ---
         context.setMixInAnnotations(DateRange.class, DateRangeMixin.class);
