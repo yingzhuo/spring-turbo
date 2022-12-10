@@ -165,6 +165,24 @@ public final class StringMatcherFactories {
     }
 
     /**
+     * 返回匹配 {@code :} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher colonMatcher() {
+        return new Char(COLON);
+    }
+
+    /**
+     * 返回匹配 {@code ::} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher doubleColonMatcher() {
+        return new CharArray(':', ':');
+    }
+
+    /**
      * 返回匹配 {@code _} 的匹配器
      *
      * @return {@link StringMatcher} 实例
