@@ -179,7 +179,7 @@ public final class StringMatcherFactories {
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher doubleColonMatcher() {
-        return new CharArray(':', ':');
+        return new CharArray("::".toCharArray());
     }
 
     /**
