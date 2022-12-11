@@ -17,9 +17,6 @@ import java.math.BigDecimal;
  * {@link Long}对
  *
  * @author 应卓
- * @see spring.turbo.bean.jsr380.OrderedNumberPair
- * @see spring.turbo.bean.jsr380.NumberPairLeft
- * @see spring.turbo.bean.jsr380.NumberPairRight
  * @see BigIntegerPair
  * @see DoublePair
  * @see BigDecimalPair

@@ -27,6 +27,11 @@ public class XAwarePostProcessor implements BeanPostProcessor {
 
     private final ApplicationContext applicationContext;
 
+    /**
+     * 构造方法
+     *
+     * @param applicationContext 上下文
+     */
     public XAwarePostProcessor(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
@@ -36,13 +41,13 @@ public class XAwarePostProcessor implements BeanPostProcessor {
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 
         // 处理InstanceCacheAware
-        if (bean instanceof InstanceCacheAware) {
-            ((InstanceCacheAware) bean).setInstanceCache(InstanceCache.newInstance(applicationContext));
+        if (bean instanceof InstanceCacheAware aware) {
+            aware.setInstanceCache(InstanceCache.newInstance(applicationContext));
         }
 
         // 处理SpringContextAware
-        if (bean instanceof SpringContextAware) {
-            ((SpringContextAware) bean).setSpringContext(SpringContext.of(applicationContext));
+        if (bean instanceof SpringContextAware aware) {
+            aware.setSpringContext(SpringContext.of(applicationContext));
         }
 
         return bean;

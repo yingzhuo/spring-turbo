@@ -21,9 +21,6 @@ import java.util.Objects;
  * 数字对
  *
  * @author 应卓
- * @see spring.turbo.bean.jsr380.OrderedNumberPair
- * @see spring.turbo.bean.jsr380.NumberPairLeft
- * @see spring.turbo.bean.jsr380.NumberPairRight
  * @see LongPair
  * @see BigIntegerPair
  * @see DoublePair
