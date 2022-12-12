@@ -19,6 +19,7 @@ import static spring.turbo.util.CharPool.*;
  * @author 应卓
  * @since 2.0.2
  */
+@Deprecated(since = "2.0.4", forRemoval = true)
 public final class StringMatcherFactories {
 
     /**
