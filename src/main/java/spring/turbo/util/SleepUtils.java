@@ -42,6 +42,13 @@ public final class SleepUtils {
         }
     }
 
+    /**
+     * 暂停线程
+     *
+     * @param time     暂停时间
+     * @param timeUnit 时间单位
+     * @throws UncheckedInterruptedException 线程暂停被打断时抛出此异常
+     */
     public static void sleep(long time, TimeUnit timeUnit) {
         Asserts.isTrue(time > 0);
         Asserts.notNull(timeUnit);
@@ -59,7 +66,6 @@ public final class SleepUtils {
      * 线程暂停被中断异常
      *
      * @author 应卓
-     * @since 1.0.0
      */
     public static class UncheckedInterruptedException extends RuntimeException {
         public UncheckedInterruptedException(InterruptedException e) {

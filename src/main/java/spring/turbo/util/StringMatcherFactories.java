@@ -201,6 +201,15 @@ public final class StringMatcherFactories {
     }
 
     /**
+     * 返回匹配 {@code .} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher dotMatcher() {
+        return new Char(DOT);
+    }
+
+    /**
      * 返回匹配 {@code ;} 的匹配器
      *
      * @return {@link StringMatcher} 实例
