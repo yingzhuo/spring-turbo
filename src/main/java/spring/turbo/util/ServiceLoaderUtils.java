@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.OrderComparator;
 import org.springframework.lang.Nullable;
 
@@ -18,9 +20,12 @@ import java.util.*;
  *
  * @author 应卓
  * @see java.util.ServiceLoader
+ * @see org.springframework.core.Ordered
  * @since 1.0.0
  */
 public final class ServiceLoaderUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(ServiceLoaderUtils.class);
 
     /**
      * 私有构造方法
@@ -53,14 +58,20 @@ public final class ServiceLoaderUtils {
     public static <T> List<T> load(Class<T> targetType, @Nullable ClassLoader classLoader) {
         Asserts.notNull(targetType);
 
-        classLoader = Objects.requireNonNullElseGet(classLoader, ClassUtils::getDefaultClassLoader);
-        final ServiceLoader<T> loader = ServiceLoader.load(targetType, classLoader);
-        List<T> list = new LinkedList<>();
-        for (T it : loader) {
-            list.add(it);
+        try {
+            classLoader = Objects.requireNonNullElseGet(classLoader, ClassUtils::getDefaultClassLoader);
+            final ServiceLoader<T> loader = ServiceLoader.load(targetType, classLoader);
+            List<T> list = new LinkedList<>();
+            for (T it : loader) {
+                list.add(it);
+            }
+            OrderComparator.sort(list);
+            return Collections.unmodifiableList(list);
+        } catch (ServiceConfigurationError error) {
+            // 记录日志，但不吞此异常
+            log.warn(error.getMessage(), error);
+            throw error;
         }
-        OrderComparator.sort(list);
-        return Collections.unmodifiableList(list);
     }
 
     /**
