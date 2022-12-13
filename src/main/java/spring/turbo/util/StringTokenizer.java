@@ -16,7 +16,10 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
+ * {@link java.util.StringTokenizer} 加强版
+ *
  * @author 应卓
+ * @see java.util.StringTokenizer
  * @since 2.0.2
  */
 public class StringTokenizer implements ListIterator<String>, Serializable, Cloneable {
@@ -26,18 +29,18 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
 
     static {
         CSV_TOKENIZER_PROTOTYPE = new StringTokenizer();
-        CSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(StringMatcherFactories.commaMatcher());
-        CSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(StringMatcherFactories.doubleQuoteMatcher());
-        CSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(StringMatcherFactories.noneMatcher());
-        CSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(StringMatcherFactories.whitespaceMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(StringMatcher.commaMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(StringMatcher.doubleQuoteMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(StringMatcher.noneMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(StringMatcher.whitespaceMatcher());
         CSV_TOKENIZER_PROTOTYPE.setEmptyTokenAsNull(false);
         CSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
 
         TSV_TOKENIZER_PROTOTYPE = new StringTokenizer();
-        TSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(StringMatcherFactories.tabMatcher());
-        TSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(StringMatcherFactories.doubleQuoteMatcher());
-        TSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(StringMatcherFactories.noneMatcher());
-        TSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(StringMatcherFactories.whitespaceMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(StringMatcher.tabMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(StringMatcher.doubleQuoteMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(StringMatcher.noneMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(StringMatcher.whitespaceMatcher());
         TSV_TOKENIZER_PROTOTYPE.setEmptyTokenAsNull(false);
         TSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
     }
@@ -50,13 +53,13 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
 
     private int tokenPos = 0;
 
-    private StringMatcher delimMatcher = StringMatcherFactories.splitMatcher();
+    private StringMatcher delimMatcher = StringMatcher.splitMatcher();
 
-    private StringMatcher quoteMatcher = StringMatcherFactories.noneMatcher();
+    private StringMatcher quoteMatcher = StringMatcher.noneMatcher();
 
-    private StringMatcher ignoredMatcher = StringMatcherFactories.noneMatcher();
+    private StringMatcher ignoredMatcher = StringMatcher.noneMatcher();
 
-    private StringMatcher trimmerMatcher = StringMatcherFactories.noneMatcher();
+    private StringMatcher trimmerMatcher = StringMatcher.noneMatcher();
 
     private boolean emptyAsNull = false;
 
@@ -842,7 +845,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @return this
      */
     public StringTokenizer setDelimiterChar(char delim) {
-        return setDelimiterMatcher(StringMatcherFactories.charMatcher(delim));
+        return setDelimiterMatcher(StringMatcher.charMatcher(delim));
     }
 
     /**
@@ -852,7 +855,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @return this
      */
     public StringTokenizer setDelimiterString(String delim) {
-        return setDelimiterMatcher(StringMatcherFactories.stringMatcher(delim));
+        return setDelimiterMatcher(StringMatcher.stringMatcher(delim));
     }
 
     /**
@@ -862,7 +865,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @return this
      */
     public StringTokenizer setIgnoredChar(char ignored) {
-        return setIgnoredMatcher(StringMatcherFactories.charMatcher(ignored));
+        return setIgnoredMatcher(StringMatcher.charMatcher(ignored));
     }
 
     /**
@@ -872,7 +875,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @return this
      */
     public StringTokenizer setQuoteChar(char quote) {
-        return setQuoteMatcher(StringMatcherFactories.charMatcher(quote));
+        return setQuoteMatcher(StringMatcher.charMatcher(quote));
     }
 
     /**

@@ -6,23 +6,32 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo;
+package spring.turbo.bean.jsr380;
+
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
+import java.lang.annotation.*;
+
+import static java.lang.annotation.ElementType.*;
 
 /**
- * 本软件版本
+ * 判断字符串是不是合法的JSON
  *
  * @author 应卓
- * @since 1.3.1
+ * @since 2.0.4
  */
-public final class SpringTurboVersion {
+@Inherited
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@Constraint(validatedBy = ValidJsonValidator.class)
+public @interface ValidJson {
 
-    public static final String VERSION = "2.0.4-SNAPSHOT";
+    public String message() default "{spring.turbo.bean.jsr380.ValidJson.message}";
 
-    /**
-     * 私有构造方法
-     */
-    private SpringTurboVersion() {
-        super();
-    }
+    public Class<?>[] groups() default {};
+
+    public Class<? extends Payload>[] payload() default {};
 
 }

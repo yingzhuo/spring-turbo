@@ -19,6 +19,7 @@ import static spring.turbo.util.CharPool.*;
  * @author 应卓
  * @since 2.0.2
  */
+@Deprecated(since = "2.0.4", forRemoval = true)
 public final class StringMatcherFactories {
 
     /**
@@ -198,6 +199,15 @@ public final class StringMatcherFactories {
      */
     public static StringMatcher atSignMatcher() {
         return new Char(AT_SIGN);
+    }
+
+    /**
+     * 返回匹配 {@code .} 的匹配器
+     *
+     * @return {@link StringMatcher} 实例
+     */
+    public static StringMatcher dotMatcher() {
+        return new Char(DOT);
     }
 
     /**
