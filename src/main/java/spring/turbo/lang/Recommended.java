@@ -6,23 +6,21 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo;
+package spring.turbo.lang;
+
+import java.lang.annotation.*;
 
 /**
- * 本软件版本
+ * 推荐使用
  *
  * @author 应卓
- * @since 1.3.1
+ * @since 2.0.4
  */
-public final class SpringTurboVersion {
-
-    public static final String VERSION = "2.0.4";
-
-    /**
-     * 私有构造方法
-     */
-    private SpringTurboVersion() {
-        super();
-    }
-
+@Documented
+@Retention(RetentionPolicy.SOURCE)
+@Target({
+        ElementType.TYPE,
+        ElementType.METHOD
+})
+public @interface Recommended {
 }
