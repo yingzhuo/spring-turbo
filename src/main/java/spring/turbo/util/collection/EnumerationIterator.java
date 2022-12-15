@@ -25,9 +25,9 @@ public class EnumerationIterator<T> implements Iterator<T> {
 
     private final Enumeration<T> innerEnumeration;
 
-    public EnumerationIterator(Enumeration<T> inner) {
-        Asserts.notNull(inner);
-        this.innerEnumeration = inner;
+    public EnumerationIterator(Enumeration<T> enumeration) {
+        Asserts.notNull(enumeration);
+        this.innerEnumeration = enumeration;
     }
 
     public static <T> EnumerationIterator<T> newInstance(Enumeration<T> inner) {
