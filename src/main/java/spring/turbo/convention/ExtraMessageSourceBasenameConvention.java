@@ -8,8 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.convention;
 
+import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.core.Ordered;
+import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.lang.Nullable;
+import spring.turbo.autoconfiguration.properties.MessageSourceProps;
 
 import java.util.Collection;
 
@@ -17,9 +20,9 @@ import java.util.Collection;
  * 扩展 basename 规约
  *
  * @author 应卓
- * @see spring.turbo.autoconfiguration.properties.MessageSourceProps
- * @see org.springframework.boot.autoconfigure.context.MessageSourceProperties
- * @see spring.turbo.util.ServiceLoaderUtils
+ * @see MessageSourceProps
+ * @see MessageSourceProperties
+ * @see SpringFactoriesLoader
  * @since 2.0.3
  */
 @FunctionalInterface
