@@ -22,26 +22,6 @@ import static spring.turbo.util.CharPool.*;
  */
 public interface StringMatcher {
 
-    public default int isMatch(final char[] buffer, final int pos) {
-        return isMatch(buffer, pos, 0, buffer.length);
-    }
-
-    public int isMatch(char[] buffer, int start, int bufferStart, int bufferEnd);
-
-    public default int isMatch(final CharSequence buffer, final int pos) {
-        return isMatch(buffer, pos, 0, buffer.length());
-    }
-
-    public default int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
-        return isMatch(CharSequenceUtils.toCharArray(buffer), start, bufferEnd, bufferEnd);
-    }
-
-    public default int size() {
-        return 0;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
     /**
      * 连接多个 {@link StringMatcher}
      *
@@ -114,6 +94,8 @@ public interface StringMatcher {
         }
         return new CharSet(chars.toCharArray());
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * 返回匹配逗号的匹配器
@@ -398,6 +380,24 @@ public interface StringMatcher {
         } else {
             return string.isEmpty() ? new None() : stringMatcher(string.toCharArray());
         }
+    }
+
+    public default int isMatch(final char[] buffer, final int pos) {
+        return isMatch(buffer, pos, 0, buffer.length);
+    }
+
+    public int isMatch(char[] buffer, int start, int bufferStart, int bufferEnd);
+
+    public default int isMatch(final CharSequence buffer, final int pos) {
+        return isMatch(buffer, pos, 0, buffer.length());
+    }
+
+    public default int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {
+        return isMatch(CharSequenceUtils.toCharArray(buffer), start, bufferEnd, bufferEnd);
+    }
+
+    public default int size() {
+        return 0;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

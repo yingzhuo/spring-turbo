@@ -9,10 +9,10 @@
 package spring.turbo.convention;
 
 import org.springframework.core.Ordered;
+import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import spring.turbo.util.ServiceLoaderUtils;
 
 import java.util.Map;
 
@@ -22,7 +22,7 @@ import java.util.Map;
  * @author 应卓
  * @see PasswordEncoder
  * @see DelegatingPasswordEncoder
- * @see ServiceLoaderUtils
+ * @see SpringFactoriesLoader
  * @since 2.0.3
  */
 @FunctionalInterface

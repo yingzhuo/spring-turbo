@@ -1,1 +1,4 @@
-org.springframework.context.ApplicationListener=spring.turbo.core.SpringApplicationAware
+org.springframework.context.ApplicationListener=\
+spring.turbo.core.SpringApplicationAware
+spring.turbo.convention.ExtraMessageSourceBasenameConvention=\
+spring.turbo.convention.spi.ExtraMessageSourceBasenameConventionImpl
