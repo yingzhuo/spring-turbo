@@ -18,9 +18,9 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.Ordered;
-import org.springframework.core.io.support.SpringFactoriesLoader;
 import spring.turbo.autoconfiguration.properties.MessageSourceProps;
 import spring.turbo.convention.ExtraMessageSourceBasenameConvention;
+import spring.turbo.core.SpringFactoriesUtils;
 import spring.turbo.util.CollectionUtils;
 
 import java.time.Duration;
@@ -73,10 +73,7 @@ public class MessageSourceAutoConfiguration {
 
     public Collection<String> getExtraBasename() {
         final var list = new ArrayList<String>();
-        final var services = SpringFactoriesLoader.forDefaultResourceLocation()
-                .load(ExtraMessageSourceBasenameConvention.class, (factoryType, factoryImplementationName, failure) -> {
-                    // nop
-                });
+        final var services = SpringFactoriesUtils.loadQuietly(ExtraMessageSourceBasenameConvention.class);
 
         for (final var service : services) {
             if (service != null) {
