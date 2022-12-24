@@ -61,8 +61,8 @@ public class StringToEnumConverterFactory implements ConverterFactory<String, En
             this.enumType = enumType;
         }
 
-        @Override
         @Nullable
+        @Override
         public T convert(String source) {
 
             final String oriSource = source;
