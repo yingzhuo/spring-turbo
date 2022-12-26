@@ -8,9 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
+import org.springframework.core.OrderComparator;
 import org.springframework.core.io.support.SpringFactoriesLoader;
+import spring.turbo.util.Asserts;
+import spring.turbo.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,13 +32,26 @@ public final class SpringFactoriesUtils {
         super();
     }
 
+    /**
+     * 获取服务的实例
+     *
+     * @param factoryType 服务的类型
+     * @param <T>         服务的类型泛型
+     * @return 结果
+     */
     public static <T> List<T> loadQuietly(Class<T> factoryType) {
+        Asserts.notNull(factoryType);
+
         final var loader = SpringFactoriesLoader.forDefaultResourceLocation();
         try {
-            return loader.load(factoryType, (factoryType1, factoryImplementationName, failure) -> {
+            final List<T> list = new ArrayList<>();
+            final var services = loader.load(factoryType, (factoryType1, factoryImplementationName, failure) -> {
             });
-        } catch (Exception e) {
-            return new ArrayList<>();
+            CollectionUtils.nullSafeAddAll(list, services);
+            OrderComparator.sort(list);
+            return Collections.unmodifiableList(list);
+        } catch (Throwable e) {
+            return Collections.emptyList();
         }
     }
 
