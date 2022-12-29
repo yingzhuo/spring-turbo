@@ -17,12 +17,12 @@ import java.lang.annotation.*;
  *
  * @author 应卓
  * @see Value
- * @since 1.1.3
+ * @since 2.0.5
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 @Value("${server.ssl.enabled}")
-public @interface SSLEnabled {
+public @interface ServerSSLEnabled {
 }
