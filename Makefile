@@ -3,6 +3,7 @@ timestamp := $(shell /bin/date "+%F %T")
 usage:
 	@echo "=============================================================="
 	@echo "usage   =>  显示菜单"
+	@echo "test    =>  单元测试"
 	@echo "clean   =>  清理"
 	@echo "package =>  打包"
 	@echo "deploy  =>  发布"
@@ -13,6 +14,9 @@ usage:
 
 clean:
 	@mvn -f $(CURDIR)/pom.xml clean -q
+
+test:
+	@mvn -f $(CURDIR)/pom.xml clean test
 
 package:
 	@mvn -f $(CURDIR)/pom.xml clean package -Dmaven.test.skip=true

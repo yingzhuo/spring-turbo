@@ -47,7 +47,7 @@ public final class HttpRequestSnapshot extends HttpServletRequestWrapper impleme
     private HttpRequestSnapshot(HttpServletRequest request) {
         super(request);
 
-        lines.add(StringFormatter.format("Request Type: {}", request.getClass().getName()));
+        lines.add(StringFormatter.format("Request Type: \"{}\"", request.getClass().getName()));
         lines.add(StringFormatter.format("Time: {}", DATE_FORMAT.format(new Date())));
         lines.add(StringFormatter.format("Method: {}", request.getMethod()));
         lines.add(StringFormatter.format("Path: {}", request.getRequestURI()));
