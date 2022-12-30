@@ -30,6 +30,9 @@ public class MessageSourceProps extends MessageSourceProperties implements Seria
     }
 
     public final String[] getBasenameArray() {
+        if (getBasename() == null) {
+            return new String[0];
+        }
         final var basenameStr = StringUtils.deleteWhitespace(getBasename());
         if (StringUtils.isBlank(basenameStr)) {
             return new String[0];
