@@ -25,6 +25,12 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 </dependency>
 ----
 
+[format="psv"]
+|==============================
+| snapshot | 2.0.5-SNAPSHOT
+| stable   | 2.0.4
+|==============================
+
 === 关联项目
 
 * link:https://github.com/yingzhuo/spring-turbo-modules[spring-turbo-modules]
