@@ -99,7 +99,7 @@ public final class BigDecimalUtils {
         BigDecimal max = numbers[0];
 
         for (BigDecimal number : numbers) {
-            max = min(max, number);
+            max = max(max, number);
         }
         return max;
     }
