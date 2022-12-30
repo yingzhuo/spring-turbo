@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -275,6 +276,36 @@ public final class Asserts {
 
     public static void isAssignable(Class<?> superType, Class<?> subType) {
         isAssignable(superType, subType, "");
+    }
+
+    public static <T> void isAbsent(Optional<T> optional) {
+        isAbsent(optional, "[Assertion failed] - this optional must be absent");
+    }
+
+    public static <T> void isAbsent(Optional<T> optional, @Nullable String message) {
+        Asserts.notNull(optional, message);
+        if (optional.isPresent()) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static <T> void isAbsent(Optional<T> optional, Supplier<String> messageSupplier) {
+        isAbsent(optional, messageSupplier.get());
+    }
+
+    public static <T> void isPresent(Optional<T> optional) {
+        isPresent(optional, "[Assertion failed] - this optional must be present");
+    }
+
+    public static <T> void isPresent(Optional<T> optional, @Nullable String message) {
+        Asserts.notNull(optional, message);
+        if (optional.isEmpty()) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static <T> void isPresent(Optional<T> optional, Supplier<String> messageSupplier) {
+        isPresent(optional, messageSupplier.get());
     }
 
     private static void instanceCheckFailed(Class<?> type, @Nullable Object obj, @Nullable String msg) {
