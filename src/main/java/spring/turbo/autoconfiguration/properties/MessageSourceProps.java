@@ -12,22 +12,25 @@ import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import spring.turbo.util.StringUtils;
 
+import java.io.Serializable;
+
 /**
  * @author 应卓
  * @since 2.0.3
  */
 @ConfigurationProperties(prefix = "spring.messages")
-public class MessageSourceProps extends MessageSourceProperties {
+public class MessageSourceProps extends MessageSourceProperties implements Serializable {
 
     /**
      * 默认构造方法
      */
     public MessageSourceProps() {
-        super.setBasename(null); // 不要默认值
+        // spring boot 官方提供的默认值个人觉得无厘头
+        super.setBasename(null);
     }
 
     public final String[] getBasenameArray() {
-        var basenameStr = StringUtils.deleteWhitespace(getBasename());
+        final var basenameStr = StringUtils.deleteWhitespace(getBasename());
         if (StringUtils.isBlank(basenameStr)) {
             return new String[0];
         }
