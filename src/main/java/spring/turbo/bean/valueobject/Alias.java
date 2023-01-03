@@ -17,6 +17,7 @@ import java.lang.annotation.*;
  * @author 应卓
  * @since 1.0.0
  */
+@Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.TYPE})
@@ -31,6 +32,7 @@ public @interface Alias {
 
     public String to() default StringPool.ANNOTATION_STRING_NULL;
 
+    @Inherited
     @Documented
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD, ElementType.TYPE})
