@@ -215,6 +215,28 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- hocon -->
+        <dependency>
+            <groupId>com.typesafe</groupId>
+            <artifactId>config</artifactId>
+            <version>1.4.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- toml4j -->
+        <dependency>
+            <groupId>com.moandjiezana.toml</groupId>
+            <artifactId>toml4j</artifactId>
+            <version>0.7.2</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.gson</groupId>
+                    <artifactId>gson</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- jakarta-servlet-api -->
         <dependency>
             <groupId>jakarta.servlet</groupId>

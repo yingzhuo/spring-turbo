@@ -6,25 +6,21 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util.propertysource;
+package spring.turbo.lang;
 
-import org.springframework.boot.env.YamlPropertySourceLoader;
-import spring.turbo.lang.Recommended;
+import java.lang.annotation.*;
 
 /**
+ * 不推荐使用，往往还有更好的选择
+ *
  * @author 应卓
- * @see HoconPropertySourceFactory
- * @see TomlPropertySourceFactory
- * @since 1.2.2
+ * @since 2.0.6
  */
-@Recommended
-public class YamlPropertySourceFactory extends AbstractPropertySourceFactory {
-
-    /**
-     * 默认构造方法
-     */
-    public YamlPropertySourceFactory() {
-        super(new YamlPropertySourceLoader());
-    }
-
+@Documented
+@Retention(RetentionPolicy.SOURCE)
+@Target({
+        ElementType.TYPE,
+        ElementType.METHOD
+})
+public @interface NotRecommended {
 }

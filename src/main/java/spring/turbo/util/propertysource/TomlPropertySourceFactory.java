@@ -8,23 +8,23 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.propertysource;
 
-import org.springframework.boot.env.YamlPropertySourceLoader;
-import spring.turbo.lang.Recommended;
+import org.springframework.core.io.support.PropertySourceFactory;
+import spring.turbo.lang.NotRecommended;
 
 /**
  * @author 应卓
+ * @see YamlPropertySourceFactory
  * @see HoconPropertySourceFactory
- * @see TomlPropertySourceFactory
- * @since 1.2.2
+ * @since 2.0.6
  */
-@Recommended
-public class YamlPropertySourceFactory extends AbstractPropertySourceFactory {
+@NotRecommended
+public class TomlPropertySourceFactory extends AbstractPropertySourceFactory implements PropertySourceFactory {
 
     /**
      * 默认构造方法
      */
-    public YamlPropertySourceFactory() {
-        super(new YamlPropertySourceLoader());
+    public TomlPropertySourceFactory() {
+        super(new TomlPropertySourceLoader());
     }
 
 }

@@ -6,25 +6,25 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util.propertysource;
+package spring.turbo.bean.injection;
 
-import org.springframework.boot.env.YamlPropertySourceLoader;
-import spring.turbo.lang.Recommended;
+import org.springframework.beans.factory.annotation.Value;
+import spring.turbo.core.SpringIdEnvironmentPostProcessor;
+
+import java.lang.annotation.*;
 
 /**
+ * {@code @Value("${spring.id}")} 的快捷方式
+ *
  * @author 应卓
- * @see HoconPropertySourceFactory
- * @see TomlPropertySourceFactory
- * @since 1.2.2
+ * @see Value
+ * @see SpringIdEnvironmentPostProcessor
+ * @since 2.0.6
  */
-@Recommended
-public class YamlPropertySourceFactory extends AbstractPropertySourceFactory {
-
-    /**
-     * 默认构造方法
-     */
-    public YamlPropertySourceFactory() {
-        super(new YamlPropertySourceLoader());
-    }
-
+@Inherited
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+@Value(SpringIdEnvironmentPostProcessor.VALUE_ANNOTATION_VALUE)
+public @interface SpringId {
 }

@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.lang.annotation.*;
 
 /**
- * {@code @Value("${spring.application.name}")} 的快捷方法
+ * {@code @Value("${spring.application.name}")} 的快捷方式
  *
  * @author 应卓
  * @see Value
