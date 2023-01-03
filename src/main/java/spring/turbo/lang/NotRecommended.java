@@ -6,23 +6,21 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.injection;
-
-import org.springframework.beans.factory.annotation.Value;
+package spring.turbo.lang;
 
 import java.lang.annotation.*;
 
 /**
- * {@code @Value("${management.endpoints.web.base-path}")} 的快捷方式
+ * 不推荐使用，往往还有更好的选择
  *
  * @author 应卓
- * @see Value
- * @since 1.1.3
+ * @since 2.0.6
  */
-@Inherited
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-@Value("${management.endpoints.web.base-path}")
-public @interface ActuatorBasePath {
+@Retention(RetentionPolicy.SOURCE)
+@Target({
+        ElementType.TYPE,
+        ElementType.METHOD
+})
+public @interface NotRecommended {
 }

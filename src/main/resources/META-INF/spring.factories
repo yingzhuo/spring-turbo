@@ -1,4 +1,12 @@
+# ----------------------------------------------------------------------------------------------------------------------
+# Spring / SpringBoot
+# ----------------------------------------------------------------------------------------------------------------------
 org.springframework.context.ApplicationListener=\
 spring.turbo.core.SpringApplicationAware
+org.springframework.boot.env.EnvironmentPostProcessor=\
+spring.turbo.core.SpringIdEnvironmentPostProcessor
+# ----------------------------------------------------------------------------------------------------------------------
+# SpringTurbo convention(s)
+# ----------------------------------------------------------------------------------------------------------------------
 spring.turbo.convention.ExtraMessageSourceBasenameConvention=\
 spring.turbo.convention.spi.ExtraMessageSourceBasenameConventionImpl

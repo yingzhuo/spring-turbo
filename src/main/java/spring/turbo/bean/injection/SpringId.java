@@ -9,20 +9,22 @@
 package spring.turbo.bean.injection;
 
 import org.springframework.beans.factory.annotation.Value;
+import spring.turbo.core.SpringIdEnvironmentPostProcessor;
 
 import java.lang.annotation.*;
 
 /**
- * {@code @Value("${management.endpoints.web.base-path}")} 的快捷方式
+ * {@code @Value("${spring.id}")} 的快捷方式
  *
  * @author 应卓
  * @see Value
- * @since 1.1.3
+ * @see SpringIdEnvironmentPostProcessor
+ * @since 2.0.6
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-@Value("${management.endpoints.web.base-path}")
-public @interface ActuatorBasePath {
+@Value(SpringIdEnvironmentPostProcessor.VALUE_ANNOTATION_VALUE)
+public @interface SpringId {
 }

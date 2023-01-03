@@ -9,6 +9,7 @@
 package spring.turbo.util.propertysource;
 
 import org.springframework.core.io.support.PropertySourceFactory;
+import spring.turbo.lang.NotRecommended;
 
 /**
  * @author 应卓
@@ -16,6 +17,7 @@ import org.springframework.core.io.support.PropertySourceFactory;
  * @see HoconPropertySourceFactory
  * @since 2.0.6
  */
+@NotRecommended
 public class TomlPropertySourceFactory extends AbstractPropertySourceFactory implements PropertySourceFactory {
 
     /**
