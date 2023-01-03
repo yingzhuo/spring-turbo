@@ -10,6 +10,7 @@ package spring.turbo.autoconfiguration.properties;
 
 import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.lang.Nullable;
 import spring.turbo.util.StringUtils;
 
 import java.io.Serializable;
@@ -25,15 +26,23 @@ public class MessageSourceProps extends MessageSourceProperties implements Seria
      * 默认构造方法
      */
     public MessageSourceProps() {
-        // spring boot 官方提供的默认值个人觉得无厘头
         super.setBasename(null);
     }
 
+    @Nullable
+    @Override
+    public String getBasename() {
+        return super.getBasename();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     public final String[] getBasenameArray() {
-        if (getBasename() == null) {
+        final var basename = getBasename();
+        if (basename == null) {
             return new String[0];
         }
-        final var basenameStr = StringUtils.deleteWhitespace(getBasename());
+        final var basenameStr = StringUtils.deleteWhitespace(basename);
         if (StringUtils.isBlank(basenameStr)) {
             return new String[0];
         }
