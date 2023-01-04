@@ -14,6 +14,7 @@ import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
+import spring.turbo.lang.NotRecommended;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +26,8 @@ import java.util.*;
  * @author 应卓
  * @since 2.0.6
  */
+@NotRecommended
+@Deprecated(forRemoval = false)
 @SuppressWarnings("unchecked")
 class TomlPropertySourceLoader implements PropertySourceLoader {
 

@@ -18,6 +18,7 @@ import spring.turbo.lang.NotRecommended;
  * @since 2.0.6
  */
 @NotRecommended
+@Deprecated(forRemoval = false)
 public class TomlPropertySourceFactory extends AbstractPropertySourceFactory implements PropertySourceFactory {
 
     /**
