@@ -10,7 +10,9 @@ package spring.turbo.core.support;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
@@ -24,6 +26,9 @@ import spring.turbo.util.propertysource.HoconPropertySourceFactory;
 import spring.turbo.util.propertysource.TomlPropertySourceFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static spring.turbo.core.Dependencies.IS_HOCON_PRESENT;
 import static spring.turbo.core.Dependencies.IS_TOML_PRESENT;
@@ -104,6 +109,18 @@ public abstract class ResourceBasedEnvironmentPostProcessorSupport implements En
             filename = RandomStringUtils.randomUUID();
         }
         return filename;
+    }
+
+    protected final List<String> getApplicationDirectories(SpringApplication app) {
+        final var list = new ArrayList<String>();
+
+        for (var source : app.getAllSources()) {
+            if (source instanceof Class<?> sourceClass) {
+                list.add(new ApplicationHome(sourceClass).getDir().getAbsoluteFile().toString());
+            }
+        }
+
+        return Collections.unmodifiableList(list);
     }
 
     @Override

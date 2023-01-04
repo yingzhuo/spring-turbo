@@ -45,15 +45,32 @@ public class ApplicationNameEnvironmentPostProcessor extends ResourceBasedEnviro
             return;
         }
 
-        final var propertySource = super.toPropertySource(loadResource(appName));
+        final var propertySource = super.toPropertySource(loadResource(appName, application));
         if (propertySource != null) {
             final var propertySources = environment.getPropertySources();
             propertySources.addLast(propertySource);
         }
     }
 
-    private ResourceOption loadResource(String filename) {
+    private ResourceOption loadResource(String filename, SpringApplication application) {
         final var resourceLocations = new ArrayList<String>();
+
+        // ---
+        for (var appDir : super.getApplicationDirectories(application)) {
+            System.out.println(appDir);
+            resourceLocations.add(StringFormatter.format("file:{}/{}.properties", appDir, filename));
+            resourceLocations.add(StringFormatter.format("file:{}/{}.xml", appDir, filename));
+            resourceLocations.add(StringFormatter.format("file:{}/{}.yaml", appDir, filename));
+            resourceLocations.add(StringFormatter.format("file:{}/{}.yml", appDir, filename));
+            if (IS_HOCON_PRESENT) {
+                resourceLocations.add(StringFormatter.format("file:{}/{}.conf", appDir));
+            }
+            if (IS_TOML_PRESENT) {
+                resourceLocations.add(StringFormatter.format("file:{}/{}.toml", appDir));
+            }
+        }
+
+        // ---
         resourceLocations.add(StringFormatter.format("classpath:{}.properties", filename));
         resourceLocations.add(StringFormatter.format("classpath:{}.xml", filename));
         resourceLocations.add(StringFormatter.format("classpath:{}.yaml", filename));
@@ -64,6 +81,7 @@ public class ApplicationNameEnvironmentPostProcessor extends ResourceBasedEnviro
         if (IS_TOML_PRESENT) {
             resourceLocations.add(StringFormatter.format("classpath:{}.toml", filename));
         }
+
         // ---
         resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.properties", filename));
         resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.xml", filename));
@@ -75,6 +93,7 @@ public class ApplicationNameEnvironmentPostProcessor extends ResourceBasedEnviro
         if (IS_TOML_PRESENT) {
             resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.toml", filename));
         }
+
         // ---
         resourceLocations.add(StringFormatter.format("classpath:conf/{}.properties", filename));
         resourceLocations.add(StringFormatter.format("classpath:conf/{}.xml", filename));

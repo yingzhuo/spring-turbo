@@ -14,6 +14,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import spring.turbo.core.support.ResourceBasedEnvironmentPostProcessorSupport;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptions;
+import spring.turbo.util.StringFormatter;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class SpringTurboEnvironmentPostProcessor extends ResourceBasedEnvironmen
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        final ResourceOption resourceOption = loadResource();
+        final ResourceOption resourceOption = loadResource(application);
 
         if (resourceOption.isAbsent()) {
             return;
@@ -48,8 +49,25 @@ public class SpringTurboEnvironmentPostProcessor extends ResourceBasedEnvironmen
         }
     }
 
-    private ResourceOption loadResource() {
+    private ResourceOption loadResource(SpringApplication application) {
         final var resourceLocations = new ArrayList<String>();
+
+        // ---
+        for (var appDir : super.getApplicationDirectories(application)) {
+            System.out.println(appDir);
+            resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.properties", appDir));
+            resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.xml", appDir));
+            resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.yaml", appDir));
+            resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.yml", appDir));
+            if (IS_HOCON_PRESENT) {
+                resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.conf", appDir));
+            }
+            if (IS_TOML_PRESENT) {
+                resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.toml", appDir));
+            }
+        }
+
+        // ---
         resourceLocations.add("classpath:spring-turbo.properties");
         resourceLocations.add("classpath:spring-turbo.xml");
         resourceLocations.add("classpath:spring-turbo.yaml");
@@ -60,6 +78,7 @@ public class SpringTurboEnvironmentPostProcessor extends ResourceBasedEnvironmen
         if (IS_TOML_PRESENT) {
             resourceLocations.add("classpath:spring-turbo.toml");
         }
+
         // ---
         resourceLocations.add("classpath:META-INF/spring-turbo.properties");
         resourceLocations.add("classpath:META-INF/spring-turbo.xml");
