@@ -6,23 +6,25 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util.propertysource;
+package spring.turbo.core;
 
-import org.springframework.core.io.support.PropertySourceFactory;
+import spring.turbo.util.ClassUtils;
 
 /**
  * @author 应卓
- * @see YamlPropertySourceFactory
- * @see HoconPropertySourceFactory
- * @since 2.0.6
+ * @since 2.0.7
  */
-public class TomlPropertySourceFactory extends AbstractPropertySourceFactory implements PropertySourceFactory {
+public final class Dependencies {
+
+    public static final boolean IS_HOCON_PRESENT = ClassUtils.isPresent("com.typesafe.config.Config");
+
+    public static final boolean IS_TOML_PRESENT = ClassUtils.isPresent("com.moandjiezana.toml.Toml");
 
     /**
-     * 默认构造方法
+     * 私有构造方法
      */
-    public TomlPropertySourceFactory() {
-        super(new TomlPropertySourceLoader());
+    private Dependencies() {
+        super();
     }
 
 }

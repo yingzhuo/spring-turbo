@@ -8,84 +8,34 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.PropertiesPropertySource;
-import org.springframework.core.env.PropertySource;
-import org.springframework.core.io.support.EncodedResource;
-import org.springframework.lang.Nullable;
-import spring.turbo.io.PropertiesFormat;
+import spring.turbo.core.support.ResourceBasedEnvironmentPostProcessorSupport;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptions;
-import spring.turbo.util.ClassUtils;
-import spring.turbo.util.RandomStringUtils;
-import spring.turbo.util.StringUtils;
-import spring.turbo.util.propertysource.HoconPropertySourceFactory;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
-import static spring.turbo.util.CharsetPool.UTF_8;
+import static spring.turbo.core.Dependencies.IS_HOCON_PRESENT;
+import static spring.turbo.core.Dependencies.IS_TOML_PRESENT;
 
 /**
  * @author 应卓
  * @since 2.0.7
  */
-public class SpringTurboEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
+public class SpringTurboEnvironmentPostProcessor extends ResourceBasedEnvironmentPostProcessorSupport {
 
-    private static final Logger log = LoggerFactory.getLogger(SpringTurboEnvironmentPostProcessor.class);
-
-    private static final String[] RESOURCE_LOCATIONS;
-
-    static {
-        if (ClassUtils.isPresent("com.typesafe.config.Config")) {
-            RESOURCE_LOCATIONS = new String[]{
-                    "classpath:spring-turbo.properties",
-                    "classpath:spring-turbo.xml",
-                    "classpath:spring-turbo.yaml",
-                    "classpath:spring-turbo.yml",
-                    "classpath:spring-turbo.conf",
-                    // ---
-                    "classpath:META-INF/spring-turbo.properties",
-                    "classpath:META-INF/spring-turbo.xml",
-                    "classpath:META-INF/spring-turbo.yaml",
-                    "classpath:META-INF/spring-turbo.yml",
-                    "classpath:META-INF/spring-turbo.conf",
-                    // ----
-                    "classpath:config/spring-turbo.properties",
-                    "classpath:config/spring-turbo.xml",
-                    "classpath:config/spring-turbo.yaml",
-                    "classpath:config/spring-turbo.yml",
-                    "classpath:config/spring-turbo.conf"
-            };
-        } else {
-            RESOURCE_LOCATIONS = new String[]{
-                    "classpath:spring-turbo.properties",
-                    "classpath:spring-turbo.xml",
-                    "classpath:spring-turbo.yaml",
-                    "classpath:spring-turbo.yml",
-                    // ---
-                    "classpath:META-INF/spring-turbo.properties",
-                    "classpath:META-INF/spring-turbo.xml",
-                    "classpath:META-INF/spring-turbo.yaml",
-                    "classpath:META-INF/spring-turbo.yml",
-                    // ---
-                    "classpath:config/spring-turbo.properties",
-                    "classpath:config/spring-turbo.xml",
-                    "classpath:config/spring-turbo.yaml",
-                    "classpath:config/spring-turbo.yml"
-            };
-        }
+    /**
+     * 默认构造方法
+     */
+    public SpringTurboEnvironmentPostProcessor() {
+        super(Ordered.LOWEST_PRECEDENCE - 100);
     }
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        final ResourceOption resourceOption = ResourceOptions.builder()
-                .add(RESOURCE_LOCATIONS)
-                .build();
+        final ResourceOption resourceOption = loadResource();
 
         if (resourceOption.isAbsent()) {
             return;
@@ -98,61 +48,44 @@ public class SpringTurboEnvironmentPostProcessor implements EnvironmentPostProce
         }
     }
 
-    @Nullable
-    private PropertySource<?> toPropertySource(ResourceOption resourceOption) {
-        try {
-            return doToPropertySource(resourceOption);
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-            return null;
+    private ResourceOption loadResource() {
+        final var resourceLocations = new ArrayList<String>();
+        resourceLocations.add("classpath:spring-turbo.properties");
+        resourceLocations.add("classpath:spring-turbo.xml");
+        resourceLocations.add("classpath:spring-turbo.yaml");
+        resourceLocations.add("classpath:spring-turbo.yml");
+        if (IS_HOCON_PRESENT) {
+            resourceLocations.add("classpath:spring-turbo.conf");
         }
-    }
-
-    @Nullable
-    private PropertySource<?> doToPropertySource(ResourceOption resourceOption) throws IOException {
-        final String filename = resourceOption.get().getFilename();
-        final String propertySourceName = getPropertySourceName(filename);
-
-        if (filename == null) {
-            return null;
+        if (IS_TOML_PRESENT) {
+            resourceLocations.add("classpath:spring-turbo.toml");
         }
-
-        if (filename.endsWith(".properties")) {
-            return new PropertiesPropertySource(
-                    propertySourceName,
-                    resourceOption.toProperties(PropertiesFormat.PROPERTIES));
+        // ---
+        resourceLocations.add("classpath:META-INF/spring-turbo.properties");
+        resourceLocations.add("classpath:META-INF/spring-turbo.xml");
+        resourceLocations.add("classpath:META-INF/spring-turbo.yaml");
+        resourceLocations.add("classpath:META-INF/spring-turbo.yml");
+        if (IS_HOCON_PRESENT) {
+            resourceLocations.add("classpath:META-INF/spring-turbo.conf");
         }
-
-        if (filename.endsWith(".xml")) {
-            return new PropertiesPropertySource(
-                    propertySourceName,
-                    resourceOption.toProperties(PropertiesFormat.XML));
+        if (IS_TOML_PRESENT) {
+            resourceLocations.add("classpath:META-INF/spring-turbo.toml");
         }
-
-        if (filename.endsWith(".yaml") || filename.endsWith(".yml")) {
-            return new PropertiesPropertySource(
-                    propertySourceName,
-                    resourceOption.toProperties(PropertiesFormat.YAML));
+        // ---
+        resourceLocations.add("classpath:conf/spring-turbo.properties");
+        resourceLocations.add("classpath:conf/spring-turbo.xml");
+        resourceLocations.add("classpath:conf/spring-turbo.yaml");
+        resourceLocations.add("classpath:conf/spring-turbo.yml");
+        if (IS_HOCON_PRESENT) {
+            resourceLocations.add("classpath:conf/spring-turbo.conf");
+        }
+        if (IS_TOML_PRESENT) {
+            resourceLocations.add("classpath:conf/spring-turbo.toml");
         }
 
-        if (filename.endsWith(".conf")) {
-            return new HoconPropertySourceFactory().createPropertySource(propertySourceName,
-                    new EncodedResource(resourceOption.get(), UTF_8));
-        }
-
-        return null;
-    }
-
-    private String getPropertySourceName(@Nullable String filename) {
-        if (StringUtils.isBlank(filename)) {
-            filename = RandomStringUtils.randomUUID();
-        }
-        return filename;
-    }
-
-    @Override
-    public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE + 1;
+        return ResourceOptions.builder()
+                .add(resourceLocations)
+                .build();
     }
 
 }
