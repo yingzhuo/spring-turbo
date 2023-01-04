@@ -8,40 +8,34 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.PropertiesPropertySource;
-import org.springframework.core.env.PropertySource;
-import org.springframework.core.io.support.EncodedResource;
-import org.springframework.lang.Nullable;
-import spring.turbo.io.PropertiesFormat;
+import spring.turbo.core.support.ResourceBasedEnvironmentPostProcessorSupport;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptions;
-import spring.turbo.util.ClassUtils;
-import spring.turbo.util.RandomStringUtils;
 import spring.turbo.util.StringFormatter;
 import spring.turbo.util.StringUtils;
-import spring.turbo.util.propertysource.HoconPropertySourceFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import static spring.turbo.util.CharsetPool.UTF_8;
+import static spring.turbo.core.Dependencies.IS_HOCON_PRESENT;
+import static spring.turbo.core.Dependencies.IS_TOML_PRESENT;
 
 /**
  * @author 应卓
  * @since 2.0.7
  */
-public class ApplicationNameEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
-
-    private static final Logger log = LoggerFactory.getLogger(ApplicationNameEnvironmentPostProcessor.class);
+public class ApplicationNameEnvironmentPostProcessor extends ResourceBasedEnvironmentPostProcessorSupport {
 
     private static final String SPRING_APPLICATION_NAME = "spring.application.name";
-    private static final boolean HOCON_DEP_PRESENT = ClassUtils.isPresent("com.typesafe.config.Config");
+
+    /**
+     * 默认构造方法
+     */
+    public ApplicationNameEnvironmentPostProcessor() {
+        super(Ordered.LOWEST_PRECEDENCE);
+    }
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
@@ -51,104 +45,51 @@ public class ApplicationNameEnvironmentPostProcessor implements EnvironmentPostP
             return;
         }
 
-        final var resourceOption = this.loadResource(appName);
-        if (resourceOption.isAbsent()) {
-            return;
-        }
-
-        final var propertySource = toPropertySource(resourceOption);
+        final var propertySource = super.toPropertySource(loadResource(appName));
         if (propertySource != null) {
             final var propertySources = environment.getPropertySources();
             propertySources.addLast(propertySource);
         }
     }
 
-    @Nullable
-    private PropertySource<?> toPropertySource(ResourceOption resourceOption) {
-        try {
-            return doToPropertySource(resourceOption);
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-            return null;
-        }
-    }
-
-    @Nullable
-    private PropertySource<?> doToPropertySource(ResourceOption resourceOption) throws IOException {
-        final String filename = resourceOption.get().getFilename();
-        final String propertySourceName = getPropertySourceName(filename);
-
-        if (filename == null) {
-            return null;
-        }
-
-        if (filename.endsWith(".properties")) {
-            return new PropertiesPropertySource(
-                    propertySourceName,
-                    resourceOption.toProperties(PropertiesFormat.PROPERTIES));
-        }
-
-        if (filename.endsWith(".xml")) {
-            return new PropertiesPropertySource(
-                    propertySourceName,
-                    resourceOption.toProperties(PropertiesFormat.XML));
-        }
-
-        if (filename.endsWith(".yaml") || filename.endsWith(".yml")) {
-            return new PropertiesPropertySource(
-                    propertySourceName,
-                    resourceOption.toProperties(PropertiesFormat.YAML));
-        }
-
-        if (HOCON_DEP_PRESENT && filename.endsWith(".conf")) {
-            return new HoconPropertySourceFactory().createPropertySource(propertySourceName,
-                    new EncodedResource(resourceOption.get(), UTF_8));
-        }
-
-        return null;
-    }
-
-    private ResourceOption loadResource(String appName) {
+    private ResourceOption loadResource(String filename) {
         final var resourceLocations = new ArrayList<String>();
-        resourceLocations.add(StringFormatter.format("classpath:{}.properties", appName));
-        resourceLocations.add(StringFormatter.format("classpath:{}.xml", appName));
-        resourceLocations.add(StringFormatter.format("classpath:{}.yaml", appName));
-        resourceLocations.add(StringFormatter.format("classpath:{}.yml", appName));
-        if (HOCON_DEP_PRESENT) {
-            resourceLocations.add(StringFormatter.format("classpath:{}.conf", appName));
+        resourceLocations.add(StringFormatter.format("classpath:{}.properties", filename));
+        resourceLocations.add(StringFormatter.format("classpath:{}.xml", filename));
+        resourceLocations.add(StringFormatter.format("classpath:{}.yaml", filename));
+        resourceLocations.add(StringFormatter.format("classpath:{}.yml", filename));
+        if (IS_HOCON_PRESENT) {
+            resourceLocations.add(StringFormatter.format("classpath:{}.conf", filename));
+        }
+        if (IS_TOML_PRESENT) {
+            resourceLocations.add(StringFormatter.format("classpath:{}.toml", filename));
         }
         // ---
-        resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.properties", appName));
-        resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.xml", appName));
-        resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.yaml", appName));
-        resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.yml", appName));
-        if (HOCON_DEP_PRESENT) {
-            resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.conf", appName));
+        resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.properties", filename));
+        resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.xml", filename));
+        resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.yaml", filename));
+        resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.yml", filename));
+        if (IS_HOCON_PRESENT) {
+            resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.conf", filename));
+        }
+        if (IS_TOML_PRESENT) {
+            resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.toml", filename));
         }
         // ---
-        resourceLocations.add(StringFormatter.format("classpath:conf/{}.properties", appName));
-        resourceLocations.add(StringFormatter.format("classpath:conf/{}.xml", appName));
-        resourceLocations.add(StringFormatter.format("classpath:conf/{}.yaml", appName));
-        resourceLocations.add(StringFormatter.format("classpath:conf/{}.yml", appName));
-        if (HOCON_DEP_PRESENT) {
-            resourceLocations.add(StringFormatter.format("classpath:conf/{}.conf", appName));
+        resourceLocations.add(StringFormatter.format("classpath:conf/{}.properties", filename));
+        resourceLocations.add(StringFormatter.format("classpath:conf/{}.xml", filename));
+        resourceLocations.add(StringFormatter.format("classpath:conf/{}.yaml", filename));
+        resourceLocations.add(StringFormatter.format("classpath:conf/{}.yml", filename));
+        if (IS_HOCON_PRESENT) {
+            resourceLocations.add(StringFormatter.format("classpath:conf/{}.conf", filename));
+        }
+        if (IS_TOML_PRESENT) {
+            resourceLocations.add(StringFormatter.format("classpath:conf/{}.toml", filename));
         }
 
         return ResourceOptions.builder()
                 .add(resourceLocations)
                 .build();
-    }
-
-    private String getPropertySourceName(@Nullable String filename) {
-        if (StringUtils.isBlank(filename)) {
-            filename = RandomStringUtils.randomUUID();
-        }
-        return filename;
-    }
-
-    @Override
-    public final int getOrder() {
-        return Ordered.LOWEST_PRECEDENCE;
     }
 
 }
