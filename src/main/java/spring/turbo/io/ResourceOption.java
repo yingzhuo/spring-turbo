@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -31,6 +32,14 @@ public sealed interface ResourceOption extends Serializable
         permits ResourceOptionEmpty, ResourceOptionImpl {
 
     public Optional<Resource> toOptional();
+
+    public default Resource get() {
+        var optional = toOptional();
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        throw new NoSuchElementException("No value present");
+    }
 
     public boolean isAbsent();
 

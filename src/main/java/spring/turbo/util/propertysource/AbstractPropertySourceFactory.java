@@ -17,7 +17,6 @@ import spring.turbo.util.RandomStringUtils;
 import spring.turbo.util.StringUtils;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * (内部使用)
@@ -25,7 +24,7 @@ import java.util.List;
  * @author 应卓
  * @since 2.0.6
  */
-abstract class AbstractPropertySourceFactory implements PropertySourceFactory {
+public abstract class AbstractPropertySourceFactory implements PropertySourceFactory {
 
     private final PropertySourceLoader loader;
 
@@ -34,11 +33,12 @@ abstract class AbstractPropertySourceFactory implements PropertySourceFactory {
     }
 
     @Override
-    public final PropertySource<?> createPropertySource(String name, EncodedResource resource) throws IOException {
-        List<PropertySource<?>> list = loader.load(getPropertySourceName(name), resource.getResource());
+    public final PropertySource<?> createPropertySource(@Nullable String name, EncodedResource resource) throws IOException {
+        final var propertySourceName = enforcePropertySourceName(name, resource);
+        final var list = loader.load(propertySourceName, resource.getResource());
 
         if (list.isEmpty()) {
-            return new EmptyPropertySource();
+            return EmptyPropertySource.of(propertySourceName);
         } else if (list.size() == 1) {
             return list.get(0);
         } else {
@@ -46,23 +46,15 @@ abstract class AbstractPropertySourceFactory implements PropertySourceFactory {
         }
     }
 
-    private String getPropertySourceName(@Nullable String name) {
+    private String enforcePropertySourceName(@Nullable String name, EncodedResource resource) {
+        if (name == null) {
+            name = resource.getResource().getFilename();
+        }
+
         if (StringUtils.isBlank(name)) {
-            return RandomStringUtils.randomUUID(true);
+            return RandomStringUtils.randomUUID();
         }
         return name;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    protected static class EmptyPropertySource extends PropertySource<Object> {
-        public EmptyPropertySource() {
-            super("empty", new Object());
-        }
-
-        @Override
-        public Object getProperty(String name) {
-            return null;
-        }
-    }
 }

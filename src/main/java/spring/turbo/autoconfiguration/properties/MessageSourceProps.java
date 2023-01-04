@@ -13,14 +13,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.StringUtils;
 
-import java.io.Serializable;
-
 /**
  * @author 应卓
  * @since 2.0.3
  */
 @ConfigurationProperties(prefix = "spring.messages")
-public class MessageSourceProps extends MessageSourceProperties implements Serializable {
+public class MessageSourceProps extends MessageSourceProperties {
 
     /**
      * 默认构造方法
@@ -38,15 +36,15 @@ public class MessageSourceProps extends MessageSourceProperties implements Seria
     // -----------------------------------------------------------------------------------------------------------------
 
     public final String[] getBasenameArray() {
-        final var basename = getBasename();
+        var basename = getBasename();
         if (basename == null) {
             return new String[0];
         }
-        final var basenameStr = StringUtils.deleteWhitespace(basename);
-        if (StringUtils.isBlank(basenameStr)) {
+        basename = StringUtils.deleteWhitespace(basename);
+        if (StringUtils.isBlank(basename)) {
             return new String[0];
         }
-        return StringUtils.commaDelimitedListToStringArray(basenameStr, true);
+        return StringUtils.commaDelimitedListToStringArray(basename, true);
     }
 
 }

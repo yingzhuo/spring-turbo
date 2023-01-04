@@ -114,6 +114,16 @@ public final class ClassUtils {
     }
 
     /**
+     * 判断类型是否不存在
+     *
+     * @param className 类型全名
+     * @return 存在时返回false，否则返回true
+     */
+    public static boolean isAbsent(String className) {
+        return !isPresent(className);
+    }
+
+    /**
      * 获取包名
      *
      * @param clz 类型

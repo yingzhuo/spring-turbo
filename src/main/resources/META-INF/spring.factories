@@ -4,6 +4,7 @@
 org.springframework.context.ApplicationListener=\
 spring.turbo.core.SpringApplicationAware
 org.springframework.boot.env.EnvironmentPostProcessor=\
+spring.turbo.core.SpringTurboEnvironmentPostProcessor,\
 spring.turbo.core.SpringIdEnvironmentPostProcessor
 
 # ----------------------------------------------------------------------------------------------------------------------

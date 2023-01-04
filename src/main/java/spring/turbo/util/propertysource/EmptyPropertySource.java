@@ -8,24 +8,38 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.propertysource;
 
-import org.springframework.core.io.support.PropertySourceFactory;
-import spring.turbo.lang.NotRecommended;
+import org.springframework.core.env.PropertySource;
+import org.springframework.lang.Nullable;
+
+import java.util.Objects;
 
 /**
  * @author 应卓
- * @see YamlPropertySourceFactory
- * @see HoconPropertySourceFactory
- * @since 2.0.6
+ * @since 2.0.7
  */
-@NotRecommended
-@Deprecated(forRemoval = false)
-public class TomlPropertySourceFactory extends AbstractPropertySourceFactory implements PropertySourceFactory {
+public final class EmptyPropertySource extends PropertySource<Object> {
 
     /**
-     * 默认构造方法
+     * 私有构造方法
+     *
+     * @param name 名称
      */
-    public TomlPropertySourceFactory() {
-        super(new TomlPropertySourceLoader());
+    private EmptyPropertySource(String name) {
+        super(name);
+    }
+
+    public static EmptyPropertySource of() {
+        return of(null);
+    }
+
+    public static EmptyPropertySource of(@Nullable String name) {
+        return new EmptyPropertySource(Objects.requireNonNullElse(name, "empty"));
+    }
+
+    @Nullable
+    @Override
+    public Object getProperty(String name) {
+        return null;
     }
 
 }
