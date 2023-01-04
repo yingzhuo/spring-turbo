@@ -1,11 +1,13 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # Spring / SpringBoot
 # ----------------------------------------------------------------------------------------------------------------------
-org.springframework.context.ApplicationListener=\
-spring.turbo.core.SpringApplicationAware
 org.springframework.boot.env.EnvironmentPostProcessor=\
 spring.turbo.core.SpringTurboEnvironmentPostProcessor,\
-spring.turbo.core.SpringIdEnvironmentPostProcessor
+spring.turbo.core.SpringIdEnvironmentPostProcessor,\
+spring.turbo.core.ApplicationNameEnvironmentPostProcessor
+
+org.springframework.context.ApplicationListener=\
+spring.turbo.core.SpringApplicationAware
 
 # ----------------------------------------------------------------------------------------------------------------------
 # SpringTurbo convention(s)

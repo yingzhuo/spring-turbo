@@ -14,7 +14,9 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 import spring.turbo.bean.Builder;
+import spring.turbo.util.Asserts;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,6 +52,11 @@ public final class ResourceOptionBuilder implements Builder<ResourceOption> {
             }
         }
         return this;
+    }
+
+    public ResourceOptionBuilder add(Collection<String> resourceLocations) {
+        Asserts.notNull(resourceLocations);
+        return add(resourceLocations.toArray(new String[0]));
     }
 
     public ResourceOptionBuilder resourceLoader(ResourceLoader resourceLoader) {
