@@ -6,25 +6,9 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.injection;
+@NonNullApi
+@NonNullFields
+package spring.turbo.core.env;
 
-import org.springframework.beans.factory.annotation.Value;
-import spring.turbo.core.env.SpringIdEnvironmentPostProcessor;
-
-import java.lang.annotation.*;
-
-/**
- * {@code @Value("${spring.id}")} 的快捷方式
- *
- * @author 应卓
- * @see Value
- * @see SpringIdEnvironmentPostProcessor
- * @since 2.0.6
- */
-@Inherited
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-@Value(SpringIdEnvironmentPostProcessor.VALUE_ANNOTATION_VALUE)
-public @interface SpringId {
-}
+import org.springframework.lang.NonNullApi;
+import org.springframework.lang.NonNullFields;
