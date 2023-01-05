@@ -6,7 +6,7 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.core.support;
+package spring.turbo.core;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static spring.turbo.core.Dependencies.IS_HOCON_PRESENT;
-import static spring.turbo.core.Dependencies.IS_TOML_PRESENT;
+import static spring.turbo.core.Dependencies.*;
 import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
@@ -40,13 +39,13 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  * @author 应卓
  * @since 2.0.7
  */
-public abstract class ResourceBasedEnvironmentPostProcessorSupport implements EnvironmentPostProcessor, Ordered {
+public abstract class ResourceBasedEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
-    private static final Logger log = LoggerFactory.getLogger(ResourceBasedEnvironmentPostProcessorSupport.class);
+    private static final Logger log = LoggerFactory.getLogger(ResourceBasedEnvironmentPostProcessor.class);
 
     private final int order;
 
-    public ResourceBasedEnvironmentPostProcessorSupport(int order) {
+    protected ResourceBasedEnvironmentPostProcessor(int order) {
         this.order = order;
     }
 
@@ -85,18 +84,18 @@ public abstract class ResourceBasedEnvironmentPostProcessorSupport implements En
                     resourceOption.toProperties(PropertiesFormat.XML));
         }
 
-        if (filename.endsWith(".yaml") || filename.endsWith(".yml")) {
+        if (YAML_PRESENT && filename.endsWith(".yaml") || filename.endsWith(".yml")) {
             return new PropertiesPropertySource(
                     propertySourceName,
                     resourceOption.toProperties(PropertiesFormat.YAML));
         }
 
-        if (IS_HOCON_PRESENT && filename.endsWith(".conf")) {
+        if (HOCON_PRESENT && filename.endsWith(".conf")) {
             return new HoconPropertySourceFactory().createPropertySource(propertySourceName,
                     new EncodedResource(resourceOption.get(), UTF_8));
         }
 
-        if (IS_TOML_PRESENT && filename.endsWith(".toml")) {
+        if (TOML_PRESENT && filename.endsWith(".toml")) {
             return new TomlPropertySourceFactory().createPropertySource(propertySourceName,
                     new EncodedResource(resourceOption.get(), UTF_8));
         }
