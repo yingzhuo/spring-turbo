@@ -18,6 +18,9 @@ import spring.turbo.io.ResourceOptions;
  */
 public class GitInformationEnvironmentPostProcessor extends AbstractResourceBasedEnvironmentPostProcessor {
 
+    /**
+     * 默认构造方法
+     */
     public GitInformationEnvironmentPostProcessor() {
         super(0);
     }

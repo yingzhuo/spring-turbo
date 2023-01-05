@@ -13,7 +13,9 @@ import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import spring.turbo.io.ResourceOptionDiscriminator;
 import spring.turbo.io.ResourceOptions;
+import spring.turbo.util.InstanceUtils;
 
 /**
  * @author 应卓
@@ -30,18 +32,21 @@ public final class ConditionalOnResourceOptionCondition extends SpringBootCondit
             return ConditionOutcome.noMatch("resources absent");
         }
 
-        final var resources = attributes.getStringArray("resources");
+        final var resources = attributes.getStringArray("value");
+        final var discriminatorClass = attributes.getClass("discriminator");
+
         if (resources.length == 0) {
             return ConditionOutcome.noMatch("resources absent");
         }
 
         final var match = ResourceOptions.builder()
+                .discriminator((ResourceOptionDiscriminator) InstanceUtils.newInstanceOrThrow(discriminatorClass))
                 .add(resources)
                 .build()
                 .isPresent();
 
         if (match) {
-            return ConditionOutcome.match("resources at least 1 absent");
+            return ConditionOutcome.match("resources present");
         } else {
             return ConditionOutcome.noMatch("resources absent");
         }

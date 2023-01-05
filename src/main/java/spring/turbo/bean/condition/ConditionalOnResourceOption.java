@@ -9,11 +9,14 @@
 package spring.turbo.bean.condition;
 
 import org.springframework.context.annotation.Conditional;
+import org.springframework.core.annotation.AliasFor;
+import spring.turbo.io.ResourceOptionDiscriminator;
 
 import java.lang.annotation.*;
 
 /**
  * @author 应卓
+ * @see spring.turbo.io.ResourceOption
  * @since 2.0.1
  */
 @Inherited
@@ -23,6 +26,12 @@ import java.lang.annotation.*;
 @Conditional(ConditionalOnResourceOptionCondition.class)
 public @interface ConditionalOnResourceOption {
 
+    @AliasFor("value")
     public String[] resources() default {};
+
+    @AliasFor("resources")
+    public String[] value() default {};
+
+    public Class<? extends ResourceOptionDiscriminator> discriminator() default ResourceOptionDiscriminator.Default.class;
 
 }

@@ -29,7 +29,7 @@ public final class ResourceOptionBuilder implements Builder<ResourceOption> {
 
     private final List<Resource> list = new LinkedList<>();
     private ResourceLoader resourceLoader = new DefaultResourceLoader(ClassUtils.getDefaultClassLoader());
-    private ResourceOptionDiscriminator discriminator = ResourceOptionDiscriminator.getDefault();
+    private ResourceOptionDiscriminator discriminator = ResourceOptionDiscriminator.newDefault();
 
     ResourceOptionBuilder() {
         super();

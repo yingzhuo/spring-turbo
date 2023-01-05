@@ -22,8 +22,13 @@ import java.util.function.Predicate;
 @FunctionalInterface
 public interface ResourceOptionDiscriminator extends Predicate<Resource> {
 
-    public static ResourceOptionDiscriminator getDefault() {
-        return resource -> resource != null && resource.isReadable();
+    /**
+     * 获取默认实现
+     *
+     * @return 默认实现的实例
+     */
+    public static ResourceOptionDiscriminator newDefault() {
+        return new Default();
     }
 
     public boolean isExists(@Nullable Resource resource);
@@ -31,6 +36,16 @@ public interface ResourceOptionDiscriminator extends Predicate<Resource> {
     @Override
     public default boolean test(Resource resource) {
         return isExists(resource);
+    }
+
+    /**
+     * 默认实现
+     */
+    public static class Default implements ResourceOptionDiscriminator {
+        @Override
+        public boolean isExists(@Nullable Resource resource) {
+            return resource != null && resource.isReadable();
+        }
     }
 
 }

@@ -37,8 +37,9 @@ public sealed interface ResourceOption extends Serializable
         var optional = toOptional();
         if (optional.isPresent()) {
             return optional.get();
+        } else {
+            throw new NoSuchElementException("No resource present");
         }
-        throw new NoSuchElementException("No value present");
     }
 
     public boolean isAbsent();

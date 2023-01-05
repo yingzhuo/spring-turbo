@@ -23,7 +23,7 @@ import java.util.Properties;
  * @since 1.0.0
  */
 @Singleton
-public final class ResourceOptionEmpty implements ResourceOption {
+final class ResourceOptionEmpty implements ResourceOption {
 
     /**
      * 私有构造方法
