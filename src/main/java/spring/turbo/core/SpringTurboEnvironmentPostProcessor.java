@@ -29,7 +29,7 @@ public class SpringTurboEnvironmentPostProcessor extends AbstractResourceBasedEn
      * 默认构造方法
      */
     public SpringTurboEnvironmentPostProcessor() {
-        super(Ordered.LOWEST_PRECEDENCE - 1);
+        super(Ordered.LOWEST_PRECEDENCE - 100);
     }
 
     @Override
