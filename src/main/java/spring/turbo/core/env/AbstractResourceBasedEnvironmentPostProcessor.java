@@ -6,10 +6,8 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.core;
+package spring.turbo.core.env;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.system.ApplicationHome;
@@ -41,8 +39,6 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  */
 public abstract class AbstractResourceBasedEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
-    private static final Logger log = LoggerFactory.getLogger(AbstractResourceBasedEnvironmentPostProcessor.class);
-
     private final int order;
 
     protected AbstractResourceBasedEnvironmentPostProcessor(int order) {
@@ -53,8 +49,7 @@ public abstract class AbstractResourceBasedEnvironmentPostProcessor implements E
     protected final PropertySource<?> toPropertySource(@Nullable ResourceOption resourceOption) {
         try {
             return doToPropertySource(resourceOption);
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
+        } catch (Exception ignored) {
             return null;
         }
     }
