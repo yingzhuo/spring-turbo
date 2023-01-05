@@ -52,7 +52,6 @@ public class SpringTurboEnvironmentPostProcessor extends ResourceBasedEnvironmen
 
         // ---
         for (var appDir : super.getApplicationDirectories(application)) {
-            System.out.println(appDir);
             resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.properties", appDir));
             resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.xml", appDir));
             if (YAML_PRESENT) {
