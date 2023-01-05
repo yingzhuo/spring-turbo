@@ -23,7 +23,6 @@ import spring.turbo.util.StringUtils;
 import spring.turbo.util.propertysource.HoconPropertySourceFactory;
 import spring.turbo.util.propertysource.TomlPropertySourceFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,13 +48,13 @@ public abstract class AbstractResourceBasedEnvironmentPostProcessor implements E
     protected final PropertySource<?> toPropertySource(@Nullable ResourceOption resourceOption) {
         try {
             return doToPropertySource(resourceOption);
-        } catch (Exception ignored) {
+        } catch (Throwable ignored) {
             return null;
         }
     }
 
     @Nullable
-    private PropertySource<?> doToPropertySource(@Nullable ResourceOption resourceOption) throws IOException {
+    private PropertySource<?> doToPropertySource(@Nullable ResourceOption resourceOption) throws Throwable {
         if (resourceOption == null || resourceOption.isAbsent()) {
             return null;
         }
@@ -79,7 +78,7 @@ public abstract class AbstractResourceBasedEnvironmentPostProcessor implements E
                     resourceOption.toProperties(PropertiesFormat.XML));
         }
 
-        if (YAML_PRESENT && filename.endsWith(".yaml") || filename.endsWith(".yml")) {
+        if (YAML_PRESENT && (filename.endsWith(".yaml") || filename.endsWith(".yml"))) {
             return new PropertiesPropertySource(
                     propertySourceName,
                     resourceOption.toProperties(PropertiesFormat.YAML));
@@ -110,6 +109,7 @@ public abstract class AbstractResourceBasedEnvironmentPostProcessor implements E
 
         for (var source : app.getAllSources()) {
             if (source instanceof Class<?> sourceClass) {
+                // 注意: 得到的目录最后不带"/"
                 list.add(new ApplicationHome(sourceClass).getDir().getAbsoluteFile().toString());
             }
         }
