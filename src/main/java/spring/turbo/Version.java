@@ -14,17 +14,17 @@ package spring.turbo;
  * @author 应卓
  * @since 1.3.1
  */
-public final class SpringTurboVersion {
+public final class Version {
 
     /**
      * 本软件版本
      */
-    public static final String VERSION = "2.0.7";
+    public static final String CURRENT = "2.0.7";
 
     /**
      * 私有构造方法
      */
-    private SpringTurboVersion() {
+    private Version() {
         super();
     }
 

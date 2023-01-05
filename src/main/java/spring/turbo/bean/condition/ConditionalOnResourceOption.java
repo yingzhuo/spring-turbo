@@ -17,6 +17,7 @@ import java.lang.annotation.*;
 /**
  * @author 应卓
  * @see spring.turbo.io.ResourceOption
+ * @see ResourceOptionDiscriminator
  * @since 2.0.1
  */
 @Inherited
