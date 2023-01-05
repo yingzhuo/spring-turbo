@@ -23,7 +23,7 @@ import static spring.turbo.core.Dependencies.*;
  * @author 应卓
  * @since 2.0.7
  */
-public class SpringTurboEnvironmentPostProcessor extends ResourceBasedEnvironmentPostProcessor {
+public class SpringTurboEnvironmentPostProcessor extends AbstractResourceBasedEnvironmentPostProcessor {
 
     /**
      * 默认构造方法
@@ -51,7 +51,7 @@ public class SpringTurboEnvironmentPostProcessor extends ResourceBasedEnvironmen
         final var resourceLocations = new ArrayList<String>();
 
         // ---
-        for (var appDir : super.getApplicationDirectories(application)) {
+        for (var appDir : getApplicationDirectories(application)) {
             resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.properties", appDir));
             resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.xml", appDir));
             if (YAML_PRESENT) {

@@ -39,13 +39,13 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  * @author 应卓
  * @since 2.0.7
  */
-public abstract class ResourceBasedEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
+public abstract class AbstractResourceBasedEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
-    private static final Logger log = LoggerFactory.getLogger(ResourceBasedEnvironmentPostProcessor.class);
+    private static final Logger log = LoggerFactory.getLogger(AbstractResourceBasedEnvironmentPostProcessor.class);
 
     private final int order;
 
-    protected ResourceBasedEnvironmentPostProcessor(int order) {
+    protected AbstractResourceBasedEnvironmentPostProcessor(int order) {
         this.order = order;
     }
 

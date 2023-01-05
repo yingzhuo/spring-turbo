@@ -25,7 +25,7 @@ import static spring.turbo.core.Dependencies.*;
  * @see spring.turbo.bean.injection.ApplicationName
  * @since 2.0.7
  */
-public class ApplicationNameEnvironmentPostProcessor extends ResourceBasedEnvironmentPostProcessor {
+public class ApplicationNameEnvironmentPostProcessor extends AbstractResourceBasedEnvironmentPostProcessor {
 
     private static final String SPRING_APPLICATION_NAME = "spring.application.name";
 
@@ -63,10 +63,10 @@ public class ApplicationNameEnvironmentPostProcessor extends ResourceBasedEnviro
                 resourceLocations.add(StringFormatter.format("file:{}/{}.yml", appDir, filename));
             }
             if (HOCON_PRESENT) {
-                resourceLocations.add(StringFormatter.format("file:{}/{}.conf", appDir));
+                resourceLocations.add(StringFormatter.format("file:{}/{}.conf", appDir, filename));
             }
             if (TOML_PRESENT) {
-                resourceLocations.add(StringFormatter.format("file:{}/{}.toml", appDir));
+                resourceLocations.add(StringFormatter.format("file:{}/{}.toml", appDir, filename));
             }
         }
 
