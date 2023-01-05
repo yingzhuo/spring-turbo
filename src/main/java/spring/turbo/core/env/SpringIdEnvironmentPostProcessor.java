@@ -28,23 +28,24 @@ public class SpringIdEnvironmentPostProcessor implements EnvironmentPostProcesso
     public static final String SPRING_ID_ENVIRONMENT_KEY = "spring.id";
     public static final String VALUE_ANNOTATION_VALUE = "${" + SPRING_ID_ENVIRONMENT_KEY + "}";
 
-    private final String id;
+    private final String springId = RandomStringUtils.randomUUID();
 
     /**
      * 默认构造方法
      */
     public SpringIdEnvironmentPostProcessor() {
-        this.id = RandomStringUtils.randomUUID();
+        super();
     }
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        final var ps = new MapPropertySource(
+        final var propertySource = new MapPropertySource(
                 "springIdPropertySource",
-                Map.of(SPRING_ID_ENVIRONMENT_KEY, this.id)
+                Map.of(SPRING_ID_ENVIRONMENT_KEY, springId)
         );
-        final var propertySources = environment.getPropertySources();
-        propertySources.addFirst(ps);
+
+        environment.getPropertySources()
+                .addFirst(propertySource);
     }
 
     @Override

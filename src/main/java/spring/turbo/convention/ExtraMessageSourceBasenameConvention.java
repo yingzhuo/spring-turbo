@@ -9,7 +9,6 @@
 package spring.turbo.convention;
 
 import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
-import org.springframework.core.Ordered;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.lang.Nullable;
 import spring.turbo.autoconfiguration.properties.MessageSourceProps;
@@ -26,14 +25,9 @@ import java.util.Collection;
  * @since 2.0.3
  */
 @FunctionalInterface
-public interface ExtraMessageSourceBasenameConvention extends Ordered {
+public interface ExtraMessageSourceBasenameConvention extends Convention {
 
     @Nullable
     public Collection<String> getExtraMessageSourceBasename();
-
-    @Override
-    public default int getOrder() {
-        return 0;
-    }
 
 }

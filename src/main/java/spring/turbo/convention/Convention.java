@@ -8,26 +8,20 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.convention;
 
-import org.springframework.core.io.support.SpringFactoriesLoader;
-import org.springframework.lang.Nullable;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Map;
+import org.springframework.core.Ordered;
 
 /**
- * 扩展 {@link PasswordEncoder}
+ * 规约
  *
  * @author 应卓
- * @see PasswordEncoder
- * @see DelegatingPasswordEncoder
- * @see SpringFactoriesLoader
- * @since 2.0.3
+ * @see spring.turbo.core.SpringFactoriesUtils
+ * @since 2.0.7
  */
-@FunctionalInterface
-public interface ExtraPasswordEncoderConvention extends Convention {
+public interface Convention extends Ordered {
 
-    @Nullable
-    public Map<String, PasswordEncoder> getExtraPasswordEncoderWithName();
+    @Override
+    public default int getOrder() {
+        return 0;
+    }
 
 }
