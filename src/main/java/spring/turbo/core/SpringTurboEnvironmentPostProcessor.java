@@ -11,20 +11,19 @@ package spring.turbo.core;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
-import spring.turbo.core.support.ResourceBasedEnvironmentPostProcessorSupport;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptions;
+import spring.turbo.util.StringFormatter;
 
 import java.util.ArrayList;
 
-import static spring.turbo.core.Dependencies.IS_HOCON_PRESENT;
-import static spring.turbo.core.Dependencies.IS_TOML_PRESENT;
+import static spring.turbo.core.Dependencies.*;
 
 /**
  * @author 应卓
  * @since 2.0.7
  */
-public class SpringTurboEnvironmentPostProcessor extends ResourceBasedEnvironmentPostProcessorSupport {
+public class SpringTurboEnvironmentPostProcessor extends AbstractResourceBasedEnvironmentPostProcessor {
 
     /**
      * 默认构造方法
@@ -35,7 +34,7 @@ public class SpringTurboEnvironmentPostProcessor extends ResourceBasedEnvironmen
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        final ResourceOption resourceOption = loadResource();
+        final ResourceOption resourceOption = loadResource(application);
 
         if (resourceOption.isAbsent()) {
             return;
@@ -48,38 +47,64 @@ public class SpringTurboEnvironmentPostProcessor extends ResourceBasedEnvironmen
         }
     }
 
-    private ResourceOption loadResource() {
+    private ResourceOption loadResource(SpringApplication application) {
         final var resourceLocations = new ArrayList<String>();
+
+        // ---
+        for (var appDir : getApplicationDirectories(application)) {
+            resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.properties", appDir));
+            resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.xml", appDir));
+            if (YAML_PRESENT) {
+                resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.yaml", appDir));
+                resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.yml", appDir));
+            }
+            if (HOCON_PRESENT) {
+                resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.conf", appDir));
+            }
+            if (TOML_PRESENT) {
+                resourceLocations.add(StringFormatter.format("file:{}/spring-turbo.toml", appDir));
+            }
+        }
+
+        // ---
         resourceLocations.add("classpath:spring-turbo.properties");
         resourceLocations.add("classpath:spring-turbo.xml");
-        resourceLocations.add("classpath:spring-turbo.yaml");
-        resourceLocations.add("classpath:spring-turbo.yml");
-        if (IS_HOCON_PRESENT) {
+        if (YAML_PRESENT) {
+            resourceLocations.add("classpath:spring-turbo.yaml");
+            resourceLocations.add("classpath:spring-turbo.yml");
+        }
+        if (HOCON_PRESENT) {
             resourceLocations.add("classpath:spring-turbo.conf");
         }
-        if (IS_TOML_PRESENT) {
+        if (TOML_PRESENT) {
             resourceLocations.add("classpath:spring-turbo.toml");
         }
+
         // ---
         resourceLocations.add("classpath:META-INF/spring-turbo.properties");
         resourceLocations.add("classpath:META-INF/spring-turbo.xml");
-        resourceLocations.add("classpath:META-INF/spring-turbo.yaml");
-        resourceLocations.add("classpath:META-INF/spring-turbo.yml");
-        if (IS_HOCON_PRESENT) {
+        if (YAML_PRESENT) {
+            resourceLocations.add("classpath:META-INF/spring-turbo.yaml");
+            resourceLocations.add("classpath:META-INF/spring-turbo.yml");
+        }
+        if (HOCON_PRESENT) {
             resourceLocations.add("classpath:META-INF/spring-turbo.conf");
         }
-        if (IS_TOML_PRESENT) {
+        if (TOML_PRESENT) {
             resourceLocations.add("classpath:META-INF/spring-turbo.toml");
         }
+
         // ---
         resourceLocations.add("classpath:conf/spring-turbo.properties");
         resourceLocations.add("classpath:conf/spring-turbo.xml");
-        resourceLocations.add("classpath:conf/spring-turbo.yaml");
-        resourceLocations.add("classpath:conf/spring-turbo.yml");
-        if (IS_HOCON_PRESENT) {
+        if (YAML_PRESENT) {
+            resourceLocations.add("classpath:conf/spring-turbo.yaml");
+            resourceLocations.add("classpath:conf/spring-turbo.yml");
+        }
+        if (HOCON_PRESENT) {
             resourceLocations.add("classpath:conf/spring-turbo.conf");
         }
-        if (IS_TOML_PRESENT) {
+        if (TOML_PRESENT) {
             resourceLocations.add("classpath:conf/spring-turbo.toml");
         }
 

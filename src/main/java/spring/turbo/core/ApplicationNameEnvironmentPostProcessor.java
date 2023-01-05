@@ -11,7 +11,6 @@ package spring.turbo.core;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
-import spring.turbo.core.support.ResourceBasedEnvironmentPostProcessorSupport;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptions;
 import spring.turbo.util.StringFormatter;
@@ -19,14 +18,14 @@ import spring.turbo.util.StringUtils;
 
 import java.util.ArrayList;
 
-import static spring.turbo.core.Dependencies.IS_HOCON_PRESENT;
-import static spring.turbo.core.Dependencies.IS_TOML_PRESENT;
+import static spring.turbo.core.Dependencies.*;
 
 /**
  * @author 应卓
+ * @see spring.turbo.bean.injection.ApplicationName
  * @since 2.0.7
  */
-public class ApplicationNameEnvironmentPostProcessor extends ResourceBasedEnvironmentPostProcessorSupport {
+public class ApplicationNameEnvironmentPostProcessor extends AbstractResourceBasedEnvironmentPostProcessor {
 
     private static final String SPRING_APPLICATION_NAME = "spring.application.name";
 
@@ -45,51 +44,75 @@ public class ApplicationNameEnvironmentPostProcessor extends ResourceBasedEnviro
             return;
         }
 
-        final var propertySource = super.toPropertySource(loadResource(appName));
+        final var propertySource = super.toPropertySource(loadResource(appName, application));
         if (propertySource != null) {
             final var propertySources = environment.getPropertySources();
             propertySources.addLast(propertySource);
         }
     }
 
-    private ResourceOption loadResource(String filename) {
+    private ResourceOption loadResource(String filename, SpringApplication application) {
         final var resourceLocations = new ArrayList<String>();
+
+        // ---
+        for (var appDir : getApplicationDirectories(application)) {
+            resourceLocations.add(StringFormatter.format("file:{}/{}.properties", appDir, filename));
+            resourceLocations.add(StringFormatter.format("file:{}/{}.xml", appDir, filename));
+            if (YAML_PRESENT) {
+                resourceLocations.add(StringFormatter.format("file:{}/{}.yaml", appDir, filename));
+                resourceLocations.add(StringFormatter.format("file:{}/{}.yml", appDir, filename));
+            }
+            if (HOCON_PRESENT) {
+                resourceLocations.add(StringFormatter.format("file:{}/{}.conf", appDir, filename));
+            }
+            if (TOML_PRESENT) {
+                resourceLocations.add(StringFormatter.format("file:{}/{}.toml", appDir, filename));
+            }
+        }
+
+        // ---
         resourceLocations.add(StringFormatter.format("classpath:{}.properties", filename));
         resourceLocations.add(StringFormatter.format("classpath:{}.xml", filename));
-        resourceLocations.add(StringFormatter.format("classpath:{}.yaml", filename));
-        resourceLocations.add(StringFormatter.format("classpath:{}.yml", filename));
-        if (IS_HOCON_PRESENT) {
+        if (YAML_PRESENT) {
+            resourceLocations.add(StringFormatter.format("classpath:{}.yaml", filename));
+            resourceLocations.add(StringFormatter.format("classpath:{}.yml", filename));
+        }
+        if (HOCON_PRESENT) {
             resourceLocations.add(StringFormatter.format("classpath:{}.conf", filename));
         }
-        if (IS_TOML_PRESENT) {
+        if (TOML_PRESENT) {
             resourceLocations.add(StringFormatter.format("classpath:{}.toml", filename));
         }
+
         // ---
         resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.properties", filename));
         resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.xml", filename));
-        resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.yaml", filename));
-        resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.yml", filename));
-        if (IS_HOCON_PRESENT) {
+        if (YAML_PRESENT) {
+            resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.yaml", filename));
+            resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.yml", filename));
+        }
+        if (HOCON_PRESENT) {
             resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.conf", filename));
         }
-        if (IS_TOML_PRESENT) {
+        if (TOML_PRESENT) {
             resourceLocations.add(StringFormatter.format("classpath:META-INF/{}.toml", filename));
         }
+
         // ---
         resourceLocations.add(StringFormatter.format("classpath:conf/{}.properties", filename));
         resourceLocations.add(StringFormatter.format("classpath:conf/{}.xml", filename));
-        resourceLocations.add(StringFormatter.format("classpath:conf/{}.yaml", filename));
-        resourceLocations.add(StringFormatter.format("classpath:conf/{}.yml", filename));
-        if (IS_HOCON_PRESENT) {
+        if (YAML_PRESENT) {
+            resourceLocations.add(StringFormatter.format("classpath:conf/{}.yaml", filename));
+            resourceLocations.add(StringFormatter.format("classpath:conf/{}.yml", filename));
+        }
+        if (HOCON_PRESENT) {
             resourceLocations.add(StringFormatter.format("classpath:conf/{}.conf", filename));
         }
-        if (IS_TOML_PRESENT) {
+        if (TOML_PRESENT) {
             resourceLocations.add(StringFormatter.format("classpath:conf/{}.toml", filename));
         }
 
-        return ResourceOptions.builder()
-                .add(resourceLocations)
-                .build();
+        return ResourceOptions.builder().add(resourceLocations).build();
     }
 
 }

@@ -12,13 +12,14 @@ import spring.turbo.util.ClassUtils;
 
 /**
  * @author 应卓
+ * @see spring.turbo.bean.injection.ApplicationName
  * @since 2.0.7
  */
 public final class Dependencies {
 
-    public static final boolean IS_HOCON_PRESENT = ClassUtils.isPresent("com.typesafe.config.Config");
-
-    public static final boolean IS_TOML_PRESENT = ClassUtils.isPresent("com.moandjiezana.toml.Toml");
+    public static final boolean YAML_PRESENT = ClassUtils.isPresent("org.yaml.snakeyaml.Yaml");
+    public static final boolean HOCON_PRESENT = ClassUtils.isPresent("com.typesafe.config.Config");
+    public static final boolean TOML_PRESENT = ClassUtils.isPresent("com.moandjiezana.toml.Toml");
 
     /**
      * 私有构造方法
