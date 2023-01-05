@@ -11,6 +11,8 @@ package spring.turbo.core;
 import spring.turbo.util.ClassUtils;
 
 /**
+ * 依赖工具
+ *
  * @author 应卓
  * @see spring.turbo.bean.injection.ApplicationName
  * @since 2.0.7

@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.jsr380;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintValidator;
@@ -39,11 +38,10 @@ public class ValidJsonValidator implements ConstraintValidator<ValidJson, String
                 // nop
             }
             valid = true;
-        } catch (JsonParseException ignored) {
-            // nop
         } catch (IOException ignored) {
             // nop
         }
         return valid;
     }
+
 }
