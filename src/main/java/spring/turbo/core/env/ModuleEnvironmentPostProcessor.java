@@ -9,18 +9,29 @@
 package spring.turbo.core.env;
 
 import org.springframework.core.Ordered;
+import org.springframework.core.env.Environment;
+import spring.turbo.core.ApplicationHomeDir;
+
+import java.util.List;
 
 /**
  * @author 应卓
  * @since 2.0.7
  */
-public class ModuleEnvironmentPostProcessor extends AbstractModuleEnvironmentPostProcessor {
+public class ModuleEnvironmentPostProcessor extends AbstractConventionBasedEnvironmentPostProcessor {
 
     /**
      * 默认构造方法
      */
     public ModuleEnvironmentPostProcessor() {
-        super(Ordered.LOWEST_PRECEDENCE - 100, "spring-turbo", "spring-turbo-core");
+        super.setOrder(Ordered.LOWEST_PRECEDENCE - 100);
+    }
+
+    @Override
+    public List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir homeDir) {
+        return List.of(
+                generateConventionBasedGroup(homeDir, "<spring-turbo>", "spring-turbo")
+        );
     }
 
 }

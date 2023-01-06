@@ -8,37 +8,32 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core.env;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.core.env.ConfigurableEnvironment;
-import spring.turbo.io.ResourceOptions;
+import org.springframework.core.env.Environment;
+import spring.turbo.core.ApplicationHomeDir;
+
+import java.util.List;
 
 /**
  * @author 应卓
  * @since 2.0.7
  */
-public class GitInformationEnvironmentPostProcessor extends AbstractResourceBasedEnvironmentPostProcessor {
+public class GitInformationEnvironmentPostProcessor extends AbstractResourceOptionBasedEnvironmentPostProcessor {
 
     /**
      * 默认构造方法
      */
     public GitInformationEnvironmentPostProcessor() {
-        super(0);
+        super.setOrder(0);
     }
 
     @Override
-    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        final var propertySource = toPropertySource(
-                ResourceOptions.builder()
-                        .add("classpath:git.properties")
-                        .add("classpath:config/git.properties")
-                        .add("classpath:META-INF/git.properties")
-                        .build()
+    public List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir applicationHomeDir) {
+        return List.of(
+                new ResourceOptionGroup(
+                        "git-info",
+                        List.of("classpath:git.properties", "classpath:config/git.properties", "classpath:META-INF/git.properties")
+                )
         );
-        if (propertySource == null) {
-            return;
-        }
-        environment.getPropertySources()
-                .addFirst(propertySource);
     }
 
 }
