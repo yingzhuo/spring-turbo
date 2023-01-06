@@ -41,7 +41,7 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  */
 public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
-    private int order = Ordered.LOWEST_PRECEDENCE;
+    private int order = LOWEST_PRECEDENCE;
 
     @Override
     public final void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
@@ -65,6 +65,12 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
                         .addLast(propertySource);
             }
         }
+
+        afterEnvironmentSetup(environment, application);
+    }
+
+    protected void afterEnvironmentSetup(ConfigurableEnvironment environment, SpringApplication application) {
+        // nop
     }
 
     @Nullable
