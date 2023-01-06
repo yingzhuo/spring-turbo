@@ -17,8 +17,6 @@ import static spring.turbo.core.Dependencies.*;
 import static spring.turbo.util.StringFormatter.format;
 
 /**
- * 基于约定
- *
  * @author 应卓
  * @since 2.0.7
  */
