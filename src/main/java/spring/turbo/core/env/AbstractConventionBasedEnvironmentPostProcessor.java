@@ -55,6 +55,34 @@ public abstract class AbstractConventionBasedEnvironmentPostProcessor extends Ab
             list.add(homeDir.resolveResourceLocation("config", filename + ".toml"));
         }
 
+        // 例如 file:/opt/myapp/.config/filename.?
+        list.add(homeDir.resolveResourceLocation(".config", filename + ".properties"));
+        list.add(homeDir.resolveResourceLocation(".config", filename + ".xml"));
+        if (YAML_PRESENT) {
+            list.add(homeDir.resolveResourceLocation(".config", filename + ".yaml"));
+            list.add(homeDir.resolveResourceLocation(".config", filename + ".yml"));
+        }
+        if (HOCON_PRESENT) {
+            list.add(homeDir.resolveResourceLocation(".config", filename + ".conf"));
+        }
+        if (TOML_PRESENT) {
+            list.add(homeDir.resolveResourceLocation(".config", filename + ".toml"));
+        }
+
+        // 例如 file:/opt/myapp/_config/filename.?
+        list.add(homeDir.resolveResourceLocation("_config", filename + ".properties"));
+        list.add(homeDir.resolveResourceLocation("_config", filename + ".xml"));
+        if (YAML_PRESENT) {
+            list.add(homeDir.resolveResourceLocation("_config", filename + ".yaml"));
+            list.add(homeDir.resolveResourceLocation("_config", filename + ".yml"));
+        }
+        if (HOCON_PRESENT) {
+            list.add(homeDir.resolveResourceLocation("_config", filename + ".conf"));
+        }
+        if (TOML_PRESENT) {
+            list.add(homeDir.resolveResourceLocation("_config", filename + ".toml"));
+        }
+
         // 例如 classpath:filename.?
         list.add(format("classpath:{}.properties", filename));
         list.add(format("classpath:{}.xml", filename));
@@ -81,6 +109,34 @@ public abstract class AbstractConventionBasedEnvironmentPostProcessor extends Ab
         }
         if (TOML_PRESENT) {
             list.add(format("classpath:config/{}.toml", filename));
+        }
+
+        // 例如 classpath:.config/filename.?
+        list.add(format("classpath:.config/{}.properties", filename));
+        list.add(format("classpath:.config/{}.xml", filename));
+        if (YAML_PRESENT) {
+            list.add(format("classpath:.config/{}.yaml", filename));
+            list.add(format("classpath:.config/{}.yml", filename));
+        }
+        if (HOCON_PRESENT) {
+            list.add(format("classpath:.config/{}.conf", filename));
+        }
+        if (TOML_PRESENT) {
+            list.add(format("classpath:.config/{}.toml", filename));
+        }
+
+        // 例如 classpath:_config/filename.?
+        list.add(format("classpath:_config/{}.properties", filename));
+        list.add(format("classpath:_config/{}.xml", filename));
+        if (YAML_PRESENT) {
+            list.add(format("classpath:_config/{}.yaml", filename));
+            list.add(format("classpath:_config/{}.yml", filename));
+        }
+        if (HOCON_PRESENT) {
+            list.add(format("classpath:_config/{}.conf", filename));
+        }
+        if (TOML_PRESENT) {
+            list.add(format("classpath:_config/{}.toml", filename));
         }
 
         // 例如 classpath:META-INF/filename.?

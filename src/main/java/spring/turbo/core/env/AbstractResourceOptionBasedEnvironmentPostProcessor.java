@@ -169,7 +169,7 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    protected final class ResourceOptionGroup {
+    protected static final class ResourceOptionGroup {
 
         private final String name;
         private final List<String> locations;
@@ -182,7 +182,6 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
         public ResourceOptionGroup(String name, List<String> locations, @Nullable ResourceOptionDiscriminator discriminator) {
             Asserts.hasText(name);
             Asserts.notNull(locations);
-            Asserts.isTrue(locations.size() > 0);
             this.name = name;
             this.locations = locations;
             this.discriminator = Objects.requireNonNullElseGet(discriminator, ResourceOptionDiscriminator::newDefault);
@@ -198,6 +197,10 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
 
         public ResourceOptionDiscriminator getDiscriminator() {
             return discriminator;
+        }
+
+        public boolean isEmpty() {
+            return locations.isEmpty();
         }
     }
 
