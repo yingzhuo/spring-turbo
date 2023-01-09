@@ -10,7 +10,6 @@ package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
 import org.springframework.util.StreamUtils;
-import spring.turbo.util.Asserts;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +18,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 
@@ -45,11 +43,6 @@ final class ResourceOptionImpl implements ResourceOption {
     @Override
     public boolean isAbsent() {
         return false;
-    }
-
-    @Override
-    public boolean isPresent() {
-        return true;
     }
 
     @Override
@@ -97,29 +90,6 @@ final class ResourceOptionImpl implements ResourceOption {
     public Path toPath() {
         try {
             return resource.getFile().toPath().normalize();
-        } catch (IOException e) {
-            throw toUnchecked(e);
-        }
-    }
-
-    @Override
-    public Properties toProperties(PropertiesFormat format) {
-        Asserts.notNull(format);
-        Properties props = new Properties();
-
-        try {
-            switch (format) {
-                case PROPERTIES:
-                    props.load(resource.getInputStream());
-                    return props;
-                case XML:
-                    props.loadFromXML(resource.getInputStream());
-                    return props;
-                case YAML:
-                    return YamlUtils.toProperties(resource);
-                default:
-                    throw new AssertionError();
-            }
         } catch (IOException e) {
             throw toUnchecked(e);
         }

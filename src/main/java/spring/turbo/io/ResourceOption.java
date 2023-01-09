@@ -9,7 +9,6 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.Resource;
-import spring.turbo.util.CharsetPool;
 
 import java.io.File;
 import java.io.InputStream;
@@ -18,7 +17,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Properties;
+
+import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
  * {@link Resource} 的包装工具
@@ -67,14 +67,8 @@ public sealed interface ResourceOption extends Serializable
         return getChecksumCRC32(1024);
     }
 
-    public Properties toProperties(PropertiesFormat propertiesFormat);
-
-    public default Properties toProperties() {
-        return toProperties(PropertiesFormat.PROPERTIES);
-    }
-
     public default LineIterator getLineIterator() {
-        return getLineIterator(CharsetPool.UTF_8);
+        return getLineIterator(UTF_8);
     }
 
     public LineIterator getLineIterator(Charset charset);

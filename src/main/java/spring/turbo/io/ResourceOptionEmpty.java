@@ -15,8 +15,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Properties;
 
 /**
  * @author 应卓
@@ -44,11 +44,6 @@ final class ResourceOptionEmpty implements ResourceOption {
     @Override
     public boolean isAbsent() {
         return true;
-    }
-
-    @Override
-    public boolean isPresent() {
-        return false;
     }
 
     @Override
@@ -82,16 +77,6 @@ final class ResourceOptionEmpty implements ResourceOption {
     }
 
     @Override
-    public Properties toProperties(PropertiesFormat propertiesFormat) {
-        throw SyncAvoid.EX;
-    }
-
-    @Override
-    public Properties toProperties() {
-        throw SyncAvoid.EX;
-    }
-
-    @Override
     public long getChecksumCRC32(int buffSize) {
         throw SyncAvoid.EX;
     }
@@ -114,7 +99,7 @@ final class ResourceOptionEmpty implements ResourceOption {
     // 延迟加载
     private static class SyncAvoid {
         private static final ResourceOptionEmpty INSTANCE = new ResourceOptionEmpty();
-        private static final IllegalStateException EX = new IllegalStateException("empty resource");
+        private static final NoSuchElementException EX = new NoSuchElementException("No resource present");
     }
 
 }
