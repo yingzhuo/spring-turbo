@@ -34,6 +34,7 @@ import java.util.Objects;
 
 import static spring.turbo.core.Dependencies.*;
 import static spring.turbo.util.CharsetPool.UTF_8;
+import static spring.turbo.util.StringUtils.endsWithIgnoreCase;
 
 /**
  * @author 应卓
@@ -135,26 +136,27 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
             return null;
         }
 
-        if (filename.endsWith(".properties") || filename.endsWith(".xml")) {
+        if (endsWithIgnoreCase(filename, ".properties") || endsWithIgnoreCase(filename, ".xml")) {
             return new DefaultPropertySourceFactory().createPropertySource(propertySourceName,
                     new EncodedResource(resourceOption.get()));
         }
 
-        if (YAML_PRESENT && (filename.endsWith(".yaml") || filename.endsWith(".yml"))) {
+        if (YAML_PRESENT && (endsWithIgnoreCase(filename, ".yaml") || endsWithIgnoreCase(filename, ".yml"))) {
             return new YamlPropertySourceFactory().createPropertySource(propertySourceName,
                     new EncodedResource(resourceOption.get(), UTF_8)
             );
         }
 
-        if (HOCON_PRESENT && filename.endsWith(".conf")) {
+        if (HOCON_PRESENT && endsWithIgnoreCase(filename, ".conf")) {
             return new HoconPropertySourceFactory().createPropertySource(propertySourceName,
                     new EncodedResource(resourceOption.get(), UTF_8)
             );
         }
 
-        if (TOML_PRESENT && filename.endsWith(".toml")) {
+        if (TOML_PRESENT && endsWithIgnoreCase(filename, ".toml")) {
             return new TomlPropertySourceFactory().createPropertySource(propertySourceName,
-                    new EncodedResource(resourceOption.get(), UTF_8));
+                    new EncodedResource(resourceOption.get(), UTF_8)
+            );
         }
 
         return null;
