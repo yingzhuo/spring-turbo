@@ -55,5 +55,4 @@ public class ValidSuffixValidator implements ConstraintValidator<ValidSuffix, St
         return false;
     }
 
-
 }
