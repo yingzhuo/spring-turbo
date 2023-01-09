@@ -13,11 +13,10 @@ import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
+import org.springframework.core.io.support.DefaultPropertySourceFactory;
 import org.springframework.core.io.support.EncodedResource;
 import spring.turbo.core.ApplicationHomeDir;
-import spring.turbo.io.PropertiesFormat;
 import spring.turbo.io.ResourceOption;
 import spring.turbo.io.ResourceOptionDiscriminator;
 import spring.turbo.io.ResourceOptions;
@@ -27,6 +26,7 @@ import spring.turbo.util.RandomStringUtils;
 import spring.turbo.util.StringUtils;
 import spring.turbo.util.propertysource.HoconPropertySourceFactory;
 import spring.turbo.util.propertysource.TomlPropertySourceFactory;
+import spring.turbo.util.propertysource.YamlPropertySourceFactory;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -34,6 +34,7 @@ import java.util.Objects;
 
 import static spring.turbo.core.Dependencies.*;
 import static spring.turbo.util.CharsetPool.UTF_8;
+import static spring.turbo.util.StringUtils.endsWithIgnoreCase;
 
 /**
  * @author 应卓
@@ -135,32 +136,27 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
             return null;
         }
 
-        if (filename.endsWith(".properties")) {
-            return new PropertiesPropertySource(
-                    propertySourceName,
-                    resourceOption.toProperties(PropertiesFormat.PROPERTIES));
+        if (endsWithIgnoreCase(filename, ".properties") || endsWithIgnoreCase(filename, ".xml")) {
+            return new DefaultPropertySourceFactory().createPropertySource(propertySourceName,
+                    new EncodedResource(resourceOption.get()));
         }
 
-        if (filename.endsWith(".xml")) {
-            return new PropertiesPropertySource(
-                    propertySourceName,
-                    resourceOption.toProperties(PropertiesFormat.XML));
+        if (YAML_PRESENT && (endsWithIgnoreCase(filename, ".yaml") || endsWithIgnoreCase(filename, ".yml"))) {
+            return new YamlPropertySourceFactory().createPropertySource(propertySourceName,
+                    new EncodedResource(resourceOption.get(), UTF_8)
+            );
         }
 
-        if (YAML_PRESENT && (filename.endsWith(".yaml") || filename.endsWith(".yml"))) {
-            return new PropertiesPropertySource(
-                    propertySourceName,
-                    resourceOption.toProperties(PropertiesFormat.YAML));
-        }
-
-        if (HOCON_PRESENT && filename.endsWith(".conf")) {
+        if (HOCON_PRESENT && endsWithIgnoreCase(filename, ".conf")) {
             return new HoconPropertySourceFactory().createPropertySource(propertySourceName,
-                    new EncodedResource(resourceOption.get(), UTF_8));
+                    new EncodedResource(resourceOption.get(), UTF_8)
+            );
         }
 
-        if (TOML_PRESENT && filename.endsWith(".toml")) {
+        if (TOML_PRESENT && endsWithIgnoreCase(filename, ".toml")) {
             return new TomlPropertySourceFactory().createPropertySource(propertySourceName,
-                    new EncodedResource(resourceOption.get(), UTF_8));
+                    new EncodedResource(resourceOption.get(), UTF_8)
+            );
         }
 
         return null;
