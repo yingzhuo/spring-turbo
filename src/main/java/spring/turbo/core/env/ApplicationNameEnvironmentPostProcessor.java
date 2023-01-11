@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core.env;
 
-import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import spring.turbo.core.ApplicationHomeDir;
 import spring.turbo.util.StringUtils;
@@ -29,7 +28,7 @@ public class ApplicationNameEnvironmentPostProcessor extends AbstractConventionB
      * 默认构造方法
      */
     public ApplicationNameEnvironmentPostProcessor() {
-        super.setOrder(Ordered.LOWEST_PRECEDENCE);
+        super.setOrder(LOWEST_PRECEDENCE);
     }
 
     @Nullable
