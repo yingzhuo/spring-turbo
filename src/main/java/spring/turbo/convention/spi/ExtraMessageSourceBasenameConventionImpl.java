@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.convention.spi;
 
-import org.springframework.core.Ordered;
 import spring.turbo.convention.ExtraMessageSourceBasenameConvention;
 
 import java.util.Collection;
@@ -27,7 +26,7 @@ public final class ExtraMessageSourceBasenameConventionImpl implements ExtraMess
 
     @Override
     public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE;
+        return HIGHEST_PRECEDENCE;
     }
 
 }

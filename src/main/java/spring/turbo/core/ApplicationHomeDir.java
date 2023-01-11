@@ -9,16 +9,13 @@
 package spring.turbo.core;
 
 import org.springframework.boot.system.ApplicationHome;
-import org.springframework.util.AntPathMatcher;
-import org.springframework.util.PathMatcher;
 import spring.turbo.io.PathTreeUtils;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.StringUtils;
 
 import javax.annotation.Nullable;
 import java.io.File;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -27,9 +24,11 @@ import java.util.function.Predicate;
  * 应用程序部署目录
  *
  * @author 应卓
+ * @see #of()
+ * @see #of(Class)
  * @since 2.0.7
  */
-public final class ApplicationHomeDir {
+public final class ApplicationHomeDir implements Comparable<ApplicationHomeDir> {
 
     private final File home;
 
@@ -89,9 +88,6 @@ public final class ApplicationHomeDir {
         return listFiles(maxDepth, null);
     }
 
-    /**
-     * @see AntStyleFilter#newInstance(String...)
-     */
     public List<String> listFiles(int maxDepth, @Nullable Predicate<File> filter) {
         final var filterToUse = Objects.requireNonNullElse(filter, f -> true);
 
@@ -101,46 +97,30 @@ public final class ApplicationHomeDir {
                 .toList();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return asString(false);
+    }
 
-    /**
-     * @author 应卓
-     * @see #newInstance(String...)
-     * @since 2.0.8
-     */
-    public static final class AntStyleFilter implements Predicate<File> {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ApplicationHomeDir that = (ApplicationHomeDir) o;
+        return home.equals(that.home);
+    }
 
-        private final PathMatcher matcher = new AntPathMatcher();
-        private final String[] antPatterns;
+    @Override
+    public int hashCode() {
+        return Objects.hash(home);
+    }
 
-        public static AntStyleFilter newInstance(String... patterns) {
-            List<String> list = new ArrayList<>();
-            StringUtils.blankSafeAddAll(list, patterns);
-            return new AntStyleFilter(list.toArray(new String[0]));
-        }
-
-        /**
-         * 私有构造方法
-         *
-         * @param antPatterns 多个匹配策略
-         */
-        private AntStyleFilter(String[] antPatterns) {
-            this.antPatterns = antPatterns;
-        }
-
-        @Override
-        public boolean test(@Nullable File file) {
-            if (antPatterns.length == 0 || file == null) {
-                return false;
-            }
-
-            for (var pattern : this.antPatterns) {
-                if (matcher.match(pattern, file.getAbsolutePath())) {
-                    return true;
-                }
-            }
-            return false;
-        }
+    @Override
+    public int compareTo(@Nullable ApplicationHomeDir o) {
+        final var thisFile = this.home;
+        final var thatFile = o != null ? o.home : null;
+        return Comparator.nullsLast(Comparator.<File>naturalOrder())
+                .compare(thisFile, thatFile);
     }
 
 }

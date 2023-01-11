@@ -29,6 +29,7 @@ import spring.turbo.util.propertysource.TomlPropertySourceFactory;
 import spring.turbo.util.propertysource.YamlPropertySourceFactory;
 
 import javax.annotation.Nullable;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -171,7 +172,7 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    protected static final class ResourceOptionGroup {
+    public static final class ResourceOptionGroup implements Serializable {
 
         private final String name;
         private final List<String> locations;
