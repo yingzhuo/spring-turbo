@@ -34,7 +34,7 @@ public class ApplicationNameEnvironmentPostProcessor extends AbstractConventionB
 
     @Nullable
     @Override
-    public List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir homeDir) {
+    public List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir home) {
         var applicationName = environment.getProperty(SPRING_APPLICATION_NAME);
 
         if (StringUtils.isEmpty(applicationName)) {
@@ -42,7 +42,7 @@ public class ApplicationNameEnvironmentPostProcessor extends AbstractConventionB
         }
 
         return List.of(
-                generateConventionBasedGroup(homeDir, "<application-name>", applicationName)
+                generateConventionBasedGroup(home, "<application-name>", applicationName)
         );
     }
 

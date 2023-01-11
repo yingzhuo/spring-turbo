@@ -27,7 +27,7 @@ public class GitInformationEnvironmentPostProcessor extends AbstractResourceOpti
     }
 
     @Override
-    public List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir applicationHomeDir) {
+    public List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir home) {
         return List.of(
                 new ResourceOptionGroup(
                         "git-info",

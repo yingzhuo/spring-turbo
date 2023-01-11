@@ -47,8 +47,8 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
     @Override
     public final void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
 
-        var applicationHomeDir = getApplicationHomeDir(application);
-        var groups = getResourceOptionGroups(environment, applicationHomeDir);
+        var home = getApplicationHomeDir(application);
+        var groups = getResourceOptionGroups(environment, home);
 
         if (groups == null || groups.isEmpty()) {
             return;
@@ -75,7 +75,7 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
     }
 
     @Nullable
-    public abstract List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir applicationHomeDir);
+    public abstract List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir home);
 
     @Override
     public final int getOrder() {

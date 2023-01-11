@@ -22,63 +22,63 @@ import static spring.turbo.util.StringFormatter.format;
  */
 public abstract class AbstractConventionBasedEnvironmentPostProcessor extends AbstractResourceOptionBasedEnvironmentPostProcessor {
 
-    protected final ResourceOptionGroup generateConventionBasedGroup(ApplicationHomeDir homeDir, String groupName, String filename) {
-        List<String> list = new ArrayList<>();
+    protected final ResourceOptionGroup generateConventionBasedGroup(ApplicationHomeDir home, String groupName, String filename) {
+        final List<String> list = new ArrayList<>();
 
         // 例如 file:/opt/myapp/filename.?
-        list.add(homeDir.resolveResourceLocation(filename + ".properties"));
-        list.add(homeDir.resolveResourceLocation(filename + ".xml"));
+        list.add(home.resolveResourceLocation(filename + ".properties"));
+        list.add(home.resolveResourceLocation(filename + ".xml"));
         if (YAML_PRESENT) {
-            list.add(homeDir.resolveResourceLocation(filename + ".yaml"));
-            list.add(homeDir.resolveResourceLocation(filename + ".yml"));
+            list.add(home.resolveResourceLocation(filename + ".yaml"));
+            list.add(home.resolveResourceLocation(filename + ".yml"));
         }
         if (HOCON_PRESENT) {
-            list.add(homeDir.resolveResourceLocation(filename + ".conf"));
+            list.add(home.resolveResourceLocation(filename + ".conf"));
         }
         if (TOML_PRESENT) {
-            list.add(homeDir.resolveResourceLocation(filename + ".toml"));
+            list.add(home.resolveResourceLocation(filename + ".toml"));
         }
 
         // 例如 file:/opt/myapp/config/filename.?
-        list.add(homeDir.resolveResourceLocation("config", filename + ".properties"));
-        list.add(homeDir.resolveResourceLocation("config", filename + ".xml"));
+        list.add(home.resolveResourceLocation("config", filename + ".properties"));
+        list.add(home.resolveResourceLocation("config", filename + ".xml"));
         if (YAML_PRESENT) {
-            list.add(homeDir.resolveResourceLocation("config", filename + ".yaml"));
-            list.add(homeDir.resolveResourceLocation("config", filename + ".yml"));
+            list.add(home.resolveResourceLocation("config", filename + ".yaml"));
+            list.add(home.resolveResourceLocation("config", filename + ".yml"));
         }
         if (HOCON_PRESENT) {
-            list.add(homeDir.resolveResourceLocation("config", filename + ".conf"));
+            list.add(home.resolveResourceLocation("config", filename + ".conf"));
         }
         if (TOML_PRESENT) {
-            list.add(homeDir.resolveResourceLocation("config", filename + ".toml"));
+            list.add(home.resolveResourceLocation("config", filename + ".toml"));
         }
 
         // 例如 file:/opt/myapp/.config/filename.?
-        list.add(homeDir.resolveResourceLocation(".config", filename + ".properties"));
-        list.add(homeDir.resolveResourceLocation(".config", filename + ".xml"));
+        list.add(home.resolveResourceLocation(".config", filename + ".properties"));
+        list.add(home.resolveResourceLocation(".config", filename + ".xml"));
         if (YAML_PRESENT) {
-            list.add(homeDir.resolveResourceLocation(".config", filename + ".yaml"));
-            list.add(homeDir.resolveResourceLocation(".config", filename + ".yml"));
+            list.add(home.resolveResourceLocation(".config", filename + ".yaml"));
+            list.add(home.resolveResourceLocation(".config", filename + ".yml"));
         }
         if (HOCON_PRESENT) {
-            list.add(homeDir.resolveResourceLocation(".config", filename + ".conf"));
+            list.add(home.resolveResourceLocation(".config", filename + ".conf"));
         }
         if (TOML_PRESENT) {
-            list.add(homeDir.resolveResourceLocation(".config", filename + ".toml"));
+            list.add(home.resolveResourceLocation(".config", filename + ".toml"));
         }
 
         // 例如 file:/opt/myapp/_config/filename.?
-        list.add(homeDir.resolveResourceLocation("_config", filename + ".properties"));
-        list.add(homeDir.resolveResourceLocation("_config", filename + ".xml"));
+        list.add(home.resolveResourceLocation("_config", filename + ".properties"));
+        list.add(home.resolveResourceLocation("_config", filename + ".xml"));
         if (YAML_PRESENT) {
-            list.add(homeDir.resolveResourceLocation("_config", filename + ".yaml"));
-            list.add(homeDir.resolveResourceLocation("_config", filename + ".yml"));
+            list.add(home.resolveResourceLocation("_config", filename + ".yaml"));
+            list.add(home.resolveResourceLocation("_config", filename + ".yml"));
         }
         if (HOCON_PRESENT) {
-            list.add(homeDir.resolveResourceLocation("_config", filename + ".conf"));
+            list.add(home.resolveResourceLocation("_config", filename + ".conf"));
         }
         if (TOML_PRESENT) {
-            list.add(homeDir.resolveResourceLocation("_config", filename + ".toml"));
+            list.add(home.resolveResourceLocation("_config", filename + ".toml"));
         }
 
         // 例如 classpath:filename.?

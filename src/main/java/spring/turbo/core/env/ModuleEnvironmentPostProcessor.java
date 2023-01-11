@@ -28,9 +28,9 @@ public class ModuleEnvironmentPostProcessor extends AbstractConventionBasedEnvir
     }
 
     @Override
-    public List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir homeDir) {
+    public List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir home) {
         return List.of(
-                generateConventionBasedGroup(homeDir, "<spring-turbo>", "spring-turbo")
+                generateConventionBasedGroup(home, "<spring-turbo>", "spring-turbo")
         );
     }
 
