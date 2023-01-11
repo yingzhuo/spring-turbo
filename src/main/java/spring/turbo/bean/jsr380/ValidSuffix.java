@@ -19,6 +19,7 @@ import static java.lang.annotation.ElementType.*;
  * 验证字符串必须有的后缀
  *
  * @author 应卓
+ * @see ValidPrefix
  * @since 2.0.7
  */
 @Inherited
