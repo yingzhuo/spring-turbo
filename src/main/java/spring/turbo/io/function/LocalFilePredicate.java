@@ -10,6 +10,8 @@ package spring.turbo.io.function;
 
 import spring.turbo.io.LocalFileDescriptor;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 /**
@@ -17,5 +19,15 @@ import java.util.function.Predicate;
  * @see LocalFilePredicateFactories
  * @since 1.1.1
  */
+@FunctionalInterface
 public interface LocalFilePredicate extends Predicate<LocalFileDescriptor> {
+
+    public default Predicate<File> toFilePredicate() {
+        return file -> this.test(LocalFileDescriptor.of(file));
+    }
+
+    public default Predicate<Path> toPathPredicate() {
+        return path -> this.test(LocalFileDescriptor.of(path));
+    }
+
 }
