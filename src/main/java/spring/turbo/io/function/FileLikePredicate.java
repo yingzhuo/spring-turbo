@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io.function;
 
-import spring.turbo.io.LocalFileDescriptor;
+import org.springframework.lang.Nullable;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -16,19 +16,19 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
- * @see LocalFilePredicateFactories
- * @since 1.1.1
+ * @since 2.0.8
  */
-@FunctionalInterface
-@Deprecated(forRemoval = true)
-public interface LocalFilePredicate extends Predicate<LocalFileDescriptor> {
+public interface FileLikePredicate extends Predicate<File> {
 
-    public default Predicate<File> toFilePredicate() {
-        return file -> this.test(LocalFileDescriptor.of(file));
+    @Override
+    public boolean test(@Nullable File file);
+
+    public default Predicate<File> asFilePredicate() {
+        return this;
     }
 
-    public default Predicate<Path> toPathPredicate() {
-        return path -> this.test(LocalFileDescriptor.of(path));
+    public default Predicate<Path> asPathPredicate() {
+        return path -> this.test(path != null ? path.toFile() : null);
     }
 
 }

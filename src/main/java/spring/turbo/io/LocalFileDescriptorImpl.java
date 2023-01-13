@@ -20,7 +20,7 @@ import java.util.Objects;
  * @since 1.1.1
  */
 @Immutable
-public class LocalFileDescriptorImpl implements LocalFileDescriptor {
+public final class LocalFileDescriptorImpl implements LocalFileDescriptor {
 
     private final Path path;
 

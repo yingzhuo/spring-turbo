@@ -1,0 +1,177 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *    ____             _            _____           _
+ *   / ___| _ __  _ __(_)_ __   __ |_   _|   _ _ __| |__   ___
+ *   \___ \| '_ \| '__| | '_ \ / _` || || | | | '__| '_ \ / _ \
+ *    ___) | |_) | |  | | | | | (_| || || |_| | |  | |_) | (_) |
+ *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
+ *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+package spring.turbo.io.function;
+
+import org.springframework.lang.Nullable;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
+import spring.turbo.io.FileUtils;
+import spring.turbo.util.ArrayUtils;
+import spring.turbo.util.Asserts;
+
+import java.io.File;
+import java.util.Arrays;
+
+/**
+ * @author 应卓
+ * @since 2.0.8
+ */
+public final class FileLikePredicateFactories {
+
+    /**
+     * 私有构造方法
+     */
+    private FileLikePredicateFactories() {
+        super();
+    }
+
+    public static FileLikePredicate alwaysTrue() {
+        return like -> true;
+    }
+
+    public static FileLikePredicate alwaysFalse() {
+        return like -> false;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static FileLikePredicate not(FileLikePredicate predicate) {
+        Asserts.notNull(predicate);
+        return file -> !predicate.test(file);
+    }
+
+    public static FileLikePredicate or(FileLikePredicate... predicates) {
+        Asserts.notNull(predicates);
+        Asserts.notEmpty(predicates);
+        Asserts.noNullElements(predicates);
+
+        if (ArrayUtils.size(predicates) == 1) {
+            return predicates[0];
+        }
+
+        return f -> {
+            for (var predicate : predicates) {
+                if (predicate.test(f)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+    }
+
+    public static FileLikePredicate and(FileLikePredicate... predicates) {
+        Asserts.notNull(predicates);
+        Asserts.notEmpty(predicates);
+        Asserts.noNullElements(predicates);
+
+        if (ArrayUtils.size(predicates) == 1) {
+            return predicates[0];
+        }
+
+        return f -> {
+            for (var predicate : predicates) {
+                if (!predicate.test(f)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static FileLikePredicate isHidden() {
+        return file -> file != null && FileUtils.isHidden(file);
+    }
+
+    public static FileLikePredicate isDirectory() {
+        return file -> file != null && FileUtils.isDirectory(file);
+    }
+
+    public static FileLikePredicate isEmptyDirectory() {
+        return file -> file != null && FileUtils.isEmptyDirectory(file);
+    }
+
+    public static FileLikePredicate isRegularFile() {
+        return file -> file != null && FileUtils.isRegularFile(file);
+    }
+
+    public static FileLikePredicate isExists() {
+        return file -> file != null && FileUtils.isExists(file);
+    }
+
+    public static FileLikePredicate isReadable() {
+        return file -> file != null && FileUtils.isReadable(file);
+    }
+
+    public static FileLikePredicate isWritable() {
+        return file -> file != null && FileUtils.isWritable(file);
+    }
+
+    public static FileLikePredicate isReadableAndWritable() {
+        return file -> file != null && FileUtils.isReadableAndWritable(file);
+    }
+
+    public static FileLikePredicate regexMatch(String... acceptRegexes) {
+        Asserts.notNull(acceptRegexes);
+        Asserts.notEmpty(acceptRegexes);
+        Asserts.noNullElements(acceptRegexes);
+
+        if (ArrayUtils.size(acceptRegexes) == 1) {
+            return new Regex(acceptRegexes[0]);
+        } else {
+            return or(
+                    Arrays.stream(acceptRegexes)
+                            .map(Regex::new)
+                            .toList()
+                            .toArray(new Regex[0])
+            );
+        }
+    }
+
+    public static FileLikePredicate antStyleMatch(String... acceptPatterns) {
+        Asserts.notNull(acceptPatterns);
+        Asserts.notEmpty(acceptPatterns);
+        Asserts.noNullElements(acceptPatterns);
+
+        if (ArrayUtils.size(acceptPatterns) == 1) {
+            return new AntPath(acceptPatterns[0]);
+        } else {
+            return or(
+                    Arrays.stream(acceptPatterns)
+                            .map(AntPath::new).toList()
+                            .toArray(new AntPath[0])
+            );
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private record Regex(String regex) implements FileLikePredicate {
+        @Override
+        public boolean test(@Nullable File file) {
+            if (file == null)
+                return false;
+            return file.getAbsolutePath().matches(regex);
+        }
+    }
+
+    private record AntPath(String pattern) implements FileLikePredicate {
+        private static final PathMatcher MATCHER = new AntPathMatcher();
+
+        @Override
+        public boolean test(@Nullable File file) {
+            if (file == null) {
+                return false;
+            }
+            return MATCHER.match(pattern, file.getAbsolutePath());
+        }
+    }
+
+}

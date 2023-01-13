@@ -10,7 +10,6 @@ package spring.turbo.io;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import spring.turbo.io.function.LocalFilePredicate;
 import spring.turbo.util.StringPool;
 
 import java.io.*;
@@ -29,12 +28,11 @@ import java.util.stream.Stream;
  * @see ResourceOption
  * @see PathUtils
  * @see PathTreeUtils
- * @see LocalFilePredicate
  * @see LocalFileInterceptor
  * @see LocalFileInterceptorChain
  * @since 1.1.1
  */
-public interface LocalFileDescriptor extends Serializable {
+public sealed interface LocalFileDescriptor extends Serializable permits LocalFileDescriptorImpl {
 
     public static LocalFileDescriptor of(String first, String... more) {
         return new LocalFileDescriptorImpl(first, more);
