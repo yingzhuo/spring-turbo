@@ -22,6 +22,7 @@ import java.util.Properties;
  * @see spring.turbo.util.propertysource.YamlPropertySourceFactory
  * @since 1.0.0
  */
+@Deprecated
 public final class YamlUtils {
 
     /**
