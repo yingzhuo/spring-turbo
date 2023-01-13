@@ -187,7 +187,7 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
             Asserts.notNull(locations);
             this.name = name;
             this.locations = locations;
-            this.discriminator = Objects.requireNonNullElseGet(discriminator, ResourceOptionDiscriminator::newDefault);
+            this.discriminator = Objects.requireNonNullElseGet(discriminator, ResourceOptionDiscriminator::newReadableImpl);
         }
 
         public String getName() {

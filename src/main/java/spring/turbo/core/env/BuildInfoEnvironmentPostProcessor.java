@@ -15,14 +15,14 @@ import java.util.List;
 
 /**
  * @author 应卓
- * @since 2.0.7
+ * @since 2.0.8
  */
-public class GitInformationEnvironmentPostProcessor extends AbstractResourceOptionBasedEnvironmentPostProcessor {
+public class BuildInfoEnvironmentPostProcessor extends AbstractResourceOptionBasedEnvironmentPostProcessor {
 
     /**
      * 默认构造方法
      */
-    public GitInformationEnvironmentPostProcessor() {
+    public BuildInfoEnvironmentPostProcessor() {
         super.setOrder(0);
     }
 
@@ -30,8 +30,11 @@ public class GitInformationEnvironmentPostProcessor extends AbstractResourceOpti
     public List<ResourceOptionGroup> getResourceOptionGroups(Environment environment, ApplicationHomeDir home) {
         return List.of(
                 new ResourceOptionGroup(
-                        "git-info",
-                        List.of("classpath:git.properties", "classpath:config/git.properties", "classpath:META-INF/git.properties")
+                        "build-info",
+                        List.of(
+                                "classpath:META-INF/build-info.properties",
+                                "classpath:build-info.properties"
+                        )
                 )
         );
     }

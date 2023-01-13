@@ -5,7 +5,8 @@ org.springframework.boot.env.EnvironmentPostProcessor=\
 spring.turbo.core.env.SpringIdEnvironmentPostProcessor,\
 spring.turbo.core.env.ModuleEnvironmentPostProcessor,\
 spring.turbo.core.env.ApplicationNameEnvironmentPostProcessor,\
-spring.turbo.core.env.GitInformationEnvironmentPostProcessor
+spring.turbo.core.env.GitInfoEnvironmentPostProcessor,\
+spring.turbo.core.env.BuildInfoEnvironmentPostProcessor
 org.springframework.context.ApplicationListener=\
 spring.turbo.core.SpringApplicationAware
 # ----------------------------------------------------------------------------------------------------------------------

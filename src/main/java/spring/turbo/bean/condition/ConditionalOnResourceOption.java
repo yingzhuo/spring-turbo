@@ -33,6 +33,6 @@ public @interface ConditionalOnResourceOption {
     @AliasFor("resources")
     public String[] value() default {};
 
-    public Class<? extends ResourceOptionDiscriminator> discriminator() default ResourceOptionDiscriminator.Default.class;
+    public Class<? extends ResourceOptionDiscriminator> discriminator() default ResourceOptionDiscriminator.Readable.class;
 
 }
