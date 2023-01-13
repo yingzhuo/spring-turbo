@@ -31,19 +31,15 @@ public interface ResourceOptionDiscriminator extends Predicate<Resource> {
         return new Default();
     }
 
-    public boolean isExists(@Nullable Resource resource);
-
     @Override
-    public default boolean test(Resource resource) {
-        return isExists(resource);
-    }
+    public boolean test(@Nullable Resource resource);
 
     /**
      * 默认实现
      */
     public static class Default implements ResourceOptionDiscriminator {
         @Override
-        public boolean isExists(@Nullable Resource resource) {
+        public boolean test(@Nullable Resource resource) {
             return resource != null && resource.isReadable();
         }
     }

@@ -81,7 +81,7 @@ public final class ResourceOptionBuilder implements Builder<ResourceOption> {
     @Override
     public ResourceOption build() {
         for (Resource resource : list) {
-            if (this.discriminator.isExists(resource)) {
+            if (this.discriminator.test(resource)) {
                 return new ResourceOptionImpl(resource);
             }
         }
