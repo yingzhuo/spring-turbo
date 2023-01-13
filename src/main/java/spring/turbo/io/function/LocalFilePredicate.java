@@ -20,6 +20,7 @@ import java.util.function.Predicate;
  * @since 1.1.1
  */
 @FunctionalInterface
+@Deprecated(forRemoval = true)
 public interface LocalFilePredicate extends Predicate<LocalFileDescriptor> {
 
     public default Predicate<File> toFilePredicate() {
