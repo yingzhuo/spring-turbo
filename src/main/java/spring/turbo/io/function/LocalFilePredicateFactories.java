@@ -17,6 +17,7 @@ import spring.turbo.util.StringUtils;
  * @author 应卓
  * @since 1.1.1
  */
+@Deprecated(forRemoval = true)
 public final class LocalFilePredicateFactories {
 
     /**

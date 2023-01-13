@@ -22,29 +22,39 @@ import java.util.function.Predicate;
 @FunctionalInterface
 public interface ResourceOptionDiscriminator extends Predicate<Resource> {
 
-    /**
-     * 获取默认实现
-     *
-     * @return 默认实现的实例
-     */
+    @Deprecated(forRemoval = true)
     public static ResourceOptionDiscriminator newDefault() {
-        return new Default();
+        return new Readable();
     }
 
-    public boolean isExists(@Nullable Resource resource);
+    public static ResourceOptionDiscriminator newReadableImpl() {
+        return new Readable();
+    }
+
+    public static ResourceOptionDiscriminator newExistsImpl() {
+        return new Exists();
+    }
 
     @Override
-    public default boolean test(Resource resource) {
-        return isExists(resource);
-    }
+    public boolean test(@Nullable Resource resource);
 
     /**
      * 默认实现
      */
-    public static class Default implements ResourceOptionDiscriminator {
+    public static class Readable implements ResourceOptionDiscriminator {
         @Override
-        public boolean isExists(@Nullable Resource resource) {
+        public boolean test(@Nullable Resource resource) {
             return resource != null && resource.isReadable();
+        }
+    }
+
+    /**
+     * 只要存在就算数
+     */
+    public static class Exists implements ResourceOptionDiscriminator {
+        @Override
+        public boolean test(@Nullable Resource resource) {
+            return resource != null && resource.exists();
         }
     }
 

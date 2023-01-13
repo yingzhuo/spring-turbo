@@ -29,8 +29,11 @@ public final class ResourceOptionBuilder implements Builder<ResourceOption> {
 
     private final List<Resource> list = new LinkedList<>();
     private ResourceLoader resourceLoader = new DefaultResourceLoader(ClassUtils.getDefaultClassLoader());
-    private ResourceOptionDiscriminator discriminator = ResourceOptionDiscriminator.newDefault();
+    private ResourceOptionDiscriminator discriminator = ResourceOptionDiscriminator.newReadableImpl();
 
+    /**
+     * 构造方法
+     */
     ResourceOptionBuilder() {
         super();
     }
@@ -81,7 +84,7 @@ public final class ResourceOptionBuilder implements Builder<ResourceOption> {
     @Override
     public ResourceOption build() {
         for (Resource resource : list) {
-            if (this.discriminator.isExists(resource)) {
+            if (this.discriminator.test(resource)) {
                 return new ResourceOptionImpl(resource);
             }
         }

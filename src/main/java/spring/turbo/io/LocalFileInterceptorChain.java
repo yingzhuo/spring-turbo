@@ -10,11 +10,10 @@ package spring.turbo.io;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.OrderComparator;
-import spring.turbo.io.function.LocalFilePredicate;
-import spring.turbo.io.function.LocalFilePredicateFactories;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author 应卓
@@ -22,7 +21,7 @@ import java.util.List;
  */
 public class LocalFileInterceptorChain implements InitializingBean {
 
-    private LocalFilePredicate predicate = LocalFilePredicateFactories.alwaysTrue();
+    private Predicate<LocalFileDescriptor> predicate = f -> true;
     private List<LocalFileInterceptor> interceptorList = new ArrayList<>();
 
     /**
@@ -46,7 +45,7 @@ public class LocalFileInterceptorChain implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         if (this.predicate == null) {
-            this.predicate = LocalFilePredicateFactories.alwaysTrue();
+            this.predicate = f -> true;
         }
 
         if (this.interceptorList == null) {
@@ -56,7 +55,7 @@ public class LocalFileInterceptorChain implements InitializingBean {
         OrderComparator.sort(this.interceptorList);
     }
 
-    public void setPredicate(LocalFilePredicate predicate) {
+    public void setPredicate(Predicate<LocalFileDescriptor> predicate) {
         this.predicate = predicate;
     }
 
