@@ -31,7 +31,7 @@ public @interface ValidSuffix {
 
     public String[] value() default {};
 
-    public boolean ignoreCases() default false;
+    public boolean ignoreCase() default false;
 
     public String message() default "{spring.turbo.bean.jsr380.ValidSuffix.message}";
 

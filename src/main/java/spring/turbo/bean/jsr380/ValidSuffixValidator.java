@@ -23,12 +23,12 @@ public class ValidSuffixValidator implements ConstraintValidator<ValidSuffix, St
     @Nullable
     private String[] permitSuffix;
 
-    private boolean ignoreCases;
+    private boolean ignoreCase;
 
     @Override
     public void initialize(ValidSuffix annotation) {
         this.permitSuffix = annotation.value();
-        this.ignoreCases = annotation.ignoreCases();
+        this.ignoreCase = annotation.ignoreCase();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ValidSuffixValidator implements ConstraintValidator<ValidSuffix, St
         }
 
         for (String prefix : this.permitSuffix) {
-            if (this.ignoreCases) {
+            if (this.ignoreCase) {
                 if (endsWithIgnoreCase(value, prefix)) {
                     return true;
                 }
