@@ -23,12 +23,12 @@ public class ValidPrefixValidator implements ConstraintValidator<ValidPrefix, St
     @Nullable
     private String[] permitPrefix;
 
-    private boolean ignoreCases;
+    private boolean ignoreCase;
 
     @Override
     public void initialize(ValidPrefix annotation) {
         this.permitPrefix = annotation.value();
-        this.ignoreCases = annotation.ignoreCases();
+        this.ignoreCase = annotation.ignoreCase();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ValidPrefixValidator implements ConstraintValidator<ValidPrefix, St
         }
 
         for (String prefix : this.permitPrefix) {
-            if (this.ignoreCases) {
+            if (this.ignoreCase) {
                 if (startsWithIgnoreCase(value, prefix)) {
                     return true;
                 }

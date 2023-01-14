@@ -12,6 +12,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import spring.turbo.io.FileUtils;
+import spring.turbo.io.FilenameUtils;
 import spring.turbo.util.ArrayUtils;
 import spring.turbo.util.Asserts;
 
@@ -151,6 +152,48 @@ public final class FileLikePredicateFactories {
         }
     }
 
+    public static FileLikePredicate filename(String... acceptFilenames) {
+        return filename(true, acceptFilenames);
+    }
+
+    public static FileLikePredicate filename(boolean ignoreCase, String... acceptFilenames) {
+        Asserts.notNull(acceptFilenames);
+        Asserts.notEmpty(acceptFilenames);
+        Asserts.noNullElements(acceptFilenames);
+
+        if (ArrayUtils.size(acceptFilenames) == 1) {
+            return new Filename(ignoreCase, acceptFilenames[1]);
+        } else {
+            return or(
+                    Arrays.stream(acceptFilenames)
+                            .map(fn -> new Filename(ignoreCase, fn))
+                            .toList()
+                            .toArray(new Filename[0])
+            );
+        }
+    }
+
+    public static FileLikePredicate extension(String... acceptExtensions) {
+        return extension(true, acceptExtensions);
+    }
+
+    public static FileLikePredicate extension(boolean ignoreCase, String... acceptExtensions) {
+        Asserts.notNull(acceptExtensions);
+        Asserts.notEmpty(acceptExtensions);
+        Asserts.noNullElements(acceptExtensions);
+
+        if (ArrayUtils.size(acceptExtensions) == 1) {
+            return new Filename(ignoreCase, acceptExtensions[1]);
+        } else {
+            return or(
+                    Arrays.stream(acceptExtensions)
+                            .map(fn -> new Extension(ignoreCase, fn))
+                            .toList()
+                            .toArray(new Extension[0])
+            );
+        }
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     private record Regex(String regex) implements FileLikePredicate {
@@ -171,6 +214,39 @@ public final class FileLikePredicateFactories {
                 return false;
             }
             return MATCHER.match(pattern, file.getAbsolutePath());
+        }
+    }
+
+    private record Filename(boolean ignoreCase, String filename) implements FileLikePredicate {
+        @Override
+        public boolean test(@Nullable File file) {
+            if (file == null) {
+                return false;
+            }
+
+            if (ignoreCase) {
+                return file.getName().equalsIgnoreCase(this.filename);
+            } else {
+                return file.getName().equals(this.filename);
+            }
+        }
+    }
+
+    private record Extension(boolean ignoreCase, String extension) implements FileLikePredicate {
+        @Override
+        public boolean test(@Nullable File file) {
+            if (file == null) {
+                return false;
+            }
+
+            var filename = file.getName();
+            var ext = FilenameUtils.getExtension(filename);
+
+            if (ignoreCase) {
+                return filename.equalsIgnoreCase(this.extension);
+            } else {
+                return filename.equals(this.extension);
+            }
         }
     }
 
