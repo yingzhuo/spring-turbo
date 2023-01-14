@@ -14,12 +14,11 @@ import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.DefaultPropertySourceFactory;
 import org.springframework.core.io.support.EncodedResource;
 import spring.turbo.core.ApplicationHomeDir;
-import spring.turbo.io.ResourceOption;
-import spring.turbo.io.ResourceOptionDiscriminator;
-import spring.turbo.io.ResourceOptions;
+import spring.turbo.io.RichResource;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.CollectionUtils;
 import spring.turbo.util.RandomStringUtils;
@@ -32,6 +31,7 @@ import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import static spring.turbo.core.Dependencies.*;
 import static spring.turbo.util.CharsetPool.UTF_8;
@@ -57,7 +57,7 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
 
         for (var group : groups) {
             var option = loadResource(group);
-            if (option == null || option.isAbsent()) {
+            if (option == null) {
                 continue;
             }
 
@@ -106,31 +106,30 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
     }
 
     @Nullable
-    private ResourceOption loadResource(ResourceOptionGroup group) {
-        var option = ResourceOptions.builder()
-                .add(group.getLocations())
+    private RichResource loadResource(ResourceOptionGroup group) {
+        var option = RichResource.builder()
+                .blankSafeAddLocations(group.getLocations())
                 .discriminator(group.getDiscriminator())
                 .build();
-
-        return option.isPresent() ? option : null;
+        return option.orElse(null);
     }
 
     @Nullable
-    private PropertySource<?> toPropertySourceQuietly(@Nullable ResourceOption resourceOption) {
+    private PropertySource<?> toPropertySourceQuietly(@Nullable RichResource resource) {
         try {
-            return toPropertySource(resourceOption);
+            return toPropertySource(resource);
         } catch (Throwable ignored) {
             return null;
         }
     }
 
     @Nullable
-    private PropertySource<?> toPropertySource(@Nullable ResourceOption resourceOption) throws Throwable {
-        if (resourceOption == null || resourceOption.isAbsent()) {
+    private PropertySource<?> toPropertySource(@Nullable RichResource resource) throws Throwable {
+        if (resource == null || !resource.exists()) {
             return null;
         }
 
-        final String filename = resourceOption.get().getFilename();
+        final String filename = resource.getFilename();
         final String propertySourceName = generatePropertySourceName(filename);
 
         if (filename == null) {
@@ -139,24 +138,24 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
 
         if (endsWithIgnoreCase(filename, ".properties") || endsWithIgnoreCase(filename, ".xml")) {
             return new DefaultPropertySourceFactory().createPropertySource(propertySourceName,
-                    new EncodedResource(resourceOption.get()));
+                    new EncodedResource(resource));
         }
 
         if (YAML_PRESENT && (endsWithIgnoreCase(filename, ".yaml") || endsWithIgnoreCase(filename, ".yml"))) {
             return new YamlPropertySourceFactory().createPropertySource(propertySourceName,
-                    new EncodedResource(resourceOption.get(), UTF_8)
+                    new EncodedResource(resource, UTF_8)
             );
         }
 
         if (HOCON_PRESENT && endsWithIgnoreCase(filename, ".conf")) {
             return new HoconPropertySourceFactory().createPropertySource(propertySourceName,
-                    new EncodedResource(resourceOption.get(), UTF_8)
+                    new EncodedResource(resource, UTF_8)
             );
         }
 
         if (TOML_PRESENT && endsWithIgnoreCase(filename, ".toml")) {
             return new TomlPropertySourceFactory().createPropertySource(propertySourceName,
-                    new EncodedResource(resourceOption.get(), UTF_8)
+                    new EncodedResource(resource, UTF_8)
             );
         }
 
@@ -176,18 +175,18 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
 
         private final String name;
         private final List<String> locations;
-        private final ResourceOptionDiscriminator discriminator;
+        private final Predicate<Resource> discriminator;
 
         public ResourceOptionGroup(String name, List<String> locations) {
             this(name, locations, null);
         }
 
-        public ResourceOptionGroup(String name, List<String> locations, @Nullable ResourceOptionDiscriminator discriminator) {
+        public ResourceOptionGroup(String name, List<String> locations, @Nullable Predicate<Resource> discriminator) {
             Asserts.hasText(name);
             Asserts.notNull(locations);
             this.name = name;
             this.locations = locations;
-            this.discriminator = Objects.requireNonNullElseGet(discriminator, ResourceOptionDiscriminator::newReadableImpl);
+            this.discriminator = Objects.requireNonNullElse(discriminator, r -> r != null && r.exists() && r.isReadable());
         }
 
         public String getName() {
@@ -198,7 +197,7 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
             return locations;
         }
 
-        public ResourceOptionDiscriminator getDiscriminator() {
+        public Predicate<Resource> getDiscriminator() {
             return discriminator;
         }
 

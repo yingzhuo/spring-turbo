@@ -191,27 +191,27 @@ public final class BigDecimalUtils {
         Asserts.notNull(numberType);
 
         if (numberType == Byte.class) {
-            return (T) new Byte(number.byteValue());
+            return (T) Byte.valueOf(number.byteValue());
         }
 
         if (numberType == Short.class) {
-            return (T) new Short(number.shortValue());
+            return (T) Short.valueOf(number.shortValue());
         }
 
         if (numberType == Integer.class) {
-            return (T) new Integer(number.intValue());
+            return (T) Integer.valueOf(number.intValue());
         }
 
         if (numberType == Long.class) {
-            return (T) new Long(number.longValue());
+            return (T) Long.valueOf(number.longValue());
         }
 
         if (numberType == Float.class) {
-            return (T) new Float(number.floatValue());
+            return (T) Float.valueOf(number.floatValue());
         }
 
         if (numberType == Double.class) {
-            return (T) new Double(number.doubleValue());
+            return (T) Double.valueOf(number.doubleValue());
         }
 
         if (numberType == BigInteger.class) {
