@@ -25,7 +25,6 @@ import java.util.stream.Stream;
  *
  * @author 应卓
  * @see Resource
- * @see ResourceOption
  * @see PathUtils
  * @see PathTreeUtils
  * @see LocalFileInterceptor
@@ -62,10 +61,6 @@ public sealed interface LocalFileDescriptor extends Serializable permits LocalFi
 
     public default Resource asResource() {
         return new FileSystemResource(asPath());
-    }
-
-    public default ResourceOption asResourceOption() {
-        return ResourceOptions.of(asResource());
     }
 
     // -----------------------------------------------------------------------------------------------------------------

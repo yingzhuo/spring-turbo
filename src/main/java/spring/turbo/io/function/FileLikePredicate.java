@@ -8,9 +8,12 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io.function;
 
+import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
+import spring.turbo.io.RichResource;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
@@ -29,6 +32,30 @@ public interface FileLikePredicate extends Predicate<File> {
 
     public default Predicate<Path> asPathPredicate() {
         return path -> this.test(path != null ? path.toFile() : null);
+    }
+
+    public default Predicate<Resource> asResourcePredicate() {
+        return resource -> {
+            if (resource == null) return false;
+            try {
+                var file = resource.getFile();
+                return this.test(file);
+            } catch (IOException e) {
+                return false;
+            }
+        };
+    }
+
+    public default Predicate<RichResource> asRichResourcePredicate() {
+        return resource -> {
+            if (resource == null) return false;
+            try {
+                var file = resource.getFile();
+                return this.test(file);
+            } catch (IOException e) {
+                return false;
+            }
+        };
     }
 
 }

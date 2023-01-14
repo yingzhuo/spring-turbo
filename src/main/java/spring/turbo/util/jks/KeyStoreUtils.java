@@ -8,10 +8,12 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.jks;
 
-import spring.turbo.io.ResourceOption;
+import org.springframework.core.io.Resource;
+import spring.turbo.io.IOExceptionUtils;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.crypto.CipherUtils;
 
+import java.io.IOException;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -43,15 +45,17 @@ public final class KeyStoreUtils {
      * @param password         密钥库
      * @return 密钥库
      */
-    public static KeyStore getKeyStore(ResourceOption keyStoreResource, KeyStoreType keyStoreType, String password) {
+    public static KeyStore getKeyStore(Resource keyStoreResource, KeyStoreType keyStoreType, String password) {
         Asserts.notNull(keyStoreResource);
         Asserts.notNull(keyStoreType);
         Asserts.notNull(password);
 
         try {
             final KeyStore ks = KeyStore.getInstance(KeyStoreType.JKS.getName());
-            ks.load(keyStoreResource.toInputStream(), password.toCharArray());
+            ks.load(keyStoreResource.getInputStream(), password.toCharArray());
             return ks;
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }
@@ -68,7 +72,7 @@ public final class KeyStoreUtils {
      * @param password         密钥库密码
      * @return 私钥
      */
-    public static PrivateKey getPrivateKeyFromKeyStore(ResourceOption keyStoreResource, KeyStoreType keyStoreType, String alias, String password) {
+    public static PrivateKey getPrivateKeyFromKeyStore(Resource keyStoreResource, KeyStoreType keyStoreType, String alias, String password) {
         try {
             final KeyStore ks = getKeyStore(keyStoreResource, keyStoreType, password);
             return (PrivateKey) ks.getKey(alias, password.toCharArray());
@@ -86,7 +90,7 @@ public final class KeyStoreUtils {
      * @param password     秘钥库密码
      * @return 公钥
      */
-    public static PublicKey getPublicKeyFromKeyStore(ResourceOption keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
+    public static PublicKey getPublicKeyFromKeyStore(Resource keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
         return getCertificateFromKeyStore(keyStorePath, keyStoreType, alias, password)
                 .getPublicKey();
     }
@@ -100,7 +104,7 @@ public final class KeyStoreUtils {
      * @param password     秘钥库密码
      * @return 证书
      */
-    public static Certificate getCertificateFromKeyStore(ResourceOption keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
+    public static Certificate getCertificateFromKeyStore(Resource keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
         try {
             final KeyStore ks = getKeyStore(keyStorePath, keyStoreType, password);
             return ks.getCertificate(alias);
@@ -121,7 +125,7 @@ public final class KeyStoreUtils {
      * @param password     秘钥库密码
      * @return 加密数据
      */
-    public static byte[] encryptByPrivateKey(byte[] data, ResourceOption keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
+    public static byte[] encryptByPrivateKey(byte[] data, Resource keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
         final PrivateKey privateKey = getPrivateKeyFromKeyStore(keyStorePath, keyStoreType, alias, password);
         return CipherUtils.encrypt(data, privateKey);
     }
@@ -136,7 +140,7 @@ public final class KeyStoreUtils {
      * @param password     秘钥库密码
      * @return 解密数据
      */
-    public static byte[] decryptByPrivateKey(byte[] data, ResourceOption keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
+    public static byte[] decryptByPrivateKey(byte[] data, Resource keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
         final PrivateKey privateKey = getPrivateKeyFromKeyStore(keyStorePath, keyStoreType, alias, password);
         return CipherUtils.decrypt(data, privateKey);
     }
@@ -151,7 +155,7 @@ public final class KeyStoreUtils {
      * @param password     秘钥库密码
      * @return 加密数据
      */
-    public static byte[] encryptByPublicKey(byte[] data, ResourceOption keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
+    public static byte[] encryptByPublicKey(byte[] data, Resource keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
         final PublicKey publicKey = getPublicKeyFromKeyStore(keyStorePath, keyStoreType, alias, password);
         return CipherUtils.encrypt(data, publicKey);
     }
@@ -166,7 +170,7 @@ public final class KeyStoreUtils {
      * @param password     秘钥库密码
      * @return 解密数据
      */
-    public static byte[] decryptByPublicKey(byte[] data, ResourceOption keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
+    public static byte[] decryptByPublicKey(byte[] data, Resource keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
         final PublicKey publicKey = getPublicKeyFromKeyStore(keyStorePath, keyStoreType, alias, password);
         return CipherUtils.decrypt(data, publicKey);
     }
@@ -181,7 +185,7 @@ public final class KeyStoreUtils {
      * @param password     密码
      * @return 签名
      */
-    public static byte[] sign(byte[] sign, ResourceOption keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
+    public static byte[] sign(byte[] sign, Resource keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
         try {
             //获得证书
             final X509Certificate x509Certificate = (X509Certificate) getCertificateFromKeyStore(keyStorePath, keyStoreType, alias, password);
@@ -209,7 +213,7 @@ public final class KeyStoreUtils {
      * @param password     密码
      * @return 验证通过为真
      */
-    public static boolean verify(byte[] data, byte[] sign, ResourceOption keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
+    public static boolean verify(byte[] data, byte[] sign, Resource keyStorePath, KeyStoreType keyStoreType, String alias, String password) {
         try {
             //获得证书
             final X509Certificate x509Certificate = (X509Certificate) getCertificateFromKeyStore(keyStorePath, keyStoreType, alias, password);

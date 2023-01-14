@@ -8,9 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import spring.turbo.util.CharsetPool;
-
 import java.util.Objects;
+
+import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
  * String型Resource
@@ -25,7 +25,7 @@ public class StringResource extends InMemoryResource {
     private final String string;
 
     public StringResource(String source) {
-        super(source.getBytes(CharsetPool.UTF_8));
+        super(source.getBytes(UTF_8));
         this.string = source;
     }
 
@@ -39,7 +39,7 @@ public class StringResource extends InMemoryResource {
 
     @Override
     public int hashCode() {
-        return 1;
+        return -1;
     }
 
 }

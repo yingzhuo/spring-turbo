@@ -8,9 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.jks;
 
-import spring.turbo.io.ResourceOption;
+import org.springframework.core.io.Resource;
+import spring.turbo.io.IOExceptionUtils;
 import spring.turbo.util.Asserts;
 
+import java.io.IOException;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
@@ -37,11 +39,13 @@ public final class CertificateUtils {
      * @param certificateResource 证书文件
      * @return 证书
      */
-    public static Certificate getCertificate(ResourceOption certificateResource) {
+    public static Certificate getCertificate(Resource certificateResource) {
         Asserts.notNull(certificateResource);
         try {
             final CertificateFactory factory = CertificateFactory.getInstance("x.509");
-            return factory.generateCertificate(certificateResource.toInputStream());
+            return factory.generateCertificate(certificateResource.getInputStream());
+        } catch (IOException e) {
+            throw IOExceptionUtils.toUnchecked(e);
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }
@@ -53,7 +57,7 @@ public final class CertificateUtils {
      * @param certificateResource 电子证书文件
      * @return 公钥
      */
-    public static PublicKey getPublicKeyFromCertificate(ResourceOption certificateResource) {
+    public static PublicKey getPublicKeyFromCertificate(Resource certificateResource) {
         final Certificate cert = getCertificate(certificateResource);
         return cert.getPublicKey();
     }

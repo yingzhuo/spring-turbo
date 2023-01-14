@@ -107,10 +107,4 @@ public class FormatterAutoConfiguration {
         return new StringToEnumConverterFactory();
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public ResourceOptionConverter resourceOptionConverter() {
-        return new ResourceOptionConverter();
-    }
-
 }
