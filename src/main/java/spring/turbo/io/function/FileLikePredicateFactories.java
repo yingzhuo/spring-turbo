@@ -33,11 +33,11 @@ public final class FileLikePredicateFactories {
     }
 
     public static FileLikePredicate alwaysTrue() {
-        return like -> true;
+        return file -> true;
     }
 
     public static FileLikePredicate alwaysFalse() {
-        return like -> false;
+        return file -> false;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -75,9 +75,9 @@ public final class FileLikePredicateFactories {
             return predicates[0];
         }
 
-        return f -> {
+        return file -> {
             for (var predicate : predicates) {
-                if (!predicate.test(f)) {
+                if (!predicate.test(file)) {
                     return false;
                 }
             }
@@ -249,5 +249,4 @@ public final class FileLikePredicateFactories {
             }
         }
     }
-
 }
