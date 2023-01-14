@@ -39,6 +39,11 @@ import static spring.turbo.util.StringUtils.blankSafeAddAll;
  */
 public sealed interface RichResource extends Resource, Closeable permits RichResourceImpl {
 
+    /**
+     * 获得创建器实例
+     *
+     * @return 创建器实例
+     */
     public static Builder builder() {
         return new Builder();
     }
@@ -143,9 +148,55 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
         return new LineIterator(asReader(charset));
     }
 
+    public default boolean isRegularFile() {
+        try {
+            return PathUtils.isRegularFile(getPath());
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public default boolean isDirectory() {
+        try {
+            return PathUtils.isDirectory(getPath());
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public default boolean isEmptyDirectory() {
+        try {
+            return PathUtils.isEmptyDirectory(getPath());
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public default boolean isSymbolicLink() {
+        try {
+            return PathUtils.isSymbolicLink(getPath());
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public default boolean isHidden() {
+        try {
+            return PathUtils.isHidden(getPath());
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static final class Builder {
+    /**
+     * {@link RichResource}创建器
+     *
+     * @author 应卓
+     * @since 2.0.8
+     */
+    public static final class Builder implements spring.turbo.bean.Builder<Optional<RichResource>> {
 
         private static final Predicate<Resource> DEFAULT_DISCRIMINATOR = r -> r != null && r.exists() && r.isReadable();
 

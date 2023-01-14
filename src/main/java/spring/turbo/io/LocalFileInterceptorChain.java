@@ -19,6 +19,7 @@ import java.util.function.Predicate;
  * @author 应卓
  * @since 1.1.1
  */
+@Deprecated(forRemoval = true)
 public class LocalFileInterceptorChain implements InitializingBean {
 
     private Predicate<LocalFileDescriptor> predicate = f -> true;

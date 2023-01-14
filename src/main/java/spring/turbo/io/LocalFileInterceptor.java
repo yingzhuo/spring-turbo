@@ -15,6 +15,7 @@ import org.springframework.core.Ordered;
  * @since 1.1.1
  */
 @FunctionalInterface
+@Deprecated(forRemoval = true)
 public interface LocalFileInterceptor extends Ordered {
 
     public boolean execute(LocalFileDescriptor localFileDescriptor);

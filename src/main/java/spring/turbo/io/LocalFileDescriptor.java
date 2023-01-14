@@ -31,6 +31,7 @@ import java.util.stream.Stream;
  * @see LocalFileInterceptorChain
  * @since 1.1.1
  */
+@Deprecated(forRemoval = true)
 public sealed interface LocalFileDescriptor extends Serializable permits LocalFileDescriptorImpl {
 
     public static LocalFileDescriptor of(String first, String... more) {
