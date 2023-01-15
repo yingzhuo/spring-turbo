@@ -29,7 +29,6 @@ import spring.turbo.util.propertysource.TomlPropertySourceFactory;
 import spring.turbo.util.propertysource.YamlPropertySourceFactory;
 
 import javax.annotation.Nullable;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -40,12 +39,17 @@ import static spring.turbo.util.StringUtils.endsWithIgnoreCase;
 
 /**
  * @author 应卓
+ * @see RichResource
  * @since 2.0.7
  */
 public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
+    /**
+     * 日志部件 只有当日志系统完全初始化之后才能生效
+     */
     protected final DeferredLog log = new DeferredLog();
-    private int order = LOWEST_PRECEDENCE;
+
+    private int order = HIGHEST_PRECEDENCE;
 
     @Override
     public final void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
@@ -98,15 +102,11 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
                 .map(o -> (Class<?>) o)
                 .toList();
 
-        if (CollectionUtils.isEmpty(sourceClasses)) {
+        if (CollectionUtils.size(sourceClasses) == 1) {
+            return ApplicationHomeDir.of(sourceClasses.get(0));
+        } else {
             return ApplicationHomeDir.of();
         }
-
-        if (sourceClasses.size() == 1) {
-            return ApplicationHomeDir.of(sourceClasses.get(0));
-        }
-
-        return ApplicationHomeDir.of();
     }
 
     @Nullable
@@ -175,7 +175,7 @@ public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implem
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static final class ResourceOptionGroup implements Serializable {
+    public static final class ResourceOptionGroup {
 
         private final String name;
         private final List<String> locations;
