@@ -10,6 +10,7 @@ package spring.turbo.core.env;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
+import org.springframework.boot.logging.DeferredLog;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
@@ -43,10 +44,13 @@ import static spring.turbo.util.StringUtils.endsWithIgnoreCase;
  */
 public abstract class AbstractResourceOptionBasedEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
+    protected final DeferredLog log = new DeferredLog();
     private int order = LOWEST_PRECEDENCE;
 
     @Override
     public final void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+        // 初始化日志
+        application.addInitializers(ctx -> log.replayTo(getClass()));
 
         var home = getApplicationHomeDir(application);
         var groups = getResourceOptionGroups(environment, home);
