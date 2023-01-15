@@ -3,6 +3,7 @@
 # ----------------------------------------------------------------------------------------------------------------------
 org.springframework.boot.env.EnvironmentPostProcessor=\
 spring.turbo.core.env.SpringIdEnvironmentPostProcessor,\
+spring.turbo.core.env.ApplicationHomeEnvironmentPostProcessor,\
 spring.turbo.core.env.ModuleEnvironmentPostProcessor,\
 spring.turbo.core.env.ApplicationNameEnvironmentPostProcessor,\
 spring.turbo.core.env.GitInfoEnvironmentPostProcessor,\
