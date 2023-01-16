@@ -52,11 +52,6 @@ public final class Tuple<A, B, C> implements Serializable {
         this.c = c;
     }
 
-    @Deprecated
-    public static <A, B, C> Tuple<A, B, C> of(@Nullable A a, @Nullable B b, @Nullable C c) {
-        return new Tuple<>(a, b, c);
-    }
-
     public static <A, B, C> Tuple<A, B, C> ofNullable(@Nullable A a, @Nullable B b, @Nullable C c) {
         return new Tuple<>(a, b, c);
     }

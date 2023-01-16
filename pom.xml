@@ -350,6 +350,12 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <parameters>true</parameters>
+                    <compilerArgs>
+                        <!--
+                        <arg>-verbose</arg>
+                        -->
+                        <arg>-Xlint:deprecation,unchecked</arg>
+                    </compilerArgs>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.springframework.boot</groupId>
