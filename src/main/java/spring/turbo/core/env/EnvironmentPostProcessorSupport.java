@@ -14,10 +14,10 @@ import org.springframework.boot.logging.DeferredLog;
 import org.springframework.boot.system.ApplicationHome;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
-import spring.turbo.util.CollectionUtils;
 
 import java.io.File;
 
+import static spring.turbo.util.CollectionUtils.size;
 import static spring.turbo.util.StringFormatter.format;
 
 /**
@@ -35,7 +35,7 @@ public abstract class EnvironmentPostProcessorSupport implements EnvironmentPost
         // 初始化日志
         application.addInitializers(ctx -> log.replayTo(getClass()));
 
-        this.execute(environment, application);
+        execute(environment, application);
     }
 
     protected abstract void execute(ConfigurableEnvironment environment, SpringApplication application);
@@ -47,12 +47,10 @@ public abstract class EnvironmentPostProcessorSupport implements EnvironmentPost
                 .map(o -> (Class<?>) o)
                 .toList();
 
-        if (CollectionUtils.size(sourceClasses) == 1) {
-            return new ApplicationHome(sourceClasses.get(0))
-                    .getDir();
+        if (size(sourceClasses) == 1) {
+            return new ApplicationHome(sourceClasses.get(0)).getDir();
         } else {
-            return new ApplicationHome()
-                    .getDir();
+            return new ApplicationHome().getDir();
         }
     }
 
