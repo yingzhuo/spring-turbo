@@ -188,6 +188,14 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
         }
     }
 
+    public default Resource createRequiredRelative(String path) {
+        try {
+            return createRelative(path);
+        } catch (IOException e) {
+            throw toUnchecked(e);
+        }
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
@@ -196,7 +204,7 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
      * @author 应卓
      * @since 2.0.8
      */
-    public static final class Builder implements spring.turbo.bean.Builder<Optional<RichResource>> {
+    final class Builder implements spring.turbo.bean.Builder<Optional<RichResource>> {
 
         private static final Predicate<Resource> DEFAULT_DISCRIMINATOR = r -> r != null && r.exists() && r.isReadable();
 
@@ -305,6 +313,7 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
             return this;
         }
 
+        @Override
         public Optional<RichResource> build() {
 
             if (CollectionUtils.isEmpty(resources) && CollectionUtils.isEmpty(locations)) {

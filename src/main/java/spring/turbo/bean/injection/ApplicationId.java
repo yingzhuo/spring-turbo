@@ -6,28 +6,24 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.core;
+package spring.turbo.bean.injection;
 
-import spring.turbo.util.ClassUtils;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.lang.annotation.*;
 
 /**
- * 依赖工具
+ * {@code @Value("${spring.application.id}")} 的快捷方式
  *
  * @author 应卓
- * @see spring.turbo.bean.injection.ApplicationName
- * @since 2.0.7
+ * @see Value
+ * @see spring.turbo.core.env.MiscellaneousEnvironmentPostProcessor
+ * @since 2.0.8
  */
-public final class Dependencies {
-
-    public static final boolean YAML_PRESENT = ClassUtils.isPresent("org.yaml.snakeyaml.Yaml");
-    public static final boolean HOCON_PRESENT = ClassUtils.isPresent("com.typesafe.config.Config");
-    public static final boolean TOML_PRESENT = ClassUtils.isPresent("com.moandjiezana.toml.Toml");
-
-    /**
-     * 私有构造方法
-     */
-    private Dependencies() {
-        super();
-    }
-
+@Inherited
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+@Value("${spring.application.id}")
+public @interface ApplicationId {
 }

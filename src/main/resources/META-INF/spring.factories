@@ -2,12 +2,7 @@
 # Spring / SpringBoot
 # ----------------------------------------------------------------------------------------------------------------------
 org.springframework.boot.env.EnvironmentPostProcessor=\
-spring.turbo.core.env.SpringIdEnvironmentPostProcessor,\
-spring.turbo.core.env.ApplicationHomeEnvironmentPostProcessor,\
-spring.turbo.core.env.ModuleEnvironmentPostProcessor,\
-spring.turbo.core.env.ApplicationNameEnvironmentPostProcessor,\
-spring.turbo.core.env.GitInfoEnvironmentPostProcessor,\
-spring.turbo.core.env.BuildInfoEnvironmentPostProcessor
+spring.turbo.core.env.MiscellaneousEnvironmentPostProcessor
 org.springframework.context.ApplicationListener=\
 spring.turbo.core.SpringApplicationAware
 # ----------------------------------------------------------------------------------------------------------------------
