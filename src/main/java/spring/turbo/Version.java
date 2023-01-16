@@ -19,7 +19,7 @@ public final class Version {
     /**
      * 本软件版本
      */
-    public static final String CURRENT = "2.0.7";
+    public static final String CURRENT = "2.0.8";
 
     /**
      * 私有构造方法
