@@ -11,28 +11,40 @@ package spring.turbo.core.env;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.system.ApplicationHome;
+import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import spring.turbo.util.CollectionUtils;
 
 import java.util.Map;
 
-import static spring.turbo.util.StringPool.EMPTY;
+import static spring.turbo.util.RandomStringUtils.randomUUID;
 
 /**
+ * 杂项设置
+ *
  * @author 应卓
- * @see spring.turbo.bean.injection.ApplicationHome
  * @since 2.0.8
  */
-public class ApplicationHomeEnvironmentPostProcessor implements EnvironmentPostProcessor {
+public class MiscellaneousEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
-    public static final String SPRING_APPLICATION_HOME_ENVIRONMENT_KEY = "spring.application.home";
-    public static final String VALUE_ANNOTATION_VALUE = "${" + SPRING_APPLICATION_HOME_ENVIRONMENT_KEY + "}";
+    private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
+    private static final String SPRING_ID = randomUUID();
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
 
-        var home = EMPTY;
+        var map = Map.<String, Object>of(
+                "spring.application.id", SPRING_ID,
+                "spring.application.home", getApplicationHome(application)
+        );
+
+        environment
+                .getPropertySources()
+                .addLast(new MapPropertySource(PROPERTY_SOURCE_NAME, map));
+    }
+
+    private String getApplicationHome(SpringApplication application) {
         var sourceClasses = application.getAllSources()
                 .stream()
                 .filter(o -> o instanceof Class<?>)
@@ -40,15 +52,19 @@ public class ApplicationHomeEnvironmentPostProcessor implements EnvironmentPostP
                 .toList();
 
         if (CollectionUtils.size(sourceClasses) == 1) {
-            home = new ApplicationHome(sourceClasses.get(0)).getDir().getAbsolutePath();
+            return new ApplicationHome(sourceClasses.get(0))
+                    .getDir()
+                    .getAbsolutePath();
         } else {
-            home = new ApplicationHome().getDir().getAbsolutePath();
+            return new ApplicationHome()
+                    .getDir()
+                    .getAbsolutePath();
         }
+    }
 
-        var propertySource = new MapPropertySource("application-home", Map.of(SPRING_APPLICATION_HOME_ENVIRONMENT_KEY, home));
-        environment
-                .getPropertySources()
-                .addLast(propertySource);
+    @Override
+    public int getOrder() {
+        return LOWEST_PRECEDENCE;
     }
 
 }

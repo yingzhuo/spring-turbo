@@ -9,7 +9,6 @@
 package spring.turbo.bean.injection;
 
 import org.springframework.beans.factory.annotation.Value;
-import spring.turbo.core.env.ApplicationHomeEnvironmentPostProcessor;
 
 import java.lang.annotation.*;
 
@@ -18,13 +17,13 @@ import java.lang.annotation.*;
  *
  * @author 应卓
  * @see Value
- * @see spring.turbo.core.env.ApplicationHomeEnvironmentPostProcessor
+ * @see spring.turbo.core.env.MiscellaneousEnvironmentPostProcessor
  * @since 2.0.8
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-@Value(ApplicationHomeEnvironmentPostProcessor.VALUE_ANNOTATION_VALUE)
+@Value("${spring.application.home}")
 public @interface ApplicationHome {
 }
