@@ -4,6 +4,7 @@ usage:
 	@echo "=============================================================="
 	@echo "usage   =>  显示菜单"
 	@echo "wrapper =>  初始化maven-wrapper"
+	@echo "compile =>  编译"
 	@echo "test    =>  单元测试"
 	@echo "clean   =>  清理"
 	@echo "package =>  打包"
@@ -15,6 +16,9 @@ usage:
 
 wrapper:
 	@mvn wrapper:wrapper -Dmaven=3.8.7
+
+compile:
+	@mvnw clean compile
 
 clean:
 	@mvnw -f $(CURDIR)/pom.xml clean -q
@@ -41,4 +45,4 @@ github: clean
 	@git commit -m "$(timestamp)"
 	@git push
 
-.PHONY: usage wrapper clean package install deploy version github
+.PHONY: usage wrapper compile clean package install deploy version github
