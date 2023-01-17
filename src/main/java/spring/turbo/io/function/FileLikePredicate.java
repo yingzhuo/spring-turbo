@@ -26,6 +26,8 @@ public interface FileLikePredicate extends Predicate<File> {
     @Override
     public boolean test(@Nullable File file);
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public default Predicate<File> asFilePredicate() {
         return this;
     }
