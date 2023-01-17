@@ -22,7 +22,7 @@ import static spring.turbo.util.RandomStringUtils.randomUUID;
  * @author 应卓
  * @since 2.0.8
  */
-public class MiscellaneousEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
+public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
 
     private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
     private static final String SPRING_ID = randomUUID();
@@ -30,7 +30,7 @@ public class MiscellaneousEnvironmentPostProcessor extends EnvironmentPostProces
     /**
      * 默认构造方法
      */
-    public MiscellaneousEnvironmentPostProcessor() {
+    public MiscellaneousSetupEnvironmentPostProcessor() {
         setOrder(LOWEST_PRECEDENCE);
     }
 
