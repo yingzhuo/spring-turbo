@@ -8,10 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.core.Ordered;
 import org.springframework.core.PriorityOrdered;
 import org.springframework.lang.Nullable;
 
@@ -22,7 +22,10 @@ import org.springframework.lang.Nullable;
  * @see SpringUtils
  * @since 1.0.2
  */
-class SpringApplicationAware implements ApplicationListener<ContextRefreshedEvent>, PriorityOrdered {
+class SpringApplicationHolders implements ApplicationListener<ContextRefreshedEvent>, PriorityOrdered {
+
+    @Nullable
+    static SpringApplication SA = null;
 
     @Nullable
     static ApplicationContext AC = null;
@@ -30,7 +33,10 @@ class SpringApplicationAware implements ApplicationListener<ContextRefreshedEven
     @Nullable
     static SpringContext SC = null;
 
-    public SpringApplicationAware() {
+    /**
+     * 默认构造方法
+     */
+    public SpringApplicationHolders() {
         super();
     }
 
@@ -42,7 +48,7 @@ class SpringApplicationAware implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE;
+        return HIGHEST_PRECEDENCE;
     }
 
 }
