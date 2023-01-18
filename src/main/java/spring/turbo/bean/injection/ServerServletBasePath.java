@@ -18,11 +18,13 @@ import java.lang.annotation.*;
  * @author 应卓
  * @see Value
  * @since 1.1.3
+ * @deprecated 请使用 {@link ServerServletContextPath} 代替
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 @Value("${server.servlet.context-path:/}")
+@Deprecated
 public @interface ServerServletBasePath {
 }
