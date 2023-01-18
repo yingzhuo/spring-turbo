@@ -23,6 +23,6 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-@Value("${server.servlet.context-path}")
+@Value("${server.servlet.context-path:/}")
 public @interface ServerServletBasePath {
 }
