@@ -2,7 +2,7 @@
 # Spring / SpringBoot
 # ----------------------------------------------------------------------------------------------------------------------
 org.springframework.boot.env.EnvironmentPostProcessor=\
-spring.turbo.core.env.MiscellaneousEnvironmentPostProcessor
+spring.turbo.core.env.MiscellaneousSetupEnvironmentPostProcessor
 org.springframework.context.ApplicationListener=\
 spring.turbo.core.SpringApplicationAware
 # ----------------------------------------------------------------------------------------------------------------------

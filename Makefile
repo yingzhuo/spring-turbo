@@ -15,13 +15,10 @@ usage:
 	@echo "=============================================================="
 
 wrapper:
-	@mvn wrapper:wrapper -Dmaven=3.8.7
+	@mvn -f $(CURDIR)/pom.xml wrapper:wrapper -Dmaven=3.8.7
 
 compile:
-	@mvnw clean compile
-
-clean:
-	@mvnw -f $(CURDIR)/pom.xml clean -q
+	@mvnw -f $(CURDIR)/pom.xml clean compile
 
 test:
 	@mvnw -f $(CURDIR)/pom.xml clean test
@@ -39,6 +36,9 @@ version:
 	@mvnw -f $(CURDIR)/pom.xml versions:set
 	@mvnw -f $(CURDIR)/pom.xml -N versions:update-child-modules
 	@mvnw -f $(CURDIR)/pom.xml versions:commit
+
+clean:
+	@mvnw -f $(CURDIR)/pom.xml clean -q
 
 github: clean
 	@git add .
