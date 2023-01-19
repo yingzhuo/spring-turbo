@@ -71,9 +71,9 @@ public final class ClassPathScannerBuilder implements Builder<ClassPathScanner> 
         } else {
             var scanner = new DefaultClassPathScanner();
             scanner.setIncludeTypeFilters(includeFilters);
+            scanner.setExcludeTypeFilters(excludeFilters);
             scanner.setEnvironment(environment);
             scanner.setResourceLoader(resourceLoader);
-            scanner.setExcludeTypeFilters(excludeFilters);
             return scanner;
         }
     }

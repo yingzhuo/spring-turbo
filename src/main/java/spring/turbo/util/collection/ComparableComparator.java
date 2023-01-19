@@ -17,6 +17,7 @@ import java.util.Comparator;
  * @author 应卓
  * @deprecated 使用 {@link Comparator#naturalOrder()} 代替
  */
+@Deprecated
 public class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E> {
 
     /**

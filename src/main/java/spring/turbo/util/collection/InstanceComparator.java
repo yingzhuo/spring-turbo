@@ -21,7 +21,7 @@ import java.util.List;
  * @author 应卓
  * @deprecated 使用 {@link org.springframework.util.comparator.InstanceComparator} 替代
  */
-@Deprecated(forRemoval = true)
+@Deprecated
 public class InstanceComparator<T> implements Comparator<T> {
 
     private final Class<?>[] instanceOrder;

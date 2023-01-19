@@ -125,6 +125,13 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     // -----------------------------------------------------------------------------------------------------------------
 
     @Override
+    public String toString() {
+        return "ClassDef[" + getBeanClassName() + "]";
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Override
     public void setParentName(String parentName) {
         bd.setParentName(parentName);
     }

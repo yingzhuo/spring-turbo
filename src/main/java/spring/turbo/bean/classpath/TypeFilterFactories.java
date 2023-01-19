@@ -53,8 +53,8 @@ public final class TypeFilterFactories {
      * @param annotationType 元注释类型
      * @return TypeFilter的实例
      */
-    public static TypeFilter annotation(Class<? extends Annotation> annotationType) {
-        return annotation(annotationType, true, true);
+    public static TypeFilter hasAnnotation(Class<? extends Annotation> annotationType) {
+        return hasAnnotation(annotationType, true, true);
     }
 
     /**
@@ -65,7 +65,7 @@ public final class TypeFilterFactories {
      * @param considerInterfaces      考虑元注释在接口上而不仅仅在实现类上的情形
      * @return TypeFilter的实例
      */
-    public static TypeFilter annotation(Class<? extends Annotation> annotationType, boolean considerMetaAnnotations, boolean considerInterfaces) {
+    public static TypeFilter hasAnnotation(Class<? extends Annotation> annotationType, boolean considerMetaAnnotations, boolean considerInterfaces) {
         Asserts.notNull(annotationType);
         return new AnnotationTypeFilter(annotationType, considerMetaAnnotations, considerInterfaces);
     }
@@ -85,20 +85,34 @@ public final class TypeFilterFactories {
      *
      * @param className 指定的类型
      * @return TypeFilter的实例
-     * @since 1.0.5
      */
-    public static TypeFilter fullyQualifiedClassName(String className) {
-        Asserts.hasText(className);
-        return (reader, readerFactory) -> className.equals(reader.getClassMetadata().getClassName());
+    public static TypeFilter fullyQualifiedNameEquals(String className) {
+        return fullyQualifiedNameEquals(className, false);
     }
 
     /**
-     * 通过正则表达式匹配fully-qualified class name过滤类型
+     * 通过类名过滤类型
+     *
+     * @param className  指定的类型
+     * @param ignoreCase 是否忽略大小写
+     * @return TypeFilter的实例
+     */
+    public static TypeFilter fullyQualifiedNameEquals(String className, boolean ignoreCase) {
+        Asserts.hasText(className);
+        if (ignoreCase) {
+            return (reader, readerFactory) -> className.equalsIgnoreCase(reader.getClassMetadata().getClassName());
+        } else {
+            return (reader, readerFactory) -> className.equals(reader.getClassMetadata().getClassName());
+        }
+    }
+
+    /**
+     * 通过正则表达式匹配FQN过滤类型
      *
      * @param regex 正则表达式
      * @return TypeFilter的实例
      */
-    public static TypeFilter regexPattern(String regex) {
+    public static TypeFilter fullyQualifiedNameMatch(String regex) {
         Asserts.hasText(regex);
         return new RegexPatternTypeFilter(Pattern.compile(regex));
     }
@@ -194,12 +208,12 @@ public final class TypeFilterFactories {
     /**
      * 逻辑取反
      *
-     * @param typeFilter 代理的TypeFilter实例
+     * @param f 代理的TypeFilter实例
      * @return 装饰后的TypeFilter实例
      */
-    public static TypeFilter not(final TypeFilter typeFilter) {
-        Asserts.notNull(typeFilter);
-        return (reader, readerFactory) -> !typeFilter.match(reader, readerFactory);
+    public static TypeFilter not(final TypeFilter f) {
+        Asserts.notNull(f);
+        return (reader, readerFactory) -> !f.match(reader, readerFactory);
     }
 
     /**
@@ -270,18 +284,6 @@ public final class TypeFilterFactories {
         return (reader, readerFactory) -> false;
     }
 
-    /**
-     * 装饰TypeFilter并吞掉IOException
-     *
-     * @param filter        代理的TypeFilter实例
-     * @param resultIfError 发生IOException时的返回值
-     * @return TypeFilter实例
-     */
-    public static TypeFilter quiet(TypeFilter filter, boolean resultIfError) {
-        Asserts.notNull(filter);
-        return new Quiet(filter, resultIfError);
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
     private static final class All implements TypeFilter {
@@ -326,30 +328,6 @@ public final class TypeFilterFactories {
                 }
             }
             return false;
-        }
-    }
-
-    public static final class Quiet implements TypeFilter {
-
-        private final TypeFilter typeFilter;
-        private final boolean resultIfError;
-
-        public Quiet(TypeFilter typeFilter) {
-            this(typeFilter, false);
-        }
-
-        public Quiet(TypeFilter typeFilter, boolean resultIfError) {
-            this.typeFilter = typeFilter;
-            this.resultIfError = resultIfError;
-        }
-
-        @Override
-        public boolean match(MetadataReader reader, MetadataReaderFactory readerFactory) {
-            try {
-                return typeFilter.match(reader, readerFactory);
-            } catch (IOException e) {
-                return resultIfError;
-            }
         }
     }
 
