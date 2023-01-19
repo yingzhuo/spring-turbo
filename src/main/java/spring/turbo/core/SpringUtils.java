@@ -12,6 +12,7 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -29,13 +30,14 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
+ * @see SpringApplication
  * @see org.springframework.context.ApplicationContext
  * @since 1.0.0
  */
 public final class SpringUtils {
 
     public static final Supplier<? extends RuntimeException> UNSUPPORTED =
-            () -> new UnsupportedOperationException("this operation is unsupported without ApplicationContext instance");
+            () -> new UnsupportedOperationException("this operation is NOT supported without ApplicationContext instance");
 
     public static final Supplier<? extends RuntimeException> BEAN_NOT_FOUND =
             () -> new NoSuchBeanDefinitionException("bean not found");
@@ -53,10 +55,10 @@ public final class SpringUtils {
      * @return {@link ApplicationContext}实例
      */
     public static ApplicationContext getApplicationContext() {
-        if (SpringApplicationAware.AC == null) {
+        if (SpringApplicationHolders.AC == null) {
             throw BEAN_NOT_FOUND.get();
         }
-        return SpringApplicationAware.AC;
+        return SpringApplicationHolders.AC;
     }
 
     /**
@@ -67,7 +69,7 @@ public final class SpringUtils {
      * @see BeanDefinitionRegistry
      */
     public static BeanDefinitionRegistry getBeanDefinitionRegistry() {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(SpringContext::getBeanDefinitionRegistry)
                 .orElseThrow(UNSUPPORTED);
     }
@@ -82,7 +84,7 @@ public final class SpringUtils {
      * @see ObjectProvider
      */
     public static <T> ObjectProvider<T> getObjectProvider(final Class<T> beanType) {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(sc -> sc.getObjectProvider(beanType))
                 .orElseThrow(UNSUPPORTED);
     }
@@ -98,7 +100,7 @@ public final class SpringUtils {
      * @see #getResourcePatternResolver()
      */
     public static ResourceLoader getResourceLoader() {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(SpringContext::getResourceLoader)
                 .orElse(new DefaultResourceLoader());
     }
@@ -114,7 +116,7 @@ public final class SpringUtils {
      * @see #getResourceLoader()
      */
     public static ResourcePatternResolver getResourcePatternResolver() {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(SpringContext::getResourcePatternResolver)
                 .orElseThrow(UNSUPPORTED);
     }
@@ -129,7 +131,7 @@ public final class SpringUtils {
      * @see ProfilesUtils
      */
     public static Environment getEnvironment() {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(SpringContext::getEnvironment)
                 .orElseThrow(UNSUPPORTED);
     }
@@ -144,7 +146,7 @@ public final class SpringUtils {
      * @see ProfilesUtils
      */
     public static ApplicationArguments getApplicationArguments() {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(SpringContext::getApplicationArguments)
                 .orElseThrow(UNSUPPORTED);
     }
@@ -161,7 +163,7 @@ public final class SpringUtils {
      * @see ConversionUtils
      */
     public static ConversionService getConversionService() {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(SpringContext::getConversionService)
                 .orElseThrow(UNSUPPORTED);
     }
@@ -173,7 +175,7 @@ public final class SpringUtils {
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static ApplicationEventPublisher getApplicationEventPublisher() {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(SpringContext::getApplicationEventPublisher)
                 .orElseThrow(UNSUPPORTED);
     }
@@ -187,7 +189,7 @@ public final class SpringUtils {
      * @see ValidatorUtils
      */
     public static Validator getValidator() {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(SpringContext::getValidator)
                 .orElseThrow(UNSUPPORTED);
     }
@@ -202,7 +204,7 @@ public final class SpringUtils {
      * @see MessageUtils
      */
     public static MessageSource getMessageSource() {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(SpringContext::getMessageSource)
                 .orElseThrow(UNSUPPORTED);
     }
@@ -216,7 +218,7 @@ public final class SpringUtils {
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static <T> Optional<T> getBean(Class<T> beanType) {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(sc -> sc.getBean(beanType))
                 .orElseThrow(UNSUPPORTED);
     }
@@ -234,7 +236,7 @@ public final class SpringUtils {
         Asserts.notNull(beanName);
         Asserts.notNull(beanType);
 
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(sc -> sc.getBean(beanType, beanName))
                 .orElseThrow(UNSUPPORTED);
     }
@@ -275,7 +277,7 @@ public final class SpringUtils {
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static <T> List<T> getBeanList(final Class<T> beanType) {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(sc -> sc.getBeanList(beanType))
                 .orElseThrow(UNSUPPORTED);
     }
@@ -288,7 +290,7 @@ public final class SpringUtils {
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static boolean containsBean(String beanName) {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(sc -> sc.containsBean(beanName))
                 .orElseThrow(UNSUPPORTED);
     }
@@ -302,8 +304,18 @@ public final class SpringUtils {
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static <T> boolean containsBean(Class<?> beanType) {
-        return Optional.ofNullable(SpringApplicationAware.SC)
+        return Optional.ofNullable(SpringApplicationHolders.SC)
                 .map(sc -> sc.containsBean(beanType))
+                .orElseThrow(UNSUPPORTED);
+    }
+
+    /**
+     * 获取{@link SpringApplication} 实例
+     *
+     * @return 实例
+     */
+    public static SpringApplication getSpringApplication() {
+        return Optional.ofNullable(SpringApplicationHolders.SA)
                 .orElseThrow(UNSUPPORTED);
     }
 

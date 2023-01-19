@@ -20,8 +20,8 @@ import java.util.Objects;
  * @author 应卓
  * @deprecated 使用 {@link Comparator#nullsFirst(Comparator)} 或 {@link Comparator#nullsLast(Comparator)} 替代
  */
+@Deprecated
 @SuppressWarnings({"rawtypes", "unchecked"})
-@Deprecated(forRemoval = true)
 public class NullComparator<T> implements Comparator<T> {
 
     private final boolean nullGreater;

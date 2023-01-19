@@ -6,40 +6,48 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util.collection;
+package spring.turbo.bean.classpath;
 
-import java.util.Comparator;
+import spring.turbo.lang.Singleton;
+
+import java.util.List;
 
 /**
- * 自然顺序比较器
- *
- * @param <E> 泛型
  * @author 应卓
- * @deprecated 使用 {@link Comparator#naturalOrder()} 代替
+ * @since 2.0.9
  */
-@Deprecated
-public class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E> {
+@Singleton
+final class NullClassPathScanner implements ClassPathScanner {
+
+    /**
+     * 获取单例实例
+     *
+     * @return 实例
+     */
+    public static NullClassPathScanner getInstance() {
+        return SyncAvoid.INSTANCE;
+    }
 
     /**
      * 私有构造方法
      */
-    public ComparableComparator() {
+    private NullClassPathScanner() {
         super();
     }
 
     @Override
-    public int compare(final E obj1, final E obj2) {
-        return obj1.compareTo(obj2);
+    public List<ClassDef> scan(Iterable<String> basePackages) {
+        return List.of();
     }
 
     @Override
-    public int hashCode() {
-        return ComparableComparator.class.getName().hashCode();
+    public List<ClassDef> scan(String... basePackages) {
+        return List.of();
     }
 
-    @Override
-    public boolean equals(final Object object) {
-        return this == object || null != object && object.getClass().equals(this.getClass());
+    // 延迟加载
+    private static final class SyncAvoid {
+        private static final NullClassPathScanner INSTANCE = new NullClassPathScanner();
     }
 
 }

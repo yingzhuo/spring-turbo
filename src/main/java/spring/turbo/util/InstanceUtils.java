@@ -39,8 +39,8 @@ public final class InstanceUtils {
      * @return 实例
      * @throws InstantiationException 创建实例无法成功
      */
-    public static <T> T newInstanceOrThrow(Class<T> type) {
-        return newInstanceOrThrow(type, new InstantiationExceptionSupplier(type));
+    public static <T> T newInstanceElseThrow(Class<T> type) {
+        return newInstanceElseThrow(type, new InstantiationExceptionSupplier(type));
     }
 
     /**
@@ -51,7 +51,7 @@ public final class InstanceUtils {
      * @param <T>                             实例类型泛型
      * @return 实例
      */
-    public static <T> T newInstanceOrThrow(Class<T> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
+    public static <T> T newInstanceElseThrow(Class<T> type, Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
         Asserts.notNull(exceptionIfCannotCreateInstance);
         return newInstance(type)
                 .orElseThrow(exceptionIfCannotCreateInstance);
@@ -88,7 +88,7 @@ public final class InstanceUtils {
     public static <T> Optional<T> newInstance(String className) {
         Asserts.hasText(className);
         try {
-            final Class<?> type = ClassUtils.forNameOrThrow(className);
+            final Class<?> type = ClassUtils.forNameElseThrow(className);
             return (Optional<T>) newInstance(type);
         } catch (Throwable e) {
             return Optional.empty();

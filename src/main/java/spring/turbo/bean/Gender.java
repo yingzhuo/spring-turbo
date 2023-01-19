@@ -29,7 +29,7 @@ public enum Gender {
      */
     MALE(1);
 
-    private final int integerValue;
+    private final int intValue;
 
     /**
      * 构造方法
@@ -37,11 +37,11 @@ public enum Gender {
      * @param intValue 整形值
      */
     private Gender(int intValue) {
-        this.integerValue = intValue;
+        this.intValue = intValue;
     }
 
-    public int getIntegerValue() {
-        return integerValue;
+    public int getIntValue() {
+        return intValue;
     }
 
 }

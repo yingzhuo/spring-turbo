@@ -115,7 +115,7 @@ public final class InstanceCache {
 
         instance = map.get(type);
         if (instance == null) {
-            instance = InstanceUtils.newInstanceOrThrow(type, exceptionIfCannotCreateInstance);
+            instance = InstanceUtils.newInstanceElseThrow(type, exceptionIfCannotCreateInstance);
             map.put(type, instance);
         }
         return (T) instance;

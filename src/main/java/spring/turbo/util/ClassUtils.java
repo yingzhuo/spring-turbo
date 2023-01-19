@@ -50,10 +50,10 @@ public final class ClassUtils {
      * @param className 类型全名，不可为 {@code null}
      * @return 加载结果
      * @see #forName(String)
-     * @see #forNameOrThrow(String, Supplier)
+     * @see #forNameElseThrow(String, Supplier)
      */
-    public static Class<?> forNameOrThrow(@NonNull String className) {
-        return forNameOrThrow(className, new ClassLoadingExceptionSupplier(className));
+    public static Class<?> forNameElseThrow(@NonNull String className) {
+        return forNameElseThrow(className, new ClassLoadingExceptionSupplier(className));
     }
 
     /**
@@ -63,7 +63,7 @@ public final class ClassUtils {
      * @param exceptionIfCannotLoad 异常提供者，不可为 {@code null}
      * @return 加载结果
      */
-    public static Class<?> forNameOrThrow(@NonNull String className, @NonNull Supplier<? extends RuntimeException> exceptionIfCannotLoad) {
+    public static Class<?> forNameElseThrow(@NonNull String className, @NonNull Supplier<? extends RuntimeException> exceptionIfCannotLoad) {
         Asserts.notNull(exceptionIfCannotLoad);
         return forName(className).orElseThrow(exceptionIfCannotLoad);
     }
@@ -84,8 +84,8 @@ public final class ClassUtils {
      *
      * @param className 类型全名
      * @return 加载结果
-     * @see #forNameOrThrow(String)
-     * @see #forNameOrThrow(String, Supplier)
+     * @see #forNameElseThrow(String)
+     * @see #forNameElseThrow(String, Supplier)
      */
     public static Optional<Class<?>> forName(String className) {
         try {

@@ -6,23 +6,22 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.bean.classpath;
 
 import spring.turbo.util.Asserts;
-import spring.turbo.util.collection.SetFactories;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * ClassPath扫描器
  *
  * @author 应卓
- * @see ClassPathScannerBuilder
  * @see #builder()
+ * @see ClassPathScannerBuilder
  * @since 1.0.0
  */
-@FunctionalInterface
-public interface ClassPathScanner {
+public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullClassPathScanner {
 
     /**
      * 新建创建器
@@ -39,7 +38,7 @@ public interface ClassPathScanner {
      * @param basePackages 扫描起点
      * @return 扫描结果
      */
-    public List<ClassDefinition> scan(Iterable<String> basePackages);
+    public List<ClassDef> scan(Iterable<String> basePackages);
 
     /**
      * 扫描类路径
@@ -47,10 +46,10 @@ public interface ClassPathScanner {
      * @param basePackages 扫描起点
      * @return 扫描结果
      */
-    public default List<ClassDefinition> scan(String... basePackages) {
+    public default List<ClassDef> scan(String... basePackages) {
         Asserts.notNull(basePackages);
         Asserts.noNullElements(basePackages);
-        return scan(SetFactories.newHashSet(basePackages));
+        return scan(Arrays.asList(basePackages));
     }
 
 }
