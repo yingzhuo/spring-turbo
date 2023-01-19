@@ -8,12 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.classpath;
 
+import org.springframework.core.type.ClassMetadata;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.core.type.filter.AssignableTypeFilter;
-import org.springframework.core.type.filter.RegexPatternTypeFilter;
-import org.springframework.core.type.filter.TypeFilter;
+import org.springframework.core.type.filter.*;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.CollectionUtils;
 
@@ -22,16 +20,15 @@ import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 本类包含一系列静态方法创建TypeFilter的实例
  *
  * @author 应卓
  * @see TypeFilter
+ * @see AbstractClassTestingTypeFilter
+ * @see AbstractTypeHierarchyTraversingFilter
  * @see ClassPathScanner
  * @see ClassPathScannerBuilder
  * @since 1.0.0
@@ -121,45 +118,105 @@ public final class TypeFilterFactories {
      * 过滤是接口的类型
      *
      * @return TypeFilter的实例
+     * @see #isNotInterface()
      */
     public static TypeFilter isInterface() {
-        return (reader, readerFactory) -> reader.getClassMetadata().isInterface();
+        return new AbstractClassTestingTypeFilter() {
+            @Override
+            protected boolean match(ClassMetadata metadata) {
+                return metadata.isInterface();
+            }
+        };
+    }
+
+    /**
+     * 过滤是不是接口的类型
+     *
+     * @return TypeFilter的实例
+     * @see #isInterface()
+     */
+    public static TypeFilter isNotInterface() {
+        return not(isInterface());
     }
 
     /**
      * 过滤抽象的类型。包含接口和抽象类。
      *
      * @return TypeFilter的实例
+     * @see #isConcrete()
      */
     public static TypeFilter isAbstract() {
-        return (reader, readerFactory) -> reader.getClassMetadata().isAbstract();
+        return new AbstractClassTestingTypeFilter() {
+            @Override
+            protected boolean match(ClassMetadata metadata) {
+                return metadata.isAbstract();
+            }
+        };
     }
 
     /**
      * 过滤具象的类型
      *
      * @return TypeFilter的实例
+     * @see #isAbstract()
      */
     public static TypeFilter isConcrete() {
-        return (reader, readerFactory) -> reader.getClassMetadata().isConcrete();
+        return new AbstractClassTestingTypeFilter() {
+            @Override
+            protected boolean match(ClassMetadata metadata) {
+                return metadata.isConcrete();
+            }
+        };
     }
 
     /**
-     * 过滤是元数据的类型
+     * 过滤是元注释的类型
      *
      * @return TypeFilter的实例
+     * @see #isNotAnnotation()
      */
     public static TypeFilter isAnnotation() {
-        return (reader, readerFactory) -> reader.getClassMetadata().isAnnotation();
+        return new AbstractClassTestingTypeFilter() {
+            @Override
+            protected boolean match(ClassMetadata metadata) {
+                return metadata.isAnnotation();
+            }
+        };
+    }
+
+    /**
+     * 过滤不是元注释的类型
+     *
+     * @return TypeFilter实例
+     * @see #isAnnotation()
+     */
+    public static TypeFilter isNotAnnotation() {
+        return not(isAnnotation());
     }
 
     /**
      * 过滤是Final的类型
      *
      * @return TypeFilter的实例
+     * @see #isNotFinal()
      */
     public static TypeFilter isFinal() {
-        return (reader, readerFactory) -> reader.getClassMetadata().isFinal();
+        return new AbstractClassTestingTypeFilter() {
+            @Override
+            protected boolean match(ClassMetadata metadata) {
+                return metadata.isFinal();
+            }
+        };
+    }
+
+    /**
+     * 过滤是不是Final的类型
+     *
+     * @return TypeFilter的实例
+     * @see #isFinal()
+     */
+    public static TypeFilter isNotFinal() {
+        return not(isFinal());
     }
 
     /**
@@ -168,7 +225,12 @@ public final class TypeFilterFactories {
      * @return TypeFilter的实例
      */
     public static TypeFilter isIndependent() {
-        return (reader, readerFactory) -> reader.getClassMetadata().isIndependent();
+        return new AbstractClassTestingTypeFilter() {
+            @Override
+            protected boolean match(ClassMetadata metadata) {
+                return metadata.isIndependent();
+            }
+        };
     }
 
     /**
@@ -177,16 +239,37 @@ public final class TypeFilterFactories {
      * @return TypeFilter的实例
      */
     public static TypeFilter hasSuperClass() {
-        return (reader, readerFactory) -> reader.getClassMetadata().hasSuperClass();
+        return new AbstractClassTestingTypeFilter() {
+            @Override
+            protected boolean match(ClassMetadata metadata) {
+                return metadata.hasSuperClass();
+            }
+        };
     }
 
     /**
      * 过滤内部类的类型
      *
      * @return TypeFilter的实例
+     * @see #isNotInnerClass()
      */
     public static TypeFilter isInnerClass() {
-        return (reader, readerFactory) -> reader.getClassMetadata().hasEnclosingClass();
+        return new AbstractClassTestingTypeFilter() {
+            @Override
+            protected boolean match(ClassMetadata metadata) {
+                return metadata.hasEnclosingClass();
+            }
+        };
+    }
+
+    /**
+     * 过滤非内部类型
+     *
+     * @return TypeFilter的实例
+     * @see #isInnerClass()
+     */
+    public static TypeFilter isNotInnerClass() {
+        return not(isInnerClass());
     }
 
     /**
@@ -194,13 +277,27 @@ public final class TypeFilterFactories {
      *
      * @param interfaceType 指定接口
      * @return TypeFilter的实例
+     * @see #notImplementsInterface(Class)
      */
     public static TypeFilter implementsInterface(final Class<?> interfaceType) {
         Asserts.notNull(interfaceType);
-        return (reader, readerFactory) -> {
-            final Set<String> set = Stream.of(reader.getClassMetadata().getInterfaceNames()).collect(Collectors.toSet());
-            return set.contains(interfaceType.getName());
+        return new AbstractTypeHierarchyTraversingFilter(true, true) {
+            @Override
+            protected Boolean matchInterface(String interfaceName) {
+                return interfaceType.getName().equals(interfaceName);
+            }
         };
+    }
+
+    /**
+     * 过滤没有实现指定接口的类型
+     *
+     * @param interfaceType 指定接口
+     * @return TypeFilter的实例
+     * @see #implementsInterface(Class)
+     */
+    public static TypeFilter notImplementsInterface(final Class<?> interfaceType) {
+        return not(implementsInterface(interfaceType));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -222,7 +319,10 @@ public final class TypeFilterFactories {
      * @param f1 实例1
      * @param f2 实例2
      * @return 装饰后的TypeFilter实例
+     * @see #and(TypeFilter, TypeFilter)
+     * @deprecated 使用 {@link #any(TypeFilter...)} 代替
      */
+    @Deprecated(forRemoval = true)
     public static TypeFilter or(TypeFilter f1, TypeFilter f2) {
         Asserts.notNull(f1);
         Asserts.notNull(f2);
@@ -235,7 +335,10 @@ public final class TypeFilterFactories {
      * @param f1 实例1
      * @param f2 实例2
      * @return 装饰后的TypeFilter实例
+     * @see #or(TypeFilter, TypeFilter)
+     * @deprecated 使用 {@link #all(TypeFilter...)} 代替
      */
+    @Deprecated(forRemoval = true)
     public static TypeFilter and(TypeFilter f1, TypeFilter f2) {
         Asserts.notNull(f1);
         Asserts.notNull(f2);

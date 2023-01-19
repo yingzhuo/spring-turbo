@@ -12,12 +12,13 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.filter.TypeFilter;
-import spring.turbo.util.CollectionUtils;
-import spring.turbo.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import static spring.turbo.util.CollectionUtils.nullSafeAddAll;
+import static spring.turbo.util.StringUtils.isNotBlank;
 
 /**
  * ClassPath 扫描器默认实现
@@ -34,13 +35,14 @@ final class DefaultClassPathScanner implements ClassPathScanner {
         final List<BeanDefinition> list = new ArrayList<>();
 
         for (String basePackage : basePackages) {
-            if (StringUtils.isNotBlank(basePackage)) {
-                CollectionUtils.nullSafeAddAll(list, provider.findCandidateComponents(basePackage));
+            if (isNotBlank(basePackage)) {
+                nullSafeAddAll(list, provider.findCandidateComponents(basePackage));
             }
         }
 
         return list.stream()
                 .map(ClassDef::new)
+                .distinct()
                 .sorted(Comparator.<ClassDef>naturalOrder())
                 .toList();
     }
@@ -53,12 +55,12 @@ final class DefaultClassPathScanner implements ClassPathScanner {
         provider.setEnvironment(environment);
     }
 
-    public void setIncludeTypeFilters(List<TypeFilter> typeFilters) {
-        typeFilters.forEach(provider::addIncludeFilter);
+    public void setIncludeTypeFilters(List<TypeFilter> filters) {
+        filters.forEach(provider::addIncludeFilter);
     }
 
-    public void setExcludeTypeFilters(List<TypeFilter> typeFilters) {
-        typeFilters.forEach(provider::addExcludeFilter);
+    public void setExcludeTypeFilters(List<TypeFilter> filters) {
+        filters.forEach(provider::addExcludeFilter);
     }
 
 }

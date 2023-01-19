@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * {@link BeanDefinition} 的装饰器
+ * {@link BeanDefinition} 的装饰器，同时是类路径扫描的结果
  *
  * @author 应卓
  * @since 2.0.9
