@@ -15,6 +15,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.filter.TypeFilter;
 import spring.turbo.bean.Builder;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.ClassUtils;
 import spring.turbo.util.CollectionUtils;
 
 import java.util.LinkedList;
@@ -26,6 +27,9 @@ import java.util.List;
  * @author 应卓
  * @see TypeFilter
  * @see TypeFilterFactories
+ * @see Environment
+ * @see ResourceLoader
+ * @see ClassLoader
  * @since 1.0.0
  */
 public final class ClassPathScannerBuilder implements Builder<ClassPathScanner> {
@@ -34,6 +38,7 @@ public final class ClassPathScannerBuilder implements Builder<ClassPathScanner> 
     private final List<TypeFilter> excludeFilters = new LinkedList<>();
     private Environment environment = new StandardEnvironment();
     private ResourceLoader resourceLoader = new DefaultResourceLoader();
+    private ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
 
     /**
      * 构造方法
@@ -64,6 +69,12 @@ public final class ClassPathScannerBuilder implements Builder<ClassPathScanner> 
         return this;
     }
 
+    public ClassPathScannerBuilder classLoader(ClassLoader classLoader) {
+        Asserts.notNull(classLoader);
+        this.classLoader = classLoader;
+        return this;
+    }
+
     @Override
     public ClassPathScanner build() {
         if (includeFilters.isEmpty()) {
@@ -74,6 +85,7 @@ public final class ClassPathScannerBuilder implements Builder<ClassPathScanner> 
             scanner.setExcludeTypeFilters(excludeFilters);
             scanner.setEnvironment(environment);
             scanner.setResourceLoader(resourceLoader);
+            scanner.setClassLoader(classLoader);
             return scanner;
         }
     }

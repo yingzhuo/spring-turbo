@@ -12,6 +12,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.filter.TypeFilter;
+import spring.turbo.util.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -29,6 +30,7 @@ import static spring.turbo.util.StringUtils.isNotBlank;
 final class DefaultClassPathScanner implements ClassPathScanner {
 
     private final ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider();
+    private ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
 
     @Override
     public List<ClassDef> scan(Iterable<String> basePackages) {
@@ -41,7 +43,7 @@ final class DefaultClassPathScanner implements ClassPathScanner {
         }
 
         return list.stream()
-                .map(ClassDef::new)
+                .map(bd -> new ClassDef(bd, classLoader))
                 .distinct()
                 .sorted(Comparator.<ClassDef>naturalOrder())
                 .toList();
@@ -61,6 +63,10 @@ final class DefaultClassPathScanner implements ClassPathScanner {
 
     public void setExcludeTypeFilters(List<TypeFilter> filters) {
         filters.forEach(provider::addExcludeFilter);
+    }
+
+    public void setClassLoader(ClassLoader classLoader) {
+        this.classLoader = classLoader;
     }
 
 }

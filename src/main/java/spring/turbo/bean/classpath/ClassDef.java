@@ -15,8 +15,8 @@ import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.*;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.util.ClassUtils;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.ClassUtils;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -39,12 +39,17 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      *
      * @param beanDefinition beanDefinition实例
      */
-    public ClassDef(@NonNull BeanDefinition beanDefinition) {
+    public ClassDef(@NonNull BeanDefinition beanDefinition, ClassLoader classLoader) {
         Asserts.notNull(beanDefinition);
+        Asserts.notNull(classLoader);
         this.bd = beanDefinition;
         var className = beanDefinition.getBeanClassName();
         Asserts.notNull(className);
-        this.clazz = ClassUtils.forNameElseThrow(className, () -> new IllegalStateException("Can not load class '" + className + "'"));
+        try {
+            this.clazz = ClassUtils.forName(className, classLoader);
+        } catch (Throwable e) {
+            throw new IllegalStateException("Cannot load class: '" + className + "'");
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
