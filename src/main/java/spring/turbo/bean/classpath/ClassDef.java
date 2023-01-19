@@ -20,6 +20,7 @@ import spring.turbo.util.ClassUtils;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -30,8 +31,8 @@ import java.util.Optional;
  */
 public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Serializable {
 
-    private final BeanDefinition bd;
     private final Class<?> clazz;
+    private final BeanDefinition bd;
 
     /**
      * 构造方法
@@ -43,11 +44,17 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
         this.bd = beanDefinition;
         var className = beanDefinition.getBeanClassName();
         Asserts.notNull(className);
-        this.clazz = ClassUtils.forNameOrThrow(className);
+        this.clazz = ClassUtils.forNameElseThrow(className, () -> new IllegalStateException("Can not load class '" + className + "'"));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    /**
+     * 获取类型
+     *
+     * @return 类型
+     * @see #getBeanClassName()
+     */
     public Class<?> getBeanClass() {
         return this.clazz;
     }
@@ -105,6 +112,9 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int compareTo(@Nullable ClassDef o) {
         var o1 = this.getBeanClassName();
@@ -122,193 +132,320 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
         return o1.compareTo(o2);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "ClassDef[" + getBeanClassName() + "]";
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClassDef classDef = (ClassDef) o;
+        return clazz.equals(classDef.clazz);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(clazz);
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setParentName(String parentName) {
         bd.setParentName(parentName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Nullable
     @Override
     public String getParentName() {
         return bd.getParentName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setBeanClassName(String beanClassName) {
         bd.setBeanClassName(beanClassName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public String getBeanClassName() {
         return bd.getBeanClassName();
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
+    @Override
     public void setScope(String scope) {
         bd.setScope(scope);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getScope() {
         return bd.getScope();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setLazyInit(boolean lazyInit) {
         bd.setLazyInit(lazyInit);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isLazyInit() {
         return bd.isLazyInit();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setDependsOn(String... dependsOn) {
         bd.setDependsOn(dependsOn);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public String[] getDependsOn() {
         return bd.getDependsOn();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setAutowireCandidate(boolean autowireCandidate) {
         bd.setAutowireCandidate(autowireCandidate);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAutowireCandidate() {
         return bd.isAutowireCandidate();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPrimary(boolean primary) {
         bd.setPrimary(primary);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPrimary() {
         return bd.isPrimary();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setFactoryBeanName(String factoryBeanName) {
         bd.setFactoryBeanName(factoryBeanName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public String getFactoryBeanName() {
         return bd.getFactoryBeanName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setFactoryMethodName(String factoryMethodName) {
         bd.setFactoryMethodName(factoryMethodName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public String getFactoryMethodName() {
         return bd.getFactoryMethodName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ConstructorArgumentValues getConstructorArgumentValues() {
         return bd.getConstructorArgumentValues();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MutablePropertyValues getPropertyValues() {
         return bd.getPropertyValues();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setInitMethodName(String initMethodName) {
         bd.setInitMethodName(initMethodName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public String getInitMethodName() {
         return bd.getInitMethodName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setDestroyMethodName(String destroyMethodName) {
         bd.setDestroyMethodName(destroyMethodName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDestroyMethodName() {
         return bd.getDestroyMethodName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setRole(int role) {
         bd.setRole(role);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getRole() {
         return bd.getRole();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setDescription(String description) {
         bd.setDescription(description);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public String getDescription() {
         return bd.getDescription();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ResolvableType getResolvableType() {
         return bd.getResolvableType();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isSingleton() {
         return bd.isSingleton();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPrototype() {
         return bd.isPrototype();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAbstract() {
         return bd.isAbstract();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Nullable
     @Override
     public String getResourceDescription() {
         return bd.getDescription();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public BeanDefinition getOriginatingBeanDefinition() {
         return bd.getOriginatingBeanDefinition();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setAttribute(String name, Object value) {
         bd.setAttribute(name, value);
@@ -319,16 +456,25 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
         return bd.getAttribute(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object removeAttribute(String name) {
         return bd.removeAttribute(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasAttribute(String name) {
         return bd.hasAttribute(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] attributeNames() {
         return bd.attributeNames();

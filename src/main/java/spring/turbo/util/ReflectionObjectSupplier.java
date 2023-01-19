@@ -29,7 +29,7 @@ public final class ReflectionObjectSupplier<T> implements Supplier<T> {
 
     @Override
     public T get() {
-        return InstanceUtils.newInstanceOrThrow(type);
+        return InstanceUtils.newInstanceElseThrow(type);
     }
 
 }

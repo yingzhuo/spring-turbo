@@ -11,6 +11,8 @@ package spring.turbo.bean.classpath;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 
 /**
+ * (内部工具)
+ *
  * @author 应卓
  * @since 2.0.9
  */

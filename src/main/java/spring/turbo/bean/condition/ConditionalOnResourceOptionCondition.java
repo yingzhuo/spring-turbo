@@ -44,7 +44,7 @@ public final class ConditionalOnResourceOptionCondition extends SpringBootCondit
 
         final var match = RichResource.builder()
                 .blankSafeAddLocations(resources)
-                .discriminator(InstanceUtils.newInstanceOrThrow(discriminatorType))
+                .discriminator(InstanceUtils.newInstanceElseThrow(discriminatorType))
                 .build()
                 .isPresent();
 
