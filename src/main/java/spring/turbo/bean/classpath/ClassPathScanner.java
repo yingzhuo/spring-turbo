@@ -19,6 +19,7 @@ import java.util.List;
  * @author 应卓
  * @see #builder()
  * @see ClassPathScannerBuilder
+ * @see org.springframework.beans.factory.config.BeanDefinition
  * @since 1.0.0
  */
 public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullClassPathScanner {
