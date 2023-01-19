@@ -21,7 +21,6 @@ import java.util.Objects;
  * @deprecated 使用 {@link Comparator#nullsFirst(Comparator)} 或 {@link Comparator#nullsLast(Comparator)} 替代
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
-@Deprecated(forRemoval = true)
 public class NullComparator<T> implements Comparator<T> {
 
     private final boolean nullGreater;
