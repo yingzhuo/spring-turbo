@@ -9,6 +9,7 @@
 package spring.turbo.util;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.lang.Nullable;
@@ -29,24 +30,23 @@ import java.util.function.Supplier;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public final class InstanceCache {
 
-    /**
-     * 本地缓存
-     */
     private final Map<Class<?>, Object> map = new HashMap<>();
 
-    /**
-     * Spring上下文
-     */
     @Nullable
     private final ApplicationContext applicationContext;
+
+    @Nullable
+    private final BeanFactory beanFactory;
 
     /**
      * 私有构造方法
      *
      * @param applicationContext Spring上下文，可为 {@code null}
+     * @param beanFactory        beanFactory实例，可为 {@code null}
      */
-    private InstanceCache(@Nullable ApplicationContext applicationContext) {
+    private InstanceCache(@Nullable ApplicationContext applicationContext, @Nullable BeanFactory beanFactory) {
         this.applicationContext = applicationContext;
+        this.beanFactory = beanFactory;
     }
 
     /**
@@ -55,7 +55,7 @@ public final class InstanceCache {
      * @return InstanceCache
      */
     public static InstanceCache newInstance() {
-        return new InstanceCache(null);
+        return new InstanceCache(null, null);
     }
 
     /**
@@ -65,7 +65,17 @@ public final class InstanceCache {
      * @return InstanceCache
      */
     public static InstanceCache newInstance(@Nullable ApplicationContext applicationContext) {
-        return new InstanceCache(applicationContext);
+        return new InstanceCache(applicationContext, null);
+    }
+
+    /**
+     * 创建实例缓存实例
+     *
+     * @param beanFactory BeanFactory实例，可为 {@code null}
+     * @return InstanceCache
+     */
+    public static InstanceCache newInstance(@Nullable BeanFactory beanFactory) {
+        return new InstanceCache(null, beanFactory);
     }
 
     /**
@@ -113,6 +123,11 @@ public final class InstanceCache {
             return (T) instance;
         }
 
+        instance = findFromBeanFactory(type);
+        if (instance != null) {
+            return (T) instance;
+        }
+
         instance = map.get(type);
         if (instance == null) {
             instance = InstanceUtils.newInstanceElseThrow(type, exceptionIfCannotCreateInstance);
@@ -130,6 +145,19 @@ public final class InstanceCache {
         final ObjectProvider provider = applicationContext.getBeanProvider(type);
         try {
             return provider.getIfAvailable();
+        } catch (BeansException e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    private Object findFromBeanFactory(Class<?> type) {
+        if (beanFactory == null) {
+            return null;
+        }
+
+        try {
+            return beanFactory.getBean(type);
         } catch (BeansException e) {
             return null;
         }
