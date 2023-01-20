@@ -23,6 +23,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.lang.Nullable;
+import org.springframework.util.ClassUtils;
 import spring.turbo.bean.classpath.ClassDef;
 import spring.turbo.bean.classpath.ClassPathScanner;
 import spring.turbo.util.Asserts;
@@ -36,6 +37,7 @@ import java.util.Set;
 import static spring.turbo.util.CollectionUtils.isEmpty;
 
 /**
+ * @param <A> 导入Annotation类型
  * @author 应卓
  * @see org.springframework.context.annotation.Import
  * @see ImportBeanDefinitionRegistrar
@@ -54,6 +56,7 @@ public abstract class ImportingConfigurationSupport<A extends Annotation> implem
     private Environment environment;
     private ResourceLoader resourceLoader;
     private BeanFactory beanFactory;
+    private AnnotationMetadata importingClassMetadata;
 
     public ImportingConfigurationSupport(Class<A> importAnnotationClass) {
         this.importAnnotationClass = importAnnotationClass;
@@ -66,6 +69,8 @@ public abstract class ImportingConfigurationSupport<A extends Annotation> implem
         Asserts.notNull(environment);
         Asserts.notNull(resourceLoader);
         Asserts.notNull(beanFactory);
+
+        this.importingClassMetadata = importingClassMetadata;
 
         var annotationAttributes = AnnotationAttributes.fromMap(
                 importingClassMetadata.getAnnotationAttributes(importAnnotationClass.getName())
@@ -127,6 +132,14 @@ public abstract class ImportingConfigurationSupport<A extends Annotation> implem
     @Override
     public final void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         this.beanFactory = beanFactory;
+    }
+
+    protected final AnnotationMetadata getImportingClassMetadata() {
+        return importingClassMetadata;
+    }
+
+    protected final String getImportingClassPackage() {
+        return ClassUtils.getPackageName(getImportingClassMetadata().getClassName());
     }
 
     protected final ClassLoader getClassLoader() {
