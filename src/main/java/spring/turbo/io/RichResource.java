@@ -207,10 +207,9 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
     final class Builder implements spring.turbo.bean.Builder<Optional<RichResource>> {
 
         private static final Predicate<Resource> DEFAULT_DISCRIMINATOR = r -> r != null && r.exists() && r.isReadable();
-
-        private ResourceLoader resourceLoader = new DefaultResourceLoader();
         private final List<String> locations = new ArrayList<>();
         private final List<Resource> resources = new ArrayList<>();
+        private ResourceLoader resourceLoader = new DefaultResourceLoader();
         private Predicate<Resource> discriminator = DEFAULT_DISCRIMINATOR;
         private boolean testLocationsFirst = true;
 

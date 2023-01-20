@@ -169,6 +169,15 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     /**
      * {@inheritDoc}
      */
+    @Nullable
+    @Override
+    public String getParentName() {
+        return bd.getParentName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setParentName(String parentName) {
         bd.setParentName(parentName);
@@ -179,8 +188,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Nullable
     @Override
-    public String getParentName() {
-        return bd.getParentName();
+    public String getBeanClassName() {
+        return bd.getBeanClassName();
     }
 
     /**
@@ -194,10 +203,9 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     /**
      * {@inheritDoc}
      */
-    @Nullable
     @Override
-    public String getBeanClassName() {
-        return bd.getBeanClassName();
+    public String getScope() {
+        return bd.getScope();
     }
 
     /**
@@ -213,22 +221,6 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * {@inheritDoc}
      */
     @Override
-    public String getScope() {
-        return bd.getScope();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setLazyInit(boolean lazyInit) {
-        bd.setLazyInit(lazyInit);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public boolean isLazyInit() {
         return bd.isLazyInit();
     }
@@ -237,8 +229,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * {@inheritDoc}
      */
     @Override
-    public void setDependsOn(String... dependsOn) {
-        bd.setDependsOn(dependsOn);
+    public void setLazyInit(boolean lazyInit) {
+        bd.setLazyInit(lazyInit);
     }
 
     /**
@@ -254,8 +246,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * {@inheritDoc}
      */
     @Override
-    public void setAutowireCandidate(boolean autowireCandidate) {
-        bd.setAutowireCandidate(autowireCandidate);
+    public void setDependsOn(String... dependsOn) {
+        bd.setDependsOn(dependsOn);
     }
 
     /**
@@ -270,8 +262,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * {@inheritDoc}
      */
     @Override
-    public void setPrimary(boolean primary) {
-        bd.setPrimary(primary);
+    public void setAutowireCandidate(boolean autowireCandidate) {
+        bd.setAutowireCandidate(autowireCandidate);
     }
 
     /**
@@ -286,8 +278,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * {@inheritDoc}
      */
     @Override
-    public void setFactoryBeanName(String factoryBeanName) {
-        bd.setFactoryBeanName(factoryBeanName);
+    public void setPrimary(boolean primary) {
+        bd.setPrimary(primary);
     }
 
     /**
@@ -303,8 +295,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * {@inheritDoc}
      */
     @Override
-    public void setFactoryMethodName(String factoryMethodName) {
-        bd.setFactoryMethodName(factoryMethodName);
+    public void setFactoryBeanName(String factoryBeanName) {
+        bd.setFactoryBeanName(factoryBeanName);
     }
 
     /**
@@ -314,6 +306,14 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Override
     public String getFactoryMethodName() {
         return bd.getFactoryMethodName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setFactoryMethodName(String factoryMethodName) {
+        bd.setFactoryMethodName(factoryMethodName);
     }
 
     /**
@@ -335,14 +335,6 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void setInitMethodName(String initMethodName) {
-        bd.setInitMethodName(initMethodName);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Nullable
     @Override
     public String getInitMethodName() {
@@ -353,8 +345,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * {@inheritDoc}
      */
     @Override
-    public void setDestroyMethodName(String destroyMethodName) {
-        bd.setDestroyMethodName(destroyMethodName);
+    public void setInitMethodName(String initMethodName) {
+        bd.setInitMethodName(initMethodName);
     }
 
     /**
@@ -369,8 +361,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * {@inheritDoc}
      */
     @Override
-    public void setRole(int role) {
-        bd.setRole(role);
+    public void setDestroyMethodName(String destroyMethodName) {
+        bd.setDestroyMethodName(destroyMethodName);
     }
 
     /**
@@ -385,8 +377,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * {@inheritDoc}
      */
     @Override
-    public void setDescription(String description) {
-        bd.setDescription(description);
+    public void setRole(int role) {
+        bd.setRole(role);
     }
 
     /**
@@ -396,6 +388,14 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Override
     public String getDescription() {
         return bd.getDescription();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDescription(String description) {
+        bd.setDescription(description);
     }
 
     /**

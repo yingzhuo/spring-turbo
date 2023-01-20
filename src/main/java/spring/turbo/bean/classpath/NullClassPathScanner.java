@@ -20,19 +20,19 @@ import java.util.List;
 final class NullClassPathScanner implements ClassPathScanner {
 
     /**
+     * 私有构造方法
+     */
+    private NullClassPathScanner() {
+        super();
+    }
+
+    /**
      * 获取单例实例
      *
      * @return 实例
      */
     public static NullClassPathScanner getInstance() {
         return SyncAvoid.INSTANCE;
-    }
-
-    /**
-     * 私有构造方法
-     */
-    private NullClassPathScanner() {
-        super();
     }
 
     @Override
