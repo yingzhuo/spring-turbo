@@ -26,12 +26,14 @@ import org.springframework.lang.Nullable;
 import spring.turbo.bean.classpath.ClassDef;
 import spring.turbo.bean.classpath.ClassPathScanner;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.InstanceCache;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import static spring.turbo.util.CollectionUtils.isEmpty;
 
 /**
  * @author 应卓
@@ -54,12 +56,12 @@ public abstract class ImportingConfigurationSupport<A extends Annotation> implem
     private BeanFactory beanFactory;
 
     public ImportingConfigurationSupport(Class<A> importAnnotationClass) {
-        Asserts.notNull(importAnnotationClass);
         this.importAnnotationClass = importAnnotationClass;
     }
 
     @Override
     public final void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry, BeanNameGenerator importBeanNameGenerator) {
+        Asserts.notNull(importAnnotationClass);
         Asserts.notNull(classLoader);
         Asserts.notNull(environment);
         Asserts.notNull(resourceLoader);
@@ -89,22 +91,21 @@ public abstract class ImportingConfigurationSupport<A extends Annotation> implem
 
     protected final List<ClassDef> scanClassPath(Set<String> packages, List<TypeFilter> includeFilters, @Nullable List<TypeFilter> excludeFilters) {
 
-        if (CollectionUtils.isEmpty(includeFilters) || CollectionUtils.isEmpty(packages)) {
+        if (isEmpty(includeFilters) || isEmpty(packages)) {
             return List.of();
         }
 
         excludeFilters = Objects.requireNonNullElseGet(excludeFilters, List::of);
 
-        var scannerBuilder = ClassPathScanner.builder()
+        var builder = ClassPathScanner.builder()
                 .classLoader(getClassLoader())
                 .environment(getEnvironment())
                 .resourceLoader(getResourceLoader());
 
-        scannerBuilder.includeFilter(includeFilters.toArray(new TypeFilter[0]));
-        scannerBuilder.excludeFilter(excludeFilters.toArray(new TypeFilter[0]));
+        builder.includeFilter(includeFilters.toArray(TypeFilter[]::new))
+                .excludeFilter(excludeFilters.toArray(TypeFilter[]::new));
 
-        return scannerBuilder
-                .build()
+        return builder.build()
                 .scan(packages);
     }
 
@@ -143,4 +144,9 @@ public abstract class ImportingConfigurationSupport<A extends Annotation> implem
     protected final BeanFactory getBeanFactory() {
         return beanFactory;
     }
+
+    protected final InstanceCache newInstanceCache() {
+        return InstanceCache.newInstance(getBeanFactory());
+    }
+
 }
