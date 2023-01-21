@@ -20,9 +20,10 @@ import org.springframework.lang.Nullable;
  *
  * @author 应卓
  * @see SpringUtils
+ * @see SpringApplicationHoldersEnvironmentPostProcessor
  * @since 1.0.2
  */
-class SpringApplicationHolders implements ApplicationListener<ContextRefreshedEvent>, PriorityOrdered {
+final class SpringApplicationHolders implements ApplicationListener<ContextRefreshedEvent>, PriorityOrdered {
 
     @Nullable
     static SpringApplication SA = null;
@@ -34,9 +35,9 @@ class SpringApplicationHolders implements ApplicationListener<ContextRefreshedEv
     static SpringContext SC = null;
 
     /**
-     * 默认构造方法
+     * 私有构造方法
      */
-    public SpringApplicationHolders() {
+    private SpringApplicationHolders() {
         super();
     }
 

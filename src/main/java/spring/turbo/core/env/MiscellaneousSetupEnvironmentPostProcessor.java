@@ -20,6 +20,8 @@ import static spring.turbo.util.RandomStringUtils.randomUUID;
  * 杂项设置
  *
  * @author 应卓
+ * @see spring.turbo.bean.injection.ApplicationId
+ * @see spring.turbo.bean.injection.ApplicationHome
  * @since 2.0.8
  */
 public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {

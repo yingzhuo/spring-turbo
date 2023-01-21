@@ -23,6 +23,6 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-@Value("${server.ssl.enabled}")
+@Value("${server.ssl.enabled:false}")
 public @interface ServerSSLEnabled {
 }
