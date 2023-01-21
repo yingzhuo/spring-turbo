@@ -23,17 +23,21 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.lang.Nullable;
+import org.springframework.util.ClassUtils;
 import spring.turbo.bean.classpath.ClassDef;
 import spring.turbo.bean.classpath.ClassPathScanner;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.InstanceCache;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import static spring.turbo.util.CollectionUtils.isEmpty;
+
 /**
+ * @param <A> 导入Annotation类型
  * @author 应卓
  * @see org.springframework.context.annotation.Import
  * @see ImportBeanDefinitionRegistrar
@@ -52,18 +56,21 @@ public abstract class ImportingConfigurationSupport<A extends Annotation> implem
     private Environment environment;
     private ResourceLoader resourceLoader;
     private BeanFactory beanFactory;
+    private AnnotationMetadata importingClassMetadata;
 
     public ImportingConfigurationSupport(Class<A> importAnnotationClass) {
-        Asserts.notNull(importAnnotationClass);
         this.importAnnotationClass = importAnnotationClass;
     }
 
     @Override
     public final void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry, BeanNameGenerator importBeanNameGenerator) {
+        Asserts.notNull(importAnnotationClass);
         Asserts.notNull(classLoader);
         Asserts.notNull(environment);
         Asserts.notNull(resourceLoader);
         Asserts.notNull(beanFactory);
+
+        this.importingClassMetadata = importingClassMetadata;
 
         var annotationAttributes = AnnotationAttributes.fromMap(
                 importingClassMetadata.getAnnotationAttributes(importAnnotationClass.getName())
@@ -89,22 +96,21 @@ public abstract class ImportingConfigurationSupport<A extends Annotation> implem
 
     protected final List<ClassDef> scanClassPath(Set<String> packages, List<TypeFilter> includeFilters, @Nullable List<TypeFilter> excludeFilters) {
 
-        if (CollectionUtils.isEmpty(includeFilters) || CollectionUtils.isEmpty(packages)) {
+        if (isEmpty(includeFilters) || isEmpty(packages)) {
             return List.of();
         }
 
         excludeFilters = Objects.requireNonNullElseGet(excludeFilters, List::of);
 
-        var scannerBuilder = ClassPathScanner.builder()
+        var builder = ClassPathScanner.builder()
                 .classLoader(getClassLoader())
                 .environment(getEnvironment())
                 .resourceLoader(getResourceLoader());
 
-        scannerBuilder.includeFilter(includeFilters.toArray(new TypeFilter[0]));
-        scannerBuilder.excludeFilter(excludeFilters.toArray(new TypeFilter[0]));
+        builder.includeFilter(includeFilters.toArray(TypeFilter[]::new))
+                .excludeFilter(excludeFilters.toArray(TypeFilter[]::new));
 
-        return scannerBuilder
-                .build()
+        return builder.build()
                 .scan(packages);
     }
 
@@ -128,6 +134,14 @@ public abstract class ImportingConfigurationSupport<A extends Annotation> implem
         this.beanFactory = beanFactory;
     }
 
+    protected final AnnotationMetadata getImportingClassMetadata() {
+        return importingClassMetadata;
+    }
+
+    protected final String getImportingClassPackage() {
+        return ClassUtils.getPackageName(getImportingClassMetadata().getClassName());
+    }
+
     protected final ClassLoader getClassLoader() {
         return classLoader;
     }
@@ -143,4 +157,9 @@ public abstract class ImportingConfigurationSupport<A extends Annotation> implem
     protected final BeanFactory getBeanFactory() {
         return beanFactory;
     }
+
+    protected final InstanceCache newInstanceCache() {
+        return InstanceCache.newInstance(getBeanFactory());
+    }
+
 }
