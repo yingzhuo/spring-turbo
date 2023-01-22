@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.classpath;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.lang.Singleton;
 
 import java.util.List;
@@ -36,12 +37,7 @@ final class NullClassPathScanner implements ClassPathScanner {
     }
 
     @Override
-    public List<ClassDef> scan(Iterable<String> basePackages) {
-        return List.of();
-    }
-
-    @Override
-    public List<ClassDef> scan(String... basePackages) {
+    public List<ClassDef> scan(@Nullable Iterable<String> basePackages) {
         return List.of();
     }
 

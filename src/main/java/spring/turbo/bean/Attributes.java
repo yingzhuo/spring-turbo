@@ -48,7 +48,6 @@ public class Attributes extends LinkedMultiValueMap<String, Object> {
      * @param map 其他数据来源
      */
     public Attributes(@Nullable Map<String, List<Object>> map) {
-        super();
         if (map != null) {
             super.putAll(map);
         }

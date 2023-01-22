@@ -8,9 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.classpath;
 
-import spring.turbo.util.Asserts;
+import org.springframework.lang.Nullable;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,8 +17,8 @@ import java.util.List;
  *
  * @author 应卓
  * @see #builder()
- * @see ClassPathScannerBuilder
  * @see org.springframework.beans.factory.config.BeanDefinition
+ * @see org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider
  * @since 1.0.0
  */
 public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullClassPathScanner {
@@ -27,7 +26,7 @@ public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullCl
     /**
      * 新建创建器
      *
-     * @return 创建器
+     * @return 创建器实例
      */
     public static ClassPathScannerBuilder builder() {
         return new ClassPathScannerBuilder();
@@ -38,19 +37,8 @@ public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullCl
      *
      * @param basePackages 扫描起点
      * @return 扫描结果
+     * @see PackageSet
      */
-    public List<ClassDef> scan(Iterable<String> basePackages);
-
-    /**
-     * 扫描类路径
-     *
-     * @param basePackages 扫描起点
-     * @return 扫描结果
-     */
-    public default List<ClassDef> scan(String... basePackages) {
-        Asserts.notNull(basePackages);
-        Asserts.noNullElements(basePackages);
-        return scan(Arrays.asList(basePackages));
-    }
+    public List<ClassDef> scan(@Nullable Iterable<String> basePackages);
 
 }

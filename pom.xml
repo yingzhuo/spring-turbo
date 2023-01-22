@@ -22,8 +22,11 @@
     <developers>
         <developer>
             <id>yingzhuo</id>
-            <name>应卓</name>
+            <name>應卓</name>
             <email>yingzhor@gmail.com</email>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
         </developer>
     </developers>
 
