@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * 类加载工具
+ * {@link Class} 相关工具
  *
  * @author 应卓
  * @see InstanceUtils

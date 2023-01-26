@@ -16,6 +16,7 @@ import static spring.turbo.util.StringPool.SLASH;
  * @author 应卓
  * @since 1.1.2
  */
+@Deprecated(forRemoval = true)
 public final class ClassPathDirUtils {
 
     /**
