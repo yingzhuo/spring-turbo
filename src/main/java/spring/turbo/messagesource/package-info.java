@@ -6,10 +6,6 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/**
- * {@link org.springframework.context.MessageSource} 相关
- */
 @NonNullApi
 @NonNullFields
 package spring.turbo.messagesource;

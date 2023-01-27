@@ -6,12 +6,6 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/**
- * SpringTurbo 的规约
- *
- * @see spring.turbo.core.SpringFactoriesUtils
- */
 @NonNullApi
 @NonNullFields
 package spring.turbo.convention;

@@ -6,10 +6,6 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/**
- * 一般性Bean及其辅助工具
- */
 @NonNullApi
 @NonNullFields
 package spring.turbo.bean;
