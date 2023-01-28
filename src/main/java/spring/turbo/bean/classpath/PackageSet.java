@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  */
 public final class PackageSet implements Iterable<String> {
 
-    private final TreeSet<String> set = new TreeSet<>(Comparator.naturalOrder());
+    private final TreeSet<String> set = new TreeSet<>(Comparator.<String>naturalOrder());
 
     /**
      * 获取实例
@@ -43,14 +43,20 @@ public final class PackageSet implements Iterable<String> {
 
     public PackageSet add(@Nullable String... packages) {
         if (packages != null) {
-            Stream.of(packages).filter(StringUtils::isNotBlank).map(String::trim).forEach(set::add);
+            Stream.of(packages)
+                    .filter(StringUtils::isNotBlank)
+                    .map(String::trim)
+                    .forEach(set::add);
         }
         return this;
     }
 
     public PackageSet add(@Nullable Collection<String> packages) {
         if (packages != null) {
-            packages.stream().filter(StringUtils::isNotBlank).map(String::trim).forEach(set::add);
+            packages.stream()
+                    .filter(StringUtils::isNotBlank)
+                    .map(String::trim)
+                    .forEach(set::add);
         }
         return this;
     }
@@ -62,6 +68,10 @@ public final class PackageSet implements Iterable<String> {
 
     public boolean isEmpty() {
         return set.isEmpty();
+    }
+
+    public boolean isNotEmpty() {
+        return !set.isEmpty();
     }
 
     public int size() {

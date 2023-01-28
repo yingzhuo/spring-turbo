@@ -6,10 +6,6 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/**
- * SpringBoot 自动配置相关 Properties (POJO)
- */
 @NonNullApi
 @NonNullFields
 package spring.turbo.autoconfiguration.properties;

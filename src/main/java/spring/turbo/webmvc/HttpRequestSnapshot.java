@@ -50,7 +50,8 @@ public final class HttpRequestSnapshot extends HttpServletRequestWrapper impleme
         lines.add(StringFormatter.format("Request Type: \"{}\"", request.getClass().getName()));
         lines.add(StringFormatter.format("Time: {}", DATE_FORMAT.format(new Date())));
         lines.add(StringFormatter.format("Method: {}", request.getMethod()));
-        lines.add(StringFormatter.format("Path: {}", request.getRequestURI()));
+        lines.add(StringFormatter.format("Servlet Path: {}", request.getServletPath()));
+        lines.add(StringFormatter.format("Request URI: {}", request.getRequestURI()));
 
         lines.add(StringFormatter.format("Parameters:"));
         Enumeration<String> requestParamNames = request.getParameterNames();

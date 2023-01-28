@@ -21,7 +21,7 @@ import static spring.turbo.util.CollectionUtils.nullSafeAddAll;
 import static spring.turbo.util.StringUtils.isNotBlank;
 
 /**
- * ClassPath 扫描器默认实现
+ * {@link ClassPathScanner} 默认实现
  *
  * @author 应卓
  * @since 1.0.0
