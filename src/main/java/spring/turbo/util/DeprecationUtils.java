@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import spring.turbo.core.AnnotationUtils;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
