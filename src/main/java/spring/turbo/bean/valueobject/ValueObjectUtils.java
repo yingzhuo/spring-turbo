@@ -8,15 +8,15 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.valueobject;
 
-import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.ReflectionUtils;
-import spring.turbo.core.AnnotationUtils;
 import spring.turbo.util.Asserts;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static spring.turbo.core.AnnotationFinder.findAnnotation;
+import static spring.turbo.core.AnnotationFinder.findAnnotationAttributes;
 import static spring.turbo.util.StringPool.ANNOTATION_STRING_NULL;
 
 /**
@@ -44,7 +44,7 @@ public final class ValueObjectUtils {
         final Map<String, String> map = new HashMap<>();
 
         // 先从type上查找
-        final Alias.List listAnnotation = AnnotationUtils.findAnnotation(valueObjectType, Alias.List.class);
+        final Alias.List listAnnotation = findAnnotation(valueObjectType, Alias.List.class);
         if (listAnnotation != null) {
             for (Alias annotation : listAnnotation.value()) {
                 final String from = annotation.from();
@@ -54,7 +54,7 @@ public final class ValueObjectUtils {
                 }
             }
         } else {
-            final Alias annotation = AnnotationUtils.findAnnotation(valueObjectType, Alias.class);
+            final Alias annotation = findAnnotation(valueObjectType, Alias.class);
             if (annotation != null) {
                 final String from = annotation.from();
                 final String to = annotation.to();
@@ -66,7 +66,7 @@ public final class ValueObjectUtils {
 
         // 后从field上查找
         ReflectionUtils.doWithFields(valueObjectType, field -> {
-            final AnnotationAttributes attributes = AnnotationUtils.findAnnotationAttributes(field, Alias.class);
+            var attributes = findAnnotationAttributes(field, Alias.class, false);
 
             if (attributes.containsKey("value")) {
                 final String from = attributes.getString("value");
