@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.convention;
 
+import org.springframework.core.Ordered;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
@@ -25,9 +26,14 @@ import java.util.Map;
  * @since 2.0.3
  */
 @FunctionalInterface
-public interface ExtraPasswordEncoderConvention extends Convention {
+public interface ExtraPasswordEncoderConvention extends Ordered {
 
     @Nullable
     public Map<String, PasswordEncoder> getExtraPasswordEncoderWithName();
+
+    @Override
+    public default int getOrder() {
+        return 0;
+    }
 
 }

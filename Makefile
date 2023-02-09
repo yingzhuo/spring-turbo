@@ -15,7 +15,7 @@ usage:
 	@echo "=============================================================="
 
 wrapper:
-	@mvn -f $(CURDIR)/pom.xml wrapper:wrapper -Dmaven=3.8.7
+	@mvn -f $(CURDIR)/pom.xml wrapper:wrapper -Dmaven=3.9.0
 
 compile:
 	@mvnw -f $(CURDIR)/pom.xml clean compile
