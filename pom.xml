@@ -396,6 +396,7 @@
                 <configuration>
                     <archive>
                         <index>false</index>
+                        <compress>true</compress>
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifest>
                             <addClasspath>false</addClasspath>
@@ -405,6 +406,7 @@
                             <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
                             <addExtensions>false</addExtensions>
                         </manifest>
+                        <manifestEntries/>
                     </archive>
                 </configuration>
             </plugin>
