@@ -13,7 +13,6 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.*;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 import spring.turbo.util.Asserts;
@@ -24,7 +23,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * {@link BeanDefinition} 的装饰器，同时是类路径扫描的结果
+ * 类路径扫描的结果
  *
  * @author 应卓
  * @since 2.0.9
@@ -39,9 +38,21 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      *
      * @param beanDefinition beanDefinition实例
      */
-    public ClassDef(@NonNull BeanDefinition beanDefinition, ClassLoader classLoader) {
+    public ClassDef(BeanDefinition beanDefinition) {
+        this(beanDefinition, ClassUtils.getDefaultClassLoader());
+    }
+
+    /**
+     * 构造方法
+     *
+     * @param beanDefinition beanDefinition实例
+     * @param classLoader    类加载器
+     */
+    public ClassDef(BeanDefinition beanDefinition, @Nullable ClassLoader classLoader) {
         Asserts.notNull(beanDefinition);
-        Asserts.notNull(classLoader);
+
+        classLoader = Objects.requireNonNullElseGet(classLoader, ClassUtils::getDefaultClassLoader);
+
         this.bd = beanDefinition;
         var className = beanDefinition.getBeanClassName();
         Asserts.notNull(className);

@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  */
 public final class PackageSet implements Iterable<String> {
 
-    private final TreeSet<String> set = new TreeSet<>(Comparator.<String>naturalOrder());
+    private final TreeSet<String> set = new TreeSet<>(Comparator.naturalOrder());
 
     /**
      * 获取实例

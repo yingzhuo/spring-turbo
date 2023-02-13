@@ -14,7 +14,7 @@ package spring.turbo;
  * @author 应卓
  * @since 1.3.1
  */
-public final class Version {
+public final class SpringTurboVersion {
 
     /**
      * 本软件版本
@@ -24,7 +24,7 @@ public final class Version {
     /**
      * 私有构造方法
      */
-    private Version() {
+    private SpringTurboVersion() {
         super();
     }
 
