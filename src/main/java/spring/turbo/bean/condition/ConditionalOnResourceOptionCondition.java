@@ -28,28 +28,28 @@ public final class ConditionalOnResourceOptionCondition extends SpringBootCondit
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        final var attributes =
+        var attributes =
                 AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnResourceOption.class.getName()));
 
         if (attributes == null) {
             return ConditionOutcome.noMatch("resources absent");
         }
 
-        final var resources = attributes.getStringArray("value");
-        final var discriminatorType = (Class<? extends Predicate<Resource>>) attributes.getClass("discriminator");
+        var resources = attributes.getStringArray("value");
+        var discriminatorType = (Class<? extends Predicate<Resource>>) attributes.getClass("discriminator");
 
         if (resources.length == 0) {
             return ConditionOutcome.noMatch("resources absent");
         }
 
-        final var match = RichResource.builder()
+        var match = RichResource.builder()
                 .blankSafeAddLocations(resources)
                 .discriminator(InstanceUtils.newInstanceElseThrow(discriminatorType))
                 .build()
                 .isPresent();
 
         if (match) {
-            return ConditionOutcome.match("resources present");
+            return ConditionOutcome.match();
         } else {
             return ConditionOutcome.noMatch("resources absent");
         }
