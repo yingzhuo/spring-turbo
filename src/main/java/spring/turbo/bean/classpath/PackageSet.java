@@ -26,19 +26,19 @@ public final class PackageSet implements Iterable<String> {
     private final TreeSet<String> set = new TreeSet<>(Comparator.naturalOrder());
 
     /**
+     * 私有构造方法
+     */
+    private PackageSet() {
+        super();
+    }
+
+    /**
      * 获取实例
      *
      * @return 实例
      */
     public static PackageSet newInstance() {
         return new PackageSet();
-    }
-
-    /**
-     * 私有构造方法
-     */
-    private PackageSet() {
-        super();
     }
 
     public PackageSet add(@Nullable String... packages) {
