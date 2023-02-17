@@ -11,23 +11,15 @@ package spring.turbo.bean.function;
 import org.springframework.lang.Nullable;
 import spring.turbo.bean.DateDescriptor;
 
-import java.util.function.Function;
-
 /**
  * @author 应卓
  * @see DateRangePartitionorFactories
  * @since 1.1.4
  */
 @FunctionalInterface
-public interface DateRangePartitionor extends Function<DateDescriptor, String> {
+public interface DateRangePartitionor {
 
     @Nullable
     public String test(DateDescriptor dateDescriptor);
-
-    @Override
-    @Nullable
-    public default String apply(DateDescriptor dateDescriptor) {
-        return test(dateDescriptor);
-    }
 
 }

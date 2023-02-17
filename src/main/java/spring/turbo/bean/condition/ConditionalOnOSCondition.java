@@ -27,16 +27,15 @@ public final class ConditionalOnOSCondition extends SpringBootCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        final var current = OS.get();
-        final var attributes = AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnOS.class.getName()));
+        var attributes = AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnOS.class.getName()));
         if (attributes == null) {
             return ConditionOutcome.noMatch("not match on current operation-system");
         }
 
-        final var stringSet = new HashSet<OS>();
-        CollectionUtils.nullSafeAddAll(stringSet, (OS[]) attributes.get("value"));
+        var set = new HashSet<OS>();
+        CollectionUtils.nullSafeAddAll(set, (OS[]) attributes.get("value"));
 
-        if (stringSet.contains(current)) {
+        if (set.contains(OS.get())) {
             return ConditionOutcome.match();
         } else {
             return ConditionOutcome.noMatch("not match on current operation-system");

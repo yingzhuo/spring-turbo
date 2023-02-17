@@ -28,35 +28,10 @@ import java.util.Objects;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public final class Range<T> implements Serializable {
 
-    private enum ComparableComparator implements Comparator {
-        INSTANCE;
-
-        @Override
-        public int compare(final Object obj1, final Object obj2) {
-            return ((Comparable) obj1).compareTo(obj2);
-        }
-    }
-
-    public static <T extends Comparable<T>> Range<T> between(T fromInclusive, T toInclusive) {
-        return between(fromInclusive, toInclusive, null);
-    }
-
-    public static <T> Range<T> between(T fromInclusive, T toInclusive, @Nullable Comparator<T> comparator) {
-        return new Range<>(fromInclusive, toInclusive, comparator);
-    }
-
-    public static <T extends Comparable<T>> Range<T> is(T element) {
-        return between(element, element, null);
-    }
-
-    public static <T> Range<T> is(T element, Comparator<T> comparator) {
-        return between(element, element, comparator);
-    }
-
     private final Comparator<T> comparator;
-    private transient int hashCode;
     private final T maximum;
     private final T minimum;
+    private transient int hashCode;
 
     /**
      * 构造方法
@@ -78,6 +53,22 @@ public final class Range<T> implements Serializable {
             this.minimum = element2;
             this.maximum = element1;
         }
+    }
+
+    public static <T extends Comparable<T>> Range<T> between(T fromInclusive, T toInclusive) {
+        return between(fromInclusive, toInclusive, null);
+    }
+
+    public static <T> Range<T> between(T fromInclusive, T toInclusive, @Nullable Comparator<T> comparator) {
+        return new Range<>(fromInclusive, toInclusive, comparator);
+    }
+
+    public static <T extends Comparable<T>> Range<T> is(T element) {
+        return between(element, element, null);
+    }
+
+    public static <T> Range<T> is(T element, Comparator<T> comparator) {
+        return between(element, element, comparator);
     }
 
     public boolean contains(@Nullable T element) {
@@ -106,9 +97,6 @@ public final class Range<T> implements Serializable {
             return 0;
         }
     }
-
-    // Element tests
-    //--------------------------------------------------------------------
 
     @Override
     public boolean equals(final Object obj) {
@@ -216,4 +204,14 @@ public final class Range<T> implements Serializable {
         }
         return comparator.compare(element, minimum) == 0;
     }
+
+    private enum ComparableComparator implements Comparator {
+        INSTANCE;
+
+        @Override
+        public int compare(final Object obj1, final Object obj2) {
+            return ((Comparable) obj1).compareTo(obj2);
+        }
+    }
+
 }

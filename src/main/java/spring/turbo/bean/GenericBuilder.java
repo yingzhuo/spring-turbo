@@ -180,7 +180,6 @@ public class GenericBuilder<T> implements Builder<T> {
         return of(instant.toSupplier(p1, p2, p3, p4, p5));
     }
 
-
     /**
      * 调用无参数方法
      *
@@ -191,7 +190,6 @@ public class GenericBuilder<T> implements Builder<T> {
         modifiers.add(consumer);
         return this;
     }
-
 
     /**
      * 调用1参数方法

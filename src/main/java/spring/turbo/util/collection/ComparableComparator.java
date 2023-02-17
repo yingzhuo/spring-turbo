@@ -15,9 +15,8 @@ import java.util.Comparator;
  *
  * @param <E> 泛型
  * @author 应卓
- * @deprecated 使用 {@link Comparator#naturalOrder()} 代替
+ * @since 2.0.12
  */
-@Deprecated
 public class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E> {
 
     /**
@@ -30,16 +29,6 @@ public class ComparableComparator<E extends Comparable<? super E>> implements Co
     @Override
     public int compare(final E obj1, final E obj2) {
         return obj1.compareTo(obj2);
-    }
-
-    @Override
-    public int hashCode() {
-        return ComparableComparator.class.getName().hashCode();
-    }
-
-    @Override
-    public boolean equals(final Object object) {
-        return this == object || null != object && object.getClass().equals(this.getClass());
     }
 
 }

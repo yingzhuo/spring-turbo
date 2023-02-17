@@ -36,7 +36,7 @@ public enum Gender {
      *
      * @param intValue 整形值
      */
-    private Gender(int intValue) {
+    Gender(int intValue) {
         this.intValue = intValue;
     }
 

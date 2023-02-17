@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.classpath;
 
+import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
@@ -52,7 +53,7 @@ final class DefaultClassPathScanner implements ClassPathScanner {
         if (basePackages != null) {
             for (var pkg : basePackages) {
                 if (isNotBlank(pkg)) {
-                    set.add(pkg);
+                    set.add(pkg.trim());
                 }
             }
         }
@@ -77,6 +78,30 @@ final class DefaultClassPathScanner implements ClassPathScanner {
 
     public void setClassLoader(ClassLoader classLoader) {
         this.classLoader = classLoader;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    private static final class ClassPathScanningCandidateComponentProvider
+            extends org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider {
+
+        /**
+         * 构造方法
+         */
+        public ClassPathScanningCandidateComponentProvider() {
+            super(false);
+        }
+
+        @Override
+        protected boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
+            boolean isCandidate = false;
+            if (beanDefinition.getMetadata().isIndependent()) {
+                if (!beanDefinition.getMetadata().isAnnotation()) {
+                    isCandidate = true;
+                }
+            }
+            return isCandidate;
+        }
+
     }
 
 }
