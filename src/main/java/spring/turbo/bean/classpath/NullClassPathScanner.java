@@ -37,7 +37,7 @@ final class NullClassPathScanner implements ClassPathScanner {
     }
 
     @Override
-    public List<ClassDef> scan(@Nullable Iterable<String> basePackages) {
+    public List<ClassDef> scan(@Nullable PackageSet packageSet) {
         return List.of();
     }
 

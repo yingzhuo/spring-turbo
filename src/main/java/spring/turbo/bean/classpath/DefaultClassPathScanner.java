@@ -16,10 +16,11 @@ import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.ClassUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 import static spring.turbo.util.CollectionUtils.nullSafeAddAll;
-import static spring.turbo.util.StringUtils.isNotBlank;
 
 /**
  * {@link ClassPathScanner} 默认实现
@@ -33,10 +34,14 @@ final class DefaultClassPathScanner implements ClassPathScanner {
     private ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
 
     @Override
-    public List<ClassDef> scan(@Nullable Iterable<String> basePackages) {
+    public List<ClassDef> scan(@Nullable PackageSet packageSet) {
+        if (packageSet == null) {
+            return List.of();
+        }
+
         final List<BeanDefinition> list = new ArrayList<>();
 
-        for (String basePackage : betterBasePackages(basePackages)) {
+        for (String basePackage : packageSet) {
             nullSafeAddAll(list, provider.findCandidateComponents(basePackage));
         }
 
@@ -45,19 +50,6 @@ final class DefaultClassPathScanner implements ClassPathScanner {
                 .distinct()
                 .sorted(Comparator.naturalOrder())
                 .toList();
-    }
-
-    // 去除重复并排序
-    private Set<String> betterBasePackages(@Nullable Iterable<String> basePackages) {
-        var set = new TreeSet<String>(Comparator.naturalOrder());
-        if (basePackages != null) {
-            for (var pkg : basePackages) {
-                if (isNotBlank(pkg)) {
-                    set.add(pkg.trim());
-                }
-            }
-        }
-        return set;
     }
 
     public void setResourceLoader(ResourceLoader resourceLoader) {
