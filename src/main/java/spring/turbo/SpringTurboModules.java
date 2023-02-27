@@ -10,9 +10,7 @@ package spring.turbo;
 
 import spring.turbo.convention.ModulesConvention;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static spring.turbo.core.SpringFactoriesUtils.loadQuietly;
 
@@ -36,6 +34,10 @@ public final class SpringTurboModules {
             ret.add(c.getModuleName());
         }
         return Collections.unmodifiableList(ret);
+    }
+
+    public static Set<String> getModuleNamesAsSet() {
+        return Collections.unmodifiableSet(new TreeSet<>(getModuleNames()));
     }
 
 }
