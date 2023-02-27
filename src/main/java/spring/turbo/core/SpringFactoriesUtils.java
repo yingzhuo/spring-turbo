@@ -8,14 +8,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
+import org.apache.commons.logging.LogFactory;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static spring.turbo.util.CollectionUtils.nullSafeAddAll;
 
 /**
  * {@link SpringFactoriesLoader} 相关工具
@@ -42,12 +44,13 @@ public final class SpringFactoriesUtils {
     public static <T> List<T> loadQuietly(Class<T> factoryType) {
         Asserts.notNull(factoryType);
 
-        final var loader = SpringFactoriesLoader.forDefaultResourceLocation();
+        var factoriesLoader = SpringFactoriesLoader.forDefaultResourceLocation();
+
         try {
-            final List<T> list = new ArrayList<>();
-            final var services = loader.load(factoryType, (factoryType1, factoryImplementationName, failure) -> {
-            });
-            CollectionUtils.nullSafeAddAll(list, services);
+            List<T> list = new ArrayList<>();
+            var log = LogFactory.getLog(SpringFactoriesUtils.class);
+            var services = factoriesLoader.load(factoryType, SpringFactoriesLoader.FailureHandler.logging(log));
+            nullSafeAddAll(list, services);
             OrderComparator.sort(list);
             return Collections.unmodifiableList(list);
         } catch (Throwable e) {

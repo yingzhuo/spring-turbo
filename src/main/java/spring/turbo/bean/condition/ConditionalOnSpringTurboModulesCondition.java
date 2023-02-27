@@ -20,7 +20,7 @@ import spring.turbo.core.Logic;
  * @author 应卓
  * @since 2.0.13
  */
-public class ConditionalOnSpringTurboModulesCondition extends SpringBootCondition {
+public final class ConditionalOnSpringTurboModulesCondition extends SpringBootCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
@@ -38,20 +38,13 @@ public class ConditionalOnSpringTurboModulesCondition extends SpringBootConditio
             return ConditionOutcome.noMatch("no modules");
         }
 
-        var set = SpringTurboModules.getModuleNamesAsSet(); // 事实
-        if (logic == Logic.ALL) {
-            for (var s : modules) {
-                if (!set.contains(s)) {
-                    return ConditionOutcome.noMatch("not match");
-                }
-            }
+        var matches = logic == Logic.ANY ?
+                SpringTurboModules.presentAny(modules) :
+                SpringTurboModules.presentAll(modules);
+
+        if (matches) {
             return ConditionOutcome.match();
         } else {
-            for (var s : modules) {
-                if (set.contains(s)) {
-                    return ConditionOutcome.match();
-                }
-            }
             return ConditionOutcome.noMatch("not match");
         }
     }
