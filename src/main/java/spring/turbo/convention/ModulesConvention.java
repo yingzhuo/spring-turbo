@@ -6,26 +6,14 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo;
+package spring.turbo.convention;
 
 /**
- * 本软件版本
- *
  * @author 应卓
- * @since 1.3.1
+ * @since 2.0.13
  */
-public final class SpringTurboVersion {
+public interface ModulesConvention {
 
-    /**
-     * 本软件版本
-     */
-    public static final String CURRENT = "2.0.13";
-
-    /**
-     * 私有构造方法
-     */
-    private SpringTurboVersion() {
-        super();
-    }
+    public String getModuleName();
 
 }

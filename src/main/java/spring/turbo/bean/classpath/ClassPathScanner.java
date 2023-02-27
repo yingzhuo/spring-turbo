@@ -11,9 +11,6 @@ package spring.turbo.bean.classpath;
 import org.springframework.lang.Nullable;
 
 import java.util.List;
-import java.util.TreeSet;
-
-import static spring.turbo.util.StringUtils.blankSafeAddAll;
 
 /**
  * ClassPath扫描器
@@ -38,22 +35,10 @@ public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullCl
     /**
      * 扫描类路径
      *
-     * @param basePackages 扫描起点
+     * @param packageSet 扫描起点 (多个)
      * @return 扫描结果
      * @see PackageSet
      */
-    public List<ClassDef> scan(@Nullable Iterable<String> basePackages);
-
-    /**
-     * 扫描类路径
-     *
-     * @param basePackages 扫描起点
-     * @return 扫描结果
-     */
-    public default List<ClassDef> scan(String... basePackages) {
-        var set = new TreeSet<String>();
-        blankSafeAddAll(set, basePackages);
-        return scan(set);
-    }
+    public List<ClassDef> scan(@Nullable PackageSet packageSet);
 
 }

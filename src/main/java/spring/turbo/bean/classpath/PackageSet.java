@@ -11,18 +11,20 @@ package spring.turbo.bean.classpath;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.StringUtils;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
+ * 辅助工具封装多个搜索起点
+ *
  * @author 应卓
+ * @see ClassPathScanner
+ * @see #newInstance()
  * @since 2.0.10
  */
 public final class PackageSet implements Iterable<String> {
 
+    // 包名排序过
     private final TreeSet<String> set = new TreeSet<>(Comparator.naturalOrder());
 
     /**
@@ -41,7 +43,7 @@ public final class PackageSet implements Iterable<String> {
         return new PackageSet();
     }
 
-    public PackageSet add(@Nullable String... packages) {
+    public PackageSet addPackages(@Nullable String... packages) {
         if (packages != null) {
             Stream.of(packages)
                     .filter(StringUtils::isNotBlank)
@@ -51,11 +53,31 @@ public final class PackageSet implements Iterable<String> {
         return this;
     }
 
-    public PackageSet add(@Nullable Collection<String> packages) {
+    public PackageSet addPackages(@Nullable Collection<String> packages) {
         if (packages != null) {
             packages.stream()
                     .filter(StringUtils::isNotBlank)
                     .map(String::trim)
+                    .forEach(set::add);
+        }
+        return this;
+    }
+
+    public PackageSet addBaseClasses(@Nullable Class<?>... classes) {
+        if (classes != null) {
+            Arrays.stream(classes)
+                    .filter(Objects::nonNull)
+                    .map(c -> c.getPackage().getName())
+                    .forEach(set::add);
+        }
+        return this;
+    }
+
+    public PackageSet addBaseClasses(@Nullable Collection<Class<?>> classes) {
+        if (classes != null) {
+            classes.stream()
+                    .filter(Objects::nonNull)
+                    .map(c -> c.getPackage().getName())
                     .forEach(set::add);
         }
         return this;
@@ -76,6 +98,15 @@ public final class PackageSet implements Iterable<String> {
 
     public int size() {
         return set.size();
+    }
+
+    public Set<String> asSet() {
+        return set;
+    }
+
+    @Override
+    public String toString() {
+        return set.toString();
     }
 
 }

@@ -6,44 +6,38 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean.classpath;
+package spring.turbo;
 
-import org.springframework.lang.Nullable;
-import spring.turbo.lang.Singleton;
+import spring.turbo.convention.ModulesConvention;
 
-import java.util.List;
+import java.util.*;
+
+import static spring.turbo.core.SpringFactoriesUtils.loadQuietly;
 
 /**
  * @author 应卓
- * @since 2.0.9
+ * @since 2.0.13
  */
-@Singleton
-final class NullClassPathScanner implements ClassPathScanner {
+public final class SpringTurboModules {
 
     /**
      * 私有构造方法
      */
-    private NullClassPathScanner() {
+    private SpringTurboModules() {
         super();
     }
 
-    /**
-     * 获取单例实例
-     *
-     * @return 实例
-     */
-    public static NullClassPathScanner getInstance() {
-        return SyncAvoid.INSTANCE;
+    public static List<String> getModuleNames() {
+        var ret = new ArrayList<String>();
+        var cs = loadQuietly(ModulesConvention.class);
+        for (var c : cs) {
+            ret.add(c.getModuleName());
+        }
+        return Collections.unmodifiableList(ret);
     }
 
-    @Override
-    public List<ClassDef> scan(@Nullable PackageSet packageSet) {
-        return List.of();
-    }
-
-    // 延迟加载
-    private static final class SyncAvoid {
-        private static final NullClassPathScanner INSTANCE = new NullClassPathScanner();
+    public static Set<String> getModuleNamesAsSet() {
+        return Collections.unmodifiableSet(new TreeSet<>(getModuleNames()));
     }
 
 }
