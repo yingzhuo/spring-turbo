@@ -12,6 +12,7 @@ package spring.turbo;
  * 本软件版本
  *
  * @author 应卓
+ * @see SpringTurboModules
  * @since 1.3.1
  */
 public final class SpringTurboVersion {
