@@ -41,6 +41,8 @@ final class NullClassPathScanner implements ClassPathScanner {
         return List.of();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     // 延迟加载
     private static final class SyncAvoid {
         private static final NullClassPathScanner INSTANCE = new NullClassPathScanner();

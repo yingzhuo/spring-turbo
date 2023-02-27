@@ -18,7 +18,6 @@ import java.util.stream.Stream;
  * 辅助工具封装多个搜索起点
  *
  * @author 应卓
- * @see ClassPathScanner
  * @see #newInstance()
  * @since 2.0.10
  */

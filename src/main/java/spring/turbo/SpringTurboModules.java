@@ -20,11 +20,15 @@ import static spring.turbo.core.SpringFactoriesUtils.loadQuietly;
 import static spring.turbo.util.StringUtils.blankSafeAdd;
 
 /**
+ * 本软件模块信息
+ *
  * @author 应卓
+ * @see SpringTurboVersion
  * @since 2.0.13
  */
 public final class SpringTurboModules {
 
+    // 官方 (Maven Artifact Id)
     public static final String SPRING_TURBO = "spring-turbo";
     public static final String SPRING_TURBO_MODULE_DATA_ACCESSING = "spring-turbo-module-data-accessing";
     public static final String SPRING_TURBO_MODULE_DATA_HANDLING = "spring-turbo-module-data-handling";
@@ -72,6 +76,8 @@ public final class SpringTurboModules {
         }
         return true;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     // 延迟初始化
     private static class SyncAvoid {
