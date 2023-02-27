@@ -8,11 +8,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo;
 
+import org.springframework.lang.Nullable;
 import spring.turbo.convention.ModulesConvention;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static spring.turbo.core.SpringFactoriesUtils.loadQuietly;
+import static spring.turbo.util.StringUtils.blankSafeAdd;
 
 /**
  * @author 应卓
@@ -27,17 +32,52 @@ public final class SpringTurboModules {
         super();
     }
 
-    public static List<String> getModuleNames() {
-        var ret = new ArrayList<String>();
-        var cs = loadQuietly(ModulesConvention.class);
-        for (var c : cs) {
-            ret.add(c.getModuleName());
-        }
-        return Collections.unmodifiableList(ret);
+    public static Set<String> getModuleNames() {
+        return SyncAvoid.MODULE_NAMES;
     }
 
-    public static Set<String> getModuleNamesAsSet() {
-        return Collections.unmodifiableSet(new TreeSet<>(getModuleNames()));
+    public static boolean presentAny(@Nullable String... moduleNamesToTest) {
+        if (moduleNamesToTest == null) {
+            return false;
+        }
+
+        var set = getModuleNames();
+        for (var moduleNameToTest : moduleNamesToTest) {
+            if (set.contains(moduleNameToTest)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean presentAll(@Nullable String... moduleNamesToTest) {
+        if (moduleNamesToTest == null) {
+            return false;
+        }
+
+        var set = getModuleNames();
+        for (var moduleNameToTest : moduleNamesToTest) {
+            if (!set.contains(moduleNameToTest)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // 延迟初始化
+    private static class SyncAvoid {
+        private static final Set<String> MODULE_NAMES;
+
+        static {
+            var set = new TreeSet<String>(Comparator.naturalOrder());
+            var services = loadQuietly(ModulesConvention.class);
+            for (var service : services) {
+                blankSafeAdd(set, service.getModuleName());
+            }
+            MODULE_NAMES = Collections.unmodifiableSet(set);
+        }
     }
 
 }
