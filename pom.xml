@@ -382,7 +382,7 @@
                         <configuration>
                             <target>
                                 <copy todir="${project.build.directory}/classes/META-INF">
-                                    <fileset dir="${helper.build.root}" includes="LICENSE* NOTICE*"/>
+                                    <fileset dir="${helper.build.root}" includes="LICENSE.txt NOTICE.txt"/>
                                 </copy>
                             </target>
                         </configuration>

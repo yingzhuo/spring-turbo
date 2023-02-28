@@ -43,7 +43,7 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 
 === 许可证
 
-* link:{docdir}/LICENSE[Apache 2]
+* link:{docdir}/LICENSE.txt[Apache 2]
 
 === 联系我
 
