@@ -18,7 +18,7 @@ package spring.turbo;
 public final class SpringTurboVersion {
 
     /**
-     * 本软件版本
+     * 当前本软件版本
      */
     public static final String CURRENT = "2.0.13";
 

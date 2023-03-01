@@ -15,6 +15,7 @@ import spring.turbo.util.StringUtils;
 
 /**
  * @author 应卓
+ * @see org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration
  * @since 2.0.3
  */
 @ConfigurationProperties(prefix = "spring.messages")

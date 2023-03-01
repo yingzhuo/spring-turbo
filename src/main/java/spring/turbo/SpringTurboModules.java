@@ -8,22 +8,23 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo;
 
-import org.springframework.lang.Nullable;
 import spring.turbo.convention.ModulesConvention;
+import spring.turbo.util.Asserts;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import static spring.turbo.core.SpringFactoriesUtils.loadQuietly;
 import static spring.turbo.util.StringUtils.blankSafeAdd;
 
 /**
- * 本软件模块信息
+ * 本软件模块
  *
  * @author 应卓
  * @see SpringTurboVersion
+ * @see spring.turbo.bean.condition.ConditionalOnSpringTurboModules
  * @since 2.0.13
  */
 public final class SpringTurboModules {
@@ -45,14 +46,24 @@ public final class SpringTurboModules {
         super();
     }
 
-    public static Set<String> getModuleNames() {
+    /**
+     * 获取Classpath中存在的所有模块的名称
+     *
+     * @return 模块的名称
+     */
+    public static SortedSet<String> getModuleNames() {
         return SyncAvoid.MODULE_NAMES;
     }
 
-    public static boolean presentAny(@Nullable String... moduleNamesToTest) {
-        if (moduleNamesToTest == null) {
-            return false;
-        }
+    /**
+     * 判断模块是否存在任意一个
+     *
+     * @param moduleNamesToTest 要测试的模块名称
+     * @return 结果
+     */
+    public static boolean presentAny(String... moduleNamesToTest) {
+        Asserts.notNull(moduleNamesToTest);
+        Asserts.isTrue(moduleNamesToTest.length > 0);
 
         var set = getModuleNames();
         for (var moduleNameToTest : moduleNamesToTest) {
@@ -63,10 +74,15 @@ public final class SpringTurboModules {
         return false;
     }
 
-    public static boolean presentAll(@Nullable String... moduleNamesToTest) {
-        if (moduleNamesToTest == null) {
-            return false;
-        }
+    /**
+     * 判断模块是否全部存在
+     *
+     * @param moduleNamesToTest 要测试的模块名称
+     * @return 结果
+     */
+    public static boolean presentAll(String... moduleNamesToTest) {
+        Asserts.notNull(moduleNamesToTest);
+        Asserts.isTrue(moduleNamesToTest.length > 0);
 
         var set = getModuleNames();
         for (var moduleNameToTest : moduleNamesToTest) {
@@ -81,7 +97,7 @@ public final class SpringTurboModules {
 
     // 延迟初始化
     private static class SyncAvoid {
-        private static final Set<String> MODULE_NAMES;
+        private static final SortedSet<String> MODULE_NAMES;
 
         static {
             var set = new TreeSet<String>(Comparator.naturalOrder());
@@ -89,7 +105,7 @@ public final class SpringTurboModules {
             for (var service : services) {
                 blankSafeAdd(set, service.getModuleName());
             }
-            MODULE_NAMES = Collections.unmodifiableSet(set);
+            MODULE_NAMES = Collections.unmodifiableSortedSet(set);
         }
     }
 

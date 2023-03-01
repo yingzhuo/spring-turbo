@@ -25,8 +25,8 @@ import java.util.stream.Stream;
 @Mutable
 public final class PackageSet implements Iterable<String> {
 
-    // 包名排序过
-    private final TreeSet<String> set = new TreeSet<>(Comparator.naturalOrder());
+    // 已排序
+    private final SortedSet<String> set = new TreeSet<>(Comparator.naturalOrder());
 
     /**
      * 私有构造方法
@@ -89,6 +89,9 @@ public final class PackageSet implements Iterable<String> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Iterator<String> iterator() {
         return set.iterator();
@@ -106,7 +109,7 @@ public final class PackageSet implements Iterable<String> {
         return set.size();
     }
 
-    public Set<String> asSet() {
+    public SortedSet<String> asSet() {
         return set;
     }
 

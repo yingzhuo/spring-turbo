@@ -35,6 +35,11 @@ public final class NullMessageSource implements MessageSource {
         super();
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static NullMessageSource getInstance() {
         return SyncAvoid.INSTANCE;
     }
@@ -56,6 +61,8 @@ public final class NullMessageSource implements MessageSource {
         final var code = (codes != null && codes.length >= 1) ? codes[0] : EMPTY;
         throw new NoSuchMessageException(code, locale);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     // 延迟加载
     private static class SyncAvoid {
