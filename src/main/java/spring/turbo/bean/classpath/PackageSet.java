@@ -9,6 +9,7 @@
 package spring.turbo.bean.classpath;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.lang.Mutable;
 import spring.turbo.util.StringUtils;
 
 import java.util.*;
@@ -21,6 +22,7 @@ import java.util.stream.Stream;
  * @see #newInstance()
  * @since 2.0.10
  */
+@Mutable
 public final class PackageSet implements Iterable<String> {
 
     // 包名排序过
@@ -82,6 +84,11 @@ public final class PackageSet implements Iterable<String> {
         return this;
     }
 
+    public PackageSet clean() {
+        set.clear();
+        return this;
+    }
+
     @Override
     public Iterator<String> iterator() {
         return set.iterator();
@@ -104,8 +111,21 @@ public final class PackageSet implements Iterable<String> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PackageSet strings = (PackageSet) o;
+        return set.equals(strings.set);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(set);
+    }
+
+    @Override
     public String toString() {
-        return set.toString();
+        return "[" + String.join(",", set) + "]";
     }
 
 }

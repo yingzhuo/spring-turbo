@@ -36,6 +36,7 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-stateless-captcha/[无状态人机验证码生成]
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-open-feign/[集成OpenFeign]
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-versioned-controller/[带API版本号的Controller]
+* link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-qrcode-gen[生成QR码]
 
 === ISSUES
 
@@ -43,7 +44,7 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 
 === 许可证
 
-* link:{docdir}/LICENSE[Apache 2]
+* link:{docdir}/LICENSE.txt[Apache 2]
 
 === 联系我
 

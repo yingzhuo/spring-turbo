@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import spring.turbo.lang.Immutable;
-
 import java.time.DayOfWeek;
 import java.time.temporal.WeekFields;
 
@@ -20,7 +18,6 @@ import java.time.temporal.WeekFields;
  * @see DateDescriptor
  * @since 1.1.3
  */
-@Immutable
 public enum WeekOption {
 
     IOS(WeekFields.ISO),
@@ -29,7 +26,7 @@ public enum WeekOption {
 
     private final WeekFields weekFields;
 
-    WeekOption(WeekFields weekFields) {
+    private WeekOption(WeekFields weekFields) {
         this.weekFields = weekFields;
     }
 
