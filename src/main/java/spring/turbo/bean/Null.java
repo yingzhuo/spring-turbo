@@ -45,6 +45,8 @@ public final class Null implements Serializable {
         return StringPool.NULL;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     // 延迟加载
     private static class AsyncAvoid {
         private static final Null INSTANCE = new Null();

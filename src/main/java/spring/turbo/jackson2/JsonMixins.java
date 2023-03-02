@@ -34,11 +34,12 @@ public final class JsonMixins {
      * 私有构造方法
      */
     private JsonMixins() {
+        super();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    @JsonIgnoreProperties({"deprecated"})
+    @JsonIgnoreProperties("deprecated")
     public static abstract class Style1 {
         @JsonSerialize(using = ToLong.class)
         public abstract String getCode();
@@ -63,7 +64,7 @@ public final class JsonMixins {
         }
     }
 
-    @JsonIgnoreProperties({"deprecated"})
+    @JsonIgnoreProperties("deprecated")
     public static abstract class Style2 {
 
         @JsonProperty("error")

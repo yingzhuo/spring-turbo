@@ -21,6 +21,9 @@ import java.io.OutputStream;
 @Singleton
 public final class BlackHoleOutputStream extends OutputStream {
 
+    /**
+     * 私有构造方法
+     */
     private BlackHoleOutputStream() {
         super();
     }

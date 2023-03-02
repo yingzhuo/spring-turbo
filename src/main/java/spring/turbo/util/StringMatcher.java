@@ -18,6 +18,7 @@ import static spring.turbo.util.CharPool.*;
  * {@link String} 匹配器
  *
  * @author 应卓
+ * @see StringTokenizer
  * @since 2.0.2
  */
 public interface StringMatcher {
