@@ -10,7 +10,6 @@ package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
 
-import java.time.DateTimeException;
 import java.time.ZoneId;
 
 /**
@@ -650,22 +649,12 @@ public final class ZoneIdPool {
     public static ZoneId toZoneIdOrDefault(@Nullable String name, ZoneId defaultIfNullOrError) {
         Asserts.notNull(defaultIfNullOrError);
 
-        // null to default
-        if (name == null) {
+        // null / blank to default
+        if (name == null || name.isBlank()) {
             return defaultIfNullOrError;
         }
 
-        // blank to default
-        if (StringPool.EMPTY.equals(name.trim())) {
-            return defaultIfNullOrError;
-        }
-
-        try {
-            return ZoneId.of(name);
-        } catch (DateTimeException e) {
-            // rethrow it
-            throw e;
-        }
+        return ZoneId.of(name);
     }
 
 }
