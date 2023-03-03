@@ -8,7 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import spring.turbo.util.Asserts;
@@ -48,13 +49,31 @@ public final class SpringFactoriesUtils {
 
         try {
             List<T> list = new ArrayList<>();
-            var log = LogFactory.getLog(SpringFactoriesUtils.class);
-            var services = factoriesLoader.load(factoryType, SpringFactoriesLoader.FailureHandler.logging(log));
+            var services = factoriesLoader.load(factoryType, LoggingFailureHandler.INSTANCE);
             nullSafeAddAll(list, services);
             OrderComparator.sort(list);
             return Collections.unmodifiableList(list);
         } catch (Throwable e) {
             return Collections.emptyList();
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private static class LoggingFailureHandler implements SpringFactoriesLoader.FailureHandler {
+        private static final Logger log = LoggerFactory.getLogger(LoggingFailureHandler.class);
+        private static final LoggingFailureHandler INSTANCE = new LoggingFailureHandler();
+
+        /**
+         * 私有构造方法
+         */
+        private LoggingFailureHandler() {
+            super();
+        }
+
+        @Override
+        public void handleFailure(Class<?> factoryType, String factoryImplementationName, Throwable ex) {
+            log.warn(ex.getMessage(), ex);
         }
     }
 

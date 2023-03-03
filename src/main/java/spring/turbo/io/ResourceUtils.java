@@ -23,6 +23,7 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  *
  * @author 应卓
  * @see Resource
+ * @see ClassPathResourceUtils
  * @since 1.1.0
  */
 public final class ResourceUtils {
