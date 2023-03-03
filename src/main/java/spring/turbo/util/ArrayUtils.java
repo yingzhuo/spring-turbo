@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.*;
@@ -86,7 +85,6 @@ public final class ArrayUtils {
      * @param <T>   数组元素类型
      * @return 结果
      */
-    @NonNull
     public static <T> List<T> toArrayList(@Nullable T[] array) {
         if (isNullOrEmpty(array)) return new ArrayList<>(0);
         return new ArrayList<>(Arrays.asList(array));
@@ -99,7 +97,6 @@ public final class ArrayUtils {
      * @param <T>   数组元素类型
      * @return 结果
      */
-    @NonNull
     public static <T> List<T> toUnmodifiableList(@Nullable T[] array) {
         return Collections.unmodifiableList(toArrayList(array));
     }
@@ -111,7 +108,6 @@ public final class ArrayUtils {
      * @param <T>   数组元素类型
      * @return 结果
      */
-    @NonNull
     public static <T> Set<T> toHashSet(@Nullable T[] array) {
         if (isNullOrEmpty(array)) return new HashSet<>();
         return new HashSet<>(Arrays.asList(array));
@@ -124,7 +120,6 @@ public final class ArrayUtils {
      * @param <T>   数组元素类型
      * @return 结果
      */
-    @NonNull
     public static <T> Set<T> toUnmodifiableSet(@Nullable T[] array) {
         return Collections.unmodifiableSet(toHashSet(array));
     }
