@@ -9,7 +9,6 @@
 package spring.turbo.exception;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.bean.Builder;
 import spring.turbo.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ import java.util.List;
  * @author 应卓
  * @since 2.0.1
  */
-public final class BusinessExceptionBuilder implements Builder<BusinessException> {
+public final class BusinessExceptionBuilder {
 
     private final List<String> codes = new ArrayList<>();
     private final List<Object> arguments = new ArrayList<>();
@@ -51,7 +50,6 @@ public final class BusinessExceptionBuilder implements Builder<BusinessException
         return this;
     }
 
-    @Override
     public BusinessException build() {
         if (codes.isEmpty() && arguments.isEmpty() && defaultMessage != null) {
             return BusinessException.of(defaultMessage);

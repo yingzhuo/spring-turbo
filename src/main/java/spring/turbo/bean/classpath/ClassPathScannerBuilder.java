@@ -13,7 +13,6 @@ import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.filter.TypeFilter;
-import spring.turbo.bean.Builder;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.ClassUtils;
 import spring.turbo.util.CollectionUtils;
@@ -32,7 +31,7 @@ import java.util.List;
  * @see ClassLoader
  * @since 1.0.0
  */
-public final class ClassPathScannerBuilder implements Builder<ClassPathScanner> {
+public final class ClassPathScannerBuilder {
 
     private final List<TypeFilter> includeFilters = new LinkedList<>();
     private final List<TypeFilter> excludeFilters = new LinkedList<>();
@@ -75,7 +74,6 @@ public final class ClassPathScannerBuilder implements Builder<ClassPathScanner> 
         return this;
     }
 
-    @Override
     public ClassPathScanner build() {
         if (includeFilters.isEmpty()) {
             return NullClassPathScanner.getInstance();

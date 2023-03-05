@@ -63,7 +63,7 @@ import java.util.function.Supplier;
  *
  * @author 应卓
  */
-public class GenericBuilder<T> implements Builder<T> {
+public class GenericBuilder<T> {
 
     /**
      * 实例化器
@@ -224,11 +224,11 @@ public class GenericBuilder<T> implements Builder<T> {
      *
      * @return 目标对象
      */
-    @Override
     public T build() {
         T value = instant.get();
         modifiers.forEach(modifier -> modifier.accept(value));
         modifiers.clear();
         return value;
     }
+
 }
