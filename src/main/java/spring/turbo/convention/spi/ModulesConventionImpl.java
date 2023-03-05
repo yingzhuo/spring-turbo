@@ -22,4 +22,9 @@ public class ModulesConventionImpl implements ModulesConvention {
         return SpringTurboModules.SPRING_TURBO;
     }
 
+    @Override
+    public int getOrder() {
+        return HIGHEST_PRECEDENCE;
+    }
+
 }

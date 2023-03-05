@@ -8,12 +8,20 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.convention;
 
+import org.springframework.core.Ordered;
+
 /**
  * @author 应卓
  * @since 2.0.13
  */
-public interface ModulesConvention {
+@FunctionalInterface
+public interface ModulesConvention extends Ordered {
 
     public String getModuleName();
+
+    @Override
+    public default int getOrder() {
+        return LOWEST_PRECEDENCE;
+    }
 
 }

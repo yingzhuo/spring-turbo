@@ -25,6 +25,7 @@ import static spring.turbo.util.StringUtils.blankSafeAdd;
  * @author 应卓
  * @see SpringTurboVersion
  * @see spring.turbo.bean.condition.ConditionalOnSpringTurboModules
+ * @see ModulesConvention
  * @since 2.0.13
  */
 public final class SpringTurboModules {
