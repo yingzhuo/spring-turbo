@@ -9,14 +9,13 @@
 package spring.turbo.util.crypto;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.bean.Builder;
 import spring.turbo.util.Asserts;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-public final class TripleDESBuilder implements Builder<TripleDES> {
+public final class TripleDESBuilder {
 
     @Nullable
     private String password;
@@ -40,7 +39,6 @@ public final class TripleDESBuilder implements Builder<TripleDES> {
         return this;
     }
 
-    @Override
     public TripleDES build() {
         // double check
         Asserts.notNull(password);

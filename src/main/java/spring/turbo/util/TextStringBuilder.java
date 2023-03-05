@@ -9,7 +9,6 @@
 package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.bean.Builder;
 import spring.turbo.lang.Mutable;
 
 import java.io.Serializable;
@@ -28,7 +27,7 @@ import java.util.Objects;
  * @since 2.0.2
  */
 @Mutable
-public final class TextStringBuilder implements Serializable, CharSequence, Appendable, Builder<String> {
+public final class TextStringBuilder implements Serializable, CharSequence, Appendable {
 
     public static final int CAPACITY = 32;
     private static final char SPACE = CharPool.SPACE;
@@ -927,7 +926,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * @return 字符串
      * @see #toString()
      */
-    @Override
     public String build() {
         return toString();
     }

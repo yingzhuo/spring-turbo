@@ -9,7 +9,6 @@
 package spring.turbo.util.crypto;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.bean.Builder;
 import spring.turbo.util.Asserts;
 
 import javax.crypto.SecretKey;
@@ -19,7 +18,7 @@ import javax.crypto.spec.IvParameterSpec;
  * @author 应卓
  * @since 1.0.0
  */
-public final class AESBuilder implements Builder<AES> {
+public final class AESBuilder {
 
     private final IvParameterSpec ivParameterSpec = AESUtils.generateIv();
     private AES.Mode mode = AES.Mode.CBC;
@@ -52,7 +51,6 @@ public final class AESBuilder implements Builder<AES> {
         return this;
     }
 
-    @Override
     public AES build() {
         Asserts.notNull(secretKey, "secretKey is null");
 
