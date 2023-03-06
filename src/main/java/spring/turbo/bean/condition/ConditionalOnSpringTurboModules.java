@@ -10,7 +10,6 @@ package spring.turbo.bean.condition;
 
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.AliasFor;
-import spring.turbo.core.Logic;
 
 import java.lang.annotation.*;
 
@@ -33,5 +32,12 @@ public @interface ConditionalOnSpringTurboModules {
     public String[] modules() default {};
 
     public Logic logic() default Logic.ANY;
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    enum Logic {
+        ANY,
+        ALL;
+    }
 
 }
