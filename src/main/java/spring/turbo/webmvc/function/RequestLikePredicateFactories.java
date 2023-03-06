@@ -15,7 +15,7 @@ import spring.turbo.util.Asserts;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import static spring.turbo.util.ArrayUtils.size;
+import static spring.turbo.util.ArrayUtils.length;
 
 /**
  * @author 应卓
@@ -52,7 +52,7 @@ public final class RequestLikePredicateFactories {
         Asserts.notEmpty(predicates);
         Asserts.noNullElements(predicates);
 
-        if (size(predicates) == 1) {
+        if (length(predicates) == 1) {
             return predicates[0];
         } else {
             return request -> {
@@ -71,7 +71,7 @@ public final class RequestLikePredicateFactories {
         Asserts.notEmpty(predicates);
         Asserts.noNullElements(predicates);
 
-        if (size(predicates) == 1) {
+        if (length(predicates) == 1) {
             return predicates[0];
         } else {
             return request -> {
@@ -194,7 +194,7 @@ public final class RequestLikePredicateFactories {
 
         final var patternMatcher = new AntPathMatcher();
 
-        if (size(patterns) == 1) {
+        if (length(patterns) == 1) {
             return request -> {
                 if (request == null) {
                     return false;
