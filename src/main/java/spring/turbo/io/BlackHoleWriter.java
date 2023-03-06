@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import spring.turbo.lang.Singleton;
-
 import java.io.IOException;
 import java.io.Writer;
 
@@ -18,7 +16,6 @@ import java.io.Writer;
  * @see #getInstance()
  * @since 2.0.0
  */
-@Singleton
 public final class BlackHoleWriter extends Writer {
 
     /**

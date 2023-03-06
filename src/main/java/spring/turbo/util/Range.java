@@ -9,7 +9,6 @@
 package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Immutable;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -24,7 +23,6 @@ import java.util.Objects;
  * @author 应卓
  * @since 2.0.11
  */
-@Immutable
 @SuppressWarnings({"rawtypes", "unchecked"})
 public final class Range<T> implements Serializable {
 

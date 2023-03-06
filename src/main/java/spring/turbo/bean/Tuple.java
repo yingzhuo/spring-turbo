@@ -10,7 +10,6 @@ package spring.turbo.bean;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
@@ -27,7 +26,6 @@ import java.util.Optional;
  * @see #ofNonNull(Object, Object, Object)
  * @since 1.0.0
  */
-@Immutable
 public final class Tuple<A, B, C> implements Serializable {
 
     @Nullable

@@ -8,14 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.webmvc.api;
 
-import spring.turbo.lang.Mutable;
-
 /**
  * @param <T> payload类型
  * @author 应卓
  * @since 1.0.0
  */
-@Mutable
 public interface MutableApiResult<T> extends ApiResult<T> {
 
     public void setCode(String code);

@@ -8,15 +8,12 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import spring.turbo.lang.Immutable;
-
 /**
  * 性别
  *
  * @author 应卓
  * @since 1.1.0
  */
-@Immutable
 public enum Gender {
 
     /**

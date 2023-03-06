@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringFormatter;
 
 import java.math.BigDecimal;
@@ -22,7 +21,6 @@ import java.math.BigDecimal;
  * @see DoublePair
  * @since 1.0.7
  */
-@Immutable
 public final class BigDecimalPair extends NumberPair {
 
     public BigDecimalPair(BigDecimal left, BigDecimal right) {

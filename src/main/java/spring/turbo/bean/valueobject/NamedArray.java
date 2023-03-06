@@ -10,7 +10,6 @@ package spring.turbo.bean.valueobject;
 
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Mutable;
 import spring.turbo.util.Asserts;
 
 import java.util.*;
@@ -21,7 +20,6 @@ import java.util.*;
  * @see #builder()
  * @since 1.0.0
  */
-@Mutable
 public class NamedArray<T> implements Iterable<T> {
 
     // 数据

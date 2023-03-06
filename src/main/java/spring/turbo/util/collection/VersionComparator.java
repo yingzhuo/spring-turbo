@@ -10,7 +10,6 @@ package spring.turbo.util.collection;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
-import spring.turbo.lang.Singleton;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringPool;
 
@@ -24,7 +23,6 @@ import java.util.Objects;
  * @see #getInstance()
  * @since 1.1.4
  */
-@Singleton
 public class VersionComparator implements Comparator<String> {
 
     /**

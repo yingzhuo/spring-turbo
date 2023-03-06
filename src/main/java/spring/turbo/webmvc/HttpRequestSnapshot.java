@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.lang.NonNull;
 import org.springframework.web.cors.CorsUtils;
-import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringFormatter;
 
 import java.text.DateFormat;
@@ -31,7 +30,6 @@ import static spring.turbo.util.StringPool.QUESTION_MARK_X_3;
  * @see jakarta.servlet.http.HttpServletRequest
  * @since 1.0.0
  */
-@Immutable
 public final class HttpRequestSnapshot extends HttpServletRequestWrapper implements Iterable<String> {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");

@@ -12,7 +12,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Singleton;
 
 import java.util.Locale;
 
@@ -25,7 +24,6 @@ import static spring.turbo.util.StringPool.EMPTY;
  * @see #getInstance()
  * @since 2.0.3
  */
-@Singleton
 public final class NullMessageSource implements MessageSource {
 
     /**

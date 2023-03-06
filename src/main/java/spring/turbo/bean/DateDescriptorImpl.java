@@ -9,7 +9,6 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.DateUtils;
 
@@ -29,7 +28,6 @@ import java.util.Objects;
  * @author 应卓
  * @since 1.1.4
  */
-@Immutable
 public class DateDescriptorImpl implements DateDescriptor {
 
     private final static DateTimeFormatter YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyy-MM-dd");

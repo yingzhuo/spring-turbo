@@ -9,7 +9,6 @@
 package spring.turbo.bean.classpath;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Mutable;
 import spring.turbo.util.StringUtils;
 
 import java.util.*;
@@ -22,7 +21,6 @@ import java.util.stream.Stream;
  * @see #newInstance()
  * @since 2.0.10
  */
-@Mutable
 public final class PackageSet implements Iterable<String> {
 
     // 已排序

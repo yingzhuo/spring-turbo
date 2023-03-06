@@ -9,7 +9,6 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
@@ -25,7 +24,6 @@ import java.util.Objects;
  * @see #ofNonNull(Object, Object)
  * @since 1.0.0
  */
-@Immutable
 public final class Pair<A, B> implements Serializable {
 
     @Nullable

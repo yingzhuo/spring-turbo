@@ -9,15 +9,14 @@
 package spring.turbo.bean.classpath;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Singleton;
 
 import java.util.List;
 
 /**
  * @author 应卓
+ * @see #getInstance()
  * @since 2.0.9
  */
-@Singleton
 final class NullClassPathScanner implements ClassPathScanner {
 
     /**
