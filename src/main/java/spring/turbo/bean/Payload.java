@@ -10,7 +10,6 @@ package spring.turbo.bean;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Mutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
@@ -26,7 +25,6 @@ import java.util.function.Supplier;
  * @see Map
  * @since 1.0.0
  */
-@Mutable
 @SuppressWarnings("unchecked")
 public class Payload extends LinkedHashMap<String, Object> {
 

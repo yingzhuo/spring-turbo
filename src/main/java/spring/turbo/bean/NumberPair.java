@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.BigDecimalUtils;
 import spring.turbo.util.StringFormatter;
@@ -27,7 +26,6 @@ import java.util.Objects;
  * @see BigDecimalPair
  * @since 1.0.7
  */
-@Immutable
 public class NumberPair implements Serializable {
 
     private final BigDecimal left;

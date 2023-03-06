@@ -9,7 +9,6 @@
 package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Mutable;
 
 import java.io.Serializable;
 import java.nio.CharBuffer;
@@ -26,7 +25,6 @@ import java.util.Objects;
  * @see StringBuffer
  * @since 2.0.2
  */
-@Mutable
 public final class TextStringBuilder implements Serializable, CharSequence, Appendable {
 
     public static final int CAPACITY = 32;

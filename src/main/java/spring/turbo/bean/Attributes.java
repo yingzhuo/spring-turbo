@@ -13,7 +13,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import spring.turbo.lang.Mutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
@@ -31,7 +30,6 @@ import java.util.function.Supplier;
  * @see MultiValueMap
  * @since 1.0.0
  */
-@Mutable
 @SuppressWarnings("unchecked")
 public class Attributes extends LinkedMultiValueMap<String, Object> {
 

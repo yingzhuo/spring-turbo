@@ -13,7 +13,6 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Mutable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +25,6 @@ import java.util.function.Supplier;
  * @see InstanceUtils
  * @since 1.0.0
  */
-@Mutable
 @SuppressWarnings({"unchecked", "rawtypes"})
 public final class InstanceCache {
 

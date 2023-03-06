@@ -9,7 +9,6 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringPool;
 import spring.turbo.util.StringUtils;
 
@@ -24,7 +23,6 @@ import java.util.List;
  * @author 应卓
  * @since 1.3.1
  */
-@Immutable
 public class DateZones implements Iterable<DateRange>, Serializable {
 
     private final List<DateRange> list;

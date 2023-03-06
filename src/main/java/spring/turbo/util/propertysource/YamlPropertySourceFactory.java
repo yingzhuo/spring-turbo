@@ -9,7 +9,6 @@
 package spring.turbo.util.propertysource;
 
 import org.springframework.boot.env.YamlPropertySourceLoader;
-import spring.turbo.lang.Recommended;
 
 /**
  * @author 应卓
@@ -17,7 +16,6 @@ import spring.turbo.lang.Recommended;
  * @see TomlPropertySourceFactory
  * @since 1.2.2
  */
-@Recommended
 public class YamlPropertySourceFactory extends AbstractPropertySourceFactory {
 
     /**

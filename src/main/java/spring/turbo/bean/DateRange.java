@@ -12,7 +12,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import spring.turbo.bean.function.DateRangePartitionor;
 import spring.turbo.bean.function.DateRangePartitionorFactories;
-import spring.turbo.lang.Immutable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.DateUtils;
 import spring.turbo.util.StringFormatter;
@@ -29,7 +28,6 @@ import java.util.stream.Stream;
  * @see DateUtils
  * @since 1.1.4
  */
-@Immutable
 public final class DateRange implements Serializable, Iterable<Date> {
 
     private final DateDescriptor leftInclude;

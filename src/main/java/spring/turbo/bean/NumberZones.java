@@ -9,7 +9,6 @@
 package spring.turbo.bean;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Immutable;
 import spring.turbo.util.StringPool;
 import spring.turbo.util.StringUtils;
 
@@ -24,7 +23,6 @@ import java.util.List;
  * @see spring.turbo.bean.jsr380.DecentNumberZones
  * @since 1.1.4
  */
-@Immutable
 public class NumberZones implements Iterable<NumberPair>, Serializable {
 
     private final List<NumberPair> list;

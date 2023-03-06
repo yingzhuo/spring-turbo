@@ -10,7 +10,6 @@ package spring.turbo.util;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Immutable;
 
 import java.io.Serializable;
 
@@ -22,7 +21,6 @@ import java.io.Serializable;
  * @see LogLevel
  * @since 1.0.0
  */
-@Immutable
 public final class Logger implements Serializable {
 
     @Nullable

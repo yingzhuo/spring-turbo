@@ -11,13 +11,11 @@ package spring.turbo.bean.valueobject;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import spring.turbo.lang.Singleton;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-@Singleton
 public final class NullValidator implements Validator {
 
     /**

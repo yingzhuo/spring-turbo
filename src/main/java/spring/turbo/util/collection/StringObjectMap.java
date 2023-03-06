@@ -9,7 +9,6 @@
 package spring.turbo.util.collection;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Mutable;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,7 +22,6 @@ import java.util.Map;
  * @see StringStringMap
  * @since 1.1.0
  */
-@Mutable
 public final class StringObjectMap extends HashMap<String, Object> {
 
     /**

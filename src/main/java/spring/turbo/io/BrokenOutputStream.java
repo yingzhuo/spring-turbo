@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import spring.turbo.lang.Singleton;
-
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -18,7 +16,6 @@ import java.io.OutputStream;
  * @see #getInstance()
  * @since 1.1.1
  */
-@Singleton
 public class BrokenOutputStream extends OutputStream {
 
     /**

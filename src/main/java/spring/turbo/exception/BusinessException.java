@@ -10,7 +10,6 @@ package spring.turbo.exception;
 
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Immutable;
 
 import java.util.Objects;
 
@@ -28,7 +27,6 @@ import static java.util.Optional.ofNullable;
  * @see spring.turbo.core.MessageUtils
  * @since 2.0.1
  */
-@Immutable
 public final class BusinessException extends RuntimeException implements MessageSourceResolvable {
 
     @Nullable

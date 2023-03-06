@@ -8,15 +8,12 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.propertysource;
 
-import spring.turbo.lang.Recommended;
-
 /**
  * @author 应卓
  * @see YamlPropertySourceFactory
  * @see TomlPropertySourceFactory
  * @since 2.0.6
  */
-@Recommended
 public class HoconPropertySourceFactory extends AbstractPropertySourceFactory {
 
     /**

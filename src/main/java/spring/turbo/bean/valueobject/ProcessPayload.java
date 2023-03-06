@@ -9,13 +9,11 @@
 package spring.turbo.bean.valueobject;
 
 import spring.turbo.bean.Attributes;
-import spring.turbo.lang.Mutable;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
-@Mutable
 public final class ProcessPayload extends Attributes {
 
     private long successCount = 0L;

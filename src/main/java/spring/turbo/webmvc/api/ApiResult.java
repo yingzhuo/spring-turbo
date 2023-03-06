@@ -9,7 +9,6 @@
 package spring.turbo.webmvc.api;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Immutable;
 
 import java.io.Serializable;
 
@@ -18,7 +17,6 @@ import java.io.Serializable;
  * @author 应卓
  * @since 1.0.0
  */
-@Immutable
 public interface ApiResult<T> extends Serializable {
 
     public String getCode();

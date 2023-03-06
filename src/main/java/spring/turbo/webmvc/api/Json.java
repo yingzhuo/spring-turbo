@@ -10,7 +10,6 @@ package spring.turbo.webmvc.api;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import spring.turbo.lang.Mutable;
 import spring.turbo.util.Asserts;
 
 import java.util.LinkedHashMap;
@@ -21,7 +20,6 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.0.0
  */
-@Mutable
 public class Json implements MutableApiResult<Map<String, Object>> {
 
     private String code = "200";
