@@ -13,17 +13,19 @@ import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.filter.TypeFilter;
-import spring.turbo.util.Asserts;
+import org.springframework.lang.Nullable;
 import spring.turbo.util.ClassUtils;
 import spring.turbo.util.CollectionUtils;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * ClassPath扫描器的创建器
  *
  * @author 应卓
+ * @see ClassPathScanner#builder()
  * @see TypeFilter
  * @see TypeFilterFactories
  * @see Environment
@@ -40,40 +42,84 @@ public final class ClassPathScannerBuilder {
     private ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
 
     /**
-     * 构造方法
+     * 默认构造方法
      */
     ClassPathScannerBuilder() {
         super();
     }
 
-    public ClassPathScannerBuilder includeFilter(TypeFilter... filters) {
+    /**
+     * 添加包含类型描述器
+     *
+     * @param filters 类型描述器
+     * @return this
+     * @see TypeFilterFactories
+     * @see org.springframework.core.type.filter.AbstractClassTestingTypeFilter
+     * @see org.springframework.core.type.filter.AbstractTypeHierarchyTraversingFilter
+     */
+    public ClassPathScannerBuilder includeFilter(@Nullable TypeFilter... filters) {
         CollectionUtils.nullSafeAddAll(includeFilters, filters);
         return this;
     }
 
-    public ClassPathScannerBuilder excludeFilter(TypeFilter... filters) {
+    /**
+     * 添加排除类型描述器
+     *
+     * @param filters 类型描述器
+     * @return this
+     * @see TypeFilterFactories
+     * @see org.springframework.core.type.filter.AbstractClassTestingTypeFilter
+     * @see org.springframework.core.type.filter.AbstractTypeHierarchyTraversingFilter
+     */
+    public ClassPathScannerBuilder excludeFilter(@Nullable TypeFilter... filters) {
         CollectionUtils.nullSafeAddAll(excludeFilters, filters);
         return this;
     }
 
-    public ClassPathScannerBuilder environment(Environment environment) {
-        Asserts.notNull(environment);
+    /**
+     * 添加 {@link Environment} 实例
+     *
+     * @param environment {@link Environment} 实例
+     * @return this
+     * @see org.springframework.context.EnvironmentAware
+     */
+    public ClassPathScannerBuilder environment(@Nullable Environment environment) {
+        environment = Objects.requireNonNullElseGet(environment, StandardEnvironment::new);
         this.environment = environment;
         return this;
     }
 
-    public ClassPathScannerBuilder resourceLoader(ResourceLoader resourceLoader) {
-        Asserts.notNull(resourceLoader);
+    /**
+     * 添加 {@link ResourceLoader} 实例
+     *
+     * @param resourceLoader {@link ResourceLoader} 实例
+     * @return this
+     * @see org.springframework.context.ResourceLoaderAware
+     */
+    public ClassPathScannerBuilder resourceLoader(@Nullable ResourceLoader resourceLoader) {
+        resourceLoader = Objects.requireNonNullElseGet(resourceLoader, DefaultResourceLoader::new);
         this.resourceLoader = resourceLoader;
         return this;
     }
 
-    public ClassPathScannerBuilder classLoader(ClassLoader classLoader) {
-        Asserts.notNull(classLoader);
+    /**
+     * 添加 {@link ClassLoader} 实例
+     *
+     * @param classLoader {@link ClassLoader} 实例
+     * @return this
+     * @see ClassUtils#getDefaultClassLoader()
+     */
+    public ClassPathScannerBuilder classLoader(@Nullable ClassLoader classLoader) {
+        classLoader = Objects.requireNonNullElseGet(classLoader, ClassUtils::getDefaultClassLoader);
         this.classLoader = classLoader;
         return this;
     }
 
+    /**
+     * 创建 {@link ClassPathScanner} 实例
+     *
+     * @return {@link ClassPathScanner} 实例
+     */
     public ClassPathScanner build() {
         if (includeFilters.isEmpty()) {
             return NullClassPathScanner.getInstance();

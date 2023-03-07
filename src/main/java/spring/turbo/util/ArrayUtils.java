@@ -33,23 +33,9 @@ public final class ArrayUtils {
      * @param array 数组
      * @param <T>   数组元素类型
      * @return 长度或0
-     * @see #length(Object[])
-     */
-    public static <T> int size(@Nullable T[] array) {
-        return isNullOrEmpty(array) ? 0 : array.length;
-    }
-
-    /**
-     * 获取数组长度
-     *
-     * @param array 数组
-     * @param <T>   数组元素类型
-     * @return 长度或0
-     * @see #size(Object[])
-     * @since 1.0.6
      */
     public static <T> int length(@Nullable T[] array) {
-        return size(array);
+        return array != null ? array.length : 0;
     }
 
     /**

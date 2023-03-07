@@ -17,7 +17,7 @@ import java.util.List;
  * @see #getInstance()
  * @since 2.0.9
  */
-final class NullClassPathScanner implements ClassPathScanner {
+public final class NullClassPathScanner implements ClassPathScanner {
 
     /**
      * 私有构造方法
@@ -39,8 +39,6 @@ final class NullClassPathScanner implements ClassPathScanner {
     public List<ClassDef> scan(@Nullable PackageSet packageSet) {
         return List.of();
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     // 延迟加载
     private static final class SyncAvoid {

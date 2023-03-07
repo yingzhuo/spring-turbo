@@ -42,7 +42,13 @@ public final class PackageSet implements Iterable<String> {
         return new PackageSet();
     }
 
-    public PackageSet addPackages(@Nullable String... packages) {
+    /**
+     * 添加要扫描的包
+     *
+     * @param packages 包
+     * @return this
+     */
+    public PackageSet acceptPackages(@Nullable String... packages) {
         if (packages != null) {
             Stream.of(packages)
                     .filter(StringUtils::isNotBlank)
@@ -52,7 +58,13 @@ public final class PackageSet implements Iterable<String> {
         return this;
     }
 
-    public PackageSet addPackages(@Nullable Collection<String> packages) {
+    /**
+     * 添加要扫描的包
+     *
+     * @param packages 包
+     * @return this
+     */
+    public PackageSet acceptPackages(@Nullable Collection<String> packages) {
         if (packages != null) {
             packages.stream()
                     .filter(StringUtils::isNotBlank)
@@ -62,9 +74,15 @@ public final class PackageSet implements Iterable<String> {
         return this;
     }
 
-    public PackageSet addBaseClasses(@Nullable Class<?>... classes) {
-        if (classes != null) {
-            Arrays.stream(classes)
+    /**
+     * 添加要扫描的基础类所在的包
+     *
+     * @param baseClasses 基础类
+     * @return this
+     */
+    public PackageSet acceptBaseClasses(@Nullable Class<?>... baseClasses) {
+        if (baseClasses != null) {
+            Arrays.stream(baseClasses)
                     .filter(Objects::nonNull)
                     .map(c -> c.getPackage().getName())
                     .forEach(set::add);
@@ -72,9 +90,15 @@ public final class PackageSet implements Iterable<String> {
         return this;
     }
 
-    public PackageSet addBaseClasses(@Nullable Collection<Class<?>> classes) {
-        if (classes != null) {
-            classes.stream()
+    /**
+     * 添加要扫描的基础类所在的包
+     *
+     * @param baseClasses 基础类
+     * @return this
+     */
+    public PackageSet acceptBaseClasses(@Nullable Collection<Class<?>> baseClasses) {
+        if (baseClasses != null) {
+            baseClasses.stream()
                     .filter(Objects::nonNull)
                     .map(c -> c.getPackage().getName())
                     .forEach(set::add);
@@ -82,7 +106,7 @@ public final class PackageSet implements Iterable<String> {
         return this;
     }
 
-    public PackageSet clean() {
+    public PackageSet clear() {
         set.clear();
         return this;
     }

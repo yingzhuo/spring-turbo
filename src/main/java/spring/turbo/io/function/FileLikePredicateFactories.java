@@ -52,7 +52,7 @@ public final class FileLikePredicateFactories {
         Asserts.notEmpty(predicates);
         Asserts.noNullElements(predicates);
 
-        if (ArrayUtils.size(predicates) == 1) {
+        if (ArrayUtils.length(predicates) == 1) {
             return predicates[0];
         }
 
@@ -71,7 +71,7 @@ public final class FileLikePredicateFactories {
         Asserts.notEmpty(predicates);
         Asserts.noNullElements(predicates);
 
-        if (ArrayUtils.size(predicates) == 1) {
+        if (ArrayUtils.length(predicates) == 1) {
             return predicates[0];
         }
 
@@ -124,7 +124,7 @@ public final class FileLikePredicateFactories {
         Asserts.notEmpty(acceptRegexes);
         Asserts.noNullElements(acceptRegexes);
 
-        if (ArrayUtils.size(acceptRegexes) == 1) {
+        if (ArrayUtils.length(acceptRegexes) == 1) {
             return new Regex(acceptRegexes[0]);
         } else {
             return or(
@@ -141,7 +141,7 @@ public final class FileLikePredicateFactories {
         Asserts.notEmpty(acceptPatterns);
         Asserts.noNullElements(acceptPatterns);
 
-        if (ArrayUtils.size(acceptPatterns) == 1) {
+        if (ArrayUtils.length(acceptPatterns) == 1) {
             return new AntPath(acceptPatterns[0]);
         } else {
             return or(
@@ -161,7 +161,7 @@ public final class FileLikePredicateFactories {
         Asserts.notEmpty(acceptFilenames);
         Asserts.noNullElements(acceptFilenames);
 
-        if (ArrayUtils.size(acceptFilenames) == 1) {
+        if (ArrayUtils.length(acceptFilenames) == 1) {
             return new Filename(ignoreCase, acceptFilenames[1]);
         } else {
             return or(
@@ -182,7 +182,7 @@ public final class FileLikePredicateFactories {
         Asserts.notEmpty(acceptExtensions);
         Asserts.noNullElements(acceptExtensions);
 
-        if (ArrayUtils.size(acceptExtensions) == 1) {
+        if (ArrayUtils.length(acceptExtensions) == 1) {
             return new Filename(ignoreCase, acceptExtensions[1]);
         } else {
             return or(

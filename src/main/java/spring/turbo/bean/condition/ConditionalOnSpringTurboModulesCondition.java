@@ -14,7 +14,6 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import spring.turbo.SpringTurboModules;
-import spring.turbo.core.Logic;
 
 /**
  * @author 应卓
@@ -32,13 +31,13 @@ public final class ConditionalOnSpringTurboModulesCondition extends SpringBootCo
         }
 
         var modules = attributes.getStringArray("modules");
-        var logic = (Logic) attributes.getEnum("logic");
+        var logic = (ConditionalOnSpringTurboModules.Logic) attributes.getEnum("logic");
 
         if (modules.length == 0) {
             return ConditionOutcome.noMatch("no modules");
         }
 
-        var matches = logic == Logic.ANY ?
+        var matches = logic == ConditionalOnSpringTurboModules.Logic.ANY ?
                 SpringTurboModules.presentAny(modules) :
                 SpringTurboModules.presentAll(modules);
 
