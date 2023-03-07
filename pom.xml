@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <url>https://github.com/yingzhuo/spring-turbo</url>
-    <description>spring-turbo</description>
+    <description>Another enhancement library of SpringBoot/SpringFramework. Have fun.</description>
 
     <scm>
         <tag>master</tag>

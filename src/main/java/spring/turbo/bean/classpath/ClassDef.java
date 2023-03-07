@@ -26,6 +26,7 @@ import java.util.Optional;
  * 类路径扫描的结果
  *
  * @author 应卓
+ * @see BeanDefinition
  * @since 2.0.9
  */
 public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Serializable {
@@ -39,7 +40,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * @param beanDefinition beanDefinition实例
      */
     public ClassDef(BeanDefinition beanDefinition) {
-        this(beanDefinition, ClassUtils.getDefaultClassLoader());
+        this(beanDefinition, null);
     }
 
     /**
@@ -56,6 +57,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
         this.bd = beanDefinition;
         var className = beanDefinition.getBeanClassName();
         Asserts.notNull(className);
+
         try {
             this.clazz = ClassUtils.forName(className, classLoader);
         } catch (Throwable e) {

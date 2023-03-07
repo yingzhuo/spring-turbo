@@ -10,6 +10,7 @@ package spring.turbo.bean.classpath;
 
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.filter.TypeFilter;
@@ -28,10 +29,17 @@ import static spring.turbo.util.CollectionUtils.nullSafeAddAll;
  * @author 应卓
  * @since 1.0.0
  */
-final class DefaultClassPathScanner implements ClassPathScanner {
+public final class DefaultClassPathScanner implements ClassPathScanner {
 
-    private final ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider();
+    private final ClassPathScannerCore provider = new ClassPathScannerCore();
     private ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
+
+    /**
+     * 构造方法
+     */
+    DefaultClassPathScanner() {
+        super();
+    }
 
     @Override
     public List<ClassDef> scan(@Nullable PackageSet packageSet) {
@@ -73,13 +81,17 @@ final class DefaultClassPathScanner implements ClassPathScanner {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private static final class ClassPathScanningCandidateComponentProvider
-            extends org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider {
+
+    /**
+     * 扫描器核心
+     */
+    private static final class ClassPathScannerCore
+            extends ClassPathScanningCandidateComponentProvider {
 
         /**
-         * 构造方法
+         * 私有构造方法
          */
-        public ClassPathScanningCandidateComponentProvider() {
+        private ClassPathScannerCore() {
             super(false);
         }
 
