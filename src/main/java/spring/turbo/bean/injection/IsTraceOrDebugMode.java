@@ -16,8 +16,6 @@ import java.lang.annotation.*;
  * 注入{@code boolean}值表达应用程序是否处于debug或trace模式
  *
  * @author 应卓
- * @see IsTraceMode
- * @see IsDebugMode
  * @see Value
  * @since 1.2.3
  */
