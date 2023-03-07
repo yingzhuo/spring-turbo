@@ -42,8 +42,8 @@ public final class NullMessageSource implements MessageSource {
         return SyncAvoid.INSTANCE;
     }
 
-    @Override
     @Nullable
+    @Override
     public String getMessage(String code, Object[] args, String defaultMessage, Locale locale) {
         return null;
     }
