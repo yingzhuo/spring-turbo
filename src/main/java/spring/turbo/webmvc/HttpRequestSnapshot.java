@@ -13,13 +13,13 @@ import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.lang.NonNull;
 import org.springframework.web.cors.CorsUtils;
-import spring.turbo.util.StringFormatter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static spring.turbo.util.StringFormatter.format;
 import static spring.turbo.util.StringPool.LF;
 import static spring.turbo.util.StringPool.QUESTION_MARK_X_3;
 
@@ -45,31 +45,31 @@ public final class HttpRequestSnapshot extends HttpServletRequestWrapper impleme
     private HttpRequestSnapshot(HttpServletRequest request) {
         super(request);
 
-        lines.add(StringFormatter.format("Request Type: \"{}\"", request.getClass().getName()));
-        lines.add(StringFormatter.format("Time: {}", DATE_FORMAT.format(new Date())));
-        lines.add(StringFormatter.format("Method: {}", request.getMethod()));
-        lines.add(StringFormatter.format("Servlet Path: \"{}\"", request.getServletPath()));
-        lines.add(StringFormatter.format("Request URI: \"{}\"", request.getRequestURI()));
+        lines.add(format("Request Type: \"{}\"", request.getClass().getName()));
+        lines.add(format("Time: {}", DATE_FORMAT.format(new Date())));
+        lines.add(format("Method: {}", request.getMethod()));
+        lines.add(format("Servlet Path: \"{}\"", request.getServletPath()));
+        lines.add(format("Request URI: \"{}\"", request.getRequestURI()));
 
-        lines.add(StringFormatter.format("Parameters:"));
+        lines.add(format("Parameters:"));
         Enumeration<String> requestParamNames = request.getParameterNames();
         while (requestParamNames.hasMoreElements()) {
             String requestParamName = requestParamNames.nextElement();
             String requestParamValue = request.getParameter(requestParamName);
-            lines.add(StringFormatter.format("\t\t{} = {}", requestParamName, requestParamValue));
+            lines.add(format("\t\t{} = {}", requestParamName, requestParamValue));
         }
 
-        lines.add(StringFormatter.format("Headers:"));
+        lines.add(format("Headers:"));
         Enumeration<String> requestHeaderNames = request.getHeaderNames();
         while (requestHeaderNames.hasMoreElements()) {
             String requestHeaderName = requestHeaderNames.nextElement();
             String requestHeaderValue = request.getHeader(requestHeaderName);
-            lines.add(StringFormatter.format("\t\t{} = {}", requestHeaderName, requestHeaderValue));
+            lines.add(format("\t\t{} = {}", requestHeaderName, requestHeaderValue));
         }
 
-        lines.add(StringFormatter.format("Remote Address: {}", getRemoteAddr(request)));
-        lines.add(StringFormatter.format("Session ID: {}", getSessionId(request)));
-        lines.add(StringFormatter.format("Is Cors PreFlight: {}", CorsUtils.isPreFlightRequest(request)));
+        lines.add(format("Remote Address: {}", getRemoteAddr(request)));
+        lines.add(format("Session ID: {}", getSessionId(request)));
+        lines.add(format("Is Cors PreFlight: {}", CorsUtils.isPreFlightRequest(request)));
 
         text = String.join(LF, lines).trim();
     }
