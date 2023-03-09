@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -25,12 +24,17 @@ public final class BlackHoleOutputStream extends OutputStream {
         super();
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static BlackHoleOutputStream getInstance() {
         return SyncAvoid.INSTANCE;
     }
 
     @Override
-    public void write(int b) throws IOException {
+    public void write(int b) {
         // nop
     }
 

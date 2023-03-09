@@ -39,9 +39,6 @@ public final class SpringTurboModules {
     public static final String SPRING_TURBO_MODULE_SECURITY = "spring-turbo-module-security";
     public static final String SPRING_TURBO_MODULE_WEBMVC = "spring-turbo-module-webmvc";
 
-    @Deprecated(forRemoval = true)
-    public static final String SPRING_TURBO_MODULE_DATA_HANDLING = "spring-turbo-module-data-handling";
-
     /**
      * 私有构造方法
      */
