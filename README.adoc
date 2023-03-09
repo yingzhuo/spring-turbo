@@ -21,7 +21,7 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 <dependency>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>spring-turbo</artifactId>
-    <version>${spring.turbo.latest}</version>
+    <version>LATEST</version>
 </dependency>
 ----
 
@@ -29,6 +29,7 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 
 [maven,xml]
 ----
+# main分支就是开发分支
 git clone git@github.com:yingzhuo/spring-turbo.git
 cd spring-turbo/
 mvn install
