@@ -13,6 +13,7 @@ package spring.turbo.util.crypto;
  *
  * @author 应卓
  * @see #builder()
+ * @see AESUtils
  * @since 1.0.0
  */
 public interface AES extends Crypto {

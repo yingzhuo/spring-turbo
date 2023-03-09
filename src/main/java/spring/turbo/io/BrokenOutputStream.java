@@ -25,6 +25,11 @@ public class BrokenOutputStream extends OutputStream {
         super();
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static BrokenOutputStream getInstance() {
         return SyncAvoid.INSTANCE;
     }

@@ -17,7 +17,6 @@ import java.io.Serializable;
  * {@link Logger} 的包装工具
  *
  * @author 应卓
- * @see org.slf4j.Logger
  * @see LogLevel
  * @since 1.0.0
  */
@@ -96,6 +95,7 @@ public final class Logger implements Serializable {
                     break;
                 case STDOUT:
                     stdout(format, args);
+                    break;
                 case STDERR:
                     stderr(format, args);
                 default:

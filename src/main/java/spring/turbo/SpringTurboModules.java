@@ -33,7 +33,6 @@ public final class SpringTurboModules {
     // 官方 (Maven Artifact Id)
     public static final String SPRING_TURBO = "spring-turbo";
     public static final String SPRING_TURBO_MODULE_DATA_ACCESSING = "spring-turbo-module-data-accessing";
-    public static final String SPRING_TURBO_MODULE_DATA_HANDLING = "spring-turbo-module-data-handling";
     public static final String SPRING_TURBO_MODULE_FEIGN = "spring-turbo-module-feign";
     public static final String SPRING_TURBO_MODULE_MISC = "spring-turbo-module-misc";
     public static final String SPRING_TURBO_MODULE_QUERYSELECTOR = "spring-turbo-module-queryselector";

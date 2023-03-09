@@ -25,12 +25,17 @@ public final class BlackHoleWriter extends Writer {
         super();
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static BlackHoleWriter getInstance() {
         return SyncAvoid.INSTANCE;
     }
 
     @Override
-    public void write(char[] cbuf, int off, int len) throws IOException {
+    public void write(char[] cbuf, int off, int len) {
         // nop
     }
 

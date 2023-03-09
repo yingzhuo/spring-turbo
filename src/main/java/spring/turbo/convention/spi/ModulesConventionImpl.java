@@ -15,7 +15,7 @@ import spring.turbo.convention.ModulesConvention;
  * @author 应卓
  * @since 2.0.13
  */
-public class ModulesConventionImpl implements ModulesConvention {
+public final class ModulesConventionImpl implements ModulesConvention {
 
     @Override
     public String getModuleName() {

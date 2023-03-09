@@ -24,6 +24,11 @@ public final class BrokenInputStream extends InputStream {
         super();
     }
 
+    /**
+     * 获取实例
+     *
+     * @return 实例
+     */
     public static BrokenInputStream getInstance() {
         return SyncAvoid.INSTANCE;
     }
