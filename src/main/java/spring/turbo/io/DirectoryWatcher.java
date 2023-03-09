@@ -87,7 +87,10 @@ public final class DirectoryWatcher {
         private Path dir;
         private Listener listener;
 
-        Builder() {
+        /**
+         * 私有构造方法
+         */
+        private Builder() {
             super();
         }
 
