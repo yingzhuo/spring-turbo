@@ -19,6 +19,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 /**
+ * Aspect辅助工具
+ *
  * @author 应卓
  * @since 2.1.0
  */
@@ -65,6 +67,25 @@ public final class AopUtils {
     public static <A extends Annotation> AnnotationAttributes getTargetMethodAnnotationAttributes(ProceedingJoinPoint jp, Class<A> annotationType) {
         Asserts.notNull(annotationType);
         return AnnotationFinder.findAnnotationAttributes(getTargetMethod(jp), annotationType);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Nullable
+    public static <A extends Annotation> A getTargetMethodOrClassAnnotation(ProceedingJoinPoint jp, Class<A> annotationType) {
+        var annotation = getTargetMethodAnnotation(jp, annotationType);
+        if (annotation == null) {
+            annotation = getTargetClassAnnotation(jp, annotationType);
+        }
+        return annotation;
+    }
+
+    public static <A extends Annotation> AnnotationAttributes getTargetMethodOrClassAnnotationAttributes(ProceedingJoinPoint jp, Class<A> annotationType) {
+        var attr = getTargetMethodAnnotationAttributes(jp, annotationType);
+        if (attr.isEmpty()) {
+            attr = getTargetClassAnnotationAttributes(jp, annotationType);
+        }
+        return attr;
     }
 
 }
