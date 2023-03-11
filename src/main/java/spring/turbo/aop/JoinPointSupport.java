@@ -17,6 +17,7 @@ import org.springframework.util.Assert;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import static spring.turbo.core.AnnotationFinder.findAnnotation;
 import static spring.turbo.core.AnnotationFinder.findAnnotationAttributes;
@@ -77,6 +78,18 @@ public final class JoinPointSupport implements Serializable {
     public <A extends Annotation> AnnotationAttributes getMethodLevelAnnotationAttributes(Class<A> annotationType) {
         notNull(annotationType, "annotationType is null");
         return findAnnotationAttributes(this.targetMethod, annotationType);
+    }
+
+    public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
+        notNull(annotationType, "annotationType is null");
+        return Objects.requireNonNullElse(getMethodLevelAnnotation(annotationType), getClassLevelAnnotation(annotationType));
+    }
+
+    public <A extends Annotation> AnnotationAttributes getMergedAnnotationAttributes(Class<A> annotationType) {
+        notNull(annotationType, "annotationType is null");
+        var attributes = getMethodLevelAnnotationAttributes(annotationType);
+        attributes.putAll(getClassLevelAnnotationAttributes(annotationType));
+        return attributes;
     }
 
     @Override
