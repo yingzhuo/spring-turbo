@@ -734,6 +734,23 @@ public final class StringUtils {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    public static String nullToDefault(@Nullable String string, String defaultString) {
+        Asserts.notNull(defaultString);
+        return string == null ? defaultString : string;
+    }
+
+    public static String emptyToDefault(@Nullable String string, String defaultString) {
+        Asserts.isFalse(isEmpty(defaultString));
+        return isEmpty(string) ? defaultString : string;
+    }
+
+    public static String blankToDefault(@Nullable String string, String defaultString) {
+        Asserts.isFalse(isBlank(defaultString));
+        return isBlank(string) ? defaultString : string;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * 查找第一个非Empty字符串
      *

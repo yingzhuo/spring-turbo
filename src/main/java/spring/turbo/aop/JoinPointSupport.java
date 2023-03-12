@@ -24,6 +24,8 @@ import static spring.turbo.core.AnnotationFinder.findAnnotationAttributes;
 import static spring.turbo.util.Asserts.notNull;
 
 /**
+ * {@link JoinPoint} 辅助工具
+ *
  * @author 应卓
  * @since 2.1.0
  */
@@ -95,6 +97,19 @@ public final class JoinPointSupport implements Serializable {
     @Override
     public String toString() {
         return this.joinPoint.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JoinPointSupport that = (JoinPointSupport) o;
+        return joinPoint.equals(that.joinPoint);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(joinPoint);
     }
 
 }

@@ -12,13 +12,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.io.support.SpringFactoriesLoader;
+import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.springframework.core.io.support.SpringFactoriesLoader.FACTORIES_RESOURCE_LOCATION;
+import static org.springframework.core.io.support.SpringFactoriesLoader.forResourceLocation;
 import static spring.turbo.util.CollectionUtils.nullSafeAddAll;
+import static spring.turbo.util.StringUtils.blankToDefault;
 
 /**
  * {@link SpringFactoriesLoader} 相关工具
@@ -35,20 +39,24 @@ public final class SpringFactoriesUtils {
         super();
     }
 
-    /**
-     * 获取服务的实例
-     *
-     * @param factoryType 服务的类型
-     * @param <T>         服务的类型泛型
-     * @return 结果
-     */
     public static <T> List<T> loadQuietly(Class<T> factoryType) {
+        return loadQuietly(factoryType, null);
+    }
+
+    public static <T> List<T> loadQuietly(Class<T> factoryType, @Nullable String factoriesResourceLocation) {
+        return loadQuietly(factoryType, factoriesResourceLocation, null);
+    }
+
+    public static <T> List<T> loadQuietly(Class<T> factoryType, @Nullable String factoriesResourceLocation, @Nullable ClassLoader classLoader) {
         Asserts.notNull(factoryType);
 
-        var factoriesLoader = SpringFactoriesLoader.forDefaultResourceLocation();
+        var factoriesLoader = forResourceLocation(
+                blankToDefault(factoriesResourceLocation, FACTORIES_RESOURCE_LOCATION),
+                classLoader
+        );
 
         try {
-            List<T> list = new ArrayList<>();
+            final List<T> list = new ArrayList<>();
             var services = factoriesLoader.load(factoryType, LoggingFailureHandler.INSTANCE);
             nullSafeAddAll(list, services);
             OrderComparator.sort(list);
