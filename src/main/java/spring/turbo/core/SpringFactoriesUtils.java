@@ -22,7 +22,7 @@ import java.util.List;
 import static org.springframework.core.io.support.SpringFactoriesLoader.FACTORIES_RESOURCE_LOCATION;
 import static org.springframework.core.io.support.SpringFactoriesLoader.forResourceLocation;
 import static spring.turbo.util.CollectionUtils.nullSafeAddAll;
-import static spring.turbo.util.StringUtils.blankToDefault;
+import static spring.turbo.util.StringUtils.isBlank;
 
 /**
  * {@link SpringFactoriesLoader} 相关工具
@@ -40,7 +40,7 @@ public final class SpringFactoriesUtils {
     }
 
     public static <T> List<T> loadQuietly(Class<T> factoryType) {
-        return loadQuietly(factoryType, null);
+        return loadQuietly(factoryType, FACTORIES_RESOURCE_LOCATION);
     }
 
     public static <T> List<T> loadQuietly(Class<T> factoryType, @Nullable String factoriesResourceLocation) {
@@ -50,8 +50,11 @@ public final class SpringFactoriesUtils {
     public static <T> List<T> loadQuietly(Class<T> factoryType, @Nullable String factoriesResourceLocation, @Nullable ClassLoader classLoader) {
         Asserts.notNull(factoryType);
 
+        factoriesResourceLocation = isBlank(factoriesResourceLocation) ?
+                FACTORIES_RESOURCE_LOCATION : factoriesResourceLocation;
+
         var factoriesLoader = forResourceLocation(
-                blankToDefault(factoriesResourceLocation, FACTORIES_RESOURCE_LOCATION),
+                factoriesResourceLocation,
                 classLoader
         );
 
