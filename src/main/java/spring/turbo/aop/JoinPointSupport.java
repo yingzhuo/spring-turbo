@@ -12,7 +12,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
+import spring.turbo.util.Asserts;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -37,7 +37,7 @@ public final class JoinPointSupport implements Serializable {
     private final Object target;
 
     public JoinPointSupport(JoinPoint joinPoint) {
-        Assert.notNull(joinPoint, "joinPoint is null");
+        Asserts.notNull(joinPoint);
         this.joinPoint = joinPoint;
         this.target = joinPoint.getTarget();
         this.targetClass = this.target.getClass();
