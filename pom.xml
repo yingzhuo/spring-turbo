@@ -94,8 +94,6 @@
         <java.version>17</java.version>
 
         <spring.boot.version>3.0.4</spring.boot.version>
-        <spring.version>6.0.6</spring.version>
-        <spring.security.version>6.0.2</spring.security.version>
         <slf4j.version>2.0.6</slf4j.version>
     </properties>
 
@@ -116,6 +114,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -420,6 +419,14 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
