@@ -94,7 +94,7 @@
         <java.version>17</java.version>
 
         <spring.boot.version>3.0.4</spring.boot.version>
-        <slf4j.version>2.0.6</slf4j.version>
+        <spring.version>6.0.6</spring.version>
     </properties>
 
     <dependencyManagement>
@@ -206,7 +206,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- lombok -->
