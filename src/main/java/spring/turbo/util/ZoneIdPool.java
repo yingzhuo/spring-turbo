@@ -12,6 +12,8 @@ import org.springframework.lang.Nullable;
 
 import java.time.ZoneId;
 
+import static spring.turbo.util.StringUtils.isBlank;
+
 /**
  * @author 应卓
  * @see ZoneId#getAvailableZoneIds()
@@ -649,8 +651,7 @@ public final class ZoneIdPool {
     public static ZoneId toZoneIdOrDefault(@Nullable String name, ZoneId defaultIfNullOrError) {
         Asserts.notNull(defaultIfNullOrError);
 
-        // null / blank to default
-        if (name == null || name.isBlank()) {
+        if (isBlank(name)) {
             return defaultIfNullOrError;
         }
 
