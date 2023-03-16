@@ -12,7 +12,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationAttributes;
 import spring.turbo.core.AnnotationFinder;
-import spring.turbo.util.Asserts;
 
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
@@ -20,6 +19,7 @@ import java.lang.reflect.Method;
 
 import static spring.turbo.core.AnnotationFinder.findAnnotation;
 import static spring.turbo.core.AnnotationFinder.findAnnotationAttributes;
+import static spring.turbo.util.Asserts.notNull;
 
 /**
  * AOP相关工具
@@ -28,12 +28,12 @@ import static spring.turbo.core.AnnotationFinder.findAnnotationAttributes;
  * @see AnnotationFinder
  * @since 2.1.1
  */
-public final class AOPUtils {
+public final class AopUtils {
 
     /**
      * 私有构造方法
      */
-    private AOPUtils() {
+    private AopUtils() {
         super();
     }
 
@@ -45,7 +45,7 @@ public final class AOPUtils {
      * @throws IllegalArgumentException 不能获取切面方法
      */
     public static Method getMethod(JoinPoint joinPoint) {
-        Asserts.notNull(joinPoint, "joinPoint is null");
+        notNull(joinPoint, "joinPoint is null");
         var signature = joinPoint.getSignature();
         if (signature instanceof MethodSignature methodSignature) {
             return methodSignature.getMethod();
@@ -61,7 +61,7 @@ public final class AOPUtils {
      * @return 切面拦截对象
      */
     public static Object getTarget(JoinPoint joinPoint) {
-        Asserts.notNull(joinPoint, "joinPoint is null");
+        notNull(joinPoint, "joinPoint is null");
         return joinPoint.getTarget();
     }
 

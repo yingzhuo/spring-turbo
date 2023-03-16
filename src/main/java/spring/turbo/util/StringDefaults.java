@@ -13,6 +13,8 @@ import org.springframework.lang.Nullable;
 import static spring.turbo.util.StringPool.EMPTY;
 
 /**
+ * {@link String} 默认值相关工具
+ *
  * @author 应卓
  * @see StringUtils
  * @since 2.1.0
