@@ -341,7 +341,7 @@
                     <archive>
                         <index>false</index>
                         <compress>true</compress>
-                        <addMavenDescriptor>true</addMavenDescriptor>
+                        <addMavenDescriptor>false</addMavenDescriptor>
                         <manifest>
                             <addClasspath>false</addClasspath>
                             <addDefaultEntries>true</addDefaultEntries>

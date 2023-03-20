@@ -50,7 +50,10 @@ public final class SleepUtils {
      * @throws UncheckedInterruptedException 线程暂停被打断时抛出此异常
      */
     public static void sleep(long time, TimeUnit timeUnit) {
-        Asserts.isTrue(time > 0);
+        if (time < 0) {
+            return;
+        }
+
         Asserts.notNull(timeUnit);
 
         try {
@@ -58,6 +61,16 @@ public final class SleepUtils {
         } catch (InterruptedException e) {
             throw new UncheckedInterruptedException(e);
         }
+    }
+
+    /**
+     * 暂停现成
+     *
+     * @param seconds 暂停时间(秒)
+     * @throws UncheckedInterruptedException 线程暂停被打断时抛出此异常
+     */
+    public static void sleepInSeconds(long seconds) {
+        sleep(seconds, TimeUnit.SECONDS);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
