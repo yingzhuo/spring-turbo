@@ -10,6 +10,7 @@ spring.turbo.convention.spi.ExtraMessageSourceBasenameConventionImpl
 # ----------------------------------------------------------------------------------------------------------------------
 org.springframework.boot.env.EnvironmentPostProcessor=\
 spring.turbo.core.SpringApplicationHoldersEnvironmentPostProcessor,\
-spring.turbo.core.env.MiscellaneousSetupEnvironmentPostProcessor
+spring.turbo.core.env.MiscellaneousSetupEnvironmentPostProcessor,\
+spring.turbo.core.env.SystemPropertySetupEnvironmentPostProcessorSupport
 org.springframework.context.ApplicationListener=\
 spring.turbo.core.SpringApplicationHolders
