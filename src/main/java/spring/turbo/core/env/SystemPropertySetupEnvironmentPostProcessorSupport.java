@@ -39,8 +39,10 @@ public class SystemPropertySetupEnvironmentPostProcessorSupport extends Environm
             for (var key : props.keySet()) {
                 var value = props.get(key);
                 if ((key instanceof String ks) && (value instanceof String vs)) {
-                    debug("adding system-property {}={}", ks, vs);
-                    System.setProperty(ks, vs);
+                    if (System.getProperty(ks) == null) {
+                        trace("adding system-property {}=\"{}\"", ks, vs);
+                        System.setProperty(ks, vs);
+                    }
                 }
             }
         }
@@ -48,11 +50,15 @@ public class SystemPropertySetupEnvironmentPostProcessorSupport extends Environm
 
     @Nullable
     public Properties loadProperties(SpringApplication application) {
+
+        var location1 = format("file:{}/system.properties", getHomeDir(application).toPath().toAbsolutePath());
+        var location2 = "classpath:system.properties";
+
+        trace("finding resource: [{}]", String.join(", ", location1, location2));
+
         var option =
                 RichResource.builder()
-                        .addLocations(
-                                format("file:{}/system.properties", getHomeDir(application).toPath().toAbsolutePath()),
-                                "classpath:system.properties")
+                        .addLocations(location1, location2)
                         .build();
 
         if (option.isPresent()) {
