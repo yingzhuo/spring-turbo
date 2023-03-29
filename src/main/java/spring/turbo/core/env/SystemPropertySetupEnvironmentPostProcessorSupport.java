@@ -34,7 +34,7 @@ public class SystemPropertySetupEnvironmentPostProcessorSupport extends Environm
     }
 
     private void doExecute(ConfigurableEnvironment environment, SpringApplication application) {
-        var props = findProperties(application);
+        var props = loadProperties(application);
         if (props != null && !props.isEmpty()) {
             for (var key : props.keySet()) {
                 var value = props.get(key);
@@ -47,20 +47,20 @@ public class SystemPropertySetupEnvironmentPostProcessorSupport extends Environm
     }
 
     @Nullable
-    public Properties findProperties(SpringApplication application) {
-        var resourceOption =
+    public Properties loadProperties(SpringApplication application) {
+        var option =
                 RichResource.builder()
                         .addLocations(
                                 format("file:{}/system.properties", getHomeDir(application).toPath().toAbsolutePath()),
                                 "classpath:system.properties")
                         .build();
 
-        if (resourceOption.isPresent()) {
+        if (option.isPresent()) {
             try {
                 var props = new Properties();
-                props.load(resourceOption.get().getInputStreamQuietly());
+                props.load(option.get().getInputStreamQuietly());
                 return props;
-            } catch (IOException e) {
+            } catch (IOException ignored) {
                 return null;
             }
         }
