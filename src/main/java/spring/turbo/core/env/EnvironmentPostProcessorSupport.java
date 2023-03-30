@@ -55,6 +55,10 @@ public abstract class EnvironmentPostProcessorSupport implements EnvironmentPost
         }
     }
 
+    protected final String getHomeDirPath(SpringApplication application) {
+        return getHomeDir(application).getAbsolutePath();
+    }
+
     protected final void trace(String format, Object... args) {
         if (log.isTraceEnabled()) {
             var msg = format(format, args);
