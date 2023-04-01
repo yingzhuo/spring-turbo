@@ -10,6 +10,7 @@ package spring.turbo.core.env;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
+import org.springframework.boot.logging.DeferredLogFactory;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
@@ -30,6 +31,10 @@ import static spring.turbo.util.StringFormatter.format;
 public class LoadmeEnvironmentPostProcessor extends EnvironmentPostProcessorSupport implements EnvironmentPostProcessor {
 
     private static final Properties EMPTY_PROPS = new Properties();
+
+    public LoadmeEnvironmentPostProcessor(DeferredLogFactory logFactory) {
+        super(logFactory);
+    }
 
     @Override
     protected void execute(ConfigurableEnvironment environment, SpringApplication application) {
@@ -59,7 +64,7 @@ public class LoadmeEnvironmentPostProcessor extends EnvironmentPostProcessorSupp
     }
 
     private Properties loadFromHomeDir(SpringApplication application) {
-        var location = format("{}/loadme.properties", super.getHomeDirPath(application));
+        var location = format("{}/loadme.properties", getHomeDirPath(application));
         var resource = new FileSystemResource(location);
         if (resource.exists() && resource.isReadable()) {
             debug("loading \"file:{}\"", location);

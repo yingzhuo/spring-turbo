@@ -9,6 +9,7 @@
 package spring.turbo.core.env;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.logging.DeferredLogFactory;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 
@@ -29,10 +30,8 @@ public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostP
     private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
     private static final String SPRING_ID = randomUUID();
 
-    /**
-     * 默认构造方法
-     */
-    public MiscellaneousSetupEnvironmentPostProcessor() {
+    public MiscellaneousSetupEnvironmentPostProcessor(DeferredLogFactory logFactory) {
+        super(logFactory);
         setOrder(LOWEST_PRECEDENCE);
     }
 

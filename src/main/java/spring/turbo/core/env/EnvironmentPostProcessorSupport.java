@@ -8,12 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core.env;
 
+import org.apache.commons.logging.Log;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
-import org.springframework.boot.logging.DeferredLog;
+import org.springframework.boot.logging.DeferredLogFactory;
 import org.springframework.boot.system.ApplicationHome;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 
@@ -28,14 +27,15 @@ import static spring.turbo.util.StringFormatter.format;
  */
 public abstract class EnvironmentPostProcessorSupport implements EnvironmentPostProcessor, Ordered {
 
-    private final DeferredLog log = new DeferredLog();
-    private int order = HIGHEST_PRECEDENCE;
+    protected final Log log;
+    private int order = 0;
+
+    public EnvironmentPostProcessorSupport(DeferredLogFactory logFactory) {
+        this.log = logFactory.getLog(getClass());
+    }
 
     @Override
     public final void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-
-        // 初始化日志
-        application.addInitializers(new DeferredLogInitializer(this.log, getClass()));
         execute(environment, application);
     }
 
@@ -108,18 +108,6 @@ public abstract class EnvironmentPostProcessorSupport implements EnvironmentPost
 
     public final void setOrder(int order) {
         this.order = order;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private record DeferredLogInitializer(
-            DeferredLog log,
-            Class<?> className) implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-
-        @Override
-        public void initialize(ConfigurableApplicationContext applicationContext) {
-            log.replayTo(className);
-        }
     }
 
 }
