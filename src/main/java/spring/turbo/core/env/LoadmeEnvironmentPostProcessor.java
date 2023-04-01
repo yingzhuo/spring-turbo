@@ -41,7 +41,7 @@ public class LoadmeEnvironmentPostProcessor extends EnvironmentPostProcessorSupp
         for (var key : newProps.keySet()) {
             var value = newProps.get(key);
             if (System.getProperty(key) == null) {
-                debug("adding system-property: {}:{}", key, value);
+                trace("adding system-property: \"{}\":\"{}\"", key, value);
                 System.setProperty(key, value);
             }
         }
