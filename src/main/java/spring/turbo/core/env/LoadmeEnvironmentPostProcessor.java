@@ -14,14 +14,13 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.lang.Nullable;
-import spring.turbo.io.CloseUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import static spring.turbo.io.CloseUtils.closeQuietly;
 import static spring.turbo.util.StringFormatter.format;
 
 /**
@@ -29,6 +28,8 @@ import static spring.turbo.util.StringFormatter.format;
  * @since 2.1.3
  */
 public class LoadmeEnvironmentPostProcessor extends EnvironmentPostProcessorSupport implements EnvironmentPostProcessor {
+
+    private static final Properties EMPTY_PROPS = new Properties();
 
     @Override
     protected void execute(ConfigurableEnvironment environment, SpringApplication application) {
@@ -48,19 +49,27 @@ public class LoadmeEnvironmentPostProcessor extends EnvironmentPostProcessorSupp
     }
 
     private Properties loadFromClassPath() {
-        return resourceToProperties(new ClassPathResource("loadme.properties"));
+        var resource = new ClassPathResource("loadme.properties");
+        if (resource.exists() && resource.isReadable()) {
+            debug("loading \"classpath:loadme.properties\"");
+            return resourceToProperties(resource);
+        } else {
+            return EMPTY_PROPS;
+        }
     }
 
     private Properties loadFromHomeDir(SpringApplication application) {
-        var resource = new FileSystemResource(format("{}/loadme.properties", super.getHomeDirPath(application)));
-        return resourceToProperties(resource);
+        var location = format("{}/loadme.properties", super.getHomeDirPath(application));
+        var resource = new FileSystemResource(location);
+        if (resource.exists() && resource.isReadable()) {
+            debug("loading \"file:{}\"", location);
+            return resourceToProperties(resource);
+        } else {
+            return EMPTY_PROPS;
+        }
     }
 
-    private Properties resourceToProperties(@Nullable Resource resource) {
-        if (resource == null || !resource.exists() || !resource.isReadable()) {
-            return new Properties();
-        }
-
+    private Properties resourceToProperties(Resource resource) {
         try {
             var props = new Properties();
             props.load(resource.getInputStream());
@@ -68,7 +77,7 @@ public class LoadmeEnvironmentPostProcessor extends EnvironmentPostProcessorSupp
         } catch (IOException ignored) {
             return new Properties();
         } finally {
-            CloseUtils.closeQuietly(resource);
+            closeQuietly(resource);
         }
     }
 
