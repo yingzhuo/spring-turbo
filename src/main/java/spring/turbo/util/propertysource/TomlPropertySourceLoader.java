@@ -20,8 +20,6 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * (内部使用)
- *
  * @author 应卓
  * @since 2.0.6
  */
