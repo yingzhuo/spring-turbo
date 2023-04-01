@@ -8,6 +8,9 @@ spring.turbo.convention.spi.ExtraMessageSourceBasenameConventionImpl
 # ----------------------------------------------------------------------------------------------------------------------
 # Spring
 # ----------------------------------------------------------------------------------------------------------------------
+org.springframework.boot.env.PropertySourceLoader=\
+spring.turbo.util.propertysource.HoconPropertySourceLoader,\
+spring.turbo.util.propertysource.TomlPropertySourceLoader
 org.springframework.boot.env.EnvironmentPostProcessor=\
 spring.turbo.core.SpringApplicationHoldersEnvironmentPostProcessor,\
 spring.turbo.core.env.MiscellaneousSetupEnvironmentPostProcessor,\

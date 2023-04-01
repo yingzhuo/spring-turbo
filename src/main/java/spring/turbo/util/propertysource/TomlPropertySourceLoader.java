@@ -26,7 +26,7 @@ import java.util.*;
  * @since 2.0.6
  */
 @SuppressWarnings("unchecked")
-class TomlPropertySourceLoader implements PropertySourceLoader {
+public class TomlPropertySourceLoader implements PropertySourceLoader {
 
     @Override
     public String[] getFileExtensions() {

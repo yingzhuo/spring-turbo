@@ -26,7 +26,7 @@ import java.util.*;
  * @since 2.0.6
  */
 @SuppressWarnings("unchecked")
-class HoconPropertySourceLoader implements PropertySourceLoader {
+public class HoconPropertySourceLoader implements PropertySourceLoader {
 
     @Override
     public String[] getFileExtensions() {
