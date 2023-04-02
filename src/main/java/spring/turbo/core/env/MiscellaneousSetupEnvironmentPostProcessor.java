@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.logging.DeferredLogFactory;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
+import spring.turbo.core.SpringApplicationUtils;
 
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostP
 
         var map = Map.<String, Object>of(
                 "spring.application.id", SPRING_ID,
-                "spring.application.home", getHomeDir(application).getAbsolutePath()
+                "spring.application.home", SpringApplicationUtils.getHomePath(application)
         );
 
         environment

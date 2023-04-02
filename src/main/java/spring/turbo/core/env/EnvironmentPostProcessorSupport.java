@@ -12,13 +12,9 @@ import org.apache.commons.logging.Log;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.logging.DeferredLogFactory;
-import org.springframework.boot.system.ApplicationHome;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 
-import java.io.File;
-
-import static spring.turbo.util.CollectionUtils.size;
 import static spring.turbo.util.StringFormatter.format;
 
 /**
@@ -40,24 +36,6 @@ public abstract class EnvironmentPostProcessorSupport implements EnvironmentPost
     }
 
     protected abstract void execute(ConfigurableEnvironment environment, SpringApplication application);
-
-    protected final File getHomeDir(SpringApplication application) {
-        var sourceClasses = application.getAllSources()
-                .stream()
-                .filter(o -> o instanceof Class<?>)
-                .map(o -> (Class<?>) o)
-                .toList();
-
-        if (size(sourceClasses) == 1) {
-            return new ApplicationHome(sourceClasses.get(0)).getDir();
-        } else {
-            return new ApplicationHome().getDir();
-        }
-    }
-
-    protected final String getHomeDirPath(SpringApplication application) {
-        return getHomeDir(application).getAbsolutePath();
-    }
 
     protected final void trace(String format, Object... args) {
         if (log.isTraceEnabled()) {
