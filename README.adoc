@@ -6,13 +6,13 @@ image:https://img.shields.io/maven-central/v/com.github.yingzhuo/spring-turbo.sv
 === 需求
 
 [options="header",format="psv"]
-|==========================
+|====
 | 软件             | 版本
 | JDK             | 17+
 | SpringFramework | 6.0.0+
 | SpringBoot      | 3.0.0+
 | SpringSecurity  | 6.0.0+
-|==========================
+|====
 
 === 安装 (Maven)
 
@@ -47,6 +47,7 @@ mvn install
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-open-feign/[集成OpenFeign]
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-versioned-controller/[带API版本号的Controller]
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-qrcode-gen[生成QR码]
+* link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-use-hocon-configuration[使用HOCON格式配置文件]
 
 === ISSUES
 
