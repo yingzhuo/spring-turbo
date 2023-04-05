@@ -55,8 +55,10 @@ mvn install
 
 === 许可证
 
-* link:{docdir}/LICENSE.txt[Apache 2]
+* link:{docdir}/LICENSE.txt[Apache-2.0]
 
 === 联系我
 
-* mailto:yingzhor@gmail.com[gmail]
+* 微信: _yingzhor_
+* QQ: _23007067_
+* 电子邮件: _mailto:yingzhor@gmail.com[yingzhor@gmail.com]_
