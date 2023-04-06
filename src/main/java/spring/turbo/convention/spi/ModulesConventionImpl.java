@@ -8,8 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.convention.spi;
 
-import spring.turbo.SpringTurboModules;
 import spring.turbo.convention.ModulesConvention;
+
+import static spring.turbo.SpringTurboModules.SPRING_TURBO;
 
 /**
  * @author 应卓
@@ -19,7 +20,7 @@ public final class ModulesConventionImpl implements ModulesConvention {
 
     @Override
     public String getModuleName() {
-        return SpringTurboModules.SPRING_TURBO;
+        return SPRING_TURBO;
     }
 
     @Override
