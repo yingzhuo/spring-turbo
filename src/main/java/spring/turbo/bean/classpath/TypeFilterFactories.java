@@ -300,6 +300,29 @@ public final class TypeFilterFactories {
         return not(implementsInterface(interfaceType));
     }
 
+    /**
+     * 过滤 package-info
+     *
+     * @return TypeFilter的实例
+     * @see #isNotPackageInfo()
+     */
+    public static TypeFilter isPackageInfo() {
+        return all(
+                isInterface(),
+                fullyQualifiedNameMatch("^.*package-info$")
+        );
+    }
+
+    /**
+     * 过滤非package-info
+     *
+     * @return TypeFilter的实例
+     * @see #isPackageInfo()
+     */
+    public static TypeFilter isNotPackageInfo() {
+        return not(isPackageInfo());
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
@@ -311,38 +334,6 @@ public final class TypeFilterFactories {
     public static TypeFilter not(final TypeFilter f) {
         Asserts.notNull(f);
         return (reader, readerFactory) -> !f.match(reader, readerFactory);
-    }
-
-    /**
-     * 逻辑或
-     *
-     * @param f1 实例1
-     * @param f2 实例2
-     * @return 装饰后的TypeFilter实例
-     * @see #and(TypeFilter, TypeFilter)
-     * @deprecated 使用 {@link #any(TypeFilter...)} 代替
-     */
-    @Deprecated(forRemoval = true)
-    public static TypeFilter or(TypeFilter f1, TypeFilter f2) {
-        Asserts.notNull(f1);
-        Asserts.notNull(f2);
-        return any(f1, f2);
-    }
-
-    /**
-     * 逻辑与
-     *
-     * @param f1 实例1
-     * @param f2 实例2
-     * @return 装饰后的TypeFilter实例
-     * @see #or(TypeFilter, TypeFilter)
-     * @deprecated 使用 {@link #all(TypeFilter...)} 代替
-     */
-    @Deprecated(forRemoval = true)
-    public static TypeFilter and(TypeFilter f1, TypeFilter f2) {
-        Asserts.notNull(f1);
-        Asserts.notNull(f2);
-        return all(f1, f2);
     }
 
     /**
