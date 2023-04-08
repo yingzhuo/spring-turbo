@@ -40,7 +40,6 @@ public final class SpringTurboModules {
     public static final String SPRING_TURBO_MODULE_QUERYSELECTOR = "spring-turbo-module-queryselector";
     public static final String SPRING_TURBO_MODULE_SECURITY = "spring-turbo-module-security";
     public static final String SPRING_TURBO_MODULE_WEBMVC = "spring-turbo-module-webmvc";
-    public static final String SPRING_TURBO_MODULE_MAPSTRUCT = "spring-turbo-module-mapstruct";
 
     /**
      * 私有构造方法
