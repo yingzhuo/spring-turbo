@@ -41,4 +41,4 @@ github: clean
 	@git commit -m "$(timestamp)"
 	@git push
 
-.PHONY: usage compile clean package install deploy version github
+.PHONY: usage compile test clean package install deploy version github
