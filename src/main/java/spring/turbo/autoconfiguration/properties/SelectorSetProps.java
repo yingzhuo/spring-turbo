@@ -8,8 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.autoconfiguration.properties;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,8 +19,9 @@ import java.util.Map;
  * @author 应卓
  * @since 2.0.1
  */
+@Data
 @ConfigurationProperties(prefix = "springturbo.selector-set-formatter")
-public class SelectorSetProps {
+public class SelectorSetProps implements Serializable {
 
     /**
      * 是否启用本插件
@@ -50,55 +53,8 @@ public class SelectorSetProps {
      */
     private SQL sql = new SQL();
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getSeparatorBetweenSelectors() {
-        return separatorBetweenSelectors;
-    }
-
-    public void setSeparatorBetweenSelectors(String separatorBetweenSelectors) {
-        this.separatorBetweenSelectors = separatorBetweenSelectors;
-    }
-
-    public SelectorProperties getSelectorFormatter() {
-        return selectorFormatter;
-    }
-
-    public void setSelectorFormatter(SelectorProperties selectorFormatter) {
-        this.selectorFormatter = selectorFormatter;
-    }
-
-    public boolean isIgnoreErrorIfUnableToParse() {
-        return ignoreErrorIfUnableToParse;
-    }
-
-    public void setIgnoreErrorIfUnableToParse(boolean ignoreErrorIfUnableToParse) {
-        this.ignoreErrorIfUnableToParse = ignoreErrorIfUnableToParse;
-    }
-
-    public boolean isIgnoreErrorIfUnableToPrint() {
-        return ignoreErrorIfUnableToPrint;
-    }
-
-    public void setIgnoreErrorIfUnableToPrint(boolean ignoreErrorIfUnableToPrint) {
-        this.ignoreErrorIfUnableToPrint = ignoreErrorIfUnableToPrint;
-    }
-
-    public SQL getSql() {
-        return sql;
-    }
-
-    public void setSql(SQL sql) {
-        this.sql = sql;
-    }
-
-    public static class SelectorProperties {
+    @Data
+    public static class SelectorProperties implements Serializable {
 
         /**
          * selector内部分隔符
@@ -124,49 +80,12 @@ public class SelectorSetProps {
          * datetime格式
          */
         private String datetimePattern = "yyyy-MM-dd HH:mm:ss";
-
-        public String getSeparatorInSelector() {
-            return separatorInSelector;
-        }
-
-        public void setSeparatorInSelector(String separatorInSelector) {
-            this.separatorInSelector = separatorInSelector;
-        }
-
-        public String getSeparatorInRange() {
-            return separatorInRange;
-        }
-
-        public void setSeparatorInRange(String separatorInRange) {
-            this.separatorInRange = separatorInRange;
-        }
-
-        public String getSeparatorInSet() {
-            return separatorInSet;
-        }
-
-        public void setSeparatorInSet(String separatorInSet) {
-            this.separatorInSet = separatorInSet;
-        }
-
-        public String getDatePattern() {
-            return datePattern;
-        }
-
-        public void setDatePattern(String datePattern) {
-            this.datePattern = datePattern;
-        }
-
-        public String getDatetimePattern() {
-            return datetimePattern;
-        }
-
-        public void setDatetimePattern(String datetimePattern) {
-            this.datetimePattern = datetimePattern;
-        }
     }
 
-    public static class SQL {
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Data
+    public static class SQL implements Serializable {
 
         /**
          * 是否启用SQL片段转换工具
@@ -177,22 +96,6 @@ public class SelectorSetProps {
          * item 到 数据库column的映射
          */
         private Map<String, String> itemNameToTableColumnMappings = new HashMap<>();
-
-        public boolean isEnabled() {
-            return enabled;
-        }
-
-        public void setEnabled(boolean enabled) {
-            this.enabled = enabled;
-        }
-
-        public Map<String, String> getItemNameToTableColumnMappings() {
-            return itemNameToTableColumnMappings;
-        }
-
-        public void setItemNameToTableColumnMappings(Map<String, String> itemNameToTableColumnMappings) {
-            this.itemNameToTableColumnMappings = itemNameToTableColumnMappings;
-        }
     }
 
 }

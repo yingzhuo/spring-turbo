@@ -13,13 +13,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.StringUtils;
 
+import java.io.Serializable;
+
 /**
  * @author 应卓
  * @see org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration
  * @since 2.0.3
  */
 @ConfigurationProperties(prefix = "spring.messages")
-public class MessageSourceProps extends MessageSourceProperties {
+public class MessageSourceProps extends MessageSourceProperties implements Serializable {
 
     /**
      * 默认构造方法
