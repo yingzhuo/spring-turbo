@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.autoconfiguration.properties;
 
-import lombok.*;
+import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.lang.Nullable;
@@ -20,6 +20,7 @@ import java.io.Serializable;
  * @author 应卓
  * @since 1.0.15
  */
+@Data
 @ConfigurationProperties(prefix = "springturbo.zookeeper")
 public class ZkProps implements InitializingBean, Serializable {
 
@@ -40,50 +41,9 @@ public class ZkProps implements InitializingBean, Serializable {
         }
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getConnectString() {
-        return connectString;
-    }
-
-    public void setConnectString(String connectString) {
-        this.connectString = connectString;
-    }
-
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
-
-    public BackoffRetryPolicy getBackoffRetryPolicy() {
-        return backoffRetryPolicy;
-    }
-
-    public void setBackoffRetryPolicy(BackoffRetryPolicy backoffRetryPolicy) {
-        this.backoffRetryPolicy = backoffRetryPolicy;
-    }
-
-    public LeaderElection getLeaderElection() {
-        return leaderElection;
-    }
-
-    public void setLeaderElection(LeaderElection leaderElection) {
-        this.leaderElection = leaderElection;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    @Data
     public static class BackoffRetryPolicy implements Serializable {
         private int baseSleepTime = 1000;
         private int maxRetries = 29;
@@ -105,6 +65,9 @@ public class ZkProps implements InitializingBean, Serializable {
         }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Data
     public static class LeaderElection implements Serializable {
 
         private boolean enabled = true;
@@ -113,31 +76,6 @@ public class ZkProps implements InitializingBean, Serializable {
 
         @Nullable
         private String nodeId;
-
-        public boolean isEnabled() {
-            return enabled;
-        }
-
-        public void setEnabled(boolean enabled) {
-            this.enabled = enabled;
-        }
-
-        public String getZkPath() {
-            return zkPath;
-        }
-
-        public void setZkPath(String zkPath) {
-            this.zkPath = zkPath;
-        }
-
-        @Nullable
-        public String getNodeId() {
-            return nodeId;
-        }
-
-        public void setNodeId(@Nullable String nodeId) {
-            this.nodeId = nodeId;
-        }
     }
 
 }
