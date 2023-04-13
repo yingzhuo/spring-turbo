@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core.env;
 
+import org.springframework.boot.ConfigurableBootstrapContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.logging.DeferredLogFactory;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -31,8 +32,8 @@ public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostP
     private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
     private static final String SPRING_ID = randomUUID();
 
-    public MiscellaneousSetupEnvironmentPostProcessor(DeferredLogFactory logFactory) {
-        super(logFactory);
+    public MiscellaneousSetupEnvironmentPostProcessor(DeferredLogFactory logFactory, ConfigurableBootstrapContext bootstrapContext) {
+        super(logFactory, bootstrapContext);
         setOrder(LOWEST_PRECEDENCE);
     }
 
