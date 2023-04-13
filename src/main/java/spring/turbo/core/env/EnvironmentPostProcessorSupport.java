@@ -9,6 +9,7 @@
 package spring.turbo.core.env;
 
 import org.apache.commons.logging.Log;
+import org.springframework.boot.ConfigurableBootstrapContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.logging.DeferredLogFactory;
@@ -24,10 +25,12 @@ import static spring.turbo.util.StringFormatter.format;
 public abstract class EnvironmentPostProcessorSupport implements EnvironmentPostProcessor, Ordered {
 
     protected final Log log;
+    protected final ConfigurableBootstrapContext bootstrapContext;
     private int order = 0;
 
-    public EnvironmentPostProcessorSupport(DeferredLogFactory logFactory) {
+    public EnvironmentPostProcessorSupport(DeferredLogFactory logFactory, ConfigurableBootstrapContext bootstrapContext) {
         this.log = logFactory.getLog(getClass());
+        this.bootstrapContext = bootstrapContext;
     }
 
     @Override
