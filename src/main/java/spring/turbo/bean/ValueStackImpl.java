@@ -22,9 +22,8 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  * @since 2.2.4
  */
 @SuppressWarnings("unchecked")
-public record ValueFinderImpl(Environment environment,
-                              ResourceLoader resourceLoader,
-                              ConversionService conversionService) implements ValueFinder {
+public record ValueStackImpl(Environment environment, ResourceLoader resourceLoader,
+                             ConversionService conversionService) implements ValueStack {
 
     @Nullable
     @Override
@@ -38,6 +37,10 @@ public record ValueFinderImpl(Environment environment,
         if (value == null && resourceLocation != null) {
             var resource = resourceLoader.getResource(resourceLocation);
             value = ResourceUtils.readText(resource, UTF_8);
+        }
+
+        if (value == null) {
+            value = defaultValue;
         }
 
         return value;

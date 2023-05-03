@@ -15,7 +15,7 @@ import org.springframework.lang.Nullable;
  * @author 应卓
  * @since 2.2.4
  */
-public interface ValueFinder {
+public sealed interface ValueStack permits ValueStackImpl {
 
     @Nullable
     public String findString(@Nullable String environmentName, @Nullable String resourceLocation, @Nullable String defaultValue);
@@ -24,6 +24,8 @@ public interface ValueFinder {
     public default String findString(@Nullable String environmentName, @Nullable String resourceLocation) {
         return findString(environmentName, resourceLocation, null);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     @Nullable
     public <T> T findObject(@NonNull Class<T> valueType, @Nullable String environmentName, @Nullable String resourceLocation, @Nullable String defaultValue);
