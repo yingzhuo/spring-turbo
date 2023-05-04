@@ -9,8 +9,11 @@
 package spring.turbo.webmvc.api;
 
 /**
- * @param <T> payload类型
+ * @param <T>
+ *            payload类型
+ *
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public interface MutableApiResult<T> extends ApiResult<T> {

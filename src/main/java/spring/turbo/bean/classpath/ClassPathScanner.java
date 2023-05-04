@@ -16,10 +16,12 @@ import java.util.List;
  * ClassPath扫描器
  *
  * @author 应卓
+ *
  * @see #builder()
  * @see org.springframework.beans.factory.config.BeanDefinition
  * @see org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider
  * @see org.springframework.core.type.filter.TypeFilter
+ *
  * @since 1.0.0
  */
 public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullClassPathScanner {
@@ -36,8 +38,11 @@ public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullCl
     /**
      * 扫描类路径
      *
-     * @param packageSet 扫描起点 (多个)
+     * @param packageSet
+     *            扫描起点 (多个)
+     *
      * @return 扫描结果
+     *
      * @see PackageSet
      */
     public List<ClassDef> scan(@Nullable PackageSet packageSet);

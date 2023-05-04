@@ -15,7 +15,9 @@ import spring.turbo.util.Asserts;
  * {@link org.springframework.core.env.Environment}相关工具
  *
  * @author 应卓
+ *
  * @see SpringUtils
+ *
  * @since 1.0.0
  */
 public final class EnvironmentUtils {
@@ -30,9 +32,13 @@ public final class EnvironmentUtils {
     /**
      * 解析placeholder
      *
-     * @param text 解析的文本
+     * @param text
+     *            解析的文本
+     *
      * @return 解析结果
-     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+     *
+     * @throws UnsupportedOperationException
+     *             无法定位{@code ApplicationContext}实例
      */
     public static String resolvePlaceholders(String text) {
         Asserts.notNull(text);
@@ -42,10 +48,15 @@ public final class EnvironmentUtils {
     /**
      * 解析placeholder
      *
-     * @param text 解析的文本
+     * @param text
+     *            解析的文本
+     *
      * @return 解析结果
-     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
-     * @throws IllegalArgumentException      任意一个解析项无法满足
+     *
+     * @throws UnsupportedOperationException
+     *             无法定位{@code ApplicationContext}实例
+     * @throws IllegalArgumentException
+     *             任意一个解析项无法满足
      */
     public static String resolveRequiredPlaceholders(String text) {
         Asserts.notNull(text);
@@ -55,9 +66,13 @@ public final class EnvironmentUtils {
     /**
      * 获取PropertyValue
      *
-     * @param propertyName property名
+     * @param propertyName
+     *            property名
+     *
      * @return 结果或{@code null}
-     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+     *
+     * @throws UnsupportedOperationException
+     *             无法定位{@code ApplicationContext}实例
      */
     @Nullable
     public static String getPropertyValue(String propertyName) {
@@ -67,10 +82,15 @@ public final class EnvironmentUtils {
     /**
      * 获取PropertyValue
      *
-     * @param propertyName property名
+     * @param propertyName
+     *            property名
+     *
      * @return 结果
-     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
-     * @throws IllegalArgumentException      无法找到property名相对的值
+     *
+     * @throws UnsupportedOperationException
+     *             无法定位{@code ApplicationContext}实例
+     * @throws IllegalArgumentException
+     *             无法找到property名相对的值
      */
     public static String getRequiredPropertyValue(String propertyName) {
         final String result = getPropertyValue(propertyName);
@@ -81,11 +101,17 @@ public final class EnvironmentUtils {
     /**
      * 获取PropertyValue
      *
-     * @param propertyName property名
-     * @param targetType   目标类型
-     * @param <T>          目标类型泛型
+     * @param propertyName
+     *            property名
+     * @param targetType
+     *            目标类型
+     * @param <T>
+     *            目标类型泛型
+     *
      * @return 结果或{@code null}
-     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+     *
+     * @throws UnsupportedOperationException
+     *             无法定位{@code ApplicationContext}实例
      */
     @Nullable
     public static <T> T getPropertyValue(String propertyName, Class<T> targetType) {
@@ -95,12 +121,19 @@ public final class EnvironmentUtils {
     /**
      * 获取PropertyValue
      *
-     * @param propertyName property名
-     * @param targetType   目标类型
-     * @param <T>          目标类型泛型
+     * @param propertyName
+     *            property名
+     * @param targetType
+     *            目标类型
+     * @param <T>
+     *            目标类型泛型
+     *
      * @return 结果
-     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
-     * @throws IllegalArgumentException      无法找到property名相对的值
+     *
+     * @throws UnsupportedOperationException
+     *             无法定位{@code ApplicationContext}实例
+     * @throws IllegalArgumentException
+     *             无法找到property名相对的值
      */
     public static <T> T getRequiredPropertyValue(String propertyName, Class<T> targetType) {
         final T result = getPropertyValue(propertyName, targetType);
@@ -111,12 +144,19 @@ public final class EnvironmentUtils {
     /**
      * 获取PropertyValue
      *
-     * @param propertyName  property名
-     * @param targetType    目标类型
-     * @param defaultIfNull 默认值
-     * @param <T>           目标类型泛型
+     * @param propertyName
+     *            property名
+     * @param targetType
+     *            目标类型
+     * @param defaultIfNull
+     *            默认值
+     * @param <T>
+     *            目标类型泛型
+     *
      * @return 结果或默认值 (可能为null)
-     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+     *
+     * @throws UnsupportedOperationException
+     *             无法定位{@code ApplicationContext}实例
      */
     @Nullable
     public static <T> T getPropertyValue(String propertyName, Class<T> targetType, @Nullable T defaultIfNull) {
@@ -130,13 +170,21 @@ public final class EnvironmentUtils {
     /**
      * 获取PropertyValue
      *
-     * @param propertyName  property名
-     * @param targetType    目标类型
-     * @param defaultIfNull 默认值
-     * @param <T>           目标类型泛型
+     * @param propertyName
+     *            property名
+     * @param targetType
+     *            目标类型
+     * @param defaultIfNull
+     *            默认值
+     * @param <T>
+     *            目标类型泛型
+     *
      * @return 结果或默认值 (可能为null)
-     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
-     * @throws IllegalArgumentException      无法找到property名相对的值
+     *
+     * @throws UnsupportedOperationException
+     *             无法定位{@code ApplicationContext}实例
+     * @throws IllegalArgumentException
+     *             无法找到property名相对的值
      */
     public static <T> T getRequiredPropertyValue(String propertyName, Class<T> targetType, @Nullable T defaultIfNull) {
         final T result = getPropertyValue(propertyName, targetType, defaultIfNull);

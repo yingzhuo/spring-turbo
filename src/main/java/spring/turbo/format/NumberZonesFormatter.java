@@ -24,6 +24,7 @@ import java.util.Locale;
 
 /**
  * @author 应卓
+ *
  * @since 1.3.1
  */
 public class NumberZonesFormatter implements Formatter<NumberZones> {

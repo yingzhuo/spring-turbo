@@ -19,7 +19,9 @@ import spring.turbo.jackson2.support.PrinterJsonSerializer;
  * {@link NumberPair} Jackson Mixin
  *
  * @author 应卓
+ *
  * @see NumberPair
+ *
  * @since 1.3.0
  */
 @JsonSerialize(using = DoublePairMixin.S.class)

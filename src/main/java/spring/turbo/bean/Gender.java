@@ -12,6 +12,7 @@ package spring.turbo.bean;
  * 性别
  *
  * @author 应卓
+ *
  * @since 1.1.0
  */
 public enum Gender {
@@ -31,7 +32,8 @@ public enum Gender {
     /**
      * 构造方法
      *
-     * @param intValue 整形值
+     * @param intValue
+     *            整形值
      */
     Gender(int intValue) {
         this.intValue = intValue;

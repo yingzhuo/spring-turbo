@@ -20,8 +20,10 @@ import spring.turbo.jackson2.support.PrinterJsonSerializer;
  * {@link BigDecimalPair} Jackson Mixin
  *
  * @author 应卓
+ *
  * @see NumberPair
  * @see BigDecimalPair
+ *
  * @since 1.3.0
  */
 @JsonSerialize(using = BigDecimalPairMixin.S.class)

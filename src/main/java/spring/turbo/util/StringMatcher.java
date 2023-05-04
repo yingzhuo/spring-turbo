@@ -18,7 +18,9 @@ import static spring.turbo.util.CharPool.*;
  * {@link String} 匹配器
  *
  * @author 应卓
+ *
  * @see StringTokenizer
+ *
  * @since 2.0.2
  */
 public interface StringMatcher {
@@ -26,7 +28,9 @@ public interface StringMatcher {
     /**
      * 连接多个 {@link StringMatcher}
      *
-     * @param matchers 要连接的多个实例
+     * @param matchers
+     *            要连接的多个实例
+     *
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher andMatcher(@Nullable StringMatcher... matchers) {
@@ -52,7 +56,9 @@ public interface StringMatcher {
     /**
      * 返回指定单个字符的匹配器
      *
-     * @param ch 指定的字符
+     * @param ch
+     *            指定的字符
+     *
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher charMatcher(char ch) {
@@ -62,7 +68,9 @@ public interface StringMatcher {
     /**
      * 返回指定多个字符的匹配器
      *
-     * @param chars 指定的多个字符
+     * @param chars
+     *            指定的多个字符
+     *
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher charSetMatcher(@Nullable char... chars) {
@@ -79,7 +87,9 @@ public interface StringMatcher {
     /**
      * 返回指定多个字符的匹配器
      *
-     * @param chars 指定的多个字符
+     * @param chars
+     *            指定的多个字符
+     *
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher charSetMatcher(@Nullable String chars) {
@@ -131,7 +141,7 @@ public interface StringMatcher {
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher quoteMatcher() {
-        return new CharSet(new char[]{'\'', '"'});
+        return new CharSet(new char[] { '\'', '"' });
     }
 
     /**
@@ -239,7 +249,7 @@ public interface StringMatcher {
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher slashAndBackslashMatcher() {
-        return new CharSet(new char[]{SLASH, BACKSLASH});
+        return new CharSet(new char[] { SLASH, BACKSLASH });
     }
 
     /**
@@ -257,9 +267,7 @@ public interface StringMatcher {
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher numericMatcher() {
-        return new CharSet(new char[]{
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-        });
+        return new CharSet(new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' });
     }
 
     /**
@@ -268,15 +276,8 @@ public interface StringMatcher {
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher lowerMatcher() {
-        return new CharSet(new char[]{
-                'a', 'b', 'c', 'd',
-                'e', 'f', 'g', 'h',
-                'i', 'j', 'k', 'l',
-                'm', 'n', 'o', 'p',
-                'q', 'r', 's', 't',
-                'u', 'v', 'w', 'x',
-                'y', 'z'
-        });
+        return new CharSet(new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+                'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' });
     }
 
     /**
@@ -285,15 +286,8 @@ public interface StringMatcher {
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher upperMatcher() {
-        return new CharSet(new char[]{
-                'A', 'B', 'C', 'D',
-                'E', 'F', 'G', 'H',
-                'I', 'J', 'K', 'L',
-                'M', 'N', 'O', 'P',
-                'Q', 'R', 'S', 'T',
-                'U', 'V', 'W', 'X',
-                'Y', 'Z'
-        });
+        return new CharSet(new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+                'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' });
     }
 
     /**
@@ -302,23 +296,11 @@ public interface StringMatcher {
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher alphaMatcher() {
-        return new CharSet(new char[]{
-                'A', 'B', 'C', 'D',
-                'E', 'F', 'G', 'H',
-                'I', 'J', 'K', 'L',
-                'M', 'N', 'O', 'P',
-                'Q', 'R', 'S', 'T',
-                'U', 'V', 'W', 'X',
-                'Y', 'Z',
+        return new CharSet(new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+                'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                 // ------
-                'a', 'b', 'c', 'd',
-                'e', 'f', 'g', 'h',
-                'i', 'j', 'k', 'l',
-                'm', 'n', 'o', 'p',
-                'q', 'r', 's', 't',
-                'u', 'v', 'w', 'x',
-                'y', 'z'
-        });
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+                'v', 'w', 'x', 'y', 'z' });
     }
 
     /**
@@ -327,31 +309,20 @@ public interface StringMatcher {
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher alphanumericMatcher() {
-        return new CharSet(new char[]{
-                'A', 'B', 'C', 'D',
-                'E', 'F', 'G', 'H',
-                'I', 'J', 'K', 'L',
-                'M', 'N', 'O', 'P',
-                'Q', 'R', 'S', 'T',
-                'U', 'V', 'W', 'X',
-                'Y', 'Z',
+        return new CharSet(new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+                'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                 // ------
-                'a', 'b', 'c', 'd',
-                'e', 'f', 'g', 'h',
-                'i', 'j', 'k', 'l',
-                'm', 'n', 'o', 'p',
-                'q', 'r', 's', 't',
-                'u', 'v', 'w', 'x',
-                'y', 'z',
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+                'v', 'w', 'x', 'y', 'z',
                 // ------
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-        });
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' });
     }
 
     /**
      * 返回 {@link StringTokenizer} 默认风格的匹配器
      *
      * @return {@link StringMatcher} 实例
+     *
      * @see StringTokenizer
      */
     public static StringMatcher splitMatcher() {
@@ -361,7 +332,9 @@ public interface StringMatcher {
     /**
      * 返回指定字符串的匹配器
      *
-     * @param string 字符串
+     * @param string
+     *            字符串
+     *
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher stringMatcher(@Nullable char... string) {
@@ -372,7 +345,9 @@ public interface StringMatcher {
     /**
      * 返回指定字符串的匹配器
      *
-     * @param string 字符串
+     * @param string
+     *            字符串
+     *
      * @return {@link StringMatcher} 实例
      */
     public static StringMatcher stringMatcher(@Nullable String string) {

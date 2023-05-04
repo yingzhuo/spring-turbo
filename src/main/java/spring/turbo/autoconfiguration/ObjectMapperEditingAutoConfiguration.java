@@ -17,6 +17,7 @@ import spring.turbo.jackson2.CoreModuleJackson2Module;
 
 /**
  * @author 应卓
+ *
  * @since 1.3.0
  */
 @AutoConfiguration
@@ -29,7 +30,8 @@ public class ObjectMapperEditingAutoConfiguration implements InitializingBean {
     /**
      * 构造方法
      *
-     * @param om 要注入的 {@link ObjectMapper} 实例
+     * @param om
+     *            要注入的 {@link ObjectMapper} 实例
      */
     public ObjectMapperEditingAutoConfiguration(ObjectMapper om) {
         this.objectMapper = om;

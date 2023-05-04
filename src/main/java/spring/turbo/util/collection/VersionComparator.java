@@ -20,7 +20,9 @@ import java.util.Objects;
  * 版本号比较器
  *
  * @author 应卓
+ *
  * @see #getInstance()
+ *
  * @since 1.1.4
  */
 public class VersionComparator implements Comparator<String> {
@@ -39,6 +41,7 @@ public class VersionComparator implements Comparator<String> {
     /**
      * 比较两个版本<br>
      * null版本排在最小：即：
+     *
      * <pre>
      * compare(null, "v1") &lt; 0
      * compare("v1", "v1") = 0
@@ -50,8 +53,10 @@ public class VersionComparator implements Comparator<String> {
      * compare("V0.0.20170102", "V0.0.20170101") &gt; 0
      * </pre>
      *
-     * @param version1 版本1
-     * @param version2 版本2
+     * @param version1
+     *            版本1
+     * @param version2
+     *            版本2
      */
     @Override
     public int compare(@Nullable String version1, @Nullable String version2) {
@@ -86,7 +91,7 @@ public class VersionComparator implements Comparator<String> {
                 diff = v1.compareTo(v2);
             }
             if (diff != 0) {
-                //已有结果，结束
+                // 已有结果，结束
                 break;
             }
         }

@@ -19,12 +19,13 @@ import static java.lang.annotation.ElementType.*;
  * 判断字符串是不是合法的JSON
  *
  * @author 应卓
+ *
  * @since 2.0.4
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Constraint(validatedBy = ValidJsonValidator.class)
 public @interface ValidJson {
 

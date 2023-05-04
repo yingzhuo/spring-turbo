@@ -16,6 +16,7 @@ import java.util.Locale;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.11
  */
 public final class MessageUtils {
@@ -28,33 +29,27 @@ public final class MessageUtils {
     }
 
     public static String getMessage(MessageSourceResolvable resolvable) {
-        return SpringUtils.getRequiredBean(MessageSourceAccessor.class)
-                .getMessage(resolvable);
+        return SpringUtils.getRequiredBean(MessageSourceAccessor.class).getMessage(resolvable);
     }
 
     public static String getMessage(String code, @Nullable Object[] args, Locale locale) {
-        return SpringUtils.getRequiredBean(MessageSourceAccessor.class)
-                .getMessage(code, args, locale);
+        return SpringUtils.getRequiredBean(MessageSourceAccessor.class).getMessage(code, args, locale);
     }
 
     public static String getMessage(String code, @Nullable Object[] args, String defaultMessage, Locale locale) {
-        return SpringUtils.getRequiredBean(MessageSourceAccessor.class)
-                .getMessage(code, args, defaultMessage, locale);
+        return SpringUtils.getRequiredBean(MessageSourceAccessor.class).getMessage(code, args, defaultMessage, locale);
     }
 
     public static String getMessage(String code, String defaultMessage) {
-        return SpringUtils.getRequiredBean(MessageSourceAccessor.class)
-                .getMessage(code, defaultMessage);
+        return SpringUtils.getRequiredBean(MessageSourceAccessor.class).getMessage(code, defaultMessage);
     }
 
     public static String getMessage(String code, String defaultMessage, Locale locale) {
-        return SpringUtils.getRequiredBean(MessageSourceAccessor.class)
-                .getMessage(code, defaultMessage, locale);
+        return SpringUtils.getRequiredBean(MessageSourceAccessor.class).getMessage(code, defaultMessage, locale);
     }
 
     public static String getMessage(String code, @Nullable Object[] args, String defaultMessage) {
-        return SpringUtils.getRequiredBean(MessageSourceAccessor.class)
-                .getMessage(code, args, defaultMessage);
+        return SpringUtils.getRequiredBean(MessageSourceAccessor.class).getMessage(code, args, defaultMessage);
     }
 
 }

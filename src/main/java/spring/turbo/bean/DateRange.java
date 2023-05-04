@@ -25,7 +25,9 @@ import java.util.stream.Stream;
  * 日期范围
  *
  * @author 应卓
+ *
  * @see DateUtils
+ *
  * @since 1.1.4
  */
 public final class DateRange implements Serializable, Iterable<Date> {
@@ -72,8 +74,11 @@ public final class DateRange implements Serializable, Iterable<Date> {
     /**
      * 分区
      *
-     * @param partitionor 分区器实例
+     * @param partitionor
+     *            分区器实例
+     *
      * @return 分区结果 (可变集合)
+     *
      * @see DateRangePartitionor
      * @see DateRangePartitionorFactories
      */
@@ -106,8 +111,10 @@ public final class DateRange implements Serializable, Iterable<Date> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         DateRange dates = (DateRange) o;
         return leftInclude.equals(dates.leftInclude) && rightInclude.equals(dates.rightInclude);
     }

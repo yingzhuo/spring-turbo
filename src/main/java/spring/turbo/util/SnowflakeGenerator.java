@@ -12,6 +12,7 @@ package spring.turbo.util;
  * 雪花算法ID生成器
  *
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public class SnowflakeGenerator {
@@ -89,15 +90,19 @@ public class SnowflakeGenerator {
     /**
      * 构造方法
      *
-     * @param workerId     工作ID (0~31)
-     * @param dataCenterId 数据中心ID (0~31)
+     * @param workerId
+     *            工作ID (0~31)
+     * @param dataCenterId
+     *            数据中心ID (0~31)
      */
     public SnowflakeGenerator(long workerId, long dataCenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
-            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+            throw new IllegalArgumentException(
+                    String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
         }
         if (dataCenterId > maxDataCenterId || dataCenterId < 0) {
-            throw new IllegalArgumentException(String.format("data center Id can't be greater than %d or less than 0", maxDataCenterId));
+            throw new IllegalArgumentException(
+                    String.format("data center Id can't be greater than %d or less than 0", maxDataCenterId));
         }
         this.workerId = workerId;
         this.dataCenterId = dataCenterId;
@@ -111,30 +116,30 @@ public class SnowflakeGenerator {
     public synchronized Long nextId() {
         long timestamp = timeGen();
 
-        //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
+        // 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
         if (timestamp < lastTimestamp) {
-            throw new RuntimeException(
-                    String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+            throw new RuntimeException(String.format(
+                    "Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
         }
 
-        //如果是同一时间生成的，则进行毫秒内序列
+        // 如果是同一时间生成的，则进行毫秒内序列
         if (lastTimestamp == timestamp) {
             sequence = (sequence + 1) & sequenceMask;
-            //毫秒内序列溢出
+            // 毫秒内序列溢出
             if (sequence == 0) {
-                //阻塞到下一个毫秒,获得新的时间戳
+                // 阻塞到下一个毫秒,获得新的时间戳
                 timestamp = tilNextMillis(lastTimestamp);
             }
         }
-        //时间戳改变，毫秒内序列重置
+        // 时间戳改变，毫秒内序列重置
         else {
             sequence = 0L;
         }
 
-        //上次生成ID的时间截
+        // 上次生成ID的时间截
         lastTimestamp = timestamp;
 
-        //移位并通过或运算拼到一起组成64位的ID
+        // 移位并通过或运算拼到一起组成64位的ID
         return ((timestamp - twepoch) << timestampLeftShift) //
                 | (dataCenterId << dataCenterIdShift) //
                 | (workerId << workerIdShift) //
@@ -144,7 +149,9 @@ public class SnowflakeGenerator {
     /**
      * 阻塞到下一个毫秒，直到获得新的时间戳
      *
-     * @param lastTimestamp 上次生成ID的时间截
+     * @param lastTimestamp
+     *            上次生成ID的时间截
+     *
      * @return 当前时间戳
      */
     private long tilNextMillis(long lastTimestamp) {
@@ -163,6 +170,5 @@ public class SnowflakeGenerator {
     private long timeGen() {
         return System.currentTimeMillis();
     }
-
 
 }

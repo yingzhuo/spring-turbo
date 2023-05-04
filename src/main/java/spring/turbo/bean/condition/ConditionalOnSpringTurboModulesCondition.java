@@ -17,14 +17,15 @@ import spring.turbo.SpringTurboModules;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.13
  */
 public final class ConditionalOnSpringTurboModulesCondition extends SpringBootCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        var attributes =
-                AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnSpringTurboModules.class.getName()));
+        var attributes = AnnotationAttributes
+                .fromMap(metadata.getAnnotationAttributes(ConditionalOnSpringTurboModules.class.getName()));
 
         if (attributes == null) {
             return ConditionOutcome.noMatch("no modules");
@@ -37,9 +38,8 @@ public final class ConditionalOnSpringTurboModulesCondition extends SpringBootCo
             return ConditionOutcome.noMatch("no modules");
         }
 
-        var matches = logic == ConditionalOnSpringTurboModules.Logic.ANY ?
-                SpringTurboModules.presentAny(modules) :
-                SpringTurboModules.presentAll(modules);
+        var matches = logic == ConditionalOnSpringTurboModules.Logic.ANY ? SpringTurboModules.presentAny(modules)
+                : SpringTurboModules.presentAll(modules);
 
         if (matches) {
             return ConditionOutcome.match();

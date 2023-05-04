@@ -18,7 +18,9 @@ import java.time.temporal.ChronoUnit;
  * {@link Duration} 格式化工具
  *
  * @author 应卓
+ *
  * @see DurationParseUtils
+ *
  * @since 1.0.1
  */
 public final class DurationFormatUtils {
@@ -33,7 +35,9 @@ public final class DurationFormatUtils {
     /**
      * 格式化 {@link Duration}实例
      *
-     * @param duration {@link Duration}实例
+     * @param duration
+     *            {@link Duration}实例
+     *
      * @return 格式化字符串
      */
     public static String format(Duration duration) {
@@ -43,8 +47,11 @@ public final class DurationFormatUtils {
     /**
      * 格式化 {@link Duration}实例
      *
-     * @param duration {@link Duration}实例
-     * @param unit     默认时间单位，可为空，为空时为毫秒
+     * @param duration
+     *            {@link Duration}实例
+     * @param unit
+     *            默认时间单位，可为空，为空时为毫秒
+     *
      * @return 格式化字符串
      */
     public static String format(Duration duration, @Nullable ChronoUnit unit) {

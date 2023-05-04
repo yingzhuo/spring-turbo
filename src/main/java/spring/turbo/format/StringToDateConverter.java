@@ -22,6 +22,7 @@ import java.util.Set;
 
 /**
  * @author 应卓
+ *
  * @since 1.1.3
  */
 public class StringToDateConverter implements GenericConverter {
@@ -36,16 +37,12 @@ public class StringToDateConverter implements GenericConverter {
     @Nullable
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return Set.of(
-                new ConvertiblePair(String.class, Date.class),
-                new ConvertiblePair(String.class, Calendar.class),
+        return Set.of(new ConvertiblePair(String.class, Date.class), new ConvertiblePair(String.class, Calendar.class),
                 new ConvertiblePair(String.class, LocalDate.class),
-                new ConvertiblePair(String.class, LocalDateTime.class),
-                new ConvertiblePair(String.class, Year.class),
+                new ConvertiblePair(String.class, LocalDateTime.class), new ConvertiblePair(String.class, Year.class),
                 new ConvertiblePair(String.class, Instant.class),
                 new ConvertiblePair(String.class, java.sql.Date.class),
-                new ConvertiblePair(String.class, DateDescriptor.class)
-        );
+                new ConvertiblePair(String.class, DateDescriptor.class));
     }
 
     @Nullable

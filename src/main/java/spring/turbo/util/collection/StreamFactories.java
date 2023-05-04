@@ -22,8 +22,10 @@ import java.util.stream.StreamSupport;
  * {@link Stream} 创建工具
  *
  * @author 应卓
+ *
  * @see SetFactories
  * @see ListFactories
+ *
  * @since 1.0.13
  */
 public final class StreamFactories {
@@ -71,7 +73,8 @@ public final class StreamFactories {
         if (enumeration == null) {
             return Stream.empty();
         }
-        final Spliterator<T> spliterator = Spliterators.spliteratorUnknownSize(new EnumerationIterator<>(enumeration), 0);
+        final Spliterator<T> spliterator = Spliterators.spliteratorUnknownSize(new EnumerationIterator<>(enumeration),
+                0);
         return StreamSupport.stream(spliterator, false);
     }
 
@@ -79,7 +82,8 @@ public final class StreamFactories {
         if (enumeration == null) {
             return Stream.empty();
         }
-        final Spliterator<T> spliterator = Spliterators.spliteratorUnknownSize(new EnumerationIterator<>(enumeration), 0);
+        final Spliterator<T> spliterator = Spliterators.spliteratorUnknownSize(new EnumerationIterator<>(enumeration),
+                0);
         return StreamSupport.stream(spliterator, parallel);
     }
 

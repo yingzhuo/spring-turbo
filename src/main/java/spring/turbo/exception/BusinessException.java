@@ -19,12 +19,14 @@ import static java.util.Optional.ofNullable;
  * 业务异常
  *
  * @author 应卓
+ *
  * @see #builder()
  * @see org.springframework.context.MessageSourceResolvable
  * @see org.springframework.context.MessageSource
  * @see org.springframework.context.support.MessageSourceAccessor
  * @see org.springframework.context.support.ApplicationObjectSupport
  * @see spring.turbo.core.MessageUtils
+ *
  * @since 2.0.1
  */
 public final class BusinessException extends RuntimeException implements MessageSourceResolvable {
@@ -41,9 +43,13 @@ public final class BusinessException extends RuntimeException implements Message
     /**
      * 创建器用构造方法
      *
-     * @param codes          I18n codes
-     * @param arguments      I18n arguments
-     * @param defaultMessage I18n defaultMessage
+     * @param codes
+     *            I18n codes
+     * @param arguments
+     *            I18n arguments
+     * @param defaultMessage
+     *            I18n defaultMessage
+     *
      * @see org.springframework.context.MessageSource
      * @see MessageSourceResolvable
      * @see BusinessExceptionBuilder
@@ -65,7 +71,8 @@ public final class BusinessException extends RuntimeException implements Message
     /**
      * 构造方法
      *
-     * @param message 异常信息
+     * @param message
+     *            异常信息
      */
     public BusinessException(@Nullable String message) {
         super(message);
@@ -100,7 +107,8 @@ public final class BusinessException extends RuntimeException implements Message
 
     @Override
     public String getDefaultMessage() {
-        return Objects.requireNonNullElseGet(this.defaultMessage, () -> Objects.requireNonNullElse(super.getMessage(), null));
+        return Objects.requireNonNullElseGet(this.defaultMessage,
+                () -> Objects.requireNonNullElse(super.getMessage(), null));
     }
 
 }

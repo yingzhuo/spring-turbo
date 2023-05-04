@@ -22,8 +22,10 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  * {@link Resource} 相关工具
  *
  * @author 应卓
+ *
  * @see Resource
  * @see ClassPathResourceUtils
+ *
  * @since 1.1.0
  */
 public final class ResourceUtils {
@@ -38,7 +40,9 @@ public final class ResourceUtils {
     /**
      * 读取文本
      *
-     * @param resource 资源
+     * @param resource
+     *            资源
+     *
      * @return 文本内容
      */
     public static String readText(Resource resource) {
@@ -48,8 +52,11 @@ public final class ResourceUtils {
     /**
      * 读取文本
      *
-     * @param resource 资源
-     * @param charset  编码
+     * @param resource
+     *            资源
+     * @param charset
+     *            编码
+     *
      * @return 文本内容
      */
     public static String readText(Resource resource, @Nullable Charset charset) {
@@ -68,7 +75,9 @@ public final class ResourceUtils {
     /**
      * 读取字节码
      *
-     * @param resource 资源
+     * @param resource
+     *            资源
+     *
      * @return 字节码内容
      */
     public static byte[] readByteArray(Resource resource) {

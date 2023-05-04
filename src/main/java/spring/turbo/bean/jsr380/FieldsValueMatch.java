@@ -17,12 +17,13 @@ import static java.lang.annotation.ElementType.*;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.0
  */
 @Repeatable(FieldsValueMatch.List.class)
 @Inherited
 @Documented
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldsValueMatchValidator.class)
 public @interface FieldsValueMatch {
@@ -39,7 +40,7 @@ public @interface FieldsValueMatch {
 
     @Inherited
     @Documented
-    @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+    @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
     @Retention(RetentionPolicy.RUNTIME)
     public @interface List {
         public FieldsValueMatch[] value();

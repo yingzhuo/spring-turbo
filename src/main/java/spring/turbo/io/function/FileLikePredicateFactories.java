@@ -21,6 +21,7 @@ import java.util.Arrays;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.8
  */
 public final class FileLikePredicateFactories {
@@ -127,12 +128,7 @@ public final class FileLikePredicateFactories {
         if (ArrayUtils.length(acceptRegexes) == 1) {
             return new Regex(acceptRegexes[0]);
         } else {
-            return or(
-                    Arrays.stream(acceptRegexes)
-                            .map(Regex::new)
-                            .toList()
-                            .toArray(new Regex[0])
-            );
+            return or(Arrays.stream(acceptRegexes).map(Regex::new).toList().toArray(new Regex[0]));
         }
     }
 
@@ -144,11 +140,7 @@ public final class FileLikePredicateFactories {
         if (ArrayUtils.length(acceptPatterns) == 1) {
             return new AntPath(acceptPatterns[0]);
         } else {
-            return or(
-                    Arrays.stream(acceptPatterns)
-                            .map(AntPath::new).toList()
-                            .toArray(new AntPath[0])
-            );
+            return or(Arrays.stream(acceptPatterns).map(AntPath::new).toList().toArray(new AntPath[0]));
         }
     }
 
@@ -164,12 +156,8 @@ public final class FileLikePredicateFactories {
         if (ArrayUtils.length(acceptFilenames) == 1) {
             return new Filename(ignoreCase, acceptFilenames[1]);
         } else {
-            return or(
-                    Arrays.stream(acceptFilenames)
-                            .map(fn -> new Filename(ignoreCase, fn))
-                            .toList()
-                            .toArray(new Filename[0])
-            );
+            return or(Arrays.stream(acceptFilenames).map(fn -> new Filename(ignoreCase, fn)).toList()
+                    .toArray(new Filename[0]));
         }
     }
 
@@ -185,12 +173,8 @@ public final class FileLikePredicateFactories {
         if (ArrayUtils.length(acceptExtensions) == 1) {
             return new Filename(ignoreCase, acceptExtensions[1]);
         } else {
-            return or(
-                    Arrays.stream(acceptExtensions)
-                            .map(fn -> new Extension(ignoreCase, fn))
-                            .toList()
-                            .toArray(new Extension[0])
-            );
+            return or(Arrays.stream(acceptExtensions).map(fn -> new Extension(ignoreCase, fn)).toList()
+                    .toArray(new Extension[0]));
         }
     }
 

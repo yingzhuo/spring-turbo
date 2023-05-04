@@ -19,6 +19,7 @@ import static spring.turbo.util.StringPool.*;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.8
  */
 public class StringToBooleanConverter implements GenericConverter {

@@ -25,7 +25,9 @@ import java.io.IOException;
  * {@link Json} 相关Mixin
  *
  * @author 应卓
+ *
  * @see Json
+ *
  * @since 1.3.0
  */
 public final class JsonMixins {
@@ -53,7 +55,8 @@ public final class JsonMixins {
 
         public static class ToLong extends JsonSerializer<String> {
             @Override
-            public void serialize(@Nullable String value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+            public void serialize(@Nullable String value, JsonGenerator gen, SerializerProvider serializers)
+                    throws IOException {
                 if (value == null) {
                     gen.writeNull();
                     return;

@@ -16,8 +16,10 @@ import java.util.*;
 
 /**
  * @author 应卓
+ *
  * @see NamedArrayBuilder
  * @see #builder()
+ *
  * @since 1.0.0
  */
 public class NamedArray<T> implements Iterable<T> {
@@ -34,8 +36,10 @@ public class NamedArray<T> implements Iterable<T> {
     /**
      * 构造方法
      *
-     * @param array 数据
-     * @param names 名称
+     * @param array
+     *            数据
+     * @param names
+     *            名称
      */
     NamedArray(List<T> array, List<String> names, @Nullable Map<String, String> aliases) {
         Asserts.notNull(array);

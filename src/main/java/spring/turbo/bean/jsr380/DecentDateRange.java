@@ -20,12 +20,14 @@ import static java.lang.annotation.ElementType.*;
  * {@link DateRange} 检查用元注释
  *
  * @author 应卓
+ *
  * @see DateRange
+ *
  * @since 2.0.3
  */
 @Inherited
 @Documented
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = DecentDateRangeValidator.class)
 public @interface DecentDateRange {

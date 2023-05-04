@@ -20,9 +20,11 @@ import java.util.Map;
  * 扩展 {@link PasswordEncoder}
  *
  * @author 应卓
+ *
  * @see PasswordEncoder
  * @see DelegatingPasswordEncoder
  * @see SpringFactoriesLoader
+ *
  * @since 2.0.3
  */
 @FunctionalInterface

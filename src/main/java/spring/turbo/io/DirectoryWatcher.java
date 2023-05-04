@@ -16,7 +16,9 @@ import java.nio.file.*;
 
 /**
  * @author 应卓
+ *
  * @see #builder()
+ *
  * @since 2.1.0
  */
 public final class DirectoryWatcher {
@@ -42,23 +44,15 @@ public final class DirectoryWatcher {
 
     public void start() {
         try {
-            WatchService watchService
-                    = FileSystems.getDefault().newWatchService();
+            WatchService watchService = FileSystems.getDefault().newWatchService();
 
-            directory.register(
-                    watchService,
-                    StandardWatchEventKinds.ENTRY_CREATE,
-                    StandardWatchEventKinds.ENTRY_DELETE,
-                    StandardWatchEventKinds.ENTRY_MODIFY
-            );
+            directory.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE,
+                    StandardWatchEventKinds.ENTRY_MODIFY);
 
             WatchKey key;
             while ((key = watchService.take()) != null) {
                 for (WatchEvent<?> event : key.pollEvents()) {
-                    listener.execute(
-                            "" + event.kind(),
-                            "" + event.context()
-                    );
+                    listener.execute("" + event.kind(), "" + event.context());
                 }
                 key.reset();
             }

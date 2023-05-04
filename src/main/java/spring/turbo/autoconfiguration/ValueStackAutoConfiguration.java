@@ -19,14 +19,16 @@ import spring.turbo.bean.ValueStackImpl;
 
 /**
  * @author 应卓
+ *
  * @since 2.2.4
  */
 @AutoConfiguration
 @ConditionalOnMissingBean(ValueStack.class)
 public class ValueStackAutoConfiguration {
 
-    @Bean(name = {"valueStack", "valueFinder"})
-    public ValueStack valueStack(Environment environment, ResourceLoader resourceLoader, ConversionService conversionService) {
+    @Bean(name = { "valueStack", "valueFinder" })
+    public ValueStack valueStack(Environment environment, ResourceLoader resourceLoader,
+            ConversionService conversionService) {
         return new ValueStackImpl(environment, resourceLoader, conversionService);
     }
 

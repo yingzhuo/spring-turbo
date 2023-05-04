@@ -20,8 +20,10 @@ import java.net.URL;
  * FasterXML-jackson 相关工具
  *
  * @author 应卓
+ *
  * @see ObjectMapper
  * @see SpringUtils
+ *
  * @since 1.0.12
  */
 public final class JacksonUtils {
@@ -40,8 +42,7 @@ public final class JacksonUtils {
     public static String writeAsString(Object obj, boolean flat) {
         Asserts.notNull(obj);
 
-        final ObjectMapper om = SpringUtils.getBean(ObjectMapper.class)
-                .orElseGet(ObjectMapper::new);
+        final ObjectMapper om = SpringUtils.getBean(ObjectMapper.class).orElseGet(ObjectMapper::new);
 
         try {
             final String jsonString = om.writeValueAsString(obj);
@@ -61,8 +62,7 @@ public final class JacksonUtils {
         Asserts.notNull(json);
         Asserts.notNull(objectType);
 
-        final ObjectMapper om = SpringUtils.getBean(ObjectMapper.class)
-                .orElseGet(ObjectMapper::new);
+        final ObjectMapper om = SpringUtils.getBean(ObjectMapper.class).orElseGet(ObjectMapper::new);
 
         try {
             return om.readValue(json, objectType);
@@ -75,8 +75,7 @@ public final class JacksonUtils {
         Asserts.notNull(json);
         Asserts.notNull(objectType);
 
-        final ObjectMapper om = SpringUtils.getBean(ObjectMapper.class)
-                .orElseGet(ObjectMapper::new);
+        final ObjectMapper om = SpringUtils.getBean(ObjectMapper.class).orElseGet(ObjectMapper::new);
 
         try {
             return om.readValue(json, objectType);
@@ -89,8 +88,7 @@ public final class JacksonUtils {
         Asserts.notNull(json);
         Asserts.notNull(objectType);
 
-        final ObjectMapper om = SpringUtils.getBean(ObjectMapper.class)
-                .orElseGet(ObjectMapper::new);
+        final ObjectMapper om = SpringUtils.getBean(ObjectMapper.class).orElseGet(ObjectMapper::new);
 
         try {
             return om.readValue(json, objectType);
@@ -103,8 +101,7 @@ public final class JacksonUtils {
         Asserts.notNull(json);
         Asserts.notNull(objectType);
 
-        final ObjectMapper om = SpringUtils.getBean(ObjectMapper.class)
-                .orElseGet(ObjectMapper::new);
+        final ObjectMapper om = SpringUtils.getBean(ObjectMapper.class).orElseGet(ObjectMapper::new);
 
         try {
             return om.readValue(json, objectType);

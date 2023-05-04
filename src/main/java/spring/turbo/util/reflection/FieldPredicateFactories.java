@@ -17,7 +17,9 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
+ *
  * @see FieldUtils
+ *
  * @since 1.2.1
  */
 public final class FieldPredicateFactories {
@@ -81,7 +83,6 @@ public final class FieldPredicateFactories {
     public static Predicate<Field> isNotCopyableField() {
         return not(isCopyableField());
     }
-
 
     public static Predicate<Field> withAnnotation(Class<? extends Annotation> annotationClass) {
         return m -> m.getAnnotation(annotationClass) != null;

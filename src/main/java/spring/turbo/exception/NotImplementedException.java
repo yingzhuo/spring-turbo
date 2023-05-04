@@ -14,6 +14,7 @@ import org.springframework.lang.Nullable;
  * 未实现的功能
  *
  * @author 应卓
+ *
  * @since 1.0.11
  */
 public class NotImplementedException extends UnsupportedOperationException {

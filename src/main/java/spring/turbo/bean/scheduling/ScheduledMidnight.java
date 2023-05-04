@@ -17,8 +17,10 @@ import java.lang.annotation.*;
  * {@code @Scheduled(cron = "@midnight")} 的快捷方式
  *
  * @author 应卓
+ *
  * @see Scheduled
  * @see ScheduledDaily
+ *
  * @since 1.2.3
  */
 @Documented

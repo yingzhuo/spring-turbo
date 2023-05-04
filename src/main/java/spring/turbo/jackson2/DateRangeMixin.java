@@ -19,7 +19,9 @@ import spring.turbo.jackson2.support.PrinterJsonSerializer;
  * {@link DateRange} Jackson Mixin
  *
  * @author 应卓
+ *
  * @see DateRange
+ *
  * @since 1.3.0
  */
 @JsonSerialize(using = DateRangeMixin.S.class)

@@ -14,6 +14,7 @@ import org.springframework.validation.Validator;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public final class NullValidator implements Validator {

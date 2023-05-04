@@ -14,8 +14,10 @@ import static spring.turbo.util.crypto.Base64.encode;
 
 /**
  * @author 应卓
+ *
  * @see #builder()
  * @see DSAKeys
+ *
  * @since 1.0.0
  */
 public interface DSA extends Crypto {
@@ -33,10 +35,7 @@ public interface DSA extends Crypto {
     public boolean verify(byte[] data, byte[] sign);
 
     public default boolean verify(String data, String sign) {
-        return verify(
-                data.getBytes(UTF_8),
-                decode(sign)
-        );
+        return verify(data.getBytes(UTF_8), decode(sign));
     }
 
 }

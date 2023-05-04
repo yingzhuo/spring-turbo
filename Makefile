@@ -10,6 +10,7 @@ usage:
 	@echo "deploy  =>  发布"
 	@echo "install =>  本地安装"
 	@echo "version =>  调整版本号"
+	@echo "format  =>  格式化代码"
 	@echo "github  =>  提交源代码"
 	@echo "=============================================================="
 
@@ -36,9 +37,12 @@ version:
 clean:
 	@mvn -f $(CURDIR)/pom.xml clean -q
 
-github: clean
+format:
+	@mvn formatter:format
+
+github: clean format
 	@git add .
 	@git commit -m "$(timestamp)"
 	@git push
 
-.PHONY: usage compile test clean package install deploy version github
+.PHONY: usage compile test clean package install deploy version format github

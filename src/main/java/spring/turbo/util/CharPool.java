@@ -12,7 +12,9 @@ package spring.turbo.util;
  * 字符池
  *
  * @author 应卓
+ *
  * @see StringPool
+ *
  * @since 1.0.0
  */
 public final class CharPool {

@@ -20,8 +20,10 @@ import spring.turbo.jackson2.support.PrinterJsonSerializer;
  * {@link LongPair} Jackson Mixin
  *
  * @author 应卓
+ *
  * @see NumberPair
  * @see LongPair
+ *
  * @since 1.3.0
  */
 @JsonSerialize(using = LongPairMixin.S.class)

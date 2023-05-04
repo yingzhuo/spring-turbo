@@ -21,9 +21,13 @@ import java.util.stream.Stream;
 /**
  * 一个批次的数据 (单个线程有效)
  *
- * @param <T> ValueObject类型
+ * @param <T>
+ *            ValueObject类型
+ *
  * @author 应卓
+ *
  * @see BindingResultBatch
+ *
  * @since 1.0.9
  */
 public class Batch<T> implements Iterable<T>, Serializable {
@@ -45,7 +49,8 @@ public class Batch<T> implements Iterable<T>, Serializable {
     /**
      * 构造方法
      *
-     * @param maxSize 一批最大包含的ValueObject数量，必须大于零
+     * @param maxSize
+     *            一批最大包含的ValueObject数量，必须大于零
      */
     public Batch(final int maxSize) {
         Asserts.isTrue(maxSize > 0);

@@ -15,12 +15,13 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.0
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.TYPE})
+@Target({ ElementType.FIELD, ElementType.TYPE })
 @Repeatable(Alias.List.class)
 public @interface Alias {
 
@@ -35,7 +36,7 @@ public @interface Alias {
     @Inherited
     @Documented
     @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.FIELD, ElementType.TYPE})
+    @Target({ ElementType.FIELD, ElementType.TYPE })
     public static @interface List {
         public Alias[] value() default {};
     }

@@ -20,14 +20,17 @@ import java.util.HashSet;
 
 /**
  * @author 应卓
+ *
  * @see ConditionalOnOS
+ *
  * @since 2.0.1
  */
 public final class ConditionalOnOSCondition extends SpringBootCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        var attributes = AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnOS.class.getName()));
+        var attributes = AnnotationAttributes
+                .fromMap(metadata.getAnnotationAttributes(ConditionalOnOS.class.getName()));
         if (attributes == null) {
             return ConditionOutcome.noMatch("not match on current operation-system");
         }

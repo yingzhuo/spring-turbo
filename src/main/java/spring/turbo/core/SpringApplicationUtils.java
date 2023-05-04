@@ -18,6 +18,7 @@ import static spring.turbo.util.CollectionUtils.size;
 
 /**
  * @author 应卓
+ *
  * @since 2.1.3
  */
 public final class SpringApplicationUtils {
@@ -32,11 +33,8 @@ public final class SpringApplicationUtils {
     public static File getHomeDir(SpringApplication application) {
         Asserts.notNull(application);
 
-        var sourceClasses = application.getAllSources()
-                .stream()
-                .filter(o -> o instanceof Class<?>)
-                .map(o -> (Class<?>) o)
-                .toList();
+        var sourceClasses = application.getAllSources().stream().filter(o -> o instanceof Class<?>)
+                .map(o -> (Class<?>) o).toList();
 
         if (size(sourceClasses) == 1) {
             return new ApplicationHome(sourceClasses.get(0)).getDir();

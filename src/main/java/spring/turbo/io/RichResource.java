@@ -34,7 +34,9 @@ import static spring.turbo.util.StringUtils.blankSafeAddAll;
  * 有更丰富功能的 {@link Resource}
  *
  * @author 应卓
+ *
  * @see #builder()
+ *
  * @since 2.0.8
  */
 public sealed interface RichResource extends Resource, Closeable permits RichResourceImpl {
@@ -202,6 +204,7 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
      * {@link RichResource}创建器
      *
      * @author 应卓
+     *
      * @since 2.0.8
      */
     final class Builder {

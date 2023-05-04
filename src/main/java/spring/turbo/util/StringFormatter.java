@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public final class StringFormatter {
@@ -32,7 +33,7 @@ public final class StringFormatter {
     }
 
     public static String format(String messagePattern, Object arg) {
-        return format(messagePattern, new Object[]{arg});
+        return format(messagePattern, new Object[] { arg });
     }
 
     public static String format(String messagePattern, Object... argArray) {

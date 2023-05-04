@@ -20,7 +20,9 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
+ *
  * @see org.springframework.util.Assert
+ *
  * @since 1.0.0
  */
 public final class Asserts {
@@ -109,8 +111,7 @@ public final class Asserts {
     }
 
     public static void hasLength(@Nullable String text) {
-        hasLength(text,
-                "[Assertion failed] - this String argument must have length; it must not be null or empty");
+        hasLength(text, "[Assertion failed] - this String argument must have length; it must not be null or empty");
     }
 
     public static void hasText(@Nullable String text, @Nullable String message) {
@@ -126,20 +127,20 @@ public final class Asserts {
     }
 
     public static void hasText(@Nullable String text) {
-        hasText(text,
-                "[Assertion failed] - this String argument must have text; it must not be null, empty, or blank");
+        hasText(text, "[Assertion failed] - this String argument must have text; it must not be null, empty, or blank");
     }
 
     public static void doesNotContain(@Nullable String textToSearch, String substring, @Nullable String message) {
-        if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring) &&
-                textToSearch.contains(substring)) {
+        if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring)
+                && textToSearch.contains(substring)) {
             throw new IllegalArgumentException(message);
         }
     }
 
-    public static void doesNotContain(@Nullable String textToSearch, String substring, Supplier<String> messageSupplier) {
-        if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring) &&
-                textToSearch.contains(substring)) {
+    public static void doesNotContain(@Nullable String textToSearch, String substring,
+            Supplier<String> messageSupplier) {
+        if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring)
+                && textToSearch.contains(substring)) {
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }

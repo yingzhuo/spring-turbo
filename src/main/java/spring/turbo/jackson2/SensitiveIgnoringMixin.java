@@ -12,18 +12,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author 应卓
+ *
  * @since 1.3.0
  */
-@JsonIgnoreProperties(
-        ignoreUnknown = true,
-        value = {
-                "password",
-                "passwd",
-                "pwd",
-                "secret",
-                "hidden",
-                "hide",
-                "key"
-        })
+@JsonIgnoreProperties(ignoreUnknown = true, value = { "password", "passwd", "pwd", "secret", "hidden", "hide", "key" })
 public abstract class SensitiveIgnoringMixin {
 }

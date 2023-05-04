@@ -21,6 +21,7 @@ import static spring.turbo.util.StringPool.ANNOTATION_STRING_NULL;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public final class ValueObjectUtils {
@@ -35,7 +36,9 @@ public final class ValueObjectUtils {
     /**
      * 获取VO类各个property的别名
      *
-     * @param valueObjectType VO类型
+     * @param valueObjectType
+     *            VO类型
+     *
      * @return 别名
      */
     public static Map<String, String> getAliases(Class<?> valueObjectType) {
@@ -82,8 +85,11 @@ public final class ValueObjectUtils {
     /**
      * 将ValueObject转换为 {@link ValueObjectGetter} 实例
      *
-     * @param valueObject ValueObject实例 不可为 {@code null}
+     * @param valueObject
+     *            ValueObject实例 不可为 {@code null}
+     *
      * @return {@link ValueObjectGetter} 实例
+     *
      * @since 1.0.6
      */
     public static ValueObjectGetter toValueObjectGetter(Object valueObject) {

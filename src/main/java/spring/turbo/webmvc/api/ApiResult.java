@@ -13,8 +13,11 @@ import org.springframework.lang.Nullable;
 import java.io.Serializable;
 
 /**
- * @param <T> 负载类型
+ * @param <T>
+ *            负载类型
+ *
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public interface ApiResult<T> extends Serializable {

@@ -16,9 +16,11 @@ import java.math.BigDecimal;
  * {@link BigDecimal}对
  *
  * @author 应卓
+ *
  * @see LongPair
  * @see BigIntegerPair
  * @see DoublePair
+ *
  * @since 1.0.7
  */
 public final class BigDecimalPair extends NumberPair {

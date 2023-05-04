@@ -13,7 +13,9 @@ import spring.turbo.bean.DateDescriptor;
 
 /**
  * @author 应卓
+ *
  * @see DateRangePartitionorFactories
+ *
  * @since 1.1.4
  */
 @FunctionalInterface

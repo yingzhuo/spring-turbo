@@ -17,14 +17,16 @@ import java.lang.annotation.*;
  * {@code @Value("${spring.application.id}")} 的快捷方式
  *
  * @author 应卓
+ *
  * @see Value
  * @see MiscellaneousSetupEnvironmentPostProcessor
+ *
  * @since 2.0.8
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+@Target({ ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER })
 @Value("${spring.application.id}")
 public @interface ApplicationId {
 }

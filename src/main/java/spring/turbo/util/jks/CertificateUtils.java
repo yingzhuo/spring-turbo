@@ -21,7 +21,9 @@ import java.security.cert.CertificateFactory;
  * 电子证书工具
  *
  * @author 应卓
+ *
  * @see KeyStoreUtils
+ *
  * @since 1.0.15
  */
 public final class CertificateUtils {
@@ -36,7 +38,9 @@ public final class CertificateUtils {
     /**
      * 获得数字证书
      *
-     * @param certificateResource 证书文件
+     * @param certificateResource
+     *            证书文件
+     *
      * @return 证书
      */
     public static Certificate getCertificate(Resource certificateResource) {
@@ -54,7 +58,9 @@ public final class CertificateUtils {
     /**
      * 获得公钥
      *
-     * @param certificateResource 电子证书文件
+     * @param certificateResource
+     *            电子证书文件
+     *
      * @return 公钥
      */
     public static PublicKey getPublicKeyFromCertificate(Resource certificateResource) {

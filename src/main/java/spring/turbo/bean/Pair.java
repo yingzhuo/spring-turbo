@@ -19,9 +19,11 @@ import java.util.Objects;
  * 二元组
  *
  * @author 应卓
+ *
  * @see Tuple
  * @see #ofNullable(Object, Object)
  * @see #ofNonNull(Object, Object)
+ *
  * @since 1.0.0
  */
 public final class Pair<A, B> implements Serializable {
@@ -71,8 +73,10 @@ public final class Pair<A, B> implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Pair<?, ?> pair = (Pair<?, ?>) o;
         return Objects.equals(a, pair.a) && Objects.equals(b, pair.b);
     }

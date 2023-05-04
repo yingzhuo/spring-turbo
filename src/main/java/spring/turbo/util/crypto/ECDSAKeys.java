@@ -15,6 +15,7 @@ import static spring.turbo.util.crypto.Base64.encode;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public final class ECDSAKeys implements Keys {
@@ -35,10 +36,7 @@ public final class ECDSAKeys implements Keys {
             PublicKey publicKey = keyPair.getPublic();
             PrivateKey privateKey = keyPair.getPrivate();
 
-            return new ECDSAKeys(
-                    encode(publicKey.getEncoded()),
-                    encode(privateKey.getEncoded())
-            );
+            return new ECDSAKeys(encode(publicKey.getEncoded()), encode(privateKey.getEncoded()));
 
         } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException e) {
             throw new AssertionError();

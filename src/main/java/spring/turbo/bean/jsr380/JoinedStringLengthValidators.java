@@ -19,6 +19,7 @@ import static spring.turbo.util.StringPool.NULL;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.3
  */
 public final class JoinedStringLengthValidators {
@@ -30,7 +31,8 @@ public final class JoinedStringLengthValidators {
         super();
     }
 
-    private static sealed abstract class AbstractJoinedStringLengthValidator<T> implements ConstraintValidator<JoinedStringLength, T> permits ForArray, ForIterable {
+    private static sealed abstract class AbstractJoinedStringLengthValidator<T>
+            implements ConstraintValidator<JoinedStringLength, T> permits ForArray, ForIterable {
         @Nullable
         private String separator;
         private boolean ignoreNull;
@@ -47,7 +49,8 @@ public final class JoinedStringLengthValidators {
 
         @Override
         public final boolean isValid(@Nullable T value, ConstraintValidatorContext context) {
-            if (value == null) return true;
+            if (value == null)
+                return true;
             Asserts.notNull(separator);
             var str = this.joinAsString(value, this.separator, this.ignoreNull);
             var len = StringUtils.length(str);
@@ -80,10 +83,8 @@ public final class JoinedStringLengthValidators {
             if (ignoreNull) {
                 return StringUtils.nullSafeJoin(value, separator);
             } else {
-                return String.join(
-                        separator,
-                        StreamFactories.newStream(value).map(o -> o != null ? o.toString() : NULL).toList()
-                );
+                return String.join(separator,
+                        StreamFactories.newStream(value).map(o -> o != null ? o.toString() : NULL).toList());
             }
         }
     }

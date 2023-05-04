@@ -16,10 +16,12 @@ import java.util.Map;
 
 /**
  * @author 应卓
+ *
  * @see ListFactories
  * @see SetFactories
  * @see StreamFactories
  * @see StringObjectMap
+ *
  * @since 1.1.2
  */
 public final class StringStringMap extends HashMap<String, String> {

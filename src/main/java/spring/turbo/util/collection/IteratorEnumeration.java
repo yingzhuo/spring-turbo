@@ -16,9 +16,13 @@ import java.util.Iterator;
 /**
  * Iterator包装成Enumeration
  *
- * @param <T> 泛型
+ * @param <T>
+ *            泛型
+ *
  * @author 应卓
+ *
  * @see EnumerationIterator
+ *
  * @since 1.2.2
  */
 public class IteratorEnumeration<T> implements Enumeration<T> {

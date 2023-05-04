@@ -12,6 +12,7 @@ import java.util.function.Consumer;
 
 /**
  * @author 应卓
+ *
  * @since 1.1.4
  */
 @FunctionalInterface

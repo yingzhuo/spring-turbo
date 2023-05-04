@@ -18,7 +18,9 @@ import static spring.turbo.util.StringPool.*;
 
 /**
  * @author 应卓
+ *
  * @see ConditionalOnDebugMode
+ *
  * @since 1.3.0
  */
 public final class ConditionalOnDebugModeCondition extends SpringBootCondition {
@@ -35,9 +37,8 @@ public final class ConditionalOnDebugModeCondition extends SpringBootCondition {
     private boolean doMatches(ConditionContext context, AnnotatedTypeMetadata metadata) {
         try {
             final var env = context.getEnvironment();
-            final var attributes = AnnotationAttributes.fromMap(
-                    metadata.getAnnotationAttributes(ConditionalOnDebugMode.class.getName())
-            );
+            final var attributes = AnnotationAttributes
+                    .fromMap(metadata.getAnnotationAttributes(ConditionalOnDebugMode.class.getName()));
 
             if (attributes == null) {
                 return true;
@@ -46,8 +47,8 @@ public final class ConditionalOnDebugModeCondition extends SpringBootCondition {
             final var traceAsDebug = attributes.getBoolean("traceAsDebug");
 
             if (traceAsDebug) {
-                return (env.getProperty(DEBUG) != null && !FALSE.equalsIgnoreCase(env.getProperty(DEBUG))) ||
-                        (env.getProperty(TRACE) != null && !FALSE.equalsIgnoreCase(env.getProperty(TRACE)));
+                return (env.getProperty(DEBUG) != null && !FALSE.equalsIgnoreCase(env.getProperty(DEBUG)))
+                        || (env.getProperty(TRACE) != null && !FALSE.equalsIgnoreCase(env.getProperty(TRACE)));
             } else {
                 return env.getProperty(DEBUG) != null && !FALSE.equalsIgnoreCase(env.getProperty(DEBUG));
             }

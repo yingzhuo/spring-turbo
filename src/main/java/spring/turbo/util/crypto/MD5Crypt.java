@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.13
  */
 public final class MD5Crypt {
@@ -203,7 +204,7 @@ public final class MD5Crypt {
         try {
             return MessageDigest.getInstance("MD5");
         } catch (final NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e);  // 实际不可能发生
+            throw new IllegalArgumentException(e); // 实际不可能发生
         }
     }
 

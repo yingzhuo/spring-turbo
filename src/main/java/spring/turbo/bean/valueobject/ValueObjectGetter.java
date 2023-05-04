@@ -22,6 +22,7 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.6
  */
 public class ValueObjectGetter implements Serializable {
@@ -82,8 +83,10 @@ public class ValueObjectGetter implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         ValueObjectGetter that = (ValueObjectGetter) o;
         return vo.equals(that.vo);
     }

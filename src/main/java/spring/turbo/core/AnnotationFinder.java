@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
  * 元注释相关工具
  *
  * @author 应卓
+ *
  * @since 2.0.11
  */
 public final class AnnotationFinder {
@@ -44,20 +45,24 @@ public final class AnnotationFinder {
         return annotation;
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Class<?> type, Class<A> annotationType) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Class<?> type,
+            Class<A> annotationType) {
         return findAnnotationAttributes(type, annotationType, false, false);
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Class<?> type, Class<A> annotationType, boolean classValueAsString) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Class<?> type,
+            Class<A> annotationType, boolean classValueAsString) {
         return findAnnotationAttributes(type, annotationType, classValueAsString, false);
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Class<?> type, Class<A> annotationType, boolean classValueAsString, boolean nestedAnnotationsAsMap) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Class<?> type,
+            Class<A> annotationType, boolean classValueAsString, boolean nestedAnnotationsAsMap) {
         var annotation = findAnnotation(type, annotationType);
         if (annotation == null) {
             return new AnnotationAttributes();
         }
-        return AnnotationAttributes.fromMap(AnnotationUtils.getAnnotationAttributes(annotation, classValueAsString, nestedAnnotationsAsMap));
+        return AnnotationAttributes.fromMap(
+                AnnotationUtils.getAnnotationAttributes(annotation, classValueAsString, nestedAnnotationsAsMap));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -73,20 +78,24 @@ public final class AnnotationFinder {
         return annotation;
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Method method, Class<A> annotationType) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Method method,
+            Class<A> annotationType) {
         return findAnnotationAttributes(method, annotationType, false, false);
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Method method, Class<A> annotationType, boolean classValueAsString) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Method method,
+            Class<A> annotationType, boolean classValueAsString) {
         return findAnnotationAttributes(method, annotationType, classValueAsString, false);
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Method method, Class<A> annotationType, boolean classValueAsString, boolean nestedAnnotationsAsMap) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Method method,
+            Class<A> annotationType, boolean classValueAsString, boolean nestedAnnotationsAsMap) {
         var annotation = findAnnotation(method, annotationType);
         if (annotation == null) {
             return new AnnotationAttributes();
         }
-        return AnnotationAttributes.fromMap(AnnotationUtils.getAnnotationAttributes(annotation, classValueAsString, nestedAnnotationsAsMap));
+        return AnnotationAttributes.fromMap(
+                AnnotationUtils.getAnnotationAttributes(annotation, classValueAsString, nestedAnnotationsAsMap));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -102,20 +111,24 @@ public final class AnnotationFinder {
         return annotation;
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Field field, Class<A> annotationType) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Field field,
+            Class<A> annotationType) {
         return findAnnotationAttributes(field, annotationType, false, false);
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Field field, Class<A> annotationType, boolean classValueAsString) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Field field,
+            Class<A> annotationType, boolean classValueAsString) {
         return findAnnotationAttributes(field, annotationType, classValueAsString, false);
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Field field, Class<A> annotationType, boolean classValueAsString, boolean nestedAnnotationsAsMap) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Field field,
+            Class<A> annotationType, boolean classValueAsString, boolean nestedAnnotationsAsMap) {
         var annotation = findAnnotation(field, annotationType);
         if (annotation == null) {
             return new AnnotationAttributes();
         }
-        return AnnotationAttributes.fromMap(AnnotationUtils.getAnnotationAttributes(annotation, classValueAsString, nestedAnnotationsAsMap));
+        return AnnotationAttributes.fromMap(
+                AnnotationUtils.getAnnotationAttributes(annotation, classValueAsString, nestedAnnotationsAsMap));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -131,20 +144,24 @@ public final class AnnotationFinder {
         return annotation;
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Constructor<?> constructor, Class<A> annotationType) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Constructor<?> constructor,
+            Class<A> annotationType) {
         return findAnnotationAttributes(constructor, annotationType, false, false);
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Constructor<?> constructor, Class<A> annotationType, boolean classValueAsString) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Constructor<?> constructor,
+            Class<A> annotationType, boolean classValueAsString) {
         return findAnnotationAttributes(constructor, annotationType, classValueAsString, false);
     }
 
-    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Constructor<?> constructor, Class<A> annotationType, boolean classValueAsString, boolean nestedAnnotationsAsMap) {
+    public static <A extends Annotation> AnnotationAttributes findAnnotationAttributes(Constructor<?> constructor,
+            Class<A> annotationType, boolean classValueAsString, boolean nestedAnnotationsAsMap) {
         var annotation = findAnnotation(constructor, annotationType);
         if (annotation == null) {
             return new AnnotationAttributes();
         }
-        return AnnotationAttributes.fromMap(AnnotationUtils.getAnnotationAttributes(annotation, classValueAsString, nestedAnnotationsAsMap));
+        return AnnotationAttributes.fromMap(
+                AnnotationUtils.getAnnotationAttributes(annotation, classValueAsString, nestedAnnotationsAsMap));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -153,11 +170,13 @@ public final class AnnotationFinder {
         return toAnnotationAttributes(annotation, false, false);
     }
 
-    public static <A extends Annotation> AnnotationAttributes toAnnotationAttributes(@Nullable A annotation, boolean classValueAsString) {
+    public static <A extends Annotation> AnnotationAttributes toAnnotationAttributes(@Nullable A annotation,
+            boolean classValueAsString) {
         return toAnnotationAttributes(annotation, classValueAsString, false);
     }
 
-    public static <A extends Annotation> AnnotationAttributes toAnnotationAttributes(@Nullable A annotation, boolean classValueAsString, boolean nestedAnnotationsAsMap) {
+    public static <A extends Annotation> AnnotationAttributes toAnnotationAttributes(@Nullable A annotation,
+            boolean classValueAsString, boolean nestedAnnotationsAsMap) {
         if (annotation == null) {
             return new AnnotationAttributes();
         }

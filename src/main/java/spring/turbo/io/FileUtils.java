@@ -20,10 +20,12 @@ import java.util.List;
 
 /**
  * @author 应卓
+ *
  * @see Files
  * @see java.nio.file.Paths
  * @see PathUtils
  * @see PathTreeUtils
+ *
  * @since 1.1.0
  */
 public final class FileUtils {
@@ -38,7 +40,9 @@ public final class FileUtils {
     /**
      * 转换为Path实例
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return path
      */
     public static Path toPath(File file) {
@@ -49,21 +53,25 @@ public final class FileUtils {
     /**
      * 创建Path实例
      *
-     * @param first 首个path
-     * @param more  其他path
+     * @param first
+     *            首个path
+     * @param more
+     *            其他path
+     *
      * @return Path实例
      */
     public static File createFile(String first, String... more) {
-        return PathUtils.toFile(
-                PathUtils.createPath(first, more)
-        );
+        return PathUtils.toFile(PathUtils.createPath(first, more));
     }
 
     /**
      * 创建文件实例
      *
-     * @param file file
-     * @throws java.io.UncheckedIOException IO异常
+     * @param file
+     *            file
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void createFile(File file) {
         Asserts.notNull(file);
@@ -73,8 +81,11 @@ public final class FileUtils {
     /**
      * 创建目录实例
      *
-     * @param file file
-     * @throws java.io.UncheckedIOException IO异常
+     * @param file
+     *            file
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void createDirectory(File file) {
         Asserts.notNull(file);
@@ -84,10 +95,15 @@ public final class FileUtils {
     /**
      * 移动文件或目录
      *
-     * @param source          源
-     * @param target          目标
-     * @param replaceExisting 覆盖已存在的目标
-     * @throws java.io.UncheckedIOException IO异常
+     * @param source
+     *            源
+     * @param target
+     *            目标
+     * @param replaceExisting
+     *            覆盖已存在的目标
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void move(File source, File target, boolean replaceExisting) {
         Asserts.notNull(source);
@@ -98,10 +114,15 @@ public final class FileUtils {
     /**
      * 拷贝文件或目录
      *
-     * @param source          源
-     * @param target          目标
-     * @param replaceExisting 覆盖已存在的目标
-     * @throws java.io.UncheckedIOException IO异常
+     * @param source
+     *            源
+     * @param target
+     *            目标
+     * @param replaceExisting
+     *            覆盖已存在的目标
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void copy(File source, File target, boolean replaceExisting) {
         Asserts.notNull(source);
@@ -112,8 +133,11 @@ public final class FileUtils {
     /**
      * 创建文件或更新最后更新时间
      *
-     * @param file file
-     * @throws java.io.UncheckedIOException IO异常
+     * @param file
+     *            file
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void touch(File file) {
         Asserts.notNull(file);
@@ -123,7 +147,9 @@ public final class FileUtils {
     /**
      * 判断文件或目录是否存在
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 存在时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isExists(File file) {
@@ -134,7 +160,9 @@ public final class FileUtils {
     /**
      * 判断path是否为目录
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 是目录时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isDirectory(File file) {
@@ -145,9 +173,13 @@ public final class FileUtils {
     /**
      * 判断path是否为空目录
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 是空目录时返回 {@code true} 否则返回 {@code false}
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static boolean isEmptyDirectory(File file) {
         return PathUtils.isEmptyDirectory(file.toPath());
@@ -156,7 +188,9 @@ public final class FileUtils {
     /**
      * 判断path是否为一般文件
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 是一般文件时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isRegularFile(File file) {
@@ -167,7 +201,9 @@ public final class FileUtils {
     /**
      * 判断path是否为Link
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 是Link时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isSymbolicLink(File file) {
@@ -178,7 +214,9 @@ public final class FileUtils {
     /**
      * 判断path是否为隐藏目录或文件
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 是隐藏目录或文件时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isHidden(File file) {
@@ -193,7 +231,9 @@ public final class FileUtils {
     /**
      * 判断path是否为可读可写
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 是可读可写时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isReadableAndWritable(File file) {
@@ -204,7 +244,9 @@ public final class FileUtils {
     /**
      * 判断path是否为可读
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 是可读时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isReadable(File file) {
@@ -215,7 +257,9 @@ public final class FileUtils {
     /**
      * 判断path是否为可写
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 是可写时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isWritable(File file) {
@@ -226,7 +270,9 @@ public final class FileUtils {
     /**
      * 判断path是否为可执行
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 是可执行时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isExecutable(File file) {
@@ -237,9 +283,13 @@ public final class FileUtils {
     /**
      * 获取文件的大小
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 文件尺寸
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static long size(File file) {
         Asserts.notNull(file);
@@ -249,8 +299,11 @@ public final class FileUtils {
     /**
      * 删除目录或文件
      *
-     * @param file file
-     * @throws java.io.UncheckedIOException IO异常
+     * @param file
+     *            file
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void delete(File file) {
         Asserts.notNull(file);
@@ -260,7 +313,8 @@ public final class FileUtils {
     /**
      * 删除目录或文件
      *
-     * @param file file
+     * @param file
+     *            file
      */
     public static void deleteQuietly(File file) {
         Asserts.notNull(file);
@@ -270,8 +324,11 @@ public final class FileUtils {
     /**
      * 清空目录
      *
-     * @param file file
-     * @throws java.io.UncheckedIOException IO异常
+     * @param file
+     *            file
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void cleanDirectory(File file) {
         Asserts.notNull(file);
@@ -281,7 +338,8 @@ public final class FileUtils {
     /**
      * 清空目录
      *
-     * @param file file
+     * @param file
+     *            file
      */
     public static void cleanDirectoryQuietly(File file) {
         Asserts.notNull(file);
@@ -291,9 +349,13 @@ public final class FileUtils {
     /**
      * 获取创建时间
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 创建时间
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static Date getCreationTime(File file) {
         Asserts.notNull(file);
@@ -303,9 +365,13 @@ public final class FileUtils {
     /**
      * 获取最后更新时间
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 最后更新时间
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static Date getLastModifiedTime(File file) {
         Asserts.notNull(file);
@@ -315,9 +381,13 @@ public final class FileUtils {
     /**
      * 获取最后访问
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 最后访问时间
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static Date getLastAccessTime(File file) {
         Asserts.notNull(file);
@@ -327,9 +397,13 @@ public final class FileUtils {
     /**
      * 读取所有的行
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 多行数据
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static List<String> readLines(File file) {
         Asserts.notNull(file);
@@ -339,10 +413,15 @@ public final class FileUtils {
     /**
      * 读取所有的行
      *
-     * @param file    path
-     * @param charset 字符编码
+     * @param file
+     *            path
+     * @param charset
+     *            字符编码
+     *
      * @return 多行数据
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static List<String> readLines(File file, Charset charset) {
         Asserts.notNull(file);
@@ -353,9 +432,13 @@ public final class FileUtils {
     /**
      * 读取二进制数据
      *
-     * @param file file
+     * @param file
+     *            file
+     *
      * @return 文件内容
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static byte[] readBytes(File file) {
         Asserts.notNull(file);
@@ -365,11 +448,17 @@ public final class FileUtils {
     /**
      * 写入二进制数据
      *
-     * @param file              file
-     * @param bytes             内容
-     * @param createIfNotExists 没有文件时是否应该创建之
-     * @param append            是否使用追加写入
-     * @throws java.io.UncheckedIOException IO异常
+     * @param file
+     *            file
+     * @param bytes
+     *            内容
+     * @param createIfNotExists
+     *            没有文件时是否应该创建之
+     * @param append
+     *            是否使用追加写入
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void writeBytes(File file, byte[] bytes, boolean createIfNotExists, boolean append) {
         Asserts.notNull(file);
@@ -380,11 +469,17 @@ public final class FileUtils {
     /**
      * 写入文本数据
      *
-     * @param file              file
-     * @param lines             文本数据
-     * @param createIfNotExists 没有文件时是否应该创建之
-     * @param append            是否使用追加写入
-     * @throws java.io.UncheckedIOException IO异常
+     * @param file
+     *            file
+     * @param lines
+     *            文本数据
+     * @param createIfNotExists
+     *            没有文件时是否应该创建之
+     * @param append
+     *            是否使用追加写入
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void writeLines(File file, List<String> lines, boolean createIfNotExists, boolean append) {
         PathUtils.writeLines(file.toPath(), lines, createIfNotExists, append);
@@ -393,14 +488,22 @@ public final class FileUtils {
     /**
      * 写入文本数据
      *
-     * @param file              file
-     * @param lines             文本数据
-     * @param charset           字符编码
-     * @param createIfNotExists 没有文件时是否应该创建之
-     * @param append            是否使用追加写入
-     * @throws java.io.UncheckedIOException IO异常
+     * @param file
+     *            file
+     * @param lines
+     *            文本数据
+     * @param charset
+     *            字符编码
+     * @param createIfNotExists
+     *            没有文件时是否应该创建之
+     * @param append
+     *            是否使用追加写入
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
-    public static void writeLines(File file, List<String> lines, Charset charset, boolean createIfNotExists, boolean append) {
+    public static void writeLines(File file, List<String> lines, Charset charset, boolean createIfNotExists,
+            boolean append) {
         Asserts.notNull(file);
         Asserts.notNull(lines);
         Asserts.notNull(charset);
@@ -410,10 +513,15 @@ public final class FileUtils {
     /**
      * 判断是否是同一个文件
      *
-     * @param f1 file1
-     * @param f2 file2
+     * @param f1
+     *            file1
+     * @param f2
+     *            file2
+     *
      * @return 结果
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static boolean isSameFile(File f1, File f2) {
         Asserts.notNull(f1);
