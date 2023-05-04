@@ -19,6 +19,7 @@ import static spring.turbo.util.StringPool.EMPTY;
  * 字符串到数字解析工具
  *
  * @author 应卓
+ *
  * @since 1.0.8
  */
 public final class NumberParseUtils {
@@ -38,11 +39,17 @@ public final class NumberParseUtils {
      * </ul>
      * 请正确使用类型，否则会有精度损失
      *
-     * @param text 字符串
-     * @param type 具体类型
-     * @param <T>  数字的具体类型泛型
+     * @param text
+     *            字符串
+     * @param type
+     *            具体类型
+     * @param <T>
+     *            数字的具体类型泛型
+     *
      * @return 结果
-     * @throws IllegalArgumentException 解析失败
+     *
+     * @throws IllegalArgumentException
+     *             解析失败
      */
     public static <T extends Number> T parse(String text, Class<T> type) {
         Asserts.notNull(text);
@@ -52,7 +59,8 @@ public final class NumberParseUtils {
         text = text.replaceAll("[\\s,]", EMPTY);
 
         // 十六进制数特殊处理
-        if (text.startsWith("#") || text.startsWith("-#") || text.startsWith("0x") || text.startsWith("0X") || text.startsWith("-0x") || text.startsWith("-0X")) {
+        if (text.startsWith("#") || text.startsWith("-#") || text.startsWith("0x") || text.startsWith("0X")
+                || text.startsWith("-0x") || text.startsWith("-0X")) {
             final BigInteger bigInteger = NumberUtils.parseNumber(text, BigInteger.class);
             return BigDecimalUtils.getValue(new BigDecimal(bigInteger), type);
         }

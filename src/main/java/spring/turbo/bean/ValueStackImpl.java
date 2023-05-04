@@ -19,16 +19,17 @@ import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
  * @author 应卓
+ *
  * @since 2.2.4
  */
 @SuppressWarnings("unchecked")
-public record ValueFinderImpl(Environment environment,
-                              ResourceLoader resourceLoader,
-                              ConversionService conversionService) implements ValueFinder {
+public record ValueStackImpl(Environment environment, ResourceLoader resourceLoader,
+        ConversionService conversionService) implements ValueStack {
 
     @Nullable
     @Override
-    public String findString(@Nullable String environmentName, @Nullable String resourceLocation, @Nullable String defaultValue) {
+    public String findString(@Nullable String environmentName, @Nullable String resourceLocation,
+            @Nullable String defaultValue) {
         var value = (String) null;
 
         if (environmentName != null) {
@@ -40,12 +41,17 @@ public record ValueFinderImpl(Environment environment,
             value = ResourceUtils.readText(resource, UTF_8);
         }
 
+        if (value == null) {
+            value = defaultValue;
+        }
+
         return value;
     }
 
     @Nullable
     @Override
-    public <T> T findObject(@NonNull Class<T> valueType, @Nullable String environmentName, @Nullable String resourceLocation, @Nullable String defaultValue) {
+    public <T> T findObject(@NonNull Class<T> valueType, @Nullable String environmentName,
+            @Nullable String resourceLocation, @Nullable String defaultValue) {
 
         var stringValue = findString(environmentName, resourceLocation, defaultValue);
 

@@ -20,6 +20,7 @@ import java.nio.channels.ReadableByteChannel;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.8
  */
 final class RichResourceImpl implements RichResource {

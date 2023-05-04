@@ -15,6 +15,7 @@ import spring.turbo.bean.*;
 
 /**
  * @author 应卓
+ *
  * @since 1.3.0
  */
 public class CoreModuleJackson2Module extends SimpleModule {
@@ -23,10 +24,8 @@ public class CoreModuleJackson2Module extends SimpleModule {
      * 默认构造方法
      */
     public CoreModuleJackson2Module() {
-        super(
-                CoreModuleJackson2Module.class.getName(),
-                VersionUtil.parseVersion(SpringTurboVersion.CURRENT, "com.github.yingzhuo", "spring-turbo")
-        );
+        super(CoreModuleJackson2Module.class.getName(),
+                VersionUtil.parseVersion(SpringTurboVersion.CURRENT, "com.github.yingzhuo", "spring-turbo"));
     }
 
     @Override

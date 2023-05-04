@@ -17,7 +17,9 @@ import java.util.Objects;
 /**
  * 固定顺序比较器
  *
- * @param <T> 泛型
+ * @param <T>
+ *            泛型
+ *
  * @author 应卓
  */
 public class FixedOrderComparator<T> implements Comparator<T> {
@@ -28,7 +30,8 @@ public class FixedOrderComparator<T> implements Comparator<T> {
     /**
      * 构造方法
      *
-     * @param objs 参与排序的数组，数组的元素位置决定了对象的排序先后
+     * @param objs
+     *            参与排序的数组，数组的元素位置决定了对象的排序先后
      */
     public FixedOrderComparator(List<T> objs) {
         this(true, objs);
@@ -37,8 +40,10 @@ public class FixedOrderComparator<T> implements Comparator<T> {
     /**
      * 构造方法
      *
-     * @param greaterIfMissing 如果不在列表中是否排在后边
-     * @param objs             参与排序的数组，数组的元素位置决定了对象的排序先后
+     * @param greaterIfMissing
+     *            如果不在列表中是否排在后边
+     * @param objs
+     *            参与排序的数组，数组的元素位置决定了对象的排序先后
      */
     public FixedOrderComparator(boolean greaterIfMissing, List<T> objs) {
         this(greaterIfMissing, objs.toArray(new Object[0]));
@@ -47,7 +52,8 @@ public class FixedOrderComparator<T> implements Comparator<T> {
     /**
      * 构造方法
      *
-     * @param objs 参与排序的数组，数组的元素位置决定了对象的排序先后
+     * @param objs
+     *            参与排序的数组，数组的元素位置决定了对象的排序先后
      */
     public FixedOrderComparator(Object... objs) {
         this(true, objs);
@@ -56,8 +62,10 @@ public class FixedOrderComparator<T> implements Comparator<T> {
     /**
      * 构造方法
      *
-     * @param greaterIfMissing 如果不在列表中是否排在后边
-     * @param objs             参与排序的数组，数组的元素位置决定了对象的排序先后
+     * @param greaterIfMissing
+     *            如果不在列表中是否排在后边
+     * @param objs
+     *            参与排序的数组，数组的元素位置决定了对象的排序先后
      */
     public FixedOrderComparator(boolean greaterIfMissing, Object... objs) {
         Asserts.notNull(objs);
@@ -76,7 +84,9 @@ public class FixedOrderComparator<T> implements Comparator<T> {
     /**
      * 查找对象类型所在列表的位置
      *
-     * @param object 对象
+     * @param object
+     *            对象
+     *
      * @return 位置，未找到位置根据{@link #greaterIfMissing}取不同值，false返回-1，否则返回列表长度
      */
     private int getOrder(T object) {

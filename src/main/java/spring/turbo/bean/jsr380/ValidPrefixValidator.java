@@ -16,6 +16,7 @@ import static spring.turbo.util.StringUtils.startsWithIgnoreCase;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.7
  */
 public class ValidPrefixValidator implements ConstraintValidator<ValidPrefix, String> {

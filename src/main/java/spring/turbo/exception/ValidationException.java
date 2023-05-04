@@ -15,6 +15,7 @@ import spring.turbo.util.Asserts;
  * 数据检查异常
  *
  * @author 应卓
+ *
  * @since 1.0.11
  */
 public class ValidationException extends RuntimeException {

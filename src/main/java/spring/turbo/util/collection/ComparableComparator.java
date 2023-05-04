@@ -13,8 +13,11 @@ import java.util.Comparator;
 /**
  * 自然顺序比较器
  *
- * @param <E> 泛型
+ * @param <E>
+ *            泛型
+ *
  * @author 应卓
+ *
  * @since 2.0.12
  */
 public class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E> {

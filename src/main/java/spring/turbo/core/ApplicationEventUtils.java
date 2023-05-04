@@ -15,6 +15,7 @@ import spring.turbo.util.Asserts;
  * {@link ApplicationEvent}相关工具
  *
  * @author 应卓
+ *
  * @since 1.1.2
  */
 public final class ApplicationEventUtils {
@@ -29,7 +30,8 @@ public final class ApplicationEventUtils {
     /**
      * 发布事件
      *
-     * @param event 事件实例
+     * @param event
+     *            事件实例
      */
     public static void publish(ApplicationEvent event) {
         Asserts.notNull(event);

@@ -15,13 +15,14 @@ import java.time.temporal.WeekFields;
  * 星期的选项
  *
  * @author 应卓
+ *
  * @see DateDescriptor
+ *
  * @since 1.1.3
  */
 public enum WeekOption {
 
-    IOS(WeekFields.ISO),
-    SUNDAY_START(WeekFields.of(DayOfWeek.SUNDAY, 1)),
+    IOS(WeekFields.ISO), SUNDAY_START(WeekFields.of(DayOfWeek.SUNDAY, 1)),
     MONDAY_START(WeekFields.of(DayOfWeek.MONDAY, 1));
 
     private final WeekFields weekFields;

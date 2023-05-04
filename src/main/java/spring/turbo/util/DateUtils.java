@@ -18,6 +18,7 @@ import java.util.TimeZone;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.10
  */
 public final class DateUtils {
@@ -43,22 +44,14 @@ public final class DateUtils {
     public static final long MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
 
     /**
-     * This is half a month, so this represents whether a date is in the top
-     * or bottom half of the month.
+     * This is half a month, so this represents whether a date is in the top or bottom half of the month.
      */
     public static final int SEMI_MONTH = 1001;
 
-    private static final int[][] fields = {
-            {Calendar.MILLISECOND},
-            {Calendar.SECOND},
-            {Calendar.MINUTE},
-            {Calendar.HOUR_OF_DAY, Calendar.HOUR},
-            {Calendar.DATE, Calendar.DAY_OF_MONTH, Calendar.AM_PM
-                    /* Calendar.DAY_OF_YEAR, Calendar.DAY_OF_WEEK, Calendar.DAY_OF_WEEK_IN_MONTH */
-            },
-            {Calendar.MONTH, SEMI_MONTH},
-            {Calendar.YEAR},
-            {Calendar.ERA}};
+    private static final int[][] fields = { { Calendar.MILLISECOND }, { Calendar.SECOND }, { Calendar.MINUTE },
+            { Calendar.HOUR_OF_DAY, Calendar.HOUR }, { Calendar.DATE, Calendar.DAY_OF_MONTH, Calendar.AM_PM
+            /* Calendar.DAY_OF_YEAR, Calendar.DAY_OF_WEEK, Calendar.DAY_OF_WEEK_IN_MONTH */
+            }, { Calendar.MONTH, SEMI_MONTH }, { Calendar.YEAR }, { Calendar.ERA } };
 
     /**
      * 私有构造方法
@@ -80,9 +73,8 @@ public final class DateUtils {
     public static boolean isSameDay(final Calendar cal1, final Calendar cal2) {
         Asserts.notNull(cal1);
         Asserts.notNull(cal2);
-        return cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
-                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+        return cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+                && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
     public static boolean isSameInstant(final Date date1, final Date date2) {
@@ -100,14 +92,13 @@ public final class DateUtils {
     public static boolean isSameLocalTime(final Calendar cal1, final Calendar cal2) {
         Asserts.notNull(cal1);
         Asserts.notNull(cal2);
-        return cal1.get(Calendar.MILLISECOND) == cal2.get(Calendar.MILLISECOND) &&
-                cal1.get(Calendar.SECOND) == cal2.get(Calendar.SECOND) &&
-                cal1.get(Calendar.MINUTE) == cal2.get(Calendar.MINUTE) &&
-                cal1.get(Calendar.HOUR_OF_DAY) == cal2.get(Calendar.HOUR_OF_DAY) &&
-                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
-                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
-                cal1.getClass() == cal2.getClass();
+        return cal1.get(Calendar.MILLISECOND) == cal2.get(Calendar.MILLISECOND)
+                && cal1.get(Calendar.SECOND) == cal2.get(Calendar.SECOND)
+                && cal1.get(Calendar.MINUTE) == cal2.get(Calendar.MINUTE)
+                && cal1.get(Calendar.HOUR_OF_DAY) == cal2.get(Calendar.HOUR_OF_DAY)
+                && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
+                && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+                && cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) && cal1.getClass() == cal2.getClass();
     }
 
     public static Date addYears(final Date date, final int amount) {
@@ -200,15 +191,11 @@ public final class DateUtils {
     }
 
     public static LocalDate toLocalDate(final Date date) {
-        return date.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     public static LocalDateTime toLocalDateTime(final Date date) {
-        return date.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
     public static Year toYear(final Date date) {
@@ -268,7 +255,7 @@ public final class DateUtils {
         return ceiled;
     }
 
-    //-----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
     private static void modify(final Calendar val, final int field, final ModifyType modType) {
         if (val.get(Calendar.YEAR) > 280000000) {
             throw new ArithmeticException("Calendar value too large for accurate calculations");
@@ -323,84 +310,84 @@ public final class DateUtils {
         for (final int[] aField : fields) {
             for (final int element : aField) {
                 if (element == field) {
-                    //This is our field... we stop looping
+                    // This is our field... we stop looping
                     if (modType == ModifyType.CEILING || modType == ModifyType.ROUND && roundUp) {
                         if (field == SEMI_MONTH) {
-                            //This is a special case that's hard to generalize
-                            //If the date is 1, we round up to 16, otherwise
-                            //  we subtract 15 days and add 1 month
+                            // This is a special case that's hard to generalize
+                            // If the date is 1, we round up to 16, otherwise
+                            // we subtract 15 days and add 1 month
                             if (val.get(Calendar.DATE) == 1) {
                                 val.add(Calendar.DATE, 15);
                             } else {
                                 val.add(Calendar.DATE, -15);
                                 val.add(Calendar.MONTH, 1);
                             }
-// ----------------- Fix for LANG-440 ---------------------- START ---------------
+                            // ----------------- Fix for LANG-440 ---------------------- START ---------------
                         } else if (field == Calendar.AM_PM) {
                             // This is a special case
                             // If the time is 0, we round up to 12, otherwise
-                            //  we subtract 12 hours and add 1 day
+                            // we subtract 12 hours and add 1 day
                             if (val.get(Calendar.HOUR_OF_DAY) == 0) {
                                 val.add(Calendar.HOUR_OF_DAY, 12);
                             } else {
                                 val.add(Calendar.HOUR_OF_DAY, -12);
                                 val.add(Calendar.DATE, 1);
                             }
-// ----------------- Fix for LANG-440 ---------------------- END ---------------
+                            // ----------------- Fix for LANG-440 ---------------------- END ---------------
                         } else {
-                            //We need at add one to this field since the
-                            //  last number causes us to round up
+                            // We need at add one to this field since the
+                            // last number causes us to round up
                             val.add(aField[0], 1);
                         }
                     }
                     return;
                 }
             }
-            //We have various fields that are not easy roundings
+            // We have various fields that are not easy roundings
             int offset = 0;
             boolean offsetSet = false;
-            //These are special types of fields that require different rounding rules
+            // These are special types of fields that require different rounding rules
             switch (field) {
-                case SEMI_MONTH:
-                    if (aField[0] == Calendar.DATE) {
-                        //If we're going to drop the DATE field's value,
-                        //  we want to do this our own way.
-                        //We need to subtract 1 since the date has a minimum of 1
-                        offset = val.get(Calendar.DATE) - 1;
-                        //If we're above 15 days adjustment, that means we're in the
-                        //  bottom half of the month and should stay accordingly.
-                        if (offset >= 15) {
-                            offset -= 15;
-                        }
-                        //Record whether we're in the top or bottom half of that range
-                        roundUp = offset > 7;
-                        offsetSet = true;
+            case SEMI_MONTH:
+                if (aField[0] == Calendar.DATE) {
+                    // If we're going to drop the DATE field's value,
+                    // we want to do this our own way.
+                    // We need to subtract 1 since the date has a minimum of 1
+                    offset = val.get(Calendar.DATE) - 1;
+                    // If we're above 15 days adjustment, that means we're in the
+                    // bottom half of the month and should stay accordingly.
+                    if (offset >= 15) {
+                        offset -= 15;
                     }
-                    break;
-                case Calendar.AM_PM:
-                    if (aField[0] == Calendar.HOUR_OF_DAY) {
-                        //If we're going to drop the HOUR field's value,
-                        //  we want to do this our own way.
-                        offset = val.get(Calendar.HOUR_OF_DAY);
-                        if (offset >= 12) {
-                            offset -= 12;
-                        }
-                        roundUp = offset >= 6;
-                        offsetSet = true;
+                    // Record whether we're in the top or bottom half of that range
+                    roundUp = offset > 7;
+                    offsetSet = true;
+                }
+                break;
+            case Calendar.AM_PM:
+                if (aField[0] == Calendar.HOUR_OF_DAY) {
+                    // If we're going to drop the HOUR field's value,
+                    // we want to do this our own way.
+                    offset = val.get(Calendar.HOUR_OF_DAY);
+                    if (offset >= 12) {
+                        offset -= 12;
                     }
-                    break;
-                default:
-                    break;
+                    roundUp = offset >= 6;
+                    offsetSet = true;
+                }
+                break;
+            default:
+                break;
             }
             if (!offsetSet) {
                 final int min = val.getActualMinimum(aField[0]);
                 final int max = val.getActualMaximum(aField[0]);
-                //Calculate the offset from the minimum allowed value
+                // Calculate the offset from the minimum allowed value
                 offset = val.get(aField[0]) - min;
-                //Set roundUp if this is more than half way between the minimum and maximum
+                // Set roundUp if this is more than half way between the minimum and maximum
                 roundUp = offset > ((max - min) / 2);
             }
-            //We need to remove this field
+            // We need to remove this field
             if (offset != 0) {
                 val.set(aField[0], val.get(aField[0]) - offset);
             }

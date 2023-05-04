@@ -17,6 +17,7 @@ import spring.turbo.util.Asserts;
  * 远程IP地址工具
  *
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public final class RemoteAddressUtils {
@@ -31,7 +32,9 @@ public final class RemoteAddressUtils {
     /**
      * 获取远程IP地址
      *
-     * @param request HTTP请求
+     * @param request
+     *            HTTP请求
+     *
      * @return ip地址
      */
     @Nullable
@@ -70,7 +73,9 @@ public final class RemoteAddressUtils {
     /**
      * 获取远程IP地址
      *
-     * @param request HTTP请求
+     * @param request
+     *            HTTP请求
+     *
      * @return ip地址
      */
     public static String getRequiredIpAddress(HttpServletRequest request) {
@@ -82,7 +87,9 @@ public final class RemoteAddressUtils {
     /**
      * 获取远程IP地址
      *
-     * @param request HTTP请求
+     * @param request
+     *            HTTP请求
+     *
      * @return ip地址
      */
     @Nullable
@@ -96,7 +103,9 @@ public final class RemoteAddressUtils {
     /**
      * 获取远程IP地址
      *
-     * @param request HTTP请求
+     * @param request
+     *            HTTP请求
+     *
      * @return ip地址
      */
     public static String getRequiredIpAddress(NativeWebRequest request) {

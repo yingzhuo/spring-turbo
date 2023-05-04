@@ -14,8 +14,10 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
+ *
  * @see java.util.function.Supplier
  * @see ValueObjectUtils
+ *
  * @since 1.0.0
  */
 public final class ReflectionObjectSupplier<T> implements Supplier<T> {

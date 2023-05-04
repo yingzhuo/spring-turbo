@@ -12,13 +12,14 @@ package spring.turbo.util.jks;
  * KeyStore类型
  *
  * @author 应卓
+ *
  * @see KeyStoreUtils
+ *
  * @since 1.0.15
  */
 public enum KeyStoreType {
 
-    JKS("JKS"),
-    PKCS12("pkcs12");
+    JKS("JKS"), PKCS12("pkcs12");
 
     private final String name;
 

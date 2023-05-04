@@ -22,8 +22,10 @@ import java.util.Map;
  * 杂项设置
  *
  * @author 应卓
+ *
  * @see spring.turbo.bean.injection.ApplicationId
  * @see spring.turbo.bean.injection.ApplicationHome
+ *
  * @since 2.0.8
  */
 public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
@@ -31,7 +33,8 @@ public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostP
     private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
     private static final String SPRING_ID = RandomStringUtils.randomUUID();
 
-    public MiscellaneousSetupEnvironmentPostProcessor(DeferredLogFactory logFactory, ConfigurableBootstrapContext bootstrapContext) {
+    public MiscellaneousSetupEnvironmentPostProcessor(DeferredLogFactory logFactory,
+            ConfigurableBootstrapContext bootstrapContext) {
         super(logFactory, bootstrapContext);
         setOrder(LOWEST_PRECEDENCE);
     }
@@ -39,14 +42,10 @@ public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostP
     @Override
     public void execute(ConfigurableEnvironment environment, SpringApplication application) {
 
-        var map = Map.<String, Object>of(
-                "spring.application.id", SPRING_ID,
-                "spring.application.home", SpringApplicationUtils.getHomePath(application)
-        );
+        var map = Map.<String, Object> of("spring.application.id", SPRING_ID, "spring.application.home",
+                SpringApplicationUtils.getHomePath(application));
 
-        environment
-                .getPropertySources()
-                .addLast(new MapPropertySource(PROPERTY_SOURCE_NAME, map));
+        environment.getPropertySources().addLast(new MapPropertySource(PROPERTY_SOURCE_NAME, map));
     }
 
 }

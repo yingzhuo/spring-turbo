@@ -18,6 +18,7 @@ import static spring.turbo.util.crypto.Base64.encode;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public final class RSAKeys implements Keys {
@@ -45,10 +46,7 @@ public final class RSAKeys implements Keys {
             RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
             RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
 
-            return new RSAKeys(
-                    encode(publicKey.getEncoded()),
-                    encode(privateKey.getEncoded())
-            );
+            return new RSAKeys(encode(publicKey.getEncoded()), encode(privateKey.getEncoded()));
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError();
         }

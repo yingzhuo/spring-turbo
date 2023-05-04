@@ -22,6 +22,7 @@ import java.util.Base64;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public final class AESUtils {
@@ -47,7 +48,8 @@ public final class AESUtils {
         return keyGenerator.generateKey();
     }
 
-    public static SecretKey getKeyFromPassword(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static SecretKey getKeyFromPassword(String password, String salt)
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
         return new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
@@ -59,9 +61,9 @@ public final class AESUtils {
         return new IvParameterSpec(iv);
     }
 
-    public static String encrypt(AES.Mode mode, String input, SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException, NoSuchAlgorithmException,
-            InvalidAlgorithmParameterException, InvalidKeyException,
-            BadPaddingException, IllegalBlockSizeException {
+    public static String encrypt(AES.Mode mode, String input, SecretKey key, IvParameterSpec iv)
+            throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException,
+            InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
 
         Cipher cipher = Cipher.getInstance(mode.getAlgorithm());
         if (mode == AES.Mode.ECB) {
@@ -71,14 +73,12 @@ public final class AESUtils {
             cipher.init(Cipher.ENCRYPT_MODE, key, iv);
         }
         byte[] cipherText = cipher.doFinal(input.getBytes());
-        return Base64.getEncoder()
-                .encodeToString(cipherText);
+        return Base64.getEncoder().encodeToString(cipherText);
     }
 
-    public static String decrypt(AES.Mode mode, String cipherText, SecretKey key,
-                                 IvParameterSpec iv) throws NoSuchPaddingException, NoSuchAlgorithmException,
-            InvalidAlgorithmParameterException, InvalidKeyException,
-            BadPaddingException, IllegalBlockSizeException {
+    public static String decrypt(AES.Mode mode, String cipherText, SecretKey key, IvParameterSpec iv)
+            throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException,
+            InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
 
         Cipher cipher = Cipher.getInstance(mode.getAlgorithm());
         if (mode == AES.Mode.ECB) {
@@ -87,8 +87,7 @@ public final class AESUtils {
         } else {
             cipher.init(Cipher.DECRYPT_MODE, key, iv);
         }
-        byte[] plainText = cipher.doFinal(Base64.getDecoder()
-                .decode(cipherText));
+        byte[] plainText = cipher.doFinal(Base64.getDecoder().decode(cipherText));
         return new String(plainText);
     }
 

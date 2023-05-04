@@ -12,6 +12,7 @@ import java.util.function.BiConsumer;
 
 /**
  * @author 应卓
+ *
  * @since 1.1.4
  */
 @FunctionalInterface

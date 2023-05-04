@@ -17,16 +17,15 @@ import static java.lang.annotation.ElementType.*;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.3
  */
 @Inherited
 @Documented
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {
-        JoinedStringLengthValidators.ForArray.class,
-        JoinedStringLengthValidators.ForIterable.class
-})
+@Constraint(validatedBy = { JoinedStringLengthValidators.ForArray.class,
+        JoinedStringLengthValidators.ForIterable.class })
 public @interface JoinedStringLength {
 
     public int min() default 0;

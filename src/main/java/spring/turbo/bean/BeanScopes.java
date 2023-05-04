@@ -12,7 +12,9 @@ package spring.turbo.bean;
  * Bean Scope
  *
  * @author 应卓
+ *
  * @see org.springframework.beans.factory.config.ConfigurableBeanFactory
+ *
  * @since 1.0.0
  */
 public final class BeanScopes {

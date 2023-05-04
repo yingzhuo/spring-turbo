@@ -13,8 +13,10 @@ import spring.turbo.bean.DateRange;
 
 /**
  * @author 应卓
+ *
  * @see DateRangePartitionor
  * @see DateRange
+ *
  * @since 1.1.4
  */
 public final class DateRangePartitionorFactories {

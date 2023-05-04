@@ -20,12 +20,14 @@ import static java.lang.annotation.ElementType.*;
  * {@link NumberZones} 检查用元注释
  *
  * @author 应卓
+ *
  * @see NumberZones
+ *
  * @since 1.1.4
  */
 @Inherited
 @Documented
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = DecentNumberZonesValidator.class)
 public @interface DecentNumberZones {

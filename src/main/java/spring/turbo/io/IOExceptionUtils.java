@@ -18,6 +18,7 @@ import java.io.UncheckedIOException;
  * {@link IOException}相关工具
  *
  * @author 应卓
+ *
  * @since 1.0.10
  */
 public final class IOExceptionUtils {
@@ -29,7 +30,9 @@ public final class IOExceptionUtils {
     /**
      * 转换成未检查异常
      *
-     * @param e IOException实例
+     * @param e
+     *            IOException实例
+     *
      * @return 未检查异常
      */
     public static UncheckedIOException toUnchecked(IOException e) {
@@ -40,7 +43,9 @@ public final class IOExceptionUtils {
     /**
      * 转换成未检查异常
      *
-     * @param message 消息文本
+     * @param message
+     *            消息文本
+     *
      * @return 未检查异常
      */
     public static UncheckedIOException toUnchecked(@Nullable String message) {

@@ -18,7 +18,9 @@ import java.util.stream.Stream;
  * 辅助工具封装多个搜索起点
  *
  * @author 应卓
+ *
  * @see #newInstance()
+ *
  * @since 2.0.10
  */
 public final class PackageSet implements Iterable<String> {
@@ -45,15 +47,14 @@ public final class PackageSet implements Iterable<String> {
     /**
      * 添加要扫描的包
      *
-     * @param packages 包
+     * @param packages
+     *            包
+     *
      * @return this
      */
     public PackageSet acceptPackages(@Nullable String... packages) {
         if (packages != null) {
-            Stream.of(packages)
-                    .filter(StringUtils::isNotBlank)
-                    .map(String::trim)
-                    .forEach(set::add);
+            Stream.of(packages).filter(StringUtils::isNotBlank).map(String::trim).forEach(set::add);
         }
         return this;
     }
@@ -61,15 +62,14 @@ public final class PackageSet implements Iterable<String> {
     /**
      * 添加要扫描的包
      *
-     * @param packages 包
+     * @param packages
+     *            包
+     *
      * @return this
      */
     public PackageSet acceptPackages(@Nullable Collection<String> packages) {
         if (packages != null) {
-            packages.stream()
-                    .filter(StringUtils::isNotBlank)
-                    .map(String::trim)
-                    .forEach(set::add);
+            packages.stream().filter(StringUtils::isNotBlank).map(String::trim).forEach(set::add);
         }
         return this;
     }
@@ -77,15 +77,14 @@ public final class PackageSet implements Iterable<String> {
     /**
      * 添加要扫描的基础类所在的包
      *
-     * @param baseClasses 基础类
+     * @param baseClasses
+     *            基础类
+     *
      * @return this
      */
     public PackageSet acceptBaseClasses(@Nullable Class<?>... baseClasses) {
         if (baseClasses != null) {
-            Arrays.stream(baseClasses)
-                    .filter(Objects::nonNull)
-                    .map(c -> c.getPackage().getName())
-                    .forEach(set::add);
+            Arrays.stream(baseClasses).filter(Objects::nonNull).map(c -> c.getPackage().getName()).forEach(set::add);
         }
         return this;
     }
@@ -93,15 +92,14 @@ public final class PackageSet implements Iterable<String> {
     /**
      * 添加要扫描的基础类所在的包
      *
-     * @param baseClasses 基础类
+     * @param baseClasses
+     *            基础类
+     *
      * @return this
      */
     public PackageSet acceptBaseClasses(@Nullable Collection<Class<?>> baseClasses) {
         if (baseClasses != null) {
-            baseClasses.stream()
-                    .filter(Objects::nonNull)
-                    .map(c -> c.getPackage().getName())
-                    .forEach(set::add);
+            baseClasses.stream().filter(Objects::nonNull).map(c -> c.getPackage().getName()).forEach(set::add);
         }
         return this;
     }
@@ -137,8 +135,10 @@ public final class PackageSet implements Iterable<String> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         PackageSet strings = (PackageSet) o;
         return set.equals(strings.set);
     }

@@ -20,10 +20,12 @@ import java.util.Objects;
  * 数字对
  *
  * @author 应卓
+ *
  * @see LongPair
  * @see BigIntegerPair
  * @see DoublePair
  * @see BigDecimalPair
+ *
  * @since 1.0.7
  */
 public class NumberPair implements Serializable {
@@ -60,8 +62,10 @@ public class NumberPair implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         NumberPair that = (NumberPair) o;
         return left.equals(that.left) && right.equals(that.right);
     }

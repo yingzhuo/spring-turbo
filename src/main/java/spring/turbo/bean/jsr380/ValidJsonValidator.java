@@ -18,6 +18,7 @@ import java.io.IOException;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.4
  */
 public class ValidJsonValidator implements ConstraintValidator<ValidJson, String> {

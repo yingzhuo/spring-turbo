@@ -28,6 +28,7 @@ import static spring.turbo.util.StringDefaults.blankToDefault;
  * {@link SpringFactoriesLoader} 相关工具
  *
  * @author 应卓
+ *
  * @since 2.0.5
  */
 public final class SpringFactoriesUtils {
@@ -47,15 +48,13 @@ public final class SpringFactoriesUtils {
         return loadQuietly(factoryType, factoriesResourceLocation, null);
     }
 
-    public static <T> List<T> loadQuietly(Class<T> factoryType, @Nullable String factoriesResourceLocation, @Nullable ClassLoader classLoader) {
+    public static <T> List<T> loadQuietly(Class<T> factoryType, @Nullable String factoriesResourceLocation,
+            @Nullable ClassLoader classLoader) {
         Asserts.notNull(factoryType);
 
         factoriesResourceLocation = blankToDefault(factoriesResourceLocation, FACTORIES_RESOURCE_LOCATION);
 
-        var factoriesLoader = forResourceLocation(
-                factoriesResourceLocation,
-                classLoader
-        );
+        var factoriesLoader = forResourceLocation(factoriesResourceLocation, classLoader);
 
         try {
             final List<T> list = new ArrayList<>();

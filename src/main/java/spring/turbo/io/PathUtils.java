@@ -30,9 +30,11 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  * {@link Path}相关工具
  *
  * @author 应卓
+ *
  * @see Paths
  * @see Files
  * @see PathTreeUtils
+ *
  * @since 1.0.7
  */
 public final class PathUtils {
@@ -47,7 +49,9 @@ public final class PathUtils {
     /**
      * 转换成{@link File}类型
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 结果
      */
     public static File toFile(Path path) {
@@ -58,8 +62,11 @@ public final class PathUtils {
     /**
      * 创建Path实例
      *
-     * @param first 首个path
-     * @param more  其他path
+     * @param first
+     *            首个path
+     * @param more
+     *            其他path
+     *
      * @return Path实例
      */
     public static Path createPath(String first, String... more) {
@@ -70,8 +77,11 @@ public final class PathUtils {
     /**
      * 创建Path实例 (绝对路径)
      *
-     * @param first 首个path
-     * @param more  其他path
+     * @param first
+     *            首个path
+     * @param more
+     *            其他path
+     *
      * @return Path实例
      */
     public static Path createAbsolutePath(String first, String... more) {
@@ -81,10 +91,15 @@ public final class PathUtils {
     /**
      * 创建文件实例
      *
-     * @param first 首个path
-     * @param more  其他path
+     * @param first
+     *            首个path
+     * @param more
+     *            其他path
+     *
      * @return 文件实例
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static Path createFile(String first, String... more) {
         final Path path = createPath(first, more);
@@ -95,8 +110,11 @@ public final class PathUtils {
     /**
      * 创建文件实例
      *
-     * @param path path
-     * @throws java.io.UncheckedIOException IO异常
+     * @param path
+     *            path
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void createFile(Path path) {
         Asserts.notNull(path);
@@ -115,10 +133,15 @@ public final class PathUtils {
     /**
      * 创建目录实例
      *
-     * @param first 首个path
-     * @param more  其他path
+     * @param first
+     *            首个path
+     * @param more
+     *            其他path
+     *
      * @return 目录实例
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static Path createDirectory(String first, String... more) {
         Asserts.notNull(first);
@@ -131,8 +154,11 @@ public final class PathUtils {
     /**
      * 创建目录实例
      *
-     * @param path path
-     * @throws java.io.UncheckedIOException IO异常
+     * @param path
+     *            path
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void createDirectory(Path path) {
         Asserts.notNull(path);
@@ -156,17 +182,21 @@ public final class PathUtils {
     /**
      * 移动文件或目录
      *
-     * @param source          源
-     * @param target          目标
-     * @param replaceExisting 覆盖已存在的目标
-     * @throws java.io.UncheckedIOException IO异常
+     * @param source
+     *            源
+     * @param target
+     *            目标
+     * @param replaceExisting
+     *            覆盖已存在的目标
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void move(Path source, Path target, boolean replaceExisting) {
         Asserts.notNull(source);
         Asserts.notNull(target);
 
-        final List<CopyOption> copyOptions =
-                ListFactories.newLinkedList();
+        final List<CopyOption> copyOptions = ListFactories.newLinkedList();
 
         if (replaceExisting) {
             copyOptions.add(StandardCopyOption.REPLACE_EXISTING);
@@ -182,17 +212,21 @@ public final class PathUtils {
     /**
      * 拷贝文件或目录
      *
-     * @param source          源
-     * @param target          目标
-     * @param replaceExisting 覆盖已存在的目标
-     * @throws java.io.UncheckedIOException IO异常
+     * @param source
+     *            源
+     * @param target
+     *            目标
+     * @param replaceExisting
+     *            覆盖已存在的目标
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void copy(Path source, Path target, boolean replaceExisting) {
         Asserts.notNull(source);
         Asserts.notNull(target);
 
-        final List<CopyOption> copyOptions =
-                ListFactories.newLinkedList();
+        final List<CopyOption> copyOptions = ListFactories.newLinkedList();
 
         if (replaceExisting) {
             copyOptions.add(StandardCopyOption.REPLACE_EXISTING);
@@ -208,8 +242,11 @@ public final class PathUtils {
     /**
      * 创建文件或更新最后更新时间
      *
-     * @param path path
-     * @throws java.io.UncheckedIOException IO异常
+     * @param path
+     *            path
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void touch(Path path) {
         Asserts.notNull(path);
@@ -227,7 +264,9 @@ public final class PathUtils {
     /**
      * 判断文件或目录是否存在
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 存在时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isExists(Path path) {
@@ -238,7 +277,9 @@ public final class PathUtils {
     /**
      * 判断path是否为目录
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 是目录时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isDirectory(Path path) {
@@ -249,9 +290,13 @@ public final class PathUtils {
     /**
      * 判断path是否为空目录
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 是空目录时返回 {@code true} 否则返回 {@code false}
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static boolean isEmptyDirectory(Path path) {
         if (!isDirectory(path)) {
@@ -270,7 +315,9 @@ public final class PathUtils {
     /**
      * 判断path是否为一般文件
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 是一般文件时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isRegularFile(Path path) {
@@ -281,7 +328,9 @@ public final class PathUtils {
     /**
      * 判断path是否为Link
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 是Link时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isSymbolicLink(Path path) {
@@ -292,7 +341,9 @@ public final class PathUtils {
     /**
      * 判断path是否为隐藏目录或文件
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 是隐藏目录或文件时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isHidden(Path path) {
@@ -307,7 +358,9 @@ public final class PathUtils {
     /**
      * 判断path是否为可读可写
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 是可读可写时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isReadableAndWritable(Path path) {
@@ -317,7 +370,9 @@ public final class PathUtils {
     /**
      * 判断path是否为可读
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 是可读时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isReadable(Path path) {
@@ -328,7 +383,9 @@ public final class PathUtils {
     /**
      * 判断path是否为可写
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 是可读时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isWritable(Path path) {
@@ -339,7 +396,9 @@ public final class PathUtils {
     /**
      * 判断path是否可执行
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 是可执行时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isExecutable(Path path) {
@@ -350,9 +409,13 @@ public final class PathUtils {
     /**
      * 获取文件的大小
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 文件尺寸
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static long size(Path path) {
         Asserts.notNull(path);
@@ -371,8 +434,11 @@ public final class PathUtils {
     /**
      * 删除目录或文件
      *
-     * @param path path
-     * @throws java.io.UncheckedIOException IO异常
+     * @param path
+     *            path
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void delete(Path path) {
         Asserts.notNull(path);
@@ -395,7 +461,8 @@ public final class PathUtils {
     /**
      * 删除目录或文件
      *
-     * @param path path
+     * @param path
+     *            path
      */
     public static void deleteQuietly(Path path) {
         Asserts.notNull(path);
@@ -410,8 +477,11 @@ public final class PathUtils {
     /**
      * 清空目录
      *
-     * @param path path
-     * @throws java.io.UncheckedIOException IO异常
+     * @param path
+     *            path
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void cleanDirectory(Path path) {
         if (!isDirectory(path)) {
@@ -428,7 +498,8 @@ public final class PathUtils {
     /**
      * 清空目录
      *
-     * @param path path
+     * @param path
+     *            path
      */
     public static void cleanDirectoryQuietly(Path path) {
         if (!isDirectory(path)) {
@@ -445,9 +516,13 @@ public final class PathUtils {
     /**
      * 获取创建时间
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 创建时间
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static Date getCreationTime(Path path) {
         Asserts.notNull(path);
@@ -462,9 +537,13 @@ public final class PathUtils {
     /**
      * 获取最后更新时间
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 最后更新时间
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static Date getLastModifiedTime(Path path) {
         Asserts.notNull(path);
@@ -479,9 +558,13 @@ public final class PathUtils {
     /**
      * 获取最后访问
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 最后访问时间
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static Date getLastAccessTime(Path path) {
         Asserts.notNull(path);
@@ -496,9 +579,13 @@ public final class PathUtils {
     /**
      * 读取所有的行
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 多行数据
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static List<String> readLines(Path path) {
         return readLines(path, UTF_8);
@@ -507,10 +594,15 @@ public final class PathUtils {
     /**
      * 读取所有的行
      *
-     * @param path    path
-     * @param charset 字符编码
+     * @param path
+     *            path
+     * @param charset
+     *            字符编码
+     *
      * @return 多行数据
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static List<String> readLines(Path path, Charset charset) {
         Asserts.notNull(path);
@@ -526,9 +618,13 @@ public final class PathUtils {
     /**
      * 读取二进制数据
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 文件内容
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static byte[] readBytes(Path path) {
         Asserts.notNull(path);
@@ -543,18 +639,23 @@ public final class PathUtils {
     /**
      * 写入二进制数据
      *
-     * @param path              path
-     * @param bytes             内容
-     * @param createIfNotExists 没有文件时是否应该创建之
-     * @param append            是否使用追加写入
-     * @throws java.io.UncheckedIOException IO异常
+     * @param path
+     *            path
+     * @param bytes
+     *            内容
+     * @param createIfNotExists
+     *            没有文件时是否应该创建之
+     * @param append
+     *            是否使用追加写入
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void writeBytes(Path path, byte[] bytes, boolean createIfNotExists, boolean append) {
         Asserts.notNull(path);
         Asserts.notNull(bytes);
 
-        final List<OpenOption> openOptions =
-                ListFactories.newArrayList(StandardOpenOption.WRITE);
+        final List<OpenOption> openOptions = ListFactories.newArrayList(StandardOpenOption.WRITE);
 
         if (createIfNotExists) {
             openOptions.add(StandardOpenOption.CREATE);
@@ -576,11 +677,17 @@ public final class PathUtils {
     /**
      * 写入文本数据
      *
-     * @param path              path
-     * @param lines             文本数据
-     * @param createIfNotExists 没有文件时是否应该创建之
-     * @param append            是否使用追加写入
-     * @throws java.io.UncheckedIOException IO异常
+     * @param path
+     *            path
+     * @param lines
+     *            文本数据
+     * @param createIfNotExists
+     *            没有文件时是否应该创建之
+     * @param append
+     *            是否使用追加写入
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static void writeLines(Path path, List<String> lines, boolean createIfNotExists, boolean append) {
         writeLines(path, lines, UTF_8, createIfNotExists, append);
@@ -589,20 +696,27 @@ public final class PathUtils {
     /**
      * 写入文本数据
      *
-     * @param path              path
-     * @param lines             文本数据
-     * @param charset           字符编码
-     * @param createIfNotExists 没有文件时是否应该创建之
-     * @param append            是否使用追加写入
-     * @throws java.io.UncheckedIOException IO异常
+     * @param path
+     *            path
+     * @param lines
+     *            文本数据
+     * @param charset
+     *            字符编码
+     * @param createIfNotExists
+     *            没有文件时是否应该创建之
+     * @param append
+     *            是否使用追加写入
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
-    public static void writeLines(Path path, List<String> lines, Charset charset, boolean createIfNotExists, boolean append) {
+    public static void writeLines(Path path, List<String> lines, Charset charset, boolean createIfNotExists,
+            boolean append) {
         Asserts.notNull(path);
         Asserts.notNull(lines);
         Asserts.notNull(charset);
 
-        final List<OpenOption> openOptions =
-                ListFactories.newArrayList(StandardOpenOption.WRITE);
+        final List<OpenOption> openOptions = ListFactories.newArrayList(StandardOpenOption.WRITE);
 
         if (createIfNotExists) {
             openOptions.add(StandardOpenOption.CREATE);
@@ -624,7 +738,9 @@ public final class PathUtils {
     /**
      * 转换为绝对路径
      *
-     * @param path path
+     * @param path
+     *            path
+     *
      * @return 结果
      */
     public static Path toAbsolutePath(Path path) {
@@ -635,10 +751,15 @@ public final class PathUtils {
     /**
      * 判断是否是同一个文件
      *
-     * @param p1 p1
-     * @param p2 p2
+     * @param p1
+     *            p1
+     * @param p2
+     *            p2
+     *
      * @return 结果
-     * @throws java.io.UncheckedIOException IO异常
+     *
+     * @throws java.io.UncheckedIOException
+     *             IO异常
      */
     public static boolean isSameFile(Path p1, Path p2) {
         Asserts.notNull(p1);

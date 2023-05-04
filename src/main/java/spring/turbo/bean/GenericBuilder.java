@@ -17,39 +17,38 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * <p>通用Builder</p>
+ * <p>
+ * 通用Builder
+ * </p>
  * 参考: <a href="https://blog.csdn.net/weixin_43935907/article/details/105003719">一看就会的java8通用Builder</a>
- * <p>使用方法如下：</p>
+ * <p>
+ * 使用方法如下：
+ * </p>
+ *
  * <pre>
- * Box box = GenericBuilder
- * 		.of(Box::new)
- * 		.with(Box::setId, 1024L)
- * 		.with(Box::setTitle, "Hello World!")
- * 		.with(Box::setLength, 9)
- * 		.with(Box::setWidth, 8)
- * 		.with(Box::setHeight, 7)
- * 		.build();
+ * Box box = GenericBuilder.of(Box::new).with(Box::setId, 1024L).with(Box::setTitle, "Hello World!")
+ *         .with(Box::setLength, 9).with(Box::setWidth, 8).with(Box::setHeight, 7).build();
  *
  * </pre>
  *
- * <p> 我们也可以对已创建的对象进行修改：</p>
+ * <p>
+ * 我们也可以对已创建的对象进行修改：
+ * </p>
+ *
  * <pre>
- * Box boxModified = GenericBuilder
- * 		.of(() -&gt; box)
- * 		.with(Box::setTitle, "Hello Friend!")
- * 		.with(Box::setLength, 3)
- * 		.with(Box::setWidth, 4)
- * 		.with(Box::setHeight, 5)
- * 		.build();
+ * Box boxModified = GenericBuilder.of(() -&gt; box).with(Box::setTitle, "Hello Friend!").with(Box::setLength, 3)
+ *         .with(Box::setWidth, 4).with(Box::setHeight, 5).build();
  * </pre>
- * <p> 我们还可以对这样调用有参构造，这对于创建一些在有参构造中包含初始化函数的对象是有意义的：</p>
+ * <p>
+ * 我们还可以对这样调用有参构造，这对于创建一些在有参构造中包含初始化函数的对象是有意义的：
+ * </p>
+ *
  * <pre>
- * Box box1 = GenericBuilder
- * 		.of(Box::new, 2048L, "Hello Partner!", 222, 333, 444)
- * 		.with(Box::alis)
- * 		.build();
+ * Box box1 = GenericBuilder.of(Box::new, 2048L, "Hello Partner!", 222, 333, 444).with(Box::alis).build();
  * </pre>
- * <p> 还可能这样构建Map对象：</p>
+ * <p>
+ * 还可能这样构建Map对象：
+ * </p>
  * {@code
  * HashMap<String, String> colorMap = GenericBuilder
  * .of(HashMap<String,String>::new)
@@ -59,7 +58,9 @@ import java.util.function.Supplier;
  * .build();
  * }
  *
- * <p>注意：本工具类支持调用的构造方法的参数数量不超过5个，一般方法的参数数量不超过2个，更多的参数不利于阅读和维护。</p>
+ * <p>
+ * 注意：本工具类支持调用的构造方法的参数数量不超过5个，一般方法的参数数量不超过2个，更多的参数不利于阅读和维护。
+ * </p>
  *
  * @author 应卓
  */
@@ -78,7 +79,8 @@ public class GenericBuilder<T> {
     /**
      * 构造
      *
-     * @param instant 实例化器
+     * @param instant
+     *            实例化器
      */
     public GenericBuilder(Supplier<T> instant) {
         this.instant = instant;
@@ -87,8 +89,11 @@ public class GenericBuilder<T> {
     /**
      * 通过无参数实例化器创建GenericBuilder
      *
-     * @param instant 实例化器
-     * @param <T>     目标类型
+     * @param instant
+     *            实例化器
+     * @param <T>
+     *            目标类型
+     *
      * @return GenericBuilder对象
      */
     public static <T> GenericBuilder<T> of(Supplier<T> instant) {
@@ -98,10 +103,15 @@ public class GenericBuilder<T> {
     /**
      * 通过1参数实例化器创建GenericBuilder
      *
-     * @param instant 实例化器
-     * @param p1      参数一
-     * @param <T>     目标类型
-     * @param <P1>    参数一类型
+     * @param instant
+     *            实例化器
+     * @param p1
+     *            参数一
+     * @param <T>
+     *            目标类型
+     * @param <P1>
+     *            参数一类型
+     *
      * @return GenericBuilder对象
      */
     public static <T, P1> GenericBuilder<T> of(Supplier1<T, P1> instant, P1 p1) {
@@ -111,12 +121,19 @@ public class GenericBuilder<T> {
     /**
      * 通过2参数实例化器创建GenericBuilder
      *
-     * @param instant 实例化器
-     * @param p1      参数一
-     * @param p2      参数二
-     * @param <T>     目标类型
-     * @param <P1>    参数一类型
-     * @param <P2>    参数二类型
+     * @param instant
+     *            实例化器
+     * @param p1
+     *            参数一
+     * @param p2
+     *            参数二
+     * @param <T>
+     *            目标类型
+     * @param <P1>
+     *            参数一类型
+     * @param <P2>
+     *            参数二类型
+     *
      * @return GenericBuilder对象
      */
     public static <T, P1, P2> GenericBuilder<T> of(Supplier2<T, P1, P2> instant, P1 p1, P2 p2) {
@@ -126,14 +143,23 @@ public class GenericBuilder<T> {
     /**
      * 通过3参数实例化器创建GenericBuilder
      *
-     * @param instant 实例化器
-     * @param p1      参数一
-     * @param p2      参数二
-     * @param p3      参数三
-     * @param <T>     目标类型
-     * @param <P1>    参数一类型
-     * @param <P2>    参数二类型
-     * @param <P3>    参数三类型
+     * @param instant
+     *            实例化器
+     * @param p1
+     *            参数一
+     * @param p2
+     *            参数二
+     * @param p3
+     *            参数三
+     * @param <T>
+     *            目标类型
+     * @param <P1>
+     *            参数一类型
+     * @param <P2>
+     *            参数二类型
+     * @param <P3>
+     *            参数三类型
+     *
      * @return GenericBuilder对象
      */
     public static <T, P1, P2, P3> GenericBuilder<T> of(Supplier3<T, P1, P2, P3> instant, P1 p1, P2 p2, P3 p3) {
@@ -143,47 +169,75 @@ public class GenericBuilder<T> {
     /**
      * 通过4参数实例化器创建GenericBuilder
      *
-     * @param instant 实例化器
-     * @param p1      参数一
-     * @param p2      参数二
-     * @param p3      参数三
-     * @param p4      参数四
-     * @param <T>     目标类型
-     * @param <P1>    参数一类型
-     * @param <P2>    参数二类型
-     * @param <P3>    参数三类型
-     * @param <P4>    参数四类型
+     * @param instant
+     *            实例化器
+     * @param p1
+     *            参数一
+     * @param p2
+     *            参数二
+     * @param p3
+     *            参数三
+     * @param p4
+     *            参数四
+     * @param <T>
+     *            目标类型
+     * @param <P1>
+     *            参数一类型
+     * @param <P2>
+     *            参数二类型
+     * @param <P3>
+     *            参数三类型
+     * @param <P4>
+     *            参数四类型
+     *
      * @return GenericBuilder对象
      */
-    public static <T, P1, P2, P3, P4> GenericBuilder<T> of(Supplier4<T, P1, P2, P3, P4> instant, P1 p1, P2 p2, P3 p3, P4 p4) {
+    public static <T, P1, P2, P3, P4> GenericBuilder<T> of(Supplier4<T, P1, P2, P3, P4> instant, P1 p1, P2 p2, P3 p3,
+            P4 p4) {
         return of(instant.toSupplier(p1, p2, p3, p4));
     }
 
     /**
      * 通过5参数实例化器创建GenericBuilder
      *
-     * @param instant 实例化器
-     * @param p1      参数一
-     * @param p2      参数二
-     * @param p3      参数三
-     * @param p4      参数四
-     * @param p5      参数五
-     * @param <T>     目标类型
-     * @param <P1>    参数一类型
-     * @param <P2>    参数二类型
-     * @param <P3>    参数三类型
-     * @param <P4>    参数四类型
-     * @param <P5>    参数五类型
+     * @param instant
+     *            实例化器
+     * @param p1
+     *            参数一
+     * @param p2
+     *            参数二
+     * @param p3
+     *            参数三
+     * @param p4
+     *            参数四
+     * @param p5
+     *            参数五
+     * @param <T>
+     *            目标类型
+     * @param <P1>
+     *            参数一类型
+     * @param <P2>
+     *            参数二类型
+     * @param <P3>
+     *            参数三类型
+     * @param <P4>
+     *            参数四类型
+     * @param <P5>
+     *            参数五类型
+     *
      * @return GenericBuilder对象
      */
-    public static <T, P1, P2, P3, P4, P5> GenericBuilder<T> of(Supplier5<T, P1, P2, P3, P4, P5> instant, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) {
+    public static <T, P1, P2, P3, P4, P5> GenericBuilder<T> of(Supplier5<T, P1, P2, P3, P4, P5> instant, P1 p1, P2 p2,
+            P3 p3, P4 p4, P5 p5) {
         return of(instant.toSupplier(p1, p2, p3, p4, p5));
     }
 
     /**
      * 调用无参数方法
      *
-     * @param consumer 无参数Consumer
+     * @param consumer
+     *            无参数Consumer
+     *
      * @return GenericBuilder对象
      */
     public GenericBuilder<T> with(Consumer<T> consumer) {
@@ -194,9 +248,13 @@ public class GenericBuilder<T> {
     /**
      * 调用1参数方法
      *
-     * @param consumer 1参数Consumer
-     * @param p1       参数一
-     * @param <P1>     参数一类型
+     * @param consumer
+     *            1参数Consumer
+     * @param p1
+     *            参数一
+     * @param <P1>
+     *            参数一类型
+     *
      * @return GenericBuilder对象
      */
     public <P1> GenericBuilder<T> with(BiConsumer<T, P1> consumer, P1 p1) {
@@ -207,11 +265,17 @@ public class GenericBuilder<T> {
     /**
      * 调用2参数方法
      *
-     * @param consumer 2参数Consumer
-     * @param p1       参数一
-     * @param p2       参数二
-     * @param <P1>     参数一类型
-     * @param <P2>     参数二类型
+     * @param consumer
+     *            2参数Consumer
+     * @param p1
+     *            参数一
+     * @param p2
+     *            参数二
+     * @param <P1>
+     *            参数一类型
+     * @param <P2>
+     *            参数二类型
+     *
      * @return GenericBuilder对象
      */
     public <P1, P2> GenericBuilder<T> with(Consumer3<T, P1, P2> consumer, P1 p1, P2 p2) {

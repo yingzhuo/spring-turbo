@@ -15,11 +15,13 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
+ *
  * @see spring.turbo.SpringTurboModules
+ *
  * @since 2.0.13
  */
 @Inherited
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Conditional(ConditionalOnSpringTurboModulesCondition.class)
@@ -36,8 +38,7 @@ public @interface ConditionalOnSpringTurboModules {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static enum Logic {
-        ANY,
-        ALL
+        ANY, ALL
     }
 
 }

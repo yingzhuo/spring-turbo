@@ -16,6 +16,7 @@ import static spring.turbo.util.StringUtils.endsWithIgnoreCase;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.7
  */
 public class ValidSuffixValidator implements ConstraintValidator<ValidSuffix, String> {

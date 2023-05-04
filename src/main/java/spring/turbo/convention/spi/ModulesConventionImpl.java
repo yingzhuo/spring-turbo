@@ -14,6 +14,7 @@ import static spring.turbo.SpringTurboModules.SPRING_TURBO;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.13
  */
 public final class ModulesConventionImpl implements ModulesConvention {

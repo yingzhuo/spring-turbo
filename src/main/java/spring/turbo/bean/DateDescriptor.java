@@ -20,11 +20,13 @@ import java.util.Date;
  * 日期维度
  *
  * @author 应卓
+ *
  * @see java.util.Date
  * @see java.time.LocalDate
  * @see #of(Date)
  * @see #of(String, WeekOption)
  * @see #of(Date, ZoneId)
+ *
  * @since 1.1.4
  */
 public interface DateDescriptor extends Comparable<DateDescriptor>, Serializable {

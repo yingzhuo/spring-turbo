@@ -20,12 +20,14 @@ import static java.lang.annotation.ElementType.*;
  * {@link DateZones} 检查用元注释
  *
  * @author 应卓
+ *
  * @see DateZones
+ *
  * @since 2.0.1
  */
 @Inherited
 @Documented
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = DecentDateZonesConstraintValidator.class)
 public @interface DecentDateZones {

@@ -17,13 +17,18 @@ import java.util.Objects;
 /**
  * 区间 (左闭右闭)
  *
- * <p>#ThreadSafe# 如果比较器是线程安全的，那么区间对象也是线程安全的。</p>
+ * <p>
+ * #ThreadSafe# 如果比较器是线程安全的，那么区间对象也是线程安全的。
+ * </p>
  *
- * @param <T> 元素类型
+ * @param <T>
+ *            元素类型
+ *
  * @author 应卓
+ *
  * @since 2.0.11
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public final class Range<T> implements Serializable {
 
     private final Comparator<T> comparator;
@@ -34,9 +39,12 @@ public final class Range<T> implements Serializable {
     /**
      * 构造方法
      *
-     * @param element1 区间左值
-     * @param element2 区间右值
-     * @param comp     比较器
+     * @param element1
+     *            区间左值
+     * @param element2
+     *            区间右值
+     * @param comp
+     *            比较器
      */
     private Range(T element1, T element2, @Nullable Comparator<T> comp) {
         Asserts.notNull(element1);
@@ -80,8 +88,7 @@ public final class Range<T> implements Serializable {
         if (otherRange == null) {
             return false;
         }
-        return contains(otherRange.minimum)
-                && contains(otherRange.maximum);
+        return contains(otherRange.minimum) && contains(otherRange.maximum);
     }
 
     public int elementCompareTo(final T element) {
@@ -105,8 +112,7 @@ public final class Range<T> implements Serializable {
         } else {
             @SuppressWarnings("unchecked") // OK because we checked the class above
             final Range<T> range = (Range<T>) obj;
-            return minimum.equals(range.minimum) &&
-                    maximum.equals(range.maximum);
+            return minimum.equals(range.minimum) && maximum.equals(range.maximum);
         }
     }
 
@@ -137,8 +143,8 @@ public final class Range<T> implements Serializable {
 
     public Range<T> intersectionWith(Range<T> other) {
         if (!this.isOverlappedBy(other)) {
-            throw new IllegalArgumentException(String.format(
-                    "Cannot calculate intersection with non-overlapping range %s", other));
+            throw new IllegalArgumentException(
+                    String.format("Cannot calculate intersection with non-overlapping range %s", other));
         }
         if (this.equals(other)) {
             return this;
@@ -191,9 +197,7 @@ public final class Range<T> implements Serializable {
         if (otherRange == null) {
             return false;
         }
-        return otherRange.contains(minimum)
-                || otherRange.contains(maximum)
-                || contains(otherRange.minimum);
+        return otherRange.contains(minimum) || otherRange.contains(maximum) || contains(otherRange.minimum);
     }
 
     public boolean isStartedBy(@Nullable T element) {

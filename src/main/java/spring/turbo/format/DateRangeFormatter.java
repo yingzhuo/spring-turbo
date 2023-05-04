@@ -21,6 +21,7 @@ import java.util.*;
 
 /**
  * @author 应卓
+ *
  * @since 1.3.1
  */
 public class DateRangeFormatter implements Formatter<DateRange> {
@@ -68,10 +69,8 @@ public class DateRangeFormatter implements Formatter<DateRange> {
             final Date left = DateParseUtils.parse(leftDateString, datePattern);
             final Date right = DateParseUtils.parse(rightDateString, datePattern);
 
-            return new DateRange(
-                    DateDescriptor.of(left, ZoneIdPool.toZoneIdOrDefault(timezone), weekOption),
-                    DateDescriptor.of(right, ZoneIdPool.toZoneIdOrDefault(timezone), weekOption)
-            );
+            return new DateRange(DateDescriptor.of(left, ZoneIdPool.toZoneIdOrDefault(timezone), weekOption),
+                    DateDescriptor.of(right, ZoneIdPool.toZoneIdOrDefault(timezone), weekOption));
         } catch (Exception e) {
             return null;
         }
@@ -79,12 +78,8 @@ public class DateRangeFormatter implements Formatter<DateRange> {
 
     @Override
     public String print(DateRange object, Locale locale) {
-        return StringFormatter.format(
-                "{}{}{}",
-                DateUtils.format(object.getLeftInclude(), this.datePattern),
-                this.delimiter,
-                DateUtils.format(object.getLeftInclude(), this.datePattern)
-        );
+        return StringFormatter.format("{}{}{}", DateUtils.format(object.getLeftInclude(), this.datePattern),
+                this.delimiter, DateUtils.format(object.getLeftInclude(), this.datePattern));
     }
 
     public void setDelimiter(String delimiter) {

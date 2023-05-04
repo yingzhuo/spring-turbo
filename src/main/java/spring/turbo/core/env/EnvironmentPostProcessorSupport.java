@@ -23,6 +23,7 @@ import static spring.turbo.util.StringFormatter.format;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.8
  */
 public abstract class EnvironmentPostProcessorSupport implements EnvironmentPostProcessor, Ordered {
@@ -31,7 +32,8 @@ public abstract class EnvironmentPostProcessorSupport implements EnvironmentPost
     private final ConfigurableBootstrapContext bootstrapContext;
     private int order = 0;
 
-    public EnvironmentPostProcessorSupport(DeferredLogFactory logFactory, ConfigurableBootstrapContext bootstrapContext) {
+    public EnvironmentPostProcessorSupport(DeferredLogFactory logFactory,
+            ConfigurableBootstrapContext bootstrapContext) {
         this.log = logFactory.getLog(getClass());
         this.bootstrapContext = bootstrapContext;
     }

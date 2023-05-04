@@ -16,8 +16,10 @@ import java.util.function.Supplier;
  * 类型加载异常提供器
  *
  * @author 应卓
+ *
  * @see ClassUtils
  * @see ClassLoadingException
+ *
  * @since 1.0.2
  */
 public class ClassLoadingExceptionSupplier implements Supplier<ClassLoadingException> {

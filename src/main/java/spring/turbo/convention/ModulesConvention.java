@@ -12,6 +12,7 @@ import org.springframework.core.Ordered;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.13
  */
 @FunctionalInterface

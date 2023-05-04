@@ -14,6 +14,7 @@ import static spring.turbo.util.crypto.Base64.encode;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public final class DSAKeys implements Keys {
@@ -40,10 +41,7 @@ public final class DSAKeys implements Keys {
             PublicKey publicKey = keyPair.getPublic();
             PrivateKey privateKey = keyPair.getPrivate();
 
-            return new DSAKeys(
-                    encode(publicKey.getEncoded()),
-                    encode(privateKey.getEncoded())
-            );
+            return new DSAKeys(encode(publicKey.getEncoded()), encode(privateKey.getEncoded()));
 
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError();

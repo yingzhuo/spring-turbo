@@ -12,15 +12,13 @@ package spring.turbo.util;
  * HEX相关工具
  *
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public final class HexUtils {
 
-    private static final char[] HEX = {
-            '0', '1', '2', '3', '4',
-            '5', '6', '7', '8', '9',
-            'a', 'b', 'c', 'd', 'e', 'f'
-    };
+    private static final char[] HEX = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
+            'f' };
 
     /**
      * 私有构造方法
@@ -56,8 +54,7 @@ public final class HexUtils {
         int nChars = s.length();
 
         if (nChars % 2 != 0) {
-            throw new IllegalArgumentException(
-                    "Hex-encoded string must have an even number of characters");
+            throw new IllegalArgumentException("Hex-encoded string must have an even number of characters");
         }
 
         byte[] result = new byte[nChars / 2];

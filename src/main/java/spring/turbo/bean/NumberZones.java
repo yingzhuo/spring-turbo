@@ -19,8 +19,10 @@ import java.util.List;
 
 /**
  * @author 应卓
+ *
  * @see spring.turbo.format.NumberPairFormatter
  * @see spring.turbo.bean.jsr380.DecentNumberZones
+ *
  * @since 1.1.4
  */
 public class NumberZones implements Iterable<NumberPair>, Serializable {
@@ -37,7 +39,8 @@ public class NumberZones implements Iterable<NumberPair>, Serializable {
     /**
      * 构造方法
      *
-     * @param list NumberPair
+     * @param list
+     *            NumberPair
      */
     public NumberZones(@Nullable List<NumberPair> list) {
         this.list = list != null ? Collections.unmodifiableList(list) : Collections.emptyList();

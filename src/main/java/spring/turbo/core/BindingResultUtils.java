@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.0
  */
 public final class BindingResultUtils {
@@ -40,43 +41,43 @@ public final class BindingResultUtils {
             return Collections.emptyList();
         }
 
-        return bindingResult
-                .getAllErrors()
-                .stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .filter(Objects::nonNull)
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
+        return bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .filter(Objects::nonNull).distinct().sorted().collect(Collectors.toList());
     }
 
     public static String getJoinedDefaultErrorMessages(@Nullable BindingResult bindingResult) {
         return getJoinedDefaultErrorMessages(bindingResult, StringPool.COMMA);
     }
 
-    public static String getJoinedDefaultErrorMessages(@Nullable BindingResult bindingResult, @Nullable String separator) {
+    public static String getJoinedDefaultErrorMessages(@Nullable BindingResult bindingResult,
+            @Nullable String separator) {
         separator = separator == null ? StringPool.EMPTY : separator;
         return String.join(separator, getDefaultErrorMessages(bindingResult));
     }
 
-    public static String getJoinedErrorMessages(@Nullable BindingResult bindingResult, final MessageSource messageSource) {
+    public static String getJoinedErrorMessages(@Nullable BindingResult bindingResult,
+            final MessageSource messageSource) {
         return getJoinedErrorMessages(bindingResult, messageSource, null);
     }
 
-    public static String getJoinedErrorMessages(@Nullable BindingResult bindingResult, final MessageSource messageSource, final @Nullable Locale locale) {
+    public static String getJoinedErrorMessages(@Nullable BindingResult bindingResult,
+            final MessageSource messageSource, final @Nullable Locale locale) {
         return getJoinedErrorMessages(bindingResult, messageSource, locale, StringPool.COMMA);
     }
 
-    public static String getJoinedErrorMessages(@Nullable BindingResult bindingResult, final MessageSource messageSource, final @Nullable Locale locale, @Nullable String separator) {
+    public static String getJoinedErrorMessages(@Nullable BindingResult bindingResult,
+            final MessageSource messageSource, final @Nullable Locale locale, @Nullable String separator) {
         separator = separator == null ? StringPool.EMPTY : separator;
         return String.join(separator, getErrorMessages(bindingResult, messageSource, locale));
     }
 
-    public static List<String> getErrorMessages(@Nullable BindingResult bindingResult, final MessageSource messageSource) {
+    public static List<String> getErrorMessages(@Nullable BindingResult bindingResult,
+            final MessageSource messageSource) {
         return getErrorMessages(bindingResult, messageSource, Locale.getDefault());
     }
 
-    public static List<String> getErrorMessages(@Nullable BindingResult bindingResult, final MessageSource messageSource, final @Nullable Locale locale) {
+    public static List<String> getErrorMessages(@Nullable BindingResult bindingResult,
+            final MessageSource messageSource, final @Nullable Locale locale) {
         Asserts.notNull(messageSource);
 
         // null 或 没有错误
@@ -84,13 +85,9 @@ public final class BindingResultUtils {
             return Collections.emptyList();
         }
 
-        return bindingResult
-                .getAllErrors()
-                .stream()
-                .map(e -> messageSource.getMessage(e, locale != null ? locale : Locale.getDefault()))
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
+        return bindingResult.getAllErrors().stream()
+                .map(e -> messageSource.getMessage(e, locale != null ? locale : Locale.getDefault())).distinct()
+                .sorted().collect(Collectors.toList());
     }
 
 }

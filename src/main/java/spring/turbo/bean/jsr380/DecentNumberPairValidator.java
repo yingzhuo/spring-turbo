@@ -16,6 +16,7 @@ import spring.turbo.util.Asserts;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.3
  */
 public class DecentNumberPairValidator implements ConstraintValidator<DecentNumberPair, NumberPair> {

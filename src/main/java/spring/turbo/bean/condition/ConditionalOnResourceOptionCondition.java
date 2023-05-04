@@ -21,6 +21,7 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.1
  */
 @SuppressWarnings("unchecked")
@@ -28,8 +29,8 @@ public final class ConditionalOnResourceOptionCondition extends SpringBootCondit
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        var attributes =
-                AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnResourceOption.class.getName()));
+        var attributes = AnnotationAttributes
+                .fromMap(metadata.getAnnotationAttributes(ConditionalOnResourceOption.class.getName()));
 
         if (attributes == null) {
             return ConditionOutcome.noMatch("resources absent");
@@ -42,11 +43,8 @@ public final class ConditionalOnResourceOptionCondition extends SpringBootCondit
             return ConditionOutcome.noMatch("resources absent");
         }
 
-        var match = RichResource.builder()
-                .blankSafeAddLocations(resources)
-                .discriminator(InstanceUtils.newInstanceElseThrow(discriminatorType))
-                .build()
-                .isPresent();
+        var match = RichResource.builder().blankSafeAddLocations(resources)
+                .discriminator(InstanceUtils.newInstanceElseThrow(discriminatorType)).build().isPresent();
 
         if (match) {
             return ConditionOutcome.match();

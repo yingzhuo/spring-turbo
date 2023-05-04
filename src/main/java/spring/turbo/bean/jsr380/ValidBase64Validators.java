@@ -15,6 +15,7 @@ import spring.turbo.util.crypto.Base64;
 
 /**
  * @author 应卓
+ *
  * @since 2.2.4
  */
 public final class ValidBase64Validators {

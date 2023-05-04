@@ -19,16 +19,17 @@ import org.springframework.lang.Nullable;
  * {@code SPEL}相关工具
  *
  * @author 应卓
+ *
  * @see Expression
  * @see SpelExpressionParser
+ *
  * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 public final class ExpressionUtils {
 
     private static final ExpressionParser EXPRESSION_PARSER = new SpelExpressionParser(
-            new SpelParserConfiguration(true, true)
-    );
+            new SpelParserConfiguration(true, true));
 
     /**
      * 私有构造方法
@@ -40,8 +41,11 @@ public final class ExpressionUtils {
     /**
      * 获取表达式的值
      *
-     * @param expressionString 表达式
-     * @param <T>              表达式值的类型
+     * @param expressionString
+     *            表达式
+     * @param <T>
+     *            表达式值的类型
+     *
      * @return 值
      */
     @Nullable
@@ -54,9 +58,13 @@ public final class ExpressionUtils {
     /**
      * 获取表达式的值
      *
-     * @param rootObj          根值
-     * @param expressionString 表达式
-     * @param <T>              表达式值的类型
+     * @param rootObj
+     *            根值
+     * @param expressionString
+     *            表达式
+     * @param <T>
+     *            表达式值的类型
+     *
      * @return 值
      */
     @Nullable

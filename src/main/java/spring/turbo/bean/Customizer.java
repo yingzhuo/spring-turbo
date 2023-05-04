@@ -13,8 +13,11 @@ import java.util.function.Function;
 /**
  * 定制化器
  *
- * @param <T> 类型
+ * @param <T>
+ *            类型
+ *
  * @author 应卓
+ *
  * @since 1.0.0
  */
 @FunctionalInterface

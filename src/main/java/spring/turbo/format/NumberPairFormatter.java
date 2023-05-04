@@ -21,12 +21,12 @@ import java.util.regex.Pattern;
 
 /**
  * @author 应卓
+ *
  * @since 1.3.1
  */
 public class NumberPairFormatter implements Formatter<NumberPair> {
 
-    private static final Pattern REGEX =
-            Pattern.compile("^([+\\-]?[#a-fA-F0-9.xX]+)-([+\\-]?[#a-fA-F0-9.xX]+)$");
+    private static final Pattern REGEX = Pattern.compile("^([+\\-]?[#a-fA-F0-9.xX]+)-([+\\-]?[#a-fA-F0-9.xX]+)$");
 
     @Override
     public NumberPair parse(String text, Locale locale) throws ParseException {

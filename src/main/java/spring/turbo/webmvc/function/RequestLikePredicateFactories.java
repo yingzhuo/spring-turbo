@@ -19,6 +19,7 @@ import static spring.turbo.util.ArrayUtils.length;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.9
  */
 public final class RequestLikePredicateFactories {
@@ -181,10 +182,7 @@ public final class RequestLikePredicateFactories {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static RequestLikePredicate matchAntPatterns(HttpMethod method, String... patterns) {
-        return and(
-                method(method),
-                matchAntPatterns(patterns)
-        );
+        return and(method(method), matchAntPatterns(patterns));
     }
 
     public static RequestLikePredicate matchAntPatterns(String... patterns) {
@@ -202,17 +200,12 @@ public final class RequestLikePredicateFactories {
                 return patternMatcher.match(patterns[0], request.getRequestURI());
             };
         } else {
-            return or(
-                    Stream.of(patterns)
-                            .map(pattern -> (RequestLikePredicate) request -> {
-                                if (request == null) {
-                                    return false;
-                                }
-                                return patternMatcher.match(pattern, request.getRequestURI());
-                            })
-                            .toList()
-                            .toArray(new RequestLikePredicate[0])
-            );
+            return or(Stream.of(patterns).map(pattern -> (RequestLikePredicate) request -> {
+                if (request == null) {
+                    return false;
+                }
+                return patternMatcher.match(pattern, request.getRequestURI());
+            }).toList().toArray(new RequestLikePredicate[0]));
         }
     }
 

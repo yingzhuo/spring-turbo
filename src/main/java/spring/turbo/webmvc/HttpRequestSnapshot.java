@@ -27,7 +27,9 @@ import static spring.turbo.util.StringPool.QUESTION_MARK_X_3;
  * HTTP(s)请求快照
  *
  * @author 应卓
+ *
  * @see jakarta.servlet.http.HttpServletRequest
+ *
  * @since 1.0.0
  */
 public final class HttpRequestSnapshot extends HttpServletRequestWrapper implements Iterable<String> {
@@ -40,7 +42,8 @@ public final class HttpRequestSnapshot extends HttpServletRequestWrapper impleme
     /**
      * 私有构造方法
      *
-     * @param request HTTP(s)请求
+     * @param request
+     *            HTTP(s)请求
      */
     private HttpRequestSnapshot(HttpServletRequest request) {
         super(request);

@@ -21,7 +21,9 @@ import java.util.Objects;
  * 业务自洽性检查工具
  *
  * @author 应卓
+ *
  * @see BusinessException
+ *
  * @since 1.0.0
  */
 public final class SelfConsistent {
@@ -42,10 +44,7 @@ public final class SelfConsistent {
 
     public static void assertNotNull(@Nullable Object o, String code, @Nullable Object... args) {
         if (o == null) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -58,10 +57,7 @@ public final class SelfConsistent {
 
     public static <T> void assertNotEmpty(@Nullable Collection<T> o, String code, @Nullable Object... args) {
         if (CollectionUtils.isEmpty(o)) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -74,10 +70,7 @@ public final class SelfConsistent {
 
     public static <K, V> void assertNotEmpty(@Nullable Map<K, V> o, String code, @Nullable Object... args) {
         if (CollectionUtils.isEmpty(o)) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -95,17 +88,11 @@ public final class SelfConsistent {
 
     public static <T> void assertNoNullElements(@Nullable Collection<T> o, String code, @Nullable Object... args) {
         if (CollectionUtils.isEmpty(o)) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
         for (T it : o) {
             if (it == null) {
-                throw BusinessException.builder()
-                        .codes(code)
-                        .arguments(args)
-                        .build();
+                throw BusinessException.builder().codes(code).arguments(args).build();
             }
         }
     }
@@ -119,10 +106,7 @@ public final class SelfConsistent {
 
     public static void assertNotEmpty(@Nullable CharSequence string, String code, @Nullable Object... args) {
         if (!StringUtils.hasLength(string)) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -135,10 +119,7 @@ public final class SelfConsistent {
 
     public static void assertNotBlank(@Nullable CharSequence string, String code, @Nullable Object... args) {
         if (!StringUtils.hasText(string)) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -151,10 +132,7 @@ public final class SelfConsistent {
 
     public static void assertPositive(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() <= 0D) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -167,10 +145,7 @@ public final class SelfConsistent {
 
     public static void assertPositiveOrZero(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() < 0D) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -183,10 +158,7 @@ public final class SelfConsistent {
 
     public static void assertZero(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() != 0D) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -199,10 +171,7 @@ public final class SelfConsistent {
 
     public static void assertNegative(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() >= 0D) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -215,10 +184,7 @@ public final class SelfConsistent {
 
     public static void assertNegativeOrZero(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() > 0D) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -231,10 +197,7 @@ public final class SelfConsistent {
 
     public static void assertEquals(@Nullable Object o1, @Nullable Object o2, String code, @Nullable Object... args) {
         if (!Objects.equals(o1, o2)) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -245,12 +208,10 @@ public final class SelfConsistent {
         }
     }
 
-    public static void assertSameObject(@Nullable Object o1, @Nullable Object o2, String code, @Nullable Object... args) {
+    public static void assertSameObject(@Nullable Object o1, @Nullable Object o2, String code,
+            @Nullable Object... args) {
         if (o1 != o2) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -263,10 +224,7 @@ public final class SelfConsistent {
 
     public static void assertTrue(boolean state, String code, @Nullable Object... args) {
         if (!state) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 
@@ -279,10 +237,7 @@ public final class SelfConsistent {
 
     public static void assertFalse(boolean state, String code, @Nullable Object... args) {
         if (state) {
-            throw BusinessException.builder()
-                    .codes(code)
-                    .arguments(args)
-                    .build();
+            throw BusinessException.builder().codes(code).arguments(args).build();
         }
     }
 

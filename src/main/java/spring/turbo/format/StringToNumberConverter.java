@@ -20,6 +20,7 @@ import java.util.Set;
 
 /**
  * @author 应卓
+ *
  * @since 1.0.8
  */
 public class StringToNumberConverter implements GenericConverter {
@@ -33,16 +34,11 @@ public class StringToNumberConverter implements GenericConverter {
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return Set.of(
-                new ConvertiblePair(String.class, Byte.class),
-                new ConvertiblePair(String.class, Short.class),
-                new ConvertiblePair(String.class, Integer.class),
-                new ConvertiblePair(String.class, Long.class),
-                new ConvertiblePair(String.class, Float.class),
-                new ConvertiblePair(String.class, Double.class),
+        return Set.of(new ConvertiblePair(String.class, Byte.class), new ConvertiblePair(String.class, Short.class),
+                new ConvertiblePair(String.class, Integer.class), new ConvertiblePair(String.class, Long.class),
+                new ConvertiblePair(String.class, Float.class), new ConvertiblePair(String.class, Double.class),
                 new ConvertiblePair(String.class, BigInteger.class),
-                new ConvertiblePair(String.class, BigDecimal.class)
-        );
+                new ConvertiblePair(String.class, BigDecimal.class));
     }
 
     @Override
@@ -86,7 +82,8 @@ public class StringToNumberConverter implements GenericConverter {
         }
 
         // 实际不会发生
-        throw new IllegalArgumentException(StringFormatter.format("unsupported number type: {}", targetType.getObjectType().getName()));
+        throw new IllegalArgumentException(
+                StringFormatter.format("unsupported number type: {}", targetType.getObjectType().getName()));
     }
 
 }

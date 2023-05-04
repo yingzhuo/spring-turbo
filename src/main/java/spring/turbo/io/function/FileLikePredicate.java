@@ -19,6 +19,7 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
+ *
  * @since 2.0.8
  */
 public interface FileLikePredicate extends Predicate<File> {
@@ -38,7 +39,8 @@ public interface FileLikePredicate extends Predicate<File> {
 
     public default Predicate<Resource> asResourcePredicate() {
         return resource -> {
-            if (resource == null) return false;
+            if (resource == null)
+                return false;
             try {
                 var file = resource.getFile();
                 return this.test(file);
@@ -50,7 +52,8 @@ public interface FileLikePredicate extends Predicate<File> {
 
     public default Predicate<RichResource> asRichResourcePredicate() {
         return resource -> {
-            if (resource == null) return false;
+            if (resource == null)
+                return false;
             try {
                 var file = resource.getFile();
                 return this.test(file);

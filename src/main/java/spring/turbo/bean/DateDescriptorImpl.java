@@ -26,6 +26,7 @@ import java.util.Objects;
  * 时间维度的具体实现
  *
  * @author 应卓
+ *
  * @since 1.1.4
  */
 public class DateDescriptorImpl implements DateDescriptor {
@@ -246,8 +247,10 @@ public class DateDescriptorImpl implements DateDescriptor {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         DateDescriptorImpl that = (DateDescriptorImpl) o;
         return date.equals(that.date);
     }
@@ -292,11 +295,7 @@ public class DateDescriptorImpl implements DateDescriptor {
         LocalDate left = localDate.with(TemporalAdjusters.previous(firstDayOfWeek));
         LocalDate right = left.plusDays(6);
 
-        return String.format(
-                "%s@@%s",
-                left.format(YYYY_MM_DD),
-                right.format(YYYY_MM_DD)
-        );
+        return String.format("%s@@%s", left.format(YYYY_MM_DD), right.format(YYYY_MM_DD));
     }
 
 }

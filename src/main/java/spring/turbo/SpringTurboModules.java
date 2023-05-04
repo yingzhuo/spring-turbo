@@ -23,9 +23,11 @@ import static spring.turbo.util.StringUtils.blankSafeAdd;
  * 本软件模块
  *
  * @author 应卓
+ *
  * @see SpringTurboVersion
  * @see spring.turbo.bean.condition.ConditionalOnSpringTurboModules
  * @see ModulesConvention
+ *
  * @since 2.0.13
  */
 public final class SpringTurboModules {
@@ -60,7 +62,9 @@ public final class SpringTurboModules {
     /**
      * 判断模块是否存在任意一个
      *
-     * @param moduleNamesToTest 要测试的模块名称
+     * @param moduleNamesToTest
+     *            要测试的模块名称
+     *
      * @return 结果
      */
     public static boolean presentAny(String... moduleNamesToTest) {
@@ -79,7 +83,9 @@ public final class SpringTurboModules {
     /**
      * 判断模块是否全部存在
      *
-     * @param moduleNamesToTest 要测试的模块名称
+     * @param moduleNamesToTest
+     *            要测试的模块名称
+     *
      * @return 结果
      */
     public static boolean presentAll(String... moduleNamesToTest) {

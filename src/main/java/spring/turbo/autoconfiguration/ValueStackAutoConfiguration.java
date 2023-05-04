@@ -14,22 +14,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
-import spring.turbo.bean.ValueFinder;
-import spring.turbo.bean.ValueFinderImpl;
+import spring.turbo.bean.ValueStack;
+import spring.turbo.bean.ValueStackImpl;
 
 /**
  * @author 应卓
+ *
  * @since 2.2.4
  */
 @AutoConfiguration
-@ConditionalOnMissingBean(ValueFinder.class)
-public class ValueFinderAutoConfiguration {
+@ConditionalOnMissingBean(ValueStack.class)
+public class ValueStackAutoConfiguration {
 
-    @Bean
-    public ValueFinder valueFinder(Environment environment,
-                                   ResourceLoader resourceLoader,
-                                   ConversionService conversionService) {
-        return new ValueFinderImpl(environment, resourceLoader, conversionService);
+    @Bean(name = { "valueStack", "valueFinder" })
+    public ValueStack valueStack(Environment environment, ResourceLoader resourceLoader,
+            ConversionService conversionService) {
+        return new ValueStackImpl(environment, resourceLoader, conversionService);
     }
 
 }

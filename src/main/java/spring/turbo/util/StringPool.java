@@ -14,7 +14,9 @@ import static spring.turbo.util.StringUtils.repeat;
  * 字符串池
  *
  * @author 应卓
+ *
  * @see CharPool
+ *
  * @since 1.0.0
  */
 public final class StringPool {
