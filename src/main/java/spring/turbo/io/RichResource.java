@@ -12,6 +12,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.Nullable;
+import spring.turbo.core.ResourceLoaders;
 import spring.turbo.util.CollectionUtils;
 
 import java.io.*;
@@ -212,7 +213,7 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
         private static final Predicate<Resource> DEFAULT_DISCRIMINATOR = r -> r != null && r.exists() && r.isReadable();
         private final List<String> locations = new ArrayList<>();
         private final List<Resource> resources = new ArrayList<>();
-        private ResourceLoader resourceLoader = new DefaultResourceLoader();
+        private ResourceLoader resourceLoader = ResourceLoaders.getDefault();
         private Predicate<Resource> discriminator = DEFAULT_DISCRIMINATOR;
         private boolean testLocationsFirst = true;
 

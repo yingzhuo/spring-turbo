@@ -113,7 +113,7 @@ public final class SpringUtils {
      */
     public static ResourceLoader getResourceLoader() {
         return Optional.ofNullable(SpringApplicationHolders.SC).map(SpringContext::getResourceLoader)
-                .orElse(new DefaultResourceLoader());
+                .orElse(ResourceLoaders.getDefault());
     }
 
     /**
