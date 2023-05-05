@@ -18,15 +18,15 @@ import org.springframework.core.io.ResourceLoader;
  */
 public final class ResourceLoaders {
 
-    public static ResourceLoader getDefault() {
-        return SyncAvoid.RESOURCE_LOADER;
-    }
-
     /**
      * 私有构造方法
      */
     private ResourceLoaders() {
         super();
+    }
+
+    public static ResourceLoader getDefault() {
+        return SyncAvoid.RESOURCE_LOADER;
     }
 
     // 延迟加载
