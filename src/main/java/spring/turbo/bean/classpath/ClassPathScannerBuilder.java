@@ -14,6 +14,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.lang.Nullable;
+import spring.turbo.core.ResourceLoaders;
 import spring.turbo.util.ClassUtils;
 import spring.turbo.util.CollectionUtils;
 
@@ -40,7 +41,7 @@ public final class ClassPathScannerBuilder {
     private final List<TypeFilter> includeFilters = new LinkedList<>();
     private final List<TypeFilter> excludeFilters = new LinkedList<>();
     private Environment environment = new StandardEnvironment();
-    private ResourceLoader resourceLoader = new DefaultResourceLoader();
+    private ResourceLoader resourceLoader = ResourceLoaders.getDefault();
     private ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
 
     /**
