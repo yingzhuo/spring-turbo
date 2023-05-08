@@ -10,10 +10,10 @@ package spring.turbo.util.crypto;
 
 import spring.turbo.io.CloseUtils;
 import spring.turbo.io.IOUtils;
+import spring.turbo.util.Asserts;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.file.Path;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -37,6 +37,11 @@ public final class KeyStorage {
 
     public static void saveKeys(KeyPair keyPair, OutputStream publicKeyPathToSave, OutputStream privateKeyPathToSave)
             throws IOException {
+
+        Asserts.notNull(keyPair, "keyPair is null");
+        Asserts.notNull(publicKeyPathToSave, "publicKeyPathToSave is null");
+        Asserts.notNull(privateKeyPathToSave, "privateKeyPathToSave is null");
+
         var privateKey = keyPair.getPrivate();
         var publicKey = keyPair.getPublic();
 
@@ -55,6 +60,11 @@ public final class KeyStorage {
 
     public static KeyPair loadKeys(String algorithm, InputStream publicKeyPathToLoad, InputStream privateKeyPathToLoad)
             throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+
+        Asserts.hasText(algorithm, "algorithm is null or blank");
+        Asserts.notNull(publicKeyPathToLoad, "publicKeyPathToLoad is null");
+        Asserts.notNull(privateKeyPathToLoad, "privateKeyPathToLoad is null");
+
         // read public key
         byte[] encodedPublicKey = IOUtils.copyToByteArray(publicKeyPathToLoad);
         CloseUtils.closeQuietly(publicKeyPathToLoad);
@@ -72,6 +82,48 @@ public final class KeyStorage {
         var privateKey = keyFactory.generatePrivate(privateKeySpec);
 
         return new KeyPair(publicKey, privateKey);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static void saveKeys(KeyPair keyPair, File publicKeyPathToSave, File privateKeyPathToSave)
+            throws IOException {
+
+        Asserts.notNull(publicKeyPathToSave, "publicKeyPathToSave is null");
+        Asserts.notNull(privateKeyPathToSave, "privateKeyPathToSave is null");
+
+        saveKeys(keyPair, new FileOutputStream(publicKeyPathToSave), new FileOutputStream(privateKeyPathToSave));
+    }
+
+    public static KeyPair loadKeys(String algorithm, File publicKeyPathToLoad, File privateKeyPathToLoad)
+            throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+
+        Asserts.notNull(publicKeyPathToLoad, "publicKeyPathToLoad is null");
+        Asserts.notNull(privateKeyPathToLoad, "privateKeyPathToLoad is null");
+
+        return loadKeys(algorithm, new FileInputStream(publicKeyPathToLoad), new FileInputStream(privateKeyPathToLoad));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static void saveKeys(KeyPair keyPair, Path publicKeyPathToSave, Path privateKeyPathToSave)
+            throws IOException {
+
+        Asserts.notNull(publicKeyPathToSave, "publicKeyPathToSave is null");
+        Asserts.notNull(privateKeyPathToSave, "privateKeyPathToSave is null");
+
+        saveKeys(keyPair, new FileOutputStream(publicKeyPathToSave.toFile()),
+                new FileOutputStream(privateKeyPathToSave.toFile()));
+    }
+
+    public static KeyPair loadKeys(String algorithm, Path publicKeyPathToLoad, Path privateKeyPathToLoad)
+            throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+
+        Asserts.notNull(publicKeyPathToLoad, "publicKeyPathToLoad is null");
+        Asserts.notNull(privateKeyPathToLoad, "privateKeyPathToLoad is null");
+
+        return loadKeys(algorithm, new FileInputStream(publicKeyPathToLoad.toFile()),
+                new FileInputStream(privateKeyPathToLoad.toFile()));
     }
 
 }

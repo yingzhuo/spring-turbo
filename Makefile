@@ -23,7 +23,7 @@ test:
 package:
 	@mvn -f $(CURDIR)/pom.xml clean package -Dmaven.test.skip=true
 
-deploy:
+deploy: format
 	@mvn -f $(CURDIR)/pom.xml clean deploy -Dmaven.test.skip=true -P"sonar"
 
 install:
@@ -38,7 +38,7 @@ clean:
 	@mvn -f $(CURDIR)/pom.xml clean -q
 
 format:
-	@mvn formatter:format
+	@mvn -f $(CURDIR)/pom.xml formatter:format -q
 
 github: clean format
 	@git add .

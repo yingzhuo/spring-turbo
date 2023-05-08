@@ -24,7 +24,7 @@ public class ValidPrefixValidator implements ConstraintValidator<ValidPrefix, St
     @Nullable
     private String[] permitPrefix;
 
-    private boolean ignoreCase;
+    private boolean ignoreCase = false;
 
     @Override
     public void initialize(ValidPrefix annotation) {

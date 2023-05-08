@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.lang.Nullable;
+import spring.turbo.io.CloseUtils;
 
 import java.io.IOException;
 
@@ -31,7 +32,7 @@ public class ValidJsonValidator implements ConstraintValidator<ValidJson, String
         return isValidJSON(value);
     }
 
-    private boolean isValidJSON(final String json) {
+    private boolean isValidJSON(String json) {
         boolean valid = false;
         try {
             final JsonParser parser = new ObjectMapper().createParser(json);
@@ -39,6 +40,7 @@ public class ValidJsonValidator implements ConstraintValidator<ValidJson, String
                 // nop
             }
             valid = true;
+            CloseUtils.closeQuietly(parser);
         } catch (IOException ignored) {
             // nop
         }
