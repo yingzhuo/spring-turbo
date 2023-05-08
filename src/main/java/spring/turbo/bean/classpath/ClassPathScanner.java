@@ -36,6 +36,15 @@ public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullCl
     }
 
     /**
+     * 新建无动作扫描器
+     *
+     * @return 无动作扫描器实例
+     */
+    public static ClassPathScanner nullClassPathScanner() {
+        return NullClassPathScanner.getInstance();
+    }
+
+    /**
      * 扫描类路径
      *
      * @param packageSet

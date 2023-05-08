@@ -22,8 +22,7 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  *
  * @since 2.2.4
  */
-@SuppressWarnings("unchecked")
-public record ValueStackImpl(Environment environment, ResourceLoader resourceLoader,
+public final record ValueStackImpl(Environment environment, ResourceLoader resourceLoader,
         ConversionService conversionService) implements ValueStack {
 
     @Nullable
@@ -50,6 +49,7 @@ public record ValueStackImpl(Environment environment, ResourceLoader resourceLoa
 
     @Nullable
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T findObject(@NonNull Class<T> valueType, @Nullable String environmentName,
             @Nullable String resourceLocation, @Nullable String defaultValue) {
 
