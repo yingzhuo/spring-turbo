@@ -8,8 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
-import org.springframework.core.io.Resource;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import spring.turbo.io.RichResource;
+import spring.turbo.util.Asserts;
 
 /**
  * 资源栈，建议配合 {@code SpEL} 使用
@@ -21,6 +23,14 @@ import org.springframework.lang.Nullable;
 public sealed interface ResourceStack permits ResourceStackImpl {
 
     @Nullable
-    public Resource find(@Nullable String environmentName, String... locations);
+    public RichResource find(@Nullable String environmentName, String... locations);
+
+    @NonNull
+    public default RichResource findRequired(@Nullable String environmentName, String... locations) {
+        var resource = find(environmentName, locations);
+        Asserts.notNull(resource);
+        Asserts.isTrue(RichResource.Builder.DEFAULT_DISCRIMINATOR.test(resource));
+        return resource;
+    }
 
 }

@@ -199,6 +199,8 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
         }
     }
 
+    public Resource delegating();
+
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
@@ -210,7 +212,7 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
      */
     final class Builder {
 
-        private static final Predicate<Resource> DEFAULT_DISCRIMINATOR = r -> r != null && r.exists() && r.isReadable();
+        public static final Predicate<Resource> DEFAULT_DISCRIMINATOR = r -> r != null && r.exists() && r.isReadable();
         private final List<String> locations = new ArrayList<>();
         private final List<Resource> resources = new ArrayList<>();
         private ResourceLoader resourceLoader = ResourceLoaders.getDefault();
@@ -352,7 +354,17 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
         }
 
         private void addAllResources(List<Resource> list, List<Resource> resources) {
-            CollectionUtils.nullSafeAddAll(list, resources);
+            for (var resource : resources) {
+                if (resource == null) {
+                    continue;
+                }
+
+                if (resource instanceof RichResource rich) {
+                    list.add(rich.delegating());
+                } else {
+                    list.add(resource);
+                }
+            }
         }
     }
 

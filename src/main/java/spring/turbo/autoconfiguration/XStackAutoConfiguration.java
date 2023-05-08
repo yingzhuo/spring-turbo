@@ -11,10 +11,13 @@ package spring.turbo.autoconfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import spring.turbo.bean.ResourceStack;
 import spring.turbo.bean.ResourceStackImpl;
+import spring.turbo.bean.ValueStack;
+import spring.turbo.bean.ValueStackImpl;
 
 /**
  * @author 应卓
@@ -22,10 +25,17 @@ import spring.turbo.bean.ResourceStackImpl;
  * @since 2.2.5
  */
 @AutoConfiguration
-@ConditionalOnMissingBean(ResourceStack.class)
-public class ResourceStackAutoConfiguration {
+public class XStackAutoConfiguration {
 
     @Bean
+    @ConditionalOnMissingBean
+    public ValueStack valueStack(Environment environment, ResourceLoader resourceLoader,
+            ConversionService conversionService) {
+        return new ValueStackImpl(environment, resourceLoader, conversionService);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
     public ResourceStack resourceStack(Environment environment, ResourceLoader resourceLoader) {
         return new ResourceStackImpl(environment, resourceLoader);
     }

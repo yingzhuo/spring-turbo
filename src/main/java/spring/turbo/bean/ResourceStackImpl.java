@@ -9,7 +9,6 @@
 package spring.turbo.bean;
 
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import spring.turbo.core.ResourceLoaders;
 import spring.turbo.io.RichResource;
@@ -29,10 +28,11 @@ public record ResourceStackImpl(Environment environment, ResourceLoader resource
     }
 
     @Override
-    public Resource find(String environmentName, String... locations) {
+    public RichResource find(String environmentName, String... locations) {
         return RichResource.builder().resourceLoader(resourceLoader)
-                .blankSafeAddLocations(environment.getProperty(environmentName)).blankSafeAddLocations(locations)
-                .build().orElse(null);
+                .blankSafeAddLocations(environment.getProperty(environmentName))
+                .discriminator(RichResource.Builder.DEFAULT_DISCRIMINATOR).blankSafeAddLocations(locations).build()
+                .orElse(null);
     }
 
 }
