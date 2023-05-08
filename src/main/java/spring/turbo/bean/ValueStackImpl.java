@@ -18,11 +18,18 @@ import spring.turbo.io.ResourceUtils;
 import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
+ * @param environment
+ *            {@link Environment} 实例
+ * @param resourceLoader
+ *            {@link ResourceLoader} 实例
+ * @param conversionService
+ *            {@link ConversionService} 实例
+ *
  * @author 应卓
  *
  * @since 2.2.4
  */
-public final record ValueStackImpl(Environment environment, ResourceLoader resourceLoader,
+public record ValueStackImpl(Environment environment, ResourceLoader resourceLoader,
         ConversionService conversionService) implements ValueStack {
 
     @Nullable

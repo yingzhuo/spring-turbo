@@ -19,17 +19,17 @@ import java.net.URL;
 import java.nio.channels.ReadableByteChannel;
 
 /**
+ * @param delegating
+ *            代理的 {@link Resource} 实例
+ *
  * @author 应卓
  *
  * @since 2.0.8
  */
-final class RichResourceImpl implements RichResource {
+record RichResourceImpl(Resource delegating) implements RichResource {
 
-    private final Resource delegating;
-
-    public RichResourceImpl(Resource delegating) {
+    RichResourceImpl {
         Asserts.notNull(delegating, "delegating is null");
-        this.delegating = delegating;
     }
 
     @Override

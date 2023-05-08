@@ -1,4 +1,4 @@
 spring.turbo.autoconfiguration.MessageSourceAutoConfiguration
 spring.turbo.autoconfiguration.FormatterAutoConfiguration
 spring.turbo.autoconfiguration.ObjectMapperEditingAutoConfiguration
-spring.turbo.autoconfiguration.ValueStackAutoConfiguration
+spring.turbo.autoconfiguration.XStackAutoConfiguration
