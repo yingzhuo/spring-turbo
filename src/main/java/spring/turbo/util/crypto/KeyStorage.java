@@ -8,6 +8,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import lombok.SneakyThrows;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.WritableResource;
 import spring.turbo.io.CloseUtils;
 import spring.turbo.io.IOUtils;
 import spring.turbo.util.Asserts;
@@ -16,12 +19,12 @@ import java.io.*;
 import java.nio.file.Path;
 import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
+ * 秘钥存储与加载工具
+ *
  * @author 应卓
  *
  * @since 2.2.4
@@ -35,9 +38,8 @@ public final class KeyStorage {
         super();
     }
 
-    public static void saveKeys(KeyPair keyPair, OutputStream publicKeyPathToSave, OutputStream privateKeyPathToSave)
-            throws IOException {
-
+    @SneakyThrows
+    public static void saveKeys(KeyPair keyPair, OutputStream publicKeyPathToSave, OutputStream privateKeyPathToSave) {
         Asserts.notNull(keyPair, "keyPair is null");
         Asserts.notNull(publicKeyPathToSave, "publicKeyPathToSave is null");
         Asserts.notNull(privateKeyPathToSave, "privateKeyPathToSave is null");
@@ -58,9 +60,9 @@ public final class KeyStorage {
         fos.close();
     }
 
-    public static KeyPair loadKeys(String algorithm, InputStream publicKeyPathToLoad, InputStream privateKeyPathToLoad)
-            throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-
+    @SneakyThrows
+    public static KeyPair loadKeys(String algorithm, InputStream publicKeyPathToLoad,
+            InputStream privateKeyPathToLoad) {
         Asserts.hasText(algorithm, "algorithm is null or blank");
         Asserts.notNull(publicKeyPathToLoad, "publicKeyPathToLoad is null");
         Asserts.notNull(privateKeyPathToLoad, "privateKeyPathToLoad is null");
@@ -86,44 +88,53 @@ public final class KeyStorage {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static void saveKeys(KeyPair keyPair, File publicKeyPathToSave, File privateKeyPathToSave)
-            throws IOException {
-
+    @SneakyThrows
+    public static void saveKeys(KeyPair keyPair, File publicKeyPathToSave, File privateKeyPathToSave) {
         Asserts.notNull(publicKeyPathToSave, "publicKeyPathToSave is null");
         Asserts.notNull(privateKeyPathToSave, "privateKeyPathToSave is null");
-
         saveKeys(keyPair, new FileOutputStream(publicKeyPathToSave), new FileOutputStream(privateKeyPathToSave));
     }
 
-    public static KeyPair loadKeys(String algorithm, File publicKeyPathToLoad, File privateKeyPathToLoad)
-            throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-
+    @SneakyThrows
+    public static KeyPair loadKeys(String algorithm, File publicKeyPathToLoad, File privateKeyPathToLoad) {
         Asserts.notNull(publicKeyPathToLoad, "publicKeyPathToLoad is null");
         Asserts.notNull(privateKeyPathToLoad, "privateKeyPathToLoad is null");
-
         return loadKeys(algorithm, new FileInputStream(publicKeyPathToLoad), new FileInputStream(privateKeyPathToLoad));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static void saveKeys(KeyPair keyPair, Path publicKeyPathToSave, Path privateKeyPathToSave)
-            throws IOException {
-
+    @SneakyThrows
+    public static void saveKeys(KeyPair keyPair, Path publicKeyPathToSave, Path privateKeyPathToSave) {
         Asserts.notNull(publicKeyPathToSave, "publicKeyPathToSave is null");
         Asserts.notNull(privateKeyPathToSave, "privateKeyPathToSave is null");
-
         saveKeys(keyPair, new FileOutputStream(publicKeyPathToSave.toFile()),
                 new FileOutputStream(privateKeyPathToSave.toFile()));
     }
 
-    public static KeyPair loadKeys(String algorithm, Path publicKeyPathToLoad, Path privateKeyPathToLoad)
-            throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-
+    @SneakyThrows
+    public static KeyPair loadKeys(String algorithm, Path publicKeyPathToLoad, Path privateKeyPathToLoad) {
         Asserts.notNull(publicKeyPathToLoad, "publicKeyPathToLoad is null");
         Asserts.notNull(privateKeyPathToLoad, "privateKeyPathToLoad is null");
-
         return loadKeys(algorithm, new FileInputStream(publicKeyPathToLoad.toFile()),
                 new FileInputStream(privateKeyPathToLoad.toFile()));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @SneakyThrows
+    public static void saveKeys(KeyPair keyPair, WritableResource publicKeyPathToSave,
+            WritableResource privateKeyPathToSave) {
+        Asserts.notNull(publicKeyPathToSave, "publicKeyPathToSave is null");
+        Asserts.notNull(privateKeyPathToSave, "privateKeyPathToSave is null");
+        saveKeys(keyPair, publicKeyPathToSave.getOutputStream(), privateKeyPathToSave.getOutputStream());
+    }
+
+    @SneakyThrows
+    public static KeyPair loadKeys(String algorithm, Resource publicKeyPathToLoad, Resource privateKeyPathToLoad) {
+        Asserts.notNull(publicKeyPathToLoad, "publicKeyPathToLoad is null");
+        Asserts.notNull(privateKeyPathToLoad, "privateKeyPathToLoad is null");
+        return loadKeys(algorithm, publicKeyPathToLoad.getInputStream(), privateKeyPathToLoad.getInputStream());
     }
 
 }
