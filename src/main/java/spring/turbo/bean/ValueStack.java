@@ -33,6 +33,7 @@ public sealed interface ValueStack permits ValueStackImpl {
         return findString(environmentName, resourceLocation, null);
     }
 
+    @NonNull
     public default String findRequiredString(@Nullable String environmentName, @Nullable String resourceLocation,
             @Nullable String defaultValue) {
         var value = findString(environmentName, resourceLocation, defaultValue);
@@ -51,6 +52,7 @@ public sealed interface ValueStack permits ValueStackImpl {
         return findObject(valueType, environmentName, resourceLocation, null);
     }
 
+    @NonNull
     public default <T> T findRequiredObject(@NonNull Class<T> valueType, @Nullable String environmentName,
             @Nullable String resourceLocation, @Nullable String defaultValue) {
         var value = findObject(valueType, environmentName, resourceLocation, defaultValue);
