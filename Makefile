@@ -26,7 +26,7 @@ package:
 deploy: format
 	@mvn -f $(CURDIR)/pom.xml clean deploy -Dmaven.test.skip=true -P"sonar"
 
-install:
+install: format
 	@mvn -f $(CURDIR)/pom.xml clean install -Dmaven.test.skip=true
 
 version:
