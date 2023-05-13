@@ -22,17 +22,17 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.Validator;
 import spring.turbo.util.Asserts;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 /**
+ * {@link ApplicationContext} 的装饰器
+ *
  * @author 应卓
  *
  * @see ApplicationContext
@@ -43,10 +43,25 @@ public final class SpringContext {
 
     private final ApplicationContext applicationContext;
 
-    private SpringContext(ApplicationContext applicationContext) {
+    /**
+     * 构造方法
+     *
+     * @param applicationContext
+     *            spring上下文实例
+     */
+    public SpringContext(ApplicationContext applicationContext) {
+        Asserts.notNull(applicationContext, "applicationContext is null");
         this.applicationContext = applicationContext;
     }
 
+    /**
+     * 创建实例
+     *
+     * @param applicationContext
+     *            spring上下文实例
+     *
+     * @return 实例
+     */
     public static SpringContext of(ApplicationContext applicationContext) {
         return new SpringContext(applicationContext);
     }
@@ -75,29 +90,24 @@ public final class SpringContext {
         return applicationContext;
     }
 
-    @Nullable
     public Environment getEnvironment() {
-        return getBean(Environment.class).orElse(null);
+        return getBean(Environment.class).orElseThrow(NullPointerException::new);
     }
 
-    @Nullable
     public ApplicationArguments getApplicationArguments() {
-        return getBean(ApplicationArguments.class).orElse(null);
+        return getBean(ApplicationArguments.class).orElseThrow(NullPointerException::new);
     }
 
-    @Nullable
     public ConversionService getConversionService() {
-        return getBean(ConversionService.class).orElse(null);
+        return getBean(ConversionService.class).orElseThrow(NullPointerException::new);
     }
 
-    @Nullable
     public Validator getValidator() {
-        return getBean(Validator.class).orElse(null);
+        return getBean(Validator.class).orElseThrow(NullPointerException::new);
     }
 
-    @Nullable
     public MessageSource getMessageSource() {
-        return getBean(MessageSource.class).orElse(null);
+        return getBean(MessageSource.class).orElseThrow(NullPointerException::new);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -120,11 +130,11 @@ public final class SpringContext {
 
     public <T> List<T> getBeanList(Class<T> beanType) {
         try {
-            final List<T> list = new ArrayList<>(applicationContext.getBeansOfType(beanType).values());
+            var list = new ArrayList<>(applicationContext.getBeansOfType(beanType).values());
             OrderComparator.sort(list);
-            return Collections.unmodifiableList(list);
+            return list;
         } catch (BeansException e) {
-            return Collections.emptyList();
+            return new ArrayList<>(0);
         }
     }
 
@@ -136,7 +146,7 @@ public final class SpringContext {
             list = new ArrayList<>();
             list.add(defaultIfNotNull);
         }
-        return Collections.unmodifiableList(list);
+        return list;
     }
 
     public <T> boolean containsBean(String beanName) {
