@@ -10,6 +10,7 @@ package spring.turbo.autoconfiguration;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
@@ -18,14 +19,15 @@ import spring.turbo.bean.ResourceStack;
 import spring.turbo.bean.ResourceStackImpl;
 import spring.turbo.bean.ValueStack;
 import spring.turbo.bean.ValueStackImpl;
+import spring.turbo.core.SpringContext;
 
 /**
  * @author 应卓
  *
- * @since 2.2.5
+ * @since 3.0.7
  */
 @AutoConfiguration
-public class XStackAutoConfiguration {
+public class MiscAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
@@ -38,6 +40,12 @@ public class XStackAutoConfiguration {
     @ConditionalOnMissingBean
     public ResourceStack resourceStack(Environment environment, ResourceLoader resourceLoader) {
         return new ResourceStackImpl(environment, resourceLoader);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public SpringContext springContext(ApplicationContext applicationContext) {
+        return new SpringContext(applicationContext);
     }
 
 }
