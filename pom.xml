@@ -94,7 +94,7 @@
         <encoding>UTF-8</encoding>
         <java.version>17</java.version>
 
-        <spring.boot.version>3.0.6</spring.boot.version>
+        <spring.boot.version>3.0.7-SNAPSHOT</spring.boot.version>
         <lombok.version>1.18.26</lombok.version>
     </properties>
 
@@ -226,24 +226,8 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.4.0</version>
                 <executions>
-                    <!-- setup构建时间戳变量 (helper.build.timestamp) -->
-                    <!--
-                    <execution>
-                        <id>setup-buildts-var</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>timestamp-property</goal>
-                        </goals>
-                        <configuration>
-                            <name>helper.build.timestamp</name>
-                            <pattern>yyyyMMddHHmm</pattern>
-                            <timeZone>Asia/Shanghai</timeZone>
-                            <locale>zh_CN</locale>
-                        </configuration>
-                    </execution>
-                    -->
                     <!-- setup构建根目录变量 (helper.build.root) -->
                     <execution>
                         <id>setup-rootlocation-var</id>
@@ -254,17 +238,6 @@
                         <configuration>
                             <rootLocationProperty>helper.build.root</rootLocationProperty>
                             <runOnlyAtExecutionRoot>false</runOnlyAtExecutionRoot>
-                        </configuration>
-                    </execution>
-                    <!-- setup Maven版本号 (helper.build.mavenversion) -->
-                    <execution>
-                        <id>setup-mavenversion-var</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>maven-version</goal>
-                        </goals>
-                        <configuration>
-                            <versionProperty>helper.build.mavenversion</versionProperty>
                         </configuration>
                     </execution>
                 </executions>
@@ -326,7 +299,7 @@
                 <version>3.3.0</version>
                 <configuration>
                     <archive>
-                        <index>true</index>
+                        <index>false</index>
                         <compress>true</compress>
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifest>
