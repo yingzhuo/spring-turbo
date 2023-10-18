@@ -95,7 +95,7 @@
         <java.version>17</java.version>
 
         <spring.boot.version>3.1.4</spring.boot.version>
-        <lombok.version>1.18.28</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
     </properties>
 
     <dependencyManagement>
