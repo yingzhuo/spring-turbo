@@ -17,7 +17,7 @@ package spring.turbo.bean;
  *
  * @since 1.1.4
  */
-public enum Zodiac {
+public enum Zodiac implements Named {
 
     /**
      * 白羊
@@ -79,6 +79,14 @@ public enum Zodiac {
      */
     PISCES;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.name().toLowerCase();
+    }
+
     public static Zodiac getZodiac(int month, int day) {
         return switch (month) {
         case 1 -> day >= 20 ? AQUARIUS : CAPRICORN;
@@ -96,5 +104,4 @@ public enum Zodiac {
         default -> throw new IllegalArgumentException("invalid day or month");
         };
     }
-
 }

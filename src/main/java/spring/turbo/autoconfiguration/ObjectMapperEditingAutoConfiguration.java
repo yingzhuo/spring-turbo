@@ -16,6 +16,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import spring.turbo.jackson2.CoreModuleJackson2Module;
 
 /**
+ * {@link ObjectMapper} 相关自动加载
+ *
  * @author 应卓
  *
  * @since 1.3.0

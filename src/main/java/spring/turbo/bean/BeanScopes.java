@@ -8,8 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean;
 
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_SINGLETON;
+
 /**
- * Bean Scope
+ * Bean Scope(s)
  *
  * @author 应卓
  *
@@ -19,8 +22,8 @@ package spring.turbo.bean;
  */
 public final class BeanScopes {
 
-    public static final String SINGLETON = "singleton";
-    public static final String PROTOTYPE = "prototype";
+    public static final String SINGLETON = SCOPE_SINGLETON;
+    public static final String PROTOTYPE = SCOPE_PROTOTYPE;
 
     /**
      * 私有构造方法

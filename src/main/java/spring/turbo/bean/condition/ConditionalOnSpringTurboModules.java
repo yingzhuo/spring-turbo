@@ -37,7 +37,7 @@ public @interface ConditionalOnSpringTurboModules {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static enum Logic {
+    enum Logic {
         ANY, ALL
     }
 
