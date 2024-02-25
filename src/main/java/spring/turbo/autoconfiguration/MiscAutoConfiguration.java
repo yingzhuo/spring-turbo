@@ -22,6 +22,8 @@ import spring.turbo.bean.ValueStackImpl;
 import spring.turbo.core.SpringContext;
 
 /**
+ * 杂项相关自动加载
+ *
  * @author 应卓
  *
  * @since 3.0.7

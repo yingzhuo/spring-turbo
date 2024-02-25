@@ -29,8 +29,11 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
+ * {@link MessageSource} 相关自动加载
+ *
  * @author 应卓
  *
+ * @see MessageSource
  * @see org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration
  *
  * @since 2.0.3

@@ -102,7 +102,6 @@ public final class DefaultClassPathScanner implements ClassPathScanner {
             }
             return isCandidate;
         }
-
     }
 
 }

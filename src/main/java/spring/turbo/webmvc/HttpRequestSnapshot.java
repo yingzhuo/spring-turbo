@@ -44,6 +44,8 @@ public final class HttpRequestSnapshot extends HttpServletRequestWrapper impleme
      *
      * @param request
      *            HTTP(s)请求
+     *
+     * @see #of(HttpServletRequest)
      */
     private HttpRequestSnapshot(HttpServletRequest request) {
         super(request);

@@ -6,29 +6,24 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo;
+package spring.turbo.bean.condition;
+
+import org.springframework.boot.autoconfigure.condition.ConditionalOnJava;
+import org.springframework.boot.system.JavaVersion;
+
+import java.lang.annotation.*;
 
 /**
- * 本软件版本
+ * Java 20
  *
  * @author 应卓
  *
- * @see SpringTurboModules
- *
- * @since 1.3.1
+ * @since 3.2.2
  */
-public final class SpringTurboVersion {
-
-    /**
-     * 当前本软件版本
-     */
-    public static final String CURRENT = "3.2.3";
-
-    /**
-     * 私有构造方法
-     */
-    private SpringTurboVersion() {
-        super();
-    }
-
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Target({ ElementType.TYPE, ElementType.METHOD })
+@ConditionalOnJava(value = JavaVersion.TWENTY, range = ConditionalOnJava.Range.EQUAL_OR_NEWER)
+public @interface ConditionalOnJava20 {
 }
