@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
-import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.collection.CollectionUtils;
 import spring.turbo.util.OS;
 
 import java.util.HashSet;

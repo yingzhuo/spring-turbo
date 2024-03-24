@@ -16,7 +16,7 @@ import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.lang.Nullable;
 import spring.turbo.core.ResourceLoaders;
 import spring.turbo.util.ClassUtils;
-import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.collection.CollectionUtils;
 
 import java.util.LinkedList;
 import java.util.List;

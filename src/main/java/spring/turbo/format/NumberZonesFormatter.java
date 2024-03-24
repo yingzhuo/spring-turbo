@@ -13,7 +13,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 import spring.turbo.bean.NumberPair;
 import spring.turbo.bean.NumberZones;
-import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.collection.CollectionUtils;
 import spring.turbo.util.StringPool;
 
 import java.text.ParseException;

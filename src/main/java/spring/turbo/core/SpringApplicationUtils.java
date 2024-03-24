@@ -14,7 +14,7 @@ import spring.turbo.util.Asserts;
 
 import java.io.File;
 
-import static spring.turbo.util.CollectionUtils.size;
+import static spring.turbo.util.collection.CollectionUtils.size;
 
 /**
  * @author 应卓

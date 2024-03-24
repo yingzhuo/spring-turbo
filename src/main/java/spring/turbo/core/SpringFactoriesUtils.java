@@ -21,7 +21,7 @@ import java.util.List;
 
 import static org.springframework.core.io.support.SpringFactoriesLoader.FACTORIES_RESOURCE_LOCATION;
 import static org.springframework.core.io.support.SpringFactoriesLoader.forResourceLocation;
-import static spring.turbo.util.CollectionUtils.nullSafeAddAll;
+import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
 import static spring.turbo.util.StringDefaults.blankToDefault;
 
 /**

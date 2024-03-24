@@ -13,7 +13,7 @@ import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.core.type.filter.*;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.collection.CollectionUtils;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
