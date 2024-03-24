@@ -16,7 +16,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.lang.Nullable;
 
 /**
- * {@code SPEL}相关工具
+ * {@code SpEL}相关工具
  *
  * @author 应卓
  *
