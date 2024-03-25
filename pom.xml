@@ -202,22 +202,22 @@
         <resources>
             <resource>
                 <directory>${project.basedir}/src/main/java</directory>
-                <filtering>false</filtering>
+                <filtering>true</filtering>
                 <excludes>
+                    <exclude>**/.DS_Store</exclude>
                     <exclude>**/.gitkeep</exclude>
                     <exclude>**/*.bak</exclude>
                     <exclude>**/*.java</exclude>
                     <exclude>**/*.kt</exclude>
-                    <exclude>**/*.groovy</exclude>
                     <exclude>**/*.scala</exclude>
                 </excludes>
             </resource>
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>false</filtering>
+                <filtering>true</filtering>
                 <excludes>
+                    <exclude>**/.DS_Store</exclude>
                     <exclude>**/.gitkeep</exclude>
-                    <exclude>**/*.bak</exclude>
                 </excludes>
             </resource>
         </resources>
@@ -349,6 +349,11 @@
                 <version>3.3.1</version>
                 <configuration>
                     <encoding>${encoding}</encoding>
+                    <propertiesEncoding>${encoding}</propertiesEncoding>
+                    <nonFilteredFileExtensions>
+                        <extension>p12</extension>
+                        <extension>key</extension>
+                    </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
             <plugin>

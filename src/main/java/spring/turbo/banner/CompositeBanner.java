@@ -27,7 +27,6 @@ import static spring.turbo.util.collection.ListFactories.nullSafeNewArrayList;
  * @author 应卓
  *
  * @see org.springframework.boot.ResourceBanner
- * @see EnvironmentPrintingBanner
  *
  * @since 3.2.4
  */
