@@ -9,7 +9,7 @@
 package spring.turbo.bean.valueobject;
 
 import spring.turbo.util.Asserts;
-import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.collection.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.LinkedList;

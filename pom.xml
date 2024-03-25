@@ -94,18 +94,27 @@
         <encoding>UTF-8</encoding>
         <java.version>17</java.version>
 
-        <spring.boot.version>3.2.3</spring.boot.version>
-        <lombok.version>1.18.30</lombok.version>
+        <spring.boot.version>3.2.4</spring.boot.version>
+        <lombok.version>1.18.32</lombok.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- spring-boot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -202,22 +211,22 @@
         <resources>
             <resource>
                 <directory>${project.basedir}/src/main/java</directory>
-                <filtering>false</filtering>
+                <filtering>true</filtering>
                 <excludes>
+                    <exclude>**/.DS_Store</exclude>
                     <exclude>**/.gitkeep</exclude>
                     <exclude>**/*.bak</exclude>
                     <exclude>**/*.java</exclude>
                     <exclude>**/*.kt</exclude>
-                    <exclude>**/*.groovy</exclude>
                     <exclude>**/*.scala</exclude>
                 </excludes>
             </resource>
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>false</filtering>
+                <filtering>true</filtering>
                 <excludes>
+                    <exclude>**/.DS_Store</exclude>
                     <exclude>**/.gitkeep</exclude>
-                    <exclude>**/*.bak</exclude>
                 </excludes>
             </resource>
         </resources>
@@ -349,6 +358,11 @@
                 <version>3.3.1</version>
                 <configuration>
                     <encoding>${encoding}</encoding>
+                    <propertiesEncoding>${encoding}</propertiesEncoding>
+                    <nonFilteredFileExtensions>
+                        <extension>p12</extension>
+                        <extension>key</extension>
+                    </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
             <plugin>
@@ -388,6 +402,25 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[17,)</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>[3.8.0,)</version>
+                                </requireMavenVersion>
+                                <banDuplicatePomDependencyVersions/>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>net.revelc.code.formatter</groupId>
@@ -414,7 +447,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.1.0</version>
+                        <version>3.2.1</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

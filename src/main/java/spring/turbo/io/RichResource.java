@@ -13,7 +13,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.Nullable;
 import spring.turbo.core.ResourceLoaders;
-import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.collection.CollectionUtils;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -28,7 +28,7 @@ import static java.util.Objects.requireNonNullElse;
 import static java.util.Objects.requireNonNullElseGet;
 import static spring.turbo.io.IOExceptionUtils.toUnchecked;
 import static spring.turbo.util.CharsetPool.UTF_8;
-import static spring.turbo.util.CollectionUtils.nullSafeAddAll;
+import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
 import static spring.turbo.util.StringUtils.blankSafeAddAll;
 
 /**

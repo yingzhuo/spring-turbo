@@ -21,7 +21,7 @@ import org.springframework.core.Ordered;
 import spring.turbo.autoconfiguration.properties.MessageSourceProps;
 import spring.turbo.convention.ExtraMessageSourceBasenameConvention;
 import spring.turbo.core.SpringFactoriesUtils;
-import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.collection.CollectionUtils;
 
 import java.time.Duration;
 import java.util.ArrayList;

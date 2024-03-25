@@ -9,7 +9,7 @@
 package spring.turbo.exception;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.CollectionUtils;
+import spring.turbo.util.collection.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;

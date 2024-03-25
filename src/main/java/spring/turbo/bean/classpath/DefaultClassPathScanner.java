@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static spring.turbo.util.CollectionUtils.nullSafeAddAll;
+import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
 
 /**
  * {@link ClassPathScanner} 默认实现
