@@ -433,6 +433,11 @@
                     <compilerTargetPlatform>${java.version}</compilerTargetPlatform>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>io.github.orhankupusoglu</groupId>
+                <artifactId>sloc-maven-plugin</artifactId>
+                <version>1.0.7</version>
+            </plugin>
         </plugins>
     </build>
 
