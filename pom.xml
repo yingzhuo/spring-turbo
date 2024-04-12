@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>spring-turbo</artifactId>
-    <version>3.2.4-SNAPSHOT</version>
+    <version>3.2.4</version>
     <packaging>jar</packaging>
 
     <url>https://github.com/yingzhuo/spring-turbo</url>
@@ -432,6 +432,11 @@
                     <compilerCompliance>${java.version}</compilerCompliance>
                     <compilerTargetPlatform>${java.version}</compilerTargetPlatform>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.github.orhankupusoglu</groupId>
+                <artifactId>sloc-maven-plugin</artifactId>
+                <version>1.0.7</version>
             </plugin>
         </plugins>
     </build>

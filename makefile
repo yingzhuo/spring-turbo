@@ -11,6 +11,7 @@ usage:
 	@echo "install =>  本地安装"
 	@echo "version =>  调整版本号"
 	@echo "format  =>  格式化代码"
+	@echo "lines   =>  统计代码行数"
 	@echo "github  =>  提交源代码"
 	@echo "=============================================================="
 
@@ -40,9 +41,12 @@ clean:
 format:
 	@mvn -f $(CURDIR)/pom.xml formatter:format -q
 
+lines:
+	@mvn -f $(CURDIR)/pom.xml io.github.orhankupusoglu:sloc-maven-plugin:sloc -Ddisplay=true -Dsave=true -DtrimPkgNames=false
+
 github: clean format
 	@git add .
 	@git commit -m "$(timestamp)"
 	@git push
 
-.PHONY: usage compile test clean package install deploy version format github
+.PHONY: usage compile test clean package install deploy version format lines github
