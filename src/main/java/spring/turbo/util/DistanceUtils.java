@@ -8,6 +8,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import org.springframework.lang.Nullable;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import static java.lang.Math.*;
 
 /**
@@ -38,6 +43,34 @@ public final class DistanceUtils {
      * @see DistanceUtils.Unit
      */
     public static double distance(double lat1, double lon1, double lat2, double lon2, Unit unit) {
+        return distance(lat1, lon1, lat2, lon2, unit, Integer.MIN_VALUE, null);
+    }
+
+    /**
+     * 计算两个点之间的距离
+     *
+     * @param lat1
+     *            第一点纬度
+     * @param lon1
+     *            第一点经度
+     * @param lat2
+     *            第二点纬度
+     * @param lon2
+     *            第二点经度
+     * @param unit
+     *            距离单位
+     * @param scale
+     *            保留小数点后位数
+     * @param roundingMode
+     *            roundingMode
+     *
+     * @return 距离
+     *
+     * @see DistanceUtils.Unit
+     */
+    public static double distance(double lat1, double lon1, double lat2, double lon2, Unit unit, int scale,
+            @Nullable RoundingMode roundingMode) {
+
         double theta = lon1 - lon2;
         double dist = sin(deg2rad(lat1)) * sin(deg2rad(lat2))
                 + cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * cos(deg2rad(theta));
@@ -45,11 +78,17 @@ public final class DistanceUtils {
         dist = rad2deg(dist);
         dist = dist * 60 * 1.1515;
 
-        return switch (unit) {
+        dist = switch (unit) {
         case MILES -> dist;
         case KILOMETERS -> dist * 1.609344;
         case NAUTICAL_MILES -> dist * 0.8684;
         };
+
+        if (roundingMode == null) {
+            return dist;
+        } else {
+            return BigDecimal.valueOf(dist).setScale(scale, roundingMode).doubleValue();
+        }
     }
 
     private static double deg2rad(double deg) {
@@ -63,7 +102,7 @@ public final class DistanceUtils {
     /**
      * 距离单位
      */
-    public static enum Unit {
+    public enum Unit {
 
         /**
          * 英里
