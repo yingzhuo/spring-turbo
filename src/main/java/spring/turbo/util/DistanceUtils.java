@@ -40,9 +40,9 @@ public final class DistanceUtils {
      *
      * @return 距离
      *
-     * @see DistanceUtils.Unit
+     * @see DistanceUnit
      */
-    public static double distance(double lat1, double lon1, double lat2, double lon2, Unit unit) {
+    public static double distance(double lat1, double lon1, double lat2, double lon2, DistanceUnit unit) {
         return distance(lat1, lon1, lat2, lon2, unit, Integer.MIN_VALUE, null);
     }
 
@@ -66,9 +66,9 @@ public final class DistanceUtils {
      *
      * @return 距离
      *
-     * @see DistanceUtils.Unit
+     * @see DistanceUnit
      */
-    public static double distance(double lat1, double lon1, double lat2, double lon2, Unit unit, int scale,
+    public static double distance(double lat1, double lon1, double lat2, double lon2, DistanceUnit unit, int scale,
             @Nullable RoundingMode roundingMode) {
 
         double theta = lon1 - lon2;
@@ -97,27 +97,6 @@ public final class DistanceUtils {
 
     private static double rad2deg(double rad) {
         return (rad * 180.0 / PI);
-    }
-
-    /**
-     * 距离单位
-     */
-    public enum Unit {
-
-        /**
-         * 英里
-         */
-        MILES,
-
-        /**
-         * 千米
-         */
-        KILOMETERS,
-
-        /**
-         * 海里
-         */
-        NAUTICAL_MILES
     }
 
     /**

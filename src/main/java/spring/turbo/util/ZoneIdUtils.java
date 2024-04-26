@@ -10,18 +10,23 @@ package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
 
+import java.time.DateTimeException;
 import java.time.ZoneId;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 import static spring.turbo.util.StringUtils.isBlank;
 
 /**
+ * {@link ZoneId} 相关工具
+ *
  * @author 应卓
  *
  * @see ZoneId#getAvailableZoneIds()
  *
  * @since 1.1.3
  */
-public final class ZoneIdPool {
+public final class ZoneIdUtils {
 
     // SYSTEM
     public static final ZoneId SYSTEM_DEFAULT = ZoneId.systemDefault();
@@ -38,22 +43,37 @@ public final class ZoneIdPool {
     /**
      * 私有构造方法
      */
-    private ZoneIdPool() {
+    private ZoneIdUtils() {
         super();
     }
 
     public static ZoneId toZoneIdOrDefault(@Nullable String name) {
-        return toZoneIdOrDefault(name, SYSTEM_DEFAULT);
+        var id = toZoneIdOrDefault(name, SYSTEM_DEFAULT);
+        return Objects.requireNonNull(id);
     }
 
-    public static ZoneId toZoneIdOrDefault(@Nullable String name, ZoneId defaultIfNullOrError) {
-        Asserts.notNull(defaultIfNullOrError);
+    @Nullable
+    public static ZoneId toZoneIdOrDefault(@Nullable String name, @Nullable ZoneId defaultIfNullOrError) {
 
         if (isBlank(name)) {
             return defaultIfNullOrError;
         }
 
-        return ZoneId.of(name);
+        try {
+            return ZoneId.of(name);
+        } catch (DateTimeException e) {
+            var matcher = Pattern.compile("^([a-zA-Z]+[+-]\\d+)\\.0+$").matcher(name);
+            if (matcher.matches()) {
+                name = matcher.replaceAll("$1");
+                try {
+                    return ZoneId.of(name);
+                } catch (Throwable ex) {
+                    return defaultIfNullOrError;
+                }
+            } else {
+                return defaultIfNullOrError;
+            }
+        }
     }
 
 }

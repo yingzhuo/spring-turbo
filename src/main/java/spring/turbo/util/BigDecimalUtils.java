@@ -31,6 +31,98 @@ public final class BigDecimalUtils {
     }
 
     /**
+     * 绝对值
+     *
+     * @param number
+     *            要取绝对值的数
+     *
+     * @return 结果
+     */
+    public static BigDecimal abs(BigDecimal number) {
+        Asserts.notNull(number);
+        return number.abs();
+    }
+
+    /**
+     * 加
+     *
+     * @param number1
+     *            第一个数
+     * @param number2
+     *            第二个数
+     *
+     * @return 结果
+     */
+    public static BigDecimal add(BigDecimal number1, BigDecimal number2) {
+        Asserts.notNull(number1);
+        Asserts.notNull(number2);
+        return number1.add(number2);
+    }
+
+    /**
+     * 减
+     *
+     * @param number1
+     *            第一个数
+     * @param number2
+     *            第二个数
+     *
+     * @return 结果
+     */
+    public static BigDecimal subtract(BigDecimal number1, BigDecimal number2) {
+        Asserts.notNull(number1);
+        Asserts.notNull(number2);
+        return number1.subtract(number2);
+    }
+
+    /**
+     * 乘
+     *
+     * @param number1
+     *            第一个数
+     * @param number2
+     *            第二个数
+     *
+     * @return 结果
+     */
+    public static BigDecimal multiply(BigDecimal number1, BigDecimal number2) {
+        Asserts.notNull(number1);
+        Asserts.notNull(number2);
+        return number1.multiply(number2);
+    }
+
+    /**
+     * 除
+     *
+     * @param number1
+     *            第一个数
+     * @param number2
+     *            第二个数
+     *
+     * @return 结果
+     */
+    public static BigDecimal divide(BigDecimal number1, BigDecimal number2) {
+        Asserts.notNull(number1);
+        Asserts.notNull(number2);
+        return number1.divide(number2);
+    }
+
+    /**
+     * 乘方
+     *
+     * @param number1
+     *            第一个数
+     * @param n
+     *            指数
+     *
+     * @return 结果
+     */
+    public static BigDecimal pow(BigDecimal number1, int n) {
+        Asserts.notNull(number1);
+        return number1.pow(n);
+    }
+
+    /**
      * 找出两个数中较小的一个
      *
      * @param number1

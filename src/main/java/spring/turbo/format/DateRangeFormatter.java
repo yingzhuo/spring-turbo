@@ -70,8 +70,8 @@ public class DateRangeFormatter implements Formatter<DateRange> {
             final Date left = DateParseUtils.parse(leftDateString, datePattern);
             final Date right = DateParseUtils.parse(rightDateString, datePattern);
 
-            return new DateRange(DateDescriptor.of(left, ZoneIdPool.toZoneIdOrDefault(timezone), weekOption),
-                    DateDescriptor.of(right, ZoneIdPool.toZoneIdOrDefault(timezone), weekOption));
+            return new DateRange(DateDescriptor.of(left, ZoneIdUtils.toZoneIdOrDefault(timezone), weekOption),
+                    DateDescriptor.of(right, ZoneIdUtils.toZoneIdOrDefault(timezone), weekOption));
         } catch (Exception e) {
             return null;
         }

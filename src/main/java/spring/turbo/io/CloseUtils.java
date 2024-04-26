@@ -49,6 +49,22 @@ public final class CloseUtils {
     /**
      * 关闭资源
      *
+     * @param closeable
+     *            资源
+     */
+    public static void closeQuietly(@Nullable AutoCloseable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (Exception ignored) {
+                // nop
+            }
+        }
+    }
+
+    /**
+     * 关闭资源
+     *
      * @param resource
      *            资源
      */

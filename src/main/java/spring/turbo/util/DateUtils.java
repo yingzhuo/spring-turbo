@@ -437,6 +437,7 @@ public final class DateUtils {
      * Calendar modification types.
      */
     private enum ModifyType {
+
         /**
          * Truncation.
          */
