@@ -94,7 +94,7 @@
         <encoding>UTF-8</encoding>
         <java.version>17</java.version>
 
-        <spring.boot.version>3.2.5</spring.boot.version>
+        <spring.boot.version>3.2.6-SNAPSHOT</spring.boot.version>
         <lombok.version>1.18.32</lombok.version>
     </properties>
 

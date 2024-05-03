@@ -1,6 +1,5 @@
 package spring.turbo.util;
 
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
@@ -14,12 +13,16 @@ import org.springframework.lang.Nullable;
 public final class CastUtils {
 
     @Nullable
-    public static <T> T cast(@Nullable Object object) {
+    public static <T> T castNullable(@Nullable Object object) {
         return (T) object;
     }
 
-    @NonNull
     public static <T> T castNonNull(Object object) {
+        Asserts.notNull(object);
+        return (T) object;
+    }
+
+    public static <T> T cast(Object object) {
         Asserts.notNull(object);
         return (T) object;
     }
