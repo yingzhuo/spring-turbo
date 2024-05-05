@@ -9,7 +9,7 @@
 package spring.turbo.io;
 
 import spring.turbo.util.Asserts;
-import spring.turbo.util.crypto.Base64;
+import spring.turbo.util.Base64;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

@@ -41,6 +41,7 @@ public final class SpringTurboModules {
     public static final String SPRING_TURBO_MODULE_MISC = "spring-turbo-module-misc";
     public static final String SPRING_TURBO_MODULE_SECURITY = "spring-turbo-module-security";
     public static final String SPRING_TURBO_MODULE_WEBMVC = "spring-turbo-module-webmvc";
+    public static final String SPRING_TURBO_MODULE_CRYPTO = "spring-turbo-module-crypto";
 
     /**
      * 私有构造方法

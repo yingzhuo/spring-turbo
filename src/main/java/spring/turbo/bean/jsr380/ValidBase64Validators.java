@@ -11,7 +11,7 @@ package spring.turbo.bean.jsr380;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.crypto.Base64;
+import spring.turbo.util.Base64;
 
 /**
  * @author 应卓
