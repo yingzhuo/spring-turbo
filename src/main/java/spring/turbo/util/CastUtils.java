@@ -1,5 +1,7 @@
 package spring.turbo.util;
 
+import org.springframework.lang.Nullable;
+
 /**
  * 类型转换工具
  *
@@ -7,10 +9,21 @@ package spring.turbo.util;
  *
  * @since 3.2.5
  */
+@SuppressWarnings("unchecked")
 public final class CastUtils {
 
-    @SuppressWarnings("unchecked")
+    @Nullable
+    public static <T> T castNullable(@Nullable Object object) {
+        return (T) object;
+    }
+
+    public static <T> T castNonNull(Object object) {
+        Asserts.notNull(object);
+        return (T) object;
+    }
+
     public static <T> T cast(Object object) {
+        Asserts.notNull(object);
         return (T) object;
     }
 
