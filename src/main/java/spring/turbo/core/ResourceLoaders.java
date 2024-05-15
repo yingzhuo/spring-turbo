@@ -10,6 +10,7 @@ package spring.turbo.core;
 
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
+import spring.turbo.util.ClassUtils;
 
 /**
  * @author 应卓
@@ -31,7 +32,8 @@ public final class ResourceLoaders {
 
     // 延迟加载
     private static final class SyncAvoid {
-        private static final ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
+        private static final ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader(
+                ClassUtils.getDefaultClassLoader());
     }
 
 }

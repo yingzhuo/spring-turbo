@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.jackson2;
 
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.core.util.VersionUtil;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import spring.turbo.SpringTurboVersion;
@@ -20,12 +21,14 @@ import spring.turbo.bean.*;
  */
 public class CoreModuleJackson2Module extends SimpleModule {
 
+    private static final Version VERSION = VersionUtil.parseVersion(SpringTurboVersion.CURRENT, "com.github.yingzhuo",
+            "spring-turbo");
+
     /**
      * 默认构造方法
      */
     public CoreModuleJackson2Module() {
-        super(CoreModuleJackson2Module.class.getName(),
-                VersionUtil.parseVersion(SpringTurboVersion.CURRENT, "com.github.yingzhuo", "spring-turbo"));
+        super(CoreModuleJackson2Module.class.getName(), VERSION);
     }
 
     @Override
