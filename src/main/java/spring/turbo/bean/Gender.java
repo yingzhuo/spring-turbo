@@ -33,7 +33,7 @@ public enum Gender {
      * 构造方法
      *
      * @param intValue
-     *            整形值
+     *            整型值
      */
     Gender(int intValue) {
         this.intValue = intValue;

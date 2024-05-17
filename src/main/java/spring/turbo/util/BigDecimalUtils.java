@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 
+import static org.springframework.util.NumberUtils.convertNumberToTargetClass;
+
 /**
  * {@link BigDecimal} 相关工具
  *
@@ -53,10 +55,10 @@ public final class BigDecimalUtils {
      *
      * @return 结果
      */
-    public static BigDecimal add(BigDecimal number1, BigDecimal number2) {
+    public static BigDecimal add(BigDecimal number1, Number number2) {
         Asserts.notNull(number1);
         Asserts.notNull(number2);
-        return number1.add(number2);
+        return number1.add(convertNumberToTargetClass(number2, BigDecimal.class));
     }
 
     /**
@@ -69,10 +71,10 @@ public final class BigDecimalUtils {
      *
      * @return 结果
      */
-    public static BigDecimal subtract(BigDecimal number1, BigDecimal number2) {
+    public static BigDecimal subtract(BigDecimal number1, Number number2) {
         Asserts.notNull(number1);
         Asserts.notNull(number2);
-        return number1.subtract(number2);
+        return number1.subtract(convertNumberToTargetClass(number2, BigDecimal.class));
     }
 
     /**
@@ -85,10 +87,10 @@ public final class BigDecimalUtils {
      *
      * @return 结果
      */
-    public static BigDecimal multiply(BigDecimal number1, BigDecimal number2) {
+    public static BigDecimal multiply(BigDecimal number1, Number number2) {
         Asserts.notNull(number1);
         Asserts.notNull(number2);
-        return number1.multiply(number2);
+        return number1.multiply(convertNumberToTargetClass(number2, BigDecimal.class));
     }
 
     /**
@@ -101,10 +103,10 @@ public final class BigDecimalUtils {
      *
      * @return 结果
      */
-    public static BigDecimal divide(BigDecimal number1, BigDecimal number2) {
+    public static BigDecimal divide(BigDecimal number1, Number number2) {
         Asserts.notNull(number1);
         Asserts.notNull(number2);
-        return number1.divide(number2);
+        return number1.divide(convertNumberToTargetClass(number2, BigDecimal.class));
     }
 
     /**

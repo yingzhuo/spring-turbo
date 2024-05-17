@@ -77,6 +77,24 @@ public final class LocalDateUtils {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * 判断两个日期是否为同一天
+     *
+     * @param date1
+     *            第一个日期
+     * @param date2
+     *            第二个日期
+     *
+     * @return 判断结果
+     */
+    public static boolean isSameDay(LocalDate date1, LocalDate date2) {
+        Asserts.notNull(date1);
+        Asserts.notNull(date2);
+        return date1.compareTo(date2) == 0;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
      * 计算两个日期之间的日期差
      *
      * @param date1
