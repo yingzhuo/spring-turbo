@@ -17,7 +17,7 @@ package spring.turbo.util;
  */
 public final class JsonStringUtils {
 
-    public static String removeExtraWhiteSpaces(String jsonString) {
+    public static String removeExtraWhitespaces(String jsonString) {
         final var result = new StringBuilder(jsonString.length());
         boolean inQuotes = false;
         boolean escapeMode = false;

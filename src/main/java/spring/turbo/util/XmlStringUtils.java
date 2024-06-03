@@ -17,7 +17,7 @@ package spring.turbo.util;
  */
 public final class XmlStringUtils {
 
-    public static String removeExtraWhiteSpaces(String xmlString) {
+    public static String removeExtraWhitespaces(String xmlString) {
         return xmlString.replaceAll(">[\\s\r\n]*<", "><");
     }
 
