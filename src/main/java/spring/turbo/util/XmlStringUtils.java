@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import javax.annotation.Nullable;
+
 /**
  * @author 应卓
  *
@@ -17,8 +19,12 @@ package spring.turbo.util;
  */
 public final class XmlStringUtils {
 
-    public static String removeExtraWhiteSpaces(String xmlString) {
-        return xmlString.replaceAll(">[\\s\r\n]*<", "><");
+    @Nullable
+    public static String removeExtraWhitespaces(@Nullable String xmlString) {
+        if (xmlString == null) {
+            return null;
+        }
+        return xmlString.replaceAll(">[\\s\r\n]*<", "><").trim();
     }
 
     /**

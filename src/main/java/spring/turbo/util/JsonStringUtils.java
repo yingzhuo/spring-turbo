@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
+import javax.annotation.Nullable;
+
 /**
  * @author 应卓
  *
@@ -17,7 +19,12 @@ package spring.turbo.util;
  */
 public final class JsonStringUtils {
 
-    public static String removeExtraWhiteSpaces(String jsonString) {
+    @Nullable
+    public static String removeExtraWhitespaces(@Nullable String jsonString) {
+        if (jsonString == null) {
+            return null;
+        }
+
         final var result = new StringBuilder(jsonString.length());
         boolean inQuotes = false;
         boolean escapeMode = false;
