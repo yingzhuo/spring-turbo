@@ -9,10 +9,10 @@
 package spring.turbo.jackson2;
 
 import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.core.util.VersionUtil;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import spring.turbo.SpringTurboVersion;
-import spring.turbo.bean.*;
+
+import static com.fasterxml.jackson.core.util.VersionUtil.parseVersion;
 
 /**
  * @author 应卓
@@ -21,7 +21,7 @@ import spring.turbo.bean.*;
  */
 public class CoreModuleJackson2Module extends SimpleModule {
 
-    private static final Version VERSION = VersionUtil.parseVersion(SpringTurboVersion.CURRENT, "com.github.yingzhuo",
+    private static final Version VERSION = parseVersion(SpringTurboVersion.CURRENT, "com.github.yingzhuo",
             "spring-turbo");
 
     /**
@@ -34,18 +34,6 @@ public class CoreModuleJackson2Module extends SimpleModule {
     @Override
     public void setupModule(SetupContext context) {
         super.setupModule(context);
-
-        // ---
-        context.setMixInAnnotations(DateRange.class, DateRangeMixin.class);
-        context.setMixInAnnotations(NumberZones.class, NumberZonesMixin.class);
-        context.setMixInAnnotations(DateZones.class, DateZonesMixin.class);
-
-        // ---
-        context.setMixInAnnotations(NumberPair.class, NumberPairMixin.class);
-        context.setMixInAnnotations(LongPair.class, LongPairMixin.class);
-        context.setMixInAnnotations(DoublePair.class, DoublePairMixin.class);
-        context.setMixInAnnotations(BigIntegerPair.class, BigIntegerPairMixin.class);
-        context.setMixInAnnotations(BigDecimalPair.class, BigDecimalPairMixin.class);
     }
 
 }

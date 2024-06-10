@@ -11,7 +11,10 @@ package spring.turbo.autoconfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import spring.turbo.format.*;
+import spring.turbo.format.StringToBooleanConverter;
+import spring.turbo.format.StringToDateConverter;
+import spring.turbo.format.StringToEnumConverterFactory;
+import spring.turbo.format.StringToNumberConverter;
 
 /**
  * @author 应卓
@@ -20,69 +23,6 @@ import spring.turbo.format.*;
  */
 @AutoConfiguration
 public class FormatterAutoConfiguration {
-
-    /**
-     * 默认构造方法
-     */
-    public FormatterAutoConfiguration() {
-        super();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    @Bean
-    @ConditionalOnMissingBean
-    public DateRangeFormatter defaultDateRangeFormatter() {
-        return new DateRangeFormatter();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    @Bean
-    @ConditionalOnMissingBean
-    public NumberZonesFormatter defaultNumberZonesFormatter() {
-        return new NumberZonesFormatter();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public DateZonesFormatter defaultDateZonesFormatter() {
-        return new DateZonesFormatter();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    @Bean
-    @ConditionalOnMissingBean
-    public NumberPairFormatter defaultNumberPairFormatter() {
-        return new NumberPairFormatter();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public LongPairFormatter defaultLongPairFormatter() {
-        return new LongPairFormatter();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public BigIntegerPairFormatter defaultBigIntegerPairFormatter() {
-        return new BigIntegerPairFormatter();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public DoublePairFormatter defaultDoublePairFormatter() {
-        return new DoublePairFormatter();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public BigDecimalPairFormatter defaultBigDecimalPairFormatter() {
-        return new BigDecimalPairFormatter();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     @Bean
     @ConditionalOnMissingBean
