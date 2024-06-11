@@ -10,6 +10,9 @@ package spring.turbo.bean.function;
 
 import spring.turbo.bean.DateDescriptor;
 
+import static spring.turbo.util.StringPool.FALSE;
+import static spring.turbo.util.StringPool.TRUE;
+
 /**
  * @author 应卓
  *
@@ -54,7 +57,7 @@ public final class DateRangePartitionorFactories {
     }
 
     /**
-     * 按周区分，已周日为一周开始
+     * 按周区分，以周日为一周开始
      *
      * @return 分区器实例
      */
@@ -77,7 +80,7 @@ public final class DateRangePartitionorFactories {
      * @return 分区器实例
      */
     public static DateRangePartitionor byIsLeapYearOrNot() {
-        return dd -> dd.isLeapYear() ? "true" : "false";
+        return dd -> dd.isLeapYear() ? TRUE : FALSE;
     }
 
 }
