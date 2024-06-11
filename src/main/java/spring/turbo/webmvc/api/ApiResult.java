@@ -20,6 +20,7 @@ import java.io.Serializable;
  *
  * @since 1.0.0
  */
+@Deprecated(since = "3.3.1")
 public interface ApiResult<T> extends Serializable {
 
     public String getCode();

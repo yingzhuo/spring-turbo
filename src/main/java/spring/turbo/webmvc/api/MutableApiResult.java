@@ -16,6 +16,7 @@ package spring.turbo.webmvc.api;
  *
  * @since 1.0.0
  */
+@Deprecated(since = "3.3.1")
 public interface MutableApiResult<T> extends ApiResult<T> {
 
     public void setCode(String code);
