@@ -21,6 +21,7 @@ import java.util.Optional;
  *
  * @since 1.0.0
  */
+@Deprecated(since = "3.3.1")
 public class Json implements MutableApiResult<Map<String, Object>> {
 
     private String code = "200";
