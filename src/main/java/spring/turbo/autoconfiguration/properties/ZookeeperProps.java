@@ -23,7 +23,7 @@ import java.io.Serializable;
  */
 @Data
 @ConfigurationProperties(prefix = "springturbo.zookeeper")
-public class ZkProps implements InitializingBean, Serializable {
+public class ZookeeperProps implements InitializingBean, Serializable {
 
     private boolean enabled = false;
     private String connectString;

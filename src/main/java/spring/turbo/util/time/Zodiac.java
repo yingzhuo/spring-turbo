@@ -6,14 +6,14 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.util.time;
+
+import spring.turbo.bean.Named;
 
 /**
  * 黄道十二宫
  *
  * @author 应卓
- *
- * @see DateDescriptor
  *
  * @since 1.1.4
  */
