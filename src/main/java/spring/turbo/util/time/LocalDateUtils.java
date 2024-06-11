@@ -110,6 +110,23 @@ public final class LocalDateUtils {
         return (int) Math.abs(ChronoUnit.DAYS.between(date1, date2));
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 计算黄道十二宫
+     *
+     * @param date
+     *            日期
+     *
+     * @return 黄道十二宫
+     */
+    public static Zodiac zodiac(LocalDate date) {
+        Asserts.notNull(date);
+        return Zodiac.getZodiac(date.getMonthValue(), date.getDayOfMonth());
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * 私有构造方法
      */
