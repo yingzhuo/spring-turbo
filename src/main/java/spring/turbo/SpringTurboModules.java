@@ -40,9 +40,10 @@ public final class SpringTurboModules {
     public static final String SPRING_TURBO_MODULE_FEIGN = "spring-turbo-module-feign";
     public static final String SPRING_TURBO_MODULE_MISC = "spring-turbo-module-misc";
     public static final String SPRING_TURBO_MODULE_SECURITY = "spring-turbo-module-security";
+    public static final String SPRING_TURBO_MODULE_WEBCLI = "spring-turbo-module-webcli";
     public static final String SPRING_TURBO_MODULE_WEBMVC = "spring-turbo-module-webmvc";
     public static final String SPRING_TURBO_MODULE_CRYPTO = "spring-turbo-module-crypto";
-    public static final String SPRING_TURBO_MODULE_WEBCLI = "spring-turbo-module-webcli";
+    public static final String SPRING_TURBO_MODULE_JACKSON = "spring-turbo-module-jackson";
 
     /**
      * 私有构造方法

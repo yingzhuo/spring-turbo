@@ -79,14 +79,6 @@ public enum Zodiac implements Named {
      */
     PISCES;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-        return this.name().toLowerCase();
-    }
-
     public static Zodiac getZodiac(int month, int day) {
         return switch (month) {
         case 1 -> day >= 20 ? AQUARIUS : CAPRICORN;
@@ -103,5 +95,13 @@ public enum Zodiac implements Named {
         case 12 -> day >= 22 ? CAPRICORN : SAGITTARIUS;
         default -> throw new IllegalArgumentException("invalid day or month");
         };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.name().toLowerCase();
     }
 }

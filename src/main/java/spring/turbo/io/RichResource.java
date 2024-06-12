@@ -28,8 +28,8 @@ import static java.util.Objects.requireNonNullElse;
 import static java.util.Objects.requireNonNullElseGet;
 import static spring.turbo.io.IOExceptionUtils.toUnchecked;
 import static spring.turbo.util.CharsetPool.UTF_8;
-import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
 import static spring.turbo.util.StringUtils.blankSafeAddAll;
+import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
 
 /**
  * 有更丰富功能的 {@link Resource}

@@ -12,6 +12,13 @@ import org.springframework.lang.Nullable;
 @SuppressWarnings("unchecked")
 public final class CastUtils {
 
+    /**
+     * 私有构造方法
+     */
+    private CastUtils() {
+        super();
+    }
+
     @Nullable
     public static <T> T castNullable(@Nullable Object object) {
         return (T) object;
@@ -25,13 +32,6 @@ public final class CastUtils {
     public static <T> T cast(Object object) {
         Asserts.notNull(object);
         return (T) object;
-    }
-
-    /**
-     * 私有构造方法
-     */
-    private CastUtils() {
-        super();
     }
 
 }

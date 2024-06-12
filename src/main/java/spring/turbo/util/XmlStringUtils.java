@@ -19,18 +19,18 @@ import javax.annotation.Nullable;
  */
 public final class XmlStringUtils {
 
+    /**
+     * 私有构造方法
+     */
+    private XmlStringUtils() {
+        super();
+    }
+
     @Nullable
     public static String removeExtraWhitespaces(@Nullable String xmlString) {
         if (xmlString == null) {
             return null;
         }
         return xmlString.replaceAll(">[\\s\r\n]*<", "><").trim();
-    }
-
-    /**
-     * 私有构造方法
-     */
-    private XmlStringUtils() {
-        super();
     }
 }
