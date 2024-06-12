@@ -8,8 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.time;
 
-import spring.turbo.bean.Named;
-
 /**
  * 黄道十二宫
  *
@@ -17,7 +15,7 @@ import spring.turbo.bean.Named;
  *
  * @since 1.1.4
  */
-public enum Zodiac implements Named {
+public enum Zodiac {
 
     /**
      * 白羊
@@ -97,11 +95,4 @@ public enum Zodiac implements Named {
         };
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-        return this.name().toLowerCase();
-    }
 }
