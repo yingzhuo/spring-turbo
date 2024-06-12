@@ -1,4 +1,3 @@
 spring.turbo.autoconfiguration.MiscAutoConfiguration
 spring.turbo.autoconfiguration.MessageSourceAutoConfiguration
 spring.turbo.autoconfiguration.FormatterAutoConfiguration
-spring.turbo.autoconfiguration.ObjectMapperEditingAutoConfiguration
