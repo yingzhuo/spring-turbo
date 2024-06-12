@@ -25,6 +25,13 @@ import static java.lang.Math.*;
 public final class DistanceUtils {
 
     /**
+     * 私有构造方法
+     */
+    private DistanceUtils() {
+        super();
+    }
+
+    /**
      * 计算两个点之间的距离
      *
      * @param lat1
@@ -97,13 +104,6 @@ public final class DistanceUtils {
 
     private static double rad2deg(double rad) {
         return (rad * 180.0 / PI);
-    }
-
-    /**
-     * 私有构造方法
-     */
-    private DistanceUtils() {
-        super();
     }
 
 }

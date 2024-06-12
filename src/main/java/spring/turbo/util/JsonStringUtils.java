@@ -19,6 +19,13 @@ import javax.annotation.Nullable;
  */
 public final class JsonStringUtils {
 
+    /**
+     * 私有构造方法
+     */
+    private JsonStringUtils() {
+        super();
+    }
+
     @Nullable
     public static String removeExtraWhitespaces(@Nullable String jsonString) {
         if (jsonString == null) {
@@ -45,13 +52,6 @@ public final class JsonStringUtils {
             }
         }
         return result.toString();
-    }
-
-    /**
-     * 私有构造方法
-     */
-    private JsonStringUtils() {
-        super();
     }
 
 }

@@ -30,6 +30,13 @@ import java.util.Objects;
 public final class LocalDateUtils {
 
     /**
+     * 私有构造方法
+     */
+    private LocalDateUtils() {
+        super();
+    }
+
+    /**
      * 转换成{@link Date} 实例
      *
      * @param date
@@ -40,6 +47,8 @@ public final class LocalDateUtils {
     public static Date toDate(LocalDate date) {
         return toDate(date, null);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * 转换成{@link Date} 实例
@@ -123,15 +132,6 @@ public final class LocalDateUtils {
     public static Zodiac zodiac(LocalDate date) {
         Asserts.notNull(date);
         return Zodiac.getZodiac(date.getMonthValue(), date.getDayOfMonth());
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * 私有构造方法
-     */
-    private LocalDateUtils() {
-        super();
     }
 
 }

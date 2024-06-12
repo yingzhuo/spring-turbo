@@ -25,6 +25,15 @@ import java.util.Date;
 public final class LocalDateTimeUtils {
 
     /**
+     * 私有构造方法
+     */
+    private LocalDateTimeUtils() {
+        super();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
      * {@link Date} 转换成 {@link LocalDateTime}
      *
      * @param date
@@ -35,15 +44,6 @@ public final class LocalDateTimeUtils {
     public static LocalDateTime asLocalDateTime(Date date) {
         Asserts.notNull(date);
         return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * 私有构造方法
-     */
-    private LocalDateTimeUtils() {
-        super();
     }
 
 }
