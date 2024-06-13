@@ -49,6 +49,7 @@ mvn install
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-versioned-controller/[带API版本号的Controller]
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-qrcode-gen[生成QR码]
 * link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-use-hocon-configuration[使用HOCON格式配置文件]
+* link:https://github.com/yingzhuo/spring-turbo-examples/tree/main/examples-webclient[使用RestClient]
 
 === ISSUES
 
