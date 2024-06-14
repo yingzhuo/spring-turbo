@@ -2,14 +2,14 @@
 # SpringTurbo
 # ----------------------------------------------------------------------------------------------------------------------
 spring.turbo.convention.ModulesConvention=\
-spring.turbo.convention.spi.ModulesConventionImpl
+    spring.turbo.convention.spi.ModulesConventionImpl
 spring.turbo.convention.ExtraMessageSourceBasenameConvention=\
-spring.turbo.convention.spi.ExtraMessageSourceBasenameConventionImpl
+    spring.turbo.convention.spi.ExtraMessageSourceBasenameConventionImpl
 # ----------------------------------------------------------------------------------------------------------------------
 # Spring
 # ----------------------------------------------------------------------------------------------------------------------
 org.springframework.boot.env.EnvironmentPostProcessor=\
-spring.turbo.core.SpringApplicationHoldersEnvironmentPostProcessor,\
-spring.turbo.core.env.MiscellaneousSetupEnvironmentPostProcessor
+    spring.turbo.core.SpringApplicationHoldersEnvironmentPostProcessor,\
+    spring.turbo.core.env.MiscellaneousSetupEnvironmentPostProcessor
 org.springframework.context.ApplicationListener=\
-spring.turbo.core.SpringApplicationHolders
+    spring.turbo.core.SpringApplicationHolders
