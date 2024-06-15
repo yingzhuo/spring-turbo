@@ -29,6 +29,7 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  *
  * @since 2.2.4
  */
+@Deprecated(since = "3.3.1")
 public record ValueStackImpl(Environment environment, ResourceLoader resourceLoader,
         ConversionService conversionService) implements ValueStack {
 

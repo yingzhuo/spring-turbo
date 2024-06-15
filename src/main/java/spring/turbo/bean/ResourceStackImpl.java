@@ -21,6 +21,7 @@ import spring.turbo.io.RichResource;
  *
  * @author 应卓
  */
+@Deprecated(since = "3.3.1")
 public record ResourceStackImpl(Environment environment, ResourceLoader resourceLoader) implements ResourceStack {
 
     public ResourceStackImpl(Environment environment) {

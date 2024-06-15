@@ -8,8 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.core;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
@@ -73,29 +73,22 @@ public final class SpringUtils {
      * @see BeanDefinitionRegistry
      */
     public static BeanDefinitionRegistry getBeanDefinitionRegistry() {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(SpringContext::getBeanDefinitionRegistry)
-                .orElseThrow(UNSUPPORTED);
+        return (BeanDefinitionRegistry) getApplicationContext().getAutowireCapableBeanFactory();
     }
 
-    /**
-     * 获取{@link ObjectProvider}实例
-     *
-     * @param beanType
-     *            beanType
-     * @param <T>
-     *            需要查找或生成的Bean类型泛型
-     *
-     * @return {@link ObjectProvider}实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     *
-     * @see ObjectProvider
-     */
-    public static <T> ObjectProvider<T> getObjectProvider(final Class<T> beanType) {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(sc -> sc.getObjectProvider(beanType))
-                .orElseThrow(UNSUPPORTED);
-    }
+    // /**
+    // * 获取{@link ObjectProvider}实例
+    // *
+    // * @param beanType beanType
+    // * @param <T> 需要查找或生成的Bean类型泛型
+    // * @return {@link ObjectProvider}实例
+    // * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+    // * @see ObjectProvider
+    // */
+    // public static <T> ObjectProvider<T> getObjectProvider(final Class<T> beanType) {
+    // return Optional.ofNullable(SpringApplicationHolders.SC).map(sc -> sc.getObjectProvider(beanType))
+    // .orElseThrow(UNSUPPORTED);
+    // }
 
     /**
      * 获取{@link ResourceLoader}实例
@@ -111,8 +104,7 @@ public final class SpringUtils {
      * @see #getResourcePatternResolver()
      */
     public static ResourceLoader getResourceLoader() {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(SpringContext::getResourceLoader)
-                .orElse(ResourceLoaders.getDefault());
+        return getApplicationContext();
     }
 
     /**
@@ -129,8 +121,7 @@ public final class SpringUtils {
      * @see #getResourceLoader()
      */
     public static ResourcePatternResolver getResourcePatternResolver() {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(SpringContext::getResourcePatternResolver)
-                .orElseThrow(UNSUPPORTED);
+        return getApplicationContext();
     }
 
     /**
@@ -146,8 +137,7 @@ public final class SpringUtils {
      * @see ProfilesUtils
      */
     public static Environment getEnvironment() {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(SpringContext::getEnvironment)
-                .orElseThrow(UNSUPPORTED);
+        return getApplicationContext().getEnvironment();
     }
 
     /**
@@ -163,8 +153,7 @@ public final class SpringUtils {
      * @see ProfilesUtils
      */
     public static ApplicationArguments getApplicationArguments() {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(SpringContext::getApplicationArguments)
-                .orElseThrow(UNSUPPORTED);
+        return getApplicationContext().getBean(ApplicationArguments.class);
     }
 
     /**
@@ -182,8 +171,7 @@ public final class SpringUtils {
      * @see ConversionUtils
      */
     public static ConversionService getConversionService() {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(SpringContext::getConversionService)
-                .orElseThrow(UNSUPPORTED);
+        return getApplicationContext().getBean(ConversionService.class);
     }
 
     /**
@@ -195,8 +183,7 @@ public final class SpringUtils {
      *             无法定位{@code ApplicationContext}实例
      */
     public static ApplicationEventPublisher getApplicationEventPublisher() {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(SpringContext::getApplicationEventPublisher)
-                .orElseThrow(UNSUPPORTED);
+        return getApplicationContext();
     }
 
     /**
@@ -211,8 +198,7 @@ public final class SpringUtils {
      * @see ValidatorUtils
      */
     public static Validator getValidator() {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(SpringContext::getValidator)
-                .orElseThrow(UNSUPPORTED);
+        return getApplicationContext().getBean(Validator.class);
     }
 
     /**
@@ -228,8 +214,7 @@ public final class SpringUtils {
      * @see MessageUtils
      */
     public static MessageSource getMessageSource() {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(SpringContext::getMessageSource)
-                .orElseThrow(UNSUPPORTED);
+        return getApplicationContext();
     }
 
     /**
@@ -246,8 +231,13 @@ public final class SpringUtils {
      *             无法定位{@code ApplicationContext}实例
      */
     public static <T> Optional<T> getBean(Class<T> beanType) {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(sc -> sc.getBean(beanType))
-                .orElseThrow(UNSUPPORTED);
+        Asserts.notNull(beanType);
+
+        try {
+            return Optional.of(getApplicationContext().getBean(beanType));
+        } catch (BeansException e) {
+            return Optional.empty();
+        }
     }
 
     /**
@@ -269,8 +259,11 @@ public final class SpringUtils {
         Asserts.notNull(beanName);
         Asserts.notNull(beanType);
 
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(sc -> sc.getBean(beanType, beanName))
-                .orElseThrow(UNSUPPORTED);
+        try {
+            return Optional.of(getApplicationContext().getBean(beanName, beanType));
+        } catch (BeansException e) {
+            return Optional.empty();
+        }
     }
 
     /**
@@ -327,42 +320,7 @@ public final class SpringUtils {
      *             无法定位{@code ApplicationContext}实例
      */
     public static <T> List<T> getBeanList(final Class<T> beanType) {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(sc -> sc.getBeanList(beanType))
-                .orElseThrow(UNSUPPORTED);
-    }
-
-    /**
-     * 判断{@link org.springframework.context.ApplicationContext}是否包含指定bean
-     *
-     * @param beanName
-     *            bean名称
-     *
-     * @return 结果
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     */
-    public static boolean containsBean(String beanName) {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(sc -> sc.containsBean(beanName))
-                .orElseThrow(UNSUPPORTED);
-    }
-
-    /**
-     * 判断{@link org.springframework.context.ApplicationContext}是否包含指定bean
-     *
-     * @param beanType
-     *            bean类型
-     * @param <T>
-     *            bean类型泛型
-     *
-     * @return 结果
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     */
-    public static <T> boolean containsBean(Class<?> beanType) {
-        return Optional.ofNullable(SpringApplicationHolders.SC).map(sc -> sc.containsBean(beanType))
-                .orElseThrow(UNSUPPORTED);
+        return getApplicationContext().getBeansOfType(beanType).values().stream().toList();
     }
 
     /**
