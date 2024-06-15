@@ -1,8 +1,6 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # SpringTurbo
 # ----------------------------------------------------------------------------------------------------------------------
-spring.turbo.convention.ModulesConvention=\
-    spring.turbo.convention.spi.ModulesConventionImpl
 spring.turbo.convention.ExtraMessageSourceBasenameConvention=\
     spring.turbo.convention.spi.ExtraMessageSourceBasenameConventionImpl
 # ----------------------------------------------------------------------------------------------------------------------
