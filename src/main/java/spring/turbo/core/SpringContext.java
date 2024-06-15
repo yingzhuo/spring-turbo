@@ -39,6 +39,7 @@ import java.util.Optional;
  *
  * @since 1.0.0
  */
+@Deprecated(forRemoval = true, since = "3.3.1")
 public final class SpringContext {
 
     private final ApplicationContext applicationContext;

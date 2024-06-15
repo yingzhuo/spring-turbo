@@ -22,6 +22,7 @@ import java.util.Objects;
  *
  * @since 2.2.4
  */
+@Deprecated(since = "3.3.1")
 public sealed interface ValueStack permits ValueStackImpl {
 
     @Nullable

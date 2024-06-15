@@ -20,6 +20,7 @@ import spring.turbo.util.Asserts;
  *
  * @since 2.2.5
  */
+@Deprecated(since = "3.3.1")
 public sealed interface ResourceStack permits ResourceStackImpl {
 
     @Nullable
