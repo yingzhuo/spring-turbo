@@ -9,7 +9,6 @@
 package spring.turbo.bean.injection;
 
 import org.springframework.beans.factory.annotation.Value;
-import spring.turbo.core.env.MiscellaneousSetupEnvironmentPostProcessor;
 
 import java.lang.annotation.*;
 
@@ -19,7 +18,6 @@ import java.lang.annotation.*;
  * @author 应卓
  *
  * @see Value
- * @see MiscellaneousSetupEnvironmentPostProcessor
  *
  * @since 2.0.8
  */

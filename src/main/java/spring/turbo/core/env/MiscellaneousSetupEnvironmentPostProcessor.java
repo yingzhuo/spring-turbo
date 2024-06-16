@@ -16,6 +16,7 @@ import org.springframework.core.env.MapPropertySource;
 import spring.turbo.core.SpringApplicationUtils;
 import spring.turbo.util.RandomStringUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,7 +29,7 @@ import java.util.Map;
  *
  * @since 2.0.8
  */
-public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
+final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
 
     private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
     private static final String SPRING_ID = RandomStringUtils.randomUUID();
@@ -41,9 +42,9 @@ public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostP
 
     @Override
     public void execute(ConfigurableEnvironment environment, SpringApplication application) {
-
-        var map = Map.<String, Object> of("spring.application.id", SPRING_ID, "spring.application.home",
-                SpringApplicationUtils.getHomePath(application));
+        final Map<String, Object> map = new HashMap<>();
+        map.put("spring.application.id", SPRING_ID);
+        map.put("spring.application.home", SpringApplicationUtils.getHomePath(application));
 
         environment.getPropertySources().addLast(new MapPropertySource(PROPERTY_SOURCE_NAME, map));
     }
