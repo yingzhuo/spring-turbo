@@ -38,4 +38,17 @@ public final class ApplicationEventUtils {
         SpringUtils.getApplicationEventPublisher().publishEvent(event);
     }
 
+    /**
+     * 发布事件
+     *
+     * @param event
+     *            事件实例
+     *
+     * @since 3.3.1
+     */
+    public static void publish(Object event) {
+        Asserts.notNull(event);
+        SpringUtils.getApplicationEventPublisher().publishEvent(event);
+    }
+
 }
