@@ -28,7 +28,7 @@ import java.util.Map;
  *
  * @since 2.0.8
  */
-public class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
+final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
 
     private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
     private static final String SPRING_ID = RandomStringUtils.randomUUID();

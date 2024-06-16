@@ -33,9 +33,6 @@ final class SpringApplicationHolders implements ApplicationListener<ContextRefre
     @Nullable
     static ApplicationContext AC = null;
 
-    // @Nullable
-    // static SpringContext SC = null;
-
     /**
      * 私有构造方法
      */
@@ -46,7 +43,6 @@ final class SpringApplicationHolders implements ApplicationListener<ContextRefre
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         AC = event.getApplicationContext();
-        // SC = SpringContext.of(AC);
     }
 
     @Override
