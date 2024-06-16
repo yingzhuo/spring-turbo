@@ -232,12 +232,12 @@
         </resources>
 
         <plugins>
+            <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>3.6.0</version>
                 <executions>
-                    <!-- setup构建根目录变量 (helper.build.root) -->
                     <execution>
                         <id>setup-rootlocation-var</id>
                         <phase>validate</phase>
@@ -251,6 +251,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -281,6 +282,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -302,6 +304,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -432,11 +435,6 @@
                     <compilerCompliance>${java.version}</compilerCompliance>
                     <compilerTargetPlatform>${java.version}</compilerTargetPlatform>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>io.github.orhankupusoglu</groupId>
-                <artifactId>sloc-maven-plugin</artifactId>
-                <version>1.0.7</version>
             </plugin>
         </plugins>
     </build>
