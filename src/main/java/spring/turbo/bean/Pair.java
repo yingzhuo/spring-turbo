@@ -19,11 +19,9 @@ import java.util.Objects;
  * 二元组
  *
  * @author 应卓
- *
  * @see Tuple
  * @see #ofNullable(Object, Object)
  * @see #ofNonNull(Object, Object)
- *
  * @since 1.0.0
  */
 public final class Pair<A, B> implements Serializable {

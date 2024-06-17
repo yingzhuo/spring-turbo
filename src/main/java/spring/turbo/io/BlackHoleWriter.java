@@ -13,9 +13,7 @@ import java.io.Writer;
 
 /**
  * @author 应卓
- *
  * @see #getInstance()
- *
  * @since 2.0.0
  */
 public final class BlackHoleWriter extends Writer {

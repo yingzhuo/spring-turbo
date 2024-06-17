@@ -18,7 +18,6 @@ import java.io.IOException;
  * 本类封装资源关闭操作
  *
  * @author 应卓
- *
  * @since 1.0.0
  */
 public final class CloseUtils {
@@ -33,8 +32,7 @@ public final class CloseUtils {
     /**
      * 关闭资源
      *
-     * @param closeable
-     *            资源
+     * @param closeable 资源
      */
     public static void closeQuietly(@Nullable Closeable closeable) {
         if (closeable != null) {
@@ -49,8 +47,7 @@ public final class CloseUtils {
     /**
      * 关闭资源
      *
-     * @param closeable
-     *            资源
+     * @param closeable 资源
      */
     public static void closeQuietly(@Nullable AutoCloseable closeable) {
         if (closeable != null) {
@@ -65,8 +62,7 @@ public final class CloseUtils {
     /**
      * 关闭资源
      *
-     * @param resource
-     *            资源
+     * @param resource 资源
      */
     public static void closeQuietly(@Nullable Resource resource) {
         if (resource != null) {

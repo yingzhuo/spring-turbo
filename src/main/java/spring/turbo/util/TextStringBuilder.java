@@ -21,10 +21,8 @@ import java.util.Objects;
  * 增强型 {@link String} 创建器。功能比 {@link StringBuffer} 和 {@link StringBuilder}更强大。
  *
  * @author 应卓
- *
  * @see StringBuilder
  * @see StringBuffer
- *
  * @since 2.0.2
  */
 public final class TextStringBuilder implements Serializable, CharSequence, Appendable {
@@ -62,8 +60,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 构造方法
      *
-     * @param string
-     *            初始化字符串
+     * @param string 初始化字符串
      */
     public TextStringBuilder(@Nullable CharSequence string) {
         this(CharSequenceUtils.length(string) + CAPACITY);
@@ -75,8 +72,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 构造方法
      *
-     * @param initialCapacity
-     *            初始容量
+     * @param initialCapacity 初始容量
      */
     public TextStringBuilder(int initialCapacity) {
         buffer = new char[initialCapacity <= 0 ? CAPACITY : initialCapacity];
@@ -85,9 +81,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * Appends a boolean value to the string builder.
      *
-     * @param value
-     *            the value to append
-     *
+     * @param value the value to append
      * @return this, to enable chaining
      */
     public TextStringBuilder append(boolean value) {
@@ -104,9 +98,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * Appends a char value to the string builder.
      *
-     * @param ch
-     *            the value to append
-     *
+     * @param ch the value to append
      * @return this, to enable chaining
      */
     @Override
@@ -120,9 +112,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * Appends a char array to the string builder. Appending null will call {@link #appendNull()}.
      *
-     * @param chars
-     *            the char array to append
-     *
+     * @param chars the char array to append
      * @return this, to enable chaining
      */
     public TextStringBuilder append(@Nullable char[] chars) {
@@ -142,21 +132,13 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * Appends a char array to the string builder. Appending null will call {@link #appendNull()}.
      *
-     * @param chars
-     *            the char array to append
-     * @param startIndex
-     *            the start index, inclusive, must be valid
-     * @param length
-     *            the length to append, must be valid
-     *
+     * @param chars      the char array to append
+     * @param startIndex the start index, inclusive, must be valid
+     * @param length     the length to append, must be valid
      * @return this, to enable chaining
-     *
-     * @throws StringIndexOutOfBoundsException
-     *             if {@code startIndex} is not in the range {@code 0 <= startIndex <= chars.length}
-     * @throws StringIndexOutOfBoundsException
-     *             if {@code length < 0}
-     * @throws StringIndexOutOfBoundsException
-     *             if {@code startIndex + length > chars.length}
+     * @throws StringIndexOutOfBoundsException if {@code startIndex} is not in the range {@code 0 <= startIndex <= chars.length}
+     * @throws StringIndexOutOfBoundsException if {@code length < 0}
+     * @throws StringIndexOutOfBoundsException if {@code startIndex + length > chars.length}
      */
     public TextStringBuilder append(@Nullable char[] chars, final int startIndex, final int length) {
         if (chars == null) {
@@ -180,9 +162,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param str
-     *            追加对象
-     *
+     * @param str 追加对象
      * @return this
      */
     public TextStringBuilder append(@Nullable CharBuffer str) {
@@ -192,13 +172,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param buf
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param length
-     *            长度
-     *
+     * @param buf        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
      * @return this
      */
     public TextStringBuilder append(@Nullable CharBuffer buf, int startIndex, int length) {
@@ -226,9 +202,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param seq
-     *            追加对象
-     *
+     * @param seq 追加对象
      * @return this
      */
     @Override
@@ -254,13 +228,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param seq
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param endIndex
-     *            结束位置
-     *
+     * @param seq        追加对象
+     * @param startIndex 初始位置
+     * @param endIndex   结束位置
      * @return this
      */
     @Override
@@ -280,9 +250,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param value
-     *            追加对象
-     *
+     * @param value 追加对象
      * @return this
      */
     public TextStringBuilder append(double value) {
@@ -292,9 +260,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param value
-     *            追加对象
-     *
+     * @param value 追加对象
      * @return this
      */
     public TextStringBuilder append(float value) {
@@ -304,9 +270,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param value
-     *            追加对象
-     *
+     * @param value 追加对象
      * @return this
      */
     public TextStringBuilder append(int value) {
@@ -316,9 +280,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param value
-     *            追加对象
-     *
+     * @param value 追加对象
      * @return this
      */
     public TextStringBuilder append(long value) {
@@ -328,9 +290,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param obj
-     *            追加对象
-     *
+     * @param obj 追加对象
      * @return this
      */
     public TextStringBuilder append(@Nullable Object obj) {
@@ -346,9 +306,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param str
-     *            追加对象
-     *
+     * @param str 追加对象
      * @return this
      */
     public TextStringBuilder append(@Nullable String str) {
@@ -358,13 +316,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param str
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param length
-     *            长度
-     *
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
      * @return this
      */
     public TextStringBuilder append(@Nullable String str, int startIndex, int length) {
@@ -389,9 +343,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param str
-     *            追加对象
-     *
+     * @param str 追加对象
      * @return this
      */
     public TextStringBuilder append(@Nullable StringBuffer str) {
@@ -401,13 +353,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param str
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param length
-     *            长度
-     *
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
      * @return this
      */
     public TextStringBuilder append(@Nullable StringBuffer str, int startIndex, int length) {
@@ -432,9 +380,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param str
-     *            追加对象
-     *
+     * @param str 追加对象
      * @return this
      */
     public TextStringBuilder append(@Nullable StringBuilder str) {
@@ -444,13 +390,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param str
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param length
-     *            长度
-     *
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
      * @return this
      */
     public TextStringBuilder append(@Nullable StringBuilder str, int startIndex, int length) {
@@ -475,9 +417,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param str
-     *            追加对象
-     *
+     * @param str 追加对象
      * @return this
      */
     public TextStringBuilder append(@Nullable TextStringBuilder str) {
@@ -487,13 +427,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param str
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param length
-     *            长度
-     *
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
      * @return this
      */
     public TextStringBuilder append(@Nullable TextStringBuilder str, final int startIndex, final int length) {
@@ -518,9 +454,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param iterable
-     *            追加对象(多个)
-     *
+     * @param iterable 追加对象(多个)
      * @return this
      */
     public TextStringBuilder appendAll(@Nullable Iterable<?> iterable) {
@@ -533,9 +467,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param it
-     *            追加对象(多个)
-     *
+     * @param it 追加对象(多个)
      * @return this
      */
     public TextStringBuilder appendAll(@Nullable Iterator<?> it) {
@@ -548,9 +480,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加
      *
-     * @param array
-     *            追加对象(多个)
-     *
+     * @param array 追加对象(多个)
      * @return this
      */
     @SuppressWarnings("unchecked")
@@ -566,13 +496,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 带左填充的追加
      *
-     * @param value
-     *            追加对象
-     * @param width
-     *            固定宽度
-     * @param padChar
-     *            填充字符
-     *
+     * @param value   追加对象
+     * @param width   固定宽度
+     * @param padChar 填充字符
      * @return this
      */
     public TextStringBuilder appendFixedWidthPadLeft(int value, int width, char padChar) {
@@ -582,13 +508,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 带左填充的追加
      *
-     * @param obj
-     *            追加对象
-     * @param width
-     *            固定宽度
-     * @param padChar
-     *            填充字符
-     *
+     * @param obj     追加对象
+     * @param width   固定宽度
+     * @param padChar 填充字符
      * @return this
      */
     public TextStringBuilder appendFixedWidthPadLeft(@Nullable Object obj, int width, char padChar) {
@@ -616,13 +538,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 带右填充的追加
      *
-     * @param value
-     *            追加对象
-     * @param width
-     *            固定宽度
-     * @param padChar
-     *            填充字符
-     *
+     * @param value   追加对象
+     * @param width   固定宽度
+     * @param padChar 填充字符
      * @return this
      */
     public TextStringBuilder appendFixedWidthPadRight(int value, int width, char padChar) {
@@ -632,13 +550,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 带右填充的追加
      *
-     * @param obj
-     *            追加对象
-     * @param width
-     *            固定宽度
-     * @param padChar
-     *            填充字符
-     *
+     * @param obj     追加对象
+     * @param width   固定宽度
+     * @param padChar 填充字符
      * @return this
      */
     public TextStringBuilder appendFixedWidthPadRight(@Nullable Object obj, int width, char padChar) {
@@ -666,9 +580,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param value
-     *            追加对象
-     *
+     * @param value 追加对象
      * @return this
      */
     public TextStringBuilder appendln(boolean value) {
@@ -678,9 +590,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param ch
-     *            追加对象
-     *
+     * @param ch 追加对象
      * @return this
      */
     public TextStringBuilder appendln(char ch) {
@@ -690,9 +600,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param chars
-     *            追加对象
-     *
+     * @param chars 追加对象
      * @return this
      */
     public TextStringBuilder appendln(@Nullable char[] chars) {
@@ -702,13 +610,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param chars
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param length
-     *            长度
-     *
+     * @param chars      追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
      * @return this
      */
     public TextStringBuilder appendln(char[] chars, int startIndex, int length) {
@@ -718,9 +622,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param value
-     *            追加对象
-     *
+     * @param value 追加对象
      * @return this
      */
     public TextStringBuilder appendln(double value) {
@@ -730,9 +632,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param value
-     *            追加对象
-     *
+     * @param value 追加对象
      * @return this
      */
     public TextStringBuilder appendln(float value) {
@@ -742,9 +642,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param value
-     *            追加对象
-     *
+     * @param value 追加对象
      * @return this
      */
     public TextStringBuilder appendln(int value) {
@@ -754,9 +652,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param value
-     *            追加对象
-     *
+     * @param value 追加对象
      * @return this
      */
     public TextStringBuilder appendln(long value) {
@@ -766,9 +662,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param obj
-     *            追加对象
-     *
+     * @param obj 追加对象
      * @return this
      */
     public TextStringBuilder appendln(@Nullable Object obj) {
@@ -778,9 +672,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param str
-     *            追加对象
-     *
+     * @param str 追加对象
      * @return this
      */
     public TextStringBuilder appendln(@Nullable String str) {
@@ -790,13 +682,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param str
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param length
-     *            长度
-     *
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
      * @return this
      */
     public TextStringBuilder appendln(@Nullable String str, int startIndex, int length) {
@@ -806,9 +694,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param str
-     *            追加对象
-     *
+     * @param str 追加对象
      * @return this
      */
     public TextStringBuilder appendln(@Nullable StringBuffer str) {
@@ -818,13 +704,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param str
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param length
-     *            长度
-     *
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
      * @return this
      */
     public TextStringBuilder appendln(@Nullable StringBuffer str, int startIndex, int length) {
@@ -834,9 +716,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param str
-     *            追加对象
-     *
+     * @param str 追加对象
      * @return this
      */
     public TextStringBuilder appendln(@Nullable StringBuilder str) {
@@ -846,13 +726,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param str
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param length
-     *            长度
-     *
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
      * @return this
      */
     public TextStringBuilder appendln(StringBuilder str, int startIndex, int length) {
@@ -862,9 +738,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param str
-     *            追加对象
-     *
+     * @param str 追加对象
      * @return this
      */
     public TextStringBuilder appendln(TextStringBuilder str) {
@@ -874,13 +748,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加并追加一个新行
      *
-     * @param str
-     *            追加对象
-     * @param startIndex
-     *            初始位置
-     * @param length
-     *            长度
-     *
+     * @param str        追加对象
+     * @param startIndex 初始位置
+     * @param length     长度
      * @return this
      */
     public TextStringBuilder appendln(TextStringBuilder str, int startIndex, int length) {
@@ -891,7 +761,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * 追加并追加一个新行
      *
      * @return this
-     *
      * @see #setNewLineText(String)
      */
     public TextStringBuilder appendNewLine() {
@@ -906,7 +775,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * 追加并追加一个控制
      *
      * @return this
-     *
      * @see #setNullText(String)
      */
     public TextStringBuilder appendNull() {
@@ -919,11 +787,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加一个填充
      *
-     * @param length
-     *            填充的长度
-     * @param padChar
-     *            填充的字符
-     *
+     * @param length  填充的长度
+     * @param padChar 填充的字符
      * @return this
      */
     public TextStringBuilder appendPadding(int length, char padChar) {
@@ -939,9 +804,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加一个分隔符。当 {@link TextStringBuilder}是空的时候，本方法不会起作用。
      *
-     * @param separator
-     *            分隔符
-     *
+     * @param separator 分隔符
      * @return this
      */
     public TextStringBuilder appendSeparator(char separator) {
@@ -954,11 +817,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加一个分隔符。 当 {@link TextStringBuilder}是空的时候，追加 defaultIfEmpty，否则追加 standard。
      *
-     * @param standard
-     *            标准分隔符
-     * @param defaultIfEmpty
-     *            {@link TextStringBuilder} 为空时使用的分隔符。
-     *
+     * @param standard       标准分隔符
+     * @param defaultIfEmpty {@link TextStringBuilder} 为空时使用的分隔符。
      * @return this
      */
     public TextStringBuilder appendSeparator(char standard, char defaultIfEmpty) {
@@ -973,9 +833,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加一个分隔符。当 {@link TextStringBuilder}是空的时候，本方法不会起作用。
      *
-     * @param separator
-     *            分隔符
-     *
+     * @param separator 分隔符
      * @return this
      */
     public TextStringBuilder appendSeparator(String separator) {
@@ -985,11 +843,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加一个分隔符。 当 {@link TextStringBuilder}是空的时候，追加 defaultIfEmpty，否则追加 standard。
      *
-     * @param standard
-     *            标准分隔符
-     * @param defaultIfEmpty
-     *            {@link TextStringBuilder} 为空时使用的分隔符。
-     *
+     * @param standard       标准分隔符
+     * @param defaultIfEmpty {@link TextStringBuilder} 为空时使用的分隔符。
      * @return this
      */
     public TextStringBuilder appendSeparator(@Nullable String standard, @Nullable String defaultIfEmpty) {
@@ -1003,11 +858,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加多个元素并在其之中添加分隔符
      *
-     * @param iterable
-     *            多个元素
-     * @param separator
-     *            分隔符，{@code null} 时意味着没有分隔符。
-     *
+     * @param iterable  多个元素
+     * @param separator 分隔符，{@code null} 时意味着没有分隔符。
      * @return this
      */
     public TextStringBuilder appendWithSeparators(@Nullable Iterable<?> iterable, @Nullable String separator) {
@@ -1020,11 +872,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加多个元素并在其之中添加分隔符
      *
-     * @param it
-     *            多个元素
-     * @param separator
-     *            分隔符，{@code null} 时意味着没有分隔符。
-     *
+     * @param it        多个元素
+     * @param separator 分隔符，{@code null} 时意味着没有分隔符。
      * @return this
      */
     public TextStringBuilder appendWithSeparators(@Nullable Iterator<?> it, @Nullable String separator) {
@@ -1043,11 +892,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 追加多个元素并在其之中添加分隔符
      *
-     * @param array
-     *            多个元素
-     * @param separator
-     *            分隔符，{@code null} 时意味着没有分隔符。
-     *
+     * @param array     多个元素
+     * @param separator 分隔符，{@code null} 时意味着没有分隔符。
      * @return this
      */
     public TextStringBuilder appendWithSeparators(@Nullable Object[] array, @Nullable String separator) {
@@ -1075,7 +921,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * 构建字符串
      *
      * @return 字符串
-     *
      * @see #toString()
      */
     public String build() {
@@ -1113,9 +958,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 判断是否包含指定的字符
      *
-     * @param ch
-     *            待查找的字符
-     *
+     * @param ch 待查找的字符
      * @return 结果
      */
     public boolean contains(char ch) {
@@ -1131,9 +974,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 判断是否包含指定的子串
      *
-     * @param str
-     *            待查找的子串
-     *
+     * @param str 待查找的子串
      * @return 结果
      */
     public boolean contains(String str) {
@@ -1143,9 +984,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 判断是否包含指定的子串
      *
-     * @param matcher
-     *            匹配器
-     *
+     * @param matcher 匹配器
      * @return 结果
      */
     public boolean contains(StringMatcher matcher) {
@@ -1156,11 +995,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 删除一部分
      *
-     * @param startIndex
-     *            开始位置 (包含)
-     * @param endIndex
-     *            结束位置 (不包含)
-     *
+     * @param startIndex 开始位置 (包含)
+     * @param endIndex   结束位置 (不包含)
      * @return this
      */
     public TextStringBuilder delete(int startIndex, int endIndex) {
@@ -1175,9 +1011,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 删除单个所有的固定字符
      *
-     * @param ch
-     *            待删除的字符
-     *
+     * @param ch 待删除的字符
      * @return this
      */
     public TextStringBuilder deleteAll(char ch) {
@@ -1200,9 +1034,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 删除单个所有的固定字符串
      *
-     * @param str
-     *            待删除的字符串
-     *
+     * @param str 待删除的字符串
      * @return this
      */
     public TextStringBuilder deleteAll(@Nullable String str) {
@@ -1220,9 +1052,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 删除单个所有的固定字符串
      *
-     * @param matcher
-     *            字符串匹配器
-     *
+     * @param matcher 字符串匹配器
      * @return this
      */
     public TextStringBuilder deleteAll(StringMatcher matcher) {
@@ -1233,11 +1063,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 删除指定位置的字符
      *
-     * @param index
-     *            位置
-     *
+     * @param index 位置
      * @return this
-     *
      * @see #charAt(int)
      * @see #setCharAt(int, char)
      */
@@ -1250,9 +1077,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 删除首个出现的字符
      *
-     * @param ch
-     *            待删除的字符
-     *
+     * @param ch 待删除的字符
      * @return this
      */
     public TextStringBuilder deleteFirst(char ch) {
@@ -1268,9 +1093,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 删除首个出现的字符串
      *
-     * @param str
-     *            待删除的字符串
-     *
+     * @param str 待删除的字符串
      * @return this
      */
     public TextStringBuilder deleteFirst(@Nullable String str) {
@@ -1287,9 +1110,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 删除首个出现的字符串
      *
-     * @param matcher
-     *            待删除的字符串匹配器
-     *
+     * @param matcher 待删除的字符串匹配器
      * @return this
      */
     public TextStringBuilder deleteFirst(StringMatcher matcher) {
@@ -1305,9 +1126,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 判断是否为指定的后缀
      *
-     * @param str
-     *            待测试的后缀
-     *
+     * @param str 待测试的后缀
      * @return 结果
      */
     public boolean endsWith(String str) {
@@ -1331,9 +1150,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 确保容量不小于指定值
      *
-     * @param capacity
-     *            容量指定值
-     *
+     * @param capacity 容量指定值
      * @return this
      */
     public TextStringBuilder ensureCapacity(int capacity) {
@@ -1355,9 +1172,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 相等性测试
      *
-     * @param other
-     *            右值
-     *
+     * @param other 右值
      * @return 结果
      */
     public boolean equals(@Nullable TextStringBuilder other) {
@@ -1385,9 +1200,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 相等性测试 (大小写不敏感)
      *
-     * @param other
-     *            右值
-     *
+     * @param other 右值
      * @return 结果
      */
     public boolean equalsIgnoreCase(@Nullable TextStringBuilder other) {
@@ -1438,9 +1251,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 设置新行字符串
      *
-     * @param newLine
-     *            新行字符串
-     *
+     * @param newLine 新行字符串
      * @return this
      */
     public TextStringBuilder setNewLineText(@Nullable String newLine) {
@@ -1461,9 +1272,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 设置空值字符串
      *
-     * @param nullText
-     *            空值字符串
-     *
+     * @param nullText 空值字符串
      * @return this
      */
     public TextStringBuilder setNullText(@Nullable String nullText) {
@@ -1485,9 +1294,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 查找指定字符
      *
-     * @param ch
-     *            待查找的字符
-     *
+     * @param ch 待查找的字符
      * @return 第一次出现的位置，找不到时返回 -1
      */
     public int indexOf(char ch) {
@@ -1497,11 +1304,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 查找指定字符
      *
-     * @param ch
-     *            待查找的字符
-     * @param startIndex
-     *            查找起点
-     *
+     * @param ch         待查找的字符
+     * @param startIndex 查找起点
      * @return 第一次出现的位置，找不到时返回 -1
      */
     public int indexOf(char ch, int startIndex) {
@@ -1521,9 +1325,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 查找指定字符串
      *
-     * @param str
-     *            待查找的字符
-     *
+     * @param str 待查找的字符
      * @return 第一次出现的位置，找不到时返回 -1
      */
     public int indexOf(@Nullable String str) {
@@ -1533,11 +1335,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 查找指定字符
      *
-     * @param str
-     *            待查找的字符
-     * @param startIndex
-     *            查找起点
-     *
+     * @param str        待查找的字符
+     * @param startIndex 查找起点
      * @return 第一次出现的位置，找不到时返回 -1
      */
     public int indexOf(@Nullable String str, int startIndex) {
@@ -1557,7 +1356,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
         }
         final char[] thisBuf = buffer;
         final int len = size - strLen + 1;
-        outer: for (int i = startIndex; i < len; i++) {
+        outer:
+        for (int i = startIndex; i < len; i++) {
             for (int j = 0; j < strLen; j++) {
                 if (str.charAt(j) != thisBuf[i + j]) {
                     continue outer;
@@ -1571,9 +1371,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 查找指定字符串
      *
-     * @param matcher
-     *            待查找的字符匹配器
-     *
+     * @param matcher 待查找的字符匹配器
      * @return 第一次出现的位置，找不到时返回 -1
      */
     public int indexOf(@Nullable StringMatcher matcher) {
@@ -1583,11 +1381,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 查找指定字符串
      *
-     * @param matcher
-     *            待查找的字符匹配器
-     * @param startIndex
-     *            查找起点
-     *
+     * @param matcher    待查找的字符匹配器
+     * @param startIndex 查找起点
      * @return 第一次出现的位置，找不到时返回 -1
      */
     public int indexOf(@Nullable StringMatcher matcher, int startIndex) {
@@ -1608,11 +1403,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 插入值
      *
-     * @param index
-     *            插入位置
-     * @param value
-     *            值
-     *
+     * @param index 插入位置
+     * @param value 值
      * @return this
      */
     public TextStringBuilder insert(int index, boolean value) {
@@ -1632,11 +1424,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 插入值
      *
-     * @param index
-     *            插入位置
-     * @param value
-     *            值
-     *
+     * @param index 插入位置
+     * @param value 值
      * @return this
      */
     public TextStringBuilder insert(int index, char value) {
@@ -1651,11 +1440,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 插入值
      *
-     * @param index
-     *            插入位置
-     * @param chars
-     *            值
-     *
+     * @param index 插入位置
+     * @param chars 值
      * @return this
      */
     public TextStringBuilder insert(int index, @Nullable char[] chars) {
@@ -1676,15 +1462,10 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 插入值
      *
-     * @param index
-     *            插入位置
-     * @param chars
-     *            值
-     * @param offset
-     *            偏移量
-     * @param length
-     *            长度
-     *
+     * @param index  插入位置
+     * @param chars  值
+     * @param offset 偏移量
+     * @param length 长度
      * @return this
      */
     public TextStringBuilder insert(int index, @Nullable char[] chars, int offset, int length) {
@@ -1710,11 +1491,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 插入值
      *
-     * @param index
-     *            插入位置
-     * @param value
-     *            值
-     *
+     * @param index 插入位置
+     * @param value 值
      * @return this
      */
     public TextStringBuilder insert(int index, double value) {
@@ -1724,11 +1502,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 插入值
      *
-     * @param index
-     *            插入位置
-     * @param value
-     *            值
-     *
+     * @param index 插入位置
+     * @param value 值
      * @return this
      */
     public TextStringBuilder insert(int index, float value) {
@@ -1738,11 +1513,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 插入值
      *
-     * @param index
-     *            插入位置
-     * @param value
-     *            值
-     *
+     * @param index 插入位置
+     * @param value 值
      * @return this
      */
     public TextStringBuilder insert(int index, int value) {
@@ -1752,11 +1524,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 插入值
      *
-     * @param index
-     *            插入位置
-     * @param value
-     *            值
-     *
+     * @param index 插入位置
+     * @param value 值
      * @return this
      */
     public TextStringBuilder insert(int index, long value) {
@@ -1766,11 +1535,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 插入值
      *
-     * @param index
-     *            插入位置
-     * @param obj
-     *            值
-     *
+     * @param index 插入位置
+     * @param obj   值
      * @return this
      */
     public TextStringBuilder insert(int index, @Nullable Object obj) {
@@ -1783,11 +1549,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 插入值
      *
-     * @param index
-     *            插入位置
-     * @param str
-     *            值
-     *
+     * @param index 插入位置
+     * @param str   值
      * @return this
      */
     public TextStringBuilder insert(int index, @Nullable String str) {
@@ -1829,9 +1592,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 反向查找
      *
-     * @param ch
-     *            待查找的东西
-     *
+     * @param ch 待查找的东西
      * @return 索引或-1
      */
     public int lastIndexOf(char ch) {
@@ -1841,11 +1602,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 反向查找
      *
-     * @param ch
-     *            待查找的东西
-     * @param startIndex
-     *            查找起点
-     *
+     * @param ch         待查找的东西
+     * @param startIndex 查找起点
      * @return 索引或-1
      */
     public int lastIndexOf(char ch, int startIndex) {
@@ -1864,9 +1622,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 反向查找
      *
-     * @param str
-     *            待查找的东西
-     *
+     * @param str 待查找的东西
      * @return 索引或-1
      */
     public int lastIndexOf(@Nullable String str) {
@@ -1876,11 +1632,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 反向查找
      *
-     * @param str
-     *            待查找的东西
-     * @param startIndex
-     *            查找起点
-     *
+     * @param str        待查找的东西
+     * @param startIndex 查找起点
      * @return 索引或-1
      */
     public int lastIndexOf(@Nullable String str, int startIndex) {
@@ -1894,7 +1647,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
                 return lastIndexOf(str.charAt(0), startIndex);
             }
 
-            outer: for (int i = startIndex - strLen + 1; i >= 0; i--) {
+            outer:
+            for (int i = startIndex - strLen + 1; i >= 0; i--) {
                 for (int j = 0; j < strLen; j++) {
                     if (str.charAt(j) != buffer[i + j]) {
                         continue outer;
@@ -1912,9 +1666,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 反向查找
      *
-     * @param matcher
-     *            待查找的东西
-     *
+     * @param matcher 待查找的东西
      * @return 索引或-1
      */
     public int lastIndexOf(StringMatcher matcher) {
@@ -1924,11 +1676,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 反向查找
      *
-     * @param matcher
-     *            待查找的东西
-     * @param startIndex
-     *            查找起点
-     *
+     * @param matcher    待查找的东西
+     * @param startIndex 查找起点
      * @return 索引或-1
      */
     public int lastIndexOf(StringMatcher matcher, int startIndex) {
@@ -1977,13 +1726,9 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 替换字符串
      *
-     * @param startIndex
-     *            替换开始位置 (包含)
-     * @param endIndex
-     *            替换结束位置 (不包含)
-     * @param replaceStr
-     *            替换字符串
-     *
+     * @param startIndex 替换开始位置 (包含)
+     * @param endIndex   替换结束位置 (不包含)
+     * @param replaceStr 替换字符串
      * @return this
      */
     public TextStringBuilder replace(int startIndex, int endIndex, String replaceStr) {
@@ -1996,21 +1741,15 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 替换字符串 (高级)
      *
-     * @param matcher
-     *            需要替换的部分字符串匹配器
-     * @param replaceStr
-     *            要替换的字符串
-     * @param startIndex
-     *            要替换的字符串开始位置 (包含)
-     * @param endIndex
-     *            要替换的字符串结束位置 (不包含)
-     * @param replaceCount
-     *            查找并替换的次数, -1 为不限次数
-     *
+     * @param matcher      需要替换的部分字符串匹配器
+     * @param replaceStr   要替换的字符串
+     * @param startIndex   要替换的字符串开始位置 (包含)
+     * @param endIndex     要替换的字符串结束位置 (不包含)
+     * @param replaceCount 查找并替换的次数, -1 为不限次数
      * @return this
      */
     public TextStringBuilder replace(StringMatcher matcher, String replaceStr, int startIndex, int endIndex,
-            int replaceCount) {
+                                     int replaceCount) {
         endIndex = validateRange(startIndex, endIndex);
         return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
     }
@@ -2018,11 +1757,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 替换所有的指定字符
      *
-     * @param search
-     *            查找字符
-     * @param replace
-     *            替换字符
-     *
+     * @param search  查找字符
+     * @param replace 替换字符
      * @return this
      */
     public TextStringBuilder replaceAll(char search, char replace) {
@@ -2039,11 +1775,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 替换所有的指定字符串
      *
-     * @param searchStr
-     *            查找字符串
-     * @param replaceStr
-     *            替换字符串
-     *
+     * @param searchStr  查找字符串
+     * @param replaceStr 替换字符串
      * @return this
      */
     public TextStringBuilder replaceAll(@Nullable String searchStr, String replaceStr) {
@@ -2062,11 +1795,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 替换所有的指定字符串
      *
-     * @param matcher
-     *            查找字符串匹配器
-     * @param replaceStr
-     *            替换字符串
-     *
+     * @param matcher    查找字符串匹配器
+     * @param replaceStr 替换字符串
      * @return this
      */
     public TextStringBuilder replaceAll(StringMatcher matcher, String replaceStr) {
@@ -2076,11 +1806,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 替换首个指定字符
      *
-     * @param search
-     *            查找字符
-     * @param replace
-     *            替换字符
-     *
+     * @param search  查找字符
+     * @param replace 替换字符
      * @return this
      */
     public TextStringBuilder replaceFirst(char search, char replace) {
@@ -2098,11 +1825,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 替换首个指定字符串
      *
-     * @param searchStr
-     *            查找字符
-     * @param replaceStr
-     *            替换字符
-     *
+     * @param searchStr  查找字符
+     * @param replaceStr 替换字符
      * @return this
      */
     public TextStringBuilder replaceFirst(String searchStr, String replaceStr) {
@@ -2120,11 +1844,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 替换首个指定字符串
      *
-     * @param matcher
-     *            查找字符匹配器
-     * @param replaceStr
-     *            替换字符
-     *
+     * @param matcher    查找字符匹配器
+     * @param replaceStr 替换字符
      * @return this
      */
     public TextStringBuilder replaceFirst(StringMatcher matcher, String replaceStr) {
@@ -2145,7 +1866,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     }
 
     private TextStringBuilder replaceImpl(@Nullable StringMatcher matcher, String replaceStr, int from, int to,
-            int replaceCount) {
+                                          int replaceCount) {
         if (matcher == null || size == 0) {
             return this;
         }
@@ -2188,9 +1909,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 重置字符串
      *
-     * @param str
-     *            要重置的字符串
-     *
+     * @param str 要重置的字符串
      * @return this
      */
     public TextStringBuilder set(CharSequence str) {
@@ -2202,11 +1921,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 设置指定位置上的字符
      *
-     * @param index
-     *            位置
-     * @param ch
-     *            要设置的字符
-     *
+     * @param index 位置
+     * @param ch    要设置的字符
      * @return this
      */
     public TextStringBuilder setCharAt(int index, char ch) {
@@ -2227,9 +1943,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 判断是否为指定的字符串开始
      *
-     * @param str
-     *            待测试的前缀
-     *
+     * @param str 待测试的前缀
      * @return 结果
      */
     public boolean startsWith(String str) {
@@ -2252,9 +1966,7 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 取子串
      *
-     * @param start
-     *            开始位置
-     *
+     * @param start 开始位置
      * @return 结果
      */
     public String substring(int start) {
@@ -2264,11 +1976,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 取子串
      *
-     * @param startIndex
-     *            开始位置 (包含)
-     * @param endIndex
-     *            结束位置 (不包含)
-     *
+     * @param startIndex 开始位置 (包含)
+     * @param endIndex   结束位置 (不包含)
      * @return 结果
      */
     public String substring(int startIndex, int endIndex) {
@@ -2305,11 +2014,8 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
     /**
      * 转换成 char[]
      *
-     * @param startIndex
-     *            开始位置 (包含)
-     * @param endIndex
-     *            结束位置 (不包含)
-     *
+     * @param startIndex 开始位置 (包含)
+     * @param endIndex   结束位置 (不包含)
      * @return 结果
      */
     public char[] toCharArray(int startIndex, int endIndex) {

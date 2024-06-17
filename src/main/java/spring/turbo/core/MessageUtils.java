@@ -16,7 +16,6 @@ import java.util.Locale;
 
 /**
  * @author 应卓
- *
  * @since 1.0.11
  */
 public final class MessageUtils {

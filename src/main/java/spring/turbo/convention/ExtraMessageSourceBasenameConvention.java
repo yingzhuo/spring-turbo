@@ -20,11 +20,9 @@ import java.util.Collection;
  * 扩展 basename 规约
  *
  * @author 应卓
- *
  * @see MessageSourceProps
  * @see MessageSourceProperties
  * @see SpringFactoriesLoader
- *
  * @since 2.0.3
  */
 @FunctionalInterface

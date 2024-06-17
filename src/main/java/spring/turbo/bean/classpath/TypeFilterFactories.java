@@ -26,13 +26,11 @@ import java.util.regex.Pattern;
  * 本类包含一系列静态方法创建TypeFilter的实例
  *
  * @author 应卓
- *
  * @see TypeFilter
  * @see AbstractClassTestingTypeFilter
  * @see AbstractTypeHierarchyTraversingFilter
  * @see ClassPathScanner
  * @see ClassPathScannerBuilder
- *
  * @since 1.0.0
  */
 public final class TypeFilterFactories {
@@ -49,9 +47,7 @@ public final class TypeFilterFactories {
     /**
      * 通过元注释来过滤类型
      *
-     * @param annotationType
-     *            元注释类型
-     *
+     * @param annotationType 元注释类型
      * @return TypeFilter的实例
      */
     public static TypeFilter hasAnnotation(Class<? extends Annotation> annotationType) {
@@ -61,17 +57,13 @@ public final class TypeFilterFactories {
     /**
      * 通过元注释来过滤类型
      *
-     * @param annotationType
-     *            元注释类型
-     * @param considerMetaAnnotations
-     *            考虑Meta元注释的情形
-     * @param considerInterfaces
-     *            考虑元注释在接口上而不仅仅在实现类上的情形
-     *
+     * @param annotationType          元注释类型
+     * @param considerMetaAnnotations 考虑Meta元注释的情形
+     * @param considerInterfaces      考虑元注释在接口上而不仅仅在实现类上的情形
      * @return TypeFilter的实例
      */
     public static TypeFilter hasAnnotation(Class<? extends Annotation> annotationType, boolean considerMetaAnnotations,
-            boolean considerInterfaces) {
+                                           boolean considerInterfaces) {
         Asserts.notNull(annotationType);
         return new AnnotationTypeFilter(annotationType, considerMetaAnnotations, considerInterfaces);
     }
@@ -79,9 +71,7 @@ public final class TypeFilterFactories {
     /**
      * 通过可赋值性过滤类型
      *
-     * @param targetType
-     *            赋值目标类型
-     *
+     * @param targetType 赋值目标类型
      * @return TypeFilter的实例
      */
     public static TypeFilter assignable(Class<?> targetType) {
@@ -91,9 +81,7 @@ public final class TypeFilterFactories {
     /**
      * 通过类名过滤类型
      *
-     * @param className
-     *            指定的类型
-     *
+     * @param className 指定的类型
      * @return TypeFilter的实例
      */
     public static TypeFilter fullyQualifiedNameEquals(String className) {
@@ -103,11 +91,8 @@ public final class TypeFilterFactories {
     /**
      * 通过类名过滤类型
      *
-     * @param className
-     *            指定的类型
-     * @param ignoreCase
-     *            是否忽略大小写
-     *
+     * @param className  指定的类型
+     * @param ignoreCase 是否忽略大小写
      * @return TypeFilter的实例
      */
     public static TypeFilter fullyQualifiedNameEquals(String className, boolean ignoreCase) {
@@ -122,9 +107,7 @@ public final class TypeFilterFactories {
     /**
      * 通过正则表达式匹配FQN过滤类型
      *
-     * @param regex
-     *            正则表达式
-     *
+     * @param regex 正则表达式
      * @return TypeFilter的实例
      */
     public static TypeFilter fullyQualifiedNameMatch(String regex) {
@@ -136,7 +119,6 @@ public final class TypeFilterFactories {
      * 过滤是接口的类型
      *
      * @return TypeFilter的实例
-     *
      * @see #isNotInterface()
      */
     public static TypeFilter isInterface() {
@@ -152,7 +134,6 @@ public final class TypeFilterFactories {
      * 过滤是不是接口的类型
      *
      * @return TypeFilter的实例
-     *
      * @see #isInterface()
      */
     public static TypeFilter isNotInterface() {
@@ -163,7 +144,6 @@ public final class TypeFilterFactories {
      * 过滤抽象的类型。包含接口和抽象类。
      *
      * @return TypeFilter的实例
-     *
      * @see #isConcrete()
      */
     public static TypeFilter isAbstract() {
@@ -179,7 +159,6 @@ public final class TypeFilterFactories {
      * 过滤具象的类型
      *
      * @return TypeFilter的实例
-     *
      * @see #isAbstract()
      */
     public static TypeFilter isConcrete() {
@@ -195,7 +174,6 @@ public final class TypeFilterFactories {
      * 过滤是元注释的类型
      *
      * @return TypeFilter的实例
-     *
      * @see #isNotAnnotation()
      */
     public static TypeFilter isAnnotation() {
@@ -211,7 +189,6 @@ public final class TypeFilterFactories {
      * 过滤不是元注释的类型
      *
      * @return TypeFilter实例
-     *
      * @see #isAnnotation()
      */
     public static TypeFilter isNotAnnotation() {
@@ -222,7 +199,6 @@ public final class TypeFilterFactories {
      * 过滤是Final的类型
      *
      * @return TypeFilter的实例
-     *
      * @see #isNotFinal()
      */
     public static TypeFilter isFinal() {
@@ -238,7 +214,6 @@ public final class TypeFilterFactories {
      * 过滤是不是Final的类型
      *
      * @return TypeFilter的实例
-     *
      * @see #isFinal()
      */
     public static TypeFilter isNotFinal() {
@@ -277,7 +252,6 @@ public final class TypeFilterFactories {
      * 过滤内部类的类型
      *
      * @return TypeFilter的实例
-     *
      * @see #isNotInnerClass()
      */
     public static TypeFilter isInnerClass() {
@@ -293,7 +267,6 @@ public final class TypeFilterFactories {
      * 过滤非内部类型
      *
      * @return TypeFilter的实例
-     *
      * @see #isInnerClass()
      */
     public static TypeFilter isNotInnerClass() {
@@ -303,11 +276,8 @@ public final class TypeFilterFactories {
     /**
      * 过滤实现了指定接口的类型
      *
-     * @param interfaceType
-     *            指定接口
-     *
+     * @param interfaceType 指定接口
      * @return TypeFilter的实例
-     *
      * @see #notImplementsInterface(Class)
      */
     public static TypeFilter implementsInterface(final Class<?> interfaceType) {
@@ -323,11 +293,8 @@ public final class TypeFilterFactories {
     /**
      * 过滤没有实现指定接口的类型
      *
-     * @param interfaceType
-     *            指定接口
-     *
+     * @param interfaceType 指定接口
      * @return TypeFilter的实例
-     *
      * @see #implementsInterface(Class)
      */
     public static TypeFilter notImplementsInterface(final Class<?> interfaceType) {
@@ -338,7 +305,6 @@ public final class TypeFilterFactories {
      * 过滤 package-info
      *
      * @return TypeFilter的实例
-     *
      * @see #isNotPackageInfo()
      */
     public static TypeFilter isPackageInfo() {
@@ -349,7 +315,6 @@ public final class TypeFilterFactories {
      * 过滤非package-info
      *
      * @return TypeFilter的实例
-     *
      * @see #isPackageInfo()
      */
     public static TypeFilter isNotPackageInfo() {
@@ -361,9 +326,7 @@ public final class TypeFilterFactories {
     /**
      * 逻辑取反
      *
-     * @param f
-     *            代理的TypeFilter实例
-     *
+     * @param f 代理的TypeFilter实例
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter not(final TypeFilter f) {
@@ -374,9 +337,7 @@ public final class TypeFilterFactories {
     /**
      * 被装饰的所有TypeFilter任意一个返回true，整体返回true，否则返回false
      *
-     * @param filters
-     *            代理的TypeFilter实例
-     *
+     * @param filters 代理的TypeFilter实例
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter any(TypeFilter... filters) {
@@ -388,9 +349,7 @@ public final class TypeFilterFactories {
     /**
      * 被装饰的所有TypeFilter任意一个返回false，整体返回false，否则返回true
      *
-     * @param filters
-     *            代理的TypeFilter实例
-     *
+     * @param filters 代理的TypeFilter实例
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter all(TypeFilter... filters) {

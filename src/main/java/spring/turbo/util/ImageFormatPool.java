@@ -10,7 +10,6 @@ package spring.turbo.util;
 
 /**
  * @author 应卓
- *
  * @since 1.2.3
  */
 public final class ImageFormatPool {

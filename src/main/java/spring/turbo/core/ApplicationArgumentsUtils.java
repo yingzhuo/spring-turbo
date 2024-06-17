@@ -13,10 +13,8 @@ import java.util.Set;
 
 /**
  * @author 应卓
- *
  * @see SpringUtils
  * @see org.springframework.boot.ApplicationArguments
- *
  * @since 3.0.7
  */
 public final class ApplicationArgumentsUtils {

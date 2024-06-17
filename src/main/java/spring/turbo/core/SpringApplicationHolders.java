@@ -19,10 +19,8 @@ import org.springframework.lang.Nullable;
  * ApplicationContext实例保存
  *
  * @author 应卓
- *
  * @see SpringUtils
  * @see SpringApplicationHoldersEnvironmentPostProcessor
- *
  * @since 1.0.2
  */
 final class SpringApplicationHolders implements ApplicationListener<ContextRefreshedEvent>, PriorityOrdered {

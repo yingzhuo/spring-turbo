@@ -14,9 +14,7 @@ import java.util.List;
 
 /**
  * @author 应卓
- *
  * @see #getInstance()
- *
  * @since 2.0.9
  */
 public final class NullClassPathScanner implements ClassPathScanner {

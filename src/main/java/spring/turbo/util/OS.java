@@ -12,9 +12,7 @@ package spring.turbo.util;
  * 操作系统
  *
  * @author 应卓
- *
  * @see spring.turbo.bean.condition.ConditionalOnOS
- *
  * @since 1.0.0
  */
 public enum OS {

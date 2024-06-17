@@ -21,9 +21,7 @@ import static spring.turbo.util.StringPool.LF;
  * {@link ClassPathResource} 相关工具
  *
  * @author 应卓
- *
  * @see ResourceUtils
- *
  * @since 2.0.13
  */
 public final class ClassPathResourceUtils {
@@ -38,9 +36,7 @@ public final class ClassPathResourceUtils {
     /**
      * 读取为文本
      *
-     * @param location
-     *            资源地址 如: {@code "META-INF/spring.txt"}
-     *
+     * @param location 资源地址 如: {@code "META-INF/spring.txt"}
      * @return 文本
      */
     public static String readText(String location) {
@@ -50,11 +46,8 @@ public final class ClassPathResourceUtils {
     /**
      * 读取为文本
      *
-     * @param location
-     *            资源地址 如: {@code "META-INF/spring.txt"}
-     * @param charset
-     *            字符集
-     *
+     * @param location 资源地址 如: {@code "META-INF/spring.txt"}
+     * @param charset  字符集
      * @return 文本
      */
     public static String readText(String location, @Nullable Charset charset) {
@@ -65,9 +58,7 @@ public final class ClassPathResourceUtils {
     /**
      * 读取为单行文本
      *
-     * @param location
-     *            资源地址 如: {@code "META-INF/spring.txt"}
-     *
+     * @param location 资源地址 如: {@code "META-INF/spring.txt"}
      * @return 当行文本
      */
     public static String readTextAsOneLine(String location) {
@@ -77,11 +68,8 @@ public final class ClassPathResourceUtils {
     /**
      * 读取为单行文本
      *
-     * @param location
-     *            资源地址 如: {@code "META-INF/spring.txt"}
-     * @param charset
-     *            字符集
-     *
+     * @param location 资源地址 如: {@code "META-INF/spring.txt"}
+     * @param charset  字符集
      * @return 当行文本
      */
     public static String readTextAsOneLine(String location, @Nullable Charset charset) {
@@ -92,9 +80,7 @@ public final class ClassPathResourceUtils {
     /**
      * 读取为二进制数据
      *
-     * @param location
-     *            资源地址 如: {@code "META-INF/spring.data"}
-     *
+     * @param location 资源地址 如: {@code "META-INF/spring.data"}
      * @return 二进制数据
      */
     public static byte[] readByteArray(String location) {

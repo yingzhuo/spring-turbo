@@ -19,13 +19,12 @@ import static java.lang.annotation.ElementType.*;
  * 口令验证元注释
  *
  * @author 应卓
- *
  * @since 1.0.0
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Constraint(validatedBy = PasswordValidator.class)
 public @interface Password {
 

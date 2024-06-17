@@ -19,7 +19,6 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
- *
  * @since 2.0.8
  */
 public interface FileLikePredicate extends Predicate<File> {

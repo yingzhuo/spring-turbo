@@ -19,11 +19,8 @@ import java.net.URL;
 import java.nio.channels.ReadableByteChannel;
 
 /**
- * @param delegating
- *            代理的 {@link Resource} 实例
- *
+ * @param delegating 代理的 {@link Resource} 实例
  * @author 应卓
- *
  * @since 2.0.8
  */
 record RichResourceImpl(Resource delegating) implements RichResource {

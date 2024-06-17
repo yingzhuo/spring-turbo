@@ -12,9 +12,7 @@ import javax.annotation.Nullable;
 
 /**
  * @author 应卓
- *
  * @see JsonStringUtils
- *
  * @since 3.3.0
  */
 public final class XmlStringUtils {

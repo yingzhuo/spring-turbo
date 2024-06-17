@@ -12,9 +12,7 @@ import java.io.OutputStream;
 
 /**
  * @author 应卓
- *
  * @see #getInstance()
- *
  * @since 1.0.8
  */
 public final class BlackHoleOutputStream extends OutputStream {

@@ -23,10 +23,8 @@ import java.util.Map;
  * 杂项设置
  *
  * @author 应卓
- *
  * @see spring.turbo.bean.injection.ApplicationId
  * @see spring.turbo.bean.injection.ApplicationHome
- *
  * @since 2.0.8
  */
 final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
@@ -35,7 +33,7 @@ final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostPr
     private static final String SPRING_ID = RandomStringUtils.randomUUID();
 
     public MiscellaneousSetupEnvironmentPostProcessor(DeferredLogFactory logFactory,
-            ConfigurableBootstrapContext bootstrapContext) {
+                                                      ConfigurableBootstrapContext bootstrapContext) {
         super(logFactory, bootstrapContext);
         setOrder(LOWEST_PRECEDENCE);
     }

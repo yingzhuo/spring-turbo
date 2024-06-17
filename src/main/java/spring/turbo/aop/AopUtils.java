@@ -25,9 +25,7 @@ import static spring.turbo.util.Asserts.notNull;
  * AOP相关工具
  *
  * @author 应卓
- *
  * @see AnnotationFinder
- *
  * @since 2.1.1
  */
 public final class AopUtils {
@@ -42,13 +40,9 @@ public final class AopUtils {
     /**
      * 获取切面方法
      *
-     * @param joinPoint
-     *            {@link JoinPoint} 实例
-     *
+     * @param joinPoint {@link JoinPoint} 实例
      * @return 切面方法
-     *
-     * @throws IllegalArgumentException
-     *             不能获取切面方法
+     * @throws IllegalArgumentException 不能获取切面方法
      */
     public static Method getMethod(JoinPoint joinPoint) {
         notNull(joinPoint, "joinPoint is null");
@@ -63,9 +57,7 @@ public final class AopUtils {
     /**
      * 获取切面拦截对象
      *
-     * @param joinPoint
-     *            {@link JoinPoint} 实例
-     *
+     * @param joinPoint {@link JoinPoint} 实例
      * @return 切面拦截对象
      */
     public static Object getTarget(JoinPoint joinPoint) {
@@ -76,9 +68,7 @@ public final class AopUtils {
     /**
      * 获取切面拦截对象类型
      *
-     * @param joinPoint
-     *            {@link JoinPoint} 实例
-     *
+     * @param joinPoint {@link JoinPoint} 实例
      * @return 切面拦截对象类型
      */
     public static Class<?> getTargetType(JoinPoint joinPoint) {
@@ -88,13 +78,9 @@ public final class AopUtils {
     /**
      * 查找被拦截方法上的元注释
      *
-     * @param joinPoint
-     *            {@link JoinPoint} 实例
-     * @param annotationType
-     *            元注释类型
-     * @param <A>
-     *            元注释类型泛型
-     *
+     * @param joinPoint      {@link JoinPoint} 实例
+     * @param annotationType 元注释类型
+     * @param <A>            元注释类型泛型
      * @return 元注释实例或 {@code null}
      */
     @Nullable
@@ -105,30 +91,22 @@ public final class AopUtils {
     /**
      * 获取被拦截方法上的元注释相关的 {@link AnnotationAttributes} 实例
      *
-     * @param joinPoint
-     *            {@link JoinPoint} 实例
-     * @param annotationType
-     *            元注释类型
-     * @param <A>
-     *            元注释类型泛型
-     *
+     * @param joinPoint      {@link JoinPoint} 实例
+     * @param annotationType 元注释类型
+     * @param <A>            元注释类型泛型
      * @return {@link AnnotationAttributes} 实例
      */
     public static <A extends Annotation> AnnotationAttributes getMethodAnnotationAttributes(JoinPoint joinPoint,
-            Class<A> annotationType) {
+                                                                                            Class<A> annotationType) {
         return findAnnotationAttributes(getMethod(joinPoint), annotationType);
     }
 
     /**
      * 查找被拦截对象类型上的元注释
      *
-     * @param joinPoint
-     *            {@link JoinPoint} 实例
-     * @param annotationType
-     *            元注释类型
-     * @param <A>
-     *            元注释类型泛型
-     *
+     * @param joinPoint      {@link JoinPoint} 实例
+     * @param annotationType 元注释类型
+     * @param <A>            元注释类型泛型
      * @return 元注释实例或 {@code null}
      */
     @Nullable
@@ -139,16 +117,13 @@ public final class AopUtils {
     /**
      * 获取被拦截对象类型上的元注释相关的 {@link AnnotationAttributes} 实例
      *
-     * @param joinPoint
-     *            {@link JoinPoint} 实例
-     * @param annotationType
-     *            元注释类型
-     * @param <A>
-     *            元注释类型泛型
-     *
+     * @param joinPoint      {@link JoinPoint} 实例
+     * @param annotationType 元注释类型
+     * @param <A>            元注释类型泛型
      * @return {@link AnnotationAttributes} 实例
      */
-    public static <A extends Annotation> AnnotationAttributes getTargetTypeAnnotationAttributes(JoinPoint joinPoint,
+    public static <A extends Annotation> AnnotationAttributes getTargetTypeAnnotationAttributes(
+            JoinPoint joinPoint,
             Class<A> annotationType) {
         return findAnnotationAttributes(getTargetType(joinPoint), annotationType);
     }

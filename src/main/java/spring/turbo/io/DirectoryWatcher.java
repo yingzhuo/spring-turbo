@@ -16,9 +16,7 @@ import java.nio.file.*;
 
 /**
  * @author 应卓
- *
  * @see #builder()
- *
  * @since 2.1.0
  */
 public final class DirectoryWatcher {

@@ -21,7 +21,6 @@ import java.util.Set;
 
 /**
  * @author 应卓
- *
  * @since 1.1.3
  */
 public class StringToDateConverter implements GenericConverter {

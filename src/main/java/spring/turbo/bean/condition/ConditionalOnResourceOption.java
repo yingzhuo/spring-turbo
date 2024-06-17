@@ -18,11 +18,10 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
- *
  * @since 2.0.1
  */
 @Inherited
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Conditional(ConditionalOnResourceOptionCondition.class)

@@ -22,10 +22,8 @@ import java.util.stream.StreamSupport;
  * {@link Stream} 创建工具
  *
  * @author 应卓
- *
  * @see SetFactories
  * @see ListFactories
- *
  * @since 1.0.13
  */
 public final class StreamFactories {

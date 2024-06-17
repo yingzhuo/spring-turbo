@@ -12,7 +12,6 @@ package spring.turbo.util;
  * 雪花算法ID生成器
  *
  * @author 应卓
- *
  * @since 1.0.0
  */
 public class SnowflakeGenerator {
@@ -90,10 +89,8 @@ public class SnowflakeGenerator {
     /**
      * 构造方法
      *
-     * @param workerId
-     *            工作ID (0~31)
-     * @param dataCenterId
-     *            数据中心ID (0~31)
+     * @param workerId     工作ID (0~31)
+     * @param dataCenterId 数据中心ID (0~31)
      */
     public SnowflakeGenerator(long workerId, long dataCenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
@@ -149,9 +146,7 @@ public class SnowflakeGenerator {
     /**
      * 阻塞到下一个毫秒，直到获得新的时间戳
      *
-     * @param lastTimestamp
-     *            上次生成ID的时间截
-     *
+     * @param lastTimestamp 上次生成ID的时间截
      * @return 当前时间戳
      */
     private long tilNextMillis(long lastTimestamp) {

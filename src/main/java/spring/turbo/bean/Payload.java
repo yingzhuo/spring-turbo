@@ -21,10 +21,8 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
- *
  * @see Attributes
  * @see Map
- *
  * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
@@ -49,15 +47,10 @@ public class Payload extends LinkedHashMap<String, Object> {
     /**
      * 获取值
      *
-     * @param key
-     *            key
-     * @param <T>
-     *            返回值类型泛型
-     *
+     * @param key key
+     * @param <T> 返回值类型泛型
      * @return 值或 {@code null}
-     *
      * @see #findOrDefault(String, Object)
-     *
      * @since 1.0.1
      */
     @Nullable
@@ -69,61 +62,42 @@ public class Payload extends LinkedHashMap<String, Object> {
     /**
      * 获取key对应值或默认值
      *
-     * @param key
-     *            key
-     * @param defaultIfNull
-     *            找不到时的默认值
-     * @param <T>
-     *            返回值类型泛型
-     *
+     * @param key           key
+     * @param defaultIfNull 找不到时的默认值
+     * @param <T>           返回值类型泛型
      * @return 值或者默认值
-     *
      * @see #find(String)
-     *
      * @since 1.0.1
      */
     @Nullable
     public <T> T findOrDefault(String key, @Nullable T defaultIfNull) {
         Asserts.notNull(key);
-        return Optional.<T> ofNullable(find(key)).orElse(defaultIfNull);
+        return Optional.<T>ofNullable(find(key)).orElse(defaultIfNull);
     }
 
     /**
      * 获取key对应值或默认值
      *
-     * @param key
-     *            key
-     * @param defaultIfNull
-     *            找不到时的默认值
-     * @param <T>
-     *            返回值类型泛型
-     *
+     * @param key           key
+     * @param defaultIfNull 找不到时的默认值
+     * @param <T>           返回值类型泛型
      * @return 值或者默认值
-     *
      * @see #find(String)
-     *
      * @since 1.1.2
      */
     public <T> T findOrDefault(String key, @NonNull Supplier<T> defaultIfNull) {
         Asserts.notNull(key);
-        return Optional.<T> ofNullable(find(key)).orElseGet(defaultIfNull);
+        return Optional.<T>ofNullable(find(key)).orElseGet(defaultIfNull);
     }
 
     /**
      * 获取key对应值或抛出异常
      *
-     * @param key
-     *            key
-     * @param <T>
-     *            返回值类型泛型
-     *
+     * @param key key
+     * @param <T> 返回值类型泛型
      * @return 值
-     *
-     * @throws NoSuchElementException
-     *             找不到key值时抛出异常
-     *
+     * @throws NoSuchElementException 找不到key值时抛出异常
      * @see #findRequired(String, Supplier)
-     *
      * @since 1.0.1
      */
     public <T> T findRequired(String key) {
@@ -134,17 +108,11 @@ public class Payload extends LinkedHashMap<String, Object> {
     /**
      * 获取key对应值或抛出异常
      *
-     * @param key
-     *            key
-     * @param exceptionIfKeyNotFound
-     *            找不到key对应的值时的异常提供器
-     * @param <T>
-     *            返回值类型泛型
-     *
+     * @param key                    key
+     * @param exceptionIfKeyNotFound 找不到key对应的值时的异常提供器
+     * @param <T>                    返回值类型泛型
      * @return 值
-     *
      * @see #findRequired(String)
-     *
      * @since 1.0.5
      */
     public <T> T findRequired(String key, Supplier<? extends RuntimeException> exceptionIfKeyNotFound) {

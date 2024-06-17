@@ -18,9 +18,7 @@ import java.util.stream.Stream;
  * 辅助工具封装多个搜索起点
  *
  * @author 应卓
- *
  * @see #newInstance()
- *
  * @since 2.0.10
  */
 public final class PackageSet implements Iterable<String> {
@@ -47,9 +45,7 @@ public final class PackageSet implements Iterable<String> {
     /**
      * 添加要扫描的包
      *
-     * @param packages
-     *            包
-     *
+     * @param packages 包
      * @return this
      */
     public PackageSet acceptPackages(@Nullable String... packages) {
@@ -62,9 +58,7 @@ public final class PackageSet implements Iterable<String> {
     /**
      * 添加要扫描的包
      *
-     * @param packages
-     *            包
-     *
+     * @param packages 包
      * @return this
      */
     public PackageSet acceptPackages(@Nullable Collection<String> packages) {
@@ -77,9 +71,7 @@ public final class PackageSet implements Iterable<String> {
     /**
      * 添加要扫描的基础类所在的包
      *
-     * @param baseClasses
-     *            基础类
-     *
+     * @param baseClasses 基础类
      * @return this
      */
     public PackageSet acceptBaseClasses(@Nullable Class<?>... baseClasses) {
@@ -92,9 +84,7 @@ public final class PackageSet implements Iterable<String> {
     /**
      * 添加要扫描的基础类所在的包
      *
-     * @param baseClasses
-     *            基础类
-     *
+     * @param baseClasses 基础类
      * @return this
      */
     public PackageSet acceptBaseClasses(@Nullable Collection<Class<?>> baseClasses) {

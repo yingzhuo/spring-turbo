@@ -14,9 +14,7 @@ import java.util.Random;
  * 随机数生成工具
  *
  * @author 应卓
- *
  * @see RandomStringUtils
- *
  * @since 1.0.0
  */
 public final class RandomUtils {
@@ -42,9 +40,7 @@ public final class RandomUtils {
     /**
      * 随机生成字节数组
      *
-     * @param count
-     *            字符数组长度
-     *
+     * @param count 字符数组长度
      * @return 随机字节数组
      */
     public static byte[] nextBytes(int count) {
@@ -58,11 +54,8 @@ public final class RandomUtils {
     /**
      * 随机生成整数
      *
-     * @param startInclusive
-     *            开始 (包含)
-     * @param endExclusive
-     *            结束 (不包含)
-     *
+     * @param startInclusive 开始 (包含)
+     * @param endExclusive   结束 (不包含)
      * @return 随机整数
      */
     public static int nextInt(int startInclusive, int endExclusive) {
@@ -88,11 +81,8 @@ public final class RandomUtils {
     /**
      * 随机生成长整数
      *
-     * @param startInclusive
-     *            开始 (包含)
-     * @param endExclusive
-     *            结束 (不包含)
-     *
+     * @param startInclusive 开始 (包含)
+     * @param endExclusive   结束 (不包含)
      * @return 随机长整数
      */
     public static long nextLong(long startInclusive, long endExclusive) {
@@ -129,11 +119,8 @@ public final class RandomUtils {
     /**
      * 随机生成双精度数
      *
-     * @param startInclusive
-     *            开始 (包含)
-     * @param endExclusive
-     *            结束 (不包含)
-     *
+     * @param startInclusive 开始 (包含)
+     * @param endExclusive   结束 (不包含)
      * @return 随机双精度数
      */
     public static double nextDouble(double startInclusive, double endExclusive) {
@@ -159,11 +146,8 @@ public final class RandomUtils {
     /**
      * 随机生成浮点数数
      *
-     * @param startInclusive
-     *            开始 (包含)
-     * @param endExclusive
-     *            结束 (不包含)
-     *
+     * @param startInclusive 开始 (包含)
+     * @param endExclusive   结束 (不包含)
      * @return 随机浮点数
      */
     public static float nextFloat(float startInclusive, float endExclusive) {

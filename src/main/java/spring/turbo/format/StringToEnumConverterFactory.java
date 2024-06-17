@@ -26,12 +26,10 @@ import static spring.turbo.util.reflection.MethodPredicateFactories.*;
  * 替代Spring原厂的 String -&gt; Enum转换器
  *
  * @author 应卓
- *
  * @see EnumConvertingMethod
- *
  * @since 1.2.1
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class StringToEnumConverterFactory implements ConverterFactory<String, Enum> {
 
     /**
@@ -115,7 +113,7 @@ public class StringToEnumConverterFactory implements ConverterFactory<String, En
         private Method findConvertingMethod() {
             List<Method> ret = MethodUtils.find(enumType);
             ret = ret.stream().filter(
-                    all(isUserDeclaredMethod(), isPublic(), isStatic(), withAnnotation(EnumConvertingMethod.class)))
+                            all(isUserDeclaredMethod(), isPublic(), isStatic(), withAnnotation(EnumConvertingMethod.class)))
                     .collect(Collectors.toList());
 
             // 找到多个形同没有找到

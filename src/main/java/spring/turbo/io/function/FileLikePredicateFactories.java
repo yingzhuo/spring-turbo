@@ -21,7 +21,6 @@ import java.util.Arrays;
 
 /**
  * @author 应卓
- *
  * @since 2.0.8
  */
 public final class FileLikePredicateFactories {

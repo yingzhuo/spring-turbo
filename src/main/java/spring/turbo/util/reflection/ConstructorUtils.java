@@ -17,10 +17,8 @@ import java.lang.reflect.Constructor;
  * 反射工具 - 构造方法
  *
  * @author 应卓
- *
  * @see MethodUtils
  * @see FieldUtils
- *
  * @since 1.2.1
  */
 public final class ConstructorUtils {

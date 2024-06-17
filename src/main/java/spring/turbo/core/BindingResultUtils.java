@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 
 /**
  * @author 应卓
- *
  * @since 1.0.0
  */
 public final class BindingResultUtils {
@@ -50,34 +49,34 @@ public final class BindingResultUtils {
     }
 
     public static String getJoinedDefaultErrorMessages(@Nullable BindingResult bindingResult,
-            @Nullable String separator) {
+                                                       @Nullable String separator) {
         separator = separator == null ? StringPool.EMPTY : separator;
         return String.join(separator, getDefaultErrorMessages(bindingResult));
     }
 
     public static String getJoinedErrorMessages(@Nullable BindingResult bindingResult,
-            final MessageSource messageSource) {
+                                                final MessageSource messageSource) {
         return getJoinedErrorMessages(bindingResult, messageSource, null);
     }
 
     public static String getJoinedErrorMessages(@Nullable BindingResult bindingResult,
-            final MessageSource messageSource, final @Nullable Locale locale) {
+                                                final MessageSource messageSource, final @Nullable Locale locale) {
         return getJoinedErrorMessages(bindingResult, messageSource, locale, StringPool.COMMA);
     }
 
     public static String getJoinedErrorMessages(@Nullable BindingResult bindingResult,
-            final MessageSource messageSource, final @Nullable Locale locale, @Nullable String separator) {
+                                                final MessageSource messageSource, final @Nullable Locale locale, @Nullable String separator) {
         separator = separator == null ? StringPool.EMPTY : separator;
         return String.join(separator, getErrorMessages(bindingResult, messageSource, locale));
     }
 
     public static List<String> getErrorMessages(@Nullable BindingResult bindingResult,
-            final MessageSource messageSource) {
+                                                final MessageSource messageSource) {
         return getErrorMessages(bindingResult, messageSource, Locale.getDefault());
     }
 
     public static List<String> getErrorMessages(@Nullable BindingResult bindingResult,
-            final MessageSource messageSource, final @Nullable Locale locale) {
+                                                final MessageSource messageSource, final @Nullable Locale locale) {
         Asserts.notNull(messageSource);
 
         // null 或 没有错误

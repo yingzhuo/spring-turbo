@@ -18,7 +18,6 @@ import java.util.TimeZone;
 
 /**
  * @author 应卓
- *
  * @since 1.0.10
  */
 public final class DateUtils {
@@ -48,10 +47,10 @@ public final class DateUtils {
      */
     public static final int SEMI_MONTH = 1001;
 
-    private static final int[][] fields = { { Calendar.MILLISECOND }, { Calendar.SECOND }, { Calendar.MINUTE },
-            { Calendar.HOUR_OF_DAY, Calendar.HOUR }, { Calendar.DATE, Calendar.DAY_OF_MONTH, Calendar.AM_PM
+    private static final int[][] fields = {{Calendar.MILLISECOND}, {Calendar.SECOND}, {Calendar.MINUTE},
+            {Calendar.HOUR_OF_DAY, Calendar.HOUR}, {Calendar.DATE, Calendar.DAY_OF_MONTH, Calendar.AM_PM
             /* Calendar.DAY_OF_YEAR, Calendar.DAY_OF_WEEK, Calendar.DAY_OF_WEEK_IN_MONTH */
-            }, { Calendar.MONTH, SEMI_MONTH }, { Calendar.YEAR }, { Calendar.ERA } };
+    }, {Calendar.MONTH, SEMI_MONTH}, {Calendar.YEAR}, {Calendar.ERA}};
 
     /**
      * 私有构造方法
@@ -348,36 +347,36 @@ public final class DateUtils {
             boolean offsetSet = false;
             // These are special types of fields that require different rounding rules
             switch (field) {
-            case SEMI_MONTH:
-                if (aField[0] == Calendar.DATE) {
-                    // If we're going to drop the DATE field's value,
-                    // we want to do this our own way.
-                    // We need to subtract 1 since the date has a minimum of 1
-                    offset = val.get(Calendar.DATE) - 1;
-                    // If we're above 15 days adjustment, that means we're in the
-                    // bottom half of the month and should stay accordingly.
-                    if (offset >= 15) {
-                        offset -= 15;
+                case SEMI_MONTH:
+                    if (aField[0] == Calendar.DATE) {
+                        // If we're going to drop the DATE field's value,
+                        // we want to do this our own way.
+                        // We need to subtract 1 since the date has a minimum of 1
+                        offset = val.get(Calendar.DATE) - 1;
+                        // If we're above 15 days adjustment, that means we're in the
+                        // bottom half of the month and should stay accordingly.
+                        if (offset >= 15) {
+                            offset -= 15;
+                        }
+                        // Record whether we're in the top or bottom half of that range
+                        roundUp = offset > 7;
+                        offsetSet = true;
                     }
-                    // Record whether we're in the top or bottom half of that range
-                    roundUp = offset > 7;
-                    offsetSet = true;
-                }
-                break;
-            case Calendar.AM_PM:
-                if (aField[0] == Calendar.HOUR_OF_DAY) {
-                    // If we're going to drop the HOUR field's value,
-                    // we want to do this our own way.
-                    offset = val.get(Calendar.HOUR_OF_DAY);
-                    if (offset >= 12) {
-                        offset -= 12;
+                    break;
+                case Calendar.AM_PM:
+                    if (aField[0] == Calendar.HOUR_OF_DAY) {
+                        // If we're going to drop the HOUR field's value,
+                        // we want to do this our own way.
+                        offset = val.get(Calendar.HOUR_OF_DAY);
+                        if (offset >= 12) {
+                            offset -= 12;
+                        }
+                        roundUp = offset >= 6;
+                        offsetSet = true;
                     }
-                    roundUp = offset >= 6;
-                    offsetSet = true;
-                }
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
             }
             if (!offsetSet) {
                 final int min = val.getActualMinimum(aField[0]);

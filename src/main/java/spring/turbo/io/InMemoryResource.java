@@ -20,9 +20,7 @@ import java.util.Arrays;
  * 内存型Resource
  *
  * @author 应卓
- *
  * @see org.springframework.core.io.Resource
- *
  * @since 1.1.0
  */
 public class InMemoryResource extends AbstractResource {

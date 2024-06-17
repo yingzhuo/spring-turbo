@@ -16,10 +16,8 @@ import spring.turbo.util.StringFormatter;
 
 /**
  * @author 应卓
- *
  * @see SpringUtils
  * @see Validator
- *
  * @since 1.0.0
  */
 public final class ValidatorUtils {
@@ -34,9 +32,7 @@ public final class ValidatorUtils {
     /**
      * 查询是否支持验证
      *
-     * @param targetType
-     *            待验证的类型
-     *
+     * @param targetType 待验证的类型
      * @return 结果
      */
     public static boolean support(Class<?> targetType) {
@@ -48,9 +44,7 @@ public final class ValidatorUtils {
     /**
      * 验证
      *
-     * @param obj
-     *            待验证的对象
-     *
+     * @param obj 待验证的对象
      * @return 验证结果
      */
     public static BindingResult validate(Object obj) {

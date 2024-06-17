@@ -17,9 +17,7 @@ import java.io.UncheckedIOException;
  * 此工具将多个对象合成一个字节数组
  *
  * @author 应卓
- *
  * @see #newInstance() 创建实例
- *
  * @since 1.0.0
  */
 public final class BytesBuilder {
@@ -47,9 +45,7 @@ public final class BytesBuilder {
     /**
      * 添加对象
      *
-     * @param object
-     *            任何一个非空对象
-     *
+     * @param object 任何一个非空对象
      * @return 创建器
      */
     public BytesBuilder append(Object object) {

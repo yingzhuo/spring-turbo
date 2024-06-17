@@ -19,7 +19,6 @@ import static spring.turbo.util.StringPool.EMPTY;
  * 字符串到数字解析工具
  *
  * @author 应卓
- *
  * @since 1.0.8
  */
 public final class NumberParseUtils {
@@ -39,17 +38,11 @@ public final class NumberParseUtils {
      * </ul>
      * 请正确使用类型，否则会有精度损失
      *
-     * @param text
-     *            字符串
-     * @param type
-     *            具体类型
-     * @param <T>
-     *            数字的具体类型泛型
-     *
+     * @param text 字符串
+     * @param type 具体类型
+     * @param <T>  数字的具体类型泛型
      * @return 结果
-     *
-     * @throws IllegalArgumentException
-     *             解析失败
+     * @throws IllegalArgumentException 解析失败
      */
     public static <T extends Number> T parse(String text, Class<T> type) {
         Asserts.notNull(text);

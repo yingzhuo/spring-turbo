@@ -15,9 +15,7 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
  * Bean Scope(s)
  *
  * @author 应卓
- *
  * @see org.springframework.beans.factory.config.ConfigurableBeanFactory
- *
  * @since 1.0.0
  */
 public final class BeanScopes {

@@ -17,9 +17,7 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
- *
  * @see FieldUtils
- *
  * @since 1.2.1
  */
 public final class FieldPredicateFactories {

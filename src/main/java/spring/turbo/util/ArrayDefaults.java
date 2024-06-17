@@ -16,9 +16,7 @@ import static spring.turbo.util.ArrayUtils.isNullOrEmpty;
  * 数组默认值相关工具
  *
  * @author 应卓
- *
  * @see ArrayUtils
- *
  * @since 2.1.0
  */
 public final class ArrayDefaults {

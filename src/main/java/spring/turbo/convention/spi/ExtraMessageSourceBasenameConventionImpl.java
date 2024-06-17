@@ -15,7 +15,6 @@ import java.util.List;
 
 /**
  * @author 应卓
- *
  * @since 2.0.3
  */
 public final class ExtraMessageSourceBasenameConventionImpl implements ExtraMessageSourceBasenameConvention {

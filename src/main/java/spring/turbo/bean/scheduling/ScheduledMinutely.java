@@ -17,9 +17,7 @@ import java.lang.annotation.*;
  * {@code @Scheduled(cron = "0 * * * * *")} 的快捷方式
  *
  * @author 应卓
- *
  * @see Scheduled
- *
  * @since 1.2.3
  */
 @Documented

@@ -17,13 +17,12 @@ import java.lang.annotation.*;
  * Java 20
  *
  * @author 应卓
- *
  * @since 3.2.2
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @ConditionalOnJava(value = JavaVersion.TWENTY, range = ConditionalOnJava.Range.EQUAL_OR_NEWER)
 public @interface ConditionalOnJava20 {
 }

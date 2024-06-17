@@ -18,7 +18,6 @@ import static spring.turbo.util.collection.CollectionUtils.size;
 
 /**
  * @author 应卓
- *
  * @since 2.1.3
  */
 public final class SpringApplicationUtils {

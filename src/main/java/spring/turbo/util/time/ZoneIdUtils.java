@@ -21,9 +21,7 @@ import static spring.turbo.util.StringUtils.isBlank;
  * {@link ZoneId} 相关工具
  *
  * @author 应卓
- *
  * @see ZoneId#getAvailableZoneIds()
- *
  * @since 1.1.3
  */
 public final class ZoneIdUtils {

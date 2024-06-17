@@ -16,10 +16,8 @@ import spring.turbo.util.Asserts;
  * {@link ConversionService}相关工具
  *
  * @author 应卓
- *
  * @see SpringUtils
  * @see ConversionService
- *
  * @since 1.0.0
  */
 public final class ConversionUtils {
@@ -34,15 +32,10 @@ public final class ConversionUtils {
     /**
      * 判断是否可以完成转换
      *
-     * @param sourceType
-     *            源类型
-     * @param targetType
-     *            目标类型
-     *
+     * @param sourceType 源类型
+     * @param targetType 目标类型
      * @return 判断结果
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static boolean canConverter(Class<?> sourceType, Class<?> targetType) {
         Asserts.notNull(sourceType);
@@ -53,17 +46,11 @@ public final class ConversionUtils {
     /**
      * 转换
      *
-     * @param source
-     *            源对象实例
-     * @param targetType
-     *            目标类型
-     * @param <T>
-     *            目标类型泛型
-     *
+     * @param source     源对象实例
+     * @param targetType 目标类型
+     * @param <T>        目标类型泛型
      * @return 转换结果或null
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     @Nullable
     public static <T> T convert(Object source, Class<T> targetType) {
@@ -75,19 +62,12 @@ public final class ConversionUtils {
     /**
      * 转换
      *
-     * @param source
-     *            源对象实例
-     * @param targetType
-     *            目标类型
-     * @param <T>
-     *            目标类型泛型
-     *
+     * @param source     源对象实例
+     * @param targetType 目标类型
+     * @param <T>        目标类型泛型
      * @return 转换结果或null
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     * @throws IllegalArgumentException
-     *             无法转换
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+     * @throws IllegalArgumentException      无法转换
      */
     public static <T> T convertOrThrow(Object source, Class<T> targetType) {
         final T target = convert(source, targetType);
