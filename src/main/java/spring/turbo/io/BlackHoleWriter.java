@@ -8,7 +8,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.io;
 
-import java.io.IOException;
 import java.io.Writer;
 
 /**
@@ -35,16 +34,18 @@ public final class BlackHoleWriter extends Writer {
     }
 
     @Override
-    public void write(char[] cbuf, int off, int len) {
+    public void write(char[] buf, int off, int len) {
         // nop
     }
 
     @Override
-    public void flush() throws IOException {
+    public void flush() {
+        // nop
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
+        // nop
     }
 
     // 延迟加载

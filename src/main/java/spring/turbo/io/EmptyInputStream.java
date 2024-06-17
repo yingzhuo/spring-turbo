@@ -30,7 +30,7 @@ public final class EmptyInputStream extends InputStream {
     }
 
     @Override
-    public int read() throws IOException {
+    public int read() {
         return -1;
     }
 

@@ -9,6 +9,7 @@
 package spring.turbo.io;
 
 import org.springframework.core.io.AbstractResource;
+import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
@@ -20,10 +21,10 @@ import java.util.Arrays;
  * 内存型Resource
  *
  * @author 应卓
- * @see org.springframework.core.io.Resource
+ * @see Resource
  * @since 1.1.0
  */
-public class InMemoryResource extends AbstractResource {
+public class InMemoryResource extends AbstractResource implements Resource {
 
     private final byte[] source;
 

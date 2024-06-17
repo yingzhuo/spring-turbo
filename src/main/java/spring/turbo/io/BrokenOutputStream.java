@@ -39,6 +39,7 @@ public class BrokenOutputStream extends OutputStream {
         throw new IOException("broken");
     }
 
+    // 延迟加载
     private static class SyncAvoid {
         private static final BrokenOutputStream INSTANCE = new BrokenOutputStream();
     }

@@ -33,11 +33,15 @@ public class StringToNumberConverter implements GenericConverter {
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return Set.of(new ConvertiblePair(String.class, Byte.class), new ConvertiblePair(String.class, Short.class),
-                new ConvertiblePair(String.class, Integer.class), new ConvertiblePair(String.class, Long.class),
-                new ConvertiblePair(String.class, Float.class), new ConvertiblePair(String.class, Double.class),
+        return Set.of(new ConvertiblePair(String.class, Byte.class),
+                new ConvertiblePair(String.class, Short.class),
+                new ConvertiblePair(String.class, Integer.class),
+                new ConvertiblePair(String.class, Long.class),
+                new ConvertiblePair(String.class, Float.class),
+                new ConvertiblePair(String.class, Double.class),
                 new ConvertiblePair(String.class, BigInteger.class),
-                new ConvertiblePair(String.class, BigDecimal.class));
+                new ConvertiblePair(String.class, BigDecimal.class)
+        );
     }
 
     @Override

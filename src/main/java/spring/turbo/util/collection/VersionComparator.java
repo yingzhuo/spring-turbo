@@ -98,6 +98,7 @@ public class VersionComparator implements Comparator<String> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    // 延迟加载
     private static class AsyncAvoid {
         public static final VersionComparator INSTANCE = new VersionComparator();
     }
