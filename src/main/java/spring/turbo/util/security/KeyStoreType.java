@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.security;
 
+import java.io.Serializable;
+
 /**
  * KeyStore格式类型
  *
@@ -15,12 +17,29 @@ package spring.turbo.util.security;
  *
  * @since 3.3.0
  */
-public enum KeyStoreType {
+public enum KeyStoreType implements Serializable {
 
-    JKS("JKS"), PKCS12("pkcs12");
+    /**
+     * PKCS#12 format, this is default format since Java9. also known as pkcs12 or pfx.
+     */
+    PKCS12("pkcs12"),
 
+    /**
+     * Java-specific file format that was the default format for KeyStores until Java 8.
+     */
+    JKS("JKS");
+
+    /**
+     * 字符串类型值
+     */
     private final String value;
 
+    /**
+     * 私有构造方法
+     *
+     * @param value
+     *            字符串类型值
+     */
     private KeyStoreType(String value) {
         this.value = value;
     }
