@@ -21,9 +21,7 @@ import static spring.turbo.util.StringPool.EMPTY;
  * 空消息源
  *
  * @author 应卓
- *
  * @see #getInstance()
- *
  * @since 2.0.3
  */
 public final class NullMessageSource implements MessageSource {

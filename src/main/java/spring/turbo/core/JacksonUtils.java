@@ -20,10 +20,8 @@ import java.net.URL;
  * FasterXML-jackson 相关工具
  *
  * @author 应卓
- *
  * @see ObjectMapper
  * @see SpringUtils
- *
  * @since 1.0.12
  */
 public final class JacksonUtils {

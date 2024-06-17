@@ -10,7 +10,6 @@ package spring.turbo.util;
 
 /**
  * @author 应卓
- *
  * @since 1.0.8
  */
 public final class InheritanceUtils {

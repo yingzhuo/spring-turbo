@@ -12,7 +12,6 @@ package spring.turbo.bean.jsr380;
  * 验证组
  *
  * @author 应卓
- *
  * @since 2.0.0
  */
 public final class ValidationGroup {

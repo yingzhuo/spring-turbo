@@ -28,9 +28,7 @@ import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
  * {@link SpringFactoriesLoader} 相关工具
  *
  * @author 应卓
- *
  * @see SpringFactoriesLoader
- *
  * @since 2.0.5
  */
 public final class SpringFactoriesUtils {
@@ -51,7 +49,7 @@ public final class SpringFactoriesUtils {
     }
 
     public static <T> List<T> loadQuietly(Class<T> factoryType, @Nullable String factoriesResourceLocation,
-            @Nullable ClassLoader classLoader) {
+                                          @Nullable ClassLoader classLoader) {
         Asserts.notNull(factoryType);
 
         factoriesResourceLocation = blankToDefault(factoriesResourceLocation, FACTORIES_RESOURCE_LOCATION);

@@ -12,7 +12,6 @@ import java.util.function.Predicate;
 
 /**
  * @author 应卓
- *
  * @since 1.0.1
  */
 @FunctionalInterface

@@ -18,7 +18,6 @@ import java.nio.charset.Charset;
 
 /**
  * @author 应卓
- *
  * @since 1.0.12
  */
 public final class IOUtils {
@@ -33,15 +32,10 @@ public final class IOUtils {
     /**
      * 拷贝
      *
-     * @param in
-     *            in
-     * @param out
-     *            out
-     *
+     * @param in  in
+     * @param out out
      * @return 拷贝的字节数
-     *
-     * @throws UncheckedIOException
-     *             IO错误
+     * @throws UncheckedIOException IO错误
      */
     public static int copy(InputStream in, OutputStream out) {
         Asserts.notNull(in);
@@ -57,15 +51,10 @@ public final class IOUtils {
     /**
      * 拷贝
      *
-     * @param in
-     *            in
-     * @param out
-     *            out
-     *
+     * @param in  in
+     * @param out out
      * @return 拷贝的字节数
-     *
-     * @throws UncheckedIOException
-     *             IO错误
+     * @throws UncheckedIOException IO错误
      */
     public static int copy(Reader in, Writer out) {
         Asserts.notNull(in);
@@ -81,13 +70,9 @@ public final class IOUtils {
     /**
      * 拷贝
      *
-     * @param in
-     *            in
-     * @param out
-     *            out
-     *
-     * @throws UncheckedIOException
-     *             IO错误
+     * @param in  in
+     * @param out out
+     * @throws UncheckedIOException IO错误
      */
     public static void copy(byte[] in, OutputStream out) {
         Asserts.notNull(in);
@@ -103,13 +88,9 @@ public final class IOUtils {
     /**
      * 拷贝
      *
-     * @param in
-     *            in
-     * @param out
-     *            out
-     *
-     * @throws UncheckedIOException
-     *             IO错误
+     * @param in  in
+     * @param out out
+     * @throws UncheckedIOException IO错误
      */
     public static void copy(String in, OutputStream out) {
         copy(in, CharsetPool.UTF_8, out);
@@ -118,15 +99,10 @@ public final class IOUtils {
     /**
      * 拷贝
      *
-     * @param in
-     *            in
-     * @param charset
-     *            编码
-     * @param out
-     *            out
-     *
-     * @throws UncheckedIOException
-     *             IO错误
+     * @param in      in
+     * @param charset 编码
+     * @param out     out
+     * @throws UncheckedIOException IO错误
      */
     public static void copy(String in, Charset charset, OutputStream out) {
         Asserts.notNull(in);
@@ -143,13 +119,9 @@ public final class IOUtils {
     /**
      * 拷贝
      *
-     * @param in
-     *            in
-     *
+     * @param in in
      * @return 字节数组
-     *
-     * @throws UncheckedIOException
-     *             IO错误
+     * @throws UncheckedIOException IO错误
      */
     public static byte[] copyToByteArray(InputStream in) {
         Asserts.notNull(in);
@@ -164,13 +136,9 @@ public final class IOUtils {
     /**
      * 拷贝
      *
-     * @param in
-     *            in
-     *
+     * @param in in
      * @return 字符串
-     *
-     * @throws UncheckedIOException
-     *             IO错误
+     * @throws UncheckedIOException IO错误
      */
     public static String copyToString(InputStream in) {
         return copyToString(in, CharsetPool.UTF_8);
@@ -179,15 +147,10 @@ public final class IOUtils {
     /**
      * 拷贝
      *
-     * @param in
-     *            in
-     * @param charset
-     *            字符编码
-     *
+     * @param in      in
+     * @param charset 字符编码
      * @return 字符串
-     *
-     * @throws UncheckedIOException
-     *             IO错误
+     * @throws UncheckedIOException IO错误
      */
     public static String copyToString(InputStream in, Charset charset) {
         Asserts.notNull(in);
@@ -203,9 +166,7 @@ public final class IOUtils {
     /**
      * 排空一个{@link InputStream}
      *
-     * @param in
-     *            in
-     *
+     * @param in in
      * @return 排空的字节数
      */
     public static int drain(InputStream in) {

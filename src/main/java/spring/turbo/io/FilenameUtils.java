@@ -19,7 +19,6 @@ import static spring.turbo.util.StringPool.EMPTY;
  * 文件名处理工具
  *
  * @author 应卓
- *
  * @since 1.0.5
  */
 public final class FilenameUtils {
@@ -39,9 +38,7 @@ public final class FilenameUtils {
     /**
      * 正常化文件名
      *
-     * @param filename
-     *            文件名
-     *
+     * @param filename 文件名
      * @return 文件名
      */
     public static String normalize(String filename) {
@@ -51,11 +48,8 @@ public final class FilenameUtils {
     /**
      * 拼接多个path生成文件名
      *
-     * @param path
-     *            path
-     * @param more
-     *            子目录
-     *
+     * @param path path
+     * @param more 子目录
      * @return 文件名
      */
     public static String contact(String path, @Nullable String... more) {
@@ -78,9 +72,7 @@ public final class FilenameUtils {
      * a/b/c/    --&gt; ""
      * </pre>
      *
-     * @param fileName
-     *            文件名
-     *
+     * @param fileName 文件名
      * @return 文件名
      */
     public static String getName(final String fileName) {
@@ -100,9 +92,7 @@ public final class FilenameUtils {
      * a/b/c/    --&gt; ""
      * </pre>
      *
-     * @param fileName
-     *            文件名
-     *
+     * @param fileName 文件名
      * @return 文件basename
      */
     public static String getBaseName(final String fileName) {
@@ -119,9 +109,7 @@ public final class FilenameUtils {
      * a/b/c        --&gt; ""
      * </pre>
      *
-     * @param fileName
-     *            文件名
-     *
+     * @param fileName 文件名
      * @return 文件扩展名
      */
     public static String getExtension(final String fileName) {
@@ -144,9 +132,7 @@ public final class FilenameUtils {
      * a.b\c      --gt; a.b\c
      * </pre>
      *
-     * @param fileName
-     *            文件名
-     *
+     * @param fileName 文件名
      * @return 结果
      */
     public static String removeExtension(final String fileName) {
@@ -163,9 +149,7 @@ public final class FilenameUtils {
     /**
      * 查找扩展名的索引起点
      *
-     * @param fileName
-     *            文件名
-     *
+     * @param fileName 文件名
      * @return 结果或者-1
      */
     public static int indexOfExtension(@Nullable final String fileName) {

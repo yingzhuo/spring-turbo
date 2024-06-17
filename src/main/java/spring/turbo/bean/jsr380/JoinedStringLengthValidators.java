@@ -19,7 +19,6 @@ import static spring.turbo.util.StringPool.NULL;
 
 /**
  * @author 应卓
- *
  * @since 2.0.3
  */
 public final class JoinedStringLengthValidators {

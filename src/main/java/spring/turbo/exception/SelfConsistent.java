@@ -21,9 +21,7 @@ import java.util.Objects;
  * 业务自洽性检查工具
  *
  * @author 应卓
- *
  * @see BusinessException
- *
  * @since 1.0.0
  */
 public final class SelfConsistent {
@@ -209,7 +207,7 @@ public final class SelfConsistent {
     }
 
     public static void assertSameObject(@Nullable Object o1, @Nullable Object o2, String code,
-            @Nullable Object... args) {
+                                        @Nullable Object... args) {
         if (o1 != o2) {
             throw BusinessException.builder().codes(code).arguments(args).build();
         }

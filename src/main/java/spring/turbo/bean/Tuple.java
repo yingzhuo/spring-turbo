@@ -21,11 +21,9 @@ import java.util.Optional;
  * 三元组
  *
  * @author 应卓
- *
  * @see Pair
  * @see #ofNullable(Object, Object, Object)
  * @see #ofNonNull(Object, Object, Object)
- *
  * @since 1.0.0
  */
 public final class Tuple<A, B, C> implements Serializable {
@@ -42,12 +40,9 @@ public final class Tuple<A, B, C> implements Serializable {
     /**
      * 私有构造方法
      *
-     * @param a
-     *            a
-     * @param b
-     *            b
-     * @param c
-     *            c
+     * @param a a
+     * @param b b
+     * @param c c
      */
     private Tuple(@Nullable A a, @Nullable B b, @Nullable C c) {
         this.a = a;

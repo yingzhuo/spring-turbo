@@ -18,7 +18,6 @@ import java.util.List;
  * 业务异常的创建器
  *
  * @author 应卓
- *
  * @since 2.0.1
  */
 public final class BusinessExceptionBuilder {

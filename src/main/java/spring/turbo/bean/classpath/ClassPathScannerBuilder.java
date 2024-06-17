@@ -26,14 +26,12 @@ import java.util.Objects;
  * ClassPath扫描器的创建器
  *
  * @author 应卓
- *
  * @see ClassPathScanner#builder()
  * @see TypeFilter
  * @see TypeFilterFactories
  * @see Environment
  * @see ResourceLoader
  * @see ClassLoader
- *
  * @since 1.0.0
  */
 public final class ClassPathScannerBuilder {
@@ -54,11 +52,8 @@ public final class ClassPathScannerBuilder {
     /**
      * 添加包含类型描述器
      *
-     * @param filters
-     *            类型描述器
-     *
+     * @param filters 类型描述器
      * @return this
-     *
      * @see TypeFilterFactories
      * @see org.springframework.core.type.filter.AbstractClassTestingTypeFilter
      * @see org.springframework.core.type.filter.AbstractTypeHierarchyTraversingFilter
@@ -71,11 +66,8 @@ public final class ClassPathScannerBuilder {
     /**
      * 添加排除类型描述器
      *
-     * @param filters
-     *            类型描述器
-     *
+     * @param filters 类型描述器
      * @return this
-     *
      * @see TypeFilterFactories
      * @see org.springframework.core.type.filter.AbstractClassTestingTypeFilter
      * @see org.springframework.core.type.filter.AbstractTypeHierarchyTraversingFilter
@@ -88,11 +80,8 @@ public final class ClassPathScannerBuilder {
     /**
      * 添加 {@link Environment} 实例
      *
-     * @param environment
-     *            {@link Environment} 实例
-     *
+     * @param environment {@link Environment} 实例
      * @return this
-     *
      * @see org.springframework.context.EnvironmentAware
      */
     public ClassPathScannerBuilder environment(@Nullable Environment environment) {
@@ -104,11 +93,8 @@ public final class ClassPathScannerBuilder {
     /**
      * 添加 {@link ResourceLoader} 实例
      *
-     * @param resourceLoader
-     *            {@link ResourceLoader} 实例
-     *
+     * @param resourceLoader {@link ResourceLoader} 实例
      * @return this
-     *
      * @see org.springframework.context.ResourceLoaderAware
      */
     public ClassPathScannerBuilder resourceLoader(@Nullable ResourceLoader resourceLoader) {
@@ -120,11 +106,8 @@ public final class ClassPathScannerBuilder {
     /**
      * 添加 {@link ClassLoader} 实例
      *
-     * @param classLoader
-     *            {@link ClassLoader} 实例
-     *
+     * @param classLoader {@link ClassLoader} 实例
      * @return this
-     *
      * @see ClassUtils#getDefaultClassLoader()
      */
     public ClassPathScannerBuilder classLoader(@Nullable ClassLoader classLoader) {

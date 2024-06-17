@@ -17,14 +17,13 @@ import static java.lang.annotation.ElementType.*;
 
 /**
  * @author 应卓
- *
  * @since 2.2.4
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
-@Constraint(validatedBy = { ValidBase64Validators.ForString.class, ValidBase64Validators.ForBytes.class })
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+@Constraint(validatedBy = {ValidBase64Validators.ForString.class, ValidBase64Validators.ForBytes.class})
 public @interface ValidBase64 {
 
     public String message() default "{spring.turbo.bean.jsr380.ValidBase64.message}";

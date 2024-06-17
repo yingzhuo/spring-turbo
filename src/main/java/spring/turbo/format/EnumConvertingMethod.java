@@ -12,9 +12,7 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
- *
  * @see StringToEnumConverterFactory
- *
  * @since 1.2.1
  */
 @Target(ElementType.METHOD)

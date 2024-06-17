@@ -17,11 +17,8 @@ import java.util.List;
 /**
  * 按照对象类型排序的比较器
  *
- * @param <T>
- *            泛型
- *
+ * @param <T> 泛型
  * @author 应卓
- *
  * @deprecated 使用 {@link org.springframework.util.comparator.InstanceComparator} 替代
  */
 @Deprecated

@@ -14,7 +14,6 @@ import org.springframework.lang.Nullable;
  * {@link CharSequence} 相关工具
  *
  * @author 应卓
- *
  * @since 2.0.1
  */
 public final class CharSequenceUtils {
@@ -31,9 +30,7 @@ public final class CharSequenceUtils {
     /**
      * 获取字符序列的长度
      *
-     * @param cs
-     *            字符序列或 {@code null}
-     *
+     * @param cs 字符序列或 {@code null}
      * @return 结果
      */
     public static int length(@Nullable CharSequence cs) {
@@ -45,15 +42,10 @@ public final class CharSequenceUtils {
     /**
      * 获取子字符序列
      *
-     * @param cs
-     *            指定的字符序列
-     * @param start
-     *            切割开始位置 (包含)
-     *
+     * @param cs    指定的字符序列
+     * @param start 切割开始位置 (包含)
      * @return a new subsequence, may be null
-     *
-     * @throws IndexOutOfBoundsException
-     *             start 参数不合法
+     * @throws IndexOutOfBoundsException start 参数不合法
      */
     public static CharSequence subSequence(CharSequence cs, int start) {
         Asserts.notNull(cs);
@@ -65,9 +57,7 @@ public final class CharSequenceUtils {
     /**
      * {@link CharSequence} 转换成 char[]
      *
-     * @param source
-     *            指定 {@code CharSequence} 的实例.
-     *
+     * @param source 指定 {@code CharSequence} 的实例.
      * @return 结果
      */
     public static char[] toCharArray(@Nullable CharSequence source) {

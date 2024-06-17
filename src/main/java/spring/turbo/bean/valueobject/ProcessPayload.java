@@ -12,7 +12,6 @@ import spring.turbo.bean.Attributes;
 
 /**
  * @author 应卓
- *
  * @since 1.0.0
  */
 public final class ProcessPayload extends Attributes {

@@ -22,7 +22,6 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
- *
  * @since 1.0.6
  */
 public class ValueObjectGetter implements Serializable {

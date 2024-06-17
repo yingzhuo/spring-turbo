@@ -20,7 +20,6 @@ import static org.springframework.util.NumberUtils.convertNumberToTargetClass;
  * {@link BigDecimal} 相关工具
  *
  * @author 应卓
- *
  * @since 1.0.8
  */
 public final class BigDecimalUtils {
@@ -35,9 +34,7 @@ public final class BigDecimalUtils {
     /**
      * 绝对值
      *
-     * @param number
-     *            要取绝对值的数
-     *
+     * @param number 要取绝对值的数
      * @return 结果
      */
     public static BigDecimal abs(BigDecimal number) {
@@ -48,11 +45,8 @@ public final class BigDecimalUtils {
     /**
      * 加
      *
-     * @param number1
-     *            第一个数
-     * @param number2
-     *            第二个数
-     *
+     * @param number1 第一个数
+     * @param number2 第二个数
      * @return 结果
      */
     public static BigDecimal add(BigDecimal number1, Number number2) {
@@ -64,11 +58,8 @@ public final class BigDecimalUtils {
     /**
      * 减
      *
-     * @param number1
-     *            第一个数
-     * @param number2
-     *            第二个数
-     *
+     * @param number1 第一个数
+     * @param number2 第二个数
      * @return 结果
      */
     public static BigDecimal subtract(BigDecimal number1, Number number2) {
@@ -80,11 +71,8 @@ public final class BigDecimalUtils {
     /**
      * 乘
      *
-     * @param number1
-     *            第一个数
-     * @param number2
-     *            第二个数
-     *
+     * @param number1 第一个数
+     * @param number2 第二个数
      * @return 结果
      */
     public static BigDecimal multiply(BigDecimal number1, Number number2) {
@@ -96,11 +84,8 @@ public final class BigDecimalUtils {
     /**
      * 除
      *
-     * @param number1
-     *            第一个数
-     * @param number2
-     *            第二个数
-     *
+     * @param number1 第一个数
+     * @param number2 第二个数
      * @return 结果
      */
     public static BigDecimal divide(BigDecimal number1, Number number2) {
@@ -112,11 +97,8 @@ public final class BigDecimalUtils {
     /**
      * 乘方
      *
-     * @param number1
-     *            第一个数
-     * @param n
-     *            指数
-     *
+     * @param number1 第一个数
+     * @param n       指数
      * @return 结果
      */
     public static BigDecimal pow(BigDecimal number1, int n) {
@@ -127,11 +109,8 @@ public final class BigDecimalUtils {
     /**
      * 找出两个数中较小的一个
      *
-     * @param number1
-     *            数字1
-     * @param number2
-     *            数字2
-     *
+     * @param number1 数字1
+     * @param number2 数字2
      * @return 参数中最小的一个
      */
     public static BigDecimal min(BigDecimal number1, BigDecimal number2) {
@@ -143,9 +122,7 @@ public final class BigDecimalUtils {
     /**
      * 找出若干个数中最小的一个
      *
-     * @param numbers
-     *            数字
-     *
+     * @param numbers 数字
      * @return 参数中最小的一个
      */
     public static BigDecimal min(BigDecimal... numbers) {
@@ -164,9 +141,7 @@ public final class BigDecimalUtils {
     /**
      * 找出若干个数中最小的一个
      *
-     * @param numbers
-     *            数字
-     *
+     * @param numbers 数字
      * @return 参数中最小的一个
      */
     public static BigDecimal min(Collection<BigDecimal> numbers) {
@@ -177,11 +152,8 @@ public final class BigDecimalUtils {
     /**
      * 找出两个数中较大的一个
      *
-     * @param number1
-     *            数字1
-     * @param number2
-     *            数字2
-     *
+     * @param number1 数字1
+     * @param number2 数字2
      * @return 参数中最小的一个
      */
     public static BigDecimal max(BigDecimal number1, BigDecimal number2) {
@@ -193,9 +165,7 @@ public final class BigDecimalUtils {
     /**
      * 找出若干个数中最大的一个
      *
-     * @param numbers
-     *            数字
-     *
+     * @param numbers 数字
      * @return 参数中最大的一个
      */
     public static BigDecimal max(BigDecimal... numbers) {
@@ -214,9 +184,7 @@ public final class BigDecimalUtils {
     /**
      * 找出若干个数中最大的一个
      *
-     * @param numbers
-     *            数字
-     *
+     * @param numbers 数字
      * @return 参数中最大的一个
      */
     public static BigDecimal max(Collection<BigDecimal> numbers) {
@@ -227,9 +195,7 @@ public final class BigDecimalUtils {
     /**
      * 求和 (空值不参与求和)
      *
-     * @param numbers
-     *            若干个数
-     *
+     * @param numbers 若干个数
      * @return 和
      */
     public static BigDecimal nullSafeAdd(@Nullable BigDecimal... numbers) {
@@ -247,9 +213,7 @@ public final class BigDecimalUtils {
     /**
      * 求和 (空值不参与求和)
      *
-     * @param numbers
-     *            若干个数
-     *
+     * @param numbers 若干个数
      * @return 和
      */
     public static BigDecimal nullSafeAdd(@Nullable Collection<BigDecimal> numbers) {
@@ -262,9 +226,7 @@ public final class BigDecimalUtils {
     /**
      * 求积 (空值不参与求积)
      *
-     * @param numbers
-     *            若干个数
-     *
+     * @param numbers 若干个数
      * @return 积
      */
     public static BigDecimal nullSafeMultiply(@Nullable BigDecimal... numbers) {
@@ -282,9 +244,7 @@ public final class BigDecimalUtils {
     /**
      * 求积 (空值不参与求积)
      *
-     * @param numbers
-     *            若干个数
-     *
+     * @param numbers 若干个数
      * @return 积
      */
     public static BigDecimal nullSafeMultiply(@Nullable Collection<BigDecimal> numbers) {
@@ -297,13 +257,9 @@ public final class BigDecimalUtils {
     /**
      * 将{@code BigDecimal}对象转换成其他类型
      *
-     * @param number
-     *            数据
-     * @param numberType
-     *            目标类型
-     * @param <T>
-     *            目标类型泛型
-     *
+     * @param number     数据
+     * @param numberType 目标类型
+     * @param <T>        目标类型泛型
      * @return 转换目标
      */
     @SuppressWarnings("unchecked")

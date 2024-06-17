@@ -14,7 +14,6 @@ import java.io.Serializable;
  * KeyStore格式类型
  *
  * @author 应卓
- *
  * @since 3.3.0
  */
 public enum KeyStoreType implements Serializable {
@@ -37,8 +36,7 @@ public enum KeyStoreType implements Serializable {
     /**
      * 私有构造方法
      *
-     * @param value
-     *            字符串类型值
+     * @param value 字符串类型值
      */
     private KeyStoreType(String value) {
         this.value = value;

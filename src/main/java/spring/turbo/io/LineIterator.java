@@ -24,7 +24,6 @@ import static spring.turbo.io.IOExceptionUtils.toUnchecked;
 
 /**
  * @author 应卓
- *
  * @since 1.0.8
  */
 public class LineIterator implements Iterator<String>, Closeable {

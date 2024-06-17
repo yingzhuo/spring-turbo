@@ -20,9 +20,7 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
- *
  * @see org.springframework.util.Assert
- *
  * @since 1.0.0
  */
 public final class Asserts {
@@ -138,7 +136,7 @@ public final class Asserts {
     }
 
     public static void doesNotContain(@Nullable String textToSearch, String substring,
-            Supplier<String> messageSupplier) {
+                                      Supplier<String> messageSupplier) {
         if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring)
                 && textToSearch.contains(substring)) {
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));

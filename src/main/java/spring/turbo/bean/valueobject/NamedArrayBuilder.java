@@ -13,11 +13,8 @@ import org.springframework.lang.Nullable;
 import java.util.*;
 
 /**
- * @param <T>
- *            数据类型
- *
+ * @param <T> 数据类型
  * @author 应卓
- *
  * @since 1.0.0
  */
 public final class NamedArrayBuilder<T> {

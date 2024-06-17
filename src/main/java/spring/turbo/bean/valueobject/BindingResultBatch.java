@@ -14,9 +14,7 @@ import org.springframework.validation.BindingResult;
  * {@link BindingResult} 的Batch
  *
  * @author 应卓
- *
  * @see Batch
- *
  * @since 1.0.0
  */
 public final class BindingResultBatch extends Batch<BindingResult> {

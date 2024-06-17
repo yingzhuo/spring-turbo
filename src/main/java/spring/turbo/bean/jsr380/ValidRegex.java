@@ -19,13 +19,12 @@ import static java.lang.annotation.ElementType.*;
  * 判断正则表达式本身是否合法
  *
  * @author 应卓
- *
  * @since 1.0.6
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Constraint(validatedBy = ValidRegexValidator.class)
 public @interface ValidRegex {
 

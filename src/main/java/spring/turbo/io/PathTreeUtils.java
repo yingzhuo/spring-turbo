@@ -21,10 +21,8 @@ import java.util.stream.Stream;
  * {@link Path}相关工具
  *
  * @author 应卓
- *
  * @see PathUtils
  * @see Path
- *
  * @since 1.0.12
  */
 public final class PathTreeUtils {
@@ -39,9 +37,7 @@ public final class PathTreeUtils {
     /**
      * 列出目录下所有子目录或文件
      *
-     * @param path
-     *            指定目录或文件
-     *
+     * @param path 指定目录或文件
      * @return 所有子目录和文件
      */
     public static Stream<Path> list(Path path) {
@@ -51,11 +47,8 @@ public final class PathTreeUtils {
     /**
      * 列出目录下所有子目录或文件
      *
-     * @param path
-     *            指定目录或文件
-     * @param maxDepth
-     *            下钻目录层数 (从0开始)
-     *
+     * @param path     指定目录或文件
+     * @param maxDepth 下钻目录层数 (从0开始)
      * @return 所有子目录和文件
      */
     public static Stream<Path> list(Path path, int maxDepth) {

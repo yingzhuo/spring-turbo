@@ -20,9 +20,7 @@ import static spring.turbo.util.StringPool.EMPTY;
  * 正则表达式相关工具
  *
  * @author 应卓
- *
  * @see java.util.regex.Pattern
- *
  * @since 1.0.6
  */
 public final class RegexUtils {
@@ -50,13 +48,9 @@ public final class RegexUtils {
      * RegexUtils.removeAll("ABCabc123abc", Pattern.compile("[a-z]"))     = "ABC123"
      * </pre>
      *
-     * @param text
-     *            原始字符串
-     * @param regex
-     *            正则表达式
-     *
+     * @param text  原始字符串
+     * @param regex 正则表达式
      * @return 结果
-     *
      * @see #replaceAll(String, Pattern, String)
      * @see java.util.regex.Matcher#replaceAll(String)
      * @see java.util.regex.Pattern
@@ -81,16 +75,10 @@ public final class RegexUtils {
      * RegexUtils.removeAll("ABCabc123abc", "[a-z]")     = "ABC123"
      * </pre>
      *
-     * @param text
-     *            原始字符串
-     * @param regex
-     *            正则表达式
-     *
+     * @param text  原始字符串
+     * @param regex 正则表达式
      * @return 结果
-     *
-     * @throws PatternSyntaxException
-     *             正则表达式非法
-     *
+     * @throws PatternSyntaxException 正则表达式非法
      * @see #replaceAll(String, String, String)
      * @see #removePattern(String, String)
      * @see String#replaceAll(String, String)
@@ -118,13 +106,9 @@ public final class RegexUtils {
      * RegexUtils.removeFirst("ABCabc123abc", Pattern.compile("[a-z]+"))      = "ABC123abc"
      * </pre>
      *
-     * @param text
-     *            原始字符串
-     * @param regex
-     *            正则表达式
-     *
+     * @param text  原始字符串
+     * @param regex 正则表达式
      * @return 结果
-     *
      * @see #replaceFirst(String, Pattern, String)
      * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
@@ -150,16 +134,10 @@ public final class RegexUtils {
      * RegexUtils.removeFirst("ABCabc123abc", "[a-z]+")      = "ABC123abc"
      * </pre>
      *
-     * @param text
-     *            原始字符串
-     * @param regex
-     *            正则表达式
-     *
+     * @param text  原始字符串
+     * @param regex 正则表达式
      * @return 结果
-     *
-     * @throws PatternSyntaxException
-     *             正则表达式非法
-     *
+     * @throws PatternSyntaxException 正则表达式非法
      * @see #replaceFirst(String, String, String)
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
@@ -180,16 +158,10 @@ public final class RegexUtils {
      * RegexUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
      * </pre>
      *
-     * @param text
-     *            原始字符串
-     * @param regex
-     *            正则表达式
-     *
+     * @param text  原始字符串
+     * @param regex 正则表达式
      * @return 结果
-     *
-     * @throws PatternSyntaxException
-     *             正则表达式非法
-     *
+     * @throws PatternSyntaxException 正则表达式非法
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
@@ -218,21 +190,16 @@ public final class RegexUtils {
      * RegexUtils.replaceAll("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum_dolor_sit"
      * </pre>
      *
-     * @param text
-     *            原始字符串
-     * @param regex
-     *            正则表达式
-     * @param replacement
-     *            替换字符串
-     *
+     * @param text        原始字符串
+     * @param regex       正则表达式
+     * @param replacement 替换字符串
      * @return 结果
-     *
      * @see java.util.regex.Matcher#replaceAll(String)
      * @see java.util.regex.Pattern
      */
     @NonNull
     public static String replaceAll(@NonNull final String text, @NonNull final Pattern regex,
-            @NonNull final String replacement) {
+                                    @NonNull final String replacement) {
         Asserts.notNull(text);
         Asserts.notNull(regex);
         Asserts.notNull(replacement);
@@ -257,18 +224,11 @@ public final class RegexUtils {
      * RegexUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
      * </pre>
      *
-     * @param text
-     *            原始字符串
-     * @param regex
-     *            正则表达式
-     * @param replacement
-     *            替换字符串
-     *
+     * @param text        原始字符串
+     * @param regex       正则表达式
+     * @param replacement 替换字符串
      * @return 结果
-     *
-     * @throws PatternSyntaxException
-     *             正则表达式非法
-     *
+     * @throws PatternSyntaxException 正则表达式非法
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
@@ -276,7 +236,7 @@ public final class RegexUtils {
      */
     @NonNull
     public static String replaceAll(@NonNull final String text, @NonNull final String regex,
-            @NonNull final String replacement) {
+                                    @NonNull final String replacement) {
         Asserts.notNull(text);
         Asserts.notNull(regex);
         Asserts.notNull(replacement);
@@ -301,21 +261,16 @@ public final class RegexUtils {
      * RegexUtils.replaceFirst("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum  dolor   sit"
      * </pre>
      *
-     * @param text
-     *            原始字符串
-     * @param regex
-     *            正则表达式
-     * @param replacement
-     *            替换字符串
-     *
+     * @param text        原始字符串
+     * @param regex       正则表达式
+     * @param replacement 替换字符串
      * @return 结果
-     *
      * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
      */
     @NonNull
     public static String replaceFirst(@NonNull final String text, @NonNull final Pattern regex,
-            @NonNull final String replacement) {
+                                      @NonNull final String replacement) {
         Asserts.notNull(text);
         Asserts.notNull(regex);
         Asserts.notNull(replacement);
@@ -340,25 +295,18 @@ public final class RegexUtils {
      * RegexUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum  dolor   sit"
      * </pre>
      *
-     * @param text
-     *            原始字符串
-     * @param regex
-     *            正则表达式
-     * @param replacement
-     *            替换字符串
-     *
+     * @param text        原始字符串
+     * @param regex       正则表达式
+     * @param replacement 替换字符串
      * @return 结果
-     *
-     * @throws PatternSyntaxException
-     *             正则表达式非法
-     *
+     * @throws PatternSyntaxException 正则表达式非法
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      */
     @NonNull
     public static String replaceFirst(@NonNull final String text, @NonNull final String regex,
-            @NonNull final String replacement) {
+                                      @NonNull final String replacement) {
         Asserts.notNull(text);
         Asserts.notNull(regex);
         Asserts.notNull(replacement);
@@ -381,25 +329,18 @@ public final class RegexUtils {
      * RegexUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
      * </pre>
      *
-     * @param text
-     *            原始字符串
-     * @param regex
-     *            正则表达式
-     * @param replacement
-     *            替换的字符串
-     *
+     * @param text        原始字符串
+     * @param regex       正则表达式
+     * @param replacement 替换的字符串
      * @return 结果
-     *
-     * @throws PatternSyntaxException
-     *             正则表达式非法
-     *
+     * @throws PatternSyntaxException 正则表达式非法
      * @see #replaceAll(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
      */
     @NonNull
     public static String replacePattern(@NonNull final String text, @NonNull final String regex,
-            @NonNull final String replacement) {
+                                        @NonNull final String replacement) {
         Asserts.notNull(text);
         Asserts.notNull(regex);
         Asserts.notNull(replacement);
@@ -409,9 +350,7 @@ public final class RegexUtils {
     /**
      * 判断正则表达式是否合法
      *
-     * @param regex
-     *            正则表达式
-     *
+     * @param regex 正则表达式
      * @return 合法时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isValidRegex(@Nullable String regex) {

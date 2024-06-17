@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
  * 常用字符集
  *
  * @author 应卓
- *
  * @since 1.0.7
  */
 public final class CharsetPool {

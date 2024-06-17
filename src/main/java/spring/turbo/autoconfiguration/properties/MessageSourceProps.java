@@ -17,10 +17,8 @@ import java.io.Serializable;
 
 /**
  * @author 应卓
- *
  * @see org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration
  * @see spring.turbo.autoconfiguration.MessageSourceAutoConfiguration
- *
  * @since 2.0.3
  */
 @ConfigurationProperties(prefix = "spring.messages")

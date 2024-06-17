@@ -18,9 +18,7 @@ import static spring.turbo.util.StringPool.*;
 
 /**
  * @author 应卓
- *
  * @see ConditionalOnDebugMode
- *
  * @since 1.3.0
  */
 public final class ConditionalOnDebugModeCondition extends SpringBootCondition {

@@ -20,9 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author 应卓
- *
  * @see SleepUtils
- *
  * @since 1.1.1
  */
 public final class FileWaitingUtils {

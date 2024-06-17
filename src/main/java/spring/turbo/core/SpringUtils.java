@@ -29,10 +29,8 @@ import java.util.function.Supplier;
 
 /**
  * @author 应卓
- *
  * @see SpringApplication
  * @see org.springframework.context.ApplicationContext
- *
  * @since 1.0.0
  */
 public final class SpringUtils {
@@ -66,10 +64,7 @@ public final class SpringUtils {
      * 获得{@link BeanDefinitionRegistry}实例
      *
      * @return {@link BeanDefinitionRegistry}实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     *
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @see BeanDefinitionRegistry
      */
     public static BeanDefinitionRegistry getBeanDefinitionRegistry() {
@@ -94,10 +89,7 @@ public final class SpringUtils {
      * 获取{@link ResourceLoader}实例
      *
      * @return {@link ResourceLoader}实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     *
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @see org.springframework.core.io.Resource
      * @see ResourceLoader
      * @see ResourcePatternResolver
@@ -111,10 +103,7 @@ public final class SpringUtils {
      * 获取{@link ResourcePatternResolver}实例
      *
      * @return {@link ResourcePatternResolver}实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     *
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @see org.springframework.core.io.Resource
      * @see ResourceLoader
      * @see ResourcePatternResolver
@@ -128,10 +117,7 @@ public final class SpringUtils {
      * 获取{@link Environment}实例
      *
      * @return {@link Environment}实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     *
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @see Environment
      * @see EnvironmentUtils
      * @see ProfilesUtils
@@ -144,10 +130,7 @@ public final class SpringUtils {
      * 获取{@link ApplicationArguments}实例
      *
      * @return {@link ApplicationArguments}实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     *
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @see Environment
      * @see EnvironmentUtils
      * @see ProfilesUtils
@@ -160,10 +143,7 @@ public final class SpringUtils {
      * 获取{@link ConversionService}实例
      *
      * @return {@link ConversionService}实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     *
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @see ConversionService
      * @see org.springframework.core.convert.converter.Converter
      * @see org.springframework.core.convert.converter.GenericConverter
@@ -178,9 +158,7 @@ public final class SpringUtils {
      * 获取{@link ApplicationEventPublisher}实例
      *
      * @return {@link ApplicationEventPublisher}实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static ApplicationEventPublisher getApplicationEventPublisher() {
         return getApplicationContext();
@@ -190,10 +168,7 @@ public final class SpringUtils {
      * 获取{@link Validator}实例
      *
      * @return {@link Validator}实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     *
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @see Validator
      * @see ValidatorUtils
      */
@@ -205,10 +180,7 @@ public final class SpringUtils {
      * 获取{@link MessageSource}实例
      *
      * @return {@link MessageSource}实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     *
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @see MessageSource
      * @see org.springframework.context.support.MessageSourceAccessor
      * @see MessageUtils
@@ -220,15 +192,10 @@ public final class SpringUtils {
     /**
      * 获取指定类型Bean
      *
-     * @param beanType
-     *            指定类型
-     * @param <T>
-     *            指定类型泛型
-     *
+     * @param beanType 指定类型
+     * @param <T>      指定类型泛型
      * @return Bean实例 (Optional)
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static <T> Optional<T> getBean(Class<T> beanType) {
         Asserts.notNull(beanType);
@@ -243,17 +210,11 @@ public final class SpringUtils {
     /**
      * 获取指定类型Bean
      *
-     * @param beanType
-     *            指定类型
-     * @param beanName
-     *            bean名称
-     * @param <T>
-     *            指定类型泛型
-     *
+     * @param beanType 指定类型
+     * @param beanName bean名称
+     * @param <T>      指定类型泛型
      * @return Bean实例 (Optional)
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static <T> Optional<T> getBean(Class<T> beanType, String beanName) {
         Asserts.notNull(beanName);
@@ -269,17 +230,11 @@ public final class SpringUtils {
     /**
      * 获取指定类型Bean
      *
-     * @param beanType
-     *            指定类型
-     * @param <T>
-     *            指定类型泛型
-     *
+     * @param beanType 指定类型
+     * @param <T>      指定类型泛型
      * @return Bean实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     * @throws NoSuchBeanDefinitionException
-     *             无法查找到Bean
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+     * @throws NoSuchBeanDefinitionException 无法查找到Bean
      */
     public static <T> T getRequiredBean(Class<T> beanType) {
         return getBean(beanType).orElseThrow(BEAN_NOT_FOUND);
@@ -288,19 +243,12 @@ public final class SpringUtils {
     /**
      * 获取指定类型Bean
      *
-     * @param beanType
-     *            指定类型
-     * @param beanName
-     *            bean名称
-     * @param <T>
-     *            指定类型泛型
-     *
+     * @param beanType 指定类型
+     * @param beanName bean名称
+     * @param <T>      指定类型泛型
      * @return Bean实例
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
-     * @throws NoSuchBeanDefinitionException
-     *             无法查找到Bean
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+     * @throws NoSuchBeanDefinitionException 无法查找到Bean
      */
     public static <T> T getRequiredBean(Class<T> beanType, String beanName) {
         return getBean(beanType, beanName).orElseThrow(BEAN_NOT_FOUND);
@@ -309,15 +257,10 @@ public final class SpringUtils {
     /**
      * 获取所有指定类型Bean的实例
      *
-     * @param beanType
-     *            指定类型
-     * @param <T>
-     *            指定类型泛型
-     *
+     * @param beanType 指定类型
+     * @param <T>      指定类型泛型
      * @return Bean实例列表
-     *
-     * @throws UnsupportedOperationException
-     *             无法定位{@code ApplicationContext}实例
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static <T> List<T> getBeanList(final Class<T> beanType) {
         return getApplicationContext().getBeansOfType(beanType).values().stream().toList();

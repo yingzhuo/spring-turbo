@@ -15,9 +15,7 @@ import spring.turbo.util.RegexUtils;
 
 /**
  * @author 应卓
- *
  * @see ValidRegex
- *
  * @since 1.0.6
  */
 public class ValidRegexValidator implements ConstraintValidator<ValidRegex, CharSequence> {

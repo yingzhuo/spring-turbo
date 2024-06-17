@@ -12,7 +12,6 @@ import org.springframework.lang.Nullable;
 
 /**
  * @author 应卓
- *
  * @since 1.0.0
  */
 public final class Base64 {
@@ -82,8 +81,8 @@ public final class Base64 {
 
     private static boolean isWhiteSpace(final byte byteToCheck) {
         return switch (byteToCheck) {
-        case ' ', '\n', '\r', '\t' -> true;
-        default -> false;
+            case ' ', '\n', '\r', '\t' -> true;
+            default -> false;
         };
     }
 

@@ -14,20 +14,19 @@ import java.lang.management.ManagementFactory;
  * PID工具
  *
  * @author 应卓
- *
  * @since 3.3.1
  */
 public final class PID {
-
-    public static int get() {
-        return SyncAvoid.pid;
-    }
 
     /**
      * 私有构造方法
      */
     private PID() {
         super();
+    }
+
+    public static int get() {
+        return SyncAvoid.pid;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

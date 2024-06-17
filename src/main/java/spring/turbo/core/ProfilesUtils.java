@@ -15,10 +15,8 @@ import spring.turbo.util.Asserts;
  * Profiles相关工具
  *
  * @author 应卓
- *
  * @see EnvironmentUtils
  * @see org.springframework.core.env.Environment
- *
  * @since 1.0.13
  */
 public final class ProfilesUtils {
@@ -33,9 +31,7 @@ public final class ProfilesUtils {
     /**
      * 判断profiles是否被激活
      *
-     * @param profiles
-     *            profiles实例
-     *
+     * @param profiles profiles实例
      * @return 结果
      */
     public static boolean acceptsProfiles(Profiles profiles) {
@@ -46,9 +42,7 @@ public final class ProfilesUtils {
     /**
      * 判断profiles是否被激活
      *
-     * @param profiles
-     *            profiles
-     *
+     * @param profiles profiles
      * @return 结果
      */
     public static boolean acceptsProfiles(String... profiles) {

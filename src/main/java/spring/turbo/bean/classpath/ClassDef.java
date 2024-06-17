@@ -26,9 +26,7 @@ import java.util.Optional;
  * 类路径扫描的结果
  *
  * @author 应卓
- *
  * @see BeanDefinition
- *
  * @since 2.0.9
  */
 public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Serializable {
@@ -39,8 +37,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     /**
      * 构造方法
      *
-     * @param beanDefinition
-     *            beanDefinition实例
+     * @param beanDefinition beanDefinition实例
      */
     public ClassDef(BeanDefinition beanDefinition) {
         this(beanDefinition, null);
@@ -49,10 +46,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     /**
      * 构造方法
      *
-     * @param beanDefinition
-     *            beanDefinition实例
-     * @param classLoader
-     *            类加载器
+     * @param beanDefinition beanDefinition实例
+     * @param classLoader    类加载器
      */
     public ClassDef(BeanDefinition beanDefinition, @Nullable ClassLoader classLoader) {
         Asserts.notNull(beanDefinition);
@@ -75,7 +70,6 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * 获取类型
      *
      * @return 类型
-     *
      * @see #getBeanClassName()
      */
     public Class<?> getBeanClass() {
@@ -117,12 +111,12 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     }
 
     public <A extends Annotation> AnnotationAttributes getAnnotationAttributes(Class<A> annotationType,
-            boolean classValuesAsString) {
+                                                                               boolean classValuesAsString) {
         return getAnnotationAttributes(annotationType, classValuesAsString, false);
     }
 
     public <A extends Annotation> AnnotationAttributes getAnnotationAttributes(Class<A> annotationType,
-            boolean classValuesAsString, boolean nestedAnnotationsAsMap) {
+                                                                               boolean classValuesAsString, boolean nestedAnnotationsAsMap) {
         try {
             var annotation = AnnotationUtils.findAnnotation(this.clazz, annotationType);
             if (annotation == null) {

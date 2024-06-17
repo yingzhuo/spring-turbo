@@ -13,7 +13,6 @@ import java.io.InputStream;
 
 /**
  * @author 应卓
- *
  * @since 1.0.9
  */
 public final class BrokenInputStream extends InputStream {

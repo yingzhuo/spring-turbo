@@ -20,9 +20,7 @@ import java.util.HashSet;
 
 /**
  * @author 应卓
- *
  * @see ConditionalOnOS
- *
  * @since 2.0.1
  */
 public final class ConditionalOnOSCondition extends SpringBootCondition {

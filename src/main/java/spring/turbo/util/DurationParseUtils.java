@@ -19,9 +19,7 @@ import java.time.temporal.ChronoUnit;
  * {@link Duration} 解析工具
  *
  * @author 应卓
- *
  * @see DurationFormatUtils
- *
  * @since 1.0.1
  */
 public final class DurationParseUtils {
@@ -44,13 +42,9 @@ public final class DurationParseUtils {
      * <li>{@code DurationParseUtils.parse("P3Y6M")}</li>
      * </ul>
      *
-     * @param string
-     *            待解析的字符串
-     *
+     * @param string 待解析的字符串
      * @return 解析结果
-     *
-     * @throws IllegalArgumentException
-     *             字符串格式不正确
+     * @throws IllegalArgumentException 字符串格式不正确
      */
     public static Duration parse(String string) {
         return parse(string, null);
@@ -67,15 +61,10 @@ public final class DurationParseUtils {
      * <li>{@code DurationParseUtils.parse("P3Y6M", null)}</li>
      * </ul>
      *
-     * @param string
-     *            待解析的字符串
-     * @param unit
-     *            默认时间单位，可为空，为空时为毫秒
-     *
+     * @param string 待解析的字符串
+     * @param unit   默认时间单位，可为空，为空时为毫秒
      * @return 解析结果
-     *
-     * @throws IllegalArgumentException
-     *             字符串格式不正确
+     * @throws IllegalArgumentException 字符串格式不正确
      */
     public static Duration parse(@NonNull String string, @Nullable ChronoUnit unit) {
         Asserts.notNull(string);

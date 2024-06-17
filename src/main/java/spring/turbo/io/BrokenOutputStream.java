@@ -13,9 +13,7 @@ import java.io.OutputStream;
 
 /**
  * @author 应卓
- *
  * @see #getInstance()
- *
  * @since 1.1.1
  */
 public class BrokenOutputStream extends OutputStream {

@@ -19,7 +19,6 @@ import java.util.Date;
  * {@link LocalDateTime} 相关工具
  *
  * @author 应卓
- *
  * @since 3.2.6
  */
 public final class LocalDateTimeUtils {
@@ -36,9 +35,7 @@ public final class LocalDateTimeUtils {
     /**
      * {@link Date} 转换成 {@link LocalDateTime}
      *
-     * @param date
-     *            日期
-     *
+     * @param date 日期
      * @return 转换结果
      */
     public static LocalDateTime asLocalDateTime(Date date) {

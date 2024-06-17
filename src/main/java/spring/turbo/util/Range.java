@@ -21,14 +21,11 @@ import java.util.Objects;
  * #ThreadSafe# 如果比较器是线程安全的，那么区间对象也是线程安全的。
  * </p>
  *
- * @param <T>
- *            元素类型
- *
+ * @param <T> 元素类型
  * @author 应卓
- *
  * @since 2.0.11
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public final class Range<T> implements Serializable {
 
     private final Comparator<T> comparator;
@@ -39,12 +36,9 @@ public final class Range<T> implements Serializable {
     /**
      * 构造方法
      *
-     * @param element1
-     *            区间左值
-     * @param element2
-     *            区间右值
-     * @param comp
-     *            比较器
+     * @param element1 区间左值
+     * @param element2 区间右值
+     * @param comp     比较器
      */
     private Range(T element1, T element2, @Nullable Comparator<T> comp) {
         Asserts.notNull(element1);

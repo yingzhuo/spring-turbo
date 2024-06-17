@@ -27,7 +27,6 @@ import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
  * {@link ClassPathScanner} 默认实现
  *
  * @author 应卓
- *
  * @since 1.0.0
  */
 public final class DefaultClassPathScanner implements ClassPathScanner {
