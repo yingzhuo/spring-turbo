@@ -79,7 +79,7 @@ public class LineIterator implements Iterator<String>, Closeable {
     @Override
     public String next() {
         if (!hasNext()) {
-            throw new NoSuchElementException("No more lines");
+            throw new NoSuchElementException("no more lines");
         }
         final String currentLine = cachedLine;
         cachedLine = null;

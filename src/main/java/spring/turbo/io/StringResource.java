@@ -39,7 +39,7 @@ public class StringResource extends InMemoryResource {
 
     @Override
     public int hashCode() {
-        return -1;
+        return Objects.hashCode(string);
     }
 
 }

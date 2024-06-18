@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 @NonNullApi
 @NonNullFields
-package spring.turbo.util.security;
+package spring.turbo.util.keystore;
 
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;

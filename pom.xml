@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>spring-turbo</artifactId>
-    <version>3.3.1-SNAPSHOT</version>
+    <version>3.3.0-3</version>
     <packaging>jar</packaging>
 
     <url>https://github.com/yingzhuo/spring-turbo</url>
@@ -94,7 +94,7 @@
         <encoding>UTF-8</encoding>
         <java.version>17</java.version>
 
-        <spring.boot.version>3.3.1-SNAPSHOT</spring.boot.version>
+        <spring.boot.version>3.3.0</spring.boot.version>
         <lombok.version>1.18.32</lombok.version>
     </properties>
 
@@ -232,26 +232,6 @@
         </resources>
 
         <plugins>
-            <!--
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.6.0</version>
-                <executions>
-                    <execution>
-                        <id>setup-rootlocation-var</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>rootlocation</goal>
-                        </goals>
-                        <configuration>
-                            <rootLocationProperty>helper.build.root</rootLocationProperty>
-                            <runOnlyAtExecutionRoot>false</runOnlyAtExecutionRoot>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -282,29 +262,6 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>copy-license-file</id>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <phase>compile</phase>
-                        <configuration>
-                            <target>
-                                <copy todir="${project.build.directory}/classes/META-INF">
-                                    <fileset dir="${helper.build.root}" includes="LICENSE.txt NOTICE.txt"/>
-                                </copy>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

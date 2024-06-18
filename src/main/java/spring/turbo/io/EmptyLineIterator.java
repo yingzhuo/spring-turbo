@@ -35,7 +35,7 @@ public final class EmptyLineIterator extends LineIterator {
 
     @Override
     public String next() {
-        throw new NoSuchElementException("No more lines");
+        throw new NoSuchElementException("no more lines");
     }
 
     // 延迟加载

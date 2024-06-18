@@ -31,4 +31,5 @@ public final class XmlStringUtils {
         }
         return xmlString.replaceAll(">[\\s\r\n]*<", "><").trim();
     }
+
 }

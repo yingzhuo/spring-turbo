@@ -35,6 +35,7 @@ public final class EmptyReader extends Reader {
 
     @Override
     public void close() {
+        // nop
     }
 
     // 延迟加载

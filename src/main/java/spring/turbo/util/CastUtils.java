@@ -28,9 +28,4 @@ public final class CastUtils {
         return (T) object;
     }
 
-    public static <T> T cast(Object object) {
-        Asserts.notNull(object);
-        return (T) object;
-    }
-
 }
