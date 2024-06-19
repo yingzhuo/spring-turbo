@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.classpath;
 
+import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.StringUtils;
 
@@ -20,6 +21,7 @@ import java.util.stream.Stream;
  * @author 应卓
  * @see #newInstance()
  * @see PackageSetFactories
+ * @see PackageSetFactories#create(AnnotationMetadata, Class)
  * @since 2.0.10
  */
 public final class PackageSet implements Iterable<String> {
