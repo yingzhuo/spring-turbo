@@ -14,7 +14,9 @@ import org.springframework.core.type.AnnotationMetadata;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.ClassUtils;
 
+import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
+import java.util.Objects;
 
 /**
  * @author 应卓
@@ -30,9 +32,23 @@ public final class PackageSetFactories {
         super();
     }
 
-    public static <A extends Annotation> PackageSet create(AnnotationMetadata importingClassMetadata, Class<A> importingAnnotationType) {
+    public static <A extends Annotation> PackageSet create(
+            AnnotationMetadata importingClassMetadata,
+            Class<A> importingAnnotationType) {
+        return create(importingClassMetadata, importingAnnotationType, null, null);
+    }
+
+    public static <A extends Annotation> PackageSet create(
+            AnnotationMetadata importingClassMetadata,
+            Class<A> importingAnnotationType,
+            @Nullable String basePackagesAttributeName,
+            @Nullable String basePackageClassesAttributeName
+    ) {
         Asserts.notNull(importingClassMetadata);
         Asserts.notNull(importingAnnotationType);
+
+        basePackagesAttributeName = Objects.requireNonNullElse(basePackagesAttributeName, "basePackages");
+        basePackageClassesAttributeName = Objects.requireNonNullElse(basePackageClassesAttributeName, "basePackageClasses");
 
         var packageSet = PackageSet.newInstance();
 
@@ -40,8 +56,8 @@ public final class PackageSetFactories {
                 .fromMap(importingClassMetadata.getAnnotationAttributes(importingAnnotationType.getName()));
 
         if (attributes != null) {
-            packageSet.acceptPackages(attributes.getStringArray("value"));
-            packageSet.acceptBaseClasses(attributes.getClassArray("basePackageClasses"));
+            packageSet.acceptPackages(attributes.getStringArray(basePackagesAttributeName));
+            packageSet.acceptBaseClasses(attributes.getClassArray(basePackageClassesAttributeName));
         }
 
         if (packageSet.isEmpty()) {
