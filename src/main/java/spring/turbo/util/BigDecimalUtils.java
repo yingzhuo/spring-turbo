@@ -12,6 +12,7 @@ import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.Collection;
 
 import static org.springframework.util.NumberUtils.convertNumberToTargetClass;
@@ -89,9 +90,23 @@ public final class BigDecimalUtils {
      * @return 结果
      */
     public static BigDecimal divide(BigDecimal number1, Number number2) {
+        return divide(number1, number2, 2, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * 除
+     *
+     * @param number1      第一个数
+     * @param number2      第二个数
+     * @param scale        保留小数点后的位数
+     * @param roundingMode rounding模式
+     * @return 结果
+     */
+    public static BigDecimal divide(BigDecimal number1, Number number2, int scale, RoundingMode roundingMode) {
         Asserts.notNull(number1);
         Asserts.notNull(number2);
-        return number1.divide(convertNumberToTargetClass(number2, BigDecimal.class));
+        Asserts.notNull(roundingMode);
+        return number1.divide(convertNumberToTargetClass(number2, BigDecimal.class), scale, roundingMode);
     }
 
     /**
