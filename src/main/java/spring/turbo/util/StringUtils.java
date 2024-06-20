@@ -64,7 +64,7 @@ public final class StringUtils {
      * @return 判断结果
      */
     public static boolean isBlank(@Nullable String string) {
-        return string == null || string.isBlank(); // since java 11
+        return string == null || string.isBlank();
     }
 
     /**

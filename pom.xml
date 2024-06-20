@@ -169,13 +169,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- spring-security -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-crypto</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- jakarta-servlet-api -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -374,7 +367,7 @@
                                     <version>[17,)</version>
                                 </requireJavaVersion>
                                 <requireMavenVersion>
-                                    <version>[3.8.0,)</version>
+                                    <version>[3.6.3,)</version>
                                 </requireMavenVersion>
                                 <banDuplicatePomDependencyVersions/>
                             </rules>

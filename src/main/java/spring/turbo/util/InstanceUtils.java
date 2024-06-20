@@ -10,6 +10,7 @@ package spring.turbo.util;
 
 import org.springframework.util.ReflectionUtils;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -89,6 +90,60 @@ public final class InstanceUtils {
         } catch (Throwable e) {
             return Optional.empty();
         }
+    }
+
+    /**
+     * 尝试创建实例
+     *
+     * @param type            类型
+     * @param defaultInstance 创建失败时返回的默认实例
+     * @param <T>             实例类型泛型
+     * @return 实例
+     */
+    @Nullable
+    public static <T> T newInstanceElse(Class<T> type, @Nullable T defaultInstance) {
+        return newInstance(type).orElse(defaultInstance);
+    }
+
+    /**
+     * 尝试创建实例
+     *
+     * @param className       类型名称
+     * @param defaultInstance 创建失败时返回的默认实例
+     * @param <T>             实例类型泛型
+     * @return 实例
+     */
+    @Nullable
+    public static <T> T newInstanceElse(String className, @Nullable T defaultInstance) {
+        return (T) newInstance(className).orElse(defaultInstance);
+    }
+
+    /**
+     * 尝试创建实例
+     *
+     * @param type            类型
+     * @param defaultSupplier 创建失败时返回的默认实例的Supplier
+     * @param <T>             实例类型泛型
+     * @return 实例
+     */
+    @Nullable
+    public static <T> T newInstanceElseGet(Class<T> type, Supplier<? extends T> defaultSupplier) {
+        Asserts.notNull(defaultSupplier);
+        return newInstance(type).orElseGet(defaultSupplier);
+    }
+
+    /**
+     * 尝试创建实例
+     *
+     * @param className       类型名称
+     * @param defaultSupplier 创建失败时返回的默认实例的Supplier
+     * @param <T>             实例类型泛型
+     * @return 实例
+     */
+    @Nullable
+    public static <T> T newInstanceElseGet(String className, Supplier<? extends T> defaultSupplier) {
+        Asserts.notNull(defaultSupplier);
+        return (T) newInstance(className).orElseGet(defaultSupplier);
     }
 
 }
