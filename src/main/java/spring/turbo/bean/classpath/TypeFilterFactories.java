@@ -107,12 +107,12 @@ public final class TypeFilterFactories {
     /**
      * 通过正则表达式匹配FQN过滤类型
      *
-     * @param regex 正则表达式
+     * @param pattern 正则表达式
      * @return TypeFilter的实例
      */
-    public static TypeFilter fullyQualifiedNameMatch(String regex) {
-        Asserts.hasText(regex);
-        return new RegexPatternTypeFilter(Pattern.compile(regex));
+    public static TypeFilter fullyQualifiedNameMatches(Pattern pattern) {
+        Asserts.notNull(pattern);
+        return new RegexPatternTypeFilter(pattern);
     }
 
     /**
@@ -308,7 +308,7 @@ public final class TypeFilterFactories {
      * @see #isNotPackageInfo()
      */
     public static TypeFilter isPackageInfo() {
-        return all(isInterface(), fullyQualifiedNameMatch("^.*package-info$"));
+        return all(isInterface(), fullyQualifiedNameMatches(Pattern.compile("^.*package-info$")));
     }
 
     /**
