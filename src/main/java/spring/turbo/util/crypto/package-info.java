@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 @NonNullApi
 @NonNullFields
+@Deprecated(since = "3.3.1")
 package spring.turbo.util.crypto;
 
 import org.springframework.lang.NonNullApi;

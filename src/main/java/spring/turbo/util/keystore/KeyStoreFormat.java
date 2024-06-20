@@ -33,15 +33,6 @@ public enum KeyStoreFormat implements Serializable {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * 获取默认的格式
-     *
-     * @return 默认格式
-     */
-    public static KeyStoreFormat getDefault() {
-        return PKCS12;
-    }
-
-    /**
      * 字符串类型值
      */
     private final String value;
@@ -53,6 +44,15 @@ public enum KeyStoreFormat implements Serializable {
      */
     private KeyStoreFormat(String value) {
         this.value = value;
+    }
+
+    /**
+     * 获取默认的格式
+     *
+     * @return 默认格式
+     */
+    public static KeyStoreFormat getDefault() {
+        return PKCS12;
     }
 
     public String getValue() {

@@ -19,7 +19,7 @@ public final class SpringTurboVersion {
     /**
      * 当前本软件版本
      */
-    public static final String CURRENT = "3.3.0";
+    public static final String CURRENT = "3.3.1";
 
     /**
      * 私有构造方法
