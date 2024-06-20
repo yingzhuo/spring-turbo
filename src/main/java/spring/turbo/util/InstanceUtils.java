@@ -68,7 +68,9 @@ public final class InstanceUtils {
     public static <T> Optional<T> newInstance(Class<T> type) {
         Asserts.notNull(type);
         try {
-            return Optional.of(ReflectionUtils.accessibleConstructor(type).newInstance());
+            var constructor = ReflectionUtils.accessibleConstructor(type);
+            ReflectionUtils.makeAccessible(constructor);
+            return Optional.of(constructor.newInstance());
         } catch (Throwable e) {
             return Optional.empty();
         }
