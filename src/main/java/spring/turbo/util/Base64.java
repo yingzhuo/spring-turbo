@@ -45,6 +45,10 @@ public final class Base64 {
         return new String(java.util.Base64.getUrlEncoder().encode(key));
     }
 
+    public static String encodeWithoutPadding(byte[] key) {
+        return new String(java.util.Base64.getUrlEncoder().withoutPadding().encode(key));
+    }
+
     public static byte[] toBytes(String key) {
         return decode(key);
     }
