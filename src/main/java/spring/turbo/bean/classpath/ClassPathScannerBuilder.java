@@ -123,7 +123,7 @@ public final class ClassPathScannerBuilder {
      */
     public ClassPathScanner build() {
         if (includeFilters.isEmpty()) {
-            return NullClassPathScanner.getInstance();
+            return packageSet -> List.of();
         } else {
             var scanner = new DefaultClassPathScanner();
             scanner.setIncludeTypeFilters(includeFilters);

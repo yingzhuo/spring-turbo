@@ -22,7 +22,8 @@ import java.util.List;
  * @see org.springframework.core.type.filter.TypeFilter
  * @since 1.0.0
  */
-public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullClassPathScanner {
+@FunctionalInterface
+public interface ClassPathScanner {
 
     /**
      * 新建创建器
@@ -31,15 +32,6 @@ public sealed interface ClassPathScanner permits DefaultClassPathScanner, NullCl
      */
     public static ClassPathScannerBuilder builder() {
         return new ClassPathScannerBuilder();
-    }
-
-    /**
-     * 新建无动作扫描器
-     *
-     * @return 无动作扫描器实例
-     */
-    public static ClassPathScanner nullClassPathScanner() {
-        return NullClassPathScanner.getInstance();
     }
 
     /**

@@ -29,7 +29,7 @@ import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
  * @author 应卓
  * @since 1.0.0
  */
-public final class DefaultClassPathScanner implements ClassPathScanner {
+final class DefaultClassPathScanner implements ClassPathScanner {
 
     private final ClassPathScannerCore provider = new ClassPathScannerCore();
     private ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
@@ -53,7 +53,9 @@ public final class DefaultClassPathScanner implements ClassPathScanner {
             nullSafeAddAll(list, provider.findCandidateComponents(basePackage));
         }
 
-        return list.stream().map(bd -> new ClassDef(bd, classLoader)).distinct().sorted(Comparator.naturalOrder())
+        return list.stream().map(bd -> new ClassDef(bd, classLoader))
+                .distinct()
+                .sorted(Comparator.naturalOrder())
                 .toList();
     }
 
