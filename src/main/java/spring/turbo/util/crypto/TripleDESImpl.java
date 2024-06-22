@@ -36,7 +36,7 @@ final class TripleDESImpl implements TripleDES {
             Cipher cipher = Cipher.getInstance("TripleDES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivSpec);
             byte[] bytes = cipher.doFinal(input.getBytes(UTF_8));
-            return Base64Utils.toString(bytes);
+            return Base64Utils.encode(bytes);
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -47,7 +47,7 @@ final class TripleDESImpl implements TripleDES {
         try {
             Cipher cipher = Cipher.getInstance("TripleDES/CBC/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivSpec);
-            byte[] bytes = cipher.doFinal(Base64Utils.toBytes(cipherText));
+            byte[] bytes = cipher.doFinal(Base64Utils.decode(cipherText));
             return new String(bytes, UTF_8);
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());

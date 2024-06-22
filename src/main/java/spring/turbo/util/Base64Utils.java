@@ -10,6 +10,10 @@ package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
 
+import java.util.Base64;
+
+import static spring.turbo.util.CharsetPool.UTF_8;
+
 /**
  * @author 应卓
  * @since 1.0.0
@@ -37,24 +41,19 @@ public final class Base64Utils {
         super();
     }
 
-    public static String encode(byte[] key) {
-        return new String(java.util.Base64.getUrlEncoder().encode(key));
+    public static String encode(byte[] data) {
+        var encoder = Base64.getUrlEncoder();
+        return new String(encoder.encode(data));
     }
 
-    public static String encodeWithoutPadding(byte[] key) {
-        return new String(java.util.Base64.getUrlEncoder().withoutPadding().encode(key));
+    public static String encodeWithoutPadding(byte[] data) {
+        var encoder = Base64.getUrlEncoder().withoutPadding();
+        return new String(encoder.encode(data));
     }
 
-    public static byte[] decode(String key) {
-        return java.util.Base64.getUrlDecoder().decode(key);
-    }
-
-    public static byte[] toBytes(String key) {
-        return decode(key);
-    }
-
-    public static String toString(byte[] bytes) {
-        return encode(bytes);
+    public static byte[] decode(String src) {
+        var decoder = Base64.getUrlDecoder();
+        return decoder.decode(src);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -80,7 +79,7 @@ public final class Base64Utils {
         if (string == null) {
             return false;
         }
-        return isBase64(string.getBytes(CharsetPool.UTF_8));
+        return isBase64(string.getBytes(UTF_8));
     }
 
     private static boolean isWhiteSpace(final byte byteToCheck) {

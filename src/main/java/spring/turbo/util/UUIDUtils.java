@@ -38,7 +38,7 @@ public final class UUIDUtils {
     }
 
     /**
-     * 生成随机UUID字符串
+     * 生成随机UUID字符串，并删除 {@code "-"} 字符
      *
      * @return 随机UUID字符串
      */
@@ -49,7 +49,7 @@ public final class UUIDUtils {
     /**
      * 生成随机UUID字符串
      *
-     * @param removeHyphen 结果中是否要移除字符{@code "-"}
+     * @param removeHyphen 结果中是否要移除字符 {@code "-"}
      * @return 随机UUID字符串
      */
     public static String randomUUID(boolean removeHyphen) {

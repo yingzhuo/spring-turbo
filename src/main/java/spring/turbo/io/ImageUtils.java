@@ -59,7 +59,6 @@ public final class ImageUtils {
      * @param image  图片实例
      * @param format 格式，如: {@code "png"}
      * @return Base64字符串
-     * @see Base64Utils#toString(byte[])
      */
     public static String encodeToBase64(BufferedImage image, String format) {
         Asserts.notNull(image);
