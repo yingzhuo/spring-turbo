@@ -309,7 +309,9 @@ public final class RandomStringUtils {
      * 生成随机UUID字符串
      *
      * @return 随机UUID字符串
+     * @deprecated 使用 {@link UUIDUtils} 代替
      */
+    @Deprecated(since = "3.3.1")
     public static String randomUUID() {
         return randomUUID(false);
     }
@@ -319,7 +321,9 @@ public final class RandomStringUtils {
      *
      * @param removeHyphen 结果中是否要移除字符{@code "-"}
      * @return 随机UUID字符串
+     * @deprecated 使用 {@link UUIDUtils} 代替
      */
+    @Deprecated(since = "3.3.1")
     public static String randomUUID(boolean removeHyphen) {
         final var uuid = UUID.randomUUID().toString();
         return removeHyphen ? uuid.replaceAll(HYPHEN, EMPTY) : uuid;

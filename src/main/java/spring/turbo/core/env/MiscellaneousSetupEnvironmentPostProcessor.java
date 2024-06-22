@@ -14,7 +14,7 @@ import org.springframework.boot.logging.DeferredLogFactory;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import spring.turbo.core.SpringApplicationUtils;
-import spring.turbo.util.RandomStringUtils;
+import spring.turbo.util.UUIDUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +30,7 @@ import java.util.Map;
 final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
 
     private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
-    private static final String SPRING_ID = RandomStringUtils.randomUUID();
+    private static final String SPRING_ID = UUIDUtils.uuid36();
 
     public MiscellaneousSetupEnvironmentPostProcessor(DeferredLogFactory logFactory,
                                                       ConfigurableBootstrapContext bootstrapContext) {
