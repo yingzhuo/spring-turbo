@@ -8,8 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import static spring.turbo.util.Base64.decode;
-import static spring.turbo.util.Base64.encode;
+import static spring.turbo.util.Base64Utils.decode;
+import static spring.turbo.util.Base64Utils.encode;
 import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**

@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import spring.turbo.util.Base64;
+import spring.turbo.util.Base64Utils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -36,7 +36,7 @@ final class TripleDESImpl implements TripleDES {
             Cipher cipher = Cipher.getInstance("TripleDES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivSpec);
             byte[] bytes = cipher.doFinal(input.getBytes(UTF_8));
-            return Base64.toString(bytes);
+            return Base64Utils.toString(bytes);
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -47,7 +47,7 @@ final class TripleDESImpl implements TripleDES {
         try {
             Cipher cipher = Cipher.getInstance("TripleDES/CBC/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivSpec);
-            byte[] bytes = cipher.doFinal(Base64.toBytes(cipherText));
+            byte[] bytes = cipher.doFinal(Base64Utils.toBytes(cipherText));
             return new String(bytes, UTF_8);
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());

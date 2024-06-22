@@ -11,7 +11,7 @@ package spring.turbo.util.crypto;
 import java.security.*;
 import java.security.spec.ECGenParameterSpec;
 
-import static spring.turbo.util.Base64.encode;
+import static spring.turbo.util.Base64Utils.encode;
 
 /**
  * @author 应卓

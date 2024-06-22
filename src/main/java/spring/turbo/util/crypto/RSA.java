@@ -9,8 +9,8 @@
 package spring.turbo.util.crypto;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static spring.turbo.util.Base64.decode;
-import static spring.turbo.util.Base64.encode;
+import static spring.turbo.util.Base64Utils.decode;
+import static spring.turbo.util.Base64Utils.encode;
 
 /**
  * @author 应卓

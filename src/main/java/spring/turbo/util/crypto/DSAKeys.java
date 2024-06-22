@@ -10,7 +10,7 @@ package spring.turbo.util.crypto;
 
 import java.security.*;
 
-import static spring.turbo.util.Base64.encode;
+import static spring.turbo.util.Base64Utils.encode;
 
 /**
  * @author 应卓

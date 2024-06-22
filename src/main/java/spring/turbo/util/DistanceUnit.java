@@ -30,6 +30,6 @@ public enum DistanceUnit {
     /**
      * 海里
      */
-    NAUTICAL_MILES
+    NAUTICAL_MILES;
 
 }

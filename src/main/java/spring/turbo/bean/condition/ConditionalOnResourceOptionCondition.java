@@ -15,7 +15,7 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.io.Resource;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import spring.turbo.io.RichResource;
-import spring.turbo.util.InstanceUtils;
+import spring.turbo.util.reflection.InstanceUtils;
 
 import java.util.function.Predicate;
 

@@ -11,7 +11,7 @@ package spring.turbo.bean.jsr380;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Base64;
+import spring.turbo.util.Base64Utils;
 
 /**
  * @author 应卓
@@ -26,7 +26,7 @@ public final class ValidBase64Validators {
             if (value == null) {
                 return true;
             }
-            return Base64.isBase64(value);
+            return Base64Utils.isBase64(value);
         }
     }
 
@@ -37,7 +37,7 @@ public final class ValidBase64Validators {
             if (value == null) {
                 return true;
             }
-            return Base64.isBase64(value);
+            return Base64Utils.isBase64(value);
         }
     }
 

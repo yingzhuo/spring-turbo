@@ -10,7 +10,7 @@ package spring.turbo.util.crypto;
 
 import java.io.Serializable;
 
-import static spring.turbo.util.Base64.decode;
+import static spring.turbo.util.Base64Utils.decode;
 
 /**
  * @author 应卓

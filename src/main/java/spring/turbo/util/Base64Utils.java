@@ -14,7 +14,7 @@ import org.springframework.lang.Nullable;
  * @author 应卓
  * @since 1.0.0
  */
-public final class Base64 {
+public final class Base64Utils {
 
     private static final byte PAD_DEFAULT = '='; // Allow static access to default
 
@@ -33,12 +33,8 @@ public final class Base64 {
     /**
      * 私有构造方法
      */
-    private Base64() {
+    private Base64Utils() {
         super();
-    }
-
-    public static byte[] decode(String key) {
-        return java.util.Base64.getUrlDecoder().decode(key);
     }
 
     public static String encode(byte[] key) {
@@ -47,6 +43,10 @@ public final class Base64 {
 
     public static String encodeWithoutPadding(byte[] key) {
         return new String(java.util.Base64.getUrlEncoder().withoutPadding().encode(key));
+    }
+
+    public static byte[] decode(String key) {
+        return java.util.Base64.getUrlDecoder().decode(key);
     }
 
     public static byte[] toBytes(String key) {

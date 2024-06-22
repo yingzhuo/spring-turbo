@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
-import static spring.turbo.util.Base64.encode;
+import static spring.turbo.util.Base64Utils.encode;
 
 /**
  * @author 应卓

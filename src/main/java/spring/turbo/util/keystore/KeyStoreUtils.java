@@ -11,7 +11,7 @@ package spring.turbo.util.keystore;
 import org.springframework.core.io.Resource;
 import spring.turbo.io.IOExceptionUtils;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.CipherUtils;
+import spring.turbo.util.crypto.CipherUtils;
 
 import java.io.IOException;
 import java.security.KeyStore;
