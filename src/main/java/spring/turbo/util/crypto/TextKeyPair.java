@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.security.KeyPair;
+import java.util.Base64;
 
 /**
  * 文本化的密钥对
@@ -27,6 +28,9 @@ import java.security.KeyPair;
  * @since 3.3.1
  */
 public abstract class TextKeyPair implements Serializable {
+
+    protected static final Base64.Encoder BASE64_ENCODER = Base64.getEncoder();
+    protected static final Base64.Decoder BASE64_DECODER = Base64.getDecoder();
 
     /**
      * 获取公钥

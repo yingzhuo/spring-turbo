@@ -14,9 +14,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.ECGenParameterSpec;
 
-import static spring.turbo.util.Base64Utils.decode;
-import static spring.turbo.util.Base64Utils.encodeWithoutPadding;
-
 /**
  * @author 应卓
  * @see #create()
@@ -48,8 +45,8 @@ public final class ECDSATextKeyPair extends TextKeyPair {
             var privateKey = keyPair.getPrivate();
 
             return new ECDSATextKeyPair(
-                    encodeWithoutPadding(publicKey.getEncoded()),
-                    encodeWithoutPadding(privateKey.getEncoded()),
+                    BASE64_ENCODER.encodeToString(publicKey.getEncoded()),
+                    BASE64_ENCODER.encodeToString(privateKey.getEncoded()),
                     publicKey.getEncoded(),
                     privateKey.getEncoded()
             );
@@ -59,7 +56,7 @@ public final class ECDSATextKeyPair extends TextKeyPair {
     }
 
     public static ECDSATextKeyPair fromString(String publicKey, String privateKey) {
-        return new ECDSATextKeyPair(publicKey, privateKey, decode(publicKey), decode(privateKey));
+        return new ECDSATextKeyPair(publicKey, privateKey, BASE64_DECODER.decode(publicKey), BASE64_DECODER.decode(privateKey));
     }
 
     @Override

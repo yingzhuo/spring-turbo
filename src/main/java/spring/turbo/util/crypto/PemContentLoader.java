@@ -11,9 +11,7 @@ package spring.turbo.util.crypto;
 import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
 import spring.turbo.io.IOExceptionUtils;
-import spring.turbo.io.IOUtils;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.CharsetPool;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +21,10 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import static spring.turbo.io.IOUtils.copyToString;
+import static spring.turbo.util.CharsetPool.UTF_8;
+import static spring.turbo.util.StringPool.EMPTY;
 
 /**
  * PEM格式文件内容读取工具
@@ -51,7 +53,6 @@ public interface PemContentLoader {
         private String publicKeyEndLine = "-----END PUBLIC KEY-----";
         private String privateKeyBeginLine = "-----BEGIN PRIVATE KEY-----";
         private String privateKeyEndLine = "-----END PRIVATE KEY-----";
-        private boolean stripWhitespace = true;
         private String text = "";
 
         Builder() {
@@ -82,19 +83,16 @@ public interface PemContentLoader {
             return this;
         }
 
-        public Builder stripWhitespace(boolean stripWhitespace) {
-            this.stripWhitespace = stripWhitespace;
-            return this;
-        }
-
         public Builder resource(File file) {
             return resource(file, null);
         }
 
         public Builder resource(File file, @Nullable Charset charset) {
             try {
-                this.text = IOUtils.copyToString(new FileInputStream(file),
-                        Objects.requireNonNullElse(charset, CharsetPool.UTF_8));
+                this.text = copyToString(
+                        new FileInputStream(file),
+                        Objects.requireNonNullElse(charset, UTF_8)
+                );
                 return this;
             } catch (FileNotFoundException e) {
                 throw IOExceptionUtils.toUnchecked(e);
@@ -122,41 +120,48 @@ public interface PemContentLoader {
         }
 
         public PemContentLoader build() {
-            return new PemContentLoader() {
-                @Override
-                public String loadEncodedPublicKey() {
-                    Asserts.hasText(text);
-
-                    var regex = String.format(".*%s(.+)%s.*", privateKeyBeginLine, privateKeyEndLine);
-                    var matcher = Pattern.compile(regex, Pattern.DOTALL | Pattern.MULTILINE).matcher(text);
-                    if (matcher.matches()) {
-                        var key = matcher.replaceAll("$1");
-                        if (stripWhitespace) {
-                            key = key.replaceAll("\\s", "");
-                        }
-                        return key;
-                    } else {
-                        return null;
-                    }
-                }
-
-                @Override
-                public String loadEncodedPrivateKey() {
-                    Asserts.hasText(text);
-
-                    var regex = String.format(".*%s(.+)%s.*", publicKeyBeginLine, publicKeyEndLine);
-                    var matcher = Pattern.compile(regex, Pattern.DOTALL | Pattern.MULTILINE).matcher(text);
-                    if (matcher.matches()) {
-                        var key = matcher.replaceAll("$1");
-                        if (stripWhitespace) {
-                            key = key.replaceAll("\\s", "");
-                        }
-                        return key;
-                    } else {
-                        return null;
-                    }
-                }
-            };
+            return new DefaultPemContentLoader(text, privateKeyBeginLine, privateKeyEndLine, publicKeyBeginLine, publicKeyEndLine);
         }
     }
+
+    public static class DefaultPemContentLoader implements PemContentLoader {
+
+        private final String text;
+        private final String privateKeyBeginLine;
+        private final String privateKeyEndLine;
+        private final String publicKeyBeginLine;
+        private final String publicKeyEndLine;
+
+        public DefaultPemContentLoader(String text, String privateKeyBeginLine, String privateKeyEndLine, String publicKeyBeginLine, String publicKeyEndLine) {
+            this.text = text;
+            this.privateKeyBeginLine = privateKeyBeginLine;
+            this.privateKeyEndLine = privateKeyEndLine;
+            this.publicKeyBeginLine = publicKeyBeginLine;
+            this.publicKeyEndLine = publicKeyEndLine;
+        }
+
+        @Override
+        public String loadEncodedPublicKey() {
+            return load(publicKeyBeginLine, publicKeyEndLine);
+        }
+
+        @Override
+        public String loadEncodedPrivateKey() {
+            return load(privateKeyBeginLine, privateKeyEndLine);
+        }
+
+        @Nullable
+        private String load(String startLine, String endLine) {
+            var regex = String.format(".*%s(.+)%s.*", startLine, endLine);
+            var matcher = Pattern.compile(regex, Pattern.DOTALL | Pattern.MULTILINE).matcher(text);
+            if (matcher.matches()) {
+                var key = matcher.replaceAll("$1");
+                key = key.replaceAll("\\s", EMPTY);
+                return key;
+            } else {
+                return null;
+            }
+        }
+    }
+
 }

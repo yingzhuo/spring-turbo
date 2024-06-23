@@ -11,9 +11,6 @@ package spring.turbo.util.crypto;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
-import static spring.turbo.util.Base64Utils.decode;
-import static spring.turbo.util.Base64Utils.encodeWithoutPadding;
-
 /**
  * @author 应卓
  * @see #create()
@@ -51,8 +48,8 @@ public final class DSATextKeyPair extends TextKeyPair {
             var publicKey = keyPair.getPublic();
             var privateKey = keyPair.getPrivate();
             return new DSATextKeyPair(
-                    encodeWithoutPadding(publicKey.getEncoded()),
-                    encodeWithoutPadding(privateKey.getEncoded()),
+                    BASE64_ENCODER.encodeToString(publicKey.getEncoded()),
+                    BASE64_ENCODER.encodeToString(privateKey.getEncoded()),
                     publicKey.getEncoded(),
                     privateKey.getEncoded()
             );
@@ -62,7 +59,7 @@ public final class DSATextKeyPair extends TextKeyPair {
     }
 
     public static DSATextKeyPair fromString(String publicKey, String privateKey) {
-        return new DSATextKeyPair(publicKey, privateKey, decode(publicKey), decode(privateKey));
+        return new DSATextKeyPair(publicKey, privateKey, BASE64_DECODER.decode(publicKey), BASE64_DECODER.decode(privateKey));
     }
 
     @Override

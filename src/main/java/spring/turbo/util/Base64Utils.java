@@ -53,7 +53,7 @@ public final class Base64Utils {
 
     public static byte[] decode(String src) {
         var decoder = Base64.getUrlDecoder();
-        return decoder.decode(src);
+        return decoder.decode(src.getBytes(UTF_8));
     }
 
     // -----------------------------------------------------------------------------------------------------------------

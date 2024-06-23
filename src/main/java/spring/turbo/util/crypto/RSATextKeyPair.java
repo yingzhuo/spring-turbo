@@ -11,9 +11,6 @@ package spring.turbo.util.crypto;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
-import static spring.turbo.util.Base64Utils.decode;
-import static spring.turbo.util.Base64Utils.encodeWithoutPadding;
-
 /**
  * @author 应卓
  * @see #create()
@@ -23,7 +20,6 @@ import static spring.turbo.util.Base64Utils.encodeWithoutPadding;
 public final class RSATextKeyPair extends TextKeyPair {
 
     public static final String ALGORITHM = "RSA";
-
     public static final int KEY_SIZE_1024 = 1024;
     public static final int KEY_SIZE_2048 = 2048;
 
@@ -53,8 +49,8 @@ public final class RSATextKeyPair extends TextKeyPair {
             var privateKey = keyPair.getPrivate();
 
             return new RSATextKeyPair(
-                    encodeWithoutPadding(publicKey.getEncoded()),
-                    encodeWithoutPadding(privateKey.getEncoded()),
+                    BASE64_ENCODER.encodeToString(publicKey.getEncoded()),
+                    BASE64_ENCODER.encodeToString(privateKey.getEncoded()),
                     publicKey.getEncoded(),
                     privateKey.getEncoded()
             );
@@ -64,7 +60,7 @@ public final class RSATextKeyPair extends TextKeyPair {
     }
 
     public static RSATextKeyPair fromString(String publicKey, String privateKey) {
-        return new RSATextKeyPair(publicKey, privateKey, decode(publicKey), decode(privateKey));
+        return new RSATextKeyPair(publicKey, privateKey, BASE64_DECODER.decode(publicKey), BASE64_DECODER.decode(privateKey));
     }
 
     @Override
