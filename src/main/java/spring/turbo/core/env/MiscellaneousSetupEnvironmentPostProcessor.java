@@ -28,7 +28,6 @@ import java.util.Map;
 final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
 
     private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
-//    private static final String SPRING_ID = UUIDUtils.uuid36();
 
     public MiscellaneousSetupEnvironmentPostProcessor(DeferredLogFactory logFactory,
                                                       ConfigurableBootstrapContext bootstrapContext) {
@@ -39,7 +38,6 @@ final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostPr
     @Override
     public void execute(ConfigurableEnvironment environment, SpringApplication application) {
         final Map<String, Object> map = new HashMap<>();
-//        map.put("spring.application.id", SPRING_ID);
         map.put("spring.application.home", SpringApplicationUtils.getHomePath(application));
 
         environment.getPropertySources().addLast(new MapPropertySource(PROPERTY_SOURCE_NAME, map));

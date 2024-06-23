@@ -61,6 +61,19 @@ public final class SpringUtils {
     }
 
     /**
+     * 获取{@link ApplicationContext}的ID，一般情况下这个ID可以当做应用的程序的实例ID来使用。
+     *
+     * @return {@link ApplicationContext}的ID
+     */
+    public static String getApplicationContextId() {
+        var id = getApplicationContext().getId();
+        if (id == null) {
+            throw BEAN_NOT_FOUND.get();
+        }
+        return id;
+    }
+
+    /**
      * 获得{@link BeanDefinitionRegistry}实例
      *
      * @return {@link BeanDefinitionRegistry}实例
@@ -70,20 +83,6 @@ public final class SpringUtils {
     public static BeanDefinitionRegistry getBeanDefinitionRegistry() {
         return (BeanDefinitionRegistry) getApplicationContext().getAutowireCapableBeanFactory();
     }
-
-    // /**
-    // * 获取{@link ObjectProvider}实例
-    // *
-    // * @param beanType beanType
-    // * @param <T> 需要查找或生成的Bean类型泛型
-    // * @return {@link ObjectProvider}实例
-    // * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
-    // * @see ObjectProvider
-    // */
-    // public static <T> ObjectProvider<T> getObjectProvider(final Class<T> beanType) {
-    // return Optional.ofNullable(SpringApplicationHolders.SC).map(sc -> sc.getObjectProvider(beanType))
-    // .orElseThrow(UNSUPPORTED);
-    // }
 
     /**
      * 获取{@link ResourceLoader}实例
@@ -237,7 +236,8 @@ public final class SpringUtils {
      * @throws NoSuchBeanDefinitionException 无法查找到Bean
      */
     public static <T> T getRequiredBean(Class<T> beanType) {
-        return getBean(beanType).orElseThrow(BEAN_NOT_FOUND);
+        return getBean(beanType)
+                .orElseThrow(BEAN_NOT_FOUND);
     }
 
     /**
@@ -251,7 +251,8 @@ public final class SpringUtils {
      * @throws NoSuchBeanDefinitionException 无法查找到Bean
      */
     public static <T> T getRequiredBean(Class<T> beanType, String beanName) {
-        return getBean(beanType, beanName).orElseThrow(BEAN_NOT_FOUND);
+        return getBean(beanType, beanName)
+                .orElseThrow(BEAN_NOT_FOUND);
     }
 
     /**
@@ -263,7 +264,11 @@ public final class SpringUtils {
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static <T> List<T> getBeanList(final Class<T> beanType) {
-        return getApplicationContext().getBeansOfType(beanType).values().stream().toList();
+        return getApplicationContext()
+                .getBeansOfType(beanType)
+                .values()
+                .stream()
+                .toList();
     }
 
     /**
@@ -272,7 +277,8 @@ public final class SpringUtils {
      * @return 实例
      */
     public static SpringApplication getSpringApplication() {
-        return Optional.ofNullable(SpringApplicationHolders.SA).orElseThrow(UNSUPPORTED);
+        return Optional.ofNullable(SpringApplicationHolders.SA)
+                .orElseThrow(UNSUPPORTED);
     }
 
 }
