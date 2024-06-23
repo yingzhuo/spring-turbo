@@ -55,7 +55,7 @@ public interface AES {
 
         private final String algorithm;
 
-        Mode(String algorithm) {
+        private Mode(String algorithm) {
             this.algorithm = algorithm;
         }
 

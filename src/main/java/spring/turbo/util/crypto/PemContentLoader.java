@@ -33,6 +33,7 @@ import static spring.turbo.util.StringPool.EMPTY;
  * @see #builder()
  * @since 3.3.0
  */
+@Deprecated(since = "3.3.1")
 public interface PemContentLoader {
 
     public static Builder builder() {

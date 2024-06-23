@@ -23,12 +23,28 @@ import java.util.Locale;
  */
 public final class DateParseUtils {
 
-    public static final String PRIMARY_PATTERN = "yyyy-MM-dd";
+    private static final String PRIMARY_PATTERN = "yyyy-MM-dd";
 
-    public static final String[] BACKUP_PATTERNS = new String[]{"yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm:ss.SSS",
-            "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSS", "yyyy-MM-dd", "yyyy/MM/dd HH:mm:ss",
-            "yyyy/MM/dd HH:mm:ss.SSS", "yyyy/MM/dd", "yyyy-M-d HH:mm:ss", "yyyy-M-d HH:mm:ss.SSS", "yyyy-M-d",
-            "yyyy/M/d HH:mm:ss", "yyyy/M/d HH:mm:ss.SSS", "yyyy/M/d", "yyyy", "yyyy-MM", "yyyy-M",};
+    private static final String[] BACKUP_PATTERNS = new String[]{
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd HH:mm:ss.SSS",
+            "yyyy-MM-dd",
+            "yyyy-MM-dd'T'HH:mm:ss",
+            "yyyy-MM-dd'T'HH:mm:ss.SSS",
+            "yyyy-MM-dd",
+            "yyyy/MM/dd HH:mm:ss",
+            "yyyy/MM/dd HH:mm:ss.SSS",
+            "yyyy/MM/dd",
+            "yyyy-M-d HH:mm:ss",
+            "yyyy-M-d HH:mm:ss.SSS",
+            "yyyy-M-d",
+            "yyyy/M/d HH:mm:ss",
+            "yyyy/M/d HH:mm:ss.SSS",
+            "yyyy/M/d",
+            "yyyy",
+            "yyyy-MM",
+            "yyyy-M"
+    };
 
     /**
      * 私有构造方法
