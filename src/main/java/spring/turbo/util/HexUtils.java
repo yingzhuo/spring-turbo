@@ -12,12 +12,17 @@ package spring.turbo.util;
  * HEX相关工具
  *
  * @author 应卓
+ * @see Base64Utils
  * @since 1.0.0
  */
 public final class HexUtils {
 
-    private static final char[] HEX = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
-            'f'};
+    private static final char[] HEX = {
+            '0', '1', '2', '3', '4',
+            '5', '6', '7', '8', '9',
+            'a', 'b', 'c', 'd', 'e',
+            'f'
+    };
 
     /**
      * 私有构造方法
