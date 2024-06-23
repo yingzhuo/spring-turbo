@@ -13,10 +13,12 @@ import static spring.turbo.util.Base64Utils.encode;
 import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
+ * DSA加密和签名工具
+ *
  * @author 应卓
  * @see #builder()
- * @see DSAKeys
- * @since 3.2.6
+ * @see DSATextKeyPair
+ * @since 3.1.1
  */
 public interface DSA {
 

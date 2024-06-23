@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
- * pem格式文件内容读取工具
+ * PEM格式文件内容读取工具
  *
  * @author 应卓
  * @see #builder()

@@ -18,7 +18,7 @@ import java.security.spec.X509EncodedKeySpec;
 /**
  * @author 应卓
  * @see #build()
- * @since 3.2.6
+ * @since 3.1.1
  */
 public final class ECDSABuilder {
 
@@ -32,10 +32,10 @@ public final class ECDSABuilder {
         super();
     }
 
-    public ECDSABuilder keyPair(ECDSAKeys keyPair) {
+    public ECDSABuilder keyPair(ECDSATextKeyPair keyPair) {
         Asserts.notNull(keyPair);
-        this.publicKey = keyPair.getPublicKey();
-        this.privateKey = keyPair.getPrivateKey();
+        this.publicKey = keyPair.getPublicKeyAsBytes();
+        this.privateKey = keyPair.getPrivateKeyAsBytes();
         return this;
     }
 

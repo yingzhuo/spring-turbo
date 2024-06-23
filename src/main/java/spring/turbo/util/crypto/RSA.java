@@ -13,10 +13,12 @@ import static spring.turbo.util.Base64Utils.decode;
 import static spring.turbo.util.Base64Utils.encode;
 
 /**
+ * RSA加密签名工具
+ *
  * @author 应卓
  * @see #builder()
- * @see RSAKeys
- * @since 3.2.6
+ * @see RSATextKeyPair
+ * @since 3.1.1
  */
 public interface RSA {
 

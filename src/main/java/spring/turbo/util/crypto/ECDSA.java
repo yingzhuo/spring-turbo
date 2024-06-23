@@ -13,10 +13,12 @@ import static spring.turbo.util.Base64Utils.encode;
 import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
+ * ECDSA加密和签名工具
+ *
  * @author 应卓
  * @see #builder()
- * @see ECDSAKeys
- * @since 3.2.6
+ * @see ECDSATextKeyPair
+ * @since 3.1.1
  */
 public interface ECDSA {
 

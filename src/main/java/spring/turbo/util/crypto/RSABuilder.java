@@ -21,7 +21,7 @@ import java.security.spec.X509EncodedKeySpec;
 
 /**
  * @author 应卓
- * @since 3.2.6
+ * @since 3.1.1
  */
 public final class RSABuilder {
 
@@ -35,10 +35,10 @@ public final class RSABuilder {
         super();
     }
 
-    public RSABuilder keyPair(RSAKeys keyPair) {
+    public RSABuilder keyPair(RSATextKeyPair keyPair) {
         Asserts.notNull(keyPair);
-        this.publicKey = keyPair.getPublicKey();
-        this.privateKey = keyPair.getPrivateKey();
+        this.publicKey = keyPair.getPublicKeyAsBytes();
+        this.privateKey = keyPair.getPrivateKeyAsBytes();
         return this;
     }
 

@@ -18,7 +18,7 @@ import java.security.spec.X509EncodedKeySpec;
 /**
  * @author 应卓
  * @see #build()
- * @since 3.2.6
+ * @since 3.1.1
  */
 public final class DSABuilder {
 
@@ -32,10 +32,10 @@ public final class DSABuilder {
         super();
     }
 
-    public DSABuilder keyPair(DSAKeys keyPair) {
+    public DSABuilder keyPair(DSATextKeyPair keyPair) {
         Asserts.notNull(keyPair);
-        this.privateKey = keyPair.getPrivateKey();
-        this.publicKey = keyPair.getPublicKey();
+        this.privateKey = keyPair.getPrivateKeyAsBytes();
+        this.publicKey = keyPair.getPublicKeyAsBytes();
         return this;
     }
 
