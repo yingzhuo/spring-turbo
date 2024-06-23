@@ -14,7 +14,6 @@ import org.springframework.boot.logging.DeferredLogFactory;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import spring.turbo.core.SpringApplicationUtils;
-import spring.turbo.util.UUIDUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,14 +22,13 @@ import java.util.Map;
  * 杂项设置
  *
  * @author 应卓
- * @see spring.turbo.bean.injection.ApplicationId
  * @see spring.turbo.bean.injection.ApplicationHome
  * @since 2.0.8
  */
 final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
 
     private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
-    private static final String SPRING_ID = UUIDUtils.uuid36();
+//    private static final String SPRING_ID = UUIDUtils.uuid36();
 
     public MiscellaneousSetupEnvironmentPostProcessor(DeferredLogFactory logFactory,
                                                       ConfigurableBootstrapContext bootstrapContext) {
@@ -41,7 +39,7 @@ final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostPr
     @Override
     public void execute(ConfigurableEnvironment environment, SpringApplication application) {
         final Map<String, Object> map = new HashMap<>();
-        map.put("spring.application.id", SPRING_ID);
+//        map.put("spring.application.id", SPRING_ID);
         map.put("spring.application.home", SpringApplicationUtils.getHomePath(application));
 
         environment.getPropertySources().addLast(new MapPropertySource(PROPERTY_SOURCE_NAME, map));
