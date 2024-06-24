@@ -6,15 +6,13 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.bean;
+package spring.turbo.util;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import spring.turbo.util.Asserts;
-import spring.turbo.util.StringFormatter;
 
 import java.util.List;
 import java.util.Map;
@@ -26,12 +24,11 @@ import java.util.function.Supplier;
  * Attributes
  *
  * @author 应卓
- * @see Payload
  * @see MultiValueMap
  * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
-public class Attributes extends LinkedMultiValueMap<String, Object> {
+public class Attributes extends LinkedMultiValueMap<String, Object> implements MultiValueMap<String, Object> {
 
     /**
      * 构造方法
@@ -46,7 +43,7 @@ public class Attributes extends LinkedMultiValueMap<String, Object> {
      * @param map 其他数据来源
      */
     public Attributes(@Nullable Map<String, List<Object>> map) {
-        if (map != null) {
+        if (map != null && !map.isEmpty()) {
             super.putAll(map);
         }
     }

@@ -1,2 +1,1 @@
 spring.turbo.autoconfiguration.MessageSourceAutoConfiguration
-spring.turbo.autoconfiguration.FormatterAutoConfiguration

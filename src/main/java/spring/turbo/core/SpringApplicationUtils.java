@@ -32,7 +32,9 @@ public final class SpringApplicationUtils {
     public static File getHomeDir(SpringApplication application) {
         Asserts.notNull(application);
 
-        var sourceClasses = application.getAllSources().stream().filter(o -> o instanceof Class<?>)
+        var sourceClasses = application.getAllSources()
+                .stream()
+                .filter(o -> o instanceof Class<?>)
                 .map(o -> (Class<?>) o).toList();
 
         if (size(sourceClasses) == 1) {

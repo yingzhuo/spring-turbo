@@ -18,6 +18,13 @@ import org.springframework.core.env.ConfigurableEnvironment;
  */
 class SpringApplicationHoldersEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
+    /**
+     * 默认构造方法
+     */
+    public SpringApplicationHoldersEnvironmentPostProcessor() {
+        super();
+    }
+
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         SpringApplicationHolders.SA = application;

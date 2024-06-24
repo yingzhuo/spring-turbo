@@ -22,18 +22,18 @@ import static spring.turbo.core.AnnotationFinder.findAnnotationAttributes;
 import static spring.turbo.util.Asserts.notNull;
 
 /**
- * AOP相关工具
+ * 切面相关工具
  *
  * @author 应卓
  * @see AnnotationFinder
  * @since 2.1.1
  */
-public final class AopUtils {
+public final class AspectUtils {
 
     /**
      * 私有构造方法
      */
-    private AopUtils() {
+    private AspectUtils() {
         super();
     }
 
@@ -119,12 +119,11 @@ public final class AopUtils {
      *
      * @param joinPoint      {@link JoinPoint} 实例
      * @param annotationType 元注释类型
-     * @param <A>            元注释类型泛型
      * @return {@link AnnotationAttributes} 实例
      */
-    public static <A extends Annotation> AnnotationAttributes getTargetTypeAnnotationAttributes(
+    public static AnnotationAttributes getTargetTypeAnnotationAttributes(
             JoinPoint joinPoint,
-            Class<A> annotationType) {
+            Class<? extends Annotation> annotationType) {
         return findAnnotationAttributes(getTargetType(joinPoint), annotationType);
     }
 
