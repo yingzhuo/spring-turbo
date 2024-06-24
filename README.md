@@ -40,7 +40,7 @@ mvn install
 
 * [spring-turbo-examples](https://github.com/yingzhuo/spring-turbo-examples)
 
-### ISSUES
+### Issues
 
 * [Github Issues](https://github.com/yingzhuo/spring-turbo/issues)
 
