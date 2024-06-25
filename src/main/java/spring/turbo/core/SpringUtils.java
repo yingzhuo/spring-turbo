@@ -28,6 +28,8 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
+ * Spring上下文工具
+ *
  * @author 应卓
  * @see SpringApplication
  * @see org.springframework.context.ApplicationContext

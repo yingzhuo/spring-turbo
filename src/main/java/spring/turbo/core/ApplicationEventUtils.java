@@ -11,6 +11,8 @@ package spring.turbo.core;
 import org.springframework.context.ApplicationEvent;
 import spring.turbo.util.Asserts;
 
+import static spring.turbo.core.SpringUtils.getApplicationEventPublisher;
+
 /**
  * {@link ApplicationEvent}相关工具
  *
@@ -33,7 +35,7 @@ public final class ApplicationEventUtils {
      */
     public static void publish(ApplicationEvent event) {
         Asserts.notNull(event);
-        SpringUtils.getApplicationEventPublisher().publishEvent(event);
+        getApplicationEventPublisher().publishEvent(event);
     }
 
     /**
@@ -44,7 +46,7 @@ public final class ApplicationEventUtils {
      */
     public static void publish(Object event) {
         Asserts.notNull(event);
-        SpringUtils.getApplicationEventPublisher().publishEvent(event);
+        getApplicationEventPublisher().publishEvent(event);
     }
 
 }

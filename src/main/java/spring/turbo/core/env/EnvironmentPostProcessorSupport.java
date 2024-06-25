@@ -31,8 +31,9 @@ public abstract class EnvironmentPostProcessorSupport implements EnvironmentPost
     private final ConfigurableBootstrapContext bootstrapContext;
     private int order = 0;
 
-    public EnvironmentPostProcessorSupport(DeferredLogFactory logFactory,
-                                           ConfigurableBootstrapContext bootstrapContext) {
+    public EnvironmentPostProcessorSupport(
+            DeferredLogFactory logFactory,
+            ConfigurableBootstrapContext bootstrapContext) {
         this.log = logFactory.getLog(getClass());
         this.bootstrapContext = bootstrapContext;
     }
@@ -49,7 +50,7 @@ public abstract class EnvironmentPostProcessorSupport implements EnvironmentPost
     }
 
     protected final String getHomePath(SpringApplication application) {
-        return SpringApplicationUtils.getHomePath(application);
+        return SpringApplicationUtils.getHomeDirAsString(application);
     }
 
     protected final void trace(String format, Object... args) {

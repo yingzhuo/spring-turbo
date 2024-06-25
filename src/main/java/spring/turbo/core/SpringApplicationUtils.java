@@ -17,6 +17,8 @@ import java.io.File;
 import static spring.turbo.util.collection.CollectionUtils.size;
 
 /**
+ * {@link SpringApplication} 相关工具
+ *
  * @author 应卓
  * @since 2.1.3
  */
@@ -29,6 +31,12 @@ public final class SpringApplicationUtils {
         super();
     }
 
+    /**
+     * 获取SpringBoot应用程序启动目录
+     *
+     * @param application {@link SpringApplication} 实例
+     * @return 启动目录
+     */
     public static File getHomeDir(SpringApplication application) {
         Asserts.notNull(application);
 
@@ -44,7 +52,13 @@ public final class SpringApplicationUtils {
         }
     }
 
-    public static String getHomePath(SpringApplication application) {
+    /**
+     * 获取SpringBoot应用程序启动目录
+     *
+     * @param application {@link SpringApplication} 实例
+     * @return 启动目录
+     */
+    public static String getHomeDirAsString(SpringApplication application) {
         return getHomeDir(application).getAbsolutePath();
     }
 

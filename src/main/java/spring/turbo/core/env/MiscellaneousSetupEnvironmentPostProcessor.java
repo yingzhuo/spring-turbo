@@ -13,10 +13,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.logging.DeferredLogFactory;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
-import spring.turbo.core.SpringApplicationUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static spring.turbo.core.SpringApplicationUtils.getHomeDirAsString;
 
 /**
  * 杂项设置
@@ -25,12 +26,13 @@ import java.util.Map;
  * @see spring.turbo.bean.injection.ApplicationHome
  * @since 2.0.8
  */
-final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
+class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostProcessorSupport {
 
     private static final String PROPERTY_SOURCE_NAME = "miscellaneous";
 
-    public MiscellaneousSetupEnvironmentPostProcessor(DeferredLogFactory logFactory,
-                                                      ConfigurableBootstrapContext bootstrapContext) {
+    public MiscellaneousSetupEnvironmentPostProcessor(
+            DeferredLogFactory logFactory,
+            ConfigurableBootstrapContext bootstrapContext) {
         super(logFactory, bootstrapContext);
         setOrder(LOWEST_PRECEDENCE);
     }
@@ -38,7 +40,7 @@ final class MiscellaneousSetupEnvironmentPostProcessor extends EnvironmentPostPr
     @Override
     public void execute(ConfigurableEnvironment environment, SpringApplication application) {
         final Map<String, Object> map = new HashMap<>();
-        map.put("spring.application.home", SpringApplicationUtils.getHomePath(application));
+        map.put("spring.application.home", getHomeDirAsString(application));
 
         environment.getPropertySources().addLast(new MapPropertySource(PROPERTY_SOURCE_NAME, map));
     }
