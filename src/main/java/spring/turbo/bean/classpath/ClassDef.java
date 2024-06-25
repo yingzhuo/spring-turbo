@@ -32,7 +32,7 @@ import java.util.Optional;
 public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Serializable {
 
     private final Class<?> clazz;
-    private final BeanDefinition bd;
+    private final BeanDefinition delegating;
 
     /**
      * 构造方法
@@ -53,7 +53,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
         Asserts.notNull(beanDefinition);
         classLoader = Objects.requireNonNullElseGet(classLoader, ClassUtils::getDefaultClassLoader);
 
-        this.bd = beanDefinition;
+        this.delegating = beanDefinition;
         var className = beanDefinition.getBeanClassName();
         Asserts.notNull(className);
 
@@ -187,7 +187,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Nullable
     @Override
     public String getParentName() {
-        return bd.getParentName();
+        return delegating.getParentName();
     }
 
     /**
@@ -195,7 +195,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setParentName(String parentName) {
-        bd.setParentName(parentName);
+        delegating.setParentName(parentName);
     }
 
     /**
@@ -204,7 +204,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Nullable
     @Override
     public String getBeanClassName() {
-        return bd.getBeanClassName();
+        return delegating.getBeanClassName();
     }
 
     /**
@@ -212,7 +212,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setBeanClassName(String beanClassName) {
-        bd.setBeanClassName(beanClassName);
+        delegating.setBeanClassName(beanClassName);
     }
 
     /**
@@ -220,7 +220,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public String getScope() {
-        return bd.getScope();
+        return delegating.getScope();
     }
 
     /**
@@ -229,7 +229,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Nullable
     @Override
     public void setScope(String scope) {
-        bd.setScope(scope);
+        delegating.setScope(scope);
     }
 
     /**
@@ -237,7 +237,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public boolean isLazyInit() {
-        return bd.isLazyInit();
+        return delegating.isLazyInit();
     }
 
     /**
@@ -245,7 +245,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setLazyInit(boolean lazyInit) {
-        bd.setLazyInit(lazyInit);
+        delegating.setLazyInit(lazyInit);
     }
 
     /**
@@ -254,7 +254,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Nullable
     @Override
     public String[] getDependsOn() {
-        return bd.getDependsOn();
+        return delegating.getDependsOn();
     }
 
     /**
@@ -262,7 +262,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setDependsOn(String... dependsOn) {
-        bd.setDependsOn(dependsOn);
+        delegating.setDependsOn(dependsOn);
     }
 
     /**
@@ -270,7 +270,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public boolean isAutowireCandidate() {
-        return bd.isAutowireCandidate();
+        return delegating.isAutowireCandidate();
     }
 
     /**
@@ -278,7 +278,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setAutowireCandidate(boolean autowireCandidate) {
-        bd.setAutowireCandidate(autowireCandidate);
+        delegating.setAutowireCandidate(autowireCandidate);
     }
 
     /**
@@ -286,7 +286,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public boolean isPrimary() {
-        return bd.isPrimary();
+        return delegating.isPrimary();
     }
 
     /**
@@ -294,7 +294,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setPrimary(boolean primary) {
-        bd.setPrimary(primary);
+        delegating.setPrimary(primary);
     }
 
     /**
@@ -303,7 +303,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Nullable
     @Override
     public String getFactoryBeanName() {
-        return bd.getFactoryBeanName();
+        return delegating.getFactoryBeanName();
     }
 
     /**
@@ -311,7 +311,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setFactoryBeanName(String factoryBeanName) {
-        bd.setFactoryBeanName(factoryBeanName);
+        delegating.setFactoryBeanName(factoryBeanName);
     }
 
     /**
@@ -320,7 +320,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Nullable
     @Override
     public String getFactoryMethodName() {
-        return bd.getFactoryMethodName();
+        return delegating.getFactoryMethodName();
     }
 
     /**
@@ -328,7 +328,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setFactoryMethodName(String factoryMethodName) {
-        bd.setFactoryMethodName(factoryMethodName);
+        delegating.setFactoryMethodName(factoryMethodName);
     }
 
     /**
@@ -336,7 +336,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public ConstructorArgumentValues getConstructorArgumentValues() {
-        return bd.getConstructorArgumentValues();
+        return delegating.getConstructorArgumentValues();
     }
 
     /**
@@ -344,7 +344,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public MutablePropertyValues getPropertyValues() {
-        return bd.getPropertyValues();
+        return delegating.getPropertyValues();
     }
 
     /**
@@ -353,7 +353,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Nullable
     @Override
     public String getInitMethodName() {
-        return bd.getInitMethodName();
+        return delegating.getInitMethodName();
     }
 
     /**
@@ -361,7 +361,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setInitMethodName(String initMethodName) {
-        bd.setInitMethodName(initMethodName);
+        delegating.setInitMethodName(initMethodName);
     }
 
     /**
@@ -369,7 +369,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public String getDestroyMethodName() {
-        return bd.getDestroyMethodName();
+        return delegating.getDestroyMethodName();
     }
 
     /**
@@ -377,7 +377,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setDestroyMethodName(String destroyMethodName) {
-        bd.setDestroyMethodName(destroyMethodName);
+        delegating.setDestroyMethodName(destroyMethodName);
     }
 
     /**
@@ -385,7 +385,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public int getRole() {
-        return bd.getRole();
+        return delegating.getRole();
     }
 
     /**
@@ -393,7 +393,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setRole(int role) {
-        bd.setRole(role);
+        delegating.setRole(role);
     }
 
     /**
@@ -402,7 +402,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Nullable
     @Override
     public String getDescription() {
-        return bd.getDescription();
+        return delegating.getDescription();
     }
 
     /**
@@ -410,7 +410,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setDescription(String description) {
-        bd.setDescription(description);
+        delegating.setDescription(description);
     }
 
     /**
@@ -418,7 +418,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public ResolvableType getResolvableType() {
-        return bd.getResolvableType();
+        return delegating.getResolvableType();
     }
 
     /**
@@ -426,7 +426,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public boolean isSingleton() {
-        return bd.isSingleton();
+        return delegating.isSingleton();
     }
 
     /**
@@ -434,7 +434,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public boolean isPrototype() {
-        return bd.isPrototype();
+        return delegating.isPrototype();
     }
 
     /**
@@ -442,7 +442,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public boolean isAbstract() {
-        return bd.isAbstract();
+        return delegating.isAbstract();
     }
 
     /**
@@ -451,7 +451,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Nullable
     @Override
     public String getResourceDescription() {
-        return bd.getDescription();
+        return delegating.getDescription();
     }
 
     /**
@@ -460,7 +460,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
     @Nullable
     @Override
     public BeanDefinition getOriginatingBeanDefinition() {
-        return bd.getOriginatingBeanDefinition();
+        return delegating.getOriginatingBeanDefinition();
     }
 
     /**
@@ -468,12 +468,12 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public void setAttribute(String name, Object value) {
-        bd.setAttribute(name, value);
+        delegating.setAttribute(name, value);
     }
 
     @Override
     public Object getAttribute(String name) {
-        return bd.getAttribute(name);
+        return delegating.getAttribute(name);
     }
 
     /**
@@ -481,7 +481,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public Object removeAttribute(String name) {
-        return bd.removeAttribute(name);
+        return delegating.removeAttribute(name);
     }
 
     /**
@@ -489,7 +489,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public boolean hasAttribute(String name) {
-        return bd.hasAttribute(name);
+        return delegating.hasAttribute(name);
     }
 
     /**
@@ -497,7 +497,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public String[] attributeNames() {
-        return bd.attributeNames();
+        return delegating.attributeNames();
     }
 
 }
