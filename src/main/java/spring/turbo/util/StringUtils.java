@@ -774,4 +774,22 @@ public final class StringUtils {
         return null;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static String joinWithComma(Collection<?> collection) {
+        return join(collection, COMMA);
+    }
+
+    public static String join(Collection<?> collection) {
+        return join(collection, null);
+    }
+
+    public static String join(Collection<?> collection, @Nullable String delimiter) {
+        Asserts.notNull(collection, "collection is null");
+        return String.join(
+                Objects.requireNonNullElse(delimiter, EMPTY),
+                collection.stream().map(Object::toString).toList()
+        );
+    }
+
 }

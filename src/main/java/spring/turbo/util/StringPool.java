@@ -25,10 +25,6 @@ public final class StringPool {
 
     public static final String TRUE = "true";
     public static final String FALSE = "false";
-    public static final String ON = "on";
-    public static final String OFF = "off";
-    public static final String ONE = "1";
-    public static final String ZERO = "0";
 
     public static final String EMPTY = "";
     public static final String SPACE = " ";
