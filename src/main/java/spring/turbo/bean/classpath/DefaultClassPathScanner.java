@@ -42,7 +42,7 @@ final class DefaultClassPathScanner implements ClassPathScanner {
     }
 
     @Override
-    public List<ClassDef> scan(@Nullable PackageSet packageSet) {
+    public List<ClassDefinition> scan(@Nullable PackageSet packageSet) {
         if (packageSet == null) {
             return List.of();
         }
@@ -53,7 +53,7 @@ final class DefaultClassPathScanner implements ClassPathScanner {
             nullSafeAddAll(list, provider.findCandidateComponents(basePackage));
         }
 
-        return list.stream().map(bd -> new ClassDef(bd, classLoader))
+        return list.stream().map(bd -> new ClassDefinition(bd, classLoader))
                 .distinct()
                 .sorted(Comparator.naturalOrder())
                 .toList();

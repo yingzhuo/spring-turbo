@@ -40,6 +40,6 @@ public interface ClassPathScanner {
      * @return 扫描结果
      * @see PackageSet
      */
-    public List<ClassDef> scan(@Nullable PackageSet packageSet);
+    public List<ClassDefinition> scan(@Nullable PackageSet packageSet);
 
 }

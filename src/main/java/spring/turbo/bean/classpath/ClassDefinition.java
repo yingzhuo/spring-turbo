@@ -13,6 +13,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.*;
+import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 import spring.turbo.util.Asserts;
@@ -29,7 +30,7 @@ import java.util.Optional;
  * @see BeanDefinition
  * @since 2.0.9
  */
-public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Serializable {
+public final class ClassDefinition implements BeanDefinition, Comparable<ClassDefinition>, Serializable {
 
     private final Class<?> clazz;
     private final BeanDefinition delegating;
@@ -39,7 +40,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      *
      * @param beanDefinition beanDefinition实例
      */
-    public ClassDef(BeanDefinition beanDefinition) {
+    public ClassDefinition(BeanDefinition beanDefinition) {
         this(beanDefinition, null);
     }
 
@@ -49,7 +50,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * @param beanDefinition beanDefinition实例
      * @param classLoader    类加载器
      */
-    public ClassDef(BeanDefinition beanDefinition, @Nullable ClassLoader classLoader) {
+    public ClassDefinition(BeanDefinition beanDefinition, @Nullable ClassLoader classLoader) {
         Asserts.notNull(beanDefinition);
         classLoader = Objects.requireNonNullElseGet(classLoader, ClassUtils::getDefaultClassLoader);
 
@@ -74,6 +75,10 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     public Class<?> getBeanClass() {
         return this.clazz;
+    }
+
+    public TypeDescriptor getBeanTypeDescriptor() {
+        return TypeDescriptor.valueOf(getBeanClass());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -134,9 +139,9 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      * {@inheritDoc}
      */
     @Override
-    public int compareTo(@Nullable ClassDef o) {
+    public int compareTo(@Nullable ClassDefinition o) {
         var o1 = this.getBeanClassName();
-        var o2 = Optional.ofNullable(o).map(ClassDef::getBeanClassName).orElse(null);
+        var o2 = Optional.ofNullable(o).map(ClassDefinition::getBeanClassName).orElse(null);
 
         if (o1 == null && o2 == null) {
             return 0;
@@ -155,7 +160,7 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
      */
     @Override
     public String toString() {
-        return "ClassDef[" + getBeanClassName() + "]";
+        return "ClassDefinition[" + getBeanClassName() + "]";
     }
 
     /**
@@ -167,8 +172,8 @@ public final class ClassDef implements BeanDefinition, Comparable<ClassDef>, Ser
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        ClassDef classDef = (ClassDef) o;
-        return clazz.equals(classDef.clazz);
+        ClassDefinition classDefinition = (ClassDefinition) o;
+        return clazz.equals(classDefinition.clazz);
     }
 
     /**
