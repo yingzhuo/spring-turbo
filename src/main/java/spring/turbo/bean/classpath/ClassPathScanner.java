@@ -22,7 +22,6 @@ import java.util.List;
  * @see org.springframework.core.type.filter.TypeFilter
  * @since 1.0.0
  */
-@FunctionalInterface
 public interface ClassPathScanner {
 
     /**

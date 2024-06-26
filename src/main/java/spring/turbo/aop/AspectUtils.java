@@ -12,14 +12,11 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationAttributes;
 import spring.turbo.core.AnnotationFinder;
+import spring.turbo.util.Asserts;
 
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-
-import static spring.turbo.core.AnnotationFinder.findAnnotation;
-import static spring.turbo.core.AnnotationFinder.findAnnotationAttributes;
-import static spring.turbo.util.Asserts.notNull;
 
 /**
  * 切面相关工具
@@ -45,7 +42,7 @@ public final class AspectUtils {
      * @throws IllegalArgumentException 不能获取切面方法
      */
     public static Method getMethod(JoinPoint joinPoint) {
-        notNull(joinPoint, "joinPoint is null");
+        Asserts.notNull(joinPoint, "joinPoint is null");
         var signature = joinPoint.getSignature();
         if (signature instanceof MethodSignature methodSignature) {
             return methodSignature.getMethod();
@@ -61,7 +58,7 @@ public final class AspectUtils {
      * @return 切面拦截对象
      */
     public static Object getTarget(JoinPoint joinPoint) {
-        notNull(joinPoint, "joinPoint is null");
+        Asserts.notNull(joinPoint, "joinPoint is null");
         return joinPoint.getTarget();
     }
 
@@ -84,8 +81,11 @@ public final class AspectUtils {
      * @return 元注释实例或 {@code null}
      */
     @Nullable
-    public static <A extends Annotation> A getMethodAnnotation(JoinPoint joinPoint, Class<A> annotationType) {
-        return findAnnotation(getMethod(joinPoint), annotationType);
+    public static <A extends Annotation> A getMethodAnnotation(
+            JoinPoint joinPoint,
+            Class<A> annotationType) {
+        var method = getMethod(joinPoint);
+        return AnnotationFinder.findAnnotation(method, annotationType);
     }
 
     /**
@@ -96,9 +96,32 @@ public final class AspectUtils {
      * @param <A>            元注释类型泛型
      * @return {@link AnnotationAttributes} 实例
      */
-    public static <A extends Annotation> AnnotationAttributes getMethodAnnotationAttributes(JoinPoint joinPoint,
-                                                                                            Class<A> annotationType) {
-        return findAnnotationAttributes(getMethod(joinPoint), annotationType);
+    public static <A extends Annotation> AnnotationAttributes getMethodAnnotationAttributes(
+            JoinPoint joinPoint,
+            Class<A> annotationType) {
+
+        var method = getMethod(joinPoint);
+        return AnnotationFinder.findAnnotationAttributes(method, annotationType);
+    }
+
+    /**
+     * 获取被拦截方法上的元注释相关的 {@link AnnotationAttributes} 实例
+     *
+     * @param joinPoint              {@link JoinPoint} 实例
+     * @param annotationType         元注释类型
+     * @param classValueAsString     {@link Class} 输出为字符串型
+     * @param nestedAnnotationsAsMap 元注释中内嵌的元注释输出位 {@link java.util.Map} 类型
+     * @param <A>                    元注释类型泛型
+     * @return {@link AnnotationAttributes} 实例
+     */
+    public static <A extends Annotation> AnnotationAttributes getMethodAnnotationAttributes(
+            JoinPoint joinPoint,
+            Class<A> annotationType,
+            boolean classValueAsString,
+            boolean nestedAnnotationsAsMap) {
+
+        var method = getMethod(joinPoint);
+        return AnnotationFinder.findAnnotationAttributes(method, annotationType, classValueAsString, nestedAnnotationsAsMap);
     }
 
     /**
@@ -111,7 +134,8 @@ public final class AspectUtils {
      */
     @Nullable
     public static <A extends Annotation> A getObjectTypeAnnotation(JoinPoint joinPoint, Class<A> annotationType) {
-        return findAnnotation(getTargetType(joinPoint), annotationType);
+        var targetType = getTargetType(joinPoint);
+        return AnnotationFinder.findAnnotation(targetType, annotationType);
     }
 
     /**
@@ -123,8 +147,11 @@ public final class AspectUtils {
      */
     public static AnnotationAttributes getTargetTypeAnnotationAttributes(
             JoinPoint joinPoint,
-            Class<? extends Annotation> annotationType) {
-        return findAnnotationAttributes(getTargetType(joinPoint), annotationType);
+            Class<? extends Annotation> annotationType,
+            boolean classValueAsString,
+            boolean nestedAnnotationsAsMap) {
+        var targetType = getTargetType(joinPoint);
+        return AnnotationFinder.findAnnotationAttributes(targetType, annotationType, classValueAsString, nestedAnnotationsAsMap);
     }
 
 }

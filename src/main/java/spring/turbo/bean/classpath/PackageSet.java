@@ -11,6 +11,7 @@ package spring.turbo.bean.classpath;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -21,10 +22,10 @@ import java.util.stream.Stream;
  * @see #newInstance()
  * @since 2.0.10
  */
-public final class PackageSet implements Iterable<String> {
+public final class PackageSet implements Iterable<String>, Serializable {
 
     // 已排序
-    private final SortedSet<String> set = new TreeSet<>(Comparator.<String>naturalOrder());
+    private final SortedSet<String> set = new TreeSet<>();
 
     /**
      * 私有构造方法
@@ -94,6 +95,11 @@ public final class PackageSet implements Iterable<String> {
         return this;
     }
 
+    /**
+     * 清空所有数据
+     *
+     * @return this
+     */
     public PackageSet clear() {
         set.clear();
         return this;

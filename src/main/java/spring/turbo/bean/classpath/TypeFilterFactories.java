@@ -122,12 +122,17 @@ public final class TypeFilterFactories {
      * @see #isNotInterface()
      */
     public static TypeFilter isInterface() {
-        return new AbstractClassTestingTypeFilter() {
+        // 是接口
+        var f1 = new AbstractClassTestingTypeFilter() {
             @Override
             protected boolean match(ClassMetadata metadata) {
                 return metadata.isInterface();
             }
         };
+
+        // 不是 package-info.java
+        var f2 = isNotPackageInfo();
+        return all(f1, f2);
     }
 
     /**
