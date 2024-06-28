@@ -105,9 +105,13 @@ public final class BusinessException extends RuntimeException implements Message
     }
 
     @Override
+    @Nullable
     public String getDefaultMessage() {
-        return Objects.requireNonNullElseGet(this.defaultMessage,
-                () -> Objects.requireNonNullElse(super.getMessage(), null));
+        return this.defaultMessage;
+    }
+
+    public String getMessage(MessageSource messageSource) {
+        return getMessage(messageSource, null);
     }
 
     public String getMessage(MessageSource messageSource, @Nullable Locale locale) {

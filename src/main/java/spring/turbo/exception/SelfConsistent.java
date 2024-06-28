@@ -24,6 +24,7 @@ import java.util.Objects;
  * @see BusinessException
  * @since 1.0.0
  */
+@Deprecated(forRemoval = false, since = "3.3.2")
 public final class SelfConsistent {
 
     /**
