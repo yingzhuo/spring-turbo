@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.*;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
+import java.security.interfaces.ECPrivateKey;
+import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -24,26 +24,27 @@ import java.security.spec.X509EncodedKeySpec;
 import static spring.turbo.io.IOExceptionUtils.toUnchecked;
 
 /**
- * 这是一个小工具。可以从PEM文件中读取RSA公钥和私钥 <br>
+ * 这是一个小工具。可以从PEM文件中读取ECDSA公钥和私钥 <br>
  * 此工具依赖 <a href="https://search.maven.org/search?q=bcprov-jdk15to18">BouncyCastle</a>
  *
  * <pre>
- *     openssl genrsa -out keypair.pem 2048
- *     openssl rsa -in keypair.pem -pubout -inform PEM -outform PEM -out rsa-public-key.pem
- *     openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in keypair.pem -out rsa-private-key.pem
+ *     openssl ecparam -list_curves
+ *     openssl ecparam -name prime256v1 -genkey -noout -out private.ec.key
+ *     openssl pkcs8 -topk8 -in private.ec.key -out ecdsa-private-key.pem -nocrypt
+ *     openssl ec -in ecdsa-private-key.pem -pubout -out ecdsa-public-key.pem
  * </pre>
  *
  * @author 应卓
  * @since 3.3.2
  */
-public final class RSAPemHelper {
+public final class ECDSAPemHelper {
 
-    private static final String ALGORITHM = "RSA";
+    private static final String ALGORITHM = "EC";
 
     /**
      * 私有构造方法
      */
-    private RSAPemHelper() {
+    private ECDSAPemHelper() {
         super();
     }
 
@@ -54,7 +55,7 @@ public final class RSAPemHelper {
         );
     }
 
-    public static RSAPublicKey readX509PublicKey(Resource resource) {
+    public static ECPublicKey readX509PublicKey(Resource resource) {
         try {
             return readX509PublicKey(resource.getInputStream());
         } catch (IOException e) {
@@ -62,7 +63,7 @@ public final class RSAPemHelper {
         }
     }
 
-    public static RSAPublicKey readX509PublicKey(InputStream inputStream) {
+    public static ECPublicKey readX509PublicKey(InputStream inputStream) {
         KeyFactory factory;
 
         try {
@@ -75,7 +76,7 @@ public final class RSAPemHelper {
             var pemObject = pemReader.readPemObject();
             byte[] content = pemObject.getContent();
             var spec = new X509EncodedKeySpec(content);
-            return (RSAPublicKey) factory.generatePublic(spec);
+            return (ECPublicKey) factory.generatePublic(spec);
         } catch (IOException e) {
             throw toUnchecked(e);
         } catch (InvalidKeySpecException e) {
@@ -83,7 +84,7 @@ public final class RSAPemHelper {
         }
     }
 
-    public static RSAPrivateKey readPKCS8PrivateKey(Resource resource) {
+    public static ECPrivateKey readPKCS8PrivateKey(Resource resource) {
         try {
             return readPKCS8PrivateKey(resource.getInputStream());
         } catch (IOException e) {
@@ -91,7 +92,7 @@ public final class RSAPemHelper {
         }
     }
 
-    public static RSAPrivateKey readPKCS8PrivateKey(InputStream inputStream) {
+    public static ECPrivateKey readPKCS8PrivateKey(InputStream inputStream) {
         KeyFactory factory;
 
         try {
@@ -104,7 +105,7 @@ public final class RSAPemHelper {
             var pemObject = pemReader.readPemObject();
             byte[] content = pemObject.getContent();
             var spec = new PKCS8EncodedKeySpec(content);
-            return (RSAPrivateKey) factory.generatePrivate(spec);
+            return (ECPrivateKey) factory.generatePrivate(spec);
         } catch (IOException e) {
             throw toUnchecked(e);
         } catch (InvalidKeySpecException e) {
