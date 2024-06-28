@@ -182,6 +182,14 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
+        <!-- bouncycastle -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15to18</artifactId>
+            <version>1.78.1</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
