@@ -12,6 +12,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import spring.turbo.util.Asserts;
 
 import java.util.Locale;
@@ -24,11 +26,12 @@ import static java.util.Optional.ofNullable;
  *
  * @author 应卓
  * @see #builder()
- * @see org.springframework.context.MessageSourceResolvable
- * @see org.springframework.context.MessageSource
- * @see org.springframework.context.support.MessageSourceAccessor
- * @see org.springframework.context.support.ApplicationObjectSupport
- * @see spring.turbo.core.MessageUtils
+ * @see Errors
+ * @see BindingResult
+ * @see MessageSource
+ * @see MessageSourceAccessor
+ * @see Locale
+ * @see org.springframework.context.i18n.LocaleContextHolder
  * @since 2.0.1
  */
 public final class BusinessException extends RuntimeException implements MessageSourceResolvable {
@@ -53,7 +56,6 @@ public final class BusinessException extends RuntimeException implements Message
      * @see BusinessExceptionBuilder
      */
     public BusinessException(@Nullable String[] codes, @Nullable Object[] arguments, @Nullable String defaultMessage) {
-        super(defaultMessage);
         this.codes = codes;
         this.arguments = arguments;
         this.defaultMessage = defaultMessage;
@@ -62,6 +64,7 @@ public final class BusinessException extends RuntimeException implements Message
     /**
      * 构造方法
      */
+    @Deprecated(since = "3.3.2")
     public BusinessException() {
         this(null);
     }
@@ -72,7 +75,6 @@ public final class BusinessException extends RuntimeException implements Message
      * @param message 异常信息
      */
     public BusinessException(@Nullable String message) {
-        super(message);
         this.codes = null;
         this.arguments = null;
         this.defaultMessage = message;

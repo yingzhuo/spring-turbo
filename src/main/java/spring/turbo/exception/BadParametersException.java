@@ -33,7 +33,7 @@ import static spring.turbo.util.StringPool.COMMA;
  * @see org.springframework.context.i18n.LocaleContextHolder
  * @since 3.3.2
  */
-public class BadParametersException extends RuntimeException {
+public final class BadParametersException extends RuntimeException {
 
     private final Collection<MessageSourceResolvable> messageSourceResolvableCollection;
 
