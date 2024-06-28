@@ -8,9 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import static java.util.Optional.ofNullable;
@@ -102,6 +106,16 @@ public final class BusinessException extends RuntimeException implements Message
     public String getDefaultMessage() {
         return Objects.requireNonNullElseGet(this.defaultMessage,
                 () -> Objects.requireNonNullElse(super.getMessage(), null));
+    }
+
+    public String getMessage(MessageSource messageSource, @Nullable Locale locale) {
+        Asserts.notNull(messageSource, "messageSource is required");
+        return messageSource.getMessage(this, Objects.requireNonNullElseGet(locale, Locale::getDefault));
+    }
+
+    public String getMessage(MessageSourceAccessor messageSourceAccessor) {
+        Asserts.notNull(messageSourceAccessor, "messageSourceAccessor is required");
+        return messageSourceAccessor.getMessage(this);
     }
 
 }
