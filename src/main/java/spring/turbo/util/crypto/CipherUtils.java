@@ -35,7 +35,7 @@ public final class CipherUtils {
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return cipher.doFinal(data);
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public final class CipherUtils {
             cipher.init(Cipher.DECRYPT_MODE, key);
             return cipher.doFinal(data);
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 

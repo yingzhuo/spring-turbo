@@ -59,21 +59,6 @@ public final class DSAKeyPairFactories {
         }
     }
 
-//    /**
-//     * 从文本中读取密钥对
-//     *
-//     * @param publicKeyString  公钥。可以是 HexEncoded 或 Base64HexEncoded
-//     * @param privateKeyString 私钥。可以是 HexEncoded 或 Base64HexEncoded
-//     * @return 密钥对
-//     */
-//    public static DSAKeyPair createFromString(String publicKeyString, String privateKeyString) {
-//        if (Base64Utils.isBase64(publicKeyString) && Base64Utils.isBase64(privateKeyString)) {
-//            return createFromBased64EncodedString(publicKeyString, privateKeyString);
-//        } else {
-//            return createFromHexEncodedString(publicKeyString, privateKeyString);
-//        }
-//    }
-
     /**
      * 从文本中读取密钥对
      *
@@ -163,4 +148,5 @@ public final class DSAKeyPairFactories {
             return this.privateKey;
         }
     }
+
 }
