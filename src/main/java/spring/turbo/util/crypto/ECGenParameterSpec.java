@@ -9,17 +9,18 @@
 package spring.turbo.util.crypto;
 
 /**
+ * EC Parameter
+ *
  * @author 应卓
  * @since 3.3.2
  */
 public enum ECGenParameterSpec {
 
-    prime256v1("prime256v1"),
     secp256r1("secp256r1");
 
     private final String stdName;
 
-    ECGenParameterSpec(String stdName) {
+    private ECGenParameterSpec(String stdName) {
         this.stdName = stdName;
     }
 

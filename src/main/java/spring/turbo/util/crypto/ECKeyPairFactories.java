@@ -40,7 +40,7 @@ public final class ECKeyPairFactories {
      * @return 密钥对
      */
     public static ECKeyPair create() {
-        return create(ECGenParameterSpec.prime256v1);
+        return create(ECGenParameterSpec.secp256r1);
     }
 
     /**

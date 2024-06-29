@@ -60,14 +60,40 @@ public interface DSA {
         return new DSAImpl(keyPair.getJdkPublicKey(), keyPair.getJdkPrivateKey());
     }
 
+    /**
+     * 签名
+     *
+     * @param data 要签名的原始数据
+     * @return 签名
+     */
     public byte[] sign(byte[] data);
 
+    /**
+     * 签名
+     *
+     * @param data 要签名的原始数据
+     * @return 签名
+     */
     public default String sign(String data) {
         return encode(sign(data.getBytes(UTF_8)));
     }
 
+    /**
+     * 校检签名
+     *
+     * @param data 原始数据
+     * @param sign 签名
+     * @return 校检结果
+     */
     public boolean verify(byte[] data, byte[] sign);
 
+    /**
+     * 校检签名
+     *
+     * @param data 原始数据
+     * @param sign 签名
+     * @return 校检结果
+     */
     public default boolean verify(String data, String sign) {
         return verify(data.getBytes(UTF_8), decode(sign));
     }
