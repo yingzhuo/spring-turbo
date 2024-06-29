@@ -26,10 +26,13 @@ class ECDSAImpl implements ECDSA {
         this.privateKey = privateKey;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public byte[] sign(byte[] data) {
+    public byte[] sign(byte[] data, SignerAlgorithm signerAlgorithm) {
         try {
-            var signature = Signature.getInstance("SHA1withECDSA");
+            var signature = Signature.getInstance(signerAlgorithm.getAlgorithmName());
             signature.initSign(privateKey);
             signature.update(data);
             return signature.sign();
@@ -38,10 +41,13 @@ class ECDSAImpl implements ECDSA {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean verify(byte[] data, byte[] sign) {
+    public boolean verify(byte[] data, byte[] sign, SignerAlgorithm signerAlgorithm) {
         try {
-            var signature = Signature.getInstance("SHA1withECDSA");
+            var signature = Signature.getInstance(signerAlgorithm.getAlgorithmName());
             signature.initVerify(publicKey);
             signature.update(data);
             return signature.verify(sign);

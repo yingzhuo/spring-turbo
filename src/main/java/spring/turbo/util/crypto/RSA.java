@@ -139,39 +139,63 @@ public interface RSA {
     /**
      * 签名
      *
-     * @param data 要签名的原始数据
+     * @param data            要签名的原始数据
+     * @param signerAlgorithm 签名算法
      * @return 签名
      */
-    public byte[] sign(byte[] data);
+    public byte[] sign(byte[] data, SignerAlgorithm signerAlgorithm);
 
     /**
      * 签名
      *
-     * @param data 要签名的原始数据
+     * @param data            要签名的原始数据
+     * @param signerAlgorithm 签名算法
      * @return 签名
      */
-    public default String sign(String data) {
-        return encode(sign(data.getBytes(UTF_8)));
+    public default String sign(String data, SignerAlgorithm signerAlgorithm) {
+        return encode(sign(data.getBytes(UTF_8), signerAlgorithm));
     }
 
     /**
      * 校检签名
      *
-     * @param data 原始数据
-     * @param sign 签名
+     * @param data            原始数据
+     * @param sign            签名
+     * @param signerAlgorithm 签名算法
      * @return 校检结果
      */
-    public boolean verify(byte[] data, byte[] sign);
+    public boolean verify(byte[] data, byte[] sign, SignerAlgorithm signerAlgorithm);
 
     /**
      * 校检签名
      *
-     * @param data 原始数据
-     * @param sign 签名
+     * @param data            原始数据
+     * @param sign            签名
+     * @param signerAlgorithm 签名算法
      * @return 校检结果
      */
-    public default boolean verify(String data, String sign) {
-        return verify(data.getBytes(UTF_8), decode(sign));
+    public default boolean verify(String data, String sign, SignerAlgorithm signerAlgorithm) {
+        return verify(data.getBytes(UTF_8), decode(sign), signerAlgorithm);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static enum SignerAlgorithm {
+        MD5withRSA("MD5withRSA"),
+        SHA1WithRSA("SHA1WithRSA"),
+        SHA256WithRSA("SHA256WithRSA"),
+        SHA384WithRSA("SHA384WithRSA"),
+        SHA512WithRSA("SHA512WithRSA");
+
+        private final String algorithmName;
+
+        private SignerAlgorithm(String algorithmName) {
+            this.algorithmName = algorithmName;
+        }
+
+        public String getAlgorithmName() {
+            return algorithmName;
+        }
     }
 
 }

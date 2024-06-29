@@ -27,10 +27,13 @@ class DSAImpl implements DSA {
         this.privateKey = privateKey;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public byte[] sign(byte[] data) {
+    public byte[] sign(byte[] data, SignerAlgorithm signerAlgorithm) {
         try {
-            var signature = Signature.getInstance("SHA1withDSA", "SUN");
+            var signature = Signature.getInstance(signerAlgorithm.getAlgorithmName());
             signature.initSign(privateKey);
             signature.update(data);
             return signature.sign();
@@ -39,10 +42,13 @@ class DSAImpl implements DSA {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean verify(byte[] data, byte[] sign) {
+    public boolean verify(byte[] data, byte[] sign, SignerAlgorithm signerAlgorithm) {
         try {
-            var signature = Signature.getInstance("SHA1withDSA", "SUN");
+            var signature = Signature.getInstance(signerAlgorithm.getAlgorithmName());
             signature.initVerify(publicKey);
             signature.update(data);
             return signature.verify(sign);

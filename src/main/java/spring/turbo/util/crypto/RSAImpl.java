@@ -27,6 +27,9 @@ class RSAImpl implements RSA {
         this.privateKey = privateKey;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public byte[] encryptByPublicKey(byte[] data) {
         try {
@@ -38,6 +41,9 @@ class RSAImpl implements RSA {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public byte[] decryptByPrivateKey(byte[] encryptedData) {
         try {
@@ -49,6 +55,9 @@ class RSAImpl implements RSA {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public byte[] encryptByPrivateKey(byte[] data) {
         try {
@@ -60,6 +69,9 @@ class RSAImpl implements RSA {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public byte[] decryptByPublicKey(byte[] encryptedData) {
         try {
@@ -71,10 +83,13 @@ class RSAImpl implements RSA {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public byte[] sign(byte[] data) {
+    public byte[] sign(byte[] data, SignerAlgorithm signerAlgorithm) {
         try {
-            var signature = Signature.getInstance("MD5withRSA");
+            var signature = Signature.getInstance(signerAlgorithm.getAlgorithmName());
             signature.initSign(privateKey);
             signature.update(data);
             return signature.sign();
@@ -83,10 +98,13 @@ class RSAImpl implements RSA {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean verify(byte[] data, byte[] sign) {
+    public boolean verify(byte[] data, byte[] sign, SignerAlgorithm signerAlgorithm) {
         try {
-            var signature = Signature.getInstance("MD5withRSA");
+            var signature = Signature.getInstance(signerAlgorithm.getAlgorithmName());
             signature.initVerify(publicKey);
             signature.update(data);
             return signature.verify(sign);
