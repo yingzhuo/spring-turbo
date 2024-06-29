@@ -28,7 +28,9 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  *
  * @author 应卓
  * @since 3.3.1
+ * @deprecated 使用 {@link DSAKeyPair} 等代替
  */
+@Deprecated(forRemoval = true, since = "3.3.2")
 public final class KeyPairLoadingUtils {
 
     /**

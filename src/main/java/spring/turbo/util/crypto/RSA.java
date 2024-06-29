@@ -8,22 +8,56 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static spring.turbo.util.Base64Utils.decode;
 import static spring.turbo.util.Base64Utils.encode;
 
 /**
- * RSA加密签名工具
+ * RSA加密与签名工具
  *
  * @author 应卓
- * @see #builder()
- * @see RSATextKeyPair
- * @since 3.1.1
+ * @see #of(KeyPair)
+ * @see #of(RSAKeyPair)
+ * @see #of(PublicKey, PrivateKey)
+ * @since 3.2.2
  */
 public interface RSA {
 
-    public static RSABuilder builder() {
-        return new RSABuilder();
+    /**
+     * 创建工具实例
+     *
+     * @param keyPair 密钥对
+     * @return 工具实例
+     */
+    public static RSA of(KeyPair keyPair) {
+        return new RSAImpl((RSAPublicKey) keyPair.getPublic(), (RSAPrivateKey) keyPair.getPrivate());
+    }
+
+    /**
+     * 创建工具实例
+     *
+     * @param publicKey  公钥
+     * @param privateKey 私钥
+     * @return 工具实例
+     */
+    public static RSA of(PublicKey publicKey, PrivateKey privateKey) {
+        return new RSAImpl((RSAPublicKey) publicKey, (RSAPrivateKey) privateKey);
+    }
+
+    /**
+     * 创建工具实例
+     *
+     * @param keyPair 密钥对
+     * @return 工具实例
+     */
+    public static RSA of(RSAKeyPair keyPair) {
+        return of(keyPair.getJdkKeyPair());
     }
 
     public byte[] encryptByPublicKey(byte[] data);

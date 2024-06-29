@@ -35,6 +35,8 @@ import java.security.spec.X509EncodedKeySpec;
  *
  * @author 应卓
  * @see <a href="https://www.openssl.org/">OpenSSL官方文档</a>
+ * @see <a href="https://en.wikipedia.org/wiki/X.509">X509 wiki</a>
+ * @see <a href="https://en.wikipedia.org/wiki/PKCS_8">PKCS#8 wiki</a>
  * @since 3.3.2
  */
 public final class DSAPemHelper {
@@ -87,7 +89,7 @@ public final class DSAPemHelper {
     public static DSAPublicKey readX509PublicKey(InputStream inputStream) {
         try {
             var factory = KeyFactory.getInstance(ALGORITHM);
-            var spec = new X509EncodedKeySpec(PemHelper.getContent(inputStream));
+            var spec = new X509EncodedKeySpec(PemHelper.readPemBytes(inputStream));
             return (DSAPublicKey) factory.generatePublic(spec);
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError();
@@ -121,7 +123,7 @@ public final class DSAPemHelper {
     public static DSAPrivateKey readPKCS8PrivateKey(InputStream inputStream) {
         try {
             var factory = KeyFactory.getInstance(ALGORITHM);
-            var spec = new PKCS8EncodedKeySpec(PemHelper.getContent(inputStream));
+            var spec = new PKCS8EncodedKeySpec(PemHelper.readPemBytes(inputStream));
             return (DSAPrivateKey) factory.generatePrivate(spec);
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError();

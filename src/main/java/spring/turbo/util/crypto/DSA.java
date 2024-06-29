@@ -8,22 +8,56 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.interfaces.DSAPrivateKey;
+import java.security.interfaces.DSAPublicKey;
+
 import static spring.turbo.util.Base64Utils.decode;
 import static spring.turbo.util.Base64Utils.encode;
 import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
- * DSA加密和签名工具
+ * DSA签名工具
  *
  * @author 应卓
- * @see #builder()
- * @see DSATextKeyPair
- * @since 3.1.1
+ * @see #of(KeyPair)
+ * @see #of(DSAKeyPair)
+ * @see #of(PublicKey, PrivateKey)
+ * @since 3.2.2
  */
 public interface DSA {
 
-    public static DSABuilder builder() {
-        return new DSABuilder();
+    /**
+     * 创建工具实例
+     *
+     * @param keyPair 密钥对
+     * @return 工具实例
+     */
+    public static DSA of(KeyPair keyPair) {
+        return new DSAImpl((DSAPublicKey) keyPair.getPublic(), (DSAPrivateKey) keyPair.getPrivate());
+    }
+
+    /**
+     * 创建工具实例
+     *
+     * @param publicKey  公钥
+     * @param privateKey 私钥
+     * @return 工具实例
+     */
+    public static DSA of(PublicKey publicKey, PrivateKey privateKey) {
+        return new DSAImpl((DSAPublicKey) publicKey, (DSAPrivateKey) privateKey);
+    }
+
+    /**
+     * 创建工具实例
+     *
+     * @param keyPair 密钥对
+     * @return 工具实例
+     */
+    public static DSA of(DSAKeyPair keyPair) {
+        return new DSAImpl(keyPair.getJdkPublicKey(), keyPair.getJdkPrivateKey());
     }
 
     public byte[] sign(byte[] data);
