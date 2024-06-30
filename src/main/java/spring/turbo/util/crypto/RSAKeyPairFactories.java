@@ -8,12 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import spring.turbo.util.Asserts;
 import spring.turbo.util.HexUtils;
+import spring.turbo.util.StringUtils;
 
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
@@ -25,6 +26,8 @@ import java.util.Base64;
  * @since 3.3.2
  */
 public final class RSAKeyPairFactories {
+
+    public static final String ALG_RSA = "RSA";
 
     /**
      * 私有构造方法
@@ -50,10 +53,10 @@ public final class RSAKeyPairFactories {
      */
     public static RSAKeyPair create(int keySize) {
         try {
-            var generator = KeyPairGenerator.getInstance("RSA");
+            var generator = KeyPairGenerator.getInstance(ALG_RSA);
             generator.initialize(keySize);
             var keyPair = generator.generateKeyPair();
-            return new SimpleRSAKeyPair((RSAPublicKey) keyPair.getPublic(), (RSAPrivateKey) keyPair.getPrivate());
+            return new Pair((RSAPublicKey) keyPair.getPublic(), (RSAPrivateKey) keyPair.getPrivate());
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -68,6 +71,8 @@ public final class RSAKeyPairFactories {
      */
     public static RSAKeyPair createFromBased64EncodedString(String publicKeyString, String privateKeyString) {
         var decoder = Base64.getDecoder();
+        publicKeyString = StringUtils.removeAllWhitespaces(publicKeyString);
+        privateKeyString = StringUtils.removeAllWhitespaces(privateKeyString);
         var publicKeyBytes = decoder.decode(publicKeyString);
         var privateKeyBytes = decoder.decode(privateKeyString);
         return createFromBytes(publicKeyBytes, privateKeyBytes);
@@ -81,6 +86,8 @@ public final class RSAKeyPairFactories {
      * @return 密钥对
      */
     public static RSAKeyPair createFromHexEncodedString(String publicKeyString, String privateKeyString) {
+        publicKeyString = StringUtils.removeAllWhitespaces(publicKeyString);
+        privateKeyString = StringUtils.removeAllWhitespaces(privateKeyString);
         var publicKeyBytes = HexUtils.decode(publicKeyString);
         var privateKeyBytes = HexUtils.decode(privateKeyString);
         return createFromBytes(publicKeyBytes, privateKeyBytes);
@@ -95,15 +102,15 @@ public final class RSAKeyPairFactories {
      */
     public static RSAKeyPair createFromBytes(byte[] publicKeyBytes, byte[] privateKeyBytes) {
         try {
-            var keyFactory = KeyFactory.getInstance("RSA");
+            var keyFactory = KeyFactory.getInstance(ALG_RSA);
             var publicKeySpec = new X509EncodedKeySpec(publicKeyBytes);
             var pub = keyFactory.generatePublic(publicKeySpec);
 
             var privateKeySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
             var pri = keyFactory.generatePrivate(privateKeySpec);
 
-            return new SimpleRSAKeyPair((RSAPublicKey) pub, (RSAPrivateKey) pri);
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            return new Pair((RSAPublicKey) pub, (RSAPrivateKey) pri);
+        } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
@@ -115,7 +122,7 @@ public final class RSAKeyPairFactories {
      * @return 密钥对
      */
     public static RSAKeyPair createFromJdkKeyPair(KeyPair keyPair) {
-        return new SimpleRSAKeyPair(
+        return new Pair(
                 (RSAPublicKey) keyPair.getPublic(),
                 (RSAPrivateKey) keyPair.getPrivate()
         );
@@ -129,7 +136,7 @@ public final class RSAKeyPairFactories {
      * @return 密钥对
      */
     public static RSAKeyPair createFromJdkKeys(PublicKey publicKey, PrivateKey privateKey) {
-        return new SimpleRSAKeyPair(
+        return new Pair(
                 (RSAPublicKey) publicKey,
                 (RSAPrivateKey) privateKey
         );
@@ -137,7 +144,13 @@ public final class RSAKeyPairFactories {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    private record SimpleRSAKeyPair(RSAPublicKey publicKey, RSAPrivateKey privateKey) implements RSAKeyPair {
+    private record Pair(RSAPublicKey publicKey, RSAPrivateKey privateKey) implements RSAKeyPair {
+
+        Pair {
+            Asserts.notNull(publicKey, "publicKey is required");
+            Asserts.notNull(privateKey, "privateKey is required");
+        }
+
         @Override
         public RSAPublicKey getJdkPublicKey() {
             return this.publicKey;

@@ -792,4 +792,14 @@ public final class StringUtils {
         );
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Nullable
+    public static String removeAllWhitespaces(@Nullable String string) {
+        if (null == string) {
+            return null;
+        }
+        return string.replaceAll("\\s+", EMPTY);
+    }
+
 }

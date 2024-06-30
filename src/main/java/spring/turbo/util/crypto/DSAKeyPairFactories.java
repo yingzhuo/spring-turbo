@@ -8,12 +8,13 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import spring.turbo.util.Asserts;
 import spring.turbo.util.HexUtils;
+import spring.turbo.util.StringUtils;
 
 import java.security.*;
 import java.security.interfaces.DSAPrivateKey;
 import java.security.interfaces.DSAPublicKey;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
@@ -25,6 +26,8 @@ import java.util.Base64;
  * @since 3.3.2
  */
 public final class DSAKeyPairFactories {
+
+    public static final String ALG_DSA = "DSA";
 
     /**
      * 私有构造方法
@@ -50,10 +53,10 @@ public final class DSAKeyPairFactories {
      */
     public static DSAKeyPair create(int keySize) {
         try {
-            var generator = KeyPairGenerator.getInstance("DSA");
+            var generator = KeyPairGenerator.getInstance(ALG_DSA);
             generator.initialize(keySize);
             var keyPair = generator.generateKeyPair();
-            return new SimpleDSAKeyPair((DSAPublicKey) keyPair.getPublic(), (DSAPrivateKey) keyPair.getPrivate());
+            return new Pair((DSAPublicKey) keyPair.getPublic(), (DSAPrivateKey) keyPair.getPrivate());
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -68,6 +71,8 @@ public final class DSAKeyPairFactories {
      */
     public static DSAKeyPair createFromBased64EncodedString(String publicKeyString, String privateKeyString) {
         var decoder = Base64.getDecoder();
+        publicKeyString = StringUtils.removeAllWhitespaces(publicKeyString);
+        privateKeyString = StringUtils.removeAllWhitespaces(privateKeyString);
         var publicKeyBytes = decoder.decode(publicKeyString);
         var privateKeyBytes = decoder.decode(privateKeyString);
         return createFromBytes(publicKeyBytes, privateKeyBytes);
@@ -81,6 +86,8 @@ public final class DSAKeyPairFactories {
      * @return 密钥对
      */
     public static DSAKeyPair createFromHexEncodedString(String publicKeyString, String privateKeyString) {
+        publicKeyString = StringUtils.removeAllWhitespaces(publicKeyString);
+        privateKeyString = StringUtils.removeAllWhitespaces(privateKeyString);
         var publicKeyBytes = HexUtils.decode(publicKeyString);
         var privateKeyBytes = HexUtils.decode(privateKeyString);
         return createFromBytes(publicKeyBytes, privateKeyBytes);
@@ -95,15 +102,15 @@ public final class DSAKeyPairFactories {
      */
     public static DSAKeyPair createFromBytes(byte[] publicKeyBytes, byte[] privateKeyBytes) {
         try {
-            var keyFactory = KeyFactory.getInstance("RSA");
+            var keyFactory = KeyFactory.getInstance(ALG_DSA);
             var publicKeySpec = new X509EncodedKeySpec(publicKeyBytes);
             var pub = keyFactory.generatePublic(publicKeySpec);
 
             var privateKeySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
             var pri = keyFactory.generatePrivate(privateKeySpec);
 
-            return new SimpleDSAKeyPair((DSAPublicKey) pub, (DSAPrivateKey) pri);
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            return new Pair((DSAPublicKey) pub, (DSAPrivateKey) pri);
+        } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
@@ -115,7 +122,7 @@ public final class DSAKeyPairFactories {
      * @return 密钥对
      */
     public static DSAKeyPair createFromJdkKeyPair(KeyPair keyPair) {
-        return new SimpleDSAKeyPair(
+        return new Pair(
                 (DSAPublicKey) keyPair.getPublic(),
                 (DSAPrivateKey) keyPair.getPrivate()
         );
@@ -129,7 +136,7 @@ public final class DSAKeyPairFactories {
      * @return 密钥对
      */
     public static DSAKeyPair createFromJdkKeys(PublicKey publicKey, PrivateKey privateKey) {
-        return new SimpleDSAKeyPair(
+        return new Pair(
                 (DSAPublicKey) publicKey,
                 (DSAPrivateKey) privateKey
         );
@@ -137,7 +144,13 @@ public final class DSAKeyPairFactories {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    private record SimpleDSAKeyPair(DSAPublicKey publicKey, DSAPrivateKey privateKey) implements DSAKeyPair {
+    private record Pair(DSAPublicKey publicKey, DSAPrivateKey privateKey) implements DSAKeyPair {
+
+        Pair {
+            Asserts.notNull(publicKey, "publicKey is required");
+            Asserts.notNull(privateKey, "privateKey is required");
+        }
+
         @Override
         public DSAPublicKey getJdkPublicKey() {
             return this.publicKey;
