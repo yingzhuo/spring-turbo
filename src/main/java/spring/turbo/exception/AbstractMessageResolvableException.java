@@ -23,7 +23,7 @@ import java.util.Optional;
  * @see org.springframework.context.MessageSourceResolvable
  * @since 3.3.2
  */
-public abstract class AbstractMessageResolvableException extends RuntimeException implements MessageSourceResolvable {
+public abstract class AbstractMessageResolvableException extends IllegalArgumentException implements MessageSourceResolvable {
 
     @Nullable
     private final String code;

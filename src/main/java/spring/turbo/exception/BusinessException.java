@@ -26,20 +26,20 @@ public final class BusinessException extends AbstractMessageResolvableException 
         throw new BusinessException(code, arguments);
     }
 
-    public static BusinessException of(String code, @Nullable Object[] arguments, String defaultMessage) {
-        throw new BusinessException(code, arguments, defaultMessage);
-    }
-
-    private BusinessException(String code, @Nullable Object[] arguments) {
+    public BusinessException(String code, @Nullable Object[] arguments) {
         super(code, arguments);
     }
 
-    private BusinessException(String defaultMessage) {
+    public BusinessException(String defaultMessage) {
         super(defaultMessage);
     }
 
-    private BusinessException(String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
+    public BusinessException(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
         super(code, arguments, defaultMessage);
+    }
+
+    public static BusinessException of(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
+        throw new BusinessException(code, arguments, defaultMessage);
     }
 
 }
