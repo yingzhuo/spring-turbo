@@ -13,6 +13,7 @@ import org.springframework.context.MessageSourceResolvable;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import spring.turbo.core.MessageSourceUtils;
 import spring.turbo.messagesource.StringMessageSourceResolvable;
 import spring.turbo.util.Asserts;
 
@@ -128,11 +129,10 @@ public final class ParametersNoGoodException extends RuntimeException implements
     public List<String> toStringList(MessageSource messageSource, @Nullable Locale locale) {
         Asserts.notNull(messageSource, "messageSource is required");
 
-        final var localeToUse = Objects.requireNonNullElseGet(locale, Locale::getDefault);
         return messageSourceResolvableList
                 .stream()
-                .map(messageSourceResolvable -> messageSource.getMessage(messageSourceResolvable, localeToUse))
-                .collect(Collectors.toList());      // 不要返回不可变集合，没准还要排序什么的
+                .map(resolvable -> MessageSourceUtils.getMessage(messageSource, resolvable, locale))
+                .collect(Collectors.toList());
     }
 
     /**

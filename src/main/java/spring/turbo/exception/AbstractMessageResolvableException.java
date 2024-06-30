@@ -10,12 +10,10 @@ package spring.turbo.exception;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import spring.turbo.core.MessageSourceUtils;
 
 import java.util.Locale;
-import java.util.Objects;
 
 /**
  * 实现了 {@link MessageSourceResolvable} 的异常类
@@ -70,8 +68,8 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
     public AbstractMessageResolvableException(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
         super(defaultMessage);
         this.code = (code == null || code.isBlank() ? null : code);
-        this.arguments = arguments;
-        this.defaultMessage = (defaultMessage == null || defaultMessage.isBlank() ? null : code);
+        this.arguments = (arguments == null || arguments.length == 0 ? null : arguments);
+        this.defaultMessage = (defaultMessage == null || defaultMessage.isBlank() ? null : defaultMessage);
     }
 
     /**
@@ -101,14 +99,37 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
         return this.defaultMessage;
     }
 
-    public final String toString(MessageSource messageSource) {
-        return toString(messageSource, null);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        try {
+            return toString((MessageSource) null);
+        } catch (Throwable e) {
+            return super.toString();
+        }
     }
 
-    public final String toString(MessageSource messageSource, @Nullable Locale locale) {
-        Asserts.notNull(messageSource, "messageSource is required");
-        var localeToUse = Objects.requireNonNullElseGet(locale, LocaleContextHolder::getLocale);
-        return messageSource.getMessage(this, localeToUse);
+    /**
+     * 从{@link MessageSource} 解析出错误信息
+     *
+     * @param messageSource 信息源
+     * @return 错误信息
+     */
+    public final String toString(@Nullable MessageSource messageSource) {
+        return MessageSourceUtils.getMessage(messageSource, this);
+    }
+
+    /**
+     * 从{@link MessageSource} 解析出错误信息
+     *
+     * @param messageSource 信息源
+     * @param locale        locale
+     * @return 错误信息
+     */
+    public final String toString(@Nullable MessageSource messageSource, @Nullable Locale locale) {
+        return MessageSourceUtils.getMessage(messageSource, this, locale);
     }
 
 }

@@ -10,12 +10,10 @@ package spring.turbo.exception;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import spring.turbo.core.MessageSourceUtils;
 
 import java.util.Locale;
-import java.util.Objects;
 
 /**
  * 未实现的功能
@@ -96,14 +94,25 @@ public final class NotImplementedException extends UnsupportedOperationException
         return this.defaultMessage;
     }
 
+    /**
+     * 通过 {@link MessageSource} 解析出错误信息
+     *
+     * @param messageSource {@link MessageSource} 实例
+     * @return 错误信息
+     */
     public String toString(MessageSource messageSource) {
         return toString(messageSource, null);
     }
 
+    /**
+     * 通过 {@link MessageSource} 解析出错误信息
+     *
+     * @param messageSource {@link MessageSource} 实例
+     * @param locale        locale
+     * @return 错误信息
+     */
     public String toString(MessageSource messageSource, @Nullable Locale locale) {
-        Asserts.notNull(messageSource, "messageSource is required");
-        var localeToUse = Objects.requireNonNullElseGet(locale, LocaleContextHolder::getLocale);
-        return messageSource.getMessage(this, localeToUse);
+        return MessageSourceUtils.getMessage(messageSource, this, locale);
     }
 
 }

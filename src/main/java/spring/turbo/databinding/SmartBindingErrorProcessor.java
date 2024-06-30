@@ -46,20 +46,20 @@ public final class SmartBindingErrorProcessor extends DefaultBindingErrorProcess
      */
     @Override
     public void processPropertyAccessException(PropertyAccessException ex, BindingResult bindingResult) {
-        var rootEx = ex.getRootCause();
-        if (rootEx instanceof MessageSourceResolvable messageSourceResolvable) {
 
-            var error = new ObjectError(
-                    bindingResult.getObjectName(),
-                    messageSourceResolvable.getCodes(),
-                    messageSourceResolvable.getCodes(),
-                    messageSourceResolvable.getDefaultMessage()
+        if (ex.getRootCause() instanceof MessageSourceResolvable rootResolvable) {
+            bindingResult.addError(
+                    new ObjectError(
+                            bindingResult.getObjectName(),
+                            rootResolvable.getCodes(),
+                            rootResolvable.getArguments(),
+                            rootResolvable.getDefaultMessage()
+                    )
             );
-
-            bindingResult.addError(error);
-        } else {
-            super.processPropertyAccessException(ex, bindingResult);
+            return;
         }
+
+        super.processPropertyAccessException(ex, bindingResult);
     }
 
     private static class SyncAvoid {

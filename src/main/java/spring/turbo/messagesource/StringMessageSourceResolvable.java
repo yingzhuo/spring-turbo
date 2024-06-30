@@ -9,8 +9,11 @@
 package spring.turbo.messagesource;
 
 import org.springframework.context.MessageSourceResolvable;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
+
+import java.io.Serializable;
 
 /**
  * {@link MessageSourceResolvable} 简易实现
@@ -20,7 +23,7 @@ import spring.turbo.util.Asserts;
  * @see MessageSourceResolvable#getDefaultMessage()
  * @since 3.3.2
  */
-public record StringMessageSourceResolvable(String errorMessage) implements MessageSourceResolvable {
+public record StringMessageSourceResolvable(String errorMessage) implements MessageSourceResolvable, Serializable {
 
     public StringMessageSourceResolvable {
         Asserts.hasText(errorMessage, "errorMessage is required");
@@ -38,6 +41,7 @@ public record StringMessageSourceResolvable(String errorMessage) implements Mess
         return null;
     }
 
+    @NonNull
     @Override
     public String getDefaultMessage() {
         return errorMessage;
