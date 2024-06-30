@@ -107,8 +107,8 @@ public final class BadParametersException extends RuntimeException {
      * @param messageSource {@link MessageSource} 实例
      * @return 错误文本
      */
-    public List<String> getMessages(MessageSource messageSource) {
-        return getMessages(messageSource, null);
+    public List<String> toStringList(MessageSource messageSource) {
+        return toStringList(messageSource, null);
     }
 
     /**
@@ -118,7 +118,7 @@ public final class BadParametersException extends RuntimeException {
      * @param locale        locale
      * @return 错误文本
      */
-    public List<String> getMessages(MessageSource messageSource, @Nullable Locale locale) {
+    public List<String> toStringList(MessageSource messageSource, @Nullable Locale locale) {
         Asserts.notNull(messageSource, "messageSource is required");
 
         final var localeToUse = Objects.requireNonNullElseGet(locale, Locale::getDefault);
@@ -146,7 +146,7 @@ public final class BadParametersException extends RuntimeException {
      * @return 错误文本
      */
     public String toCommaDelimitedString(MessageSource messageSource, @Nullable Locale locale) {
-        return String.join(COMMA, getMessages(messageSource, locale));
+        return String.join(COMMA, toStringList(messageSource, locale));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -157,7 +157,7 @@ public final class BadParametersException extends RuntimeException {
      * @param messageSourceAccessor {@link MessageSourceAccessor} 实例
      * @return 错误文本
      */
-    public List<String> getMessages(MessageSourceAccessor messageSourceAccessor) {
+    public List<String> toStringList(MessageSourceAccessor messageSourceAccessor) {
         Asserts.notNull(messageSourceAccessor, "messageSourceAccessor is required");
 
         return messageSourceResolvableCollection
@@ -173,7 +173,7 @@ public final class BadParametersException extends RuntimeException {
      * @return 错误文本
      */
     public String toCommaDelimitedString(MessageSourceAccessor messageSourceAccessor) {
-        return String.join(COMMA, getMessages(messageSourceAccessor));
+        return String.join(COMMA, toStringList(messageSourceAccessor));
     }
 
 }

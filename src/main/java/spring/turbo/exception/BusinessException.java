@@ -8,120 +8,38 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
-import org.springframework.context.MessageSource;
-import org.springframework.context.MessageSourceResolvable;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.lang.Nullable;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import spring.turbo.util.Asserts;
-
-import java.util.Locale;
-import java.util.Objects;
-
-import static java.util.Optional.ofNullable;
 
 /**
  * 业务异常
  *
  * @author 应卓
- * @see #builder()
- * @see Errors
- * @see BindingResult
- * @see MessageSource
- * @see MessageSourceAccessor
- * @see Locale
- * @see org.springframework.context.i18n.LocaleContextHolder
- * @since 2.0.1
+ * @since 3.3.2
  */
-public final class BusinessException extends RuntimeException implements MessageSourceResolvable {
+public final class BusinessException extends AbstractMessageResolvableException {
 
-    @Nullable
-    private final String[] codes;
-
-    @Nullable
-    private final Object[] arguments;
-
-    @Nullable
-    private final String defaultMessage;
-
-    /**
-     * 创建器用构造方法
-     *
-     * @param codes          I18n codes
-     * @param arguments      I18n arguments
-     * @param defaultMessage I18n defaultMessage
-     * @see org.springframework.context.MessageSource
-     * @see MessageSourceResolvable
-     * @see BusinessExceptionBuilder
-     */
-    public BusinessException(@Nullable String[] codes, @Nullable Object[] arguments, @Nullable String defaultMessage) {
-        this.codes = codes;
-        this.arguments = arguments;
-        this.defaultMessage = defaultMessage;
+    public static BusinessException of(String defaultMsg) {
+        throw new BusinessException(defaultMsg);
     }
 
-    /**
-     * 构造方法
-     */
-    @Deprecated(since = "3.3.2")
-    public BusinessException() {
-        this(null);
+    public static BusinessException of(String code, @Nullable Object[] arguments) {
+        throw new BusinessException(code, arguments);
     }
 
-    /**
-     * 构造方法
-     *
-     * @param message 异常信息
-     */
-    public BusinessException(@Nullable String message) {
-        this.codes = null;
-        this.arguments = null;
-        this.defaultMessage = message;
+    public static BusinessException of(String code, @Nullable Object[] arguments, String defaultMessage) {
+        throw new BusinessException(code, arguments, defaultMessage);
     }
 
-    public static BusinessExceptionBuilder builder() {
-        return new BusinessExceptionBuilder();
+    private BusinessException(String code, @Nullable Object[] arguments) {
+        super(code, arguments);
     }
 
-    public static BusinessException of(@Nullable String msg) {
-        return new BusinessException(msg);
+    private BusinessException(String defaultMessage) {
+        super(defaultMessage);
     }
 
-    public static BusinessException of(@Nullable Throwable ex) {
-        return of(ofNullable(ex).map(Throwable::getMessage).orElse(null));
-    }
-
-    @Override
-    @Nullable
-    public String[] getCodes() {
-        return this.codes;
-    }
-
-    @Override
-    @Nullable
-    public Object[] getArguments() {
-        return this.arguments;
-    }
-
-    @Override
-    @Nullable
-    public String getDefaultMessage() {
-        return this.defaultMessage;
-    }
-
-    public String getMessage(MessageSource messageSource) {
-        return getMessage(messageSource, null);
-    }
-
-    public String getMessage(MessageSource messageSource, @Nullable Locale locale) {
-        Asserts.notNull(messageSource, "messageSource is required");
-        return messageSource.getMessage(this, Objects.requireNonNullElseGet(locale, Locale::getDefault));
-    }
-
-    public String getMessage(MessageSourceAccessor messageSourceAccessor) {
-        Asserts.notNull(messageSourceAccessor, "messageSourceAccessor is required");
-        return messageSourceAccessor.getMessage(this);
+    private BusinessException(String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
+        super(code, arguments, defaultMessage);
     }
 
 }

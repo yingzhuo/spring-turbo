@@ -17,7 +17,7 @@ import java.security.PublicKey;
 import java.util.Base64;
 
 /**
- * 文本化的密钥对
+ * 文本化的密钥对，简单封装 {@link KeyPair}，使秘钥能够方便保存到数据库或者文本文件。
  *
  * @param <PUB> 公钥类型泛型
  * @param <PRI> 私钥类型泛型
