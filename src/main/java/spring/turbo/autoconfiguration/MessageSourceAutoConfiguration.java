@@ -10,12 +10,10 @@ package spring.turbo.autoconfiguration;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.Ordered;
 import spring.turbo.autoconfiguration.properties.MessageSourceProps;
@@ -88,12 +86,6 @@ public class MessageSourceAutoConfiguration {
             }
         }
         return list;
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public MessageSourceAccessor messageSourceAccessor(MessageSource messageSource) {
-        return new MessageSourceAccessor(messageSource);
     }
 
 }

@@ -10,7 +10,6 @@ package spring.turbo.exception;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -18,6 +17,7 @@ import spring.turbo.messagesource.StringMessageSourceResolvable;
 import spring.turbo.util.Asserts;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static spring.turbo.util.StringPool.COMMA;
 
@@ -28,7 +28,6 @@ import static spring.turbo.util.StringPool.COMMA;
  * @see Errors
  * @see BindingResult
  * @see MessageSource
- * @see MessageSourceAccessor
  * @see Locale
  * @see org.springframework.context.i18n.LocaleContextHolder
  * @since 3.3.2
@@ -70,11 +69,11 @@ public final class ParametersNoGoodException extends RuntimeException implements
      */
     public ParametersNoGoodException(String errorMessage, String... moreMessages) {
         var list = new ArrayList<MessageSourceResolvable>();
-        list.add(StringMessageSourceResolvable.of(errorMessage));
+        list.add(new StringMessageSourceResolvable(errorMessage));
 
         list.addAll(
                 Arrays.stream(moreMessages)
-                        .map(StringMessageSourceResolvable::of)
+                        .map(StringMessageSourceResolvable::new)
                         .toList()
         );
 
@@ -133,11 +132,11 @@ public final class ParametersNoGoodException extends RuntimeException implements
         return messageSourceResolvableList
                 .stream()
                 .map(messageSourceResolvable -> messageSource.getMessage(messageSourceResolvable, localeToUse))
-                .toList();
+                .collect(Collectors.toList());      // 不要返回不可变集合，没准还要排序什么的
     }
 
     /**
-     * 通过 {@link MessageSourceAccessor} 解析出错误文本并合成一个字符串 (由逗号分隔)
+     * 通过 {@link MessageSource} 解析出错误文本并合成一个字符串 (由逗号分隔)
      *
      * @param messageSource {@link MessageSource} 实例
      * @return 错误文本
@@ -155,33 +154,6 @@ public final class ParametersNoGoodException extends RuntimeException implements
      */
     public String toCommaDelimitedString(MessageSource messageSource, @Nullable Locale locale) {
         return String.join(COMMA, toStringList(messageSource, locale));
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * 通过 {@link MessageSourceAccessor} 解析出错误文本
-     *
-     * @param messageSourceAccessor {@link MessageSourceAccessor} 实例
-     * @return 错误文本
-     */
-    public List<String> toStringList(MessageSourceAccessor messageSourceAccessor) {
-        Asserts.notNull(messageSourceAccessor, "messageSourceAccessor is required");
-
-        return messageSourceResolvableList
-                .stream()
-                .map(messageSourceAccessor::getMessage)
-                .toList();
-    }
-
-    /**
-     * 通过 {@link MessageSourceAccessor} 解析出错误文本并合成一个字符串 (由逗号分隔)
-     *
-     * @param messageSourceAccessor {@link MessageSourceAccessor} 实例
-     * @return 错误文本
-     */
-    public String toCommaDelimitedString(MessageSourceAccessor messageSourceAccessor) {
-        return String.join(COMMA, toStringList(messageSourceAccessor));
     }
 
 }
