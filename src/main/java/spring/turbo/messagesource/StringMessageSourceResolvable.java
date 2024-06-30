@@ -26,8 +26,11 @@ import java.io.Serializable;
 public record StringMessageSourceResolvable(String errorMessage) implements MessageSourceResolvable, Serializable {
 
     public static StringMessageSourceResolvable of(String errorMessage) {
-        Asserts.hasText(errorMessage, "errorMessage is required");
         return new StringMessageSourceResolvable(errorMessage);
+    }
+
+    public StringMessageSourceResolvable {
+        Asserts.hasText(errorMessage, "errorMessage is required");
     }
 
     @Nullable

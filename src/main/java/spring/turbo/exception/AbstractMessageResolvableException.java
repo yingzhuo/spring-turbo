@@ -10,6 +10,7 @@ package spring.turbo.exception;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
@@ -19,8 +20,14 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
+ * 实现了 {@link MessageSourceResolvable} 的异常类
+ *
  * @author 应卓
- * @see org.springframework.context.MessageSourceResolvable
+ * @see MessageSource
+ * @see MessageSourceAccessor
+ * @see MessageSourceResolvable
+ * @see Locale
+ * @see org.springframework.context.i18n.LocaleContextHolder
  * @since 3.3.2
  */
 public abstract class AbstractMessageResolvableException extends IllegalArgumentException implements MessageSourceResolvable {
@@ -79,12 +86,17 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
 
     public final String toString(MessageSource messageSource, @Nullable Locale locale) {
         Asserts.notNull(messageSource, "messageSource is required");
-        return messageSource.getMessage(this, Objects.requireNonNullElseGet(locale, Locale::getDefault));
+        var localeToUse = Objects.requireNonNullElseGet(locale, this::getLocale);
+        return messageSource.getMessage(this, localeToUse);
     }
 
     public final String toString(MessageSourceAccessor messageSourceAccessor) {
         Asserts.notNull(messageSourceAccessor, "messageSourceAccessor is required");
         return messageSourceAccessor.getMessage(this);
+    }
+
+    public final Locale getLocale() {
+        return LocaleContextHolder.getLocale();
     }
 
     @Nullable

@@ -33,9 +33,9 @@ import static spring.turbo.util.StringPool.COMMA;
  * @see org.springframework.context.i18n.LocaleContextHolder
  * @since 3.3.2
  */
-public final class BadParametersException extends RuntimeException {
+public final class BadParametersException extends RuntimeException implements Iterable<MessageSourceResolvable> {
 
-    private final Collection<MessageSourceResolvable> messageSourceResolvableCollection;
+    private final List<MessageSourceResolvable> messageSourceResolvableList;
 
     /**
      * 构造方法
@@ -46,7 +46,7 @@ public final class BadParametersException extends RuntimeException {
         Asserts.notNull(errors, "errors is required");
         Asserts.isTrue(errors.hasErrors(), "errors has no errors");
 
-        messageSourceResolvableCollection =
+        messageSourceResolvableList =
                 errors.getAllErrors()
                         .stream()
                         .map(e -> (MessageSourceResolvable) e)
@@ -78,7 +78,7 @@ public final class BadParametersException extends RuntimeException {
                         .toList()
         );
 
-        this.messageSourceResolvableCollection = Collections.unmodifiableCollection(list);
+        this.messageSourceResolvableList = Collections.unmodifiableList(list);
     }
 
     /**
@@ -86,8 +86,16 @@ public final class BadParametersException extends RuntimeException {
      *
      * @return {@link MessageSourceResolvable} 集合
      */
-    public Collection<MessageSourceResolvable> getMessageSourceResolvableCollection() {
-        return messageSourceResolvableCollection;
+    public Collection<MessageSourceResolvable> getMessageSourceResolvableList() {
+        return messageSourceResolvableList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterator<MessageSourceResolvable> iterator() {
+        return messageSourceResolvableList.iterator();
     }
 
     /**
@@ -96,7 +104,7 @@ public final class BadParametersException extends RuntimeException {
      * @return 错误数量
      */
     public int errorCount() {
-        return messageSourceResolvableCollection.size();
+        return messageSourceResolvableList.size();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -122,7 +130,7 @@ public final class BadParametersException extends RuntimeException {
         Asserts.notNull(messageSource, "messageSource is required");
 
         final var localeToUse = Objects.requireNonNullElseGet(locale, Locale::getDefault);
-        return messageSourceResolvableCollection
+        return messageSourceResolvableList
                 .stream()
                 .map(messageSourceResolvable -> messageSource.getMessage(messageSourceResolvable, localeToUse))
                 .toList();
@@ -160,7 +168,7 @@ public final class BadParametersException extends RuntimeException {
     public List<String> toStringList(MessageSourceAccessor messageSourceAccessor) {
         Asserts.notNull(messageSourceAccessor, "messageSourceAccessor is required");
 
-        return messageSourceResolvableCollection
+        return messageSourceResolvableList
                 .stream()
                 .map(messageSourceAccessor::getMessage)
                 .toList();

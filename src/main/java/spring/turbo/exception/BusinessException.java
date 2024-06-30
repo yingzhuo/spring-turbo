@@ -14,6 +14,7 @@ import org.springframework.lang.Nullable;
  * 业务异常
  *
  * @author 应卓
+ * @see BusinessAsserts
  * @since 3.3.2
  */
 public final class BusinessException extends AbstractMessageResolvableException {
