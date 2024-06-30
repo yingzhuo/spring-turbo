@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
+import org.springframework.context.MessageSourceResolvable;
 import org.springframework.lang.Nullable;
 
 /**
@@ -19,28 +20,37 @@ import org.springframework.lang.Nullable;
  */
 public final class BusinessException extends AbstractMessageResolvableException {
 
-    public static BusinessException of(String defaultMsg) {
-        throw new BusinessException(defaultMsg);
-    }
-
-    public static BusinessException of(String code, @Nullable Object[] arguments) {
-        throw new BusinessException(code, arguments);
-    }
-
-    public BusinessException(String code, @Nullable Object[] arguments) {
+    /**
+     * 构造方法
+     *
+     * @param code      解析错误信息用code
+     * @param arguments 解析错误信息用参数
+     * @see MessageSourceResolvable
+     */
+    public BusinessException(@Nullable String code, @Nullable Object... arguments) {
         super(code, arguments);
     }
 
-    public BusinessException(String defaultMessage) {
+    /**
+     * 构造方法
+     *
+     * @param defaultMessage 默认错误信息
+     * @see MessageSourceResolvable
+     */
+    public BusinessException(@Nullable String defaultMessage) {
         super(defaultMessage);
     }
 
+    /**
+     * 构造方法
+     *
+     * @param code           解析错误信息用code
+     * @param arguments      解析错误信息用参数
+     * @param defaultMessage 默认错误信息
+     * @see MessageSourceResolvable
+     */
     public BusinessException(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
         super(code, arguments, defaultMessage);
-    }
-
-    public static BusinessException of(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
-        throw new BusinessException(code, arguments, defaultMessage);
     }
 
 }

@@ -33,7 +33,7 @@ import static spring.turbo.util.StringPool.COMMA;
  * @see org.springframework.context.i18n.LocaleContextHolder
  * @since 3.3.2
  */
-public final class BadParametersException extends RuntimeException implements Iterable<MessageSourceResolvable> {
+public final class ParametersNoGoodException extends RuntimeException implements Iterable<MessageSourceResolvable> {
 
     private final List<MessageSourceResolvable> messageSourceResolvableList;
 
@@ -42,7 +42,7 @@ public final class BadParametersException extends RuntimeException implements It
      *
      * @param errors 数据绑定错误
      */
-    public BadParametersException(Errors errors) {
+    public ParametersNoGoodException(Errors errors) {
         Asserts.notNull(errors, "errors is required");
         Asserts.isTrue(errors.hasErrors(), "errors has no errors");
 
@@ -58,7 +58,7 @@ public final class BadParametersException extends RuntimeException implements It
      *
      * @param bindingResult 数据绑定错误
      */
-    public BadParametersException(BindingResult bindingResult) {
+    public ParametersNoGoodException(BindingResult bindingResult) {
         this((Errors) bindingResult);
     }
 
@@ -68,7 +68,7 @@ public final class BadParametersException extends RuntimeException implements It
      * @param errorMessage 错误信息
      * @param moreMessages 更多错误信息
      */
-    public BadParametersException(String errorMessage, String... moreMessages) {
+    public ParametersNoGoodException(String errorMessage, String... moreMessages) {
         var list = new ArrayList<MessageSourceResolvable>();
         list.add(StringMessageSourceResolvable.of(errorMessage));
 

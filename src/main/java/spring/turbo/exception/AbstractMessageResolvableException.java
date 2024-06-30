@@ -11,20 +11,17 @@ package spring.turbo.exception;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;
 
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * 实现了 {@link MessageSourceResolvable} 的异常类
  *
  * @author 应卓
  * @see MessageSource
- * @see MessageSourceAccessor
  * @see MessageSourceResolvable
  * @see Locale
  * @see org.springframework.context.i18n.LocaleContextHolder
@@ -41,39 +38,63 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
     @Nullable
     private final String defaultMessage;
 
-    public AbstractMessageResolvableException(String code, @Nullable Object[] arguments) {
+    /**
+     * 构造方法
+     *
+     * @param code      解析错误信息用code
+     * @param arguments 解析错误信息用参数
+     * @see MessageSourceResolvable
+     */
+    public AbstractMessageResolvableException(@Nullable String code, @Nullable Object[] arguments) {
         this(code, arguments, null);
     }
 
-    public AbstractMessageResolvableException(String defaultMessage) {
+    /**
+     * 构造方法
+     *
+     * @param defaultMessage 默认错误信息
+     * @see MessageSourceResolvable
+     */
+    public AbstractMessageResolvableException(@Nullable String defaultMessage) {
         this(null, null, defaultMessage);
     }
 
+    /**
+     * 构造方法
+     *
+     * @param code           解析错误信息用code
+     * @param arguments      解析错误信息用参数
+     * @param defaultMessage 默认错误信息
+     * @see MessageSourceResolvable
+     */
     public AbstractMessageResolvableException(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
         super(defaultMessage);
-        this.code = blankToNull(code);
+        this.code = (code == null || code.isBlank() ? null : code);
         this.arguments = arguments;
-        this.defaultMessage = blankToNull(defaultMessage);
-
-        if (this.code == null && this.defaultMessage == null) {
-            throw new AssertionError("code/defaultMessage at least one required");
-        }
+        this.defaultMessage = (defaultMessage == null || defaultMessage.isBlank() ? null : code);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public final String[] getCodes() {
-        return Optional.ofNullable(this.code)
-                .map(code -> new String[]{code})
-                .orElse(null);
+        return code != null ? new String[]{code} : null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public final Object[] getArguments() {
         return this.arguments;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public final String getDefaultMessage() {
@@ -86,22 +107,8 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
 
     public final String toString(MessageSource messageSource, @Nullable Locale locale) {
         Asserts.notNull(messageSource, "messageSource is required");
-        var localeToUse = Objects.requireNonNullElseGet(locale, this::getLocale);
+        var localeToUse = Objects.requireNonNullElseGet(locale, LocaleContextHolder::getLocale);
         return messageSource.getMessage(this, localeToUse);
-    }
-
-    public final String toString(MessageSourceAccessor messageSourceAccessor) {
-        Asserts.notNull(messageSourceAccessor, "messageSourceAccessor is required");
-        return messageSourceAccessor.getMessage(this);
-    }
-
-    public final Locale getLocale() {
-        return LocaleContextHolder.getLocale();
-    }
-
-    @Nullable
-    private String blankToNull(@Nullable String s) {
-        return s == null || s.isBlank() ? null : s;
     }
 
 }

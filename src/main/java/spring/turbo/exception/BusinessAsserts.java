@@ -36,61 +36,61 @@ public final class BusinessAsserts {
     public static void assertNotNull(@Nullable Object o, String message) {
         Asserts.notNull(message);
         if (o == null) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertNotNull(@Nullable Object o, String code, @Nullable Object... args) {
         if (o == null) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static <T> void assertNotEmpty(@Nullable Collection<T> o, String message) {
         Asserts.notNull(message);
         if (CollectionUtils.isEmpty(o)) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static <T> void assertNotEmpty(@Nullable Collection<T> o, String code, @Nullable Object... args) {
         if (CollectionUtils.isEmpty(o)) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static <K, V> void assertNotEmpty(@Nullable Map<K, V> o, String message) {
         Asserts.notNull(message);
         if (CollectionUtils.isEmpty(o)) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static <K, V> void assertNotEmpty(@Nullable Map<K, V> o, String code, @Nullable Object... args) {
         if (CollectionUtils.isEmpty(o)) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static <T> void assertNoNullElements(@Nullable Collection<T> o, String message) {
         Asserts.notNull(message);
         if (CollectionUtils.isEmpty(o)) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
         for (T it : o) {
             if (it == null) {
-                throw BusinessException.of(message);
+                throw new BusinessException(message);
             }
         }
     }
 
     public static <T> void assertNoNullElements(@Nullable Collection<T> o, String code, @Nullable Object... args) {
         if (CollectionUtils.isEmpty(o)) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
         for (T it : o) {
             if (it == null) {
-                throw BusinessException.of(code, args);
+                throw new BusinessException(code, args);
             }
         }
     }
@@ -98,144 +98,144 @@ public final class BusinessAsserts {
     public static void assertNotEmpty(@Nullable CharSequence string, String message) {
         Asserts.notNull(message);
         if (!StringUtils.hasLength(string)) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertNotEmpty(@Nullable CharSequence string, String code, @Nullable Object... args) {
         if (!StringUtils.hasLength(string)) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static void assertNotBlank(@Nullable CharSequence string, String message) {
         Asserts.notNull(message);
         if (!StringUtils.hasText(string)) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertNotBlank(@Nullable CharSequence string, String code, @Nullable Object... args) {
         if (!StringUtils.hasText(string)) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static void assertPositive(@Nullable Number number, String message) {
         Asserts.notNull(message);
         if (number == null || number.doubleValue() <= 0D) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertPositive(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() <= 0D) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static void assertPositiveOrZero(@Nullable Number number, String message) {
         Asserts.notNull(message);
         if (number == null || number.doubleValue() < 0D) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertPositiveOrZero(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() < 0D) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static void assertZero(@Nullable Number number, String message) {
         Asserts.notNull(message);
         if (number == null || number.doubleValue() != 0D) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertZero(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() != 0D) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static void assertNegative(@Nullable Number number, String message) {
         Asserts.notNull(message);
         if (number == null || number.doubleValue() >= 0D) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertNegative(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() >= 0D) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static void assertNegativeOrZero(@Nullable Number number, String message) {
         Asserts.notNull(message);
         if (number == null || number.doubleValue() > 0D) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertNegativeOrZero(@Nullable Number number, String code, @Nullable Object... args) {
         if (number == null || number.doubleValue() > 0D) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static void assertEquals(@Nullable Object o1, @Nullable Object o2, String message) {
         Asserts.notNull(message);
         if (!Objects.equals(o1, o2)) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertEquals(@Nullable Object o1, @Nullable Object o2, String code, @Nullable Object... args) {
         if (!Objects.equals(o1, o2)) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static void assertSameObject(@Nullable Object o1, @Nullable Object o2, String message) {
         Asserts.notNull(message);
         if (o1 != o2) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertSameObject(@Nullable Object o1, @Nullable Object o2, String code,
                                         @Nullable Object... args) {
         if (o1 != o2) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static void assertTrue(boolean state, String message) {
         Asserts.notNull(message);
         if (!state) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertTrue(boolean state, String code, @Nullable Object... args) {
         if (!state) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 
     public static void assertFalse(boolean state, String message) {
         Asserts.notNull(message);
         if (state) {
-            throw BusinessException.of(message);
+            throw new BusinessException(message);
         }
     }
 
     public static void assertFalse(boolean state, String code, @Nullable Object... args) {
         if (state) {
-            throw BusinessException.of(code, args);
+            throw new BusinessException(code, args);
         }
     }
 

@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.exception;
 
+import org.springframework.context.MessageSourceResolvable;
 import org.springframework.lang.Nullable;
 
 /**
@@ -19,29 +20,38 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.core.convert.ConversionService
  * @since 3.3.2
  */
-public class BadConversionException extends AbstractMessageResolvableException {
+public class ConversionNoGoodException extends AbstractMessageResolvableException implements MessageSourceResolvable {
 
-    public static BadConversionException of(String defaultMsg) {
-        throw new BadConversionException(defaultMsg);
-    }
-
-    public static BadConversionException of(String code, @Nullable Object[] arguments) {
-        throw new BadConversionException(code, arguments);
-    }
-
-    public static BadConversionException of(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
-        throw new BadConversionException(code, arguments, defaultMessage);
-    }
-
-    public BadConversionException(String code, @Nullable Object[] arguments) {
+    /**
+     * 构造方法
+     *
+     * @param code      解析错误信息用code
+     * @param arguments 解析错误信息用参数
+     * @see MessageSourceResolvable
+     */
+    public ConversionNoGoodException(@Nullable String code, @Nullable Object... arguments) {
         super(code, arguments);
     }
 
-    public BadConversionException(String defaultMessage) {
+    /**
+     * 构造方法
+     *
+     * @param defaultMessage 默认错误信息
+     * @see MessageSourceResolvable
+     */
+    public ConversionNoGoodException(@Nullable String defaultMessage) {
         super(defaultMessage);
     }
 
-    public BadConversionException(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
+    /**
+     * 构造方法
+     *
+     * @param code           解析错误信息用code
+     * @param arguments      解析错误信息用参数
+     * @param defaultMessage 默认错误信息
+     * @see MessageSourceResolvable
+     */
+    public ConversionNoGoodException(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
         super(code, arguments, defaultMessage);
     }
 
