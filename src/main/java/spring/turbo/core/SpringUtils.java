@@ -184,7 +184,6 @@ public final class SpringUtils {
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      * @see MessageSource
      * @see org.springframework.context.support.MessageSourceAccessor
-     * @see MessageUtils
      */
     public static MessageSource getMessageSource() {
         return getApplicationContext();

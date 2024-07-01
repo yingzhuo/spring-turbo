@@ -25,6 +25,7 @@ import static spring.turbo.core.SpringUtils.getRequiredBean;
  * @see MessageSourceResolvable
  * @since 1.0.11
  */
+@Deprecated(forRemoval = true, since = "3.3.2")
 public final class MessageUtils {
 
     /**
