@@ -127,6 +127,13 @@ public final class ArrayUtils {
         return toUnmodifiableSet(array).contains(elementToFind);
     }
 
+    /**
+     * 没有数据的数组转成空值
+     *
+     * @param array 数组
+     * @param <T>   数组元素类型
+     * @return 结果
+     */
     @Nullable
     public static <T> T[] emptyToNull(@Nullable T[] array) {
         if (array == null || array.length == 0) {
