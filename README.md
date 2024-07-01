@@ -7,11 +7,11 @@
 | 软件              | 版本     |
 |-----------------|--------|
 | JDK             | 17+    |
- | Maven           | 3.6.3+ |
+| Maven           | 3.6.3+ |
 | SpringFramework | 6.0.0+ |
 | SpringBoot      | 3.0.0+ |
 | SpringSecurity  | 6.0.0+ |
- 
+
 ### 安装 (Maven)
 
 ```xml

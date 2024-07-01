@@ -100,7 +100,7 @@ public final class NotImplementedException extends UnsupportedOperationException
      * @param messageSource {@link MessageSource} 实例
      * @return 错误信息
      */
-    public String toString(MessageSource messageSource) {
+    public String toString(@Nullable MessageSource messageSource) {
         return toString(messageSource, null);
     }
 
@@ -111,7 +111,7 @@ public final class NotImplementedException extends UnsupportedOperationException
      * @param locale        locale
      * @return 错误信息
      */
-    public String toString(MessageSource messageSource, @Nullable Locale locale) {
+    public String toString(@Nullable MessageSource messageSource, @Nullable Locale locale) {
         return MessageSourceUtils.getMessage(messageSource, this, locale);
     }
 

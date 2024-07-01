@@ -23,17 +23,15 @@ import java.util.stream.Collectors;
 import static spring.turbo.util.StringPool.COMMA;
 
 /**
- * 错误的参数异常
+ * 数据绑定及校检错误
  *
  * @author 应卓
+ * @see #raiseIfNecessary(Errors)
  * @see Errors
  * @see BindingResult
- * @see MessageSource
- * @see Locale
- * @see org.springframework.context.i18n.LocaleContextHolder
  * @since 3.3.2
  */
-public final class ParametersNoGoodException extends RuntimeException implements Iterable<MessageSourceResolvable> {
+public final class ValidationException extends RuntimeException implements Iterable<MessageSourceResolvable> {
 
     private final List<MessageSourceResolvable> messageSourceResolvableList;
 
@@ -42,9 +40,9 @@ public final class ParametersNoGoodException extends RuntimeException implements
      *
      * @param errors 数据绑定错误
      */
-    public ParametersNoGoodException(Errors errors) {
+    public ValidationException(Errors errors) {
         Asserts.notNull(errors, "errors is required");
-        Asserts.isTrue(errors.hasErrors(), "errors has no errors");
+        Asserts.isTrue(errors.hasErrors(), "no error");
 
         messageSourceResolvableList =
                 errors.getAllErrors()
@@ -58,7 +56,7 @@ public final class ParametersNoGoodException extends RuntimeException implements
      *
      * @param bindingResult 数据绑定错误
      */
-    public ParametersNoGoodException(BindingResult bindingResult) {
+    public ValidationException(BindingResult bindingResult) {
         this((Errors) bindingResult);
     }
 
@@ -68,7 +66,7 @@ public final class ParametersNoGoodException extends RuntimeException implements
      * @param errorMessage 错误信息
      * @param moreMessages 更多错误信息
      */
-    public ParametersNoGoodException(String errorMessage, String... moreMessages) {
+    public ValidationException(String errorMessage, String... moreMessages) {
         var list = new ArrayList<MessageSourceResolvable>();
         list.add(new StringMessageSourceResolvable(errorMessage));
 
@@ -79,6 +77,17 @@ public final class ParametersNoGoodException extends RuntimeException implements
         );
 
         this.messageSourceResolvableList = Collections.unmodifiableList(list);
+    }
+
+    /**
+     * 如果有错误，则抛出异常。否则无任何动作。
+     *
+     * @param errors errors
+     */
+    public static void raiseIfNecessary(Errors errors) {
+        if (errors.hasErrors()) {
+            throw new ValidationException(errors);
+        }
     }
 
     /**
@@ -107,15 +116,13 @@ public final class ParametersNoGoodException extends RuntimeException implements
         return messageSourceResolvableList.size();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     /**
      * 通过 {@link MessageSource} 解析出错误文本
      *
      * @param messageSource {@link MessageSource} 实例
      * @return 错误文本
      */
-    public List<String> toStringList(MessageSource messageSource) {
+    public List<String> toStringList(@Nullable MessageSource messageSource) {
         return toStringList(messageSource, null);
     }
 
@@ -126,7 +133,7 @@ public final class ParametersNoGoodException extends RuntimeException implements
      * @param locale        locale
      * @return 错误文本
      */
-    public List<String> toStringList(MessageSource messageSource, @Nullable Locale locale) {
+    public List<String> toStringList(@Nullable MessageSource messageSource, @Nullable Locale locale) {
         Asserts.notNull(messageSource, "messageSource is required");
 
         return messageSourceResolvableList
@@ -141,7 +148,7 @@ public final class ParametersNoGoodException extends RuntimeException implements
      * @param messageSource {@link MessageSource} 实例
      * @return 错误文本
      */
-    public String toCommaDelimitedString(MessageSource messageSource) {
+    public String toCommaDelimitedString(@Nullable MessageSource messageSource) {
         return toCommaDelimitedString(messageSource, null);
     }
 
@@ -152,7 +159,7 @@ public final class ParametersNoGoodException extends RuntimeException implements
      * @param locale        locale
      * @return 错误文本
      */
-    public String toCommaDelimitedString(MessageSource messageSource, @Nullable Locale locale) {
+    public String toCommaDelimitedString(@Nullable MessageSource messageSource, @Nullable Locale locale) {
         return String.join(COMMA, toStringList(messageSource, locale));
     }
 

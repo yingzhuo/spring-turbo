@@ -10,17 +10,19 @@ package spring.turbo.exception;
 
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.ObjectError;
+import spring.turbo.databinding.SmartBindingErrorProcessor;
 
 /**
- * 数据转换异常
+ * 数据转换异常 <br>
+ * 建议数据类型转换失败时抛出次异常。配合{@link SmartBindingErrorProcessor}，可以把本类型转换成 {@link ObjectError}。
  *
  * @author 应卓
  * @see org.springframework.core.convert.converter.Converter
  * @see org.springframework.core.convert.converter.GenericConverter
- * @see org.springframework.core.convert.ConversionService
  * @since 3.3.2
  */
-public class ConversionNoGoodException extends AbstractMessageResolvableException implements MessageSourceResolvable {
+public class ConversionFailedException extends AbstractMessageResolvableException implements MessageSourceResolvable {
 
     /**
      * 构造方法
@@ -29,7 +31,7 @@ public class ConversionNoGoodException extends AbstractMessageResolvableExceptio
      * @param arguments 解析错误信息用参数
      * @see MessageSourceResolvable
      */
-    public ConversionNoGoodException(@Nullable String code, @Nullable Object... arguments) {
+    public ConversionFailedException(@Nullable String code, @Nullable Object... arguments) {
         super(code, arguments);
     }
 
@@ -39,7 +41,7 @@ public class ConversionNoGoodException extends AbstractMessageResolvableExceptio
      * @param defaultMessage 默认错误信息
      * @see MessageSourceResolvable
      */
-    public ConversionNoGoodException(@Nullable String defaultMessage) {
+    public ConversionFailedException(@Nullable String defaultMessage) {
         super(defaultMessage);
     }
 
@@ -51,7 +53,7 @@ public class ConversionNoGoodException extends AbstractMessageResolvableExceptio
      * @param defaultMessage 默认错误信息
      * @see MessageSourceResolvable
      */
-    public ConversionNoGoodException(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
+    public ConversionFailedException(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
         super(code, arguments, defaultMessage);
     }
 
