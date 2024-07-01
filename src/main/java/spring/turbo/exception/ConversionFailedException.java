@@ -15,7 +15,7 @@ import spring.turbo.databinding.SmartBindingErrorProcessor;
 
 /**
  * 数据转换异常 <br>
- * 建议数据类型转换失败时抛出次异常。配合{@link SmartBindingErrorProcessor}，可以把本类型转换成 {@link ObjectError}。
+ * 建议数据类型转换失败时抛出此异常。配合{@link SmartBindingErrorProcessor}，可以把本类型转换成 {@link ObjectError}。
  *
  * @author 应卓
  * @see org.springframework.core.convert.converter.Converter
