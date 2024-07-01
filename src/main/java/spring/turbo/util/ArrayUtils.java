@@ -127,4 +127,12 @@ public final class ArrayUtils {
         return toUnmodifiableSet(array).contains(elementToFind);
     }
 
+    @Nullable
+    public static <T> T[] emptyToNull(@Nullable T[] array) {
+        if (array == null || array.length == 0) {
+            return null;
+        }
+        return array;
+    }
+
 }

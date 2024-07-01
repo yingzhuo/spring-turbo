@@ -788,7 +788,9 @@ public final class StringUtils {
         Asserts.notNull(collection, "collection is null");
         return String.join(
                 Objects.requireNonNullElse(delimiter, EMPTY),
-                collection.stream().map(Object::toString).toList()
+                collection.stream()
+                        .map(Object::toString)
+                        .toList()
         );
     }
 
@@ -800,6 +802,24 @@ public final class StringUtils {
             return null;
         }
         return string.replaceAll("\\s+", EMPTY);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Nullable
+    public static String emptyToNull(@Nullable String string) {
+        if (string == null || string.isEmpty()) {
+            return null;
+        }
+        return string;
+    }
+
+    @Nullable
+    public static String blankToNull(@Nullable String string) {
+        if (string == null || string.isBlank()) {
+            return null;
+        }
+        return string;
     }
 
 }

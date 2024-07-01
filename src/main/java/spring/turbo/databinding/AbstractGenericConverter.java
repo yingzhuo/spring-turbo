@@ -8,15 +8,12 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.databinding;
 
-import org.springframework.context.MessageSourceResolvable;
-import org.springframework.core.NestedExceptionUtils;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
-import spring.turbo.exception.ConversionFailedException;
+import spring.turbo.util.ArrayUtils;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -30,6 +27,19 @@ public abstract class AbstractGenericConverter implements GenericConverter {
 
     private final Set<ConvertiblePair> convertibleTypes;
 
+    public AbstractGenericConverter(Class<?> sourceType, Class<?> targetType, Class<?>... moreTargetTypes) {
+        Set<ConvertiblePair> set = new HashSet<>();
+        set.add(new ConvertiblePair(sourceType, targetType));
+
+        if (!ArrayUtils.isNullOrEmpty(moreTargetTypes)) {
+            for (var it : moreTargetTypes) {
+                set.add(new ConvertiblePair(sourceType, it));
+            }
+        }
+
+        this.convertibleTypes = Collections.unmodifiableSet(set);
+    }
+
     public AbstractGenericConverter(MultiValueMap<Class<?>, Class<?>> supported) {
         Set<ConvertiblePair> set = new HashSet<>();
         if (!CollectionUtils.isEmpty(supported)) {
@@ -42,14 +52,6 @@ public abstract class AbstractGenericConverter implements GenericConverter {
         this.convertibleTypes = Collections.unmodifiableSet(set);
     }
 
-    public AbstractGenericConverter(Class<?> sourceType, Class<?>... targetTypes) {
-        Set<ConvertiblePair> set = new HashSet<>();
-        for (var targetType : targetTypes) {
-            set.add(new ConvertiblePair(sourceType, targetType));
-        }
-        this.convertibleTypes = Collections.unmodifiableSet(set);
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -58,27 +60,16 @@ public abstract class AbstractGenericConverter implements GenericConverter {
         return this.convertibleTypes;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public final Object convert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         try {
             return doConvert(source, sourceType, targetType);
-        } catch (Exception e) {
-
-            if (e instanceof MessageSourceResolvable) {
-                throw e;
-            }
-            var msg = e.getMessage();
-            if (!StringUtils.hasText(msg)) {
-                var rootEx = NestedExceptionUtils.getRootCause(e);
-                if (rootEx != null) {
-                    msg = rootEx.getMessage();
-                }
-            }
-            if (StringUtils.hasText(msg)) {
-                throw new ConversionFailedException(msg);
-            }
-            throw e;
+        } catch (RuntimeException e) {
+            throw ConverterInternalUtils.transform(e);
         }
     }
 

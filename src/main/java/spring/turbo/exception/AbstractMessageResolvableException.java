@@ -12,6 +12,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.lang.Nullable;
 import spring.turbo.core.MessageSourceUtils;
+import spring.turbo.util.ArrayUtils;
+import spring.turbo.util.StringUtils;
 
 import java.util.Locale;
 
@@ -66,10 +68,10 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
      * @see MessageSourceResolvable
      */
     public AbstractMessageResolvableException(@Nullable String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
-        super(defaultMessage);
-        this.code = (code == null || code.isBlank() ? null : code);
-        this.arguments = (arguments == null || arguments.length == 0 ? null : arguments);
-        this.defaultMessage = (defaultMessage == null || defaultMessage.isBlank() ? null : defaultMessage);
+        super(StringUtils.blankToNull(defaultMessage));
+        this.code = StringUtils.blankToNull(code);
+        this.arguments = ArrayUtils.emptyToNull(arguments);
+        this.defaultMessage = StringUtils.blankToNull(defaultMessage);
     }
 
     /**
