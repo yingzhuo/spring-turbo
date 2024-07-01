@@ -62,6 +62,7 @@ public final class SmartBindingErrorProcessor extends DefaultBindingErrorProcess
         super.processPropertyAccessException(ex, bindingResult);
     }
 
+    // 延迟加载
     private static class SyncAvoid {
         private static final SmartBindingErrorProcessor INSTANCE = new SmartBindingErrorProcessor();
     }

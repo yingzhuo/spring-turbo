@@ -21,10 +21,6 @@ import spring.turbo.exception.ConversionFailedException;
  */
 final class ConverterInternalUtils {
 
-    private ConverterInternalUtils() {
-        super();
-    }
-
     public static <T extends RuntimeException> RuntimeException transform(T e) {
         if (e instanceof MessageSourceResolvable) {
             return e;

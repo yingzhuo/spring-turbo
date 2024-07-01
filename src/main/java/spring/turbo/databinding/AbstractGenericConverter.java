@@ -20,7 +20,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * {@link GenericConverter} 辅助工具 <br>
+ * 本类型将尝试转换{@link RuntimeException} 转换成 {@link spring.turbo.exception.ConversionFailedException}。
+ *
  * @author 应卓
+ * @see AbstractConverter
+ * @see AbstractPropertyEditor
  * @since 3.3.2
  */
 public abstract class AbstractGenericConverter implements GenericConverter {
@@ -73,6 +78,14 @@ public abstract class AbstractGenericConverter implements GenericConverter {
         }
     }
 
+    /**
+     * 转换数据
+     *
+     * @param source     源数据
+     * @param sourceType 源数据类型
+     * @param targetType 目标类型
+     * @return 转换结果
+     */
     @Nullable
     protected abstract Object doConvert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType);
 

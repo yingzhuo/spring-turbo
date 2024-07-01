@@ -8,28 +8,27 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.databinding;
 
-import org.springframework.core.convert.converter.Converter;
+import java.beans.PropertyEditor;
+import java.beans.PropertyEditorSupport;
 
 /**
- * {@link Converter} 辅助工具 <br>
+ * {@link PropertyEditor} 辅助工具 <br>
  * 本类型将尝试转换{@link RuntimeException} 转换成 {@link spring.turbo.exception.ConversionFailedException}。
  *
- * @param <S> 源类型泛型
- * @param <T> 目标类型
  * @author 应卓
+ * @see AbstractConverter
  * @see AbstractGenericConverter
- * @see AbstractPropertyEditor
- * @since 3.2.2
+ * @since 3.3.2
  */
-public abstract class AbstractConverter<S, T> implements Converter<S, T> {
+public abstract class AbstractPropertyEditor<T> extends PropertyEditorSupport implements PropertyEditor {
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final T convert(S source) {
+    public final void setAsText(String text) throws IllegalArgumentException {
         try {
-            return doConvert(source);
+            setValue(convert(text));
         } catch (RuntimeException e) {
             throw ConverterInternalUtils.transform(e);
         }
@@ -38,9 +37,9 @@ public abstract class AbstractConverter<S, T> implements Converter<S, T> {
     /**
      * 转换数据
      *
-     * @param source 源数据
+     * @param text 要转换的文本
      * @return 转换结果
      */
-    protected abstract T doConvert(S source);
+    protected abstract T convert(String text);
 
 }
