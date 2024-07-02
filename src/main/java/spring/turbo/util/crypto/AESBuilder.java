@@ -18,6 +18,7 @@ import javax.crypto.spec.IvParameterSpec;
  * @author 应卓
  * @since 3.2.6
  */
+@Deprecated
 public final class AESBuilder {
 
     private final IvParameterSpec ivParameterSpec = AESUtils.generateIv();

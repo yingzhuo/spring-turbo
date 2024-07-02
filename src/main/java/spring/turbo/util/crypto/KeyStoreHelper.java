@@ -78,26 +78,39 @@ public class KeyStoreHelper {
     }
 
     /**
+     * 获取秘钥
+     *
+     * @param keyStore 已加载的密钥库
+     * @param alias    条目名称
+     * @param keypass  秘钥的密码
+     * @param <T>      秘钥类型泛型
+     * @return 秘钥
+     */
+    public static <T extends Key> T getKey(KeyStore keyStore, String alias, String keypass) {
+        Asserts.notNull(keyStore, "keyStore is required");
+        Asserts.hasText(alias, "alias is required");
+        Asserts.notNull(keypass, "privateKeyPass is required");
+
+        try {
+            return (T) keyStore.getKey(alias, keypass.toCharArray());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+    /**
      * 从秘钥库中获取私钥
      *
-     * @param keyStore       已加载的密钥库
-     * @param alias          条目名称
-     * @param privateKeyPass 私钥的密码
-     * @param <T>            私钥类型的泛型
+     * @param keyStore 已加载的密钥库
+     * @param alias    条目名称
+     * @param keypass  私钥的密码
+     * @param <T>      私钥类型的泛型
      * @return 私钥
      * @see #loadKeyStore(InputStream, String) 加载密钥库
      * @see #loadKeyStore(InputStream, KeyStoreFormat, String) 加载密钥库
      */
-    public static <T extends PrivateKey> T getPrivateKeyFromKeyStore(KeyStore keyStore, String alias, String privateKeyPass) {
-        Asserts.notNull(keyStore, "keyStore is required");
-        Asserts.hasText(alias, "alias is required");
-        Asserts.notNull(privateKeyPass, "privateKeyPass is required");
-
-        try {
-            return (T) keyStore.getKey(alias, privateKeyPass.toCharArray());
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
-        }
+    public static <T extends PrivateKey> T getPrivateKey(KeyStore keyStore, String alias, String keypass) {
+        return getKey(keyStore, alias, keypass);
     }
 
     /**
@@ -110,8 +123,8 @@ public class KeyStoreHelper {
      * @see #loadKeyStore(InputStream, String) 加载密钥库
      * @see #loadKeyStore(InputStream, KeyStoreFormat, String) 加载密钥库
      */
-    public static <T extends PublicKey> T getPublicKeyFromKeyStore(KeyStore keyStore, String alias) {
-        var cert = getCertificateFromKeyStore(keyStore, alias);
+    public static <T extends PublicKey> T getPublicKey(KeyStore keyStore, String alias) {
+        var cert = getCertificate(keyStore, alias);
         return (T) cert.getPublicKey();
     }
 
@@ -125,7 +138,7 @@ public class KeyStoreHelper {
      * @see #loadKeyStore(InputStream, String) 加载密钥库
      * @see #loadKeyStore(InputStream, KeyStoreFormat, String) 加载密钥库
      */
-    public static <T extends Certificate> T getCertificateFromKeyStore(KeyStore keyStore, String alias) {
+    public static <T extends Certificate> T getCertificate(KeyStore keyStore, String alias) {
         Asserts.notNull(keyStore, "keyStore is required");
         Asserts.hasText(alias, "alias is required");
 
@@ -146,10 +159,10 @@ public class KeyStoreHelper {
      * @see #loadKeyStore(InputStream, String) 加载密钥库
      * @see #loadKeyStore(InputStream, KeyStoreFormat, String) 加载密钥库
      */
-    public static KeyPair getKeyPairFormKeyStore(KeyStore keyStore, String alias, String keypass) {
+    public static KeyPair getKeyPair(KeyStore keyStore, String alias, String keypass) {
         return new KeyPair(
-                getPublicKeyFromKeyStore(keyStore, alias),
-                getPrivateKeyFromKeyStore(keyStore, alias, keypass)
+                getPublicKey(keyStore, alias),
+                getPrivateKey(keyStore, alias, keypass)
         );
     }
 
@@ -163,7 +176,7 @@ public class KeyStoreHelper {
      * @see #loadKeyStore(InputStream, KeyStoreFormat, String) 加载密钥库
      */
     public static String getSigAlgName(KeyStore keyStore, String alias) {
-        var cert = getCertificateFromKeyStore(keyStore, alias);
+        var cert = getCertificate(keyStore, alias);
         if (cert instanceof X509Certificate x509Cert) {
             return x509Cert.getSigAlgName();
         }
@@ -180,7 +193,7 @@ public class KeyStoreHelper {
      * @see #loadKeyStore(InputStream, KeyStoreFormat, String) 加载密钥库
      */
     public static String getSigAlgOID(KeyStore keyStore, String alias) {
-        var cert = getCertificateFromKeyStore(keyStore, alias);
+        var cert = getCertificate(keyStore, alias);
         if (cert instanceof X509Certificate x509Cert) {
             return x509Cert.getSigAlgOID();
         }
@@ -198,7 +211,7 @@ public class KeyStoreHelper {
      */
     public static boolean containsAlias(KeyStore keyStore, String alias) {
         try {
-            return keyStore.isKeyEntry(alias);
+            return keyStore.containsAlias(alias);
         } catch (KeyStoreException e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }

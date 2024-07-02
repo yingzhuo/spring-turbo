@@ -20,6 +20,7 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  * @author 应卓
  * @since 1.0.0
  */
+@Deprecated
 final class TripleDESImpl implements TripleDES {
 
     private final SecretKeySpec secretKeySpec;

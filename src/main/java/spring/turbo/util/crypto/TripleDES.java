@@ -15,6 +15,7 @@ package spring.turbo.util.crypto;
  * @see #builder()
  * @since 3.2.6
  */
+@Deprecated
 public interface TripleDES {
 
     public static TripleDESBuilder builder() {

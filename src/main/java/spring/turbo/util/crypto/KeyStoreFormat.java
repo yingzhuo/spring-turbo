@@ -9,10 +9,10 @@
 package spring.turbo.util.crypto;
 
 /**
- * {@link java.security.KeyStore}格式类型，只支持两种类型。
+ * {@link java.security.KeyStore}格式类型，本程序库只支持以下两种。
  *
  * <ul>
- *     <li>PKCS12</li>
+ *     <li>PKCS12 (推荐)</li>
  *     <li>JKS</li>
  * </ul>
  *
