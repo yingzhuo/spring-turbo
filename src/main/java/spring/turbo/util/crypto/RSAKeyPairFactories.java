@@ -58,7 +58,7 @@ public final class RSAKeyPairFactories {
             var keyPair = generator.generateKeyPair();
             return new Pair((RSAPublicKey) keyPair.getPublic(), (RSAPrivateKey) keyPair.getPrivate());
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -111,7 +111,7 @@ public final class RSAKeyPairFactories {
 
             return new Pair((RSAPublicKey) pub, (RSAPrivateKey) pri);
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 

@@ -58,7 +58,7 @@ public final class DSAKeyPairFactories {
             var keyPair = generator.generateKeyPair();
             return new Pair((DSAPublicKey) keyPair.getPublic(), (DSAPrivateKey) keyPair.getPrivate());
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -111,7 +111,7 @@ public final class DSAKeyPairFactories {
 
             return new Pair((DSAPublicKey) pub, (DSAPrivateKey) pri);
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 

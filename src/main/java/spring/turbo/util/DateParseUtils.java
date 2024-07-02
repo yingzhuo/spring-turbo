@@ -64,7 +64,7 @@ public final class DateParseUtils {
             formatter.setFallbackPatterns(fallbackPatterns);
             return formatter.parse(string, Locale.getDefault());
         } catch (ParseException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 

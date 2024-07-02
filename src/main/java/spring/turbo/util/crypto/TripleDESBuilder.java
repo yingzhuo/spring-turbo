@@ -15,7 +15,7 @@ import spring.turbo.util.Asserts;
  * @author 应卓
  * @since 3.2.6
  */
-@Deprecated
+@Deprecated(since = "3.3.1")
 public final class TripleDESBuilder {
 
     @Nullable

@@ -16,7 +16,7 @@ package spring.turbo.util.crypto;
  * @see AESUtils
  * @since 3.2.6
  */
-@Deprecated
+@Deprecated(since = "3.3.1")
 public interface AES {
 
     public static AESBuilder builder() {

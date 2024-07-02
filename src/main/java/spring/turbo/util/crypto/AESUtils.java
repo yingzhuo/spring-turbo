@@ -24,7 +24,7 @@ import java.util.Base64;
  * @author 应卓
  * @since 3.2.6
  */
-@Deprecated
+@Deprecated(since = "3.3.1")
 public final class AESUtils {
 
     public static final int KEY_SIZE_128 = 128;

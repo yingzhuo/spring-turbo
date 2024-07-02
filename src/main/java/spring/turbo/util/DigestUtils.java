@@ -47,7 +47,7 @@ public final class DigestUtils {
             var digest = MessageDigest.getInstance(ALG_MD2);
             return digest.digest(data);
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -73,7 +73,7 @@ public final class DigestUtils {
             var digest = MessageDigest.getInstance(ALG_MD5);
             return digest.digest(data);
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -99,7 +99,7 @@ public final class DigestUtils {
             var digest = MessageDigest.getInstance(ALG_SHA_1);
             return digest.digest(data);
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -125,7 +125,7 @@ public final class DigestUtils {
             var digest = MessageDigest.getInstance(ALG_SHA_256);
             return digest.digest(data);
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -151,7 +151,7 @@ public final class DigestUtils {
             var digest = MessageDigest.getInstance(ALG_SHA_384);
             return digest.digest(data);
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -177,7 +177,7 @@ public final class DigestUtils {
             var digest = MessageDigest.getInstance(ALG_SHA_512);
             return digest.digest(data);
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 

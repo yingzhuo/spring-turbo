@@ -18,7 +18,7 @@ import javax.crypto.spec.IvParameterSpec;
  * @author 应卓
  * @since 3.2.6
  */
-@Deprecated
+@Deprecated(since = "3.3.1")
 public final class AESBuilder {
 
     private final IvParameterSpec ivParameterSpec = AESUtils.generateIv();
@@ -42,7 +42,7 @@ public final class AESBuilder {
             this.secretKey = AESUtils.getKeyFromPassword(password, salt);
             return this;
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -61,7 +61,7 @@ public final class AESBuilder {
                 try {
                     return AESUtils.encrypt(mode, input, secretKey, ivParameterSpec);
                 } catch (Exception e) {
-                    throw new IllegalArgumentException(e.getMessage());
+                    throw new IllegalArgumentException(e.getMessage(), e);
                 }
             }
 
@@ -70,7 +70,7 @@ public final class AESBuilder {
                 try {
                     return AESUtils.decrypt(mode, cipherText, secretKey, ivParameterSpec);
                 } catch (Exception e) {
-                    throw new IllegalArgumentException(e.getMessage());
+                    throw new IllegalArgumentException(e.getMessage(), e);
                 }
             }
         };

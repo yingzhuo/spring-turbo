@@ -57,8 +57,8 @@ public final class ECKeyPairFactories {
             generator.initialize(new java.security.spec.ECGenParameterSpec(ecGenParameterSpec.getStdName()), new SecureRandom());
             var keyPair = generator.generateKeyPair();
             return new Pair((ECPublicKey) keyPair.getPublic(), (ECPrivateKey) keyPair.getPrivate());
-        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException e) {
-            throw new IllegalArgumentException(e.getMessage());
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -111,7 +111,7 @@ public final class ECKeyPairFactories {
 
             return new Pair((ECPublicKey) pub, (ECPrivateKey) pri);
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 

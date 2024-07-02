@@ -20,7 +20,7 @@ import static spring.turbo.util.CharsetPool.UTF_8;
  * @author 应卓
  * @since 1.0.0
  */
-@Deprecated
+@Deprecated(since = "3.3.1")
 final class TripleDESImpl implements TripleDES {
 
     private final SecretKeySpec secretKeySpec;
@@ -39,7 +39,7 @@ final class TripleDESImpl implements TripleDES {
             byte[] bytes = cipher.doFinal(input.getBytes(UTF_8));
             return Base64Utils.encodeToString(bytes, true, true);
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -51,7 +51,7 @@ final class TripleDESImpl implements TripleDES {
             byte[] bytes = cipher.doFinal(Base64Utils.decode(cipherText));
             return new String(bytes, UTF_8);
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 

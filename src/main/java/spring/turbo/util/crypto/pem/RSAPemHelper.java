@@ -88,7 +88,7 @@ public final class RSAPemHelper {
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError();
         } catch (InvalidKeySpecException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -122,7 +122,7 @@ public final class RSAPemHelper {
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError();
         } catch (InvalidKeySpecException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
