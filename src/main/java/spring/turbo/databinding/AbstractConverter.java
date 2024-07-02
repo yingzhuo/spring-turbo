@@ -9,10 +9,11 @@
 package spring.turbo.databinding;
 
 import org.springframework.core.convert.converter.Converter;
+import spring.turbo.exception.DataBindingException;
 
 /**
  * {@link Converter} 辅助工具 <br>
- * 本类型将尝试转换{@link RuntimeException} 转换成 {@link spring.turbo.exception.ConversionFailedException}。
+ * 本类型将尝试转换{@link RuntimeException} 转换成 {@link org.springframework.context.MessageSourceResolvable}。
  *
  * @param <S> 源类型泛型
  * @param <T> 目标类型
@@ -31,7 +32,7 @@ public abstract class AbstractConverter<S, T> implements Converter<S, T> {
         try {
             return doConvert(source);
         } catch (RuntimeException e) {
-            throw ConverterInternalUtils.transform(e);
+            throw InternalConverterUtils.transform(e);
         }
     }
 
@@ -40,7 +41,8 @@ public abstract class AbstractConverter<S, T> implements Converter<S, T> {
      *
      * @param source 源数据
      * @return 转换结果
+     * @throws DataBindingException 数据绑定错误
      */
-    protected abstract T doConvert(S source);
+    protected abstract T doConvert(S source) throws DataBindingException;
 
 }

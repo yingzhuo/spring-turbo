@@ -9,33 +9,10 @@
 package spring.turbo.databinding;
 
 import org.springframework.context.MessageSourceResolvable;
-import org.springframework.core.NestedExceptionUtils;
-import org.springframework.util.StringUtils;
-import spring.turbo.exception.ConversionFailedException;
 
 /**
- * 内部工具
- *
  * @author 应卓
  * @since 3.3.1
  */
-final class ConverterInternalUtils {
-
-    public static <T extends RuntimeException> RuntimeException transform(T e) {
-        if (e instanceof MessageSourceResolvable) {
-            return e;
-        }
-        var msg = e.getMessage();
-        if (!StringUtils.hasText(msg)) {
-            var rootEx = NestedExceptionUtils.getRootCause(e);
-            if (rootEx != null) {
-                msg = rootEx.getMessage();
-            }
-        }
-        if (StringUtils.hasText(msg)) {
-            return new ConversionFailedException(msg);
-        }
-        return e;
-    }
-
+public interface MultiMessageSourceResolvable extends Iterable<MessageSourceResolvable> {
 }

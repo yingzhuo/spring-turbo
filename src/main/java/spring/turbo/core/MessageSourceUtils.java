@@ -44,7 +44,7 @@ public final class MessageSourceUtils {
         }
 
         messageSource = messageSource != null ? messageSource : SpringUtils.getMessageSource();
-        locale = locale != null ? locale : LocaleUtils.getLocale();
+        locale = locale != null ? locale : LocaleUtils.getLocale(true);
 
         try {
             return messageSource.getMessage(messageSourceResolvable, locale);

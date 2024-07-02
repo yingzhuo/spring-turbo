@@ -13,7 +13,7 @@ import java.beans.PropertyEditorSupport;
 
 /**
  * {@link PropertyEditor} 辅助工具 <br>
- * 本类型将尝试转换{@link RuntimeException} 转换成 {@link spring.turbo.exception.ConversionFailedException}。
+ * 本类型将尝试转换{@link RuntimeException} 转换成 {@link org.springframework.context.MessageSourceResolvable}。
  *
  * @author 应卓
  * @see AbstractConverter
@@ -30,7 +30,7 @@ public abstract class AbstractPropertyEditor<T> extends PropertyEditorSupport im
         try {
             setValue(convert(text));
         } catch (RuntimeException e) {
-            throw ConverterInternalUtils.transform(e);
+            throw InternalConverterUtils.transform(e);
         }
     }
 

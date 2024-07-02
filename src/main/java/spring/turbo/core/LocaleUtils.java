@@ -33,13 +33,36 @@ public final class LocaleUtils {
      * @return 实例
      */
     public static Locale getLocale() {
+        return getLocale(true);
+    }
+
+    /**
+     * 获取{@link Locale} 实例
+     *
+     * @param removeVariant 是否强制去掉变体部分
+     * @return 实例
+     */
+    public static Locale getLocale(boolean removeVariant) {
+        Locale locale;
         try {
-            var locale = LocaleContextHolder.getLocale();
+            locale = LocaleContextHolder.getLocale();
+        } catch (Throwable e) {
+            locale = Locale.getDefault();
+        }
+
+        if (removeVariant) {
             var lang = locale.getLanguage();
             var country = locale.getCountry();
-            return new Locale(lang, country);
-        } catch (Throwable e) {
-            return Locale.getDefault();
+
+            if (lang != null && country != null) {
+                return new Locale(lang, country);
+            } else if (lang != null) {
+                return new Locale(lang);
+            } else {
+                return Locale.getDefault();
+            }
+        } else {
+            return locale;
         }
     }
 

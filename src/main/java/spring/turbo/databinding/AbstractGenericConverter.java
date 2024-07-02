@@ -13,6 +13,7 @@ import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
+import spring.turbo.exception.DataBindingException;
 import spring.turbo.util.ArrayUtils;
 
 import java.util.Collections;
@@ -21,7 +22,7 @@ import java.util.Set;
 
 /**
  * {@link GenericConverter} 辅助工具 <br>
- * 本类型将尝试转换{@link RuntimeException} 转换成 {@link spring.turbo.exception.ConversionFailedException}。
+ * 本类型将尝试转换{@link RuntimeException} 转换成 {@link org.springframework.context.MessageSourceResolvable}。
  *
  * @author 应卓
  * @see AbstractConverter
@@ -74,7 +75,7 @@ public abstract class AbstractGenericConverter implements GenericConverter {
         try {
             return doConvert(source, sourceType, targetType);
         } catch (RuntimeException e) {
-            throw ConverterInternalUtils.transform(e);
+            throw InternalConverterUtils.transform(e);
         }
     }
 
@@ -85,8 +86,9 @@ public abstract class AbstractGenericConverter implements GenericConverter {
      * @param sourceType 源数据类型
      * @param targetType 目标类型
      * @return 转换结果
+     * @throws DataBindingException 数据绑定错误
      */
     @Nullable
-    protected abstract Object doConvert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType);
+    protected abstract Object doConvert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) throws DataBindingException;
 
 }
