@@ -17,7 +17,7 @@ import java.security.interfaces.RSAPublicKey;
  *
  * @author 应卓
  * @see RSAKeyPairFactories
- * @since 3.3.2
+ * @since 3.3.1
  */
 public interface RSAKeyPair extends TextizedKeyPair<RSAPublicKey, RSAPrivateKey> {
 

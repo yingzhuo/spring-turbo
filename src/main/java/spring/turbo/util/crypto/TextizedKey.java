@@ -22,7 +22,7 @@ import java.util.Base64;
  * @author 应卓
  * @see Key
  * @see #of(Key)
- * @since 3.3.2
+ * @since 3.3.1
  */
 public interface TextizedKey<KEY extends Key> extends Serializable {
 

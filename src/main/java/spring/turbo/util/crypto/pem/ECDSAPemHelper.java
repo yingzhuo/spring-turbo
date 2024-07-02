@@ -25,20 +25,13 @@ import java.security.spec.X509EncodedKeySpec;
 /**
  * 这是一个小工具。可以从PEM文件中读取ECDSA公钥和私钥 <br>
  * 此工具依赖 <a href="https://search.maven.org/search?q=bcprov-jdk15to18">BouncyCastle</a>
- * <em>不妨使用以下脚本生成秘钥</em>
- * <pre>
- * openssl ecparam -list_curves
- * openssl ecparam -name prime256v1 -genkey -noout -out private.ec.key
- * openssl pkcs8 -topk8 -in private.ec.key -out ecdsa-private-key-pkcs8.pem -nocrypt
- * openssl ec -in ecdsa-private-key-pkcs8.pem -pubout -out ecdsa-public-key-x509.pem
- * rm -rf private.ec.key
- * </pre>
  *
  * @author 应卓
+ * @see <a href="https://github.com/yingzhuo/spring-turbo/wiki/2024%E2%80%9007%E2%80%9002%E2%80%90openssl%E2%80%90cheatsheet">2024‐07‐02‐openssl‐cheatsheet</a>
  * @see <a href="https://www.openssl.org/">OpenSSL官方文档</a>
  * @see <a href="https://en.wikipedia.org/wiki/X.509">X509 wiki</a>
  * @see <a href="https://en.wikipedia.org/wiki/PKCS_8">PKCS#8 wiki</a>
- * @since 3.3.2
+ * @since 3.3.1
  */
 public final class ECDSAPemHelper {
 

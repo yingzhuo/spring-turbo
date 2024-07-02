@@ -6,14 +6,11 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util.keystore;
+package spring.turbo.util.crypto;
 
-import org.springframework.core.io.Resource;
-import spring.turbo.io.IOExceptionUtils;
 import spring.turbo.util.Asserts;
 
-import java.io.IOException;
-import java.security.PublicKey;
+import java.io.InputStream;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 
@@ -21,45 +18,32 @@ import java.security.cert.CertificateFactory;
  * 电子证书工具
  *
  * @author 应卓
- * @see KeyStoreUtils
- * @since 1.0.15
+ * @since 3.3.1
  */
-public final class CertificateUtils {
+public final class CertificateHelper {
 
     /**
      * 私有构造方法
      */
-    private CertificateUtils() {
+    private CertificateHelper() {
         super();
     }
 
     /**
      * 获得数字证书
      *
-     * @param certificateResource 证书文件
+     * @param inputStream 流
      * @return 证书
      */
-    public static Certificate getCertificate(Resource certificateResource) {
-        Asserts.notNull(certificateResource);
+    public static Certificate loadCertificate(InputStream inputStream) {
+        Asserts.notNull(inputStream, "inputStream is required");
+
         try {
-            final CertificateFactory factory = CertificateFactory.getInstance("x.509");
-            return factory.generateCertificate(certificateResource.getInputStream());
-        } catch (IOException e) {
-            throw IOExceptionUtils.toUnchecked(e);
+            var factory = CertificateFactory.getInstance("x.509");
+            return factory.generateCertificate(inputStream);
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }
-    }
-
-    /**
-     * 获得公钥
-     *
-     * @param certificateResource 电子证书文件
-     * @return 公钥
-     */
-    public static PublicKey getPublicKeyFromCertificate(Resource certificateResource) {
-        final Certificate cert = getCertificate(certificateResource);
-        return cert.getPublicKey();
     }
 
 }

@@ -37,7 +37,7 @@ hs_err_pid*
 *.bak
 *.backup
 ~*
-sloc.txt
+temp/
 
 # --------------------------------------
 # maven / maven-wrapper

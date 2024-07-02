@@ -20,7 +20,7 @@ import spring.turbo.databinding.SmartBindingErrorProcessor;
  * @author 应卓
  * @see org.springframework.core.convert.converter.Converter
  * @see org.springframework.core.convert.converter.GenericConverter
- * @since 3.3.2
+ * @since 3.3.1
  */
 public class ConversionFailedException extends AbstractMessageResolvableException implements MessageSourceResolvable {
 

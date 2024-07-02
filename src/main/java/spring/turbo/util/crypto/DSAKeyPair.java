@@ -17,7 +17,7 @@ import java.security.interfaces.DSAPublicKey;
  *
  * @author 应卓
  * @see DSAKeyPairFactories
- * @since 3.3.2
+ * @since 3.3.1
  */
 public interface DSAKeyPair extends TextizedKeyPair<DSAPublicKey, DSAPrivateKey> {
 

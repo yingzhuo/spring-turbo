@@ -21,7 +21,7 @@ import java.util.Locale;
  * {@link MessageSource} 相关工具
  *
  * @author 应卓
- * @since 3.3.2
+ * @since 3.3.1
  */
 public final class MessageSourceUtils {
 

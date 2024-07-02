@@ -26,7 +26,7 @@ import java.util.Set;
  * @author 应卓
  * @see AbstractConverter
  * @see AbstractPropertyEditor
- * @since 3.3.2
+ * @since 3.3.1
  */
 public abstract class AbstractGenericConverter implements GenericConverter {
 

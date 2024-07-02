@@ -6,17 +6,20 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util.keystore;
-
-import java.io.Serializable;
+package spring.turbo.util.crypto;
 
 /**
- * KeyStore格式类型
+ * {@link java.security.KeyStore}格式类型，只支持两种类型。
+ *
+ * <ul>
+ *     <li>PKCS12</li>
+ *     <li>JKS</li>
+ * </ul>
  *
  * @author 应卓
- * @since 3.3.0
+ * @since 3.3.1
  */
-public enum KeyStoreFormat implements Serializable {
+public enum KeyStoreFormat {
 
     /**
      * PKCS#12格式, Java9以后此格式为默认。 推荐此格式，文件扩展名为 p12或pfx。
@@ -28,10 +31,6 @@ public enum KeyStoreFormat implements Serializable {
      */
     JKS("JKS");
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // 其他格式不支持
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * 字符串类型值
      */
@@ -42,7 +41,7 @@ public enum KeyStoreFormat implements Serializable {
      *
      * @param value 字符串类型值
      */
-    private KeyStoreFormat(String value) {
+    KeyStoreFormat(String value) {
         this.value = value;
     }
 

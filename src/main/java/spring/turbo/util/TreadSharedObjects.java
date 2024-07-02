@@ -6,43 +6,41 @@
  *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
  *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package spring.turbo.util.threadlocal;
+package spring.turbo.util;
 
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.StringFormatter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 简易工具，在同一线程中保存对象
+ * 简易工具，在同一线程中存取对象
  *
  * @author 应卓
- * @since 3.3.2
+ * @since 3.3.1
  */
 @SuppressWarnings("unchecked")
-public final class SharedObjects {
-
-    /**
-     * 私有构造方法
-     */
-    private SharedObjects() {
-        super();
-    }
+public final class TreadSharedObjects {
 
     /**
      * 按类型保存对象
      */
     private static final ThreadLocal<Map<Class<?>, Object>> TYPE_HOLDER =
-            NamedThreadLocal.withInitial(SharedObjects.class.getName(), HashMap::new);
-
-
+            NamedThreadLocal.withInitial(TreadSharedObjects.class.getName(), HashMap::new);
     /**
      * 按名称保存对象
      */
     private static final ThreadLocal<Map<String, Object>> NAME_HOLDER =
-            NamedThreadLocal.withInitial(SharedObjects.class.getName(), HashMap::new);
+            NamedThreadLocal.withInitial(TreadSharedObjects.class.getName(), HashMap::new);
+
+
+    /**
+     * 私有构造方法
+     */
+    private TreadSharedObjects() {
+        super();
+    }
 
     /**
      * 保存数据

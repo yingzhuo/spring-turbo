@@ -15,7 +15,7 @@ import java.security.interfaces.RSAPublicKey;
 
 /**
  * @author 应卓
- * @since 3.3.2
+ * @since 3.3.1
  */
 class RSAImpl implements RSA {
 

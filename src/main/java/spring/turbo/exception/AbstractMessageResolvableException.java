@@ -25,7 +25,7 @@ import java.util.Locale;
  * @see MessageSourceResolvable
  * @see Locale
  * @see org.springframework.context.i18n.LocaleContextHolder
- * @since 3.3.2
+ * @since 3.3.1
  */
 public abstract class AbstractMessageResolvableException extends IllegalArgumentException implements MessageSourceResolvable {
 

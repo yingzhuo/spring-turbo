@@ -29,7 +29,7 @@ import static spring.turbo.util.StringPool.COMMA;
  * @see #raiseIfNecessary(Errors)
  * @see Errors
  * @see BindingResult
- * @since 3.3.2
+ * @since 3.3.1
  */
 public final class ValidationException extends RuntimeException implements Iterable<MessageSourceResolvable> {
 

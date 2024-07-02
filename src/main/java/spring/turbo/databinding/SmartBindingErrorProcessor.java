@@ -21,7 +21,7 @@ import org.springframework.validation.ObjectError;
  * @see #getInstance()
  * @see org.springframework.validation.DataBinder
  * @see org.springframework.web.bind.WebDataBinder
- * @since 3.3.2
+ * @since 3.3.1
  */
 public final class SmartBindingErrorProcessor extends DefaultBindingErrorProcessor {
 

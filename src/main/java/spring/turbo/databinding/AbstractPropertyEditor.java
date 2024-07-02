@@ -18,7 +18,7 @@ import java.beans.PropertyEditorSupport;
  * @author 应卓
  * @see AbstractConverter
  * @see AbstractGenericConverter
- * @since 3.3.2
+ * @since 3.3.1
  */
 public abstract class AbstractPropertyEditor<T> extends PropertyEditorSupport implements PropertyEditor {
 

@@ -15,7 +15,7 @@ import java.security.interfaces.DSAPublicKey;
 
 /**
  * @author 应卓
- * @since 3.3.2
+ * @since 3.3.1
  */
 class DSAImpl implements DSA {
 

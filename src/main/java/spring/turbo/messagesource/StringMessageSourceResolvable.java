@@ -21,7 +21,7 @@ import java.io.Serializable;
  * @param errorMessage 默认错误信息
  * @author 应卓
  * @see MessageSourceResolvable#getDefaultMessage()
- * @since 3.3.2
+ * @since 3.3.1
  */
 public record StringMessageSourceResolvable(String errorMessage) implements MessageSourceResolvable, Serializable {
 
