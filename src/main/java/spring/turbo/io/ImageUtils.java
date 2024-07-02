@@ -63,7 +63,7 @@ public final class ImageUtils {
     public static String encodeToBase64(BufferedImage image, String format) {
         Asserts.notNull(image);
         Asserts.hasText(format);
-        return Base64Utils.encode(toByteArray(image, format));
+        return Base64Utils.encodeToString(toByteArray(image, format));
     }
 
 }

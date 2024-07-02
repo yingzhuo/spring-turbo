@@ -36,7 +36,7 @@ final class TripleDESImpl implements TripleDES {
             Cipher cipher = Cipher.getInstance("TripleDES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivSpec);
             byte[] bytes = cipher.doFinal(input.getBytes(UTF_8));
-            return Base64Utils.encode(bytes);
+            return Base64Utils.encodeToString(bytes, true, true);
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }

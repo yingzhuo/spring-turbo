@@ -8,31 +8,17 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util;
 
-import org.springframework.lang.Nullable;
-
 import java.util.Base64;
 
 import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
+ * {@link Base64} 相关工具
+ *
  * @author 应卓
- * @since 1.0.0
+ * @since 3.3.1
  */
 public final class Base64Utils {
-
-    private static final byte PAD_DEFAULT = '='; // Allow static access to default
-
-    private static final byte[] DECODE_TABLE = {
-            // 0 1 2 3 4 5 6 7 8 9 A B C D E F
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 00-0f
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 10-1f
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, 62, -1, 63, // 20-2f + - /
-            52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, // 30-3f 0-9
-            -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, // 40-4f A-O
-            15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, 63, // 50-5f P-Z _
-            -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, // 60-6f a-o
-            41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51 // 70-7a p-z
-    };
 
     /**
      * 私有构造方法
@@ -41,52 +27,53 @@ public final class Base64Utils {
         super();
     }
 
-    public static String encode(byte[] data) {
-        var encoder = Base64.getUrlEncoder();
-        return new String(encoder.encode(data));
+    public static byte[] encode(byte[] data) {
+        return encode(data, true, true);
     }
 
-    public static String encodeWithoutPadding(byte[] data) {
-        var encoder = Base64.getUrlEncoder().withoutPadding();
-        return new String(encoder.encode(data));
+    public static byte[] encode(byte[] data, boolean withoutPadding) {
+        return encode(data, withoutPadding, true);
+    }
+
+    public static byte[] encode(byte[] data, boolean withoutPadding, boolean urlSafe) {
+        Base64.Encoder encoder = urlSafe ? Base64.getUrlEncoder() : Base64.getEncoder();
+        if (withoutPadding) {
+            encoder = encoder.withoutPadding();
+        }
+        return encoder.encode(data);
+    }
+
+    public static String encodeToString(byte[] data) {
+        return encodeToString(data, true, true);
+    }
+
+    public static String encodeToString(byte[] data, boolean withoutPadding) {
+        return encodeToString(data, withoutPadding, true);
+    }
+
+    public static String encodeToString(byte[] data, boolean withoutPadding, boolean urlSafe) {
+        Base64.Encoder encoder = urlSafe ? Base64.getUrlEncoder() : Base64.getEncoder();
+        if (withoutPadding) {
+            encoder = encoder.withoutPadding();
+        }
+        return encoder.encodeToString(data);
+    }
+
+    public static byte[] decode(byte[] data) {
+        return decode(data, true);
+    }
+
+    public static byte[] decode(byte[] data, boolean urlSafe) {
+        var decoder = urlSafe ? Base64.getUrlDecoder() : Base64.getDecoder();
+        return decoder.decode(data);
     }
 
     public static byte[] decode(String src) {
-        var decoder = Base64.getUrlDecoder();
-        return decoder.decode(src.getBytes(UTF_8));
+        return decode(src, true);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    public static boolean isBase64(byte octet) {
-        return octet == PAD_DEFAULT || (octet >= 0 && octet < DECODE_TABLE.length && DECODE_TABLE[octet] != -1);
-    }
-
-    public static boolean isBase64(@Nullable byte[] bytes) {
-        if (bytes == null) {
-            return false;
-        }
-
-        for (byte b : bytes) {
-            if (!isBase64(b) && !isWhiteSpace(b)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static boolean isBase64(@Nullable String string) {
-        if (string == null) {
-            return false;
-        }
-        return isBase64(string.getBytes(UTF_8));
-    }
-
-    private static boolean isWhiteSpace(final byte byteToCheck) {
-        return switch (byteToCheck) {
-            case ' ', '\n', '\r', '\t' -> true;
-            default -> false;
-        };
+    public static byte[] decode(String src, boolean urlSafe) {
+        return decode(src.getBytes(UTF_8), urlSafe);
     }
 
 }

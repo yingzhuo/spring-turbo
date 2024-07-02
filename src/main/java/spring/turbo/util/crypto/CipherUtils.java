@@ -8,14 +8,15 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import spring.turbo.util.Asserts;
-
 import javax.crypto.Cipher;
 import java.security.Key;
 
 /**
+ * 加密工具
+ *
  * @author 应卓
- * @since 3.2.6
+ * @see SignerUtils
+ * @since 3.3.1
  */
 public final class CipherUtils {
 
@@ -27,9 +28,6 @@ public final class CipherUtils {
     }
 
     public static byte[] encrypt(byte[] data, Key key) {
-        Asserts.notNull(data);
-        Asserts.notNull(key);
-
         try {
             Cipher cipher = Cipher.getInstance(key.getAlgorithm());
             cipher.init(Cipher.ENCRYPT_MODE, key);
@@ -40,9 +38,6 @@ public final class CipherUtils {
     }
 
     public static byte[] decrypt(byte[] data, Key key) {
-        Asserts.notNull(data);
-        Asserts.notNull(key);
-
         try {
             Cipher cipher = Cipher.getInstance(key.getAlgorithm());
             cipher.init(Cipher.DECRYPT_MODE, key);

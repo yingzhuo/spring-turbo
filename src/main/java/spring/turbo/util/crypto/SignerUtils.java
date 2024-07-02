@@ -8,54 +8,45 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
-import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.Signature;
-import java.security.interfaces.DSAPrivateKey;
-import java.security.interfaces.DSAPublicKey;
 
 /**
+ * 签名工具
+ *
  * @author 应卓
+ * @see CipherUtils
  * @since 3.3.1
  */
-class DSAImpl implements DSA {
-
-    private final DSAPublicKey publicKey;
-    private final DSAPrivateKey privateKey;
-
-    public DSAImpl(DSAPublicKey publicKey, DSAPrivateKey privateKey) {
-        this.publicKey = publicKey;
-        this.privateKey = privateKey;
-    }
+public final class SignerUtils {
 
     /**
-     * {@inheritDoc}
+     * 私有构造方法
      */
-    @Override
-    public byte[] sign(byte[] data, SignerAlgorithm signerAlgorithm) {
+    private SignerUtils() {
+        super();
+    }
+
+    public static byte[] sign(PrivateKey privateKey, byte[] data, String sigAlgName) {
         try {
-            var signature = Signature.getInstance(signerAlgorithm.getAlgorithmName());
+            var signature = Signature.getInstance(sigAlgName);
             signature.initSign(privateKey);
             signature.update(data);
             return signature.sign();
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean verify(byte[] data, byte[] sign, SignerAlgorithm signerAlgorithm) {
+    public static boolean verify(PublicKey publicKey, byte[] data, byte[] sign, String sigAlgName) {
         try {
-            var signature = Signature.getInstance(signerAlgorithm.getAlgorithmName());
+            var signature = Signature.getInstance(sigAlgName);
             signature.initVerify(publicKey);
             signature.update(data);
             return signature.verify(sign);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
