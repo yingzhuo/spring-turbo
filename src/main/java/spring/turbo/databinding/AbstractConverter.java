@@ -41,7 +41,7 @@ public abstract class AbstractConverter<S, T> implements Converter<S, T> {
      *
      * @param source 源数据
      * @return 转换结果
-     * @throws DataBindingException 数据绑定错误
+     * @throws DataBindingException 数据转换失败或数据非法
      */
     protected abstract T doConvert(S source) throws DataBindingException;
 

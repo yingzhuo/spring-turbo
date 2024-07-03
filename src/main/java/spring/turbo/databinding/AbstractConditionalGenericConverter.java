@@ -9,7 +9,7 @@
 package spring.turbo.databinding;
 
 import org.springframework.core.convert.TypeDescriptor;
-import org.springframework.core.convert.converter.GenericConverter;
+import org.springframework.core.convert.converter.ConditionalGenericConverter;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
@@ -21,19 +21,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * {@link GenericConverter} 辅助工具 <br>
+ * {@link ConditionalGenericConverter} 辅助工具 <br>
  * 本类型将尝试转换{@link RuntimeException} 转换成 {@link org.springframework.context.MessageSourceResolvable}。
  *
  * @author 应卓
- * @see AbstractConverter
- * @see AbstractPropertyEditor
  * @since 3.3.1
  */
-public abstract class AbstractGenericConverter implements GenericConverter {
+public abstract class AbstractConditionalGenericConverter implements ConditionalGenericConverter {
 
     private final Set<ConvertiblePair> convertibleTypes;
 
-    public AbstractGenericConverter(Class<?> sourceType, Class<?> targetType, Class<?>... moreTargetTypes) {
+    public AbstractConditionalGenericConverter(Class<?> sourceType, Class<?> targetType, Class<?>... moreTargetTypes) {
         Set<ConvertiblePair> set = new HashSet<>();
         set.add(new ConvertiblePair(sourceType, targetType));
 
@@ -46,7 +44,7 @@ public abstract class AbstractGenericConverter implements GenericConverter {
         this.convertibleTypes = Collections.unmodifiableSet(set);
     }
 
-    public AbstractGenericConverter(MultiValueMap<Class<?>, Class<?>> supported) {
+    public AbstractConditionalGenericConverter(MultiValueMap<Class<?>, Class<?>> supported) {
         Set<ConvertiblePair> set = new HashSet<>();
         if (!CollectionUtils.isEmpty(supported)) {
             for (var sourceType : supported.keySet()) {
@@ -69,9 +67,8 @@ public abstract class AbstractGenericConverter implements GenericConverter {
     /**
      * {@inheritDoc}
      */
-    @Nullable
     @Override
-    public final Object convert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+    public final Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         try {
             return doConvert(source, sourceType, targetType);
         } catch (RuntimeException e) {

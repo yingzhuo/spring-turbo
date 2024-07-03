@@ -7,15 +7,14 @@ import org.springframework.lang.Nullable;
 import org.springframework.validation.Errors;
 import spring.turbo.core.MessageSourceUtils;
 import spring.turbo.databinding.MultiMessageSourceResolvable;
+import spring.turbo.messagesource.SimpleMessageSourceResolvable;
 import spring.turbo.messagesource.StringMessageSourceResolvable;
+import spring.turbo.util.Asserts;
 import spring.turbo.util.StringPool;
 import spring.turbo.util.StringUtils;
 import spring.turbo.util.collection.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -29,11 +28,11 @@ import java.util.stream.Collectors;
  * @author 应卓
  * @since 3.3.1
  */
-public final class DataBindingException extends RuntimeException implements MultiMessageSourceResolvable {
+public class DataBindingException extends IllegalArgumentException implements MultiMessageSourceResolvable {
 
-    private final List<MessageSourceResolvable> innerList = new ArrayList<>();
+    protected final List<MessageSourceResolvable> innerList = new ArrayList<>();
 
-    public static void raiseIfNecessary(Errors errors) {
+    public static void raiseIfNecessary(@Nullable Errors errors) {
         if (errors != null && errors.hasErrors()) {
             var ex = new DataBindingException();
 
@@ -73,6 +72,27 @@ public final class DataBindingException extends RuntimeException implements Mult
         return ex;
     }
 
+    public static DataBindingException of(Collection<MessageSourceResolvable> messageSourceResolvableCollection) {
+        var ex = new DataBindingException();
+        CollectionUtils.nullSafeAddAll(ex.innerList, messageSourceResolvableCollection);
+        return ex;
+    }
+
+    public static DataBindingException ofCode(String code) {
+        return ofCode(code, null, null);
+    }
+
+    public static DataBindingException ofCode(String code, @Nullable Object... arguments) {
+        return ofCode(code, arguments, null);
+    }
+
+    public static DataBindingException ofCode(String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
+        Asserts.hasText(code, "code is required");
+        var ex = new DataBindingException();
+        ex.innerList.add(new SimpleMessageSourceResolvable(code, arguments, defaultMessage));
+        return ex;
+    }
+
     /**
      * 私有构造方法
      */
@@ -80,9 +100,24 @@ public final class DataBindingException extends RuntimeException implements Mult
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Iterator<MessageSourceResolvable> iterator() {
         return innerList.iterator();
+    }
+
+    public int size() {
+        return innerList.size();
+    }
+
+    public boolean isEmpty() {
+        return innerList.isEmpty();
+    }
+
+    public boolean isNotEmpty() {
+        return !innerList.isEmpty();
     }
 
     public List<String> toStringMessages(MessageSource messageSource) {

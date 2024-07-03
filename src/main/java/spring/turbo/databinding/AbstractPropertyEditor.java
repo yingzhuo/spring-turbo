@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.databinding;
 
+import spring.turbo.exception.DataBindingException;
+
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
 
@@ -39,7 +41,8 @@ public abstract class AbstractPropertyEditor<T> extends PropertyEditorSupport im
      *
      * @param text 要转换的文本
      * @return 转换结果
+     * @throws DataBindingException 数据转换失败或数据非法
      */
-    protected abstract T convert(String text);
+    protected abstract T convert(String text) throws DataBindingException;
 
 }
