@@ -10,7 +10,7 @@ package spring.turbo.util;
 
 import java.util.Base64;
 
-import static spring.turbo.util.CharsetPool.UTF_8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * {@link Base64} 相关工具

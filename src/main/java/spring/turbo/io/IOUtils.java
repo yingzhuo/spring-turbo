@@ -11,10 +11,11 @@ package spring.turbo.io;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StreamUtils;
 import spring.turbo.util.Asserts;
-import spring.turbo.util.CharsetPool;
 
 import java.io.*;
 import java.nio.charset.Charset;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author 应卓
@@ -93,7 +94,7 @@ public final class IOUtils {
      * @throws UncheckedIOException IO错误
      */
     public static void copy(String in, OutputStream out) {
-        copy(in, CharsetPool.UTF_8, out);
+        copy(in, UTF_8, out);
     }
 
     /**
@@ -141,7 +142,7 @@ public final class IOUtils {
      * @throws UncheckedIOException IO错误
      */
     public static String copyToString(InputStream in) {
-        return copyToString(in, CharsetPool.UTF_8);
+        return copyToString(in, UTF_8);
     }
 
     /**

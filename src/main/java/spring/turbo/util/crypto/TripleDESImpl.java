@@ -14,7 +14,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import static spring.turbo.util.CharsetPool.UTF_8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author 应卓

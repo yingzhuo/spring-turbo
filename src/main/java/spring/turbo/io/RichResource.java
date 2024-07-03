@@ -24,10 +24,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNullElse;
 import static java.util.Objects.requireNonNullElseGet;
 import static spring.turbo.io.IOExceptionUtils.toUnchecked;
-import static spring.turbo.util.CharsetPool.UTF_8;
 import static spring.turbo.util.StringUtils.blankSafeAddAll;
 import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
 

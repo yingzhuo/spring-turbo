@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static spring.turbo.io.CloseUtils.closeQuietly;
-import static spring.turbo.util.CharsetPool.UTF_8;
 
 /**
  * {@link Resource} 相关工具

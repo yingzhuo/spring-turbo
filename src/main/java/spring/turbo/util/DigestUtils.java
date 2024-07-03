@@ -11,7 +11,7 @@ package spring.turbo.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import static spring.turbo.util.CharsetPool.UTF_8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * 信息摘要工具

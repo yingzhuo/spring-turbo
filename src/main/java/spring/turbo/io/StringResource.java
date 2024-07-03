@@ -10,7 +10,7 @@ package spring.turbo.io;
 
 import java.util.Objects;
 
-import static spring.turbo.util.CharsetPool.UTF_8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * String型Resource
