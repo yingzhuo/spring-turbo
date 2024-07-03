@@ -14,6 +14,8 @@ import spring.turbo.util.EnumUtils;
 import java.util.Optional;
 
 /**
+ * {@link KeyStoreFormat} 专用转换器
+ *
  * @author 应卓
  * @since 3.3.1
  */
@@ -22,7 +24,10 @@ public class KeyStoreFormatEditor extends AbstractPropertyEditor<KeyStoreFormat>
     @Override
     protected KeyStoreFormat convert(String text) {
 
-        if ("fpx".equalsIgnoreCase(text) || "p12".equalsIgnoreCase(text) || "pkcs#12".equalsIgnoreCase(text) || "pkcs12".equalsIgnoreCase(text)) {
+        if ("pfx".equalsIgnoreCase(text) ||
+                "p12".equalsIgnoreCase(text) ||
+                "pkcs#12".equalsIgnoreCase(text) ||
+                "pkcs12".equalsIgnoreCase(text)) {
             return KeyStoreFormat.PKCS12;
         }
 
