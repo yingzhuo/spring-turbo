@@ -8,11 +8,14 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.util.crypto;
 
+import org.springframework.lang.Nullable;
+
 /**
- * {@link java.security.KeyStore}格式类型，本程序库只支持以下两种。
+ * {@link java.security.KeyStore}格式类型，本程序库只支持以下两种。<br>
+ * 其中 <em>PKCS12</em> 为推荐格式
  *
  * <ul>
- *     <li>PKCS12 (推荐)</li>
+ *     <li>PKCS12</li>
  *     <li>JKS</li>
  * </ul>
  *
@@ -31,6 +34,32 @@ public enum KeyStoreFormat {
      * JKS，Java8及以前使用的格式。 文件扩展名为jks。
      */
     JKS("JKS");
+
+    /**
+     * 尝试转换字符串为本美剧类型
+     *
+     * @param value 字符串
+     * @return 结果，有可能为空值
+     */
+    @Nullable
+    public static KeyStoreFormat fromValue(@Nullable String value) {
+        if (value == null) {
+            return null;
+        }
+
+        if ("pfx".equalsIgnoreCase(value) ||
+                "p12".equalsIgnoreCase(value) ||
+                "pkcs#12".equalsIgnoreCase(value) ||
+                "pkcs12".equalsIgnoreCase(value)) {
+            return PKCS12;
+        }
+
+        if ("jks".equalsIgnoreCase(value)) {
+            return JKS;
+        }
+
+        return null;
+    }
 
     /**
      * 字符串类型值

@@ -9,7 +9,6 @@
 package spring.turbo.util.crypto;
 
 import spring.turbo.databinding.AbstractPropertyEditor;
-import spring.turbo.util.EnumUtils;
 
 import java.util.Optional;
 
@@ -21,22 +20,19 @@ import java.util.Optional;
  */
 public class KeyStoreFormatEditor extends AbstractPropertyEditor<KeyStoreFormat> {
 
+    /**
+     * 默认构造方法
+     */
+    public KeyStoreFormatEditor() {
+        super();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected KeyStoreFormat convert(String text) {
-
-        if ("pfx".equalsIgnoreCase(text) ||
-                "p12".equalsIgnoreCase(text) ||
-                "pkcs#12".equalsIgnoreCase(text) ||
-                "pkcs12".equalsIgnoreCase(text)) {
-            return KeyStoreFormat.PKCS12;
-        }
-
-        if ("jks".equalsIgnoreCase(text)) {
-            return KeyStoreFormat.JKS;
-        }
-
-        var format = EnumUtils.getEnumIgnoreCase(KeyStoreFormat.class, text);
-        return Optional.ofNullable(format)
+        return Optional.ofNullable(KeyStoreFormat.fromValue(text))
                 .orElseThrow(IllegalArgumentException::new);
     }
 
