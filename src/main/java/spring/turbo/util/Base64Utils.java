@@ -59,6 +59,24 @@ public final class Base64Utils {
         return encoder.encodeToString(data);
     }
 
+    public static String encodeString(String data) {
+        return encodeString(data, true, true);
+    }
+
+    public static String encodeString(String data, boolean withoutPadding) {
+        return encodeString(data, withoutPadding, true);
+    }
+
+    public static String encodeString(String data, boolean withoutPadding, boolean urlSafe) {
+        Base64.Encoder encoder = urlSafe ? Base64.getUrlEncoder() : Base64.getEncoder();
+        if (withoutPadding) {
+            encoder = encoder.withoutPadding();
+        }
+        return encoder.encodeToString(data.getBytes(UTF_8));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static byte[] decode(byte[] data) {
         return decode(data, true);
     }
@@ -68,12 +86,12 @@ public final class Base64Utils {
         return decoder.decode(data);
     }
 
-    public static byte[] decode(String src) {
-        return decode(src, true);
+    public static String decodeString(String src) {
+        return decodeString(src, true);
     }
 
-    public static byte[] decode(String src, boolean urlSafe) {
-        return decode(src.getBytes(UTF_8), urlSafe);
+    public static String decodeString(String src, boolean urlSafe) {
+        return new String(decode(src.getBytes(UTF_8), urlSafe));
     }
 
 }
