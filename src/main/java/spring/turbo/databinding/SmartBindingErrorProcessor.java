@@ -59,8 +59,8 @@ public final class SmartBindingErrorProcessor extends DefaultBindingErrorProcess
             return;
         }
 
-        if (ex.getRootCause() instanceof MultiMessageSourceResolvable likeList) {
-            for (var resolvable : likeList) {
+        if (ex.getRootCause() instanceof MultiMessageSourceResolvable multiMessageSourceResolvable) {
+            for (var resolvable : multiMessageSourceResolvable) {
                 bindingResult.addError(
                         new ObjectError(
                                 bindingResult.getObjectName(),

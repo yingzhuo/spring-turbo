@@ -8,39 +8,33 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.databinding;
 
+import org.springframework.format.Formatter;
 import spring.turbo.exception.DataBindingException;
 
-import java.beans.PropertyEditor;
-import java.beans.PropertyEditorSupport;
+import java.util.Locale;
 
 /**
- * {@link PropertyEditor} 辅助工具 <br>
+ * {@link Formatter} 辅助工具 <br>
  * 本类型将尝试转换{@link RuntimeException} 转换成 {@link org.springframework.context.MessageSourceResolvable}。
  *
+ * @param <T> 目标类型泛型
  * @author 应卓
  * @since 3.3.1
  */
-public abstract class AbstractPropertyEditor<T> extends PropertyEditorSupport implements PropertyEditor {
+public abstract class AbstractFormatter<T> implements Formatter<T> {
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void setAsText(String text) throws IllegalArgumentException {
+    public final T parse(String text, Locale locale) {
         try {
-            setValue(convert(text));
+            return doParse(text, locale);
         } catch (RuntimeException e) {
             throw InternalConverterUtils.transform(e);
         }
     }
 
-    /**
-     * 转换数据
-     *
-     * @param text 要转换的文本
-     * @return 转换结果
-     * @throws DataBindingException 数据转换失败或数据非法
-     */
-    protected abstract T convert(String text) throws DataBindingException;
+    protected abstract T doParse(String text, Locale locale) throws DataBindingException;
 
 }

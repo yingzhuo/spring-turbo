@@ -21,13 +21,16 @@ import spring.turbo.exception.DataBindingException;
  */
 final class InternalConverterUtils {
 
+    /**
+     * 私有构造方法
+     */
+    private InternalConverterUtils() {
+        super();
+    }
+
     public static <T extends RuntimeException> RuntimeException transform(T e) {
 
-        if (e instanceof MessageSourceResolvable) {
-            return e;
-        }
-
-        if (e instanceof MultiMessageSourceResolvable) {
+        if ((e instanceof MessageSourceResolvable) || (e instanceof MultiMessageSourceResolvable)) {
             return e;
         }
 

@@ -18,8 +18,6 @@ import spring.turbo.exception.DataBindingException;
  * @param <S> 源类型泛型
  * @param <T> 目标类型
  * @author 应卓
- * @see AbstractGenericConverter
- * @see AbstractPropertyEditor
  * @since 3.2.2
  */
 public abstract class AbstractConverter<S, T> implements Converter<S, T> {
