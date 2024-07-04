@@ -20,12 +20,14 @@ import static java.lang.annotation.ElementType.*;
  *
  * @author 应卓
  * @since 1.0.0
+ * @deprecated 建议使用 {@link org.springframework.validation.Validator} 来验证口令等，各个项目验证规则区别太大，元注释设计起来有困难。
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Constraint(validatedBy = PasswordValidator.class)
+@Deprecated(since = "3.3.1")
 public @interface Password {
 
     public static final String DEFAULT_SPECIAL_CHARS = "\"',./<>?;:'{}[]+=-_!@#$%^&*()`~";

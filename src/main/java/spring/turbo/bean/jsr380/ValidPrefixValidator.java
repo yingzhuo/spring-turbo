@@ -25,12 +25,18 @@ public class ValidPrefixValidator implements ConstraintValidator<ValidPrefix, St
 
     private boolean ignoreCase = false;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(ValidPrefix annotation) {
         this.permitPrefix = annotation.value();
         this.ignoreCase = annotation.ignoreCase();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid(@Nullable String value, ConstraintValidatorContext context) {
         if (value == null || permitPrefix == null || permitPrefix.length == 0) {

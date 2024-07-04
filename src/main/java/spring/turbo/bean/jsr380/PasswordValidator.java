@@ -20,6 +20,7 @@ import java.util.Set;
  * @author 应卓
  * @since 1.0.0
  */
+@Deprecated(since = "3.3.1")
 public class PasswordValidator implements ConstraintValidator<Password, CharSequence> {
 
     @Nullable
@@ -39,6 +40,9 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(Password annotation) {
         this.complexity = annotation.complexity();
@@ -47,6 +51,9 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
         this.specialChars = StringUtils.toCharSet(annotation.specialChars());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid(@Nullable CharSequence password, ConstraintValidatorContext context) {
 

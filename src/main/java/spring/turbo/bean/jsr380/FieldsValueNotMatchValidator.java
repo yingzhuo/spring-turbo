@@ -29,12 +29,18 @@ public class FieldsValueNotMatchValidator implements ConstraintValidator<FieldsV
     @Nullable
     private String fieldMatch;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(FieldsValueNotMatch annotation) {
         this.field = annotation.field();
         this.fieldMatch = annotation.fieldMatch();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid(@Nullable Object value, ConstraintValidatorContext context) {
         if (value == null) {

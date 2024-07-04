@@ -25,12 +25,18 @@ public class ValidSuffixValidator implements ConstraintValidator<ValidSuffix, St
 
     private boolean ignoreCase;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(ValidSuffix annotation) {
         this.permitSuffix = annotation.value();
         this.ignoreCase = annotation.ignoreCase();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid(@Nullable String value, ConstraintValidatorContext context) {
         if (value == null || permitSuffix == null || permitSuffix.length == 0) {

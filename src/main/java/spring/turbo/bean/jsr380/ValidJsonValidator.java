@@ -23,6 +23,9 @@ import java.io.IOException;
  */
 public class ValidJsonValidator implements ConstraintValidator<ValidJson, String> {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid(@Nullable String value, ConstraintValidatorContext context) {
         if (value == null) {
@@ -31,6 +34,9 @@ public class ValidJsonValidator implements ConstraintValidator<ValidJson, String
         return isValidJSON(value);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     private boolean isValidJSON(String json) {
         boolean valid = false;
         try {

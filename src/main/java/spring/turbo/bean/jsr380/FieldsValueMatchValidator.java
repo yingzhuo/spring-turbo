@@ -35,6 +35,9 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
         this.fieldMatch = annotation.fieldMatch();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid(@Nullable Object value, ConstraintValidatorContext context) {
         if (value == null) {
