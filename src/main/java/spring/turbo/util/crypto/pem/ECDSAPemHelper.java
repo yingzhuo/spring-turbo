@@ -15,10 +15,8 @@ import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
@@ -85,9 +83,7 @@ public final class ECDSAPemHelper {
             var factory = KeyFactory.getInstance(ALGORITHM);
             var spec = new X509EncodedKeySpec(PemHelper.readPemBytes(inputStream));
             return (ECPublicKey) factory.generatePublic(spec);
-        } catch (NoSuchAlgorithmException e) {
-            throw new AssertionError();
-        } catch (InvalidKeySpecException e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
@@ -119,9 +115,7 @@ public final class ECDSAPemHelper {
             var factory = KeyFactory.getInstance(ALGORITHM);
             var spec = new PKCS8EncodedKeySpec(PemHelper.readPemBytes(inputStream));
             return (ECPrivateKey) factory.generatePrivate(spec);
-        } catch (NoSuchAlgorithmException e) {
-            throw new AssertionError();
-        } catch (InvalidKeySpecException e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }
     }

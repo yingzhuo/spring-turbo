@@ -56,10 +56,8 @@ public final class SpringUtils {
      * @return {@link ApplicationContext}实例
      */
     public static ApplicationContext getApplicationContext() {
-        if (SpringApplicationHolders.AC == null) {
-            throw BEAN_NOT_FOUND.get();
-        }
-        return SpringApplicationHolders.AC;
+        return Optional.ofNullable(SpringApplicationHolders.AC)
+                .orElseThrow(BEAN_NOT_FOUND);
     }
 
     /**
@@ -69,10 +67,8 @@ public final class SpringUtils {
      */
     public static String getApplicationContextId() {
         var id = getApplicationContext().getId();
-        if (id == null) {
-            throw BEAN_NOT_FOUND.get();
-        }
-        return id;
+        return Optional.ofNullable(id)
+                .orElseThrow(BEAN_NOT_FOUND);
     }
 
     /**

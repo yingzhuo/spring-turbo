@@ -476,6 +476,9 @@ public final class ClassDefinition implements BeanDefinition, Comparable<ClassDe
         delegating.setAttribute(name, value);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getAttribute(String name) {
         return delegating.getAttribute(name);

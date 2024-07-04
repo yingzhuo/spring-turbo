@@ -107,7 +107,7 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
     @Override
     public String toString() {
         try {
-            return toString((MessageSource) null);
+            return toString((MessageSource) null, null);
         } catch (Throwable e) {
             return super.toString();
         }
