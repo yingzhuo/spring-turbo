@@ -38,13 +38,4 @@ public interface MultiMessageSourceResolvable extends Iterable<MessageSourceReso
         return StreamFactories.newStream(iterator(), false);
     }
 
-    /**
-     * 转换成 {@link Stream} (parallel)
-     *
-     * @return stream
-     */
-    public default Stream<MessageSourceResolvable> parallelStream() {
-        return StreamFactories.newStream(iterator(), true);
-    }
-
 }

@@ -19,6 +19,7 @@ import spring.turbo.databinding.MultiMessageSourceResolvable;
 import spring.turbo.messagesource.SimpleMessageSourceResolvable;
 import spring.turbo.messagesource.StringMessageSourceResolvable;
 import spring.turbo.util.Asserts;
+import spring.turbo.util.StringFormatter;
 import spring.turbo.util.StringPool;
 import spring.turbo.util.StringUtils;
 import spring.turbo.util.collection.CollectionUtils;
@@ -177,6 +178,18 @@ public class DataBindingException extends IllegalArgumentException implements Mu
         var ex = new DataBindingException();
         ex.innerList.add(new SimpleMessageSourceResolvable(code, arguments, defaultMessage));
         return ex;
+    }
+
+    /**
+     * 创建非国际化的消息
+     *
+     * @param messageTemplate 默认消息模板
+     * @param args            参数
+     * @return 实例
+     * @see StringFormatter
+     */
+    public static DataBindingException formatMessage(String messageTemplate, Object... args) {
+        return of(StringFormatter.format(messageTemplate, args));
     }
 
     /**

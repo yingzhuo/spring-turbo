@@ -36,6 +36,14 @@ public abstract class AbstractParser<T> implements Parser<T> {
         }
     }
 
+    /**
+     * 转换数据
+     *
+     * @param text   源数据
+     * @param locale locale
+     * @return 转换结果
+     * @throws DataBindingException 数据转换失败或数据非法
+     */
     protected abstract T doParse(String text, Locale locale) throws DataBindingException;
 
 }

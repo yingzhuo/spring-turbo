@@ -61,14 +61,16 @@ public final class SmartBindingErrorProcessor extends DefaultBindingErrorProcess
 
         if (ex.getRootCause() instanceof MultiMessageSourceResolvable multiMessageSourceResolvable) {
             for (var resolvable : multiMessageSourceResolvable) {
-                bindingResult.addError(
-                        new ObjectError(
-                                bindingResult.getObjectName(),
-                                resolvable.getCodes(),
-                                resolvable.getArguments(),
-                                resolvable.getDefaultMessage()
-                        )
-                );
+                if (resolvable != null) {
+                    bindingResult.addError(
+                            new ObjectError(
+                                    bindingResult.getObjectName(),
+                                    resolvable.getCodes(),
+                                    resolvable.getArguments(),
+                                    resolvable.getDefaultMessage()
+                            )
+                    );
+                }
             }
             return;
         }

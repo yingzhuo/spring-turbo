@@ -44,6 +44,12 @@ public abstract class AbstractValidator<T> implements Validator {
         doValidate((T) target, errors);
     }
 
+    /**
+     * 验证数据
+     *
+     * @param target 待验证的对象
+     * @param errors 错误
+     */
     protected abstract void doValidate(T target, Errors errors);
 
 }

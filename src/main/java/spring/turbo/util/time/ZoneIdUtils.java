@@ -48,7 +48,7 @@ public final class ZoneIdUtils {
         super();
     }
 
-    public static ZoneId toZoneIdOrDefault(@Nullable String name) {
+    public static ZoneId toZoneIdOrSystemDefault(@Nullable String name) {
         var id = toZoneIdOrDefault(name, SYSTEM_DEFAULT);
         return Objects.requireNonNull(id);
     }
