@@ -14,13 +14,18 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 
 /**
+ * 这是一个小工具。可以从PEM文件中读取证书 <br>
+ * 此工具依赖 <a href="https://search.maven.org/search?q=bcprov-jdk18oon">Bouncy Castle</a>
+ *
  * @author 应卓
- * @see java.security.cert.Certificate
- * @see java.security.cert.X509Certificate
+ * @see <a href="https://github.com/yingzhuo/spring-turbo/wiki/2024%E2%80%9007%E2%80%9002%E2%80%90openssl%E2%80%90cheatsheet">2024‐07‐02‐openssl‐cheatsheet</a>
+ * @see <a href="https://www.openssl.org/">OpenSSL官方文档</a>
+ * @see <a href="https://en.wikipedia.org/wiki/X.509">X509 wiki</a>
+ * @see <a href="https://en.wikipedia.org/wiki/PKCS_8">PKCS#8 wiki</a>
  * @since 3.3.1
  */
 public final class CertificatePemHelper {
@@ -29,7 +34,6 @@ public final class CertificatePemHelper {
      * 私有构造方法
      */
     private CertificatePemHelper() {
-        super();
     }
 
     /**
@@ -39,7 +43,7 @@ public final class CertificatePemHelper {
      * @param resource 资源
      * @return 证书
      */
-    public static <T extends Certificate> T readX509PemCertificate(Resource resource) {
+    public static <T extends X509Certificate> T readX509PemCertificate(Resource resource) {
         try {
             return readX509PemCertificate(resource.getInputStream());
         } catch (IOException e) {
@@ -55,7 +59,7 @@ public final class CertificatePemHelper {
      * @return 证书
      */
     @SuppressWarnings("unchecked")
-    public static <T extends Certificate> T readX509PemCertificate(InputStream inputStream) {
+    public static <T extends X509Certificate> T readX509PemCertificate(InputStream inputStream) {
         try {
             var certBytes = PemHelper.readPemBytes(inputStream);
             var certInput = new ByteArrayInputStream(certBytes);

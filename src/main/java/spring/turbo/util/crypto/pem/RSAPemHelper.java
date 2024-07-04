@@ -22,7 +22,7 @@ import java.security.spec.X509EncodedKeySpec;
 
 /**
  * 这是一个小工具。可以从PEM文件中读取RSA公钥和私钥 <br>
- * 此工具依赖 <a href="https://search.maven.org/search?q=bcprov-jdk15to18">BouncyCastle</a>
+ * 此工具依赖 <a href="https://search.maven.org/search?q=bcprov-jdk18oon">Bouncy Castle</a>
  *
  * @author 应卓
  * @see <a href="https://github.com/yingzhuo/spring-turbo/wiki/2024%E2%80%9007%E2%80%9002%E2%80%90openssl%E2%80%90cheatsheet">2024‐07‐02‐openssl‐cheatsheet</a>
@@ -39,7 +39,6 @@ public final class RSAPemHelper {
      * 私有构造方法
      */
     private RSAPemHelper() {
-        super();
     }
 
     /**

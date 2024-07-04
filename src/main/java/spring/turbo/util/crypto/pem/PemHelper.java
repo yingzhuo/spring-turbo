@@ -18,7 +18,7 @@ import java.io.UncheckedIOException;
 
 /**
  * 这个小工具用于读取PEM格式文件内容 <br>
- * 此工具依赖 <a href="https://search.maven.org/search?q=bcprov-jdk15to18">BouncyCastle</a>
+ * 此工具依赖 <a href="https://search.maven.org/search?q=bcprov-jdk18oon">Bouncy Castle</a>
  *
  * @author 应卓
  * @since 3.3.1
@@ -29,7 +29,6 @@ public final class PemHelper {
      * 私有构造方法
      */
     private PemHelper() {
-        super();
     }
 
     /**
