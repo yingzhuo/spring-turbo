@@ -16,11 +16,14 @@ public final class PID {
     private PID() {
     }
 
+    /**
+     * 获取当前进程PID
+     *
+     * @return PID
+     */
     public static int get() {
         return SyncAvoid.pid;
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     // 延迟加载
     private static class SyncAvoid {

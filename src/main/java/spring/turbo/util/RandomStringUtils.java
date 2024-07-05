@@ -3,10 +3,8 @@ package spring.turbo.util;
 import org.springframework.lang.Nullable;
 
 import java.util.Random;
-import java.util.UUID;
 
 import static spring.turbo.util.StringPool.EMPTY;
-import static spring.turbo.util.StringPool.HYPHEN;
 
 /**
  * 随机字符串生成工具
@@ -46,7 +44,7 @@ public final class RandomStringUtils {
      * @param count 字符串长度
      * @return 随机字符串
      */
-    public static String randomAscii(final int count) {
+    public static String randomAscii(int count) {
         return random(count, 32, 127, false, false);
     }
 
@@ -57,7 +55,7 @@ public final class RandomStringUtils {
      * @param maxLengthExclusive 可能的长度最大值 (不包含)
      * @return 随机字符串
      */
-    public static String randomAscii(final int minLengthInclusive, final int maxLengthExclusive) {
+    public static String randomAscii(int minLengthInclusive, int maxLengthExclusive) {
         return randomAscii(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
 
@@ -67,7 +65,7 @@ public final class RandomStringUtils {
      * @param count 字符串长度
      * @return 随机字符串
      */
-    public static String randomAlphabetic(final int count) {
+    public static String randomAlphabetic(int count) {
         return random(count, true, false);
     }
 
@@ -78,7 +76,7 @@ public final class RandomStringUtils {
      * @param maxLengthExclusive 可能的长度最大值 (不包含)
      * @return 随机字符串
      */
-    public static String randomAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
+    public static String randomAlphabetic(int minLengthInclusive, int maxLengthExclusive) {
         return randomAlphabetic(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
 
@@ -88,7 +86,7 @@ public final class RandomStringUtils {
      * @param count 字符串长度
      * @return 随机字符串
      */
-    public static String randomAlphanumeric(final int count) {
+    public static String randomAlphanumeric(int count) {
         return random(count, true, true);
     }
 
@@ -99,7 +97,7 @@ public final class RandomStringUtils {
      * @param maxLengthExclusive 可能的长度最大值 (不包含)
      * @return 随机字符串
      */
-    public static String randomAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
+    public static String randomAlphanumeric(int minLengthInclusive, int maxLengthExclusive) {
         return randomAlphanumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
 
@@ -109,7 +107,7 @@ public final class RandomStringUtils {
      * @param count 字符串长度
      * @return 随机字符串
      */
-    public static String randomGraph(final int count) {
+    public static String randomGraph(int count) {
         return random(count, 33, 126, false, false);
     }
 
@@ -120,7 +118,7 @@ public final class RandomStringUtils {
      * @param maxLengthExclusive 可能的长度最大值 (不包含)
      * @return 随机字符串
      */
-    public static String randomGraph(final int minLengthInclusive, final int maxLengthExclusive) {
+    public static String randomGraph(int minLengthInclusive, int maxLengthExclusive) {
         return randomGraph(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
 
@@ -130,7 +128,7 @@ public final class RandomStringUtils {
      * @param count 字符串长度
      * @return 随机字符串
      */
-    public static String randomNumeric(final int count) {
+    public static String randomNumeric(int count) {
         return random(count, false, true);
     }
 
@@ -141,7 +139,7 @@ public final class RandomStringUtils {
      * @param maxLengthExclusive 可能的长度最大值 (不包含)
      * @return 随机字符串
      */
-    public static String randomNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
+    public static String randomNumeric(int minLengthInclusive, int maxLengthExclusive) {
         return randomNumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
 
@@ -151,7 +149,7 @@ public final class RandomStringUtils {
      * @param count 字符串长度
      * @return 随机字符串
      */
-    public static String randomPrint(final int count) {
+    public static String randomPrint(int count) {
         return random(count, 32, 126, false, false);
     }
 
@@ -162,7 +160,7 @@ public final class RandomStringUtils {
      * @param maxLengthExclusive 可能的长度最大值 (不包含)
      * @return 随机字符串
      */
-    public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {
+    public static String randomPrint(int minLengthInclusive, int maxLengthExclusive) {
         return randomPrint(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
 
@@ -174,7 +172,7 @@ public final class RandomStringUtils {
      * @param numbers 是否可包含数字
      * @return 随机字符串
      */
-    public static String random(final int count, final boolean letters, final boolean numbers) {
+    public static String random(int count, boolean letters, boolean numbers) {
         return random(count, 0, 0, letters, numbers);
     }
 
@@ -188,13 +186,13 @@ public final class RandomStringUtils {
      * @param numbers 是否可包含数字
      * @return 随机字符串
      */
-    public static String random(final int count, final int start, final int end, final boolean letters,
-                                final boolean numbers) {
+    public static String random(int count, int start, int end, boolean letters,
+                                boolean numbers) {
         return random(count, start, end, letters, numbers, null, RANDOM);
     }
 
-    private static String random(int count, int start, int end, final boolean letters, final boolean numbers,
-                                 final char[] chars, final Random random) {
+    private static String random(int count, int start, int end, boolean letters, boolean numbers,
+                                 char[] chars, Random random) {
         if (count == 0) {
             return EMPTY;
         } else if (count < 0) {
@@ -218,8 +216,8 @@ public final class RandomStringUtils {
                     "Parameter end (" + end + ") must be greater than start (" + start + ")");
         }
 
-        final int zero_digit_ascii = 48;
-        final int first_letter_ascii = 65;
+        int zero_digit_ascii = 48;
+        int first_letter_ascii = 65;
 
         if (chars == null && (numbers && end <= zero_digit_ascii || letters && end <= first_letter_ascii)) {
             throw new IllegalArgumentException(
@@ -227,11 +225,11 @@ public final class RandomStringUtils {
                             + "or greater then (" + first_letter_ascii + ") for generating letters.");
         }
 
-        final StringBuilder builder = new StringBuilder(count);
-        final int gap = end - start;
+        StringBuilder builder = new StringBuilder(count);
+        int gap = end - start;
 
         while (count-- != 0) {
-            final int codePoint;
+            int codePoint;
             if (chars == null) {
                 codePoint = random.nextInt(gap) + start;
 
@@ -247,7 +245,7 @@ public final class RandomStringUtils {
                 codePoint = chars[random.nextInt(gap) + start];
             }
 
-            final int numberOfChars = Character.charCount(codePoint);
+            int numberOfChars = Character.charCount(codePoint);
             if (count == 0 && numberOfChars > 1) {
                 count++;
                 continue;
@@ -275,7 +273,7 @@ public final class RandomStringUtils {
      * @param chars 随机字符串的可能的字符从此参数中获得
      * @return 随机字符串
      */
-    public static String random(final int count, final @Nullable String chars) {
+    public static String random(int count, @Nullable String chars) {
         if (chars == null) {
             return random(count, 0, 0, false, false, null, RANDOM);
         }
@@ -289,35 +287,11 @@ public final class RandomStringUtils {
      * @param chars 随机字符串的可能的字符从此参数中获得
      * @return 随机字符串
      */
-    public static String random(final int count, @Nullable final char... chars) {
+    public static String random(int count, @Nullable char... chars) {
         if (chars == null) {
             return random(count, 0, 0, false, false, null, RANDOM);
         }
         return random(count, 0, chars.length, false, false, chars, RANDOM);
-    }
-
-    /**
-     * 生成随机UUID字符串
-     *
-     * @return 随机UUID字符串
-     * @deprecated 使用 {@link UUIDUtils} 代替
-     */
-    @Deprecated(since = "3.3.1")
-    public static String randomUUID() {
-        return randomUUID(false);
-    }
-
-    /**
-     * 生成随机UUID字符串
-     *
-     * @param removeHyphen 结果中是否要移除字符{@code "-"}
-     * @return 随机UUID字符串
-     * @deprecated 使用 {@link UUIDUtils} 代替
-     */
-    @Deprecated(since = "3.3.1")
-    public static String randomUUID(boolean removeHyphen) {
-        final var uuid = UUID.randomUUID().toString();
-        return removeHyphen ? uuid.replaceAll(HYPHEN, EMPTY) : uuid;
     }
 
 }
