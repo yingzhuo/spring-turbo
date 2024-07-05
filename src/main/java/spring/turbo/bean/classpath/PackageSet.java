@@ -1,11 +1,3 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *    ____             _            _____           _
- *   / ___| _ __  _ __(_)_ __   __ |_   _|   _ _ __| |__   ___
- *   \___ \| '_ \| '__| | '_ \ / _` || || | | | '__| '_ \ / _ \
- *    ___) | |_) | |  | | | | | (_| || || |_| | |  | |_) | (_) |
- *   |____/| .__/|_|  |_|_| |_|\__, ||_| \__,_|_|  |_.__/ \___/
- *         |_|                 |___/   https://github.com/yingzhuo/spring-turbo
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package spring.turbo.bean.classpath;
 
 import org.springframework.lang.Nullable;
@@ -31,7 +23,6 @@ public final class PackageSet implements Iterable<String>, Serializable {
      * 私有构造方法
      */
     private PackageSet() {
-        super();
     }
 
     /**
@@ -129,6 +120,9 @@ public final class PackageSet implements Iterable<String>, Serializable {
         return set;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -139,11 +133,17 @@ public final class PackageSet implements Iterable<String>, Serializable {
         return set.equals(strings.set);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(set);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "[" + String.join(",", set) + "]";
