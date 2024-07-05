@@ -9,6 +9,7 @@ import java.util.List;
  * @author 应卓
  * @since 2.0.3
  */
+@Deprecated(forRemoval = true, since = "3.3.1")
 public final class ExtraMessageSourceBasenameConventionImpl implements ExtraMessageSourceBasenameConvention {
 
     @Override

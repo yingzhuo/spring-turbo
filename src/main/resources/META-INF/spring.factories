@@ -1,9 +1,4 @@
 # ----------------------------------------------------------------------------------------------------------------------
-# SpringTurbo
-# ----------------------------------------------------------------------------------------------------------------------
-spring.turbo.convention.ExtraMessageSourceBasenameConvention=\
-    spring.turbo.convention.spi.ExtraMessageSourceBasenameConventionImpl
-# ----------------------------------------------------------------------------------------------------------------------
 # Spring
 # ----------------------------------------------------------------------------------------------------------------------
 org.springframework.boot.env.EnvironmentPostProcessor=\
@@ -11,3 +6,11 @@ org.springframework.boot.env.EnvironmentPostProcessor=\
     spring.turbo.core.env.MiscellaneousSetupEnvironmentPostProcessor
 org.springframework.context.ApplicationListener=\
     spring.turbo.core.SpringApplicationHolders
+
+# ----------------------------------------------------------------------------------------------------------------------
+# SpringTurbo
+# ----------------------------------------------------------------------------------------------------------------------
+
+# deprecated
+#spring.turbo.convention.ExtraMessageSourceBasenameConvention=\
+#spring.turbo.convention.spi.ExtraMessageSourceBasenameConventionImpl

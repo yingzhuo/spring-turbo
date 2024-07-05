@@ -34,6 +34,7 @@ public final class CertificatePemHelper {
      *
      * @param resource 资源
      * @return 证书
+     * @throws UncheckedIOException IO错误
      */
     public static <T extends X509Certificate> T readX509PemCertificate(Resource resource) {
         try {
@@ -49,6 +50,7 @@ public final class CertificatePemHelper {
      *
      * @param inputStream 输入流
      * @return 证书
+     * @throws UncheckedIOException IO错误
      */
     @SuppressWarnings("unchecked")
     public static <T extends X509Certificate> T readX509PemCertificate(InputStream inputStream) {

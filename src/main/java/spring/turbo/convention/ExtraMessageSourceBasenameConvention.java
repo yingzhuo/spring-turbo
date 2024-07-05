@@ -18,6 +18,7 @@ import java.util.Collection;
  * @since 2.0.3
  */
 @FunctionalInterface
+@Deprecated(forRemoval = true, since = "3.3.1")
 public interface ExtraMessageSourceBasenameConvention extends Ordered {
 
     @Nullable

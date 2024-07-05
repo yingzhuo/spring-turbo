@@ -29,6 +29,7 @@ import java.util.LinkedList;
 @AutoConfiguration
 @AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
 @EnableConfigurationProperties(MessageSourceProps.class)
+@Deprecated(forRemoval = true, since = "3.3.1")
 public class MessageSourceAutoConfiguration {
 
 

@@ -34,19 +34,20 @@ public final class MethodUtils {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static List<Method> find(Class<?> clazz) {
-        final List<Method> list = new ArrayList<>();
+        var list = new ArrayList<Method>();
         ReflectionUtils.doWithMethods(clazz, list::add);
         return list;
     }
 
     public static List<Method> find(Class<?> clazz, String name) {
-        final List<Method> list = new ArrayList<>();
-        Optional.ofNullable(ReflectionUtils.findMethod(clazz, name)).ifPresent(list::add);
+        var list = new ArrayList<Method>();
+        Optional.ofNullable(ReflectionUtils.findMethod(clazz, name))
+                .ifPresent(list::add);
         return list;
     }
 
     public static List<Method> find(Class<?> clazz, String name, Class<?>... paramTypes) {
-        final List<Method> list = new ArrayList<>();
+        var list = new ArrayList<Method>();
         Optional.ofNullable(ReflectionUtils.findMethod(clazz, name, paramTypes)).ifPresent(list::add);
         return list;
     }

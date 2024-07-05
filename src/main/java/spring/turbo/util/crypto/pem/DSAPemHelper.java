@@ -39,6 +39,7 @@ public final class DSAPemHelper {
      * @param publicKeyResource  公钥资源
      * @param privateKeyResource 私钥资源
      * @return {@link KeyPair} 实例
+     * @throws UncheckedIOException IO错误
      */
     public static KeyPair readKeyPair(Resource publicKeyResource, Resource privateKeyResource) {
         return new KeyPair(
@@ -53,6 +54,7 @@ public final class DSAPemHelper {
      *
      * @param resource 资源
      * @return 公钥
+     * @throws UncheckedIOException IO错误
      */
     public static DSAPublicKey readX509PublicKey(Resource resource) {
         try {
@@ -68,6 +70,7 @@ public final class DSAPemHelper {
      *
      * @param inputStream 资源
      * @return 公钥
+     * @throws UncheckedIOException IO错误
      */
     public static DSAPublicKey readX509PublicKey(InputStream inputStream) {
         try {
@@ -85,6 +88,7 @@ public final class DSAPemHelper {
      *
      * @param resource 资源
      * @return 私钥
+     * @throws UncheckedIOException IO错误
      */
     public static DSAPrivateKey readPKCS8PrivateKey(Resource resource) {
         try {
@@ -100,6 +104,7 @@ public final class DSAPemHelper {
      *
      * @param inputStream 资源
      * @return 私钥
+     * @throws UncheckedIOException IO错误
      */
     public static DSAPrivateKey readPKCS8PrivateKey(InputStream inputStream) {
         try {
