@@ -28,6 +28,20 @@ public enum KeyStoreFormat {
     JKS("JKS");
 
     /**
+     * 字符串类型值
+     */
+    private final String value;
+
+    /**
+     * 私有构造方法
+     *
+     * @param value 字符串类型值
+     */
+    KeyStoreFormat(String value) {
+        this.value = value;
+    }
+
+    /**
      * 尝试转换字符串为本美剧类型
      *
      * @param value 字符串
@@ -51,20 +65,6 @@ public enum KeyStoreFormat {
         }
 
         return null;
-    }
-
-    /**
-     * 字符串类型值
-     */
-    private final String value;
-
-    /**
-     * 私有构造方法
-     *
-     * @param value 字符串类型值
-     */
-    KeyStoreFormat(String value) {
-        this.value = value;
     }
 
     /**
