@@ -70,6 +70,33 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
         this.defaultMessage = StringUtils.blankToNull(defaultMessage);
     }
 
+    // 内部用工具
+    static String getMessage(@Nullable MessageSource messageSource, MessageSourceResolvable messageSourceResolvable) {
+        return getMessage(messageSource, messageSourceResolvable, null);
+    }
+
+    // 内部用工具
+    static String getMessage(@Nullable MessageSource messageSource, MessageSourceResolvable messageSourceResolvable, @Nullable Locale locale) {
+        Asserts.notNull(messageSourceResolvable, "messageSourceResolvable is required");
+
+        if (messageSourceResolvable instanceof StringMessageSourceResolvable stringMessageSourceResolvable) {
+            return stringMessageSourceResolvable.getDefaultMessage();
+        }
+
+        messageSource = messageSource != null ? messageSource : SpringUtils.getMessageSource();
+        locale = locale != null ? locale : LocaleUtils.getLocale(true);
+
+        try {
+            return messageSource.getMessage(messageSourceResolvable, locale);
+        } catch (NoSuchMessageException e) {
+            var defaultMsg = messageSourceResolvable.getDefaultMessage();
+            if (defaultMsg != null) {
+                return defaultMsg;
+            }
+            throw e;
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -128,31 +155,6 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
      */
     public final String toString(@Nullable MessageSource messageSource, @Nullable Locale locale) {
         return getMessage(messageSource, this, locale);
-    }
-
-    public static String getMessage(@Nullable MessageSource messageSource, MessageSourceResolvable messageSourceResolvable) {
-        return getMessage(messageSource, messageSourceResolvable, null);
-    }
-
-    public static String getMessage(@Nullable MessageSource messageSource, MessageSourceResolvable messageSourceResolvable, @Nullable Locale locale) {
-        Asserts.notNull(messageSourceResolvable, "messageSourceResolvable is required");
-
-        if (messageSourceResolvable instanceof StringMessageSourceResolvable stringMessageSourceResolvable) {
-            return stringMessageSourceResolvable.getDefaultMessage();
-        }
-
-        messageSource = messageSource != null ? messageSource : SpringUtils.getMessageSource();
-        locale = locale != null ? locale : LocaleUtils.getLocale(true);
-
-        try {
-            return messageSource.getMessage(messageSourceResolvable, locale);
-        } catch (NoSuchMessageException e) {
-            var defaultMsg = messageSourceResolvable.getDefaultMessage();
-            if (defaultMsg != null) {
-                return defaultMsg;
-            }
-            throw e;
-        }
     }
 
 }

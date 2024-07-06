@@ -92,9 +92,9 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 构造方法
      *
-     * @param input 初始化内容
+     * @param input     初始化内容
      * @param delimiter 分隔符
-     * @param quote 引号
+     * @param quote     引号
      * @see #reset(char[])
      * @see #reset(String)
      */
@@ -106,7 +106,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 构造方法
      *
-     * @param input 初始化内容
+     * @param input     初始化内容
      * @param delimiter 分隔符
      * @see #reset(char[])
      * @see #reset(String)
@@ -119,7 +119,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 构造方法
      *
-     * @param input 初始化内容
+     * @param input     初始化内容
      * @param delimiter 分隔符
      * @see #reset(char[])
      * @see #reset(String)
@@ -132,9 +132,9 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 构造方法
      *
-     * @param input 初始化内容
+     * @param input     初始化内容
      * @param delimiter 分隔符
-     * @param quote 引号
+     * @param quote     引号
      * @see #reset(char[])
      * @see #reset(String)
      */
@@ -157,7 +157,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 构造方法
      *
-     * @param input 初始化内容
+     * @param input     初始化内容
      * @param delimiter 分隔符
      * @see #reset(char[])
      * @see #reset(String)
@@ -170,9 +170,9 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 构造方法
      *
-     * @param input 初始化内容
+     * @param input     初始化内容
      * @param delimiter 分隔符
-     * @param quote 引号
+     * @param quote     引号
      * @see #reset(char[])
      * @see #reset(String)
      */
@@ -184,7 +184,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 构造方法
      *
-     * @param input 初始化内容
+     * @param input     初始化内容
      * @param delimiter 分隔符
      * @see #reset(char[])
      * @see #reset(String)
@@ -197,7 +197,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 构造方法
      *
-     * @param input 初始化内容
+     * @param input     初始化内容
      * @param delimiter 分隔符
      * @see #reset(char[])
      * @see #reset(String)
@@ -210,9 +210,9 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 构造方法
      *
-     * @param input 初始化内容
+     * @param input     初始化内容
      * @param delimiter 分隔符
-     * @param quote 引号
+     * @param quote     引号
      * @see #reset(char[])
      * @see #reset(String)
      */

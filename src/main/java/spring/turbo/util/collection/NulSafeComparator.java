@@ -14,18 +14,18 @@ import java.util.Objects;
  */
 @Deprecated
 @SuppressWarnings({"rawtypes", "unchecked"})
-public class NullComparator<T> implements Comparator<T> {
+public class NulSafeComparator<T> implements Comparator<T> {
 
     private final boolean nullGreater;
 
     @Nullable
     private final Comparator<T> comparator;
 
-    public NullComparator(boolean nullGreater) {
+    public NulSafeComparator(boolean nullGreater) {
         this(nullGreater, null);
     }
 
-    public NullComparator(boolean nullGreater, @Nullable Comparator<? super T> comparator) {
+    public NulSafeComparator(boolean nullGreater, @Nullable Comparator<? super T> comparator) {
         this.nullGreater = nullGreater;
         this.comparator = (Comparator<T>) comparator;
     }
@@ -47,12 +47,12 @@ public class NullComparator<T> implements Comparator<T> {
     @Override
     public Comparator<T> thenComparing(Comparator<? super T> other) {
         Objects.requireNonNull(other);
-        return new NullComparator<>(nullGreater, comparator == null ? other : comparator.thenComparing(other));
+        return new NulSafeComparator<>(nullGreater, comparator == null ? other : comparator.thenComparing(other));
     }
 
     @Override
     public Comparator<T> reversed() {
-        return new NullComparator<>((!nullGreater), comparator == null ? null : comparator.reversed());
+        return new NulSafeComparator<>((!nullGreater), comparator == null ? null : comparator.reversed());
     }
 
     /**

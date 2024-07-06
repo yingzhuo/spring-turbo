@@ -11,9 +11,9 @@ import spring.turbo.messagesource.SimpleMessageSourceResolvable;
 import spring.turbo.messagesource.StringMessageSourceResolvable;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
-import spring.turbo.util.StringPool;
 import spring.turbo.util.StringUtils;
 import spring.turbo.util.collection.CollectionUtils;
+import spring.turbo.util.collection.NoopComparator;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,9 +41,9 @@ import java.util.stream.Collectors;
  * @see java.beans.PropertyEditor
  * @since 3.3.1
  */
-public class DataBindingException extends IllegalArgumentException implements MultiMessageSourceResolvable {
+public final class DataBindingException extends IllegalArgumentException implements MultiMessageSourceResolvable {
 
-    protected final List<MessageSourceResolvable> innerList = new ArrayList<>();
+    private final List<MessageSourceResolvable> innerList = new ArrayList<>();
 
     /**
      * 私有构造方法
@@ -178,7 +178,7 @@ public class DataBindingException extends IllegalArgumentException implements Mu
      * @return 实例
      * @see StringFormatter
      */
-    public static DataBindingException formatMessage(String messageTemplate, Object... args) {
+    public static DataBindingException ofFormattedMessage(String messageTemplate, Object... args) {
         return of(StringFormatter.format(messageTemplate, args));
     }
 
@@ -217,22 +217,19 @@ public class DataBindingException extends IllegalArgumentException implements Mu
         return !innerList.isEmpty();
     }
 
-    public List<String> toStringMessages(MessageSource messageSource) {
-        return toStringMessages(messageSource, null);
+    public List<String> getMessages(MessageSource messageSource) {
+        return getMessages(messageSource, null, null);
     }
 
-    public List<String> toStringMessages(MessageSource messageSource, @Nullable Locale locale) {
+    public List<String> getMessages(MessageSource messageSource, @Nullable Locale locale) {
+        return getMessages(messageSource, locale, null);
+    }
+
+    public List<String> getMessages(MessageSource messageSource, @Nullable Locale locale, @Nullable Comparator<String> ordering) {
         return stream()
                 .map(msr -> AbstractMessageResolvableException.getMessage(messageSource, msr, locale))
+                .sorted(Objects.requireNonNullElseGet(ordering, NoopComparator::getInstance))
                 .collect(Collectors.toList());
-    }
-
-    public String toCommaDelimitedMessage(MessageSource messageSource) {
-        return toCommaDelimitedMessage(messageSource, null);
-    }
-
-    public String toCommaDelimitedMessage(MessageSource messageSource, @Nullable Locale locale) {
-        return StringUtils.join(toStringMessages(messageSource, locale), StringPool.COMMA);
     }
 
 }
