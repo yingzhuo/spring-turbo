@@ -8,14 +8,15 @@ import spring.turbo.util.Asserts;
 import java.io.Serializable;
 
 /**
- * {@link MessageSourceResolvable} 简易实现
+ * {@link MessageSourceResolvable} 简单实现
  *
  * @param errorMessage 默认错误信息
  * @author 应卓
  * @see MessageSourceResolvable#getDefaultMessage()
  * @since 3.3.1
  */
-public record StringMessageSourceResolvable(String errorMessage) implements MessageSourceResolvable, Serializable {
+public final record StringMessageSourceResolvable(
+        String errorMessage) implements MessageSourceResolvable, Serializable {
 
     public StringMessageSourceResolvable {
         Asserts.hasText(errorMessage, "errorMessage is required");

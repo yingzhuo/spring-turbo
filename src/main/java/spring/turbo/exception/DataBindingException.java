@@ -6,7 +6,6 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import spring.turbo.core.MessageSourceUtils;
 import spring.turbo.databinding.MultiMessageSourceResolvable;
 import spring.turbo.messagesource.SimpleMessageSourceResolvable;
 import spring.turbo.messagesource.StringMessageSourceResolvable;
@@ -224,7 +223,7 @@ public class DataBindingException extends IllegalArgumentException implements Mu
 
     public List<String> toStringMessages(MessageSource messageSource, @Nullable Locale locale) {
         return stream()
-                .map(msr -> MessageSourceUtils.getMessage(messageSource, msr, locale))
+                .map(msr -> AbstractMessageResolvableException.getMessage(messageSource, msr, locale))
                 .collect(Collectors.toList());
     }
 

@@ -32,7 +32,7 @@ public @interface Password {
 
     public int max() default Integer.MAX_VALUE;
 
-    public String message() default "{spring.turbo.bean.jsr380.Password.message}";
+    public String message() default "";
 
     public Class<?>[] groups() default {};
 

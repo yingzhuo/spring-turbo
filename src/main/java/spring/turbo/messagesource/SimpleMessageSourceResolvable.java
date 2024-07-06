@@ -8,6 +8,8 @@ import spring.turbo.util.StringUtils;
 import java.io.Serializable;
 
 /**
+ * {@link MessageSourceResolvable} 简单实现
+ *
  * @author 应卓
  * @since 3.3.1
  */

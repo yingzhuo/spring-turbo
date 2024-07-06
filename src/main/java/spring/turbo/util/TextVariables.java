@@ -13,7 +13,7 @@ import static java.util.regex.Pattern.DOTALL;
 import static java.util.regex.Pattern.MULTILINE;
 
 /**
- * 工具类，从文本中解析出若干参数
+ * 工具类，从文本中解析出若干参数名值对。
  *
  * @author 应卓
  * @see StringTokenizer

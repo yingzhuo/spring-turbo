@@ -2,9 +2,13 @@ package spring.turbo.exception;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.lang.Nullable;
-import spring.turbo.core.MessageSourceUtils;
+import spring.turbo.core.LocaleUtils;
+import spring.turbo.core.SpringUtils;
+import spring.turbo.messagesource.StringMessageSourceResolvable;
 import spring.turbo.util.ArrayUtils;
+import spring.turbo.util.Asserts;
 import spring.turbo.util.StringUtils;
 
 import java.util.Locale;
@@ -112,7 +116,7 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
      * @return 错误信息
      */
     public final String toString(@Nullable MessageSource messageSource) {
-        return MessageSourceUtils.getMessage(messageSource, this);
+        return getMessage(messageSource, this);
     }
 
     /**
@@ -123,7 +127,32 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
      * @return 错误信息
      */
     public final String toString(@Nullable MessageSource messageSource, @Nullable Locale locale) {
-        return MessageSourceUtils.getMessage(messageSource, this, locale);
+        return getMessage(messageSource, this, locale);
+    }
+
+    public static String getMessage(@Nullable MessageSource messageSource, MessageSourceResolvable messageSourceResolvable) {
+        return getMessage(messageSource, messageSourceResolvable, null);
+    }
+
+    public static String getMessage(@Nullable MessageSource messageSource, MessageSourceResolvable messageSourceResolvable, @Nullable Locale locale) {
+        Asserts.notNull(messageSourceResolvable, "messageSourceResolvable is required");
+
+        if (messageSourceResolvable instanceof StringMessageSourceResolvable stringMessageSourceResolvable) {
+            return stringMessageSourceResolvable.getDefaultMessage();
+        }
+
+        messageSource = messageSource != null ? messageSource : SpringUtils.getMessageSource();
+        locale = locale != null ? locale : LocaleUtils.getLocale(true);
+
+        try {
+            return messageSource.getMessage(messageSourceResolvable, locale);
+        } catch (NoSuchMessageException e) {
+            var defaultMsg = messageSourceResolvable.getDefaultMessage();
+            if (defaultMsg != null) {
+                return defaultMsg;
+            }
+            throw e;
+        }
     }
 
 }

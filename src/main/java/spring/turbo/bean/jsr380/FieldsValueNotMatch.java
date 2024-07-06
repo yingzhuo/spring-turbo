@@ -19,7 +19,7 @@ import static java.lang.annotation.ElementType.*;
 @Constraint(validatedBy = FieldsValueNotMatchValidator.class)
 public @interface FieldsValueNotMatch {
 
-    public String message() default "{spring.turbo.bean.jsr380.FieldsValueNotMatch.message}";
+    public String message() default "";
 
     public String field();
 

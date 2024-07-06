@@ -3,7 +3,7 @@ package spring.turbo.aop;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationAttributes;
-import spring.turbo.core.AnnotationFinder;
+import spring.turbo.core.AnnotationHelper;
 import spring.turbo.util.Asserts;
 
 import javax.annotation.Nullable;
@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * 切面相关工具
  *
  * @author 应卓
- * @see AnnotationFinder
+ * @see AnnotationHelper
  * @since 2.1.1
  */
 public final class AspectUtils {
@@ -76,7 +76,7 @@ public final class AspectUtils {
             JoinPoint joinPoint,
             Class<A> annotationType) {
         var method = getMethod(joinPoint);
-        return AnnotationFinder.findAnnotation(method, annotationType);
+        return AnnotationHelper.findAnnotation(method, annotationType);
     }
 
     /**
@@ -92,7 +92,7 @@ public final class AspectUtils {
             Class<A> annotationType) {
 
         var method = getMethod(joinPoint);
-        return AnnotationFinder.findAnnotationAttributes(method, annotationType);
+        return AnnotationHelper.findAnnotationAttributes(method, annotationType);
     }
 
     /**
@@ -112,7 +112,7 @@ public final class AspectUtils {
             boolean nestedAnnotationsAsMap) {
 
         var method = getMethod(joinPoint);
-        return AnnotationFinder.findAnnotationAttributes(method, annotationType, classValueAsString, nestedAnnotationsAsMap);
+        return AnnotationHelper.findAnnotationAttributes(method, annotationType, classValueAsString, nestedAnnotationsAsMap);
     }
 
     /**
@@ -126,7 +126,7 @@ public final class AspectUtils {
     @Nullable
     public static <A extends Annotation> A getObjectTypeAnnotation(JoinPoint joinPoint, Class<A> annotationType) {
         var targetType = getTargetType(joinPoint);
-        return AnnotationFinder.findAnnotation(targetType, annotationType);
+        return AnnotationHelper.findAnnotation(targetType, annotationType);
     }
 
     /**
@@ -142,7 +142,7 @@ public final class AspectUtils {
             boolean classValueAsString,
             boolean nestedAnnotationsAsMap) {
         var targetType = getTargetType(joinPoint);
-        return AnnotationFinder.findAnnotationAttributes(targetType, annotationType, classValueAsString, nestedAnnotationsAsMap);
+        return AnnotationHelper.findAnnotationAttributes(targetType, annotationType, classValueAsString, nestedAnnotationsAsMap);
     }
 
 }
