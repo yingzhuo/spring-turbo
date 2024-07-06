@@ -21,7 +21,7 @@ import static java.util.regex.Pattern.MULTILINE;
  */
 public class TextVariables implements Serializable {
 
-    private static final StringMatcher DEFAULT_DELIMITER = StringMatcher.stringMatcher(';', '\n');
+    private static final StringMatcher DEFAULT_DELIMITER = StringMatcher.charSetMatcher('\n', ';');
 
     /**
      * 依赖{@link HashMap} 实现
@@ -37,8 +37,19 @@ public class TextVariables implements Serializable {
     /**
      * 构造方法
      *
+     * @param text 多个参数合成的字符串
+     * @see StringMatcher
+     * @see StringMatcher#stringMatcher(String)
+     */
+    public TextVariables(@Nullable String text) {
+        reset(text, DEFAULT_DELIMITER);
+    }
+
+    /**
+     * 构造方法
+     *
      * @param text      多个参数合成的字符串
-     * @param delimiter 参数之间的分隔符。
+     * @param delimiter 参数之间的分隔符
      * @see StringMatcher
      * @see StringMatcher#stringMatcher(String)
      */
@@ -186,6 +197,14 @@ public class TextVariables implements Serializable {
                 }
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return innerMap.toString();
     }
 
 }

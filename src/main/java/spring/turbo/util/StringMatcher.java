@@ -127,7 +127,7 @@ public interface StringMatcher {
     }
 
     /**
-     * 匹配单双引号的匹配器
+     * 返回匹配空格匹配器
      *
      * @return {@link StringMatcher} 实例
      */
@@ -185,7 +185,7 @@ public interface StringMatcher {
      *
      * @return {@link StringMatcher} 实例
      */
-    public static StringMatcher atSignMatcher() {
+    public static StringMatcher atMarkerMatcher() {
         return new Char(AT_SIGN);
     }
 
