@@ -84,22 +84,22 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @see #reset(char[])
      * @see #reset(String)
      */
-    public StringTokenizer(@Nullable char[] input, char delim) {
+    public StringTokenizer(@Nullable char[] input, char delimiter) {
         this(input);
-        setDelimiterChar(delim);
+        setDelimiterChar(delimiter);
     }
 
     /**
      * 构造方法
      *
      * @param input 初始化内容
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @param quote 引号
      * @see #reset(char[])
      * @see #reset(String)
      */
-    public StringTokenizer(@Nullable char[] input, char delim, char quote) {
-        this(input, delim);
+    public StringTokenizer(@Nullable char[] input, char delimiter, char quote) {
+        this(input, delimiter);
         setQuoteChar(quote);
     }
 
@@ -107,39 +107,39 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * 构造方法
      *
      * @param input 初始化内容
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @see #reset(char[])
      * @see #reset(String)
      */
-    public StringTokenizer(@Nullable char[] input, String delim) {
+    public StringTokenizer(@Nullable char[] input, String delimiter) {
         this(input);
-        setDelimiterString(delim);
+        setDelimiterString(delimiter);
     }
 
     /**
      * 构造方法
      *
      * @param input 初始化内容
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @see #reset(char[])
      * @see #reset(String)
      */
-    public StringTokenizer(@Nullable char[] input, StringMatcher delim) {
+    public StringTokenizer(@Nullable char[] input, StringMatcher delimiter) {
         this(input);
-        setDelimiterMatcher(delim);
+        setDelimiterMatcher(delimiter);
     }
 
     /**
      * 构造方法
      *
      * @param input 初始化内容
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @param quote 引号
      * @see #reset(char[])
      * @see #reset(String)
      */
-    public StringTokenizer(@Nullable char[] input, final StringMatcher delim, final StringMatcher quote) {
-        this(input, delim);
+    public StringTokenizer(@Nullable char[] input, final StringMatcher delimiter, final StringMatcher quote) {
+        this(input, delimiter);
         setQuoteMatcher(quote);
     }
 
@@ -158,26 +158,26 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * 构造方法
      *
      * @param input 初始化内容
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @see #reset(char[])
      * @see #reset(String)
      */
-    public StringTokenizer(@Nullable String input, char delim) {
+    public StringTokenizer(@Nullable String input, char delimiter) {
         this(input);
-        setDelimiterChar(delim);
+        setDelimiterChar(delimiter);
     }
 
     /**
      * 构造方法
      *
      * @param input 初始化内容
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @param quote 引号
      * @see #reset(char[])
      * @see #reset(String)
      */
-    public StringTokenizer(@Nullable String input, char delim, char quote) {
-        this(input, delim);
+    public StringTokenizer(@Nullable String input, char delimiter, char quote) {
+        this(input, delimiter);
         setQuoteChar(quote);
     }
 
@@ -185,39 +185,39 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * 构造方法
      *
      * @param input 初始化内容
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @see #reset(char[])
      * @see #reset(String)
      */
-    public StringTokenizer(@Nullable String input, String delim) {
+    public StringTokenizer(@Nullable String input, String delimiter) {
         this(input);
-        setDelimiterString(delim);
+        setDelimiterString(delimiter);
     }
 
     /**
      * 构造方法
      *
      * @param input 初始化内容
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @see #reset(char[])
      * @see #reset(String)
      */
-    public StringTokenizer(@Nullable String input, StringMatcher delim) {
+    public StringTokenizer(@Nullable String input, StringMatcher delimiter) {
         this(input);
-        setDelimiterMatcher(delim);
+        setDelimiterMatcher(delimiter);
     }
 
     /**
      * 构造方法
      *
      * @param input 初始化内容
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @param quote 引号
      * @see #reset(char[])
      * @see #reset(String)
      */
-    public StringTokenizer(@Nullable String input, StringMatcher delim, StringMatcher quote) {
-        this(input, delim);
+    public StringTokenizer(@Nullable String input, StringMatcher delimiter, StringMatcher quote) {
+        this(input, delimiter);
         setQuoteMatcher(quote);
     }
 
@@ -838,21 +838,21 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     /**
      * 设置分隔符
      *
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @return this
      */
-    public StringTokenizer setDelimiterChar(char delim) {
-        return setDelimiterMatcher(StringMatcher.charMatcher(delim));
+    public StringTokenizer setDelimiterChar(char delimiter) {
+        return setDelimiterMatcher(StringMatcher.charMatcher(delimiter));
     }
 
     /**
      * 设置分隔符
      *
-     * @param delim 分隔符
+     * @param delimiter 分隔符
      * @return this
      */
-    public StringTokenizer setDelimiterString(String delim) {
-        return setDelimiterMatcher(StringMatcher.stringMatcher(delim));
+    public StringTokenizer setDelimiterString(String delimiter) {
+        return setDelimiterMatcher(StringMatcher.stringMatcher(delimiter));
     }
 
     /**

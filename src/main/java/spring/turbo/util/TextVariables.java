@@ -6,13 +6,11 @@ import org.springframework.lang.Nullable;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.DOTALL;
 import static java.util.regex.Pattern.MULTILINE;
-import static spring.turbo.util.StringPool.SEMICOLON;
 
 /**
  * 工具类，从文本中解析出若干参数
@@ -22,6 +20,8 @@ import static spring.turbo.util.StringPool.SEMICOLON;
  * @since 3.3.1
  */
 public class TextVariables implements Serializable {
+
+    private static final StringMatcher DEFAULT_DELIMITER = StringMatcher.stringMatcher(';', '\n');
 
     /**
      * 依赖{@link HashMap} 实现
@@ -37,13 +37,13 @@ public class TextVariables implements Serializable {
     /**
      * 构造方法
      *
-     * @param text  多个参数合成的字符串
-     * @param delim 参数之间的分隔符。
+     * @param text      多个参数合成的字符串
+     * @param delimiter 参数之间的分隔符。
      * @see StringMatcher
      * @see StringMatcher#stringMatcher(String)
      */
-    public TextVariables(@Nullable String text, @Nullable StringMatcher delim) {
-        reset(text, delim);
+    public TextVariables(@Nullable String text, @Nullable StringMatcher delimiter) {
+        reset(text, delimiter);
     }
 
     /**
@@ -152,23 +152,28 @@ public class TextVariables implements Serializable {
     /**
      * 重置
      *
-     * @param text  多个参数合成的字符串
-     * @param delim 参数之间的分隔符
+     * @param text      多个参数合成的字符串
+     * @param delimiter 参数之间的分隔符
      * @see StringMatcher
      * @see StringMatcher#stringMatcher(String)
      */
-    public void reset(@Nullable String text, @Nullable StringMatcher delim) {
+    public void reset(@Nullable String text, @Nullable StringMatcher delimiter) {
         innerMap.clear();
 
-        if (text == null || !text.isBlank()) {
-            delim = Objects.requireNonNullElse(delim, StringMatcher.stringMatcher(SEMICOLON));
+        if (StringUtils.isNotBlank(text)) {
+            delimiter = delimiter != null ? delimiter : DEFAULT_DELIMITER;
 
-            var stringTokenizer = new StringTokenizer(text, delim);
+            var stringTokenizer =
+                    StringTokenizer.newInstance(text)
+                            .setDelimiterMatcher(delimiter)
+                            .setTrimmerMatcher(StringMatcher.noneMatcher());
 
             while (stringTokenizer.hasNext()) {
                 var token = stringTokenizer.next();
 
                 if (!token.isBlank()) {
+
+                    // 注意: Group1 用的是懒惰量词
                     var regex = "(.*?)=(.*)";
                     var pattern = Pattern.compile(regex, DOTALL | MULTILINE);
                     var matcher = pattern.matcher(token);
