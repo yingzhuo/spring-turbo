@@ -13,24 +13,24 @@ import java.util.Map;
  * @since 3.3.1
  */
 @SuppressWarnings("unchecked")
-public final class TreadSharedObjects {
+public final class ThreadSharedObjects {
 
     /**
      * 按类型保存对象
      */
     private static final ThreadLocal<Map<Class<?>, Object>> TYPE_HOLDER =
-            NamedThreadLocal.withInitial(TreadSharedObjects.class.getName(), HashMap::new);
+            NamedThreadLocal.withInitial(ThreadSharedObjects.class.getName(), HashMap::new);
     /**
      * 按名称保存对象
      */
     private static final ThreadLocal<Map<String, Object>> NAME_HOLDER =
-            NamedThreadLocal.withInitial(TreadSharedObjects.class.getName(), HashMap::new);
+            NamedThreadLocal.withInitial(ThreadSharedObjects.class.getName(), HashMap::new);
 
 
     /**
      * 私有构造方法
      */
-    private TreadSharedObjects() {
+    private ThreadSharedObjects() {
     }
 
     /**
