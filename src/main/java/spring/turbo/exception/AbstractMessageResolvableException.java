@@ -7,9 +7,9 @@ import org.springframework.lang.Nullable;
 import spring.turbo.core.LocaleUtils;
 import spring.turbo.core.SpringUtils;
 import spring.turbo.messagesource.StringMessageSourceResolvable;
-import spring.turbo.util.ArrayUtils;
 import spring.turbo.util.Asserts;
 import spring.turbo.util.StringUtils;
+import spring.turbo.util.collection.ArrayUtils;
 
 import java.util.Locale;
 

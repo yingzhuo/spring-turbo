@@ -6,7 +6,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
 import spring.turbo.exception.DataBindingException;
-import spring.turbo.util.ArrayUtils;
+import spring.turbo.util.collection.ArrayUtils;
 
 import java.util.Collections;
 import java.util.HashSet;

@@ -2,8 +2,8 @@ package spring.turbo.messagesource;
 
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.ArrayUtils;
 import spring.turbo.util.StringUtils;
+import spring.turbo.util.collection.ArrayUtils;
 
 import java.io.Serializable;
 
