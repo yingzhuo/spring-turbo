@@ -3,6 +3,6 @@
 # ----------------------------------------------------------------------------------------------------------------------
 org.springframework.boot.env.EnvironmentPostProcessor=\
     spring.turbo.core.SpringApplicationHoldersEnvironmentPostProcessor,\
-    spring.turbo.core.env.MiscellaneousSetupEnvironmentPostProcessor
+    spring.turbo.core.env.MiscPropertiesEnvironmentPostProcessor
 org.springframework.context.ApplicationListener=\
     spring.turbo.core.SpringApplicationHolders
