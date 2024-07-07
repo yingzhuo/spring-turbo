@@ -13,6 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.validation.Validator;
+import spring.turbo.core.env.SpringApplicationHolders;
 import spring.turbo.util.Asserts;
 
 import java.util.List;
@@ -29,9 +30,6 @@ import java.util.function.Supplier;
  */
 public final class SpringUtils {
 
-    public static final Supplier<? extends RuntimeException> UNSUPPORTED = () -> new UnsupportedOperationException(
-            "this operation is NOT supported without ApplicationContext instance");
-
     public static final Supplier<? extends RuntimeException> BEAN_NOT_FOUND = () -> new NoSuchBeanDefinitionException(
             "bean not found");
 
@@ -47,7 +45,7 @@ public final class SpringUtils {
      * @return {@link ApplicationContext}实例
      */
     public static ApplicationContext getApplicationContext() {
-        return Optional.ofNullable(SpringApplicationHolders.AC)
+        return Optional.ofNullable(SpringApplicationHolders.getApplicationContext())
                 .orElseThrow(BEAN_NOT_FOUND);
     }
 
@@ -257,16 +255,6 @@ public final class SpringUtils {
                 .values()
                 .stream()
                 .toList();
-    }
-
-    /**
-     * 获取{@link SpringApplication} 实例
-     *
-     * @return 实例
-     */
-    public static SpringApplication getSpringApplication() {
-        return Optional.ofNullable(SpringApplicationHolders.SA)
-                .orElseThrow(UNSUPPORTED);
     }
 
 }
