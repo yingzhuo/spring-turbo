@@ -5,6 +5,7 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -16,8 +17,11 @@ import org.springframework.validation.Validator;
 import spring.turbo.core.env.SpringApplicationHolders;
 import spring.turbo.util.Asserts;
 
+import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 
 /**
@@ -30,8 +34,8 @@ import java.util.function.Supplier;
  */
 public final class SpringUtils {
 
-    public static final Supplier<? extends RuntimeException> BEAN_NOT_FOUND = () -> new NoSuchBeanDefinitionException(
-            "bean not found");
+    public static final Supplier<? extends RuntimeException> NOT_SUPPORTED =
+            () -> new UnsupportedOperationException("operation not supported yet");
 
     /**
      * 私有构造方法
@@ -46,7 +50,46 @@ public final class SpringUtils {
      */
     public static ApplicationContext getApplicationContext() {
         return Optional.ofNullable(SpringApplicationHolders.getApplicationContext())
-                .orElseThrow(BEAN_NOT_FOUND);
+                .orElseThrow(NOT_SUPPORTED);
+    }
+
+    /**
+     * 获取启动目录
+     *
+     * @return 启动目录
+     */
+    public static Path getApplicationHome() {
+        return Optional.ofNullable(SpringApplicationHolders.getApplicationHome())
+                .orElseThrow(NOT_SUPPORTED);
+    }
+
+    /**
+     * 获取启动目录绝对路径
+     *
+     * @return 启动目录绝对路径
+     */
+    public static String getApplicationHomeAsString() {
+        return getApplicationHome().toString();
+    }
+
+    /**
+     * 获取启动的Source
+     *
+     * @return 启动的Source
+     */
+    public static Set<Object> getApplicationSources() {
+        return Optional.ofNullable(SpringApplicationHolders.getApplicationSources())
+                .orElseGet(HashSet::new);
+    }
+
+    /**
+     * 获取 {@link WebApplicationType}
+     *
+     * @return WebApplicationType 实例
+     */
+    public static WebApplicationType getApplicationWebApplicationType() {
+        return Optional.ofNullable(SpringApplicationHolders.getApplicationWebApplicationType())
+                .orElseThrow(NOT_SUPPORTED);
     }
 
     /**
@@ -57,7 +100,7 @@ public final class SpringUtils {
     public static String getApplicationContextId() {
         var id = getApplicationContext().getId();
         return Optional.ofNullable(id)
-                .orElseThrow(BEAN_NOT_FOUND);
+                .orElseThrow(NOT_SUPPORTED);
     }
 
     /**
@@ -223,7 +266,7 @@ public final class SpringUtils {
      */
     public static <T> T getRequiredBean(Class<T> beanType) {
         return getBean(beanType)
-                .orElseThrow(BEAN_NOT_FOUND);
+                .orElseThrow(NOT_SUPPORTED);
     }
 
     /**
@@ -238,7 +281,7 @@ public final class SpringUtils {
      */
     public static <T> T getRequiredBean(Class<T> beanType, String beanName) {
         return getBean(beanType, beanName)
-                .orElseThrow(BEAN_NOT_FOUND);
+                .orElseThrow(NOT_SUPPORTED);
     }
 
     /**

@@ -9,12 +9,12 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.PriorityOrdered;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.lang.Nullable;
 import spring.turbo.core.SpringUtils;
+import spring.turbo.util.collection.CollectionUtils;
 
 import java.nio.file.Path;
 import java.util.Set;
-
-import static spring.turbo.util.collection.CollectionUtils.size;
 
 /**
  * ApplicationContext实例保存
@@ -25,9 +25,16 @@ import static spring.turbo.util.collection.CollectionUtils.size;
  */
 public final class SpringApplicationHolders {
 
+    @Nullable
     private static ApplicationContext APPLICATION_CONTEXT;
+
+    @Nullable
     private static Path APPLICATION_HOME;
+
+    @Nullable
     private static Set<Object> APPLICATION_SOURCES;
+
+    @Nullable
     private static WebApplicationType APPLICATION_WEB_APPLICATION_TYPE;
 
     /**
@@ -36,24 +43,43 @@ public final class SpringApplicationHolders {
     private SpringApplicationHolders() {
     }
 
+    @Nullable
     public static ApplicationContext getApplicationContext() {
         return APPLICATION_CONTEXT;
     }
 
+    @Nullable
     public static Path getApplicationHome() {
         return APPLICATION_HOME;
     }
 
+    @Nullable
     public static Set<Object> getApplicationSources() {
         return APPLICATION_SOURCES;
     }
 
+    @Nullable
     public static WebApplicationType getApplicationWebApplicationType() {
         return APPLICATION_WEB_APPLICATION_TYPE;
     }
 
+    /**
+     * 被SpringBoot回调的挂钩
+     *
+     * @see EnvironmentPostProcessor
+     * @see ApplicationListener
+     */
     private static class Hook implements EnvironmentPostProcessor, ApplicationListener<ContextRefreshedEvent>, PriorityOrdered {
 
+        /**
+         * 私有构造方法
+         */
+        private Hook() {
+        }
+
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
             SpringApplicationHolders.APPLICATION_HOME = getAppHomeDir(application).toAbsolutePath();
@@ -61,11 +87,17 @@ public final class SpringApplicationHolders {
             SpringApplicationHolders.APPLICATION_WEB_APPLICATION_TYPE = application.getWebApplicationType();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onApplicationEvent(ContextRefreshedEvent event) {
             SpringApplicationHolders.APPLICATION_CONTEXT = event.getApplicationContext();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int getOrder() {
             return HIGHEST_PRECEDENCE;
@@ -78,7 +110,7 @@ public final class SpringApplicationHolders {
                     .map(o -> (Class<?>) o)
                     .toList();
 
-            var file = size(sourceClasses) == 1 ?
+            var file = CollectionUtils.size(sourceClasses) == 1 ?
                     new ApplicationHome(sourceClasses.get(0)).getDir() :
                     new ApplicationHome().getDir();
 

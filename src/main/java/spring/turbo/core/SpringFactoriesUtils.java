@@ -1,17 +1,16 @@
 package spring.turbo.core;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.lang.Nullable;
+import org.springframework.util.ClassUtils;
 import spring.turbo.util.Asserts;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
-import static org.springframework.core.io.support.SpringFactoriesLoader.FACTORIES_RESOURCE_LOCATION;
 import static org.springframework.core.io.support.SpringFactoriesLoader.forResourceLocation;
 import static spring.turbo.util.StringDefaults.blankToDefault;
 import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
@@ -25,54 +24,68 @@ import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
  */
 public final class SpringFactoriesUtils {
 
+    private static final SpringFactoriesLoader.FailureHandler NOOP = (factoryType, factoryImplementationName, failure) -> {
+    };
+
     /**
      * 私有构造方法
      */
     private SpringFactoriesUtils() {
     }
 
+    /**
+     * 获取实现
+     *
+     * @param factoryType 实现的类型
+     * @param <T>         实现的接口类型
+     * @return 实例
+     */
     public static <T> List<T> loadQuietly(Class<T> factoryType) {
-        return loadQuietly(factoryType, FACTORIES_RESOURCE_LOCATION);
+        return loadQuietly(factoryType, null);
     }
 
-    public static <T> List<T> loadQuietly(Class<T> factoryType, @Nullable String factoriesResourceLocation) {
+    /**
+     * 获取实现
+     *
+     * @param factoryType               实现的类型
+     * @param factoriesResourceLocation 配置文件位置
+     * @param <T>                       实现的接口类型
+     * @return 实例
+     */
+    public static <T> List<T> loadQuietly(Class<T> factoryType,
+                                          @Nullable String factoriesResourceLocation) {
+
         return loadQuietly(factoryType, factoriesResourceLocation, null);
     }
 
-    public static <T> List<T> loadQuietly(Class<T> factoryType, @Nullable String factoriesResourceLocation,
+    /**
+     * 获取实现
+     *
+     * @param factoryType               实现的类型
+     * @param factoriesResourceLocation 配置文件位置
+     * @param classLoader               类型加载器
+     * @param <T>                       实现的接口类型
+     * @return 实例
+     */
+    public static <T> List<T> loadQuietly(Class<T> factoryType,
+                                          @Nullable String factoriesResourceLocation,
                                           @Nullable ClassLoader classLoader) {
-        Asserts.notNull(factoryType);
 
-        factoriesResourceLocation = blankToDefault(factoriesResourceLocation, FACTORIES_RESOURCE_LOCATION);
+        Asserts.notNull(factoryType, "factoryType is required");
+
+        factoriesResourceLocation = blankToDefault(factoriesResourceLocation, SpringFactoriesLoader.FACTORIES_RESOURCE_LOCATION);
+        classLoader = Objects.requireNonNullElse(classLoader, ClassUtils.getDefaultClassLoader());
 
         var factoriesLoader = forResourceLocation(factoriesResourceLocation, classLoader);
 
         try {
             final List<T> list = new ArrayList<>();
-            var services = factoriesLoader.load(factoryType, LoggingFailureHandler.INSTANCE);
+            var services = factoriesLoader.load(factoryType, NOOP);
             nullSafeAddAll(list, services);
             OrderComparator.sort(list);
             return Collections.unmodifiableList(list);
         } catch (Throwable e) {
-            return Collections.emptyList();
-        }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private static class LoggingFailureHandler implements SpringFactoriesLoader.FailureHandler {
-        private static final Logger log = LoggerFactory.getLogger(LoggingFailureHandler.class);
-        private static final LoggingFailureHandler INSTANCE = new LoggingFailureHandler();
-
-        /**
-         * 私有构造方法
-         */
-        private LoggingFailureHandler() {
-        }
-
-        @Override
-        public void handleFailure(Class<?> factoryType, String factoryImplementationName, Throwable ex) {
-            log.warn(ex.getMessage(), ex);
+            return List.of();
         }
     }
 
