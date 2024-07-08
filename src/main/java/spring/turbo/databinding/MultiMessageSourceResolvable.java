@@ -1,10 +1,10 @@
 package spring.turbo.databinding;
 
 import org.springframework.context.MessageSourceResolvable;
-import spring.turbo.util.collection.StreamFactories;
 
 import java.util.Iterator;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * 包含多个 {@link MessageSourceResolvable} 对象的类型
@@ -27,7 +27,7 @@ public interface MultiMessageSourceResolvable extends Iterable<MessageSourceReso
      * @return stream
      */
     public default Stream<MessageSourceResolvable> stream() {
-        return StreamFactories.newStream(iterator(), false);
+        return StreamSupport.stream(spliterator(), false);
     }
 
 }
