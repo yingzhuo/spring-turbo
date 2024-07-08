@@ -74,7 +74,6 @@ public final class RegexUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      */
-
     public static String removeAll(final String text, final String regex) {
         return replaceAll(text, regex, EMPTY);
     }

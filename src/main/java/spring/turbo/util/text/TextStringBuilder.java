@@ -1,6 +1,7 @@
-package spring.turbo.util;
+package spring.turbo.util.text;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.util.*;
 
 import java.io.Serializable;
 import java.nio.CharBuffer;

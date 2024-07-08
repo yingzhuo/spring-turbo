@@ -1,16 +1,18 @@
-package spring.turbo.util;
+package spring.turbo.util.text;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
+import spring.turbo.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.DOTALL;
 import static java.util.regex.Pattern.MULTILINE;
+import static spring.turbo.util.CharPool.LF;
+import static spring.turbo.util.CharPool.SEMICOLON;
 
 /**
  * 工具类，从文本中解析出若干参数名值对。
@@ -19,14 +21,9 @@ import static java.util.regex.Pattern.MULTILINE;
  * @see StringTokenizer
  * @since 3.3.1
  */
-public class TextVariables implements Serializable {
+public class TextVariables extends HashMap<String, String> implements Serializable {
 
-    private static final StringMatcher DEFAULT_DELIMITER = StringMatcher.charSetMatcher('\n', ';');
-
-    /**
-     * 依赖{@link HashMap} 实现
-     */
-    private final Map<String, String> innerMap = new HashMap<>();
+    private static final StringMatcher DEFAULT_DELIMITER = StringMatcher.charSetMatcher(SEMICOLON, LF);
 
     /**
      * 默认构造方法
@@ -63,7 +60,7 @@ public class TextVariables implements Serializable {
      * @return 参数名集合
      */
     public Set<String> getNames() {
-        return innerMap.keySet();
+        return this.keySet();
     }
 
     /**
@@ -74,7 +71,7 @@ public class TextVariables implements Serializable {
      */
     @Nullable
     public String getValue(String name) {
-        return innerMap.get(name);
+        return this.get(name);
     }
 
     /**
@@ -134,33 +131,6 @@ public class TextVariables implements Serializable {
     }
 
     /**
-     * 获取参数的数量
-     *
-     * @return 参数的数量
-     * @see Map#size()
-     */
-    public int size() {
-        return innerMap.size();
-    }
-
-    /**
-     * 判断是不是包含参数
-     *
-     * @return 结果
-     * @see Map#size()
-     */
-    public boolean isEmpty() {
-        return innerMap.isEmpty();
-    }
-
-    /**
-     * 清除所有参数
-     */
-    public void clear() {
-        innerMap.clear();
-    }
-
-    /**
      * 重置
      *
      * @param text      多个参数合成的字符串
@@ -169,7 +139,7 @@ public class TextVariables implements Serializable {
      * @see StringMatcher#stringMatcher(String)
      */
     public void reset(@Nullable String text, @Nullable StringMatcher delimiter) {
-        innerMap.clear();
+        clear();
 
         if (StringUtils.isNotBlank(text)) {
             delimiter = delimiter != null ? delimiter : DEFAULT_DELIMITER;
@@ -192,19 +162,11 @@ public class TextVariables implements Serializable {
                     if (matcher.matches()) {
                         var variableName = matcher.group(1).trim();
                         var variableValue = matcher.group(2).trim();
-                        innerMap.put(variableName, variableValue);
+                        put(variableName, variableValue);
                     }
                 }
             }
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String toString() {
-        return innerMap.toString();
     }
 
 }

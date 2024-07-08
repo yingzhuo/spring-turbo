@@ -1,6 +1,9 @@
-package spring.turbo.util;
+package spring.turbo.util.text;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
+import spring.turbo.util.CharPool;
+import spring.turbo.util.CharSequenceUtils;
 
 import java.util.Arrays;
 

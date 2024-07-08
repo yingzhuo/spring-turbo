@@ -1,6 +1,8 @@
-package spring.turbo.util;
+package spring.turbo.util.text;
 
 import org.springframework.lang.Nullable;
+import spring.turbo.util.Asserts;
+import spring.turbo.util.StringPool;
 
 import java.io.Serializable;
 import java.util.*;
