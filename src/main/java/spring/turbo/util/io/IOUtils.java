@@ -1,13 +1,14 @@
 package spring.turbo.util.io;
 
+import org.springframework.lang.Nullable;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StreamUtils;
 import spring.turbo.util.Asserts;
 
 import java.io.*;
 import java.nio.charset.Charset;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 /**
  * @author 应卓
@@ -85,7 +86,7 @@ public final class IOUtils {
      * @throws UncheckedIOException IO错误
      */
     public static void copy(String in, OutputStream out) {
-        copy(in, UTF_8, out);
+        copy(in, null, out);
     }
 
     /**
@@ -96,10 +97,11 @@ public final class IOUtils {
      * @param out     out
      * @throws UncheckedIOException IO错误
      */
-    public static void copy(String in, Charset charset, OutputStream out) {
+    public static void copy(String in, @Nullable Charset charset, OutputStream out) {
         Asserts.notNull(in);
-        Asserts.notNull(charset);
         Asserts.notNull(out);
+
+        charset = Objects.requireNonNullElse(charset, StandardCharsets.UTF_8);
 
         try {
             StreamUtils.copy(in, charset, out);
@@ -133,7 +135,7 @@ public final class IOUtils {
      * @throws UncheckedIOException IO错误
      */
     public static String copyToString(InputStream in) {
-        return copyToString(in, UTF_8);
+        return copyToString(in, null);
     }
 
     /**
@@ -144,9 +146,10 @@ public final class IOUtils {
      * @return 字符串
      * @throws UncheckedIOException IO错误
      */
-    public static String copyToString(InputStream in, Charset charset) {
+    public static String copyToString(InputStream in, @Nullable Charset charset) {
         Asserts.notNull(in);
-        Asserts.notNull(charset);
+
+        charset = Objects.requireNonNullElse(charset, StandardCharsets.UTF_8);
 
         try {
             return StreamUtils.copyToString(in, charset);

@@ -1,26 +1,35 @@
 package spring.turbo.util.io;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.lang.Nullable;
+
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-
 /**
- * String型Resource
+ * 文本类型 {@link org.springframework.core.io.Resource}
  *
  * @author 应卓
  * @see org.springframework.core.io.Resource
  * @see StringResource
  * @since 1.1.0
  */
-public class StringResource extends InMemoryResource {
+public class StringResource extends ByteArrayResource {
 
     private final String string;
 
     public StringResource(String source) {
-        super(source.getBytes(UTF_8));
+        this(source, null);
+    }
+
+    public StringResource(String source, @Nullable String description) {
+        super(source.getBytes(StandardCharsets.UTF_8), description);
         this.string = source;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object res) {
         if (!(res instanceof StringResource)) {
@@ -29,9 +38,16 @@ public class StringResource extends InMemoryResource {
         return Objects.equals(this.string, ((StringResource) res).string);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(string);
+    }
+
+    public final String getString() {
+        return string;
     }
 
 }

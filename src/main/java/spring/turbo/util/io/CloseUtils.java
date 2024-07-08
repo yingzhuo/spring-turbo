@@ -30,7 +30,7 @@ public final class CloseUtils {
             try {
                 closeable.close();
             } catch (IOException ignored) {
-                // nop
+                // noop
             }
         }
     }
@@ -45,7 +45,7 @@ public final class CloseUtils {
             try {
                 closeable.close();
             } catch (Exception ignored) {
-                // nop
+                // noop
             }
         }
     }
@@ -60,7 +60,7 @@ public final class CloseUtils {
             try {
                 closeQuietly(resource.getInputStream());
             } catch (IOException ignored) {
-                // nop
+                // noop
             }
         }
     }

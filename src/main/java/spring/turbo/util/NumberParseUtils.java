@@ -77,4 +77,5 @@ public final class NumberParseUtils {
     private static String getErrorMessage(String text) {
         return StringFormatter.format("{} is not a valid number", text);
     }
+
 }

@@ -1,4 +1,4 @@
-package spring.turbo.util;
+package spring.turbo.util.id;
 
 /**
  * 雪花算法ID生成器

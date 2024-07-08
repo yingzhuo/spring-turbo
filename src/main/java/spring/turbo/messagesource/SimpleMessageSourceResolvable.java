@@ -30,17 +30,26 @@ public final class SimpleMessageSourceResolvable implements MessageSourceResolva
         this.defaultMessages = StringUtils.blankToNull(defaultMessages);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public String[] getCodes() {
         return code != null ? new String[]{code} : null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object[] getArguments() {
         return arguments;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDefaultMessage() {
         return defaultMessages;

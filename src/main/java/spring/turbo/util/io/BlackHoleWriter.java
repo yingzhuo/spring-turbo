@@ -6,7 +6,9 @@ import java.io.Writer;
  * @author 应卓
  * @see #getInstance()
  * @since 2.0.0
+ * @deprecated 使用 {@link Writer#nullWriter()} 代替
  */
+@Deprecated(since = "3.3.1")
 public final class BlackHoleWriter extends Writer {
 
     /**

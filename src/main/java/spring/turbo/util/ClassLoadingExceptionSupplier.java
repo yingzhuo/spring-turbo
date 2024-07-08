@@ -21,6 +21,9 @@ public class ClassLoadingExceptionSupplier implements Supplier<ClassLoadingExcep
         this.className = className;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ClassLoadingException get() {
         final String msg = StringFormatter.format("not able to load class. class name: '{}'", className);

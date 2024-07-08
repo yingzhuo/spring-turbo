@@ -10,34 +10,47 @@ import java.io.Serializable;
 /**
  * {@link MessageSourceResolvable} 简单实现
  *
- * @param errorMessage 默认错误信息
+ * @param defaultMessage 默认错误信息
  * @author 应卓
  * @see MessageSourceResolvable#getDefaultMessage()
  * @since 3.3.1
  */
-public final record StringMessageSourceResolvable(
-        String errorMessage) implements MessageSourceResolvable, Serializable {
+public record StringMessageSourceResolvable(String defaultMessage) implements MessageSourceResolvable, Serializable {
 
+    /**
+     * 构造方法
+     *
+     * @param defaultMessage 默认错误文本
+     */
     public StringMessageSourceResolvable {
-        Asserts.hasText(errorMessage, "errorMessage is required");
+        Asserts.hasText(defaultMessage, "defaultMessage is required");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public String[] getCodes() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public Object[] getArguments() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NonNull
     @Override
     public String getDefaultMessage() {
-        return errorMessage;
+        return defaultMessage;
     }
 
 }
