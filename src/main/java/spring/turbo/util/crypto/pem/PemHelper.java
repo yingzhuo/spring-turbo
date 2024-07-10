@@ -1,5 +1,6 @@
 package spring.turbo.util.crypto.pem;
 
+import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.springframework.core.io.Resource;
 
@@ -75,9 +76,12 @@ public final class PemHelper {
      * @throws UncheckedIOException IO错误
      */
     public static byte[] readPemBytes(InputStream inputStream) {
+        return readPemObject(inputStream).getContent();
+    }
+
+    public static PemObject readPemObject(InputStream inputStream) {
         try (var keyReader = new InputStreamReader(inputStream); var pemReader = new PemReader(keyReader)) {
-            var pemObject = pemReader.readPemObject();
-            return pemObject.getContent();
+            return pemReader.readPemObject();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
