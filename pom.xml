@@ -264,9 +264,9 @@
                         <manifest>
                             <addClasspath>false</addClasspath>
                             <addDefaultEntries>true</addDefaultEntries>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                            <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+                            <addDefaultImplementationEntries>false</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
+                            <addBuildEnvironmentEntries>false</addBuildEnvironmentEntries>
                             <addExtensions>false</addExtensions>
                         </manifest>
                         <manifestEntries/>
