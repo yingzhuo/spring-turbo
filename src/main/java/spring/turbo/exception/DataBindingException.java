@@ -13,7 +13,7 @@ import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 import spring.turbo.util.StringUtils;
 import spring.turbo.util.collection.CollectionUtils;
-import spring.turbo.util.collection.NoopComparator;
+import spring.turbo.util.collection.iterator.NoopComparator;
 
 import java.util.*;
 import java.util.stream.Collectors;

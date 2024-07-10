@@ -1,7 +1,5 @@
 package spring.turbo.util;
 
-import static spring.turbo.util.StringUtils.repeat;
-
 /**
  * 字符串池
  *
@@ -10,6 +8,12 @@ import static spring.turbo.util.StringUtils.repeat;
  * @since 1.0.0
  */
 public final class StringPool {
+
+    /**
+     * 私有构造方法
+     */
+    private StringPool() {
+    }
 
     public static final String DEBUG = "debug";
     public static final String TRACE = "trace";
@@ -33,17 +37,5 @@ public final class StringPool {
     public static final String HYPHEN = "-";
     public static final String UNDERSCORE = "_";
     public static final String COMMA = ",";
-    public static final String COMMA_SPACE = COMMA + SPACE;
-
-    public static final String QUESTION_MARK_X_3 = repeat(QUESTION_MARK, 3);
-    public static final String HYPHEN_X_80 = repeat(HYPHEN, 80);
-
-    public static final String ANNOTATION_STRING_NULL = "#<no value!!!>#";
-
-    /**
-     * 私有构造方法
-     */
-    private StringPool() {
-    }
 
 }

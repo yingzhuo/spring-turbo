@@ -1,4 +1,4 @@
-package spring.turbo.util.collection;
+package spring.turbo.util.collection.iterator;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
@@ -25,7 +25,7 @@ public class VersionComparator implements Comparator<String> {
     }
 
     public static VersionComparator getInstance() {
-        return AsyncAvoid.INSTANCE;
+        return SyncAvoid.INSTANCE;
     }
 
     /**
@@ -91,7 +91,7 @@ public class VersionComparator implements Comparator<String> {
     // -----------------------------------------------------------------------------------------------------------------
 
     // 延迟加载
-    private static class AsyncAvoid {
+    private static class SyncAvoid {
         public static final VersionComparator INSTANCE = new VersionComparator();
     }
 
