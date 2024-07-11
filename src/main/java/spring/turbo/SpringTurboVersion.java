@@ -1,6 +1,6 @@
 package spring.turbo;
 
-import static org.springframework.boot.SpringBootVersion.getVersion;
+import org.springframework.boot.SpringBootVersion;
 
 /**
  * 本软件版本号
@@ -19,6 +19,6 @@ public final class SpringTurboVersion {
     /**
      * 本软件版本号
      */
-    public static final String VERSION = getVersion();
+    public static final String VERSION = SpringBootVersion.getVersion();
 
 }
