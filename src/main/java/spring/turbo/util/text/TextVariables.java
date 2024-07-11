@@ -116,7 +116,7 @@ public class TextVariables extends HashMap<String, String> {
     @Nullable
     public String getVariableValue(String name, @Nullable String defaultValue) {
         var value = getVariableValue(name);
-        if (value != null && !value.isBlank()) {
+        if (value == null) {
             return defaultValue;
         }
         return value;
