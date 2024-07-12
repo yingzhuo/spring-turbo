@@ -1,4 +1,4 @@
-package spring.turbo.util.crypto;
+package spring.turbo.util.crypto.keystore;
 
 import org.springframework.lang.Nullable;
 import spring.turbo.util.Asserts;

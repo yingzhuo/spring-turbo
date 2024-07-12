@@ -1,4 +1,4 @@
-package spring.turbo.util.crypto;
+package spring.turbo.util.crypto.keystore;
 
 import spring.turbo.databinding.AbstractPropertyEditor;
 
