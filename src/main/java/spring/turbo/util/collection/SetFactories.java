@@ -1,7 +1,6 @@
 package spring.turbo.util.collection;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
 
 import java.util.*;
 
@@ -24,15 +23,11 @@ public final class SetFactories {
 
     @SafeVarargs
     public static <T> Set<T> newUnmodifiableSet(T... elements) {
-        Asserts.notNull(elements);
-        Asserts.noNullElements(elements);
         return Collections.unmodifiableSet(newHashSet(elements));
     }
 
     @SafeVarargs
     public static <T> HashSet<T> newHashSet(T... elements) {
-        Asserts.notNull(elements);
-        Asserts.noNullElements(elements);
         final var set = new HashSet<T>();
         Collections.addAll(set, elements);
         return set;
@@ -40,8 +35,6 @@ public final class SetFactories {
 
     @SafeVarargs
     public static <T> LinkedHashSet<T> newLinkedHashSet(T... elements) {
-        Asserts.notNull(elements);
-        Asserts.noNullElements(elements);
         final var set = new LinkedHashSet<T>();
         Collections.addAll(set, elements);
         return set;
@@ -58,9 +51,6 @@ public final class SetFactories {
 
     @SafeVarargs
     public static <T> TreeSet<T> newTreeSet(Comparator<T> comparator, T... elements) {
-        Asserts.notNull(comparator);
-        Asserts.notNull(elements);
-        Asserts.noNullElements(elements);
         final var set = new TreeSet<T>(comparator);
         Collections.addAll(set, elements);
         return set;
@@ -89,7 +79,6 @@ public final class SetFactories {
 
     @SafeVarargs
     public static <T> TreeSet<T> nullSafeNewTreeSet(Comparator<T> comparator, @Nullable T... elements) {
-        Asserts.notNull(comparator);
         final var set = new TreeSet<T>(comparator);
         CollectionUtils.nullSafeAddAll(set, elements);
         return set;

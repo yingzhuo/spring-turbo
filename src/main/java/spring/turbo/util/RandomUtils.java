@@ -35,8 +35,6 @@ public final class RandomUtils {
      * @return 随机字节数组
      */
     public static byte[] nextBytes(int count) {
-        Asserts.isTrue(count >= 0);
-
         byte[] result = new byte[count];
         RANDOM.nextBytes(result);
         return result;
@@ -50,9 +48,6 @@ public final class RandomUtils {
      * @return 随机整数
      */
     public static int nextInt(int startInclusive, int endExclusive) {
-        Asserts.isTrue(endExclusive >= startInclusive);
-        Asserts.isTrue(startInclusive >= 0);
-
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
@@ -77,9 +72,6 @@ public final class RandomUtils {
      * @return 随机长整数
      */
     public static long nextLong(long startInclusive, long endExclusive) {
-        Asserts.isTrue(endExclusive >= startInclusive);
-        Asserts.isTrue(startInclusive >= 0);
-
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
@@ -115,9 +107,6 @@ public final class RandomUtils {
      * @return 随机双精度数
      */
     public static double nextDouble(double startInclusive, double endExclusive) {
-        Asserts.isTrue(endExclusive >= startInclusive);
-        Asserts.isTrue(startInclusive >= 0);
-
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
@@ -142,9 +131,6 @@ public final class RandomUtils {
      * @return 随机浮点数
      */
     public static float nextFloat(float startInclusive, float endExclusive) {
-        Asserts.isTrue(endExclusive >= startInclusive);
-        Asserts.isTrue(startInclusive >= 0);
-
         if (startInclusive == endExclusive) {
             return startInclusive;
         }

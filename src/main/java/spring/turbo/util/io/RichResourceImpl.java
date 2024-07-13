@@ -1,7 +1,7 @@
 package spring.turbo.util.io;
 
 import org.springframework.core.io.Resource;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.nio.channels.ReadableByteChannel;
 record RichResourceImpl(Resource delegating) implements RichResource {
 
     RichResourceImpl {
-        Asserts.notNull(delegating, "delegating is null");
+        Assert.notNull(delegating, "delegating is null");
     }
 
     @Override

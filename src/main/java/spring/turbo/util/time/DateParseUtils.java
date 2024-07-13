@@ -3,7 +3,7 @@ package spring.turbo.util.time;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.text.ParseException;
 import java.util.Collection;
@@ -46,8 +46,8 @@ public final class DateParseUtils {
     }
 
     public static Date parse(String string, String pattern, String... fallbackPatterns) {
-        Asserts.notNull(string);
-        Asserts.notNull(pattern);
+        Assert.hasText(string, "string ire required");
+        Assert.hasText(pattern, "pattern is required");
 
         try {
             final DateFormatter formatter = new DateFormatter();

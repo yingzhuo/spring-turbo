@@ -1,6 +1,6 @@
 package spring.turbo.util.collection.iterator;
 
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -18,7 +18,7 @@ public class EnumerationIterator<T> implements Iterator<T> {
     private final Enumeration<T> innerEnumeration;
 
     public EnumerationIterator(Enumeration<T> enumeration) {
-        Asserts.notNull(enumeration);
+        Assert.notNull(enumeration, "enumeration is required");
         this.innerEnumeration = enumeration;
     }
 

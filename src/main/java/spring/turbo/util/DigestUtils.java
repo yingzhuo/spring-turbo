@@ -1,5 +1,7 @@
 package spring.turbo.util;
 
+import org.springframework.util.Assert;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -49,7 +51,7 @@ public final class DigestUtils {
      * @return 信息摘要
      */
     public static String md2Hex(final String data) {
-        Asserts.notNull(data);
+        Assert.notNull(data, "data is required");
         return HexUtils.encodeToString(md2(data.getBytes(UTF_8)));
     }
 
@@ -75,7 +77,7 @@ public final class DigestUtils {
      * @return 信息摘要
      */
     public static String md5Hex(final String data) {
-        Asserts.notNull(data);
+        Assert.notNull(data, "data is required");
         return HexUtils.encodeToString(md5(data.getBytes(UTF_8)));
     }
 
@@ -101,7 +103,7 @@ public final class DigestUtils {
      * @return 信息摘要
      */
     public static String sha1Hex(final String data) {
-        Asserts.notNull(data);
+        Assert.notNull(data, "data is required");
         return HexUtils.encodeToString(sha1(data.getBytes(UTF_8)));
     }
 
@@ -127,7 +129,7 @@ public final class DigestUtils {
      * @return 信息摘要
      */
     public static String sha256Hex(final String data) {
-        Asserts.notNull(data);
+        Assert.notNull(data, "data is required");
         return HexUtils.encodeToString(sha256(data.getBytes(UTF_8)));
     }
 
@@ -153,7 +155,7 @@ public final class DigestUtils {
      * @return 信息摘要
      */
     public static String sha384Hex(final String data) {
-        Asserts.notNull(data);
+        Assert.notNull(data, "data is required");
         return HexUtils.encodeToString(sha384(data.getBytes(UTF_8)));
     }
 
@@ -179,7 +181,7 @@ public final class DigestUtils {
      * @return 信息摘要
      */
     public static String sha512Hex(final String data) {
-        Asserts.notNull(data);
+        Assert.notNull(data, "data is required");
         return HexUtils.encodeToString(sha512(data.getBytes(UTF_8)));
     }
 

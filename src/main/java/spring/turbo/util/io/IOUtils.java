@@ -3,7 +3,6 @@ package spring.turbo.util.io;
 import org.springframework.lang.Nullable;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StreamUtils;
-import spring.turbo.util.Asserts;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -31,9 +30,6 @@ public final class IOUtils {
      * @throws UncheckedIOException IO错误
      */
     public static int copy(InputStream in, OutputStream out) {
-        Asserts.notNull(in);
-        Asserts.notNull(out);
-
         try {
             return FileCopyUtils.copy(in, out);
         } catch (IOException e) {
@@ -50,9 +46,6 @@ public final class IOUtils {
      * @throws UncheckedIOException IO错误
      */
     public static int copy(Reader in, Writer out) {
-        Asserts.notNull(in);
-        Asserts.notNull(out);
-
         try {
             return FileCopyUtils.copy(in, out);
         } catch (IOException e) {
@@ -68,9 +61,6 @@ public final class IOUtils {
      * @throws UncheckedIOException IO错误
      */
     public static void copy(byte[] in, OutputStream out) {
-        Asserts.notNull(in);
-        Asserts.notNull(out);
-
         try {
             StreamUtils.copy(in, out);
         } catch (IOException e) {
@@ -98,9 +88,6 @@ public final class IOUtils {
      * @throws UncheckedIOException IO错误
      */
     public static void copy(String in, @Nullable Charset charset, OutputStream out) {
-        Asserts.notNull(in);
-        Asserts.notNull(out);
-
         charset = Objects.requireNonNullElse(charset, StandardCharsets.UTF_8);
 
         try {
@@ -118,8 +105,6 @@ public final class IOUtils {
      * @throws UncheckedIOException IO错误
      */
     public static byte[] copyToByteArray(InputStream in) {
-        Asserts.notNull(in);
-
         try {
             return StreamUtils.copyToByteArray(in);
         } catch (IOException e) {
@@ -147,8 +132,6 @@ public final class IOUtils {
      * @throws UncheckedIOException IO错误
      */
     public static String copyToString(InputStream in, @Nullable Charset charset) {
-        Asserts.notNull(in);
-
         charset = Objects.requireNonNullElse(charset, StandardCharsets.UTF_8);
 
         try {
@@ -165,7 +148,6 @@ public final class IOUtils {
      * @return 排空的字节数
      */
     public static int drain(InputStream in) {
-        Asserts.notNull(in);
         try {
             return StreamUtils.drain(in);
         } catch (IOException e) {

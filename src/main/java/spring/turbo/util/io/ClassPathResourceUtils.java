@@ -2,7 +2,6 @@ package spring.turbo.util.io;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
 
 import java.nio.charset.Charset;
 
@@ -42,7 +41,6 @@ public final class ClassPathResourceUtils {
      * @return 文本
      */
     public static String readText(String location, @Nullable Charset charset) {
-        Asserts.hasText(location);
         return ResourceUtils.readText(new ClassPathResource(location), charset);
     }
 
@@ -64,7 +62,6 @@ public final class ClassPathResourceUtils {
      * @return 当行文本
      */
     public static String readTextAsOneLine(String location, @Nullable Charset charset) {
-        Asserts.hasText(location);
         return readText(location, charset).replaceAll(LF, EMPTY);
     }
 
@@ -75,7 +72,6 @@ public final class ClassPathResourceUtils {
      * @return 二进制数据
      */
     public static byte[] readByteArray(String location) {
-        Asserts.hasText(location);
         return ResourceUtils.readByteArray(new ClassPathResource(location));
     }
 

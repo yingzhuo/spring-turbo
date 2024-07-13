@@ -2,6 +2,7 @@ package spring.turbo.util;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import spring.turbo.util.reflection.InstanceUtils;
 
 import java.util.Optional;
@@ -56,7 +57,7 @@ public final class ClassUtils {
      */
     public static Class<?> forNameElseThrow(@NonNull String className,
                                             @NonNull Supplier<? extends RuntimeException> exceptionIfCannotLoad) {
-        Asserts.notNull(exceptionIfCannotLoad);
+        Assert.notNull(exceptionIfCannotLoad, "exceptionIfCannotLoad is required");
         return forName(className).orElseThrow(exceptionIfCannotLoad);
     }
 
@@ -81,7 +82,7 @@ public final class ClassUtils {
      */
     public static Optional<Class<?>> forName(String className) {
         try {
-            Asserts.notNull(className);
+            Assert.hasText(className, "className is required");
             final Class<?> clazz = org.springframework.util.ClassUtils.forName(className, DEFAULT_CLASSLOADER);
             return Optional.of(clazz);
         } catch (Throwable e) {
@@ -97,7 +98,7 @@ public final class ClassUtils {
      */
     public static boolean isPresent(String className) {
         try {
-            Asserts.notNull(className);
+            Assert.hasText(className, "className is required");
             return org.springframework.util.ClassUtils.isPresent(className, DEFAULT_CLASSLOADER);
         } catch (IllegalAccessError e) {
             // 典型情况，该类型的依赖有缺失

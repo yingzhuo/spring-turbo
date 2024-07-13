@@ -3,7 +3,7 @@ package spring.turbo.util.time;
 import org.springframework.boot.convert.DurationStyle;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -59,7 +59,7 @@ public final class DurationParseUtils {
      * @throws IllegalArgumentException 字符串格式不正确
      */
     public static Duration parse(@NonNull String string, @Nullable ChronoUnit unit) {
-        Asserts.notNull(string);
+        Assert.hasText(string, "string is required");
 
         Duration duration = parseFromSimpleStyle(string, unit);
         if (duration == null) {

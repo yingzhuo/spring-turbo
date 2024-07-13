@@ -1,7 +1,7 @@
 package spring.turbo.util.collection.iterator;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.util.Comparator;
 import java.util.List;
@@ -23,7 +23,7 @@ public class InstanceComparator<T> implements Comparator<T> {
     }
 
     public InstanceComparator(Class<?>... instanceOrder) {
-        Asserts.notNull(instanceOrder);
+        Assert.notNull(instanceOrder, "instanceOrder is null");
         this.instanceOrder = instanceOrder;
     }
 

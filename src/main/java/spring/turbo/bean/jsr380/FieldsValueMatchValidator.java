@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.util.Objects;
 
@@ -36,8 +36,8 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
             return true;
         }
 
-        Asserts.notNull(field);
-        Asserts.notNull(fieldMatch);
+        Assert.notNull(field, "field is null");
+        Assert.notNull(fieldMatch, "fieldMatch is null");
 
         Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
         Object fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);

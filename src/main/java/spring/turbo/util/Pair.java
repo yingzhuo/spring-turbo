@@ -1,6 +1,7 @@
 package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -32,8 +33,8 @@ public final class Pair<A, B> implements Serializable {
     }
 
     public static <A, B> Pair<A, B> ofNonNull(A a, B b) {
-        Asserts.notNull(a);
-        Asserts.notNull(b);
+        Assert.notNull(a, "a is null");
+        Assert.notNull(b, "b is null");
         return new Pair<>(a, b);
     }
 
@@ -42,10 +43,8 @@ public final class Pair<A, B> implements Serializable {
         return a;
     }
 
-    // since 1.0.10
     public A getRequiredA() {
-        Asserts.notNull(a);
-        return a;
+        return Objects.requireNonNull(a);
     }
 
     @Nullable
@@ -53,10 +52,8 @@ public final class Pair<A, B> implements Serializable {
         return b;
     }
 
-    // since 1.0.10
     public B getRequiredB() {
-        Asserts.notNull(b);
-        return b;
+        return Objects.requireNonNull(b);
     }
 
     @Override

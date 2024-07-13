@@ -1,7 +1,6 @@
 package spring.turbo.util.io;
 
 import org.springframework.util.FileSystemUtils;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 import spring.turbo.util.collection.ListFactories;
 
@@ -42,7 +41,6 @@ public final class PathUtils {
      * @return 结果
      */
     public static File toFile(Path path) {
-        Asserts.notNull(path);
         return path.toFile();
     }
 
@@ -54,7 +52,6 @@ public final class PathUtils {
      * @return Path实例
      */
     public static Path createPath(String first, String... more) {
-        Asserts.notNull(first);
         return Paths.get(first, more).normalize();
     }
 
@@ -90,8 +87,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static void createFile(Path path) {
-        Asserts.notNull(path);
-
         try {
             boolean success = toFile(path).createNewFile();
             if (!success) {
@@ -112,8 +107,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static Path createDirectory(String first, String... more) {
-        Asserts.notNull(first);
-
         final Path path = createPath(first, more);
         createDirectory(path);
         return path;
@@ -126,8 +119,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static void createDirectory(Path path) {
-        Asserts.notNull(path);
-
         if (isExists(path)) {
             if (isDirectory(path)) {
                 return;
@@ -153,9 +144,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static void move(Path source, Path target, boolean replaceExisting) {
-        Asserts.notNull(source);
-        Asserts.notNull(target);
-
         final List<CopyOption> copyOptions = ListFactories.newLinkedList();
 
         if (replaceExisting) {
@@ -178,9 +166,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static void copy(Path source, Path target, boolean replaceExisting) {
-        Asserts.notNull(source);
-        Asserts.notNull(target);
-
         final List<CopyOption> copyOptions = ListFactories.newLinkedList();
 
         if (replaceExisting) {
@@ -201,7 +186,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static void touch(Path path) {
-        Asserts.notNull(path);
         try {
             if (Files.exists(path)) {
                 Files.setLastModifiedTime(path, FileTime.from(Instant.now()));
@@ -220,7 +204,6 @@ public final class PathUtils {
      * @return 存在时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isExists(Path path) {
-        Asserts.notNull(path);
         return Files.exists(path);
     }
 
@@ -231,7 +214,6 @@ public final class PathUtils {
      * @return 是目录时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isDirectory(Path path) {
-        Asserts.notNull(path);
         return Files.isDirectory(path);
     }
 
@@ -263,7 +245,6 @@ public final class PathUtils {
      * @return 是一般文件时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isRegularFile(Path path) {
-        Asserts.notNull(path);
         return Files.isRegularFile(path);
     }
 
@@ -274,7 +255,6 @@ public final class PathUtils {
      * @return 是Link时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isSymbolicLink(Path path) {
-        Asserts.notNull(path);
         return Files.isSymbolicLink(path);
     }
 
@@ -285,7 +265,6 @@ public final class PathUtils {
      * @return 是隐藏目录或文件时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isHidden(Path path) {
-        Asserts.notNull(path);
         try {
             return Files.isHidden(path);
         } catch (IOException e) {
@@ -310,7 +289,6 @@ public final class PathUtils {
      * @return 是可读时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isReadable(Path path) {
-        Asserts.notNull(path);
         return Files.isReadable(path);
     }
 
@@ -321,7 +299,6 @@ public final class PathUtils {
      * @return 是可读时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isWritable(Path path) {
-        Asserts.notNull(path);
         return Files.isWritable(path);
     }
 
@@ -332,7 +309,6 @@ public final class PathUtils {
      * @return 是可执行时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isExecutable(Path path) {
-        Asserts.notNull(path);
         return Files.isExecutable(path);
     }
 
@@ -344,8 +320,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static long size(Path path) {
-        Asserts.notNull(path);
-
         if (!isExists(path)) {
             throw IOExceptionUtils.toUnchecked("file not exists");
         }
@@ -364,8 +338,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static void delete(Path path) {
-        Asserts.notNull(path);
-
         try {
             if (!isExists(path)) {
                 return;
@@ -387,8 +359,6 @@ public final class PathUtils {
      * @param path path
      */
     public static void deleteQuietly(Path path) {
-        Asserts.notNull(path);
-
         try {
             delete(path);
         } catch (Throwable e) {
@@ -439,7 +409,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static Date getCreationTime(Path path) {
-        Asserts.notNull(path);
         try {
             final BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class);
             return new Date(attributes.creationTime().to(TimeUnit.MILLISECONDS));
@@ -456,7 +425,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static Date getLastModifiedTime(Path path) {
-        Asserts.notNull(path);
         try {
             final BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class);
             return new Date(attributes.lastModifiedTime().to(TimeUnit.MILLISECONDS));
@@ -473,7 +441,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static Date getLastAccessTime(Path path) {
-        Asserts.notNull(path);
         try {
             final BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class);
             return new Date(attributes.lastAccessTime().to(TimeUnit.MILLISECONDS));
@@ -502,9 +469,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static List<String> readLines(Path path, Charset charset) {
-        Asserts.notNull(path);
-        Asserts.notNull(charset);
-
         try {
             return Files.readAllLines(path, charset);
         } catch (IOException e) {
@@ -520,8 +484,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static byte[] readBytes(Path path) {
-        Asserts.notNull(path);
-
         try {
             return Files.readAllBytes(path);
         } catch (IOException e) {
@@ -539,9 +501,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static void writeBytes(Path path, byte[] bytes, boolean createIfNotExists, boolean append) {
-        Asserts.notNull(path);
-        Asserts.notNull(bytes);
-
         final List<OpenOption> openOptions = ListFactories.newArrayList(StandardOpenOption.WRITE);
 
         if (createIfNotExists) {
@@ -586,10 +545,6 @@ public final class PathUtils {
      */
     public static void writeLines(Path path, List<String> lines, Charset charset, boolean createIfNotExists,
                                   boolean append) {
-        Asserts.notNull(path);
-        Asserts.notNull(lines);
-        Asserts.notNull(charset);
-
         final List<OpenOption> openOptions = ListFactories.newArrayList(StandardOpenOption.WRITE);
 
         if (createIfNotExists) {
@@ -616,7 +571,6 @@ public final class PathUtils {
      * @return 结果
      */
     public static Path toAbsolutePath(Path path) {
-        Asserts.notNull(path);
         return path.toAbsolutePath();
     }
 
@@ -629,9 +583,6 @@ public final class PathUtils {
      * @throws java.io.UncheckedIOException IO异常
      */
     public static boolean isSameFile(Path p1, Path p2) {
-        Asserts.notNull(p1);
-        Asserts.notNull(p2);
-
         try {
             return Files.isSameFile(p1, p2);
         } catch (IOException e) {

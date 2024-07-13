@@ -7,8 +7,8 @@ import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.*;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
-import spring.turbo.util.Asserts;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -43,12 +43,12 @@ public final class ClassDefinition implements BeanDefinition, Comparable<ClassDe
      * @param classLoader    类加载器
      */
     public ClassDefinition(BeanDefinition beanDefinition, @Nullable ClassLoader classLoader) {
-        Asserts.notNull(beanDefinition);
+        Assert.notNull(beanDefinition, "beanDefinition is required");
         classLoader = Objects.requireNonNullElseGet(classLoader, ClassUtils::getDefaultClassLoader);
 
         this.delegating = beanDefinition;
         var className = beanDefinition.getBeanClassName();
-        Asserts.notNull(className);
+        Assert.notNull(className, "className is null");
 
         try {
             this.clazz = ClassUtils.forName(className, classLoader);
@@ -99,8 +99,7 @@ public final class ClassDefinition implements BeanDefinition, Comparable<ClassDe
 
     public <A extends Annotation> A getRequiredAnnotation(Class<A> annotationType) {
         A annotation = getAnnotation(annotationType);
-        Asserts.notNull(annotation);
-        return annotation;
+        return Objects.requireNonNull(annotation);
     }
 
     public <A extends Annotation> AnnotationAttributes getAnnotationAttributes(Class<A> annotationType) {

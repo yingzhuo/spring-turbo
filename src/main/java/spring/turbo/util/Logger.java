@@ -2,6 +2,7 @@ package spring.turbo.util;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 
 import java.io.Serializable;
 
@@ -22,8 +23,8 @@ public final class Logger implements Serializable {
     private final LogLevel level;
 
     public Logger(String loggerName, LogLevel level) {
-        Asserts.notNull(level);
-        Asserts.notNull(loggerName);
+        Assert.notNull(level, "level is required");
+        Assert.hasText(loggerName, "loggerName is required");
 
         this.level = level;
 
@@ -37,8 +38,8 @@ public final class Logger implements Serializable {
     }
 
     public Logger(Class<?> loggerName, LogLevel level) {
-        Asserts.notNull(level);
-        Asserts.notNull(loggerName);
+        Assert.notNull(level, "level is required");
+        Assert.notNull(loggerName, "loggerName is required");
 
         this.level = level;
 

@@ -1,6 +1,7 @@
 package spring.turbo.util;
 
 import org.springframework.lang.NonNull;
+import org.springframework.util.Assert;
 
 import java.util.function.Supplier;
 
@@ -17,7 +18,7 @@ public class ClassLoadingExceptionSupplier implements Supplier<ClassLoadingExcep
     private final String className;
 
     public ClassLoadingExceptionSupplier(@NonNull String className) {
-        Asserts.hasText(className);
+        Assert.hasText(className, "className is required");
         this.className = className;
     }
 

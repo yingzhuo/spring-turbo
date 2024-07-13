@@ -1,6 +1,7 @@
 package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 
 /**
  * 类型转换工具
@@ -23,7 +24,7 @@ public final class CastUtils {
     }
 
     public static <T> T castNonNull(Object object) {
-        Asserts.notNull(object);
+        Assert.notNull(object, "object is required");
         return (T) object;
     }
 

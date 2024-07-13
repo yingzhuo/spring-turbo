@@ -1,6 +1,6 @@
 package spring.turbo.util.reflection;
 
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -34,14 +34,14 @@ public final class MethodPredicateFactories {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static Predicate<Method> not(Predicate<Method> predicate) {
-        Asserts.notNull(predicate);
+        Assert.notNull(predicate, "predicate is required");
         return m -> !predicate.test(m);
     }
 
     @SafeVarargs
     public static Predicate<Method> any(Predicate<Method>... predicates) {
-        Asserts.notNull(predicates);
-        Asserts.isTrue(predicates.length >= 1);
+        Assert.notNull(predicates, "predicate is required");
+        Assert.isTrue(predicates.length >= 1, "predicate must greater than 1");
         return m -> {
             for (final Predicate<Method> predicate : predicates) {
                 if (predicate.test(m)) {
@@ -54,8 +54,8 @@ public final class MethodPredicateFactories {
 
     @SafeVarargs
     public static Predicate<Method> all(Predicate<Method>... predicates) {
-        Asserts.notNull(predicates);
-        Asserts.isTrue(predicates.length >= 1);
+        Assert.notNull(predicates, "predicate is required");
+        Assert.isTrue(predicates.length >= 1, "predicate must greater than 1");
         return m -> {
             for (final Predicate<Method> predicate : predicates) {
                 if (!predicate.test(m)) {

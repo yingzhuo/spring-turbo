@@ -3,7 +3,7 @@ package spring.turbo.bean.jsr380;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 import spring.turbo.util.StringUtils;
 
 import java.util.Set;
@@ -52,8 +52,8 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
             return true;
         }
 
-        Asserts.notNull(complexity);
-        Asserts.notNull(specialChars);
+        Assert.notNull(complexity, "complexity is null");
+        Assert.notNull(specialChars, "specialChars is null");
 
         final int len = password.length();
         if (len < minLength || len > maxLength) {

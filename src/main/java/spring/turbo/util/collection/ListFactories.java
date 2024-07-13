@@ -1,7 +1,6 @@
 package spring.turbo.util.collection;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
 
 import java.util.*;
 
@@ -24,15 +23,11 @@ public final class ListFactories {
 
     @SafeVarargs
     public static <T> List<T> newUnmodifiableList(T... elements) {
-        Asserts.notNull(elements);
-        Asserts.noNullElements(elements);
         return Collections.unmodifiableList(newArrayList(elements));
     }
 
     @SafeVarargs
     public static <T> ArrayList<T> newArrayList(T... elements) {
-        Asserts.notNull(elements);
-        Asserts.noNullElements(elements);
         final var list = new ArrayList<T>();
         Collections.addAll(list, elements);
         return list;
@@ -40,15 +35,11 @@ public final class ListFactories {
 
     @SafeVarargs
     public static <T> LinkedList<T> newLinkedList(T... elements) {
-        Asserts.notNull(elements);
-        Asserts.noNullElements(elements);
         return new LinkedList<T>(Arrays.asList(elements));
     }
 
     @SafeVarargs
     public static <T> Vector<T> newVector(T... elements) {
-        Asserts.notNull(elements);
-        Asserts.noNullElements(elements);
         return new Vector<T>(Arrays.asList(elements));
     }
 

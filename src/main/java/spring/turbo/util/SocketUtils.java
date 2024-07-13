@@ -27,8 +27,6 @@ public final class SocketUtils {
      * @return 能联通时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isReachable(String address, int port, int timeoutInMillis) {
-        Asserts.hasText(address);
-
         try (Socket socket = new Socket()) {
             socket.connect(new InetSocketAddress(address, port), timeoutInMillis);
             return true;
@@ -46,7 +44,6 @@ public final class SocketUtils {
      * @return 能联通时返回 {@code true} 否则返回 {@code false}
      */
     public static boolean isReachable(String address, int port, Duration timeout) {
-        Asserts.notNull(timeout);
         return isReachable(address, port, (int) timeout.toMillis());
     }
 

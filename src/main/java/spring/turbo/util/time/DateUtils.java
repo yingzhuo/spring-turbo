@@ -1,7 +1,7 @@
 package spring.turbo.util.time;
 
 import org.springframework.format.datetime.DateFormatter;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 import spring.turbo.util.StringFormatter;
 
 import java.time.*;
@@ -53,8 +53,9 @@ public final class DateUtils {
     }
 
     public static boolean isSameDay(final Date date1, final Date date2) {
-        Asserts.notNull(date1);
-        Asserts.notNull(date2);
+        Assert.notNull(date1, "date1 is required");
+        Assert.notNull(date2, "date2 is required");
+
         final Calendar cal1 = Calendar.getInstance();
         cal1.setTime(date1);
         final Calendar cal2 = Calendar.getInstance();
@@ -63,27 +64,28 @@ public final class DateUtils {
     }
 
     public static boolean isSameDay(final Calendar cal1, final Calendar cal2) {
-        Asserts.notNull(cal1);
-        Asserts.notNull(cal2);
+        Assert.notNull(cal1, "cal1 is required");
+        Assert.notNull(cal2, "cal2 is required");
+
         return cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
                 && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
     public static boolean isSameInstant(final Date date1, final Date date2) {
-        Asserts.notNull(date1);
-        Asserts.notNull(date2);
+        Assert.notNull(date1, "date1 is required");
+        Assert.notNull(date2, "date2 is required");
         return date1.getTime() == date2.getTime();
     }
 
     public static boolean isSameInstant(final Calendar cal1, final Calendar cal2) {
-        Asserts.notNull(cal1);
-        Asserts.notNull(cal2);
+        Assert.notNull(cal1, "cal1 is required");
+        Assert.notNull(cal2, "cal2 is required");
         return cal1.getTime().getTime() == cal2.getTime().getTime();
     }
 
     public static boolean isSameLocalTime(final Calendar cal1, final Calendar cal2) {
-        Asserts.notNull(cal1);
-        Asserts.notNull(cal2);
+        Assert.notNull(cal1, "cal1 is required");
+        Assert.notNull(cal2, "cal2 is required");
         return cal1.get(Calendar.MILLISECOND) == cal2.get(Calendar.MILLISECOND)
                 && cal1.get(Calendar.SECOND) == cal2.get(Calendar.SECOND)
                 && cal1.get(Calendar.MINUTE) == cal2.get(Calendar.MINUTE)
@@ -126,7 +128,7 @@ public final class DateUtils {
     }
 
     private static Date add(final Date date, final int calendarField, final int amount) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         final Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.add(calendarField, amount);
@@ -162,7 +164,7 @@ public final class DateUtils {
     }
 
     private static Date set(final Date date, final int calendarField, final int amount) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         final Calendar c = Calendar.getInstance();
         c.setLenient(false);
         c.setTime(date);
@@ -203,7 +205,7 @@ public final class DateUtils {
     }
 
     public static Date round(final Date date, final int field) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, ModifyType.ROUND);
@@ -211,14 +213,14 @@ public final class DateUtils {
     }
 
     public static Calendar round(final Calendar date, final int field) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         final Calendar rounded = (Calendar) date.clone();
         modify(rounded, field, ModifyType.ROUND);
         return rounded;
     }
 
     public static Date truncate(final Date date, final int field) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, ModifyType.TRUNCATE);
@@ -226,14 +228,14 @@ public final class DateUtils {
     }
 
     public static Calendar truncate(final Calendar date, final int field) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         final Calendar truncated = (Calendar) date.clone();
         modify(truncated, field, ModifyType.TRUNCATE);
         return truncated;
     }
 
     public static Date ceiling(final Date date, final int field) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         final Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, ModifyType.CEILING);
@@ -241,7 +243,7 @@ public final class DateUtils {
     }
 
     public static Calendar ceiling(final Calendar date, final int field) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         final Calendar ceiled = (Calendar) date.clone();
         modify(ceiled, field, ModifyType.CEILING);
         return ceiled;

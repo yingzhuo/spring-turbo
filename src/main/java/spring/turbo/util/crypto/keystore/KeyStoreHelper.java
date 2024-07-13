@@ -1,7 +1,7 @@
 package spring.turbo.util.crypto.keystore;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,8 +52,8 @@ public class KeyStoreHelper {
      * @throws IllegalArgumentException 其他错误
      */
     public static KeyStore loadKeyStore(InputStream inputStream, @Nullable KeyStoreFormat keyStoreFormat, String storepass) {
-        Asserts.notNull(inputStream, "inputStream is required");
-        Asserts.notNull(storepass, "storepass is required");
+        Assert.notNull(inputStream, "inputStream is required");
+        Assert.notNull(storepass, "storepass is required");
 
         keyStoreFormat = Objects.requireNonNullElseGet(keyStoreFormat, KeyStoreFormat::getDefault);
 
@@ -78,9 +78,9 @@ public class KeyStoreHelper {
      * @return 秘钥
      */
     public static <T extends Key> T getKey(KeyStore keyStore, String alias, String keypass) {
-        Asserts.notNull(keyStore, "keyStore is required");
-        Asserts.hasText(alias, "alias is required");
-        Asserts.notNull(keypass, "privateKeyPass is required");
+        Assert.notNull(keyStore, "keyStore is required");
+        Assert.hasText(alias, "alias is required");
+        Assert.notNull(keypass, "privateKeyPass is required");
 
         try {
             return (T) keyStore.getKey(alias, keypass.toCharArray());
@@ -130,8 +130,8 @@ public class KeyStoreHelper {
      * @see #loadKeyStore(InputStream, KeyStoreFormat, String) 加载密钥库
      */
     public static <T extends Certificate> T getCertificate(KeyStore keyStore, String alias) {
-        Asserts.notNull(keyStore, "keyStore is required");
-        Asserts.hasText(alias, "alias is required");
+        Assert.notNull(keyStore, "keyStore is required");
+        Assert.hasText(alias, "alias is required");
 
         try {
             return (T) keyStore.getCertificate(alias);

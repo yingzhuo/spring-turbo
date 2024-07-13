@@ -3,7 +3,6 @@ package spring.turbo.exception;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import spring.turbo.util.Asserts;
 
 import java.util.Collection;
 import java.util.Map;
@@ -26,7 +25,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertNotNull(@Nullable Object o, String message) {
-        Asserts.notNull(message);
         if (o == null) {
             throw new BusinessException(message);
         }
@@ -39,7 +37,6 @@ public final class BusinessAsserts {
     }
 
     public static <T> void assertNotEmpty(@Nullable Collection<T> o, String message) {
-        Asserts.notNull(message);
         if (CollectionUtils.isEmpty(o)) {
             throw new BusinessException(message);
         }
@@ -52,7 +49,6 @@ public final class BusinessAsserts {
     }
 
     public static <K, V> void assertNotEmpty(@Nullable Map<K, V> o, String message) {
-        Asserts.notNull(message);
         if (CollectionUtils.isEmpty(o)) {
             throw new BusinessException(message);
         }
@@ -65,7 +61,6 @@ public final class BusinessAsserts {
     }
 
     public static <T> void assertNoNullElements(@Nullable Collection<T> o, String message) {
-        Asserts.notNull(message);
         if (CollectionUtils.isEmpty(o)) {
             throw new BusinessException(message);
         }
@@ -88,7 +83,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertNotEmpty(@Nullable CharSequence string, String message) {
-        Asserts.notNull(message);
         if (!StringUtils.hasLength(string)) {
             throw new BusinessException(message);
         }
@@ -101,7 +95,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertNotBlank(@Nullable CharSequence string, String message) {
-        Asserts.notNull(message);
         if (!StringUtils.hasText(string)) {
             throw new BusinessException(message);
         }
@@ -114,7 +107,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertPositive(@Nullable Number number, String message) {
-        Asserts.notNull(message);
         if (number == null || number.doubleValue() <= 0D) {
             throw new BusinessException(message);
         }
@@ -127,7 +119,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertPositiveOrZero(@Nullable Number number, String message) {
-        Asserts.notNull(message);
         if (number == null || number.doubleValue() < 0D) {
             throw new BusinessException(message);
         }
@@ -140,7 +131,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertZero(@Nullable Number number, String message) {
-        Asserts.notNull(message);
         if (number == null || number.doubleValue() != 0D) {
             throw new BusinessException(message);
         }
@@ -153,7 +143,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertNegative(@Nullable Number number, String message) {
-        Asserts.notNull(message);
         if (number == null || number.doubleValue() >= 0D) {
             throw new BusinessException(message);
         }
@@ -166,7 +155,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertNegativeOrZero(@Nullable Number number, String message) {
-        Asserts.notNull(message);
         if (number == null || number.doubleValue() > 0D) {
             throw new BusinessException(message);
         }
@@ -179,7 +167,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertEquals(@Nullable Object o1, @Nullable Object o2, String message) {
-        Asserts.notNull(message);
         if (!Objects.equals(o1, o2)) {
             throw new BusinessException(message);
         }
@@ -192,7 +179,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertSameObject(@Nullable Object o1, @Nullable Object o2, String message) {
-        Asserts.notNull(message);
         if (o1 != o2) {
             throw new BusinessException(message);
         }
@@ -206,7 +192,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertTrue(boolean state, String message) {
-        Asserts.notNull(message);
         if (!state) {
             throw new BusinessException(message);
         }
@@ -219,7 +204,6 @@ public final class BusinessAsserts {
     }
 
     public static void assertFalse(boolean state, String message) {
-        Asserts.notNull(message);
         if (state) {
             throw new BusinessException(message);
         }

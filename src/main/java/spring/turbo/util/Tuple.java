@@ -2,6 +2,7 @@ package spring.turbo.util;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -45,9 +46,9 @@ public final class Tuple<A, B, C> implements Serializable {
     }
 
     public static <A, B, C> Tuple<A, B, C> ofNonNull(@NonNull A a, @NonNull B b, @NonNull C c) {
-        Asserts.notNull(a);
-        Asserts.notNull(b);
-        Asserts.notNull(c);
+        Assert.notNull(a, "a is required");
+        Assert.notNull(b, "b is required");
+        Assert.notNull(b, "c is required");
         return new Tuple<>(a, b, c);
     }
 
@@ -66,10 +67,8 @@ public final class Tuple<A, B, C> implements Serializable {
         return a;
     }
 
-    // since 1.0.10
     public A getRequiredA() {
-        Asserts.notNull(a);
-        return a;
+        return Objects.requireNonNull(a);
     }
 
     @Nullable
@@ -77,10 +76,8 @@ public final class Tuple<A, B, C> implements Serializable {
         return b;
     }
 
-    // since 1.0.10
     public B getRequiredB() {
-        Asserts.notNull(b);
-        return b;
+        return Objects.requireNonNull(b);
     }
 
     @Nullable
@@ -88,10 +85,8 @@ public final class Tuple<A, B, C> implements Serializable {
         return c;
     }
 
-    // since 1.0.10
     public C getRequiredC() {
-        Asserts.notNull(c);
-        return c;
+        return Objects.requireNonNull(c);
     }
 
     @Override

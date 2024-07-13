@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.OrderComparator;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 import spring.turbo.util.ClassUtils;
 
 import java.util.*;
@@ -49,7 +49,7 @@ public final class ServiceLoaderUtils {
      * @throws ServiceConfigurationError 加载失败时抛出此错误
      */
     public static <T> List<T> load(Class<T> targetType, @Nullable ClassLoader classLoader) {
-        Asserts.notNull(targetType);
+        Assert.notNull(targetType, "targetType is required");
 
         try {
             classLoader = Objects.requireNonNullElseGet(classLoader, ClassUtils::getDefaultClassLoader);

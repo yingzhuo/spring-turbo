@@ -1,6 +1,7 @@
 package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -30,7 +31,7 @@ public final class BigDecimalUtils {
      * @return 结果
      */
     public static BigDecimal abs(BigDecimal number) {
-        Asserts.notNull(number);
+        Assert.notNull(number, "number is required");
         return number.abs();
     }
 
@@ -42,8 +43,8 @@ public final class BigDecimalUtils {
      * @return 结果
      */
     public static BigDecimal add(BigDecimal number1, Number number2) {
-        Asserts.notNull(number1);
-        Asserts.notNull(number2);
+        Assert.notNull(number1, "number1 is required");
+        Assert.notNull(number2, "number2 is required");
         return number1.add(convertNumberToTargetClass(number2, BigDecimal.class));
     }
 
@@ -55,8 +56,8 @@ public final class BigDecimalUtils {
      * @return 结果
      */
     public static BigDecimal subtract(BigDecimal number1, Number number2) {
-        Asserts.notNull(number1);
-        Asserts.notNull(number2);
+        Assert.notNull(number1, "number1 is required");
+        Assert.notNull(number2, "number2 is required");
         return number1.subtract(convertNumberToTargetClass(number2, BigDecimal.class));
     }
 
@@ -68,8 +69,8 @@ public final class BigDecimalUtils {
      * @return 结果
      */
     public static BigDecimal multiply(BigDecimal number1, Number number2) {
-        Asserts.notNull(number1);
-        Asserts.notNull(number2);
+        Assert.notNull(number1, "number1 is required");
+        Assert.notNull(number2, "number2 is required");
         return number1.multiply(convertNumberToTargetClass(number2, BigDecimal.class));
     }
 
@@ -94,9 +95,9 @@ public final class BigDecimalUtils {
      * @return 结果
      */
     public static BigDecimal divide(BigDecimal number1, Number number2, int scale, RoundingMode roundingMode) {
-        Asserts.notNull(number1);
-        Asserts.notNull(number2);
-        Asserts.notNull(roundingMode);
+        Assert.notNull(number1, "number1 is required");
+        Assert.notNull(number2, "number2 is required");
+        Assert.notNull(roundingMode, "roundingMode is required");
         return number1.divide(convertNumberToTargetClass(number2, BigDecimal.class), scale, roundingMode);
     }
 
@@ -108,7 +109,7 @@ public final class BigDecimalUtils {
      * @return 结果
      */
     public static BigDecimal pow(BigDecimal number1, int n) {
-        Asserts.notNull(number1);
+        Assert.notNull(number1, "number1 is required");
         return number1.pow(n);
     }
 
@@ -120,8 +121,8 @@ public final class BigDecimalUtils {
      * @return 参数中最小的一个
      */
     public static BigDecimal min(BigDecimal number1, BigDecimal number2) {
-        Asserts.notNull(number1);
-        Asserts.notNull(number2);
+        Assert.notNull(number1, "number1 is required");
+        Assert.notNull(number2, "number2 is required");
         return number1.compareTo(number2) < 0 ? number1 : number2;
     }
 
@@ -132,9 +133,9 @@ public final class BigDecimalUtils {
      * @return 参数中最小的一个
      */
     public static BigDecimal min(BigDecimal... numbers) {
-        Asserts.notNull(numbers);
-        Asserts.notEmpty(numbers);
-        Asserts.noNullElements(numbers);
+        Assert.notNull(numbers, "numbers is required");
+        Assert.notEmpty(numbers, "numbers is empty");
+        Assert.noNullElements(numbers, "numbers has null element(s)");
 
         BigDecimal min = numbers[0];
 
@@ -151,7 +152,7 @@ public final class BigDecimalUtils {
      * @return 参数中最小的一个
      */
     public static BigDecimal min(Collection<BigDecimal> numbers) {
-        Asserts.notNull(numbers);
+        Assert.notNull(numbers, "numbers is null");
         return min(numbers.toArray(new BigDecimal[0]));
     }
 
@@ -163,8 +164,8 @@ public final class BigDecimalUtils {
      * @return 参数中最小的一个
      */
     public static BigDecimal max(BigDecimal number1, BigDecimal number2) {
-        Asserts.notNull(number1);
-        Asserts.notNull(number2);
+        Assert.notNull(number1, "number1 is required");
+        Assert.notNull(number2, "number2 is required");
         return number1.compareTo(number2) > 0 ? number1 : number2;
     }
 
@@ -175,9 +176,9 @@ public final class BigDecimalUtils {
      * @return 参数中最大的一个
      */
     public static BigDecimal max(BigDecimal... numbers) {
-        Asserts.notNull(numbers);
-        Asserts.notEmpty(numbers);
-        Asserts.noNullElements(numbers);
+        Assert.notNull(numbers, "numbers is required");
+        Assert.notEmpty(numbers, "numbers is empty");
+        Assert.noNullElements(numbers, "numbers has null element(s)");
 
         BigDecimal max = numbers[0];
 
@@ -194,7 +195,7 @@ public final class BigDecimalUtils {
      * @return 参数中最大的一个
      */
     public static BigDecimal max(Collection<BigDecimal> numbers) {
-        Asserts.notNull(numbers);
+        Assert.notNull(numbers, "numbers is required");
         return max(numbers.toArray(new BigDecimal[0]));
     }
 
@@ -270,8 +271,8 @@ public final class BigDecimalUtils {
      */
     @SuppressWarnings("unchecked")
     public static <T extends Number> T getValue(BigDecimal number, Class<T> numberType) {
-        Asserts.notNull(number);
-        Asserts.notNull(numberType);
+        Assert.notNull(number, "number is required");
+        Assert.notNull(numberType, "numberType is required");
 
         if (numberType == Byte.class) {
             return (T) Byte.valueOf(number.byteValue());

@@ -1,6 +1,7 @@
 package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 
 import java.util.*;
 
@@ -43,7 +44,8 @@ public final class EnumUtils {
     @Nullable
     public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName,
                                                 @Nullable final E defaultEnum) {
-        Asserts.notNull(enumName);
+
+        Assert.hasText(enumName, "enumName is required");
         try {
             return Enum.valueOf(enumClass, enumName);
         } catch (final IllegalArgumentException ex) {
@@ -76,8 +78,9 @@ public final class EnumUtils {
     @Nullable
     public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName,
                                                           @Nullable final E defaultEnum) {
-        Asserts.notNull(enumClass);
-        Asserts.notNull(enumName);
+
+        Assert.notNull(enumClass, "enumClass is required");
+        Assert.hasText(enumName, "enumName is required");
 
         for (final E each : enumClass.getEnumConstants()) {
             if (each.name().equalsIgnoreCase(enumName)) {

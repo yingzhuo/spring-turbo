@@ -1,6 +1,5 @@
 package spring.turbo.util.io;
 
-import spring.turbo.util.Asserts;
 import spring.turbo.util.Base64Utils;
 
 import javax.imageio.ImageIO;
@@ -32,9 +31,6 @@ public final class ImageUtils {
      * @return 字节数组
      */
     public static byte[] toByteArray(BufferedImage image, String format) {
-        Asserts.notNull(image);
-        Asserts.hasText(format);
-
         try {
             final ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(image, format, os);
@@ -52,8 +48,6 @@ public final class ImageUtils {
      * @return Base64字符串
      */
     public static String encodeToBase64(BufferedImage image, String format) {
-        Asserts.notNull(image);
-        Asserts.hasText(format);
         return Base64Utils.encodeToString(toByteArray(image, format));
     }
 

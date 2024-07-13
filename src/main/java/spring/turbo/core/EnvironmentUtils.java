@@ -1,7 +1,9 @@
 package spring.turbo.core;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
+
+import java.util.Objects;
 
 /**
  * {@link org.springframework.core.env.Environment}相关工具
@@ -26,7 +28,7 @@ public final class EnvironmentUtils {
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static String resolvePlaceholders(String text) {
-        Asserts.notNull(text);
+        Assert.hasText(text, "text is required");
         return SpringUtils.getEnvironment().resolvePlaceholders(text);
     }
 
@@ -39,7 +41,7 @@ public final class EnvironmentUtils {
      * @throws IllegalArgumentException      任意一个解析项无法满足
      */
     public static String resolveRequiredPlaceholders(String text) {
-        Asserts.notNull(text);
+        Assert.hasText(text, "text is required");
         return SpringUtils.getEnvironment().resolveRequiredPlaceholders(text);
     }
 
@@ -64,9 +66,8 @@ public final class EnvironmentUtils {
      * @throws IllegalArgumentException      无法找到property名相对的值
      */
     public static String getRequiredPropertyValue(String propertyName) {
-        final String result = getPropertyValue(propertyName);
-        Asserts.notNull(result);
-        return result;
+        var result = getPropertyValue(propertyName);
+        return Objects.requireNonNull(result);
     }
 
     /**
@@ -94,9 +95,8 @@ public final class EnvironmentUtils {
      * @throws IllegalArgumentException      无法找到property名相对的值
      */
     public static <T> T getRequiredPropertyValue(String propertyName, Class<T> targetType) {
-        final T result = getPropertyValue(propertyName, targetType);
-        Asserts.notNull(result);
-        return result;
+        T result = getPropertyValue(propertyName, targetType);
+        return Objects.requireNonNull(result);
     }
 
     /**
@@ -111,8 +111,8 @@ public final class EnvironmentUtils {
      */
     @Nullable
     public static <T> T getPropertyValue(String propertyName, Class<T> targetType, @Nullable T defaultIfNull) {
-        Asserts.notNull(propertyName);
-        Asserts.notNull(targetType);
+        Assert.hasText(propertyName, "propertyName is required");
+        Assert.notNull(targetType, "targetType is required");
 
         T result = SpringUtils.getEnvironment().getProperty(propertyName, targetType);
         return result != null ? result : defaultIfNull;
@@ -130,9 +130,8 @@ public final class EnvironmentUtils {
      * @throws IllegalArgumentException      无法找到property名相对的值
      */
     public static <T> T getRequiredPropertyValue(String propertyName, Class<T> targetType, @Nullable T defaultIfNull) {
-        final T result = getPropertyValue(propertyName, targetType, defaultIfNull);
-        Asserts.notNull(result);
-        return result;
+        T result = getPropertyValue(propertyName, targetType, defaultIfNull);
+        return Objects.requireNonNull(result);
     }
 
 }

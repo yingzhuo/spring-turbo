@@ -1,6 +1,7 @@
 package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import spring.turbo.util.collection.CollectionUtils;
 
 import java.util.*;
@@ -89,7 +90,7 @@ public final class StringUtils {
      * @return 判断结果
      */
     public static boolean containsWhitespace(String string) {
-        Asserts.notNull(string);
+        Assert.notNull(string, "string is null");
 
         int strLen = string.length();
         for (int i = 0; i < strLen; i++) {
@@ -108,7 +109,7 @@ public final class StringUtils {
      * @return 检测结果
      */
     public static boolean containsAnyChars(String string, String charsToCheck) {
-        Asserts.notNull(string);
+        Assert.notNull(string, "string is null");
 
         final Set<Character> charSet = toCharSet(string);
         if (charSet.isEmpty()) {
@@ -125,7 +126,7 @@ public final class StringUtils {
      * @return 检测结果
      */
     public static boolean containsAllChars(String string, String charsToCheck) {
-        Asserts.notNull(string);
+        Assert.notNull(string, "string is null");
 
         final Set<Character> charSet = toCharSet(string);
         if (charSet.isEmpty()) {
@@ -142,7 +143,7 @@ public final class StringUtils {
      * @return 检测结果
      */
     public static boolean containsNoneChars(String string, String charsToCheck) {
-        Asserts.notNull(string);
+        Assert.notNull(string, "string is null");
 
         final Set<Character> charSet = toCharSet(string);
         if (charSet.isEmpty()) {
@@ -161,7 +162,8 @@ public final class StringUtils {
      * @return 结果
      */
     public static int countMatches(String string, char ch) {
-        Asserts.notNull(string);
+        Assert.notNull(string, "string is null");
+
         if (isEmpty(string)) {
             return 0;
         }
@@ -184,7 +186,7 @@ public final class StringUtils {
      * @return 结果
      */
     public static String deleteWhitespace(String string) {
-        Asserts.notNull(string);
+        Assert.notNull(string, "string is null");
 
         if (string.isEmpty()) {
             return string;
@@ -215,7 +217,8 @@ public final class StringUtils {
      * @return 结果
      */
     public static String deleteChars(String string, String charsToDelete) {
-        Asserts.notNull(string);
+        Assert.notNull(string, "string is null");
+
         if (isEmpty(charsToDelete)) {
             return string;
         }
@@ -271,7 +274,7 @@ public final class StringUtils {
      * @return 结果
      */
     public static String reverse(String string) {
-        Asserts.notNull(string);
+        Assert.notNull(string, "string is null");
         return new StringBuilder(string).reverse().toString();
     }
 
@@ -317,7 +320,7 @@ public final class StringUtils {
      * @see #uncapitalize(String)
      */
     public static String capitalize(final String string) {
-        Asserts.notNull(string);
+        Assert.notNull(string, "string is null");
 
         final int strLen = length(string);
         if (strLen == 0) {
@@ -350,7 +353,8 @@ public final class StringUtils {
      * @see #capitalize(String)
      */
     public static String uncapitalize(final String string) {
-        Asserts.notNull(string);
+        Assert.notNull(string, "string is null");
+
         final int strLen = length(string);
         if (strLen == 0) {
             return string;
@@ -423,7 +427,8 @@ public final class StringUtils {
      * @param elements   字符串(多个)
      */
     public static void emptySafeAddAll(Collection<String> collection, @Nullable String... elements) {
-        Asserts.notNull(collection);
+        Assert.notNull(collection, "collection is required");
+
         if (elements != null) {
             for (String element : elements) {
                 if (isNotEmpty(element)) {
@@ -440,7 +445,8 @@ public final class StringUtils {
      * @param elements   字符串(多个)
      */
     public static void emptySafeAddAll(Collection<String> collection, @Nullable Collection<String> elements) {
-        Asserts.notNull(collection);
+        Assert.notNull(collection, "collection is required");
+
         if (elements != null) {
             for (String element : elements) {
                 if (isNotEmpty(element)) {
@@ -467,7 +473,8 @@ public final class StringUtils {
      * @param elements   字符串(多个)
      */
     public static void blankSafeAddAll(Collection<String> collection, @Nullable String... elements) {
-        Asserts.notNull(collection);
+        Assert.notNull(collection, "collection is required");
+
         if (elements != null) {
             for (String element : elements) {
                 if (isNotBlank(element)) {
@@ -484,7 +491,8 @@ public final class StringUtils {
      * @param elements   字符串(多个)
      */
     public static void blankSafeAddAll(Collection<String> collection, @Nullable Collection<String> elements) {
-        Asserts.notNull(collection);
+        Assert.notNull(collection, "collection is required");
+
         if (elements != null) {
             for (String element : elements) {
                 if (isNotBlank(element)) {
@@ -591,7 +599,8 @@ public final class StringUtils {
      * @return 结果
      */
     public static boolean startsWith(@Nullable String string, String prefix) {
-        Asserts.notNull(prefix);
+        Assert.notNull(prefix, "prefix is required");
+
         if (string == null)
             return false;
         return string.startsWith(prefix);
@@ -605,7 +614,8 @@ public final class StringUtils {
      * @return 结果
      */
     public static boolean endsWith(@Nullable String string, String suffix) {
-        Asserts.notNull(suffix);
+        Assert.notNull(suffix, "suffix is required");
+
         if (string == null)
             return false;
         return string.endsWith(suffix);
@@ -619,7 +629,8 @@ public final class StringUtils {
      * @return 结果
      */
     public static boolean startsWithIgnoreCase(@Nullable String string, String prefix) {
-        Asserts.notNull(prefix);
+        Assert.notNull(prefix, "prefix is required");
+
         return (string != null && string.length() >= prefix.length()
                 && string.regionMatches(true, 0, prefix, 0, prefix.length()));
     }
@@ -632,7 +643,8 @@ public final class StringUtils {
      * @return 结果
      */
     public static boolean endsWithIgnoreCase(@Nullable String string, String suffix) {
-        Asserts.notNull(suffix);
+        Assert.notNull(suffix, "suffix is required");
+
         return (string != null && string.length() >= suffix.length()
                 && string.regionMatches(true, string.length() - suffix.length(), suffix, 0, suffix.length()));
     }
@@ -647,8 +659,8 @@ public final class StringUtils {
      * @return 结果
      */
     public static String repeat(String string, int n) {
-        Asserts.notNull(string);
-        Asserts.isTrue(n >= 1);
+        Assert.notNull(string, "string is required");
+        Assert.isTrue(n >= 1, "n must greater than 0");
 
         if (n == 1) {
             return string;
@@ -776,23 +788,13 @@ public final class StringUtils {
     }
 
     public static String join(Collection<?> collection, @Nullable String delimiter) {
-        Asserts.notNull(collection, "collection is null");
+        Assert.notNull(collection, "collection is null");
         return String.join(
                 Objects.requireNonNullElse(delimiter, EMPTY),
                 collection.stream()
                         .map(Object::toString)
                         .toList()
         );
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    @Nullable
-    public static String removeAllWhitespaces(@Nullable String string) {
-        if (null == string) {
-            return null;
-        }
-        return string.replaceAll("\\s+", EMPTY);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

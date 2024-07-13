@@ -1,6 +1,6 @@
 package spring.turbo.util.time;
 
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -30,7 +30,7 @@ public final class LocalDateTimeUtils {
      * @return 转换结果
      */
     public static LocalDateTime asLocalDateTime(Date date) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 

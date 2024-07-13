@@ -1,9 +1,9 @@
 package spring.turbo.core;
 
+import org.springframework.util.Assert;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
 /**
@@ -27,7 +27,7 @@ public final class ValidatorUtils {
      * @return 结果
      */
     public static boolean support(Class<?> targetType) {
-        Asserts.notNull(targetType);
+        Assert.notNull(targetType, "targetType is required");
         final Validator validator = SpringUtils.getValidator();
         return validator.supports(targetType);
     }
@@ -39,7 +39,7 @@ public final class ValidatorUtils {
      * @return 验证结果
      */
     public static BindingResult validate(Object obj) {
-        Asserts.notNull(obj);
+        Assert.notNull(obj, "obj is required");
         final String objectName = StringFormatter.format("bean[{}]", System.identityHashCode(obj));
         final BeanPropertyBindingResult errors = new BeanPropertyBindingResult(obj, objectName);
         final Validator validator = SpringUtils.getValidator();

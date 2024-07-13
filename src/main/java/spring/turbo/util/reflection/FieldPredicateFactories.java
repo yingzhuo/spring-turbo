@@ -1,6 +1,6 @@
 package spring.turbo.util.reflection;
 
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -18,7 +18,6 @@ public final class FieldPredicateFactories {
      * 私有构造方法
      */
     private FieldPredicateFactories() {
-        super();
     }
 
     public static Predicate<Field> alwaysTrue() {
@@ -32,14 +31,14 @@ public final class FieldPredicateFactories {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static Predicate<Field> not(Predicate<Field> predicate) {
-        Asserts.notNull(predicate);
+        Assert.notNull(predicate, "predicate is required");
         return f -> !predicate.test(f);
     }
 
     @SafeVarargs
     public static Predicate<Field> any(Predicate<Field>... predicates) {
-        Asserts.notNull(predicates);
-        Asserts.isTrue(predicates.length >= 1);
+        Assert.notNull(predicates, "predicates is required");
+        Assert.isTrue(predicates.length >= 1, "predicates must greater than 1");
         return m -> {
             for (final Predicate<Field> predicate : predicates) {
                 if (predicate.test(m)) {
@@ -52,8 +51,8 @@ public final class FieldPredicateFactories {
 
     @SafeVarargs
     public static Predicate<Field> all(Predicate<Field>... predicates) {
-        Asserts.notNull(predicates);
-        Asserts.isTrue(predicates.length >= 1);
+        Assert.notNull(predicates, "predicates is required");
+        Assert.isTrue(predicates.length >= 1, "predicates must greater than 1");
         return m -> {
             for (final Predicate<Field> predicate : predicates) {
                 if (!predicate.test(m)) {

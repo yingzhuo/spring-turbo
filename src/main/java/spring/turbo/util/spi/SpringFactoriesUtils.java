@@ -3,8 +3,8 @@ package spring.turbo.util.spi;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
-import spring.turbo.util.Asserts;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,7 +71,7 @@ public final class SpringFactoriesUtils {
                                           @Nullable String factoriesResourceLocation,
                                           @Nullable ClassLoader classLoader) {
 
-        Asserts.notNull(factoryType, "factoryType is required");
+        Assert.notNull(factoryType, "factoryType is required");
 
         factoriesResourceLocation = blankToDefault(factoriesResourceLocation, SpringFactoriesLoader.FACTORIES_RESOURCE_LOCATION);
         classLoader = Objects.requireNonNullElse(classLoader, ClassUtils.getDefaultClassLoader());

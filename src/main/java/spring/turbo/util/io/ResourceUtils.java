@@ -2,7 +2,7 @@ package spring.turbo.util.io;
 
 import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -45,7 +45,8 @@ public final class ResourceUtils {
      * @return 文本内容
      */
     public static String readText(Resource resource, @Nullable Charset charset) {
-        Asserts.notNull(resource);
+        Assert.notNull(resource, "resource is required");
+
         charset = Objects.requireNonNullElse(charset, UTF_8);
 
         try {
@@ -64,7 +65,7 @@ public final class ResourceUtils {
      * @return 字节码内容
      */
     public static byte[] readByteArray(Resource resource) {
-        Asserts.notNull(resource);
+        Assert.notNull(resource, "resource is required");
 
         try {
             return IOUtils.copyToByteArray(resource.getInputStream());

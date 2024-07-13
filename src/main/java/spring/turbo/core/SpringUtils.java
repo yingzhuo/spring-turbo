@@ -13,9 +13,9 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.util.Assert;
 import org.springframework.validation.Validator;
 import spring.turbo.core.env.SpringApplicationHolders;
-import spring.turbo.util.Asserts;
 
 import java.nio.file.Path;
 import java.util.HashSet;
@@ -226,7 +226,7 @@ public final class SpringUtils {
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static <T> Optional<T> getBean(Class<T> beanType) {
-        Asserts.notNull(beanType);
+        Assert.notNull(beanType, "beanType is required");
 
         try {
             return Optional.of(getApplicationContext().getBean(beanType));
@@ -245,8 +245,8 @@ public final class SpringUtils {
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
     public static <T> Optional<T> getBean(Class<T> beanType, String beanName) {
-        Asserts.notNull(beanName);
-        Asserts.notNull(beanType);
+        Assert.notNull(beanType, "beanType is required");
+        Assert.hasText(beanName, "beanName is required");
 
         try {
             return Optional.of(getApplicationContext().getBean(beanName, beanType));

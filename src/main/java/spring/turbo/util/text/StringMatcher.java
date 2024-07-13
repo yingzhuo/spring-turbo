@@ -1,7 +1,6 @@
 package spring.turbo.util.text;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.CharPool;
 import spring.turbo.util.CharSequenceUtils;
 
@@ -363,7 +362,6 @@ public interface StringMatcher {
         private final StringMatcher[] matchers;
 
         public And(StringMatcher... matchers) {
-            Asserts.notNull(matchers);
             this.matchers = matchers.clone();
         }
 
@@ -419,7 +417,6 @@ public interface StringMatcher {
         private final String string;
 
         public CharArray(char... chars) {
-            Asserts.notNull(chars);
             this.chars = chars.clone();
             this.string = String.valueOf(chars);
         }
@@ -489,7 +486,6 @@ public interface StringMatcher {
         private final char[] chars;
 
         public CharSet(char[] chars) {
-            Asserts.notNull(chars);
             this.chars = chars.clone();
             Arrays.sort(this.chars);
         }

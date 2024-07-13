@@ -5,7 +5,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,8 +77,8 @@ public final class InstanceCache {
      * @return InstanceCache本身
      */
     public InstanceCache add(Class<?> type, Object instance) {
-        Asserts.notNull(type);
-        Asserts.notNull(instance);
+        Assert.notNull(type, "type is required");
+        Assert.notNull(instance, "instance is required");
 
         map.put(type, instance);
         return this;
@@ -105,8 +105,8 @@ public final class InstanceCache {
      */
     public synchronized <T> T findOrCreate(Class<?> type,
                                            Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
-        Asserts.notNull(type);
-        Asserts.notNull(exceptionIfCannotCreateInstance);
+        Assert.notNull(type, "type is required");
+        Assert.notNull(exceptionIfCannotCreateInstance, "exceptionIfCannotCreateInstance is required");
 
         Object instance = findFromApplicationContext(type);
         if (instance != null) {

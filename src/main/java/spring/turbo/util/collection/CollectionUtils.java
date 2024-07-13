@@ -1,7 +1,7 @@
 package spring.turbo.util.collection;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.util.Collection;
 import java.util.Map;
@@ -99,7 +99,7 @@ public final class CollectionUtils {
      * @param <T>        集合的泛型类型
      */
     public static <T> void nullSafeAdd(Collection<T> collection, @Nullable T element) {
-        Asserts.notNull(collection);
+        Assert.notNull(collection, "collection is required");
         if (element != null) {
             collection.add(element);
         }
@@ -113,7 +113,7 @@ public final class CollectionUtils {
      * @param <T>        集合的泛型类型
      */
     public static <T> void nullSafeAddAll(Collection<T> collection, @Nullable T[] elements) {
-        Asserts.notNull(collection);
+        Assert.notNull(collection, "collection is required");
         if (elements != null) {
             for (T obj : elements) {
                 Optional.ofNullable(obj).ifPresent(collection::add);
@@ -129,7 +129,7 @@ public final class CollectionUtils {
      * @param <T>        集合的泛型类型
      */
     public static <T> void nullSafeAddAll(Collection<T> collection, @Nullable Collection<T> elements) {
-        Asserts.notNull(collection);
+        Assert.notNull(collection, "collection is required");
         if (elements != null) {
             for (T obj : elements) {
                 Optional.ofNullable(obj).ifPresent(collection::add);
@@ -146,7 +146,7 @@ public final class CollectionUtils {
      * @param <V>      集合的泛型类型 vakue
      */
     public static <K, V> void nullSafeAddAll(Map<K, V> map, @Nullable Map<K, V> elements) {
-        Asserts.notNull(map);
+        Assert.notNull(map, "map is required");
         if (elements != null) {
             map.putAll(elements);
         }

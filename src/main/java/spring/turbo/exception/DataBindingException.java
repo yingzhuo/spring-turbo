@@ -4,12 +4,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import spring.turbo.databinding.MultiMessageSourceResolvable;
 import spring.turbo.messagesource.SimpleMessageSourceResolvable;
 import spring.turbo.messagesource.StringMessageSourceResolvable;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 import spring.turbo.util.StringUtils;
 import spring.turbo.util.collection.CollectionUtils;
@@ -164,7 +164,7 @@ public final class DataBindingException extends IllegalArgumentException impleme
      * @see MessageSource#getMessage(String, Object[], String, Locale)
      */
     public static DataBindingException ofCode(String code, @Nullable Object[] arguments, @Nullable String defaultMessage) {
-        Asserts.hasText(code, "code is required");
+        Assert.hasText(code, "code is required");
         var ex = new DataBindingException();
         ex.innerList.add(new SimpleMessageSourceResolvable(code, arguments, defaultMessage));
         return ex;

@@ -2,7 +2,6 @@ package spring.turbo.util.collection.iterator;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.StringPool;
 
 import java.util.Comparator;
@@ -63,8 +62,8 @@ public class VersionComparator implements Comparator<String> {
         final String[] v1s = StringUtils.split(version1, StringPool.DOT);
         final String[] v2s = StringUtils.split(version2, StringPool.DOT);
 
-        Asserts.notNull(v1s);
-        Asserts.notNull(v2s);
+        Objects.requireNonNull(v1s);
+        Objects.requireNonNull(v2s);
 
         int diff = 0;
         int minLength = Math.min(v1s.length, v2s.length);// 取最小长度值

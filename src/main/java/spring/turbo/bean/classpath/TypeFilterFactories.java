@@ -4,7 +4,7 @@ import org.springframework.core.type.ClassMetadata;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.core.type.filter.*;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 import spring.turbo.util.collection.CollectionUtils;
 
 import java.io.IOException;
@@ -55,7 +55,7 @@ public final class TypeFilterFactories {
      */
     public static TypeFilter hasAnnotation(Class<? extends Annotation> annotationType, boolean considerMetaAnnotations,
                                            boolean considerInterfaces) {
-        Asserts.notNull(annotationType);
+        Assert.notNull(annotationType, "annotationType is required");
         return new AnnotationTypeFilter(annotationType, considerMetaAnnotations, considerInterfaces);
     }
 
@@ -87,7 +87,7 @@ public final class TypeFilterFactories {
      * @return TypeFilter的实例
      */
     public static TypeFilter fullyQualifiedNameEquals(String className, boolean ignoreCase) {
-        Asserts.hasText(className);
+        Assert.hasText(className, "className is required");
         if (ignoreCase) {
             return (reader, readerFactory) -> className.equalsIgnoreCase(reader.getClassMetadata().getClassName());
         } else {
@@ -102,7 +102,7 @@ public final class TypeFilterFactories {
      * @return TypeFilter的实例
      */
     public static TypeFilter fullyQualifiedNameMatches(Pattern pattern) {
-        Asserts.notNull(pattern);
+        Assert.notNull(pattern, "pattern is required");
         return new RegexPatternTypeFilter(pattern);
     }
 
@@ -277,7 +277,7 @@ public final class TypeFilterFactories {
      * @see #notImplementsInterface(Class)
      */
     public static TypeFilter implementsInterface(final Class<?> interfaceType) {
-        Asserts.notNull(interfaceType);
+        Assert.notNull(interfaceType, "annotationType is required");
         return new AbstractTypeHierarchyTraversingFilter(true, true) {
             @Override
             protected Boolean matchInterface(String interfaceName) {
@@ -326,7 +326,7 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter not(final TypeFilter f) {
-        Asserts.notNull(f);
+        Assert.notNull(f, "filter is required");
         return (reader, readerFactory) -> !f.match(reader, readerFactory);
     }
 
@@ -337,8 +337,8 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter any(TypeFilter... filters) {
-        Asserts.notNull(filters);
-        Asserts.noNullElements(filters);
+        Assert.notNull(filters, "filters is null");
+        Assert.noNullElements(filters, "filters has null element(s)");
         return new Any(Arrays.asList(filters));
     }
 
@@ -349,8 +349,8 @@ public final class TypeFilterFactories {
      * @return 装饰后的TypeFilter实例
      */
     public static TypeFilter all(TypeFilter... filters) {
-        Asserts.notNull(filters);
-        Asserts.noNullElements(filters);
+        Assert.notNull(filters, "filters is null");
+        Assert.noNullElements(filters, "filters has null element(s)");
         return new All(Arrays.asList(filters));
     }
 
@@ -380,7 +380,7 @@ public final class TypeFilterFactories {
 
         public All(List<TypeFilter> list) {
             CollectionUtils.nullSafeAddAll(this.list, list);
-            Asserts.isTrue(this.list.size() >= 2);
+            Assert.isTrue(this.list.size() >= 2, "list size must greater than 1");
         }
 
         @Override
@@ -402,7 +402,7 @@ public final class TypeFilterFactories {
 
         public Any(List<TypeFilter> list) {
             CollectionUtils.nullSafeAddAll(this.list, list);
-            Asserts.isTrue(this.list.size() >= 2);
+            Assert.isTrue(this.list.size() >= 2, "list size must greater than 1");
         }
 
         @Override

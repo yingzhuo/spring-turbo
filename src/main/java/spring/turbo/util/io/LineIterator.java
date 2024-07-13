@@ -2,7 +2,7 @@ package spring.turbo.util.io;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
@@ -29,7 +29,7 @@ public class LineIterator implements Iterator<String>, Closeable {
     private boolean finished;
 
     public LineIterator(Reader reader) {
-        Asserts.notNull(reader);
+        Assert.notNull(reader, "reader is required");
 
         if (reader instanceof BufferedReader) {
             this.bufferedReader = (BufferedReader) reader;

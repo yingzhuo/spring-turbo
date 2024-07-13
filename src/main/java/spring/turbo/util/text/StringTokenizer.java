@@ -1,7 +1,6 @@
 package spring.turbo.util.text;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.StringPool;
 
 import java.io.Serializable;
@@ -409,7 +408,6 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @return this
      */
     public StringTokenizer setDelimiterMatcher(StringMatcher matcher) {
-        Asserts.notNull(matcher);
         this.delimMatcher = matcher;
         return this;
     }
@@ -430,7 +428,6 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @return this
      */
     public StringTokenizer setIgnoredMatcher(StringMatcher matcher) {
-        Asserts.notNull(matcher);
         this.ignoredMatcher = matcher;
         return this;
     }
@@ -451,7 +448,6 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @return this
      */
     public StringTokenizer setQuoteMatcher(StringMatcher matcher) {
-        Asserts.notNull(matcher);
         this.quoteMatcher = matcher;
         return this;
     }
@@ -472,7 +468,6 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @return this
      */
     public StringTokenizer setTrimmerMatcher(StringMatcher matcher) {
-        Asserts.notNull(matcher);
         this.trimmerMatcher = matcher;
         return this;
     }
@@ -524,7 +519,6 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      */
     public String[] getTokenArray() {
         checkTokenized();
-        Asserts.notNull(tokens);
         return tokens.clone();
     }
 
@@ -546,9 +540,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @return 获取所有的Token
      */
     public String[] getCheckedTokenArray(int expectCount, Supplier<RuntimeException> exceptionSupplier) {
-        Asserts.notNull(exceptionSupplier);
         checkTokenized();
-        Asserts.notNull(tokens);
         if (tokens.length != expectCount) {
             throw exceptionSupplier.get();
         }
@@ -562,7 +554,6 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      */
     public List<String> getTokenList() {
         checkTokenized();
-        Asserts.notNull(tokens);
         return Arrays.asList(tokens);
     }
 
@@ -584,9 +575,7 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      * @return 获取所有的Token
      */
     public List<String> getCheckedTokenList(int expectCount, Supplier<RuntimeException> exceptionSupplier) {
-        Asserts.notNull(exceptionSupplier);
         checkTokenized();
-        Asserts.notNull(tokens);
         if (tokens.length != expectCount) {
             throw exceptionSupplier.get();
         }
@@ -600,7 +589,6 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      */
     public Stream<String> getTokenStream() {
         checkTokenized();
-        Asserts.notNull(tokens);
         return Stream.of(tokens);
     }
 
@@ -610,7 +598,6 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
     @Override
     public boolean hasNext() {
         checkTokenized();
-        Asserts.notNull(tokens);
         return tokenPos < tokens.length;
     }
 
@@ -884,7 +871,6 @@ public class StringTokenizer implements ListIterator<String>, Serializable, Clon
      */
     public int size() {
         checkTokenized();
-        Asserts.notNull(tokens);
         return tokens.length;
     }
 

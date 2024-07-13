@@ -4,10 +4,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import spring.turbo.core.LocaleUtils;
 import spring.turbo.core.SpringUtils;
 import spring.turbo.messagesource.StringMessageSourceResolvable;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.StringUtils;
 import spring.turbo.util.collection.ArrayUtils;
 
@@ -77,7 +77,7 @@ public abstract class AbstractMessageResolvableException extends IllegalArgument
 
     // 内部用工具
     static String getMessage(@Nullable MessageSource messageSource, MessageSourceResolvable messageSourceResolvable, @Nullable Locale locale) {
-        Asserts.notNull(messageSourceResolvable, "messageSourceResolvable is required");
+        Assert.notNull(messageSourceResolvable, "messageSourceResolvable is required");
 
         if (messageSourceResolvable instanceof StringMessageSourceResolvable stringMessageSourceResolvable) {
             return stringMessageSourceResolvable.getDefaultMessage();

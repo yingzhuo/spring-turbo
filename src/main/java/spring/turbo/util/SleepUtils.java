@@ -1,5 +1,7 @@
 package spring.turbo.util;
 
+import org.springframework.util.Assert;
+
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +26,7 @@ public final class SleepUtils {
      * @throws UncheckedInterruptedException 线程暂停被打断时抛出此异常
      */
     public static void sleep(Duration duration) {
-        Asserts.notNull(duration);
+        Assert.notNull(duration, "duration is required");
 
         try {
             Thread.sleep(duration.toMillis());
@@ -45,7 +47,7 @@ public final class SleepUtils {
             return;
         }
 
-        Asserts.notNull(timeUnit);
+        Assert.notNull(timeUnit, "timeUnit is required");
 
         try {
             Thread.sleep(timeUnit.toMillis(time));

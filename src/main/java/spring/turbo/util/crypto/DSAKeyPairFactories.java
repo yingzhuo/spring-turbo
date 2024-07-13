@@ -1,6 +1,6 @@
 package spring.turbo.util.crypto;
 
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 import spring.turbo.util.HexUtils;
 import spring.turbo.util.StringUtils;
 
@@ -63,8 +63,8 @@ public final class DSAKeyPairFactories {
      */
     public static DSAKeyPair createFromBased64EncodedString(String publicKeyString, String privateKeyString) {
         var decoder = Base64.getDecoder();
-        publicKeyString = StringUtils.removeAllWhitespaces(publicKeyString);
-        privateKeyString = StringUtils.removeAllWhitespaces(privateKeyString);
+        publicKeyString = StringUtils.deleteWhitespace(publicKeyString);
+        privateKeyString = StringUtils.deleteWhitespace(privateKeyString);
         var publicKeyBytes = decoder.decode(publicKeyString);
         var privateKeyBytes = decoder.decode(privateKeyString);
         return createFromBytes(publicKeyBytes, privateKeyBytes);
@@ -78,8 +78,8 @@ public final class DSAKeyPairFactories {
      * @return 密钥对
      */
     public static DSAKeyPair createFromHexEncodedString(String publicKeyString, String privateKeyString) {
-        publicKeyString = StringUtils.removeAllWhitespaces(publicKeyString);
-        privateKeyString = StringUtils.removeAllWhitespaces(privateKeyString);
+        publicKeyString = StringUtils.deleteWhitespace(publicKeyString);
+        privateKeyString = StringUtils.deleteWhitespace(privateKeyString);
         var publicKeyBytes = HexUtils.decode(publicKeyString);
         var privateKeyBytes = HexUtils.decode(privateKeyString);
         return createFromBytes(publicKeyBytes, privateKeyBytes);
@@ -139,8 +139,8 @@ public final class DSAKeyPairFactories {
     private record Pair(DSAPublicKey publicKey, DSAPrivateKey privateKey) implements DSAKeyPair {
 
         Pair {
-            Asserts.notNull(publicKey, "publicKey is required");
-            Asserts.notNull(privateKey, "privateKey is required");
+            Assert.notNull(publicKey, "publicKey is required");
+            Assert.notNull(privateKey, "privateKey is required");
         }
 
         @Override

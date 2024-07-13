@@ -1,7 +1,6 @@
 package spring.turbo.util.io;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -24,7 +23,6 @@ public final class IOExceptionUtils {
      * @return 未检查异常
      */
     public static UncheckedIOException toUnchecked(IOException e) {
-        Asserts.notNull(e);
         return new UncheckedIOException(e.getMessage(), e);
     }
 

@@ -1,6 +1,6 @@
 package spring.turbo.util.collection.iterator;
 
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -18,8 +18,9 @@ public class CompositeComparator<T> implements Comparator<T> {
 
     @SafeVarargs
     public CompositeComparator(Comparator<T>... comparators) {
-        Asserts.notEmpty(comparators);
-        Asserts.noNullElements(comparators);
+        Assert.notNull(comparators, "comparators is required");
+        Assert.notEmpty(comparators, "comparators is required");
+        Assert.noNullElements(comparators, "comparators has null element(s)");
         this.comparators = Arrays.asList(comparators);
     }
 

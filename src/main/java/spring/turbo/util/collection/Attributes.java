@@ -2,10 +2,10 @@ package spring.turbo.util.collection;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.StringFormatter;
 
 import java.util.List;
@@ -122,7 +122,7 @@ public class Attributes extends LinkedMultiValueMap<String, Object> implements M
      */
     @Nullable
     public <T> T findFirst(@NonNull String key) {
-        Asserts.notNull(key);
+        Assert.notNull(key, "key is required");
         return (T) super.getFirst(key);
     }
 
@@ -140,7 +140,7 @@ public class Attributes extends LinkedMultiValueMap<String, Object> implements M
      */
     @Nullable
     public <T> T findFirstOrDefault(@NonNull String key, @Nullable T defaultIfNull) {
-        Asserts.notNull(key);
+        Assert.notNull(key, "key is required");
         return Optional.<T>ofNullable(findFirst(key)).orElse(defaultIfNull);
     }
 
@@ -158,7 +158,7 @@ public class Attributes extends LinkedMultiValueMap<String, Object> implements M
      */
     @Nullable
     public <T> T findFirstOrDefault(@NonNull String key, @NonNull Supplier<T> defaultIfNull) {
-        Asserts.notNull(key);
+        Assert.notNull(key, "key is required");
         return Optional.<T>ofNullable(findFirst(key)).orElseGet(defaultIfNull);
     }
 
@@ -191,8 +191,8 @@ public class Attributes extends LinkedMultiValueMap<String, Object> implements M
     @NonNull
     public <T> T findRequiredFirst(@NonNull String key,
                                    @NonNull Supplier<? extends RuntimeException> exceptionIfKeyNotFound) {
-        Asserts.notNull(key);
-        Asserts.notNull(exceptionIfKeyNotFound);
+        Assert.notNull(key, "key is required");
+        Assert.notNull(exceptionIfKeyNotFound, "exceptionIfKeyNotFound is required");
 
         T obj = findFirst(key);
         if (obj == null) {

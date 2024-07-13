@@ -1,7 +1,5 @@
 package spring.turbo.util.io;
 
-import spring.turbo.util.Asserts;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
@@ -17,8 +15,6 @@ public final class DirectoryWatcher {
     private final Listener listener;
 
     private DirectoryWatcher(Path directory, Listener listener) {
-        Asserts.notNull(directory);
-        Asserts.notNull(listener);
         this.directory = directory;
         this.listener = listener;
     }

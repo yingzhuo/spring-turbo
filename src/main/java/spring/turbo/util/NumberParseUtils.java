@@ -1,5 +1,6 @@
 package spring.turbo.util;
 
+import org.springframework.util.Assert;
 import org.springframework.util.NumberUtils;
 
 import java.math.BigDecimal;
@@ -36,8 +37,8 @@ public final class NumberParseUtils {
      * @throws IllegalArgumentException 解析失败
      */
     public static <T extends Number> T parse(String text, Class<T> type) {
-        Asserts.notNull(text);
-        Asserts.notNull(type);
+        Assert.notNull(text, "text is required");
+        Assert.notNull(type, "type is required");
 
         // 移除白字符和逗号
         text = text.replaceAll("[\\s,]", EMPTY);

@@ -1,7 +1,6 @@
 package spring.turbo.util.io;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
 
 import java.nio.file.Paths;
 
@@ -44,8 +43,6 @@ public final class FilenameUtils {
      * @return 文件名
      */
     public static String contact(String path, @Nullable String... more) {
-        Asserts.notNull(path);
-
         if (more != null)
             return Paths.get(path, more).normalize().toString();
         else {
@@ -67,7 +64,6 @@ public final class FilenameUtils {
      * @return 文件名
      */
     public static String getName(final String fileName) {
-        Asserts.notNull(fileName);
         requireNonNullChars(fileName);
         final int index = indexOfLastSeparator(fileName);
         return fileName.substring(index + 1);
@@ -104,8 +100,6 @@ public final class FilenameUtils {
      * @return 文件扩展名
      */
     public static String getExtension(final String fileName) {
-        Asserts.notNull(fileName);
-
         final int index = indexOfExtension(fileName);
         if (index == NOT_FOUND) {
             return EMPTY;
@@ -127,7 +121,6 @@ public final class FilenameUtils {
      * @return 结果
      */
     public static String removeExtension(final String fileName) {
-        Asserts.notNull(fileName);
         requireNonNullChars(fileName);
 
         final int index = indexOfExtension(fileName);

@@ -1,7 +1,9 @@
 package spring.turbo.util.text;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.*;
+import spring.turbo.util.CharPool;
+import spring.turbo.util.CharSequenceUtils;
+import spring.turbo.util.StringPool;
 
 import java.io.Serializable;
 import java.nio.CharBuffer;
@@ -44,8 +46,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * 本构造方法仅供内部使用
      */
     private TextStringBuilder(final char[] initialBuffer, final int length) {
-        Asserts.notNull(initialBuffer);
-        Asserts.isFalse(length < 0 || length > initialBuffer.length);
         this.buffer = initialBuffer;
         this.size = length;
     }
@@ -981,7 +981,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * @return 结果
      */
     public boolean contains(StringMatcher matcher) {
-        Asserts.notNull(matcher);
         return indexOf(matcher, 0) >= 0;
     }
 
@@ -1049,7 +1048,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * @return this
      */
     public TextStringBuilder deleteAll(StringMatcher matcher) {
-        Asserts.notNull(matcher);
         return replace(matcher, null, 0, size, -1);
     }
 
@@ -1107,7 +1105,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * @return this
      */
     public TextStringBuilder deleteFirst(StringMatcher matcher) {
-        Asserts.notNull(matcher);
         return replace(matcher, null, 0, size, 1);
     }
 
@@ -1123,7 +1120,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * @return 结果
      */
     public boolean endsWith(String str) {
-        Asserts.notNull(str);
         final int len = str.length();
         if (len == 0) {
             return true;
@@ -1674,7 +1670,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * @return 索引或-1
      */
     public int lastIndexOf(StringMatcher matcher, int startIndex) {
-        Asserts.notNull(matcher);
         startIndex = startIndex >= size ? size - 1 : startIndex;
         if (startIndex < 0) {
             return -1;
@@ -1842,7 +1837,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * @return this
      */
     public TextStringBuilder replaceFirst(StringMatcher matcher, String replaceStr) {
-        Asserts.notNull(matcher);
         return replace(matcher, replaceStr, 0, size, 1);
     }
 
@@ -1940,7 +1934,6 @@ public final class TextStringBuilder implements Serializable, CharSequence, Appe
      * @return 结果
      */
     public boolean startsWith(String str) {
-        Asserts.notNull(str);
         final int len = str.length();
         if (len == 0) {
             return true;

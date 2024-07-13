@@ -2,7 +2,7 @@ package spring.turbo.util.time;
 
 import org.springframework.boot.convert.DurationStyle;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -40,7 +40,7 @@ public final class DurationFormatUtils {
      * @return 格式化字符串
      */
     public static String format(Duration duration, @Nullable ChronoUnit unit) {
-        Asserts.notNull(duration);
+        Assert.notNull(duration, "duration is required");
         return DurationStyle.ISO8601.print(duration, unit);
     }
 

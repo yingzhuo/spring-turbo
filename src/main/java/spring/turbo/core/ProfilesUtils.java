@@ -1,7 +1,7 @@
 package spring.turbo.core;
 
 import org.springframework.core.env.Profiles;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import static spring.turbo.core.SpringUtils.getEnvironment;
 
@@ -29,7 +29,7 @@ public final class ProfilesUtils {
      * @return 结果
      */
     public static boolean acceptsProfiles(Profiles profiles) {
-        Asserts.notNull(profiles);
+        Assert.notNull(profiles, "profiles is required");
         return getEnvironment().acceptsProfiles(profiles);
     }
 

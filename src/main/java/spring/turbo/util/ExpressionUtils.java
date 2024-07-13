@@ -6,6 +6,7 @@ import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 
 /**
  * {@code SpEL}相关工具
@@ -36,7 +37,7 @@ public final class ExpressionUtils {
      */
     @Nullable
     public static <T> T getValue(String expressionString) {
-        Asserts.hasText(expressionString);
+        Assert.hasText(expressionString, "expressionString is required");
         final Expression expression = EXPRESSION_PARSER.parseExpression(expressionString);
         return (T) expression.getValue();
     }
@@ -51,8 +52,8 @@ public final class ExpressionUtils {
      */
     @Nullable
     public static <T> T getValue(Object rootObj, String expressionString) {
-        Asserts.notNull(rootObj);
-        Asserts.hasText(expressionString);
+        Assert.notNull(rootObj, "rootObj is required");
+        Assert.hasText(expressionString, "expressionString is required");
         final Expression expression = EXPRESSION_PARSER.parseExpression(expressionString);
         final StandardEvaluationContext context = new StandardEvaluationContext(rootObj);
         return (T) expression.getValue(context);

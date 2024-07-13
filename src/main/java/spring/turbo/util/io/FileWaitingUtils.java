@@ -1,6 +1,5 @@
 package spring.turbo.util.io;
 
-import spring.turbo.util.Asserts;
 import spring.turbo.util.SleepUtils;
 
 import java.io.BufferedInputStream;
@@ -31,7 +30,6 @@ public final class FileWaitingUtils {
     }
 
     public static void waitUntilIsReadable(Path path, int maxWaitingCount, long millisPerWaiting) {
-        Asserts.notNull(path);
         waitUntilIsReadable(path.toFile(), maxWaitingCount, millisPerWaiting);
     }
 
@@ -40,10 +38,6 @@ public final class FileWaitingUtils {
     }
 
     public static void waitUntilIsReadable(File file, int maxWaitingCount, long millisPerWaiting) {
-        Asserts.notNull(file);
-        Asserts.isTrue(maxWaitingCount >= 1);
-        Asserts.isTrue(millisPerWaiting >= 1);
-
         boolean isReadable = false;
         int loopsNumber = 0;
         while (!isReadable && loopsNumber <= maxWaitingCount) {

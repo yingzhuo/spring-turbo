@@ -1,6 +1,7 @@
 package spring.turbo.util;
 
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 
 /**
  * {@link CharSequence} 相关工具
@@ -40,7 +41,7 @@ public final class CharSequenceUtils {
      * @throws IndexOutOfBoundsException start 参数不合法
      */
     public static CharSequence subSequence(CharSequence cs, int start) {
-        Asserts.notNull(cs);
+        Assert.notNull(cs, "cs is required");
         return cs.subSequence(start, cs.length());
     }
 

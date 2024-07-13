@@ -1,6 +1,6 @@
 package spring.turbo.util.reflection;
 
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 import spring.turbo.util.StringFormatter;
 
 import java.util.function.Supplier;
@@ -16,7 +16,7 @@ public final class InstantiationExceptionSupplier implements Supplier<Instantiat
     private final Class<?> type;
 
     public InstantiationExceptionSupplier(Class<?> type) {
-        Asserts.notNull(type);
+        Assert.notNull(type, "type is required");
         this.type = type;
     }
 

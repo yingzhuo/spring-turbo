@@ -1,7 +1,6 @@
 package spring.turbo.util.collection;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.collection.iterator.EnumerationIterator;
 
 import java.util.Enumeration;
@@ -30,8 +29,6 @@ public final class StreamFactories {
 
     @SafeVarargs
     public static <T> Stream<T> newStream(T... elements) {
-        Asserts.notNull(elements);
-        Asserts.noNullElements(elements);
         return Stream.of(elements);
     }
 

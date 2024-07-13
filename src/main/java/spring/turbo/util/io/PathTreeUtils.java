@@ -1,6 +1,6 @@
 package spring.turbo.util.io;
 
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 import spring.turbo.util.StringFormatter;
 
 import java.io.IOException;
@@ -43,8 +43,8 @@ public final class PathTreeUtils {
      * @return 所有子目录和文件
      */
     public static Stream<Path> list(Path path, int maxDepth) {
-        Asserts.notNull(path);
-        Asserts.isTrue(maxDepth >= 0);
+        Assert.notNull(path, "path is required");
+        Assert.isTrue(maxDepth >= 0, "maxDepth must greater than 0");
 
         if (!PathUtils.isExists(path)) {
             final String msg = StringFormatter.format("'{}' not exists", path);

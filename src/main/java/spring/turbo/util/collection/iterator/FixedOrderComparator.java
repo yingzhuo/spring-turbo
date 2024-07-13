@@ -1,6 +1,6 @@
 package spring.turbo.util.collection.iterator;
 
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.util.Comparator;
 import java.util.List;
@@ -52,8 +52,8 @@ public class FixedOrderComparator<T> implements Comparator<T> {
      * @param objs             参与排序的数组，数组的元素位置决定了对象的排序先后
      */
     public FixedOrderComparator(boolean greaterIfMissing, Object... objs) {
-        Asserts.notNull(objs);
-        Asserts.notEmpty(objs);
+        Assert.notNull(objs, "objs is null");
+        Assert.notEmpty(objs, "objs is empty");
         this.greaterIfMissing = greaterIfMissing;
         this.array = objs;
     }

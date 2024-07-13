@@ -1,7 +1,6 @@
 package spring.turbo.util.reflection;
 
 import org.springframework.util.ReflectionUtils;
-import spring.turbo.util.Asserts;
 import spring.turbo.util.ClassUtils;
 
 import javax.annotation.Nullable;
@@ -48,7 +47,6 @@ public final class InstanceUtils {
      */
     public static <T> T newInstanceElseThrow(Class<T> type,
                                              Supplier<? extends RuntimeException> exceptionIfCannotCreateInstance) {
-        Asserts.notNull(exceptionIfCannotCreateInstance);
         return newInstance(type).orElseThrow(exceptionIfCannotCreateInstance);
     }
 
@@ -60,7 +58,6 @@ public final class InstanceUtils {
      * @return 实例Optional，不成功时返回空的Optional
      */
     public static <T> Optional<T> newInstance(Class<T> type) {
-        Asserts.notNull(type);
         try {
             var constructor = ReflectionUtils.accessibleConstructor(type);
             ReflectionUtils.makeAccessible(constructor);
@@ -79,7 +76,6 @@ public final class InstanceUtils {
      * @see ClassUtils#forName(String) 加载类型
      */
     public static <T> Optional<T> newInstance(String className) {
-        Asserts.hasText(className);
         try {
             final Class<?> type = ClassUtils.forNameElseThrow(className);
             return (Optional<T>) newInstance(type);
@@ -124,7 +120,6 @@ public final class InstanceUtils {
      */
     @Nullable
     public static <T> T newInstanceElseGet(Class<T> type, Supplier<? extends T> defaultSupplier) {
-        Asserts.notNull(defaultSupplier);
         return newInstance(type).orElseGet(defaultSupplier);
     }
 
@@ -138,7 +133,6 @@ public final class InstanceUtils {
      */
     @Nullable
     public static <T> T newInstanceElseGet(String className, Supplier<? extends T> defaultSupplier) {
-        Asserts.notNull(defaultSupplier);
         return (T) newInstance(className).orElseGet(defaultSupplier);
     }
 

@@ -3,12 +3,12 @@ package spring.turbo.core;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * 元注释相关工具
@@ -49,8 +49,7 @@ public final class AnnotationHelper {
      */
     public static <A extends Annotation> A findRequiredAnnotation(Class<?> type, Class<A> annotationType) {
         var annotation = findAnnotation(type, annotationType);
-        Asserts.notNull(annotation, "Annotation not found");
-        return annotation;
+        return Objects.requireNonNull(annotation);
     }
 
     /**
@@ -116,8 +115,7 @@ public final class AnnotationHelper {
      */
     public static <A extends Annotation> A findRequiredAnnotation(Method method, Class<A> annotationType) {
         var annotation = AnnotationUtils.findAnnotation(method, annotationType);
-        Asserts.notNull(annotation, "Annotation not found");
-        return annotation;
+        return Objects.requireNonNull(annotation);
     }
 
     /**
@@ -181,8 +179,7 @@ public final class AnnotationHelper {
      */
     public static <A extends Annotation> A findRequiredAnnotation(Field field, Class<A> annotationType) {
         var annotation = AnnotationUtils.findAnnotation(field, annotationType);
-        Asserts.notNull(annotation, "Annotation not found");
-        return annotation;
+        return Objects.requireNonNull(annotation);
     }
 
     /**
@@ -244,8 +241,7 @@ public final class AnnotationHelper {
      */
     public static <A extends Annotation> A findRequiredAnnotation(Constructor<?> constructor, Class<A> annotationType) {
         var annotation = findAnnotation(constructor, annotationType);
-        Asserts.notNull(annotation, "Annotation not found");
-        return annotation;
+        return Objects.requireNonNull(annotation);
     }
 
     /**

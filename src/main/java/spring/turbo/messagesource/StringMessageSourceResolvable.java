@@ -3,7 +3,7 @@ package spring.turbo.messagesource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.io.Serializable;
 
@@ -23,7 +23,7 @@ public record StringMessageSourceResolvable(String defaultMessage) implements Me
      * @param defaultMessage 默认错误文本
      */
     public StringMessageSourceResolvable {
-        Asserts.hasText(defaultMessage, "defaultMessage is required");
+        Assert.hasText(defaultMessage, "defaultMessage is required");
     }
 
     /**

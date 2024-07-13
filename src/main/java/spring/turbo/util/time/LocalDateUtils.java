@@ -1,7 +1,7 @@
 package spring.turbo.util.time;
 
 import org.springframework.lang.Nullable;
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -60,7 +60,7 @@ public final class LocalDateUtils {
      * @return 转换结果
      */
     public static LocalDate toLocalDate(Date date) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
@@ -74,8 +74,8 @@ public final class LocalDateUtils {
      * @return 判断结果
      */
     public static boolean isSameDay(LocalDate date1, LocalDate date2) {
-        Asserts.notNull(date1);
-        Asserts.notNull(date2);
+        Assert.notNull(date1, "date1 is required");
+        Assert.notNull(date2, "date2 is required");
         return date1.compareTo(date2) == 0;
     }
 
@@ -89,8 +89,8 @@ public final class LocalDateUtils {
      * @return 两个日期的日期差
      */
     public static int distanceDays(LocalDate date1, LocalDate date2) {
-        Asserts.notNull(date1);
-        Asserts.notNull(date2);
+        Assert.notNull(date1, "date1 is required");
+        Assert.notNull(date2, "date2 is required");
         return (int) Math.abs(ChronoUnit.DAYS.between(date1, date2));
     }
 
@@ -103,7 +103,7 @@ public final class LocalDateUtils {
      * @return 黄道十二宫
      */
     public static Zodiac zodiac(LocalDate date) {
-        Asserts.notNull(date);
+        Assert.notNull(date, "date is required");
         return Zodiac.getZodiac(date.getMonthValue(), date.getDayOfMonth());
     }
 

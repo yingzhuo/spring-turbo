@@ -1,5 +1,7 @@
 package spring.turbo.util;
 
+import org.springframework.util.Assert;
+
 /**
  * HEX相关工具
  *
@@ -23,7 +25,7 @@ public final class HexUtils {
     }
 
     public static char[] encode(byte[] bytes) {
-        Asserts.notNull(bytes);
+        Assert.notNull(bytes, "bytes is required");
 
         final int nBytes = bytes.length;
         char[] result = new char[2 * nBytes];
@@ -44,7 +46,7 @@ public final class HexUtils {
     }
 
     public static byte[] decode(CharSequence s) {
-        Asserts.notNull(s);
+        Assert.notNull(s, "s is required");
 
         int nChars = s.length();
 

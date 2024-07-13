@@ -1,6 +1,6 @@
 package spring.turbo.util.crypto;
 
-import spring.turbo.util.Asserts;
+import org.springframework.util.Assert;
 import spring.turbo.util.HexUtils;
 
 import java.io.Serializable;
@@ -75,7 +75,7 @@ public interface TextizedKey<KEY extends Key> extends Serializable {
     public static record SimpleTextizedKey(Key key) implements TextizedKey<Key> {
 
         public SimpleTextizedKey {
-            Asserts.notNull(key, "key is required");
+            Assert.notNull(key, "key is required");
         }
 
         @Override
