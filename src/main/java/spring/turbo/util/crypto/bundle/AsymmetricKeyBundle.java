@@ -10,9 +10,12 @@ import java.security.cert.X509Certificate;
 /**
  * 对非对称加密算法秘钥和证书的封装
  *
- * @since 应卓
+ * @author 应卓
+ * @see PemAsymmetricKeyBundleFactoryBean
+ * @see KeyStoreAsymmetricKeyBundleFactoryBean
  * @since 3.3.1
  */
+@SuppressWarnings("unchecked")
 public interface AsymmetricKeyBundle extends Serializable {
 
     /**
@@ -35,8 +38,8 @@ public interface AsymmetricKeyBundle extends Serializable {
      *
      * @return 公钥实例
      */
-    public default PublicKey getPublicKey() {
-        return getKeyPair().getPublic();
+    public default <T extends PublicKey> T getPublicKey() {
+        return (T) getKeyPair().getPublic();
     }
 
     /**
@@ -44,8 +47,8 @@ public interface AsymmetricKeyBundle extends Serializable {
      *
      * @return 私钥实例
      */
-    public default PrivateKey getPrivateKey() {
-        return getKeyPair().getPrivate();
+    public default <T extends PrivateKey> T getPrivateKey() {
+        return (T) getKeyPair().getPrivate();
     }
 
     /**

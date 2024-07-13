@@ -5,13 +5,11 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.style.ToStringCreator;
 import spring.turbo.util.crypto.pem.CertificatePemHelper;
 import spring.turbo.util.crypto.pem.PemHelper;
 
 import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.security.spec.PKCS8EncodedKeySpec;
 
@@ -55,31 +53,10 @@ public class PemAsymmetricKeyBundleFactoryBean
              var keyInput = keyResource.getInputStream()) {
 
             X509Certificate cert = CertificatePemHelper.readX509PemCertificate(certResource);
-
             var factory = KeyFactory.getInstance(cert.getPublicKey().getAlgorithm());
             var spec = new PKCS8EncodedKeySpec(PemHelper.readPemBytes(keyInput));
             var privateKey = factory.generatePrivate(spec);
-
-            this.bundle = new AsymmetricKeyBundle() {
-                @Override
-                public KeyPair getKeyPair() {
-                    return new KeyPair(cert.getPublicKey(), privateKey);
-                }
-
-                @Override
-                @SuppressWarnings("unchecked")
-                public <T extends Certificate> T getCertificate() {
-                    return (T) cert;
-                }
-
-                @Override
-                public String toString() {
-                    var creator = new ToStringCreator(this);
-                    creator.append("algorithm", getAlgorithm());
-                    creator.append("sigAlgName", getSigAlgName());
-                    return creator.toString();
-                }
-            };
+            this.bundle = new AsymmetricKeyBundleImpl(new KeyPair(cert.getPublicKey(), privateKey), cert);
         }
     }
 
