@@ -2,6 +2,8 @@ package spring.turbo.util.crypto.keystore;
 
 import org.springframework.lang.Nullable;
 
+import java.io.Serializable;
+
 /**
  * {@link java.security.KeyStore}格式类型，本程序库只支持以下两种。<br>
  * 其中 <em>PKCS12</em> 为推荐格式
@@ -15,7 +17,7 @@ import org.springframework.lang.Nullable;
  * @see KeyStoreFormatEditor
  * @since 3.3.1
  */
-public enum KeyStoreFormat {
+public enum KeyStoreFormat implements Serializable {
 
     /**
      * PKCS#12格式, Java9以后此格式为默认。 推荐此格式，文件扩展名为 p12或pfx。

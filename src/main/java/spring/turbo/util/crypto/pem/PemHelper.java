@@ -79,7 +79,7 @@ public final class PemHelper {
         return readPemObject(inputStream).getContent();
     }
 
-    public static PemObject readPemObject(InputStream inputStream) {
+    static PemObject readPemObject(InputStream inputStream) {
         try (var keyReader = new InputStreamReader(inputStream); var pemReader = new PemReader(keyReader)) {
             return pemReader.readPemObject();
         } catch (IOException e) {
