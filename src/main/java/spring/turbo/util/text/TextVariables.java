@@ -109,13 +109,13 @@ public class TextVariables extends HashMap<String, String> {
     /**
      * 获取参数值
      *
-     * @param name         参数名
+     * @param variableName 参数名
      * @param defaultValue 默认值
      * @return 参数值默认值
      */
     @Nullable
-    public String getVariableValue(String name, @Nullable String defaultValue) {
-        var value = getVariableValue(name);
+    public String getVariableValue(String variableName, @Nullable String defaultValue) {
+        var value = getVariableValue(variableName);
         if (value == null) {
             return defaultValue;
         }
