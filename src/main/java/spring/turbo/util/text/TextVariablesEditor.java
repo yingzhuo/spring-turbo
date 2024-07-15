@@ -13,7 +13,7 @@ public class TextVariablesEditor extends PropertyEditorSupport {
      */
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        setValue(new TextVariables(text, null));
+        setValue(new TextVariables(text));
     }
 
 }

@@ -3,9 +3,7 @@ package spring.turbo.util.text;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.DOTALL;
@@ -18,7 +16,7 @@ import static spring.turbo.util.CharPool.SEMICOLON;
  * @see TextVariablesEditor
  * @since 3.3.1
  */
-public class TextVariables extends HashMap<String, String> {
+public class TextVariables extends HashMap<String, String> implements Map<String, String> {
 
     private static final StringMatcher DEFAULT_DELIMITER = StringMatcher.charSetMatcher(SEMICOLON, LF);
 
@@ -69,7 +67,6 @@ public class TextVariables extends HashMap<String, String> {
                 var token = stringTokenizer.next();
 
                 if (!token.isBlank()) {
-
                     // 注意: Group1 用的是懒惰量词
                     // 注意: Group2 用的是贪婪量词
                     var regex = "(.*?)=(.*)";
@@ -131,6 +128,15 @@ public class TextVariables extends HashMap<String, String> {
         var props = new Properties();
         props.putAll(this);
         return props;
+    }
+
+    /**
+     * 转换成不可变{@link Map}
+     *
+     * @return 不可变{@link Map}
+     */
+    public Map<String, String> toUnmodifiableMap() {
+        return Collections.unmodifiableMap(this);
     }
 
 }
