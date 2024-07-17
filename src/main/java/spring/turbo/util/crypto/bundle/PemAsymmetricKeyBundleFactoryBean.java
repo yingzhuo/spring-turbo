@@ -5,10 +5,16 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.StringUtils;
 import spring.turbo.util.crypto.pem.PemReadingUtils;
 
+import java.io.IOException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @since 应卓
@@ -16,9 +22,11 @@ import java.security.PrivateKey;
  */
 public class PemAsymmetricKeyBundleFactoryBean implements FactoryBean<AsymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
 
-    private ResourceLoader resourceLoader = new DefaultResourceLoader();
+    private ResourceLoader resourceLoader = new DefaultResourceLoader(ClassUtils.getDefaultClassLoader());
     private String certificateLocation;
+    private String certificateContent = "";
     private String keyLocation;
+    private String keyContent = "";
     private String keyPassword;
     private AsymmetricKeyBundle bundle;
 
@@ -42,13 +50,28 @@ public class PemAsymmetricKeyBundleFactoryBean implements FactoryBean<Asymmetric
      * {@inheritDoc}
      */
     @Override
-    public void afterPropertiesSet() {
-        var certResource = resourceLoader.getResource(certificateLocation);
-        var keyResource = resourceLoader.getResource(keyLocation);
-
-        var cert = PemReadingUtils.readX509PemCertificate(certResource);
-        var privateKey = (PrivateKey) PemReadingUtils.readPkcs8Key(keyResource, keyPassword);
+    public void afterPropertiesSet() throws IOException {
+        var cert = PemReadingUtils.readX509Certificate(getCertContent());
+        var privateKey = (PrivateKey) PemReadingUtils.readPkcs8PrivateKey(getKeyContent(), this.keyPassword);
         this.bundle = new AsymmetricKeyBundleImpl(new KeyPair(cert.getPublicKey(), privateKey), cert);
+    }
+
+    private String getCertContent() throws IOException {
+        if (StringUtils.hasText(this.certificateContent)) {
+            return this.certificateContent;
+        }
+
+        Assert.notNull(this.certificateLocation, "certificateLocation is required");
+        return resourceLoader.getResource(this.certificateLocation).getContentAsString(UTF_8);
+    }
+
+    private String getKeyContent() throws IOException {
+        if (StringUtils.hasText(this.keyContent)) {
+            return this.keyContent;
+        }
+
+        Assert.notNull(this.keyLocation, "keyLocation is required");
+        return resourceLoader.getResource(this.keyLocation).getContentAsString(UTF_8);
     }
 
     /**
@@ -69,6 +92,14 @@ public class PemAsymmetricKeyBundleFactoryBean implements FactoryBean<Asymmetric
 
     public void setKeyPassword(String keyPassword) {
         this.keyPassword = keyPassword;
+    }
+
+    public void setCertificateContent(String certificateContent) {
+        this.certificateContent = certificateContent;
+    }
+
+    public void setKeyContent(String keyContent) {
+        this.keyContent = keyContent;
     }
 
 }

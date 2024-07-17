@@ -1,15 +1,15 @@
 package spring.turbo.util.crypto.pem;
 
 import org.springframework.boot.ssl.pem.PemContent;
-import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
+import spring.turbo.util.StringTokenizerUtils;
+import spring.turbo.util.text.StringMatcher;
 
-import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
+import java.util.stream.Collectors;
 
 /**
  * PEM相关工具 <br>
@@ -33,22 +33,18 @@ public final class PemReadingUtils {
      * 读取证书 <br>
      * <em>注意: 必须是X509格式</em>
      *
-     * @param resource 资源
+     * @param text PEM文件内容
      * @return 证书
      * @throws UncheckedIOException IO错误
      */
-    public static <T extends X509Certificate> T readX509PemCertificate(Resource resource) {
-        try {
-            var text = resource.getContentAsString(StandardCharsets.UTF_8);
-            var pem = PemContent.of(text);
-            var certs = pem.getCertificates();
-            if (certs.size() == 1) {
-                return (T) certs.get(0);
-            } else {
-                throw new IllegalStateException("cannot read a certificate chain");
-            }
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+    public static <T extends X509Certificate> T readX509Certificate(String text) {
+        text = betterPemContent(text);
+        var pem = PemContent.of(text);
+        var certs = pem.getCertificates();
+        if (certs.size() == 1) {
+            return (T) certs.get(0);
+        } else {
+            throw new IllegalStateException("cannot read a certificate chain");
         }
     }
 
@@ -56,62 +52,60 @@ public final class PemReadingUtils {
      * 读取私钥 <br>
      * <em>注意: 必须是PKCS8格式</em>
      *
-     * @param resource 资源
-     * @param <T>      私钥类型泛型
+     * @param text PEM文件内容
+     * @param <T>  私钥类型泛型
      * @return 私钥
      */
-    public static <T extends PrivateKey> T readPkcs8PrivateKey(Resource resource) {
-        return readPkcs8PrivateKey(resource, null);
+    public static <T extends PrivateKey> T readPkcs8PrivateKey(String text) {
+        return readPkcs8PrivateKey(text, null);
     }
 
     /**
      * 读取si私钥 <br>
      * <em>注意: 必须是PKCS8格式</em>
      *
-     * @param resource 资源
+     * @param text     PEM文件内容
      * @param password 私钥密码
      * @param <T>      私钥类型泛型
      * @return 私钥
      */
-    public static <T extends PrivateKey> T readPkcs8PrivateKey(Resource resource, @Nullable String password) {
-        return (T) readPkcs8Key(resource);
+    public static <T extends PrivateKey> T readPkcs8PrivateKey(String text, @Nullable String password) {
+        return (T) readPkcs8Key(text);
     }
 
     /**
      * 读取秘钥 <br>
      * <em>注意: 必须是PKCS8格式</em>
      *
-     * @param resource 资源
-     * @param <T>      秘钥类型泛型
+     * @param text PEM文件内容
+     * @param <T>  秘钥类型泛型
      * @return 秘钥
      */
-    public static <T extends Key> T readPkcs8Key(Resource resource) {
-        return readPkcs8Key(resource, null);
+    public static <T extends Key> T readPkcs8Key(String text) {
+        return readPkcs8Key(text, null);
     }
 
     /**
      * 读取秘钥 <br>
      * <em>注意: 必须是PKCS8格式</em>
      *
-     * @param resource 资源
+     * @param text     PEM文件内容
      * @param password 秘钥，没有秘钥可以为{@code null}
      * @param <T>      秘钥类型泛型
      * @return 秘钥
      */
-    public static <T extends Key> T readPkcs8Key(Resource resource, @Nullable String password) {
-        try {
-            var text = resource.getContentAsString(StandardCharsets.UTF_8);
-            var pem = PemContent.of(text);
+    public static <T extends Key> T readPkcs8Key(String text, @Nullable String password) {
+        text = betterPemContent(text);
+        var pem = PemContent.of(text);
 
-            return (T)
-                    (password != null ?
-                            pem.getPrivateKey(password) :
-                            pem.getPrivateKey()
-                    );
+        return (T) (password != null ? pem.getPrivateKey(password) : pem.getPrivateKey());
+    }
 
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+    private static String betterPemContent(String text) {
+        return StringTokenizerUtils.split(text, StringMatcher.charMatcher('\n'))
+                .stream()
+                .map(String::trim)
+                .collect(Collectors.joining("\n"));
     }
 
 }
