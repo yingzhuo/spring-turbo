@@ -61,7 +61,7 @@ public final class PemReadingUtils {
     }
 
     /**
-     * 读取si私钥 <br>
+     * 读取私钥 <br>
      * <em>注意: 必须是PKCS8格式</em>
      *
      * @param text     PEM文件内容
@@ -70,7 +70,7 @@ public final class PemReadingUtils {
      * @return 私钥
      */
     public static <T extends PrivateKey> T readPkcs8PrivateKey(String text, @Nullable String password) {
-        return (T) readPkcs8Key(text);
+        return (T) readPkcs8Key(text, password);
     }
 
     /**

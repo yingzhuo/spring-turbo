@@ -8,19 +8,24 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
-import spring.turbo.util.crypto.pem.PemReadingUtils;
 
 import java.io.IOException;
 import java.security.KeyPair;
-import java.security.PrivateKey;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static spring.turbo.util.crypto.pem.PemReadingUtils.readPkcs8PrivateKey;
+import static spring.turbo.util.crypto.pem.PemReadingUtils.readX509Certificate;
 
 /**
+ * {@link AsymmetricKeyBundle} 配置用 {@link FactoryBean} <br>
+ * 用PEM格式文件配置
+ *
+ * @see AsymmetricKeyBundle
  * @since 应卓
  * @since 3.3.1
  */
-public class PemAsymmetricKeyBundleFactoryBean implements FactoryBean<AsymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
+public class PemAsymmetricKeyBundleFactoryBean
+        implements FactoryBean<AsymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
 
     private ResourceLoader resourceLoader = new DefaultResourceLoader(ClassUtils.getDefaultClassLoader());
     private String certificateLocation;
@@ -51,8 +56,8 @@ public class PemAsymmetricKeyBundleFactoryBean implements FactoryBean<Asymmetric
      */
     @Override
     public void afterPropertiesSet() throws IOException {
-        var cert = PemReadingUtils.readX509Certificate(getCertContent());
-        var privateKey = (PrivateKey) PemReadingUtils.readPkcs8PrivateKey(getKeyContent(), this.keyPassword);
+        var cert = readX509Certificate(getCertContent());
+        var privateKey = readPkcs8PrivateKey(getKeyContent(), this.keyPassword);
         this.bundle = new AsymmetricKeyBundleImpl(new KeyPair(cert.getPublicKey(), privateKey), cert);
     }
 

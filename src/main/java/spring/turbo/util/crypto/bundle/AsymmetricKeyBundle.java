@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
 /**
@@ -31,7 +30,7 @@ public interface AsymmetricKeyBundle extends Serializable {
      * @param <T> 证书泛型类型
      * @return 证书
      */
-    public <T extends Certificate> T getCertificate();
+    public <T extends X509Certificate> T getCertificate();
 
     /**
      * 获取公钥
