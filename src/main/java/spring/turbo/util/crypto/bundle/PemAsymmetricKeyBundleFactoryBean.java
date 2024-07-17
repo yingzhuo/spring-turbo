@@ -5,24 +5,21 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
-import spring.turbo.util.crypto.pem.CertificatePemHelper;
-import spring.turbo.util.crypto.pem.PemHelper;
+import spring.turbo.util.crypto.pem.PemReadingUtils;
 
-import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.cert.X509Certificate;
-import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.PrivateKey;
 
 /**
  * @since 应卓
  * @since 3.3.1
  */
-public class PemAsymmetricKeyBundleFactoryBean
-        implements FactoryBean<AsymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
+public class PemAsymmetricKeyBundleFactoryBean implements FactoryBean<AsymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
 
     private ResourceLoader resourceLoader = new DefaultResourceLoader();
     private String certificateLocation;
     private String keyLocation;
+    private String keyPassword;
     private AsymmetricKeyBundle bundle;
 
     /**
@@ -45,19 +42,13 @@ public class PemAsymmetricKeyBundleFactoryBean
      * {@inheritDoc}
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         var certResource = resourceLoader.getResource(certificateLocation);
         var keyResource = resourceLoader.getResource(keyLocation);
 
-        try (var certInput = certResource.getInputStream();
-             var keyInput = keyResource.getInputStream()) {
-
-            X509Certificate cert = CertificatePemHelper.readX509PemCertificate(certResource);
-            var factory = KeyFactory.getInstance(cert.getPublicKey().getAlgorithm());
-            var spec = new PKCS8EncodedKeySpec(PemHelper.readPemBytes(keyInput));
-            var privateKey = factory.generatePrivate(spec);
-            this.bundle = new AsymmetricKeyBundleImpl(new KeyPair(cert.getPublicKey(), privateKey), cert);
-        }
+        var cert = PemReadingUtils.readX509PemCertificate(certResource);
+        var privateKey = (PrivateKey) PemReadingUtils.readPkcs8Key(keyResource, keyPassword);
+        this.bundle = new AsymmetricKeyBundleImpl(new KeyPair(cert.getPublicKey(), privateKey), cert);
     }
 
     /**
@@ -66,6 +57,18 @@ public class PemAsymmetricKeyBundleFactoryBean
     @Override
     public void setResourceLoader(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
+    }
+
+    public void setCertificateLocation(String certificateLocation) {
+        this.certificateLocation = certificateLocation;
+    }
+
+    public void setKeyLocation(String keyLocation) {
+        this.keyLocation = keyLocation;
+    }
+
+    public void setKeyPassword(String keyPassword) {
+        this.keyPassword = keyPassword;
     }
 
 }
