@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 
 /**
  * PEM相关工具 <br>
  *
  * @author 应卓
- * @see <a href="https://github.com/yingzhuo/spring-turbo/wiki/2024%E2%80%9007%E2%80%9002%E2%80%90openssl%E2%80%90cheatsheet">2024‐07‐02‐openssl‐cheatsheet</a>
  * @see <a href="https://www.openssl.org/">OpenSSL官方文档</a>
  * @see <a href="https://en.wikipedia.org/wiki/X.509">X509 wiki</a>
  * @see <a href="https://en.wikipedia.org/wiki/PKCS_8">PKCS#8 wiki</a>
@@ -53,6 +53,31 @@ public final class PemReadingUtils {
     }
 
     /**
+     * 读取私钥 <br>
+     * <em>注意: 必须是PKCS8格式</em>
+     *
+     * @param resource 资源
+     * @param <T>      私钥类型泛型
+     * @return 私钥
+     */
+    public static <T extends PrivateKey> T readPkcs8PrivateKey(Resource resource) {
+        return readPkcs8PrivateKey(resource, null);
+    }
+
+    /**
+     * 读取si私钥 <br>
+     * <em>注意: 必须是PKCS8格式</em>
+     *
+     * @param resource 资源
+     * @param password 私钥密码
+     * @param <T>      私钥类型泛型
+     * @return 私钥
+     */
+    public static <T extends PrivateKey> T readPkcs8PrivateKey(Resource resource, @Nullable String password) {
+        return (T) readPkcs8Key(resource);
+    }
+
+    /**
      * 读取秘钥 <br>
      * <em>注意: 必须是PKCS8格式</em>
      *
@@ -78,9 +103,11 @@ public final class PemReadingUtils {
             var text = resource.getContentAsString(StandardCharsets.UTF_8);
             var pem = PemContent.of(text);
 
-            return (T) (password != null ?
-                    pem.getPrivateKey(password) :
-                    pem.getPrivateKey());
+            return (T)
+                    (password != null ?
+                            pem.getPrivateKey(password) :
+                            pem.getPrivateKey()
+                    );
 
         } catch (IOException e) {
             throw new UncheckedIOException(e);
