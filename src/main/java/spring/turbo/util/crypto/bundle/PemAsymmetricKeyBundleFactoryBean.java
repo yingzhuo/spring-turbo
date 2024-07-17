@@ -15,6 +15,7 @@ import java.security.KeyPair;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static spring.turbo.util.crypto.pem.PemReadingUtils.readPkcs8PrivateKey;
 import static spring.turbo.util.crypto.pem.PemReadingUtils.readX509Certificate;
+import static spring.turbo.util.crypto.pem.PemStringUtils.trimContent;
 
 /**
  * {@link AsymmetricKeyBundle} 配置用 {@link FactoryBean} <br>
@@ -76,7 +77,7 @@ public class PemAsymmetricKeyBundleFactoryBean
         }
 
         Assert.notNull(this.keyLocation, "keyLocation is required");
-        return resourceLoader.getResource(this.keyLocation).getContentAsString(UTF_8);
+        return trimContent(resourceLoader.getResource(this.keyLocation).getContentAsString(UTF_8));
     }
 
     /**

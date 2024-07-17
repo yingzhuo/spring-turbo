@@ -2,14 +2,13 @@ package spring.turbo.util.crypto.pem;
 
 import org.springframework.boot.ssl.pem.PemContent;
 import org.springframework.lang.Nullable;
-import spring.turbo.util.StringTokenizerUtils;
-import spring.turbo.util.text.StringMatcher;
 
 import java.io.UncheckedIOException;
 import java.security.Key;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-import java.util.stream.Collectors;
+
+import static spring.turbo.util.crypto.pem.PemStringUtils.trimContent;
 
 /**
  * PEM相关工具 <br>
@@ -38,8 +37,7 @@ public final class PemReadingUtils {
      * @throws UncheckedIOException IO错误
      */
     public static <T extends X509Certificate> T readX509Certificate(String text) {
-        text = betterPemContent(text);
-        var pem = PemContent.of(text);
+        var pem = PemContent.of(trimContent(text));
         var certs = pem.getCertificates();
         if (certs.size() == 1) {
             return (T) certs.get(0);
@@ -95,17 +93,8 @@ public final class PemReadingUtils {
      * @return 秘钥
      */
     public static <T extends Key> T readPkcs8Key(String text, @Nullable String password) {
-        text = betterPemContent(text);
-        var pem = PemContent.of(text);
-
+        var pem = PemContent.of(trimContent(text));
         return (T) (password != null ? pem.getPrivateKey(password) : pem.getPrivateKey());
-    }
-
-    private static String betterPemContent(String text) {
-        return StringTokenizerUtils.split(text, StringMatcher.charMatcher('\n'))
-                .stream()
-                .map(String::trim)
-                .collect(Collectors.joining("\n"));
     }
 
 }

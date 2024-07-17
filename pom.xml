@@ -178,28 +178,6 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- bouncycastle -->
-        <!--
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk18on</artifactId>
-            <version>${bouncycastle.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcpkix-jdk18on</artifactId>
-            <version>${bouncycastle.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcutil-jdk18on</artifactId>
-            <version>${bouncycastle.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        -->
-
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

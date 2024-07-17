@@ -11,7 +11,9 @@ import org.springframework.util.StringUtils;
 import spring.turbo.util.crypto.pem.PemReadingUtils;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static spring.turbo.util.crypto.pem.PemStringUtils.trimContent;
 
 /**
  * {@link SymmetricKeyBundle} 配置用 {@link FactoryBean} <br>
@@ -61,7 +63,7 @@ public class PemSymmetricKeyBundleFactoryBean
         }
 
         Assert.notNull(this.keyLocation, "keyLocation is required");
-        return resourceLoader.getResource(this.keyLocation).getContentAsString(StandardCharsets.UTF_8);
+        return trimContent(resourceLoader.getResource(this.keyLocation).getContentAsString(UTF_8));
     }
 
     /**
