@@ -7,6 +7,7 @@ import java.io.InputStream;
  * @author 应卓
  * @since 1.0.9
  */
+@Deprecated(since = "3.3.1")
 public final class BrokenInputStream extends InputStream {
 
     /**

@@ -26,7 +26,7 @@ public final class EmptyReader extends Reader {
 
     @Override
     public void close() {
-        // nop
+        // noop
     }
 
     // 延迟加载

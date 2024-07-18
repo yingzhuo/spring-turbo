@@ -8,7 +8,7 @@ import java.io.OutputStream;
  * @since 1.0.8
  * @deprecated 使用 {@link OutputStream#nullOutputStream()} 代替
  */
-@Deprecated
+@Deprecated(since = "3.3.1")
 public final class BlackHoleOutputStream extends OutputStream {
 
     /**

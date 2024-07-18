@@ -8,6 +8,7 @@ import java.io.OutputStream;
  * @see #getInstance()
  * @since 1.1.1
  */
+@Deprecated(since = "3.3.1")
 public class BrokenOutputStream extends OutputStream {
 
     /**

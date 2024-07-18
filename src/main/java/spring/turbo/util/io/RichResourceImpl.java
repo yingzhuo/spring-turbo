@@ -22,6 +22,11 @@ record RichResourceImpl(Resource delegating) implements RichResource {
     }
 
     @Override
+    public Resource getDelegating() {
+        return delegating;
+    }
+
+    @Override
     public boolean exists() {
         return delegating.exists();
     }

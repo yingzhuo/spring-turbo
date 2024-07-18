@@ -6,13 +6,13 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.collection.CollectionUtils;
 
-import java.io.*;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -20,7 +20,6 @@ import static java.util.Objects.requireNonNullElse;
 import static java.util.Objects.requireNonNullElseGet;
 import static spring.turbo.util.StringUtils.blankSafeAddAll;
 import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
-import static spring.turbo.util.io.IOExceptionUtils.toUnchecked;
 
 /**
  * 有更丰富功能的 {@link Resource}
@@ -29,7 +28,8 @@ import static spring.turbo.util.io.IOExceptionUtils.toUnchecked;
  * @see #builder()
  * @since 2.0.8
  */
-public sealed interface RichResource extends Resource, Closeable permits RichResourceImpl {
+public sealed interface RichResource extends Resource, Closeable
+        permits RichResourceImpl {
 
     /**
      * 获得创建器实例
@@ -53,91 +53,20 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
         return getFile().toPath();
     }
 
-    @Nullable
-    public default Path getPathQuietly() {
-        try {
-            return getPath();
-        } catch (IOException e) {
-            return null;
-        }
+    public default Reader getAsReader() throws IOException {
+        return getAsReader(UTF_8);
     }
 
-    public default Path getRequiredPath() {
-        try {
-            return getPath();
-        } catch (IOException e) {
-            throw toUnchecked(e);
-        }
+    public default Reader getAsReader(@Nullable Charset charset) throws IOException {
+        return new InputStreamReader(getInputStream(), Objects.requireNonNullElse(charset, UTF_8));
     }
 
-    @Nullable
-    public default InputStream getInputStreamQuietly() {
-        try {
-            return getInputStream();
-        } catch (IOException e) {
-            return null;
-        }
+    public default String getAsText() throws IOException {
+        return getAsText(null);
     }
 
-    public default InputStream getRequiredInputStream() {
-        try {
-            return getInputStream();
-        } catch (IOException e) {
-            throw toUnchecked(e);
-        }
-    }
-
-    @Nullable
-    public default File getFileQuietly() {
-        try {
-            return this.getFile();
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
-    public default File getRequiredFile() {
-        try {
-            return this.getFile();
-        } catch (IOException e) {
-            throw toUnchecked(e);
-        }
-    }
-
-    public default String getRequiredFilename() {
-        var filename = getFilename();
-        if (filename == null) {
-            throw toUnchecked("this resource has no filename");
-        }
-        return filename;
-    }
-
-    public default Reader asReader() {
-        return asReader(UTF_8);
-    }
-
-    public default Reader asReader(Charset charset) {
-        try {
-            return new FileReader(getRequiredFile(), charset);
-        } catch (IOException e) {
-            throw toUnchecked(e);
-        }
-    }
-
-    public default String asText() {
-        return asText(UTF_8);
-    }
-
-    public default String asText(Charset charset) {
-        return IOUtils.copyToString(getRequiredInputStream(), charset);
-    }
-
-    public default LineIterator asLineIterator() {
-        return asLineIterator(UTF_8);
-    }
-
-    public default LineIterator asLineIterator(Charset charset) {
-        return new LineIterator(asReader(charset));
+    public default String getAsText(@Nullable Charset charset) throws IOException {
+        return getContentAsString(Objects.requireNonNullElse(charset, UTF_8));
     }
 
     public default boolean isRegularFile() {
@@ -180,15 +109,7 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
         }
     }
 
-    public default Resource createRequiredRelative(String path) {
-        try {
-            return createRelative(path);
-        } catch (IOException e) {
-            throw toUnchecked(e);
-        }
-    }
-
-    public Resource delegating();
+    public Resource getDelegating();
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -347,7 +268,7 @@ public sealed interface RichResource extends Resource, Closeable permits RichRes
                 }
 
                 if (resource instanceof RichResource rich) {
-                    list.add(rich.delegating());
+                    list.add(rich.getDelegating());
                 } else {
                     list.add(resource);
                 }
