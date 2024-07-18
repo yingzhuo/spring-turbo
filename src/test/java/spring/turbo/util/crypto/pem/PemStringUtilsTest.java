@@ -13,13 +13,13 @@ public class PemStringUtilsTest {
     // -----------------------------------------------------------------------------------------------------------------
 
     @Test
-    void testTrimContent1() {
+    void test1() {
         var certContent = PemStringUtils.trimContent(cert);
         Assertions.assertFalse(certContent.isBlank());
     }
 
     @Test
-    void testTrimContent2() {
+    void test2() {
         var keyContent = PemStringUtils.trimContent(key);
         Assertions.assertFalse(keyContent.isBlank());
     }

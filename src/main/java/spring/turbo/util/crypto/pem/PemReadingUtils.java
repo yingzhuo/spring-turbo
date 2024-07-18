@@ -94,7 +94,7 @@ public final class PemReadingUtils {
      */
     public static <T extends Key> T readPkcs8Key(String text, @Nullable String password) {
         var pem = PemContent.of(trimContent(text));
-        return (T) (password != null ? pem.getPrivateKey(password) : pem.getPrivateKey());
+        return (T) pem.getPrivateKey(password);
     }
 
 }
