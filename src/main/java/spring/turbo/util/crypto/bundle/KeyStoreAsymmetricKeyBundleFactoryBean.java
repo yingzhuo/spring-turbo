@@ -2,10 +2,11 @@ package spring.turbo.util.crypto.bundle;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.io.ApplicationResourceLoader;
 import org.springframework.context.ResourceLoaderAware;
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
 import spring.turbo.util.crypto.keystore.KeyStoreFormat;
 
 import java.security.KeyPair;
@@ -19,7 +20,7 @@ import static spring.turbo.util.crypto.keystore.KeyStoreHelper.*;
 public class KeyStoreAsymmetricKeyBundleFactoryBean
         implements FactoryBean<AsymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
 
-    private ResourceLoader resourceLoader = new DefaultResourceLoader();
+    private ResourceLoader resourceLoader = new ApplicationResourceLoader(ClassUtils.getDefaultClassLoader());
     private String location;
     private KeyStoreFormat format = KeyStoreFormat.PKCS12;
     private String storepass;

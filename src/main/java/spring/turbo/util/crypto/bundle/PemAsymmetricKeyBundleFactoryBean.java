@@ -2,8 +2,8 @@ package spring.turbo.util.crypto.bundle;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.io.ApplicationResourceLoader;
 import org.springframework.context.ResourceLoaderAware;
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
@@ -28,7 +28,7 @@ import static spring.turbo.util.crypto.pem.PemStringUtils.trimContent;
 public class PemAsymmetricKeyBundleFactoryBean
         implements FactoryBean<AsymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
 
-    private ResourceLoader resourceLoader = new DefaultResourceLoader(ClassUtils.getDefaultClassLoader());
+    private ResourceLoader resourceLoader = new ApplicationResourceLoader(ClassUtils.getDefaultClassLoader());
     private String certificateLocation;
     private String certificateContent = "";
     private String keyLocation;

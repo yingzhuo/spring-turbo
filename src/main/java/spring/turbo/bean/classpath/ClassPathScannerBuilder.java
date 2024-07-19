@@ -1,5 +1,6 @@
 package spring.turbo.bean.classpath;
 
+import org.springframework.boot.io.ApplicationResourceLoader;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -30,7 +31,7 @@ public final class ClassPathScannerBuilder {
     private final List<TypeFilter> includeFilters = new LinkedList<>();
     private final List<TypeFilter> excludeFilters = new LinkedList<>();
     private Environment environment = new StandardEnvironment();
-    private ResourceLoader resourceLoader = new DefaultResourceLoader();
+    private ResourceLoader resourceLoader = new ApplicationResourceLoader();
     private ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
 
     /**

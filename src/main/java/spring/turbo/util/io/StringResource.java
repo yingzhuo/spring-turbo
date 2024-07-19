@@ -46,6 +46,14 @@ public class StringResource extends ByteArrayResource {
         return Objects.hashCode(string);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return string;
+    }
+
     public final String getString() {
         return string;
     }

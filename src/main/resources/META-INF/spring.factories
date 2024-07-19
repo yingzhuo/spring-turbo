@@ -1,5 +1,7 @@
 org.springframework.boot.env.EnvironmentPostProcessor=\
-    spring.turbo.core.env.SpringApplicationHolders.Hook,\
-    spring.turbo.core.env.MiscPropertiesEnvironmentPostProcessor
+spring.turbo.core.env.SpringApplicationHolders.Hook,\
+spring.turbo.core.env.MiscPropertiesEnvironmentPostProcessor
 org.springframework.context.ApplicationListener=\
-    spring.turbo.core.env.SpringApplicationHolders.Hook
+spring.turbo.core.env.SpringApplicationHolders.Hook
+org.springframework.core.io.ProtocolResolver=\
+spring.turbo.util.io.StringProtocolResolver
