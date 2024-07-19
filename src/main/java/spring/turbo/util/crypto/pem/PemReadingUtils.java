@@ -2,13 +2,13 @@ package spring.turbo.util.crypto.pem;
 
 import org.springframework.boot.ssl.pem.PemContent;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 
-import java.io.UncheckedIOException;
 import java.security.Key;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-
-import static spring.turbo.util.crypto.pem.PemStringUtils.trimContent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * PEM相关工具 <br>
@@ -34,16 +34,32 @@ public final class PemReadingUtils {
      *
      * @param text PEM文件内容
      * @return 证书
-     * @throws UncheckedIOException IO错误
      */
-    public static <T extends X509Certificate> T readX509Certificate(String text) {
-        var pem = PemContent.of(trimContent(text));
+    public static X509Certificate readX509Certificate(String text) {
+        Assert.hasText(text, "text is null or blank");
+
+        text = PemStringUtils.trimContent(text);
+        var pem = PemContent.of(text);
         var certs = pem.getCertificates();
         if (certs.size() == 1) {
-            return (T) certs.get(0);
-        } else {
-            throw new IllegalStateException("cannot read a certificate chain");
+            return certs.get(0);
         }
+
+        throw new IllegalStateException("cannot read a certificate chain");
+    }
+
+    /**
+     * 读取证书链
+     *
+     * @param text PEM文件内容
+     * @return 证书
+     */
+    public static List<X509Certificate> readX509Certificates(String text) {
+        Assert.hasText(text, "text is null or blank");
+
+        text = PemStringUtils.trimContent(text);
+        var pem = PemContent.of(text);
+        return new ArrayList<>(pem.getCertificates());
     }
 
     /**
@@ -93,7 +109,10 @@ public final class PemReadingUtils {
      * @return 秘钥
      */
     public static <T extends Key> T readPkcs8Key(String text, @Nullable String password) {
-        var pem = PemContent.of(trimContent(text));
+        Assert.hasText(text, "text is null or blank");
+
+        text = PemStringUtils.trimContent(text);
+        var pem = PemContent.of(text);
         return (T) pem.getPrivateKey(password);
     }
 

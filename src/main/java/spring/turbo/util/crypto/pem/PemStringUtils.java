@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
+ * 精细地处理PEM文本内容，内部工具
+ *
  * @author 应卓
  * @since 3.3.1
  */
@@ -30,6 +32,7 @@ public final class PemStringUtils {
     public static String trimContent(String text) {
         return Arrays.stream(StringUtils.delimitedListToStringArray(text, "\n"))
                 .map(String::trim)
+                .filter(StringUtils::hasText)
                 .collect(Collectors.joining("\n"))
                 .trim();
     }
