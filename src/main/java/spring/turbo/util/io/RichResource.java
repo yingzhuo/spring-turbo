@@ -6,7 +6,10 @@ import spring.turbo.util.collection.StreamFactories;
 import spring.turbo.util.text.StringMatcher;
 import spring.turbo.util.text.StringTokenizer;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -24,7 +27,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @see #of(Resource)
  * @since 3.3.2
  */
-public interface RichResource extends Resource, Serializable, Closeable {
+public interface RichResource extends Resource, Serializable {
 
     /**
      * 装饰一个{@link Resource}

@@ -145,14 +145,6 @@ record RichResourceImpl(Resource delegating) implements RichResource, Resource, 
      * {@inheritDoc}
      */
     @Override
-    public void close() throws IOException {
-        getInputStream().close();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public String toString() {
         return delegating.toString();
     }
