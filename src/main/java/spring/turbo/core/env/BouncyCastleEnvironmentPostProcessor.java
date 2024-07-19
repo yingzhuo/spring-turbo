@@ -11,16 +11,19 @@ import java.security.Security;
 
 /**
  * @author 应卓
- * @since 3.3.1
+ * @since 3.3.2
  */
 public class BouncyCastleEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
-    private static final String BC_PROVIDER_CLASS = "org.bouncycastle.jce.provider.BouncyCastleProvider";
+    private static final String BOUNCY_CASTLE_PROVIDER_CLASS = "org.bouncycastle.jce.provider.BouncyCastleProvider";
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         try {
-            var cls = ClassUtils.forName(BC_PROVIDER_CLASS, ClassUtils.getDefaultClassLoader());
+            var cls = ClassUtils.forName(BOUNCY_CASTLE_PROVIDER_CLASS, ClassUtils.getDefaultClassLoader());
             var ctor = cls.getConstructor();
             var provider = ctor.newInstance();
             Security.addProvider((Provider) provider);
@@ -29,6 +32,9 @@ public class BouncyCastleEnvironmentPostProcessor implements EnvironmentPostProc
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getOrder() {
         return LOWEST_PRECEDENCE;

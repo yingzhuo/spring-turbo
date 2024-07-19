@@ -30,9 +30,7 @@ public class MiscPropertiesEnvironmentPostProcessor implements EnvironmentPostPr
         variables.put("spring.process.user", CurrentProcess.user());
 
         Optional.ofNullable(SpringApplicationHolders.getApplicationHome()).ifPresent(
-                home -> {
-                    variables.put("spring.application.home", home.toAbsolutePath().toString());
-                }
+                home -> variables.put("spring.application.home", home.toAbsolutePath().toString())
         );
 
         var propertySource = new MapPropertySource(
@@ -46,7 +44,7 @@ public class MiscPropertiesEnvironmentPostProcessor implements EnvironmentPostPr
 
     @Override
     public int getOrder() {
-        return LOWEST_PRECEDENCE;
+        return LOWEST_PRECEDENCE - 100;
     }
 
 }
