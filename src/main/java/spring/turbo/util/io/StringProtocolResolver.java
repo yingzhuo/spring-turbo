@@ -14,6 +14,9 @@ public class StringProtocolResolver implements ProtocolResolver {
 
     private static final String STRING_PREFIX = "string:";
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public Resource resolve(String location, ResourceLoader resourceLoader) {

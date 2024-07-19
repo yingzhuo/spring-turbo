@@ -20,9 +20,33 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  *
  * @author 应卓
  * @see RichResourceEditor
+ * @see #of(String)
+ * @see #of(Resource)
  * @since 3.3.2
  */
 public interface RichResource extends Resource, Serializable, Closeable {
+
+    /**
+     * 装饰一个{@link Resource}
+     *
+     * @param resource 被装饰的对象
+     * @return 结果
+     */
+    public static RichResource of(Resource resource) {
+        return new RichResourceImpl(resource);
+    }
+
+    /**
+     * 从location加载一个{@link RichResource}
+     *
+     * @param location 资源位置
+     * @return 结果
+     */
+    public static RichResource of(String location) {
+        var editor = new RichResourceEditor();
+        editor.setAsText(location);
+        return (RichResource) editor.getValue();
+    }
 
     /**
      * 判断代理的对象是否是一个文件或物理设备
@@ -175,6 +199,17 @@ public interface RichResource extends Resource, Serializable, Closeable {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    /**
+     * 获取相对路径的资源
+     *
+     * @param relativePath 相对路径
+     * @return {@link RichResource}实例
+     * @throws IOException I/O错误
+     */
+    public default RichResource createRelativeAsRichResource(String relativePath) throws IOException {
+        return new RichResourceImpl(createRelative(relativePath));
     }
 
     /**
