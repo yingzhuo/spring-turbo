@@ -11,8 +11,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.util.Assert;
 import org.springframework.validation.Validator;
 import spring.turbo.core.env.SpringApplicationHolders;
@@ -112,34 +110,6 @@ public final class SpringUtils {
      */
     public static BeanDefinitionRegistry getBeanDefinitionRegistry() {
         return (BeanDefinitionRegistry) getApplicationContext().getAutowireCapableBeanFactory();
-    }
-
-    /**
-     * 获取{@link ResourceLoader}实例
-     *
-     * @return {@link ResourceLoader}实例
-     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
-     * @see org.springframework.core.io.Resource
-     * @see ResourceLoader
-     * @see ResourcePatternResolver
-     * @see #getResourcePatternResolver()
-     */
-    public static ResourceLoader getResourceLoader() {
-        return getApplicationContext();
-    }
-
-    /**
-     * 获取{@link ResourcePatternResolver}实例
-     *
-     * @return {@link ResourcePatternResolver}实例
-     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
-     * @see org.springframework.core.io.Resource
-     * @see ResourceLoader
-     * @see ResourcePatternResolver
-     * @see #getResourceLoader()
-     */
-    public static ResourcePatternResolver getResourcePatternResolver() {
-        return getApplicationContext();
     }
 
     /**

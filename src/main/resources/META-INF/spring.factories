@@ -9,4 +9,5 @@ org.springframework.context.ApplicationListener=\
 spring.turbo.core.env.SpringApplicationHolders.Hook
 
 org.springframework.core.io.ProtocolResolver=\
-spring.turbo.util.io.StringProtocolResolver
+spring.turbo.core.resource.HexProtocolResolver,\
+spring.turbo.core.resource.StringProtocolResolver

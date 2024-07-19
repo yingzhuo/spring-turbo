@@ -1,9 +1,10 @@
-package spring.turbo.util.io;
+package spring.turbo.core.resource;
 
 import org.springframework.core.io.ProtocolResolver;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.Nullable;
+import spring.turbo.util.io.StringResource;
 
 /**
  * @author 应卓

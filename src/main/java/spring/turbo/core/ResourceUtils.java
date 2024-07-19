@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +31,26 @@ public final class ResourceUtils {
      * 私有构造方法
      */
     private ResourceUtils() {
+    }
+
+    /**
+     * 获取{@link ResourceLoader}实例
+     *
+     * @return {@link ResourceLoader}实例
+     * @see #getResourcePatternResolver()
+     */
+    public static ResourceLoader getResourceLoader() {
+        return RESOURCE_LOADER;
+    }
+
+    /**
+     * 获取{@link ResourcePatternResolver}实例
+     *
+     * @return {@link ResourcePatternResolver}实例
+     * @see #getResourceLoader()
+     */
+    public static ResourcePatternResolver getResourcePatternResolver() {
+        return RESOURCE_PATTERN_RESOLVER;
     }
 
     /**
@@ -67,10 +88,14 @@ public final class ResourceUtils {
      *
      * @param locationPattern 资源为止模式
      * @return 结果
-     * @throws IOException I/O错误
+     * @throws UncheckedIOException I/O错误
      */
-    public static List<Resource> loadResources(String locationPattern) throws IOException {
-        return Arrays.asList(RESOURCE_PATTERN_RESOLVER.getResources(locationPattern));
+    public static List<Resource> loadResources(String locationPattern) {
+        try {
+            return Arrays.asList(RESOURCE_PATTERN_RESOLVER.getResources(locationPattern));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
 }
