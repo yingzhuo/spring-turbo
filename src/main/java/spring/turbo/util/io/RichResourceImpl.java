@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URL;
 import java.nio.channels.ReadableByteChannel;
@@ -13,21 +14,14 @@ import java.nio.channels.ReadableByteChannel;
 /**
  * {@link RichResource}的实现
  *
+ * @param delegating 代理的{@link Resource}实例
  * @author 应卓
  * @since 2.0.8
  */
-public class RichResourceImpl implements RichResource {
+public record RichResourceImpl(Resource delegating) implements RichResource, Resource, Serializable {
 
-    private Resource delegating;
-
-    public RichResourceImpl(Resource delegating) {
+    public RichResourceImpl {
         Assert.notNull(delegating, "delegating is null");
-        this.delegating = delegating;
-    }
-
-    @Override
-    public Resource getDelegating() {
-        return this.delegating;
     }
 
     @Override

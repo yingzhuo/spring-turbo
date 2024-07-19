@@ -2,16 +2,21 @@ package spring.turbo.util.io;
 
 import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
+import spring.turbo.util.collection.StreamFactories;
+import spring.turbo.util.text.StringMatcher;
+import spring.turbo.util.text.StringTokenizer;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * 有更丰富功能的 {@link Resource}
+ * 有更丰富功能的 {@link Resource}。<br>
+ * 显而易见，这是一个装饰器。
  *
  * @author 应卓
  * @see RichResourceEditor
@@ -86,6 +91,28 @@ public interface RichResource extends Resource, Serializable, Closeable {
     }
 
     /**
+     * 将资源文本逐行读取
+     *
+     * @return 逐行的文本
+     * @throws IOException I/O错误
+     */
+    public default Stream<String> getLinesAsStream() throws IOException {
+        return getLinesAsStream(null);
+    }
+
+    /**
+     * 将资源文本逐行读取
+     *
+     * @param charset 编码
+     * @return 逐行的文本
+     * @throws IOException I/O错误
+     */
+    public default Stream<String> getLinesAsStream(@Nullable Charset charset) throws IOException {
+        var tokenizer = new StringTokenizer(getAsText(charset), StringMatcher.charSetMatcher('\n'));
+        return StreamFactories.newStream(tokenizer, false);
+    }
+
+    /**
      * 判断资源是否是一个文件而非目录
      *
      * @return 判断结果
@@ -155,6 +182,15 @@ public interface RichResource extends Resource, Serializable, Closeable {
      *
      * @return 代理的 {@link Resource} 对象
      */
-    public Resource getDelegating();
+    public Resource delegating();
+
+    /**
+     * 获取代理的对象的类型
+     *
+     * @return 代理的对象的类型
+     */
+    public default Class<? extends Resource> getDelegatingType() {
+        return delegating().getClass();
+    }
 
 }

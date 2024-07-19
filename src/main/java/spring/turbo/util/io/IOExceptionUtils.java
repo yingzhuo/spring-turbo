@@ -13,6 +13,9 @@ import java.io.UncheckedIOException;
  */
 public final class IOExceptionUtils {
 
+    /**
+     * 私有构造方法
+     */
     private IOExceptionUtils() {
     }
 
