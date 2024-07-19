@@ -2,12 +2,9 @@ package spring.turbo.util.crypto.bundle;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.io.ApplicationResourceLoader;
-import org.springframework.context.ResourceLoaderAware;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
+import spring.turbo.core.ResourceUtils;
 
 import java.io.IOException;
 import java.security.KeyPair;
@@ -26,9 +23,8 @@ import static spring.turbo.util.crypto.pem.PemStringUtils.trimContent;
  * @since 3.3.1
  */
 public class PemAsymmetricKeyBundleFactoryBean
-        implements FactoryBean<AsymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
+        implements FactoryBean<AsymmetricKeyBundle>, InitializingBean {
 
-    private ResourceLoader resourceLoader = new ApplicationResourceLoader(ClassUtils.getDefaultClassLoader());
     private String certificateLocation;
     private String certificateContent = "";
     private String keyLocation;
@@ -68,7 +64,7 @@ public class PemAsymmetricKeyBundleFactoryBean
         }
 
         Assert.notNull(this.certificateLocation, "certificateLocation is required");
-        return resourceLoader.getResource(this.certificateLocation).getContentAsString(UTF_8);
+        return ResourceUtils.load(certificateLocation).getContentAsString(UTF_8);
     }
 
     private String getKeyContent() throws IOException {
@@ -77,15 +73,7 @@ public class PemAsymmetricKeyBundleFactoryBean
         }
 
         Assert.notNull(this.keyLocation, "keyLocation is required");
-        return trimContent(resourceLoader.getResource(this.keyLocation).getContentAsString(UTF_8));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
+        return trimContent(ResourceUtils.load(keyLocation).getContentAsString(UTF_8));
     }
 
     public void setCertificateLocation(String certificateLocation) {

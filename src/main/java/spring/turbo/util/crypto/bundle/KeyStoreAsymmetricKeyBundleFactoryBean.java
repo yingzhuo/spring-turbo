@@ -2,12 +2,9 @@ package spring.turbo.util.crypto.bundle;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.io.ApplicationResourceLoader;
-import org.springframework.context.ResourceLoaderAware;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 import spring.turbo.util.crypto.keystore.KeyStoreFormat;
+import spring.turbo.core.ResourceUtils;
 
 import java.security.KeyPair;
 
@@ -18,9 +15,8 @@ import static spring.turbo.util.crypto.keystore.KeyStoreHelper.*;
  * @since 3.3.1
  */
 public class KeyStoreAsymmetricKeyBundleFactoryBean
-        implements FactoryBean<AsymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
+        implements FactoryBean<AsymmetricKeyBundle>, InitializingBean {
 
-    private ResourceLoader resourceLoader = new ApplicationResourceLoader(ClassUtils.getDefaultClassLoader());
     private String location;
     private KeyStoreFormat format = KeyStoreFormat.PKCS12;
     private String storepass;
@@ -55,7 +51,7 @@ public class KeyStoreAsymmetricKeyBundleFactoryBean
         Assert.notNull(alias, () -> "alias is required");
         Assert.notNull(keypass, () -> "keypass is required");
 
-        var keyStoreResource = resourceLoader.getResource(location);
+        var keyStoreResource = ResourceUtils.load(this.location);
 
         try (var inputStream = keyStoreResource.getInputStream()) {
             var store = loadKeyStore(inputStream, format, storepass);
@@ -63,14 +59,6 @@ public class KeyStoreAsymmetricKeyBundleFactoryBean
             var privateKey = getPrivateKey(store, alias, keypass);
             this.bundle = new AsymmetricKeyBundleImpl(new KeyPair(cert.getPublicKey(), privateKey), cert);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
     }
 
     public void setLocation(String location) {

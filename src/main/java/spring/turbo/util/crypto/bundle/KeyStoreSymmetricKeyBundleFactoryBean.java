@@ -2,20 +2,17 @@ package spring.turbo.util.crypto.bundle;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.io.ApplicationResourceLoader;
-import org.springframework.context.ResourceLoaderAware;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.util.ClassUtils;
+import org.springframework.util.Assert;
 import spring.turbo.util.crypto.keystore.KeyStoreFormat;
 import spring.turbo.util.crypto.keystore.KeyStoreHelper;
+import spring.turbo.core.ResourceUtils;
 
 /**
  * @author 应卓
  * @since 3.3.1
  */
-public class KeyStoreSymmetricKeyBundleFactoryBean implements FactoryBean<SymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
+public class KeyStoreSymmetricKeyBundleFactoryBean implements FactoryBean<SymmetricKeyBundle>, InitializingBean {
 
-    private ResourceLoader resourceLoader = new ApplicationResourceLoader(ClassUtils.getDefaultClassLoader());
     private String location;
     private KeyStoreFormat format = KeyStoreFormat.PKCS12;
     private String storepass;
@@ -44,21 +41,19 @@ public class KeyStoreSymmetricKeyBundleFactoryBean implements FactoryBean<Symmet
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        var resource = resourceLoader.getResource(location);
+        Assert.notNull(location, () -> "location is required");
+        Assert.notNull(format, () -> "format is required");
+        Assert.notNull(storepass, () -> "storepass is required");
+        Assert.notNull(alias, () -> "alias is required");
+        Assert.notNull(keypass, () -> "keypass is required");
+
+        var resource = ResourceUtils.load(location);
 
         try (var inputStream = resource.getInputStream()) {
             var keyStore = KeyStoreHelper.loadKeyStore(inputStream, format, storepass);
             var key = KeyStoreHelper.getKey(keyStore, alias, keypass);
             this.bundle = new SymmetricKeyBundleImpl(key);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
     }
 
     public void setLocation(String location) {

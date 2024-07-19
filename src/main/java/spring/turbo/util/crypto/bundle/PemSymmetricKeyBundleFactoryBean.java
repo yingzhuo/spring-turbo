@@ -2,13 +2,10 @@ package spring.turbo.util.crypto.bundle;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.io.ApplicationResourceLoader;
-import org.springframework.context.ResourceLoaderAware;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 import spring.turbo.util.crypto.pem.PemReadingUtils;
+import spring.turbo.core.ResourceUtils;
 
 import java.io.IOException;
 
@@ -24,9 +21,8 @@ import static spring.turbo.util.crypto.pem.PemStringUtils.trimContent;
  * @since 3.3.1
  */
 public class PemSymmetricKeyBundleFactoryBean
-        implements FactoryBean<SymmetricKeyBundle>, ResourceLoaderAware, InitializingBean {
+        implements FactoryBean<SymmetricKeyBundle>, InitializingBean {
 
-    private ResourceLoader resourceLoader = new ApplicationResourceLoader(ClassUtils.getDefaultClassLoader());
     private String keyLocation;
     private String keyContent;
     private String keyPassword;
@@ -63,15 +59,7 @@ public class PemSymmetricKeyBundleFactoryBean
         }
 
         Assert.notNull(this.keyLocation, "keyLocation is required");
-        return trimContent(resourceLoader.getResource(this.keyLocation).getContentAsString(UTF_8));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
+        return trimContent(ResourceUtils.load(keyLocation).getContentAsString(UTF_8));
     }
 
     public void setKeyLocation(String keyLocation) {

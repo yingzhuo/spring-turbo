@@ -1,12 +1,20 @@
-package spring.turbo.util.io;
+package spring.turbo.core;
 
 import org.springframework.boot.io.ApplicationResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 /**
+ * {@link Resource}等相关工具
+ *
  * @author 应卓
  * @since 3.3.2
  */
@@ -14,6 +22,9 @@ public final class ResourceUtils {
 
     private static final ResourceLoader RESOURCE_LOADER
             = new ApplicationResourceLoader(ClassUtils.getDefaultClassLoader());
+
+    private static final ResourcePatternResolver RESOURCE_PATTERN_RESOLVER
+            = ResourcePatternUtils.getResourcePatternResolver(RESOURCE_LOADER);
 
     /**
      * 私有构造方法
@@ -49,6 +60,17 @@ public final class ResourceUtils {
             }
         }
         return null;
+    }
+
+    /**
+     * 通过某种模式，加载多个资源
+     *
+     * @param locationPattern 资源为止模式
+     * @return 结果
+     * @throws IOException I/O错误
+     */
+    public static List<Resource> loadResources(String locationPattern) throws IOException {
+        return Arrays.asList(RESOURCE_PATTERN_RESOLVER.getResources(locationPattern));
     }
 
 }
