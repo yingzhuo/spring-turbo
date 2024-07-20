@@ -17,7 +17,7 @@ import java.nio.file.Path;
 import java.util.Set;
 
 /**
- * ApplicationContext实例保存
+ * 内部工具，用来保存 {@link ApplicationContext} 实例等。
  *
  * @author 应卓
  * @see SpringUtils

@@ -1,22 +1,24 @@
 package spring.turbo.core;
 
 import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.util.Assert;
 
 import static spring.turbo.core.SpringUtils.getApplicationEventPublisher;
 
 /**
- * {@link ApplicationEvent}相关工具
+ * {@link ApplicationEventPublisher}相关工具
  *
  * @author 应卓
- * @since 1.1.2
+ * @see SpringUtils
+ * @since 3.3.2
  */
-public final class ApplicationEventUtils {
+public final class ApplicationEventPublisherUtils {
 
     /**
      * 私有构造方法
      */
-    private ApplicationEventUtils() {
+    private ApplicationEventPublisherUtils() {
     }
 
     /**

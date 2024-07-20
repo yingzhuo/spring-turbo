@@ -15,7 +15,8 @@ import java.io.Serializable;
  * @see MessageSourceResolvable#getDefaultMessage()
  * @since 3.3.1
  */
-public record StringMessageSourceResolvable(String defaultMessage) implements MessageSourceResolvable, Serializable {
+public final record StringMessageSourceResolvable(
+        String defaultMessage) implements MessageSourceResolvable, Serializable {
 
     /**
      * 构造方法
