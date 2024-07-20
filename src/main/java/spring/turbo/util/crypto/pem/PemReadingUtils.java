@@ -3,12 +3,15 @@ package spring.turbo.util.crypto.pem;
 import org.springframework.boot.ssl.pem.PemContent;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import java.security.Key;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * PEM相关工具 <br>
@@ -38,7 +41,7 @@ public final class PemReadingUtils {
     public static X509Certificate readX509Certificate(String text) {
         Assert.hasText(text, "text is null or blank");
 
-        text = PemStringUtils.trimContent(text);
+        text = trimContent(text);
         var pem = PemContent.of(text);
         var certs = pem.getCertificates();
         if (certs.size() == 1) {
@@ -57,7 +60,7 @@ public final class PemReadingUtils {
     public static List<X509Certificate> readX509Certificates(String text) {
         Assert.hasText(text, "text is null or blank");
 
-        text = PemStringUtils.trimContent(text);
+        text = trimContent(text);
         var pem = PemContent.of(text);
         return new ArrayList<>(pem.getCertificates());
     }
@@ -111,9 +114,23 @@ public final class PemReadingUtils {
     public static <T extends Key> T readPkcs8Key(String text, @Nullable String password) {
         Assert.hasText(text, "text is null or blank");
 
-        text = PemStringUtils.trimContent(text);
+        text = trimContent(text);
         var pem = PemContent.of(text);
         return (T) pem.getPrivateKey(password);
+    }
+
+    /**
+     * 整理PEM文本内容，去除不必要的白字符
+     *
+     * @param text PEM文件内容
+     * @return 整理后的内容
+     */
+    private static String trimContent(String text) {
+        return Arrays.stream(StringUtils.delimitedListToStringArray(text, "\n"))
+                .map(String::trim)
+                .filter(StringUtils::hasText)
+                .collect(Collectors.joining("\n"))
+                .trim();
     }
 
 }

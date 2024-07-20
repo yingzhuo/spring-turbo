@@ -7,9 +7,9 @@ import org.springframework.util.StringUtils;
 import spring.turbo.core.ResourceUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static spring.turbo.util.crypto.pem.PemReadingUtils.readPkcs8PrivateKey;
 import static spring.turbo.util.crypto.pem.PemReadingUtils.readX509Certificate;
 
@@ -51,7 +51,7 @@ public class PemAsymmetricKeyBundleFactoryBean
      * {@inheritDoc}
      */
     @Override
-    public void afterPropertiesSet() throws IOException {
+    public void afterPropertiesSet() throws Exception {
         var cert = readX509Certificate(getCertContent());
         var privateKey = readPkcs8PrivateKey(getKeyContent(), this.keyPassword);
         this.bundle = new AsymmetricKeyBundleImpl(new KeyPair(cert.getPublicKey(), privateKey), cert);
@@ -63,7 +63,7 @@ public class PemAsymmetricKeyBundleFactoryBean
         }
 
         Assert.notNull(this.certificateLocation, "certificateLocation is required");
-        return ResourceUtils.load(certificateLocation).getContentAsString(UTF_8);
+        return ResourceUtils.load(certificateLocation).getContentAsString(StandardCharsets.UTF_8);
     }
 
     private String getKeyContent() throws IOException {
@@ -72,7 +72,7 @@ public class PemAsymmetricKeyBundleFactoryBean
         }
 
         Assert.notNull(this.keyLocation, "keyLocation is required");
-        return ResourceUtils.load(keyLocation).getContentAsString(UTF_8);
+        return ResourceUtils.load(keyLocation).getContentAsString(StandardCharsets.UTF_8);
     }
 
     public void setCertificateLocation(String certificateLocation) {
