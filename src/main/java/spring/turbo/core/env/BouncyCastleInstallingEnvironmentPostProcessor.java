@@ -13,7 +13,7 @@ import java.security.Security;
  * @author 应卓
  * @since 3.3.2
  */
-public class BouncyCastleEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
+public class BouncyCastleInstallingEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
     private static final String BOUNCY_CASTLE_PROVIDER_CLASS = "org.bouncycastle.jce.provider.BouncyCastleProvider";
 
