@@ -10,6 +10,8 @@ import java.security.cert.X509Certificate;
  * 对非对称加密算法秘钥和证书的封装
  *
  * @author 应卓
+ * @see spring.turbo.util.crypto.SignatureUtils
+ * @see spring.turbo.util.crypto.CipherUtils
  * @see PemAsymmetricKeyBundleFactoryBean
  * @see KeyStoreAsymmetricKeyBundleFactoryBean
  * @since 3.3.1
@@ -65,16 +67,7 @@ public interface AsymmetricKeyBundle extends Serializable {
      * @return 签名算法名称 如: SHA256WithRSA
      */
     public default String getSigAlgName() {
-        return ((X509Certificate) getCertificate()).getSigAlgName();
-    }
-
-    /**
-     * 获取签名算法标准化的标识符
-     *
-     * @return 签名算法标准化的标识符
-     */
-    public default String getSigAlgOID() {
-        return ((X509Certificate) getCertificate()).getSigAlgOID();
+        return getCertificate().getSigAlgName();
     }
 
 }
