@@ -16,7 +16,7 @@ public class RichResourceEditor extends PropertyEditorSupport {
     @Override
     public final void setAsText(String text) throws IllegalArgumentException {
         try {
-            var resource = ResourceUtils.load(text);
+            var resource = ResourceUtils.loadResource(text);
             setValue(new RichResourceImpl(resource));
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage(), e);

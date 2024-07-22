@@ -47,7 +47,7 @@ public class KeyStoreSymmetricKeyBundleFactoryBean implements FactoryBean<Symmet
         Assert.notNull(alias, () -> "alias is required");
         Assert.notNull(keypass, () -> "keypass is required");
 
-        var resource = ResourceUtils.load(location);
+        var resource = ResourceUtils.loadResource(location);
 
         try (var inputStream = resource.getInputStream()) {
             var keyStore = KeyStoreHelper.loadKeyStore(inputStream, format, storepass);

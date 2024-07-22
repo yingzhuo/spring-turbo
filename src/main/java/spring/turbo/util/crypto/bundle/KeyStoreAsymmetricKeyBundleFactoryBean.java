@@ -51,7 +51,7 @@ public class KeyStoreAsymmetricKeyBundleFactoryBean
         Assert.notNull(alias, () -> "alias is required");
         Assert.notNull(keypass, () -> "keypass is required");
 
-        var keyStoreResource = ResourceUtils.load(this.location);
+        var keyStoreResource = ResourceUtils.loadResource(this.location);
 
         try (var inputStream = keyStoreResource.getInputStream()) {
             var store = loadKeyStore(inputStream, format, storepass);

@@ -63,7 +63,7 @@ public class PemAsymmetricKeyBundleFactoryBean
         }
 
         Assert.notNull(this.certificateLocation, "certificateLocation is required");
-        return ResourceUtils.load(certificateLocation).getContentAsString(StandardCharsets.UTF_8);
+        return ResourceUtils.loadResource(certificateLocation).getContentAsString(StandardCharsets.UTF_8);
     }
 
     private String getKeyContent() throws IOException {
@@ -72,7 +72,7 @@ public class PemAsymmetricKeyBundleFactoryBean
         }
 
         Assert.notNull(this.keyLocation, "keyLocation is required");
-        return ResourceUtils.load(keyLocation).getContentAsString(StandardCharsets.UTF_8);
+        return ResourceUtils.loadResource(keyLocation).getContentAsString(StandardCharsets.UTF_8);
     }
 
     public void setCertificateLocation(String certificateLocation) {

@@ -18,8 +18,8 @@ public class CipherUtilsTest {
 
     @BeforeEach
     void init() throws IOException {
-        var certResource = ResourceUtils.load("classpath:/jwt-cert-x509.pem");
-        var privateResource = ResourceUtils.load("classpath:/jwt-privatekey-pkcs8.pem");
+        var certResource = ResourceUtils.loadResource("classpath:/jwt-cert-x509.pem");
+        var privateResource = ResourceUtils.loadResource("classpath:/jwt-privatekey-pkcs8.pem");
 
         this.publicKey = PemReadingUtils.readX509Certificate(certResource.getContentAsString(StandardCharsets.UTF_8)).getPublicKey();
         this.privateKey = PemReadingUtils.readPkcs8PrivateKey(privateResource.getContentAsString(StandardCharsets.UTF_8), "123456");

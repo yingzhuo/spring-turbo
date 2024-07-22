@@ -59,7 +59,7 @@ public final class ResourceUtils {
      * @param location 资源位置
      * @return 资源
      */
-    public static Resource load(String location) {
+    public static Resource loadResource(String location) {
         return RESOURCE_LOADER.getResource(location);
     }
 
@@ -70,7 +70,7 @@ public final class ResourceUtils {
      * @return 结果或{@code null}
      */
     @Nullable
-    public static Resource loadFirstExists(Iterable<String> locations) {
+    public static Resource loadFirstExistsResource(Iterable<String> locations) {
         for (var location : locations) {
             try {
                 var resource = RESOURCE_LOADER.getResource(location);
