@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import static spring.turbo.util.io.IOExceptionUtils.toUnchecked;
 
@@ -32,7 +33,7 @@ public final class ImageUtils {
      */
     public static byte[] toByteArray(BufferedImage image, String format) {
         try {
-            final ByteArrayOutputStream os = new ByteArrayOutputStream();
+            var os = new ByteArrayOutputStream();
             ImageIO.write(image, format, os);
             return os.toByteArray();
         } catch (IOException e) {
@@ -48,7 +49,9 @@ public final class ImageUtils {
      * @return Base64字符串
      */
     public static String encodeToBase64(BufferedImage image, String format) {
-        return Base64Utils.encodeToString(toByteArray(image, format));
+        var bytes = toByteArray(image, format);
+        var base64Bytes = Base64Utils.encode(bytes, false, true);
+        return new String(base64Bytes, StandardCharsets.UTF_8);
     }
 
 }

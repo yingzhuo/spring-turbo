@@ -1,5 +1,7 @@
 package spring.turbo.util;
 
+import java.io.Serializable;
+
 /**
  * 距离单位
  *
@@ -7,7 +9,7 @@ package spring.turbo.util;
  * @see DistanceUtils
  * @since 3.2.5
  */
-public enum DistanceUnit {
+public enum DistanceUnit implements Serializable {
 
     /**
      * 英里
@@ -22,6 +24,6 @@ public enum DistanceUnit {
     /**
      * 海里
      */
-    NAUTICAL_MILES;
+    NAUTICAL_MILES
 
 }

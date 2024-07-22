@@ -24,7 +24,7 @@ public class HexProtocolResolver implements ProtocolResolver {
     public Resource resolve(String location, ResourceLoader resourceLoader) {
         if (location.startsWith(HEX_PREFIX)) {
             var value = location.substring(HEX_PREFIX.length());
-            return new ByteArrayResource(HexUtils.decode(value));
+            return new ByteArrayResource(HexUtils.decodeToBytes(value));
         }
         return null;
     }
