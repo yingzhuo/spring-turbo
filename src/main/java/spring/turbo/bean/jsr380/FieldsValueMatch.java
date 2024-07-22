@@ -12,7 +12,6 @@ import static java.lang.annotation.ElementType.*;
  * @since 1.0.0
  */
 @Repeatable(FieldsValueMatch.List.class)
-@Inherited
 @Documented
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)

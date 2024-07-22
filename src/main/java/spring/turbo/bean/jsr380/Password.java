@@ -3,7 +3,10 @@ package spring.turbo.bean.jsr380;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.*;
 
@@ -14,7 +17,6 @@ import static java.lang.annotation.ElementType.*;
  * @since 1.0.0
  * @deprecated 建议使用 {@link org.springframework.validation.Validator} 来验证口令等，各个项目验证规则区别太大，元注释设计起来有困难。
  */
-@Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})

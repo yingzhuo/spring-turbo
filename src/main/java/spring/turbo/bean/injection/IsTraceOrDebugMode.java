@@ -11,7 +11,6 @@ import java.lang.annotation.*;
  * @see Value
  * @since 1.2.3
  */
-@Inherited
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
