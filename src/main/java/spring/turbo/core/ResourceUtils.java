@@ -10,8 +10,11 @@ import org.springframework.util.ClassUtils;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * {@link Resource}等相关工具
@@ -93,6 +96,47 @@ public final class ResourceUtils {
     public static List<Resource> loadResources(String locationPattern) {
         try {
             return Arrays.asList(RESOURCE_PATTERN_RESOLVER.getResources(locationPattern));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * 读取资源中的文本
+     *
+     * @param location 资源位置
+     * @return 文本
+     */
+    public static String readResourceAsString(String location) {
+        return readResourceAsString(location, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * 读取资源中的文本
+     *
+     * @param location 资源位置
+     * @param charset  字符集
+     * @return 文本
+     */
+    public static String readResourceAsString(String location, @Nullable Charset charset) {
+        try {
+            charset = Objects.requireNonNullElse(charset, StandardCharsets.UTF_8);
+            return loadResource(location).getContentAsString(charset);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * 读取资源中的二进制数据
+     *
+     * @param location 资源位置
+     * @return 二进制数据
+     */
+    public static byte[] readResourceAsBytes(String location) {
+        try {
+            var resource = loadResource(location);
+            return resource.getContentAsByteArray();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

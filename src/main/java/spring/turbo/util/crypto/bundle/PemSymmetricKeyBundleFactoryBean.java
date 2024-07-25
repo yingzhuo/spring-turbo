@@ -2,13 +2,11 @@ package spring.turbo.util.crypto.bundle;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import spring.turbo.core.ResourceUtils;
 import spring.turbo.util.crypto.pem.PemReadingUtils;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * {@link SymmetricKeyBundle} 配置用 {@link FactoryBean} <br>
@@ -18,8 +16,7 @@ import java.nio.charset.StandardCharsets;
  * @see SymmetricKeyBundle
  * @since 3.3.1
  */
-public class PemSymmetricKeyBundleFactoryBean
-        implements FactoryBean<SymmetricKeyBundle>, InitializingBean {
+public class PemSymmetricKeyBundleFactoryBean implements FactoryBean<SymmetricKeyBundle>, InitializingBean {
 
     private String keyLocation;
     private String keyContent;
@@ -29,6 +26,7 @@ public class PemSymmetricKeyBundleFactoryBean
     /**
      * {@inheritDoc}
      */
+    @NonNull
     @Override
     public SymmetricKeyBundle getObject() {
         return this.bundle;
@@ -46,18 +44,18 @@ public class PemSymmetricKeyBundleFactoryBean
      * {@inheritDoc}
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         var key = PemReadingUtils.readPkcs8Key(getKeyContent(), this.keyPassword);
         this.bundle = new SymmetricKeyBundleImpl(key);
     }
 
-    private String getKeyContent() throws IOException {
+    private String getKeyContent() {
         if (StringUtils.hasText(this.keyContent)) {
             return this.keyContent;
         }
 
         Assert.notNull(this.keyLocation, "keyLocation is required");
-        return ResourceUtils.loadResource(keyLocation).getContentAsString(StandardCharsets.UTF_8);
+        return ResourceUtils.readResourceAsString(keyLocation);
     }
 
     public void setKeyLocation(String keyLocation) {

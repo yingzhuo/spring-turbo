@@ -2,12 +2,11 @@ package spring.turbo.util.crypto.bundle;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import spring.turbo.core.ResourceUtils;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 
 import static spring.turbo.util.crypto.pem.PemReadingUtils.readPkcs8PrivateKey;
@@ -21,19 +20,19 @@ import static spring.turbo.util.crypto.pem.PemReadingUtils.readX509Certificate;
  * @since 应卓
  * @since 3.3.1
  */
-public class PemAsymmetricKeyBundleFactoryBean
-        implements FactoryBean<AsymmetricKeyBundle>, InitializingBean {
+public class PemAsymmetricKeyBundleFactoryBean implements FactoryBean<AsymmetricKeyBundle>, InitializingBean {
 
     private String certificateLocation;
     private String certificateContent = "";
-    private String keyLocation;
-    private String keyContent = "";
-    private String keyPassword;
+    private String privateKeyLocation;
+    private String privateKeyContent = "";
+    private String privateKeyPassword;
     private AsymmetricKeyBundle bundle;
 
     /**
      * {@inheritDoc}
      */
+    @NonNull
     @Override
     public AsymmetricKeyBundle getObject() {
         return this.bundle;
@@ -51,48 +50,48 @@ public class PemAsymmetricKeyBundleFactoryBean
      * {@inheritDoc}
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         var cert = readX509Certificate(getCertContent());
-        var privateKey = readPkcs8PrivateKey(getKeyContent(), this.keyPassword);
+        var privateKey = readPkcs8PrivateKey(getPrivateKeyContent(), privateKeyPassword);
         this.bundle = new AsymmetricKeyBundleImpl(new KeyPair(cert.getPublicKey(), privateKey), cert);
     }
 
-    private String getCertContent() throws IOException {
+    private String getCertContent() {
         if (StringUtils.hasText(this.certificateContent)) {
             return this.certificateContent;
         }
 
         Assert.notNull(this.certificateLocation, "certificateLocation is required");
-        return ResourceUtils.loadResource(certificateLocation).getContentAsString(StandardCharsets.UTF_8);
+        return ResourceUtils.readResourceAsString(certificateLocation);
     }
 
-    private String getKeyContent() throws IOException {
-        if (StringUtils.hasText(this.keyContent)) {
-            return this.keyContent;
+    private String getPrivateKeyContent() {
+        if (StringUtils.hasText(this.privateKeyContent)) {
+            return this.privateKeyContent;
         }
 
-        Assert.notNull(this.keyLocation, "keyLocation is required");
-        return ResourceUtils.loadResource(keyLocation).getContentAsString(StandardCharsets.UTF_8);
+        Assert.notNull(this.privateKeyLocation, "keyLocation is required");
+        return ResourceUtils.readResourceAsString(privateKeyLocation);
     }
 
     public void setCertificateLocation(String certificateLocation) {
         this.certificateLocation = certificateLocation;
     }
 
-    public void setKeyLocation(String keyLocation) {
-        this.keyLocation = keyLocation;
+    public void setPrivateKeyContent(String privateKeyContent) {
+        this.privateKeyContent = privateKeyContent;
     }
 
-    public void setKeyPassword(String keyPassword) {
-        this.keyPassword = keyPassword;
+    public void setPrivateKeyLocation(String privateKeyLocation) {
+        this.privateKeyLocation = privateKeyLocation;
     }
 
     public void setCertificateContent(String certificateContent) {
         this.certificateContent = certificateContent;
     }
 
-    public void setKeyContent(String keyContent) {
-        this.keyContent = keyContent;
+    public void setPrivateKeyPassword(String privateKeyPassword) {
+        this.privateKeyPassword = privateKeyPassword;
     }
 
 }

@@ -2,9 +2,10 @@ package spring.turbo.util.crypto.bundle;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
-import spring.turbo.util.crypto.keystore.KeyStoreFormat;
 import spring.turbo.core.ResourceUtils;
+import spring.turbo.util.crypto.keystore.KeyStoreFormat;
 
 import java.security.KeyPair;
 
@@ -27,6 +28,7 @@ public class KeyStoreAsymmetricKeyBundleFactoryBean
     /**
      * {@inheritDoc}
      */
+    @NonNull
     @Override
     public AsymmetricKeyBundle getObject() {
         return this.bundle;
@@ -45,11 +47,11 @@ public class KeyStoreAsymmetricKeyBundleFactoryBean
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.notNull(location, () -> "location is required");
-        Assert.notNull(format, () -> "format is required");
-        Assert.notNull(storepass, () -> "storepass is required");
-        Assert.notNull(alias, () -> "alias is required");
-        Assert.notNull(keypass, () -> "keypass is required");
+        Assert.notNull(location, "location is required");
+        Assert.notNull(format, "format is required");
+        Assert.notNull(storepass, "storepass is required");
+        Assert.notNull(alias, "alias is required");
+        Assert.notNull(keypass, "keypass is required");
 
         var keyStoreResource = ResourceUtils.loadResource(this.location);
 
