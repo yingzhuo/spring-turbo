@@ -125,7 +125,7 @@ public final class PemReadingUtils {
      * @param text PEM文件内容
      * @return 整理后的内容
      */
-    private static String trimContent(String text) {
+    public static String trimContent(String text) {
         return Arrays.stream(StringUtils.delimitedListToStringArray(text, "\n"))
                 .map(String::trim)
                 .filter(StringUtils::hasText)
