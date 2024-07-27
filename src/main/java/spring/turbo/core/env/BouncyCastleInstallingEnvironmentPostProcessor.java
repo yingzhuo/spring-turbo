@@ -4,10 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.util.ClassUtils;
 
 import java.security.Provider;
 import java.security.Security;
+
+import static org.springframework.util.ClassUtils.forName;
+import static org.springframework.util.ClassUtils.getDefaultClassLoader;
 
 /**
  * @author 应卓
@@ -23,7 +25,7 @@ public class BouncyCastleInstallingEnvironmentPostProcessor implements Environme
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         try {
-            var cls = ClassUtils.forName(BOUNCY_CASTLE_PROVIDER_CLASS, ClassUtils.getDefaultClassLoader());
+            var cls = forName(BOUNCY_CASTLE_PROVIDER_CLASS, getDefaultClassLoader());
             var ctor = cls.getConstructor();
             var provider = ctor.newInstance();
             Security.addProvider((Provider) provider);
