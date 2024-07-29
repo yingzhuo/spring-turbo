@@ -12,7 +12,7 @@ import spring.turbo.util.HexUtils;
  * @see ByteArrayResource
  * @since 3.3.2
  */
-public class HexProtocolResolver implements ProtocolResolver {
+final class HexProtocolResolver implements ProtocolResolver {
 
     private static final String HEX_PREFIX = "hex:";
 

@@ -7,7 +7,6 @@
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>spring-turbo</artifactId>
     <version>3.4.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <url>https://github.com/yingzhuo/spring-turbo</url>
     <description>Another enhancement library of SpringBoot/SpringFramework. Have fun.</description>
@@ -306,7 +305,6 @@
                     <nonFilteredFileExtensions>
                         <extension>p12</extension>
                         <extension>pfx</extension>
-                        <extension>key</extension>
                         <extension>pem</extension>
                     </nonFilteredFileExtensions>
                 </configuration>

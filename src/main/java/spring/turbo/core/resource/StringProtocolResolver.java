@@ -11,7 +11,7 @@ import spring.turbo.util.io.StringResource;
  * @see StringResource
  * @since 3.3.2
  */
-public class StringProtocolResolver implements ProtocolResolver {
+final class StringProtocolResolver implements ProtocolResolver {
 
     private static final String STRING_PREFIX = "string:";
 
