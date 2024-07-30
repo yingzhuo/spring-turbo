@@ -11,4 +11,6 @@ spring.turbo.core.env.SpringApplicationHolders.Hook
 
 org.springframework.core.io.ProtocolResolver=\
 spring.turbo.core.resource.HexProtocolResolver,\
-spring.turbo.core.resource.StringProtocolResolver
+spring.turbo.core.resource.StringProtocolResolver,\
+spring.turbo.core.resource.ZipProtocolResolver,\
+spring.turbo.core.resource.JarProtocolResolver
