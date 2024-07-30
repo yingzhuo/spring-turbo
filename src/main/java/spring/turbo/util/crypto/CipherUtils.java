@@ -27,7 +27,7 @@ public final class CipherUtils {
      */
     public static byte[] encrypt(byte[] rawData, Key key) {
         try {
-            Cipher cipher = Cipher.getInstance(key.getAlgorithm());
+            var cipher = Cipher.getInstance(key.getAlgorithm());
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return cipher.doFinal(rawData);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public final class CipherUtils {
      */
     public static byte[] decrypt(byte[] encryptedData, Key key) {
         try {
-            Cipher cipher = Cipher.getInstance(key.getAlgorithm());
+            var cipher = Cipher.getInstance(key.getAlgorithm());
             cipher.init(Cipher.DECRYPT_MODE, key);
             return cipher.doFinal(encryptedData);
         } catch (Exception e) {
