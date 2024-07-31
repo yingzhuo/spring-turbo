@@ -26,6 +26,9 @@ abstract class AbstractZipProtocolResolver implements ProtocolResolver {
         this.prefix = prefix;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public final Resource resolve(String location, ResourceLoader resourceLoader) {
