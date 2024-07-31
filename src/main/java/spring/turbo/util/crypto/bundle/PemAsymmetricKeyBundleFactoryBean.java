@@ -74,12 +74,12 @@ public class PemAsymmetricKeyBundleFactoryBean implements FactoryBean<Asymmetric
         return ResourceUtils.readResourceAsString(privateKeyLocation);
     }
 
-    public void setCertificateLocation(String certificateLocation) {
-        this.certificateLocation = certificateLocation;
-    }
-
     public void setPrivateKeyContent(String privateKeyContent) {
         this.privateKeyContent = privateKeyContent;
+    }
+
+    public void setCertificateLocation(String certificateLocation) {
+        this.certificateLocation = certificateLocation;
     }
 
     public void setPrivateKeyLocation(String privateKeyLocation) {

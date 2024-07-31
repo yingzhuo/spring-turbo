@@ -6,10 +6,8 @@ package spring.turbo.core.resource;
  */
 final class JarProtocolResolver extends AbstractZipProtocolResolver {
 
-    private static final String JAR_PREFIX = "jar:";
-
     public JarProtocolResolver() {
-        super(JAR_PREFIX);
+        super("jar:");
     }
 
 }

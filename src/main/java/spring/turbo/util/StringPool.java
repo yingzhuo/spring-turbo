@@ -9,19 +9,11 @@ package spring.turbo.util;
  */
 public final class StringPool {
 
-    /**
-     * 私有构造方法
-     */
-    private StringPool() {
-    }
-
     public static final String DEBUG = "debug";
     public static final String TRACE = "trace";
     public static final String NULL = "null";
-
     public static final String TRUE = "true";
     public static final String FALSE = "false";
-
     public static final String EMPTY = "";
     public static final String SPACE = " ";
     public static final String TAB = "\t";
@@ -37,5 +29,10 @@ public final class StringPool {
     public static final String HYPHEN = "-";
     public static final String UNDERSCORE = "_";
     public static final String COMMA = ",";
+    /**
+     * 私有构造方法
+     */
+    private StringPool() {
+    }
 
 }

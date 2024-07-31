@@ -58,12 +58,12 @@ public class PemSymmetricKeyBundleFactoryBean implements FactoryBean<SymmetricKe
         return ResourceUtils.readResourceAsString(keyLocation);
     }
 
-    public void setKeyLocation(String keyLocation) {
-        this.keyLocation = keyLocation;
-    }
-
     public void setKeyContent(String keyContent) {
         this.keyContent = keyContent;
+    }
+
+    public void setKeyLocation(String keyLocation) {
+        this.keyLocation = keyLocation;
     }
 
     public void setKeyPassword(String keyPassword) {
