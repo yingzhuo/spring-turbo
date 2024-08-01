@@ -2,6 +2,7 @@ package spring.turbo.util.io;
 
 import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
+import spring.turbo.core.ResourceUtils;
 import spring.turbo.util.collection.StreamFactories;
 import spring.turbo.util.text.StringMatcher;
 import spring.turbo.util.text.StringTokenizer;
@@ -22,7 +23,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * 显而易见，这是一个装饰器。
  *
  * @author 应卓
- * @see RichResourceEditor
  * @see #of(String)
  * @see #of(Resource)
  * @since 3.3.2
@@ -46,9 +46,8 @@ public interface RichResource extends Resource, Serializable {
      * @return 结果
      */
     public static RichResource of(String location) {
-        var editor = new RichResourceEditor();
-        editor.setAsText(location);
-        return (RichResource) editor.getValue();
+        var res = ResourceUtils.loadResource(location);
+        return new RichResourceImpl(res);
     }
 
     /**
@@ -221,6 +220,16 @@ public interface RichResource extends Resource, Serializable {
      * @return 代理的 {@link Resource} 对象
      */
     public Resource delegating();
+
+    /**
+     * 获取代理的对象
+     *
+     * @return 代理的 {@link Resource} 对象
+     */
+    public default Resource toResource() {
+        // 本方法可以被 ObjectToObjectConverter 使用
+        return delegating();
+    }
 
     /**
      * 获取代理的对象的类型

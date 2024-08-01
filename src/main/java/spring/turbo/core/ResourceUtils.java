@@ -11,10 +11,11 @@ import org.springframework.util.ClassUtils;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * {@link Resource}等相关工具
@@ -106,9 +107,10 @@ public final class ResourceUtils {
      *
      * @param location 资源位置
      * @return 文本
+     * @throws UncheckedIOException I/O错误
      */
     public static String readResourceAsString(String location) {
-        return readResourceAsString(location, StandardCharsets.UTF_8);
+        return readResourceAsString(location, UTF_8);
     }
 
     /**
@@ -117,10 +119,11 @@ public final class ResourceUtils {
      * @param location 资源位置
      * @param charset  字符集
      * @return 文本
+     * @throws UncheckedIOException I/O错误
      */
     public static String readResourceAsString(String location, @Nullable Charset charset) {
         try {
-            charset = Objects.requireNonNullElse(charset, StandardCharsets.UTF_8);
+            charset = Objects.requireNonNullElse(charset, UTF_8);
             return loadResource(location).getContentAsString(charset);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -132,6 +135,7 @@ public final class ResourceUtils {
      *
      * @param location 资源位置
      * @return 二进制数据
+     * @throws UncheckedIOException I/O错误
      */
     public static byte[] readResourceAsBytes(String location) {
         try {
