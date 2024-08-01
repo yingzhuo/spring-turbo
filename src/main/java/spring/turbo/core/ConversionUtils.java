@@ -1,6 +1,7 @@
 package spring.turbo.core;
 
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
@@ -28,7 +29,21 @@ public final class ConversionUtils {
      * @return 判断结果
      * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
      */
-    public static boolean canConverter(Class<?> sourceType, Class<?> targetType) {
+    public static boolean canConvert(Class<?> sourceType, Class<?> targetType) {
+        Assert.notNull(sourceType, "sourceType is required");
+        Assert.notNull(targetType, "targetType is required");
+        return SpringUtils.getConversionService().canConvert(sourceType, targetType);
+    }
+
+    /**
+     * 判断是否可以完成转换
+     *
+     * @param sourceType 源类型
+     * @param targetType 目标类型
+     * @return 判断结果
+     * @throws UnsupportedOperationException 无法定位{@code ApplicationContext}实例
+     */
+    public static boolean canConvert(TypeDescriptor sourceType, TypeDescriptor targetType) {
         Assert.notNull(sourceType, "sourceType is required");
         Assert.notNull(targetType, "targetType is required");
         return SpringUtils.getConversionService().canConvert(sourceType, targetType);
