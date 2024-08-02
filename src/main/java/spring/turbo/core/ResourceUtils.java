@@ -3,6 +3,7 @@ package spring.turbo.core;
 import org.springframework.boot.io.ApplicationResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.WritableResource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.lang.Nullable;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static spring.turbo.util.io.CloseUtils.closeQuietly;
 
 /**
  * {@link Resource}等相关工具
@@ -143,6 +145,33 @@ public final class ResourceUtils {
             return resource.getContentAsByteArray();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * 尝试关闭资源
+     *
+     * @param resource 资源
+     */
+    public static void close(@Nullable Resource resource) {
+        if (resource == null) {
+            return;
+        }
+
+        if (resource.isOpen()) {
+            try {
+                closeQuietly(resource.getInputStream());
+            } catch (IOException ignored) {
+                // noop
+            }
+        }
+
+        if (resource instanceof WritableResource wr) {
+            try {
+                closeQuietly(wr.getOutputStream());
+            } catch (IOException ignored) {
+                // noop
+            }
         }
     }
 
