@@ -7,9 +7,12 @@ import org.springframework.core.io.WritableResource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -66,7 +69,23 @@ public final class ResourceUtils {
      * @return 资源
      */
     public static Resource loadResource(String location) {
+        Assert.hasText(location, "location is required");
         return RESOURCE_LOADER.getResource(location);
+    }
+
+    /**
+     * 加载资源并打开输入流
+     *
+     * @param location 资源位置
+     * @return inputStream
+     * @throws UncheckedIOException I/O错误
+     */
+    public static InputStream loadResourceAsInputStream(String location) {
+        try {
+            return loadResource(location).getInputStream();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     /**
@@ -76,8 +95,16 @@ public final class ResourceUtils {
      * @return 结果或{@code null}
      */
     @Nullable
-    public static Resource loadFirstExistsResource(Iterable<String> locations) {
+    public static Resource loadFirstExistsResource(@Nullable Iterable<String> locations) {
+        if (locations == null) {
+            return null;
+        }
+
         for (var location : locations) {
+            if (!StringUtils.hasText(location)) {
+                continue;
+            }
+
             try {
                 var resource = RESOURCE_LOADER.getResource(location);
                 if (resource.exists()) {
@@ -112,7 +139,7 @@ public final class ResourceUtils {
      * @throws UncheckedIOException I/O错误
      */
     public static String readResourceAsString(String location) {
-        return readResourceAsString(location, UTF_8);
+        return readResourceAsString(location, null);
     }
 
     /**
