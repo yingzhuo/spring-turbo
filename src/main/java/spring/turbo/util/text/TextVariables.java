@@ -13,17 +13,20 @@ import static spring.turbo.util.CharPool.SEMICOLON;
 
 /**
  * @author 应卓
- * @see TextVariablesEditor
  * @since 3.3.1
  */
-public class TextVariables extends HashMap<String, String> implements Map<String, String> {
+public final class TextVariables extends HashMap<String, String> {
 
     private static final StringMatcher DEFAULT_DELIMITER = StringMatcher.charSetMatcher(SEMICOLON, LF);
 
     /**
-     * 默认构造方法
+     * 创建实例
+     *
+     * @param text 文本
+     * @return 实例
      */
-    public TextVariables() {
+    public static TextVariables of(@Nullable String text) {
+        return new TextVariables(text);
     }
 
     /**

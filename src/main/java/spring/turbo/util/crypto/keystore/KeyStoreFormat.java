@@ -49,7 +49,7 @@ public enum KeyStoreFormat implements Serializable {
      * @return 结果，有可能为空值
      */
     @Nullable
-    public static KeyStoreFormat fromValue(@Nullable String value) {
+    public static KeyStoreFormat of(@Nullable String value) {
         if (value == null) {
             return null;
         }
