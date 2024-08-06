@@ -1,6 +1,5 @@
 package spring.turbo.core;
 
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.ApplicationArguments;
@@ -200,7 +199,7 @@ public final class SpringUtils {
 
         try {
             return Optional.of(getApplicationContext().getBean(beanType));
-        } catch (BeansException e) {
+        } catch (Throwable e) {
             return Optional.empty();
         }
     }
@@ -220,7 +219,7 @@ public final class SpringUtils {
 
         try {
             return Optional.of(getApplicationContext().getBean(beanName, beanType));
-        } catch (BeansException e) {
+        } catch (Throwable e) {
             return Optional.empty();
         }
     }

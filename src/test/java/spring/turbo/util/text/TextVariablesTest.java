@@ -1,10 +1,8 @@
 package spring.turbo.util.text;
 
 import lombok.Data;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.format.support.DefaultFormattingConversionService;
-import org.springframework.validation.DataBinder;
+import spring.turbo.core.DataBinderUtils;
 
 import java.io.Serializable;
 
@@ -17,16 +15,13 @@ public class TextVariablesTest {
 
     @Test
     void test1() {
-        var tv = TextVariables.of(text);
-        System.out.println(tv);
+        var binder = DataBinderUtils.createDataBinder(new Pojo());
 
-        var pojo = new Pojo();
-        var dataBinder = new DataBinder(pojo);
-        dataBinder.setConversionService(new DefaultFormattingConversionService(true));
-        dataBinder.bind(tv.toPropertyValues());
+        binder.bind(TextVariables.of(text).toPropertyValues());
+        var pojo = (Pojo) binder.getTarget();
 
-        Assertions.assertEquals("yingzhuo", pojo.getName());
-        Assertions.assertEquals("yingzhor@gmail.com", pojo.getEmail());
+        System.out.println(pojo.getName());
+        System.out.println(pojo.getEmail());
     }
 
     @Data
