@@ -1,5 +1,7 @@
 package spring.turbo.util.text;
 
+import org.springframework.beans.MutablePropertyValues;
+import org.springframework.beans.PropertyValues;
 import org.springframework.lang.Nullable;
 import spring.turbo.util.StringUtils;
 
@@ -59,7 +61,7 @@ public final class TextVariables extends HashMap<String, String> {
      * @see StringMatcher#stringMatcher(String)
      */
     public void reset(@Nullable String text, @Nullable StringMatcher delimiter) {
-        this.clear();
+        clear();
 
         if (StringUtils.isNotBlank(text)) {
             delimiter = delimiter != null ? delimiter : DEFAULT_DELIMITER;
@@ -140,6 +142,15 @@ public final class TextVariables extends HashMap<String, String> {
      */
     public Map<String, String> toUnmodifiableMap() {
         return Collections.unmodifiableMap(this);
+    }
+
+    /**
+     * 转换成 {@link PropertyValues}
+     *
+     * @return {@link PropertyValues}
+     */
+    public PropertyValues toPropertyValues() {
+        return new MutablePropertyValues(this);
     }
 
 }
