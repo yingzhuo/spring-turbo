@@ -1,6 +1,7 @@
 package spring.turbo.util.text;
 
 import lombok.Data;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import spring.turbo.core.DataBinderUtils;
 
@@ -10,6 +11,7 @@ public class TextVariablesTest {
 
     private static final String text = """
             name  = yingzhuo
+            age = 1;
             email = yingzhor@gmail.com
             """;
 
@@ -17,17 +19,19 @@ public class TextVariablesTest {
     void test1() {
         var binder = DataBinderUtils.createDataBinder(new Pojo());
 
-        binder.bind(TextVariables.of(text).toPropertyValues());
+        binder.bind(TextVariables.valueOf(text));
         var pojo = (Pojo) binder.getTarget();
 
-        System.out.println(pojo.getName());
-        System.out.println(pojo.getEmail());
+        Assertions.assertEquals("yingzhuo", pojo.getName());
+        Assertions.assertEquals("yingzhor@gmail.com", pojo.getEmail());
+        Assertions.assertEquals(1, pojo.getAge());
     }
 
     @Data
     private static class Pojo implements Serializable {
         private String name;
         private String email;
+        private int age;
     }
 
 }
