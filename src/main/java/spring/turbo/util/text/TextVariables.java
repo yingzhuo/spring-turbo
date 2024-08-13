@@ -25,16 +25,6 @@ public class TextVariables extends MutablePropertyValues implements Serializable
     private static final StringMatcher DEFAULT_DELIMITER = StringMatcher.charSetMatcher(SEMICOLON, LF);
 
     /**
-     * 创建实例
-     *
-     * @param text 文本
-     * @return 实例
-     */
-    public static TextVariables valueOf(@Nullable String text) {
-        return new TextVariables(text, null);
-    }
-
-    /**
      * 构造方法
      *
      * @param text 文本
@@ -53,6 +43,16 @@ public class TextVariables extends MutablePropertyValues implements Serializable
      */
     public TextVariables(@Nullable String text, @Nullable StringMatcher delimiter) {
         set(text, delimiter);
+    }
+
+    /**
+     * 创建实例
+     *
+     * @param text 文本
+     * @return 实例
+     */
+    public static TextVariables valueOf(@Nullable String text) {
+        return new TextVariables(text, null);
     }
 
     /**

@@ -29,6 +29,7 @@ public final class StringPool {
     public static final String HYPHEN = "-";
     public static final String UNDERSCORE = "_";
     public static final String COMMA = ",";
+
     /**
      * 私有构造方法
      */
