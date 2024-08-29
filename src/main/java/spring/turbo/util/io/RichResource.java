@@ -3,9 +3,6 @@ package spring.turbo.util.io;
 import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
 import spring.turbo.core.ResourceUtils;
-import spring.turbo.util.collection.StreamFactories;
-import spring.turbo.util.text.StringMatcher;
-import spring.turbo.util.text.StringTokenizer;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -134,8 +131,7 @@ public interface RichResource extends Resource, Serializable {
      * @throws IOException I/O错误
      */
     public default Stream<String> getLinesAsStream(@Nullable Charset charset) throws IOException {
-        var tokenizer = new StringTokenizer(getAsText(charset), StringMatcher.charSetMatcher('\n'));
-        return StreamFactories.newStream(tokenizer, false);
+        return getAsText().lines();
     }
 
     /**
