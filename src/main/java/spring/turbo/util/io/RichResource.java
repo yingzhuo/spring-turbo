@@ -131,7 +131,7 @@ public interface RichResource extends Resource, Serializable {
      * @throws IOException I/O错误
      */
     public default Stream<String> getLinesAsStream(@Nullable Charset charset) throws IOException {
-        return getAsText().lines();
+        return getAsText(charset).lines();
     }
 
     /**

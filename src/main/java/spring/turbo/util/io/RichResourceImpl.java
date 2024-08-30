@@ -6,7 +6,6 @@ import org.springframework.util.Assert;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.net.URI;
 import java.net.URL;
 import java.nio.channels.ReadableByteChannel;
@@ -18,7 +17,7 @@ import java.nio.channels.ReadableByteChannel;
  * @author 应卓
  * @since 2.0.8
  */
-record RichResourceImpl(Resource delegating) implements RichResource, Resource, Serializable {
+record RichResourceImpl(Resource delegating) implements RichResource {
 
     /**
      * 默认构造方法

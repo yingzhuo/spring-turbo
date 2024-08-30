@@ -1,8 +1,10 @@
 package spring.turbo.util.io;
 
 import org.junit.jupiter.api.Test;
+import spring.turbo.util.StringUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class RichResourceTest {
 
@@ -15,7 +17,8 @@ public class RichResourceTest {
     @Test
     void test1() throws IOException {
         RichResource.of(new StringResource(text))
-                .getLinesAsStream()
+                .getLinesAsStream(StandardCharsets.UTF_8)
+                .filter(StringUtils::isNotBlank)
                 .forEach(System.out::println);
     }
 
