@@ -12,6 +12,9 @@ import static org.springframework.util.ClassUtils.forName;
 import static org.springframework.util.ClassUtils.getDefaultClassLoader;
 
 /**
+ * 尝试安装BC Provider <br>
+ * <a href="https://www.bouncycastle.org/documentation/documentation-java/">Bouncy Castle官方文档</a>
+ *
  * @author 应卓
  * @since 3.3.2
  */
@@ -30,7 +33,7 @@ public class BouncyCastleInstallingEnvironmentPostProcessor implements Environme
             var provider = ctor.newInstance();
             Security.addProvider((Provider) provider);
         } catch (Throwable ignored) {
-            // noop
+            // ignore all exceptions
         }
     }
 

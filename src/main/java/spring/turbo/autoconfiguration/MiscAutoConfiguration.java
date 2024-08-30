@@ -15,6 +15,7 @@ public class MiscAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public KeyStoreFormatConverter keyStoreFormatConverter() {
+        // string -> KeyStoreFormat
         return new KeyStoreFormatConverter();
     }
 

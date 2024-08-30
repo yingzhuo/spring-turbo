@@ -15,7 +15,6 @@ public final class CharSequenceUtils {
      * 私有构造方法
      */
     private CharSequenceUtils() {
-        super();
     }
 
     // ------------------------------------------------------------------------------------------------------------------
@@ -58,14 +57,18 @@ public final class CharSequenceUtils {
             return new char[0];
         }
 
-        final int len = StringUtils.length(source.toString());
+        int len = StringUtils.length(source.toString());
+
         if (len == 0) {
             return new char[0];
         }
+
         if (source instanceof String) {
             return ((String) source).toCharArray();
         }
-        final char[] array = new char[len];
+
+        char[] array = new char[len];
+
         for (int i = 0; i < len; i++) {
             array[i] = source.charAt(i);
         }
