@@ -10,10 +10,10 @@ import java.io.Reader;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Objects.requireNonNullElse;
 
 /**
  * 有更丰富功能的 {@link Resource}。<br>
@@ -89,7 +89,7 @@ public interface RichResource extends Resource, Serializable {
      * @throws IOException I/O错误
      */
     public default Reader getReader(@Nullable Charset charset) throws IOException {
-        return new InputStreamReader(getInputStream(), Objects.requireNonNullElse(charset, UTF_8));
+        return new InputStreamReader(getInputStream(), requireNonNullElse(charset, UTF_8));
     }
 
     /**
@@ -110,7 +110,7 @@ public interface RichResource extends Resource, Serializable {
      * @throws IOException I/O错误
      */
     public default String getAsText(@Nullable Charset charset) throws IOException {
-        return getContentAsString(Objects.requireNonNullElse(charset, UTF_8));
+        return getContentAsString(requireNonNullElse(charset, UTF_8));
     }
 
     /**
@@ -131,6 +131,7 @@ public interface RichResource extends Resource, Serializable {
      * @throws IOException I/O错误
      */
     public default Stream<String> getLinesAsStream(@Nullable Charset charset) throws IOException {
+        charset = requireNonNullElse(charset, UTF_8);
         return getAsText(charset).lines();
     }
 
