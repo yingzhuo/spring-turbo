@@ -3,10 +3,14 @@ package spring.turbo.util.io;
 import java.io.Reader;
 
 /**
+ * 空的 {@link Reader}
+ *
  * @author 应卓
  * @see #getInstance()
  * @since 1.0.8
+ * @deprecated 使用 {@link Reader#nullReader()} 替代
  */
+@Deprecated(since = "3.4.0")
 public final class EmptyReader extends Reader {
 
     /**
