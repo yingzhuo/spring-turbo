@@ -38,7 +38,7 @@ public final class ExpressionUtils {
     @Nullable
     public static <T> T getValue(String expressionString) {
         Assert.hasText(expressionString, "expressionString is required");
-        final Expression expression = EXPRESSION_PARSER.parseExpression(expressionString);
+        var expression = EXPRESSION_PARSER.parseExpression(expressionString);
         return (T) expression.getValue();
     }
 
@@ -54,8 +54,8 @@ public final class ExpressionUtils {
     public static <T> T getValue(Object rootObj, String expressionString) {
         Assert.notNull(rootObj, "rootObj is required");
         Assert.hasText(expressionString, "expressionString is required");
-        final Expression expression = EXPRESSION_PARSER.parseExpression(expressionString);
-        final StandardEvaluationContext context = new StandardEvaluationContext(rootObj);
+        var expression = EXPRESSION_PARSER.parseExpression(expressionString);
+        var context = new StandardEvaluationContext(rootObj);
         return (T) expression.getValue(context);
     }
 
