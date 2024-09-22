@@ -515,21 +515,21 @@ public final class ClassDefinition implements BeanDefinition, Comparable<ClassDe
         return delegating.hasPropertyValues();
     }
 
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    public boolean isFallback() {
-//        return delegating.isFallback();
-//    }
-//
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    public void setFallback(boolean fallback) {
-//        delegating.setFallback(fallback);
-//    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isFallback() {
+        return delegating.isFallback();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setFallback(boolean fallback) {
+        delegating.setFallback(fallback);
+    }
 
     /**
      * {@inheritDoc}
