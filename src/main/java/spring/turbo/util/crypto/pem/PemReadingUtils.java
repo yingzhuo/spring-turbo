@@ -6,7 +6,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.security.Key;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
@@ -19,6 +18,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.util.Assert.hasText;
 import static org.springframework.util.Assert.notNull;
 import static org.springframework.util.StringUtils.delimitedListToStringArray;
+import static spring.turbo.util.StringPool.LF;
+import static spring.turbo.util.io.IOExceptionUtils.toUnchecked;
 
 /**
  * PEM相关工具 <br>
@@ -50,8 +51,8 @@ public final class PemReadingUtils {
         hasText(text, "text is null or blank");
 
         text = trimContent(text);
-        var pem = PemContent.of(text);
-        var certs = pem.getCertificates();
+        var pemContent = PemContent.of(text);
+        var certs = pemContent.getCertificates();
         if (certs.size() == 1) {
             return certs.get(0);
         }
@@ -72,7 +73,7 @@ public final class PemReadingUtils {
         try {
             return readX509Certificate(resource.getContentAsString(UTF_8));
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -86,8 +87,8 @@ public final class PemReadingUtils {
         hasText(text, "text is null or blank");
 
         text = trimContent(text);
-        var pem = PemContent.of(text);
-        return new ArrayList<>(pem.getCertificates());
+        var pemContent = PemContent.of(text);
+        return new ArrayList<>(pemContent.getCertificates());
     }
 
     /**
@@ -102,7 +103,7 @@ public final class PemReadingUtils {
         try {
             return readX509Certificates(resource.getContentAsString(UTF_8));
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -132,7 +133,7 @@ public final class PemReadingUtils {
         try {
             return readPkcs8PrivateKey(resource.getContentAsString(UTF_8));
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -164,7 +165,7 @@ public final class PemReadingUtils {
         try {
             return readPkcs8PrivateKey(resource.getContentAsString(UTF_8), password);
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -194,7 +195,7 @@ public final class PemReadingUtils {
         try {
             return readPkcs8Key(resource.getContentAsString(UTF_8));
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
@@ -230,21 +231,22 @@ public final class PemReadingUtils {
         try {
             return readPkcs8Key(resource.getContentAsString(UTF_8), password);
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw toUnchecked(e);
         }
     }
 
     /**
-     * 整理PEM文本内容，去除不必要的白字符
+     * 整理PEM文本内容，去除不必要的白字符 <br>
+     * header和footer也去除白字符
      *
      * @param text PEM文件内容
      * @return 整理后的内容
      */
     private static String trimContent(String text) {
-        return Arrays.stream(delimitedListToStringArray(text, "\n"))
+        return Arrays.stream(delimitedListToStringArray(text, LF))
                 .map(String::trim)
                 .filter(StringUtils::hasText)
-                .collect(Collectors.joining("\n"))
+                .collect(Collectors.joining(LF))
                 .trim();
     }
 
