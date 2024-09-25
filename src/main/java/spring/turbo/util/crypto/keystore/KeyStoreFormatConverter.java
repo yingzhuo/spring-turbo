@@ -22,9 +22,6 @@ public class KeyStoreFormatConverter implements Converter<String, KeyStoreFormat
     @Nullable
     @Override
     public KeyStoreFormat convert(String source) {
-        if (null == source) {
-            return null;
-        }
         return KeyStoreFormat.of(source);
     }
 

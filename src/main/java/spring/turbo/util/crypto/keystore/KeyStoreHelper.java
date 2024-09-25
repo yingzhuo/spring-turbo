@@ -20,7 +20,7 @@ import java.util.Objects;
  * @since 3.3.1
  */
 @SuppressWarnings("unchecked")
-public class KeyStoreHelper {
+public final class KeyStoreHelper {
 
     /**
      * 私有构造方法
