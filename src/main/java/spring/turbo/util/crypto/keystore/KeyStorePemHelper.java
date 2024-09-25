@@ -21,6 +21,7 @@ import static spring.turbo.util.crypto.pem.PemReadingUtils.readX509Certificate;
  * @author 应卓
  * @since 3.3.2
  */
+@Deprecated(forRemoval = true, since = "3.4.0")
 public final class KeyStorePemHelper {
 
     private static final String DEFAULT_PASSWORD = "changeit";
@@ -42,6 +43,7 @@ public final class KeyStorePemHelper {
      * @param keypass               生成对象的keypass
      * @return keyStore实例
      */
+    @Deprecated(forRemoval = true, since = "3.4.0")
     public static KeyStore loadFromPemFiles(String certificateLocation,
                                             String privateKeyLocation,
                                             @Nullable String pemPrivateKeyPassword,
@@ -69,6 +71,7 @@ public final class KeyStorePemHelper {
      * @param keypass               生成对象的keypass
      * @return keyStore实例
      */
+    @Deprecated(forRemoval = true, since = "3.4.0")
     public static KeyStore loadFromPemFiles(Resource certificateResource,
                                             Resource privateKeyResource,
                                             @Nullable String pemPrivateKeyPassword,
