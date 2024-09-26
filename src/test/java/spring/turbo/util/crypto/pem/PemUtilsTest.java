@@ -25,4 +25,10 @@ public class PemUtilsTest {
         Assertions.assertNotNull(key);
     }
 
+    @Test
+    void test2() throws IOException {
+        var content = PemUtils.trimPemContent(certResource.getContentAsString(StandardCharsets.UTF_8));
+        Assertions.assertNotNull(content);
+    }
+
 }

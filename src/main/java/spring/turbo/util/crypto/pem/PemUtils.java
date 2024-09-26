@@ -10,14 +10,12 @@ import java.security.Key;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.util.Assert.hasText;
 import static org.springframework.util.Assert.notNull;
-import static org.springframework.util.StringUtils.delimitedListToStringArray;
 import static spring.turbo.util.StringPool.LF;
 import static spring.turbo.util.io.IOExceptionUtils.toUnchecked;
 
@@ -243,7 +241,7 @@ public final class PemUtils {
      * @return 整理后的内容
      */
     public static String trimPemContent(String text) {
-        return Arrays.stream(delimitedListToStringArray(text, LF))
+        return text.lines()
                 .map(String::trim)
                 .filter(StringUtils::hasText)
                 .collect(Collectors.joining(LF))
