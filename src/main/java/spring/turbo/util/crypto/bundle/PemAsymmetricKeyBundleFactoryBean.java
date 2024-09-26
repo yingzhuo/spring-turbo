@@ -6,17 +6,19 @@ import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import spring.turbo.core.ResourceUtils;
+import spring.turbo.util.crypto.pem.PemUtils;
 
 import java.security.KeyPair;
 
-import static spring.turbo.util.crypto.pem.PemReadingUtils.readPkcs8PrivateKey;
-import static spring.turbo.util.crypto.pem.PemReadingUtils.readX509Certificate;
+import static spring.turbo.util.crypto.pem.PemUtils.readPkcs8PrivateKey;
+import static spring.turbo.util.crypto.pem.PemUtils.readX509Certificate;
 
 /**
  * {@link AsymmetricKeyBundle} 配置用 {@link FactoryBean} <br>
  * 用PEM格式文件配置
  *
  * @see AsymmetricKeyBundle
+ * @see PemUtils
  * @since 应卓
  * @since 3.3.1
  */

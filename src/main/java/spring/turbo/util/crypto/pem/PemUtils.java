@@ -32,12 +32,12 @@ import static spring.turbo.util.io.IOExceptionUtils.toUnchecked;
  * @since 3.3.1
  */
 @SuppressWarnings("unchecked")
-public final class PemReadingUtils {
+public final class PemUtils {
 
     /**
      * 私有构造方法
      */
-    private PemReadingUtils() {
+    private PemUtils() {
     }
 
     /**
@@ -50,7 +50,7 @@ public final class PemReadingUtils {
     public static X509Certificate readX509Certificate(String text) {
         hasText(text, "text is null or blank");
 
-        text = trimContent(text);
+        text = trimPemContent(text);
         var pemContent = PemContent.of(text);
         var certs = pemContent.getCertificates();
         if (certs.size() == 1) {
@@ -86,7 +86,7 @@ public final class PemReadingUtils {
     public static List<X509Certificate> readX509Certificates(String text) {
         hasText(text, "text is null or blank");
 
-        text = trimContent(text);
+        text = trimPemContent(text);
         var pemContent = PemContent.of(text);
         return new ArrayList<>(pemContent.getCertificates());
     }
@@ -211,7 +211,7 @@ public final class PemReadingUtils {
     public static <T extends Key> T readPkcs8Key(String text, @Nullable String password) {
         hasText(text, "text is null or blank");
 
-        text = trimContent(text);
+        text = trimPemContent(text);
         var pem = PemContent.of(text);
         return (T) pem.getPrivateKey(password);
     }
@@ -242,7 +242,7 @@ public final class PemReadingUtils {
      * @param text PEM文件内容
      * @return 整理后的内容
      */
-    private static String trimContent(String text) {
+    public static String trimPemContent(String text) {
         return Arrays.stream(delimitedListToStringArray(text, LF))
                 .map(String::trim)
                 .filter(StringUtils::hasText)

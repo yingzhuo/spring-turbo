@@ -6,7 +6,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import spring.turbo.core.ResourceUtils;
-import spring.turbo.util.crypto.pem.PemReadingUtils;
+import spring.turbo.util.crypto.pem.PemUtils;
 
 /**
  * {@link SymmetricKeyBundle} 配置用 {@link FactoryBean} <br>
@@ -14,6 +14,7 @@ import spring.turbo.util.crypto.pem.PemReadingUtils;
  *
  * @author 应卓
  * @see SymmetricKeyBundle
+ * @see PemUtils
  * @since 3.3.1
  */
 public class PemSymmetricKeyBundleFactoryBean implements FactoryBean<SymmetricKeyBundle>, InitializingBean {
@@ -45,7 +46,7 @@ public class PemSymmetricKeyBundleFactoryBean implements FactoryBean<SymmetricKe
      */
     @Override
     public void afterPropertiesSet() {
-        var key = PemReadingUtils.readPkcs8Key(getKeyContent(), this.keyPassword);
+        var key = PemUtils.readPkcs8Key(getKeyContent(), this.keyPassword);
         this.bundle = new SymmetricKeyBundleImpl(key);
     }
 

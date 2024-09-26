@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spring.turbo.core.ResourceUtils;
-import spring.turbo.util.crypto.pem.PemReadingUtils;
+import spring.turbo.util.crypto.pem.PemUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -21,8 +21,8 @@ public class CipherUtilsTest {
         var certResource = ResourceUtils.loadResource("classpath:/jwt-cert-x509.pem");
         var privateResource = ResourceUtils.loadResource("classpath:/jwt-privatekey-pkcs8.pem");
 
-        this.publicKey = PemReadingUtils.readX509Certificate(certResource.getContentAsString(StandardCharsets.UTF_8)).getPublicKey();
-        this.privateKey = PemReadingUtils.readPkcs8PrivateKey(privateResource.getContentAsString(StandardCharsets.UTF_8), "123456");
+        this.publicKey = PemUtils.readX509Certificate(certResource.getContentAsString(StandardCharsets.UTF_8)).getPublicKey();
+        this.privateKey = PemUtils.readPkcs8PrivateKey(privateResource.getContentAsString(StandardCharsets.UTF_8), "123456");
     }
 
     @Test
