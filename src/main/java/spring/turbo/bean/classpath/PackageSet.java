@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public final class PackageSet implements Iterable<String>, Serializable {
 
     // 已排序
-    private final SortedSet<String> set = new TreeSet<>();
+    private final SortedSet<String> innerSet = new TreeSet<>(Comparator.naturalOrder());
 
     /**
      * 私有构造方法
@@ -42,7 +42,7 @@ public final class PackageSet implements Iterable<String>, Serializable {
      */
     public PackageSet acceptPackages(@Nullable String... packages) {
         if (packages != null) {
-            Stream.of(packages).filter(StringUtils::isNotBlank).map(String::trim).forEach(set::add);
+            Stream.of(packages).filter(StringUtils::isNotBlank).map(String::trim).forEach(innerSet::add);
         }
         return this;
     }
@@ -55,7 +55,7 @@ public final class PackageSet implements Iterable<String>, Serializable {
      */
     public PackageSet acceptPackages(@Nullable Collection<String> packages) {
         if (packages != null) {
-            packages.stream().filter(StringUtils::isNotBlank).map(String::trim).forEach(set::add);
+            packages.stream().filter(StringUtils::isNotBlank).map(String::trim).forEach(innerSet::add);
         }
         return this;
     }
@@ -68,7 +68,7 @@ public final class PackageSet implements Iterable<String>, Serializable {
      */
     public PackageSet acceptBaseClasses(@Nullable Class<?>... baseClasses) {
         if (baseClasses != null) {
-            Arrays.stream(baseClasses).filter(Objects::nonNull).map(c -> c.getPackage().getName()).forEach(set::add);
+            Arrays.stream(baseClasses).filter(Objects::nonNull).map(c -> c.getPackage().getName()).forEach(innerSet::add);
         }
         return this;
     }
@@ -81,7 +81,7 @@ public final class PackageSet implements Iterable<String>, Serializable {
      */
     public PackageSet acceptBaseClasses(@Nullable Collection<Class<?>> baseClasses) {
         if (baseClasses != null) {
-            baseClasses.stream().filter(Objects::nonNull).map(c -> c.getPackage().getName()).forEach(set::add);
+            baseClasses.stream().filter(Objects::nonNull).map(c -> c.getPackage().getName()).forEach(innerSet::add);
         }
         return this;
     }
@@ -92,7 +92,7 @@ public final class PackageSet implements Iterable<String>, Serializable {
      * @return this
      */
     public PackageSet clear() {
-        set.clear();
+        innerSet.clear();
         return this;
     }
 
@@ -101,23 +101,23 @@ public final class PackageSet implements Iterable<String>, Serializable {
      */
     @Override
     public Iterator<String> iterator() {
-        return set.iterator();
+        return innerSet.iterator();
     }
 
     public boolean isEmpty() {
-        return set.isEmpty();
+        return innerSet.isEmpty();
     }
 
     public boolean isNotEmpty() {
-        return !set.isEmpty();
+        return !innerSet.isEmpty();
     }
 
     public int size() {
-        return set.size();
+        return innerSet.size();
     }
 
     public SortedSet<String> asSet() {
-        return set;
+        return innerSet;
     }
 
     /**
@@ -130,7 +130,7 @@ public final class PackageSet implements Iterable<String>, Serializable {
         if (o == null || getClass() != o.getClass())
             return false;
         PackageSet strings = (PackageSet) o;
-        return set.equals(strings.set);
+        return innerSet.equals(strings.innerSet);
     }
 
     /**
@@ -138,7 +138,7 @@ public final class PackageSet implements Iterable<String>, Serializable {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(set);
+        return Objects.hash(innerSet);
     }
 
     /**
@@ -146,7 +146,7 @@ public final class PackageSet implements Iterable<String>, Serializable {
      */
     @Override
     public String toString() {
-        return "[" + String.join(",", set) + "]";
+        return innerSet.toString();
     }
 
 }
