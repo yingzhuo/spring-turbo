@@ -241,6 +241,8 @@ public final class PemUtils {
      * @return 整理后的内容
      */
     public static String trimPemContent(String text) {
+        hasText(text, "text is null or blank");
+
         return text.lines()
                 .map(String::trim)
                 .filter(StringUtils::hasText)
