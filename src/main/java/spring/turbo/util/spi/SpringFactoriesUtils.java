@@ -4,14 +4,14 @@ import org.springframework.core.OrderComparator;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
+import static java.util.Objects.requireNonNullElse;
 import static org.springframework.core.io.support.SpringFactoriesLoader.forResourceLocation;
+import static org.springframework.util.ClassUtils.getDefaultClassLoader;
 import static spring.turbo.util.StringDefaults.blankToDefault;
 import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
 
@@ -20,6 +20,7 @@ import static spring.turbo.util.collection.CollectionUtils.nullSafeAddAll;
  *
  * @author 应卓
  * @see SpringFactoriesLoader
+ * @see ServiceLoaderUtils
  * @since 2.0.5
  */
 public final class SpringFactoriesUtils {
@@ -74,7 +75,7 @@ public final class SpringFactoriesUtils {
         Assert.notNull(factoryType, "factoryType is required");
 
         factoriesResourceLocation = blankToDefault(factoriesResourceLocation, SpringFactoriesLoader.FACTORIES_RESOURCE_LOCATION);
-        classLoader = Objects.requireNonNullElse(classLoader, ClassUtils.getDefaultClassLoader());
+        classLoader = requireNonNullElse(classLoader, getDefaultClassLoader());
 
         var factoriesLoader = forResourceLocation(factoriesResourceLocation, classLoader);
 
