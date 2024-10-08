@@ -1,4 +1,4 @@
-package spring.turbo.bean.jsr380;
+package spring.turbo.bean.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -10,10 +10,10 @@ import java.util.Objects;
 
 /**
  * @author 应卓
- * @see FieldsValueMatch
+ * @see FieldsValueNotMatch
  * @since 1.0.0
  */
-public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValueMatch, Object> {
+public class FieldsValueNotMatchValidator implements ConstraintValidator<FieldsValueNotMatch, Object> {
 
     @Nullable
     private String field;
@@ -21,8 +21,11 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
     @Nullable
     private String fieldMatch;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void initialize(FieldsValueMatch annotation) {
+    public void initialize(FieldsValueNotMatch annotation) {
         this.field = annotation.field();
         this.fieldMatch = annotation.fieldMatch();
     }
@@ -41,7 +44,7 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
 
         Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
         Object fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);
-        return Objects.equals(fieldValue, fieldMatchValue);
+        return !Objects.equals(fieldValue, fieldMatchValue);
     }
 
 }

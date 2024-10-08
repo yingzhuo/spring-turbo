@@ -18,6 +18,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Conditional(ConditionalOnDebugModeCondition.class)
+@Deprecated(since = "3.4.0", forRemoval = false) // 太不常用，也未严格测试
 public @interface ConditionalOnDebugMode {
 
     public boolean traceAsDebug() default true;

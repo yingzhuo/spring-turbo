@@ -5,10 +5,8 @@ org.springframework.boot.env.EnvironmentPostProcessor=\
 spring.turbo.core.env.SpringApplicationHolders.Hook,\
 spring.turbo.core.env.MiscPropertiesEnvironmentPostProcessor,\
 spring.turbo.core.env.BouncyCastleInstallingEnvironmentPostProcessor
-
 org.springframework.context.ApplicationListener=\
 spring.turbo.core.env.SpringApplicationHolders.Hook
-
 org.springframework.core.io.ProtocolResolver=\
 spring.turbo.core.resource.HexProtocolResolver,\
 spring.turbo.core.resource.StringProtocolResolver,\

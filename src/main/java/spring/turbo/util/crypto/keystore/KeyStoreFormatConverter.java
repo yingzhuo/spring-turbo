@@ -17,6 +17,13 @@ public class KeyStoreFormatConverter implements Converter<String, KeyStoreFormat
     // ObjectToObjectConverter 优先级也不够
 
     /**
+     * 默认构造方法
+     */
+    public KeyStoreFormatConverter() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Nullable

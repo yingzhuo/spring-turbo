@@ -1,4 +1,4 @@
-package spring.turbo.bean.jsr380;
+package spring.turbo.bean.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

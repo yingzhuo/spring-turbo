@@ -33,7 +33,7 @@ public class BouncyCastleInstallingEnvironmentPostProcessor implements Environme
             var provider = ctor.newInstance();
             Security.addProvider((Provider) provider);
         } catch (Throwable ignored) {
-            // ignore all exceptions
+            // noop
         }
     }
 
