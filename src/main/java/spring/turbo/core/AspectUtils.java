@@ -10,7 +10,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 /**
- * 切面相关工具
+ * AOP相关工具
  *
  * @author 应卓
  * @see AnnotationHelper

@@ -23,8 +23,7 @@ public class MiscAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public KeyStoreFormatConverter keyStoreFormatConverter() {
-        // java.lang.String -> KeyStoreFormat
-        return new KeyStoreFormatConverter();
+        return KeyStoreFormatConverter.getInstance();
     }
 
 }

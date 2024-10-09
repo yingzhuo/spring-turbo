@@ -10,17 +10,20 @@ import org.springframework.lang.Nullable;
  * @see KeyStoreFormat#of(String)
  * @since 3.4.0
  */
-public class KeyStoreFormatConverter implements Converter<String, KeyStoreFormat> {
+public final class KeyStoreFormatConverter implements Converter<String, KeyStoreFormat> {
 
     // 对于 string -> enum
     // EditorProperty 优先级不够，不能生效
     // ObjectToObjectConverter 优先级也不够
 
+    public static KeyStoreFormatConverter getInstance() {
+        return SyncAvoid.INSTANCE;
+    }
+
     /**
-     * 默认构造方法
+     * 私有构造方法
      */
-    public KeyStoreFormatConverter() {
-        super();
+    private KeyStoreFormatConverter() {
     }
 
     /**
@@ -30,6 +33,11 @@ public class KeyStoreFormatConverter implements Converter<String, KeyStoreFormat
     @Override
     public KeyStoreFormat convert(String source) {
         return KeyStoreFormat.of(source);
+    }
+
+    // 延迟加载
+    private static class SyncAvoid {
+        private static final KeyStoreFormatConverter INSTANCE = new KeyStoreFormatConverter();
     }
 
 }
