@@ -15,6 +15,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Value("#{(environment.getProperty('debug') != null && environment.getProperty('debug') != 'false') || (environment.getProperty('trace') != null && environment.getProperty('trace') != 'false')}")
-@Deprecated(since = "3.4.0", forRemoval = false) // 太不常用，也未严格测试
+@Deprecated(since = "3.4.0") // 太不常用，也未严格测试
 public @interface IsTraceOrDebugMode {
 }

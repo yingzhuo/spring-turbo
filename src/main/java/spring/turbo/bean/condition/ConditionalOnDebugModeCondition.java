@@ -13,7 +13,7 @@ import static spring.turbo.util.StringPool.*;
  * @see ConditionalOnDebugMode
  * @since 1.3.0
  */
-@Deprecated(since = "3.4.0", forRemoval = false) // 太不常用，也未严格测试
+@Deprecated(since = "3.4.0") // 太不常用，也未严格测试
 public final class ConditionalOnDebugModeCondition extends SpringBootCondition {
 
     @Override

@@ -14,7 +14,6 @@ import java.lang.annotation.*;
  * @since 1.2.3
  */
 @Documented
-@Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @Scheduled(cron = "@daily")
