@@ -5,7 +5,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.security.Key;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
@@ -36,6 +38,65 @@ public final class PemUtils {
      * 私有构造方法
      */
     private PemUtils() {
+    }
+
+    /**
+     * 文本转换为 {@link PemContent} 实例
+     *
+     * @param text 文本
+     * @return PemContent 实例
+     */
+    public static PemContent load(CharSequence text) {
+        notNull(text, "text is null");
+        var trimmed = PemUtils.trimPemContent(text.toString());
+        hasText(trimmed, "text is blank");
+        return PemContent.of(trimmed);
+    }
+
+    /**
+     * 文件转换为 {@link PemContent} 实例
+     *
+     * @param path 文件
+     * @return PemContent 实例
+     */
+    public static PemContent load(Path path) {
+        notNull(path, "path is null");
+
+        try {
+            var content = PemContent.load(path);
+            notNull(content, "content is null");
+            return content;
+        } catch (IOException e) {
+            throw toUnchecked(e);
+        }
+    }
+
+    /**
+     * 文件转换为 {@link PemContent} 实例
+     *
+     * @param file 文件
+     * @return PemContent 实例
+     */
+    public static PemContent load(File file) {
+        notNull(file, "file is null");
+        return load(file.toPath());
+    }
+
+    /**
+     * 资源转换为 {@link PemContent} 实例
+     *
+     * @param resource 资源
+     * @return PemContent 实例
+     */
+    public static PemContent load(Resource resource) {
+        notNull(resource, "resource is null");
+        try {
+            var content = PemContent.load(resource.getInputStream());
+            notNull(content, "content is null");
+            return content;
+        } catch (IOException e) {
+            throw toUnchecked(e);
+        }
     }
 
     /**
