@@ -16,14 +16,14 @@ public final class KeyStoreFormatConverter implements Converter<String, KeyStore
     // EditorProperty 优先级不够，不能生效
     // ObjectToObjectConverter 优先级也不够
 
-    public static KeyStoreFormatConverter getInstance() {
-        return SyncAvoid.INSTANCE;
-    }
-
     /**
      * 私有构造方法
      */
     private KeyStoreFormatConverter() {
+    }
+
+    public static KeyStoreFormatConverter getInstance() {
+        return SyncAvoid.INSTANCE;
     }
 
     /**
