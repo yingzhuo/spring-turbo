@@ -9,12 +9,12 @@ import org.springframework.validation.MessageCodesResolver;
  * @see #getInstance()
  * @since 3.3.1
  */
-public final class DirectMessageCodeResolver implements MessageCodesResolver {
+public final class DirectMessageCodesResolver implements MessageCodesResolver {
 
     /**
      * 私有构造方法
      */
-    private DirectMessageCodeResolver() {
+    private DirectMessageCodesResolver() {
     }
 
     /**
@@ -22,7 +22,7 @@ public final class DirectMessageCodeResolver implements MessageCodesResolver {
      *
      * @return 单例实例
      */
-    public static DirectMessageCodeResolver getInstance() {
+    public static DirectMessageCodesResolver getInstance() {
         return SyncAvoid.INSTANCE;
     }
 
@@ -44,7 +44,7 @@ public final class DirectMessageCodeResolver implements MessageCodesResolver {
 
     // 延迟加载
     private static class SyncAvoid {
-        private static final DirectMessageCodeResolver INSTANCE = new DirectMessageCodeResolver();
+        private static final DirectMessageCodesResolver INSTANCE = new DirectMessageCodesResolver();
     }
 
 }

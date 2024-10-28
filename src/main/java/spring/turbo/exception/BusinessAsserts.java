@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 业务自洽性检查工具
+ * 业务自洽性检查工具 <br>
+ * 在不满足自洽性时抛出 {@link BusinessException}
  *
  * @author 应卓
  * @see BusinessException
@@ -21,7 +22,6 @@ public final class BusinessAsserts {
      * 私有构造方法
      */
     private BusinessAsserts() {
-        super();
     }
 
     public static void assertNotNull(@Nullable Object o, String message) {

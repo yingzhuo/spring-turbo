@@ -10,6 +10,7 @@ import java.util.stream.StreamSupport;
  * 包含多个 {@link MessageSourceResolvable} 对象的类型
  *
  * @author 应卓
+ * @see MessageSourceResolvable
  * @since 3.3.1
  */
 @FunctionalInterface
