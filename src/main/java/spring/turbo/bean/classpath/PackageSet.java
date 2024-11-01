@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public final class PackageSet implements Iterable<String>, Serializable {
 
     // 已排序
-    private final SortedSet<String> innerSet = new TreeSet<>(Comparator.naturalOrder());
+    private final SortedSet<String> innerSet = new TreeSet<>();
 
     /**
      * 私有构造方法
@@ -42,7 +42,12 @@ public final class PackageSet implements Iterable<String>, Serializable {
      */
     public PackageSet acceptPackages(@Nullable String... packages) {
         if (packages != null) {
-            Stream.of(packages).filter(StringUtils::isNotBlank).map(String::trim).forEach(innerSet::add);
+            // @formatter:off
+            Stream.of(packages)
+                    .filter(StringUtils::isNotBlank)
+                    .map(String::trim)
+                    .forEach(innerSet::add);
+            // @formatter:on
         }
         return this;
     }
@@ -55,7 +60,12 @@ public final class PackageSet implements Iterable<String>, Serializable {
      */
     public PackageSet acceptPackages(@Nullable Collection<String> packages) {
         if (packages != null) {
-            packages.stream().filter(StringUtils::isNotBlank).map(String::trim).forEach(innerSet::add);
+            // @formatter:off
+            packages.stream()
+                    .filter(StringUtils::isNotBlank)
+                    .map(String::trim)
+                    .forEach(innerSet::add);
+            // @formatter:on
         }
         return this;
     }
@@ -68,7 +78,12 @@ public final class PackageSet implements Iterable<String>, Serializable {
      */
     public PackageSet acceptBaseClasses(@Nullable Class<?>... baseClasses) {
         if (baseClasses != null) {
-            Arrays.stream(baseClasses).filter(Objects::nonNull).map(c -> c.getPackage().getName()).forEach(innerSet::add);
+            // @formatter:off
+            Arrays.stream(baseClasses)
+                    .filter(Objects::nonNull)
+                    .map(c -> c.getPackage().getName())
+                    .forEach(innerSet::add);
+            // @formatter:on
         }
         return this;
     }
@@ -80,10 +95,15 @@ public final class PackageSet implements Iterable<String>, Serializable {
      * @return this
      */
     public PackageSet acceptBaseClasses(@Nullable Collection<Class<?>> baseClasses) {
+        // @formatter:off
         if (baseClasses != null) {
-            baseClasses.stream().filter(Objects::nonNull).map(c -> c.getPackage().getName()).forEach(innerSet::add);
+            baseClasses.stream()
+                    .filter(Objects::nonNull)
+                    .map(c -> c.getPackage().getName())
+                    .forEach(innerSet::add);
         }
         return this;
+        // @formatter:on
     }
 
     /**

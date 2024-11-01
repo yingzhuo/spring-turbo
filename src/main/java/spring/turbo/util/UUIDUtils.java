@@ -9,6 +9,8 @@ import static spring.turbo.util.StringPool.HYPHEN;
  * {@link java.util.UUID} 相关工具
  *
  * @author 应卓
+ * @see RandomUtils
+ * @see RandomStringUtils
  * @since 3.3.1
  */
 public final class UUIDUtils {
