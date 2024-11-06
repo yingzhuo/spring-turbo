@@ -31,7 +31,7 @@ public final class ClassPathScannerBuilder {
     private final List<TypeFilter> includeFilters = new LinkedList<>();
     private final List<TypeFilter> excludeFilters = new LinkedList<>();
     private Environment environment = new StandardEnvironment();
-    private ResourceLoader resourceLoader = new ApplicationResourceLoader();
+    private ResourceLoader resourceLoader = ApplicationResourceLoader.get();
     private ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
 
     /**
