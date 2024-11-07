@@ -72,6 +72,11 @@
             </snapshots>
         </repository>
         <repository>
+            <id>spring-ga</id>
+            <name>Spring GA</name>
+            <url>https://repo.spring.io/release</url>
+        </repository>
+        <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
@@ -89,6 +94,25 @@
 
     <pluginRepositories>
         <pluginRepository>
+            <id>sonatype-public</id>
+            <name>Sonatype Maven Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/public</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>sonatype-snapshots</id>
+            <name>Sonatype Maven Repository Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-ga</id>
+            <name>Spring GA</name>
+            <url>https://repo.spring.io/release</url>
+        </pluginRepository>
+        <pluginRepository>
             <id>spring-snapshots</id>
             <name>Spring Snapshots</name>
             <url>https://repo.spring.io/snapshot</url>
@@ -101,10 +125,6 @@
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
