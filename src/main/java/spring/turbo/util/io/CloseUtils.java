@@ -5,6 +5,7 @@ import org.springframework.lang.Nullable;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
 
 /**
  * 本类封装资源关闭操作
@@ -65,4 +66,18 @@ public final class CloseUtils {
         }
     }
 
+    /**
+     * 关闭资源
+     *
+     * @param executorService 线程池之类的资源
+     */
+    public static void closeQuietly(@Nullable ExecutorService executorService) {
+        if (executorService != null) {
+            try {
+                executorService.shutdown();
+            } catch (Exception ignored) {
+                // noop
+            }
+        }
+    }
 }
