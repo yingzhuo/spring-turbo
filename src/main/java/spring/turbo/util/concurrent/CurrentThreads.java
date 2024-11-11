@@ -14,20 +14,44 @@ public final class CurrentThreads {
     private CurrentThreads() {
     }
 
+    /**
+     * 获取当前线程实例
+     *
+     * @return 当前线程实例
+     */
     public static Thread get() {
         return Thread.currentThread();
     }
 
+    /**
+     * 获取当前线程名称
+     *
+     * @return 当前线程名称
+     */
     public static String getName() {
         return get().getName();
     }
 
+    /**
+     * 获取当前线程ID
+     *
+     * @return 当前线程ID
+     */
     public static long getId() {
         try {
             return get().getId();
         } catch (Exception e) {
             return -1L;
         }
+    }
+
+    /**
+     * 获取当前线程状态
+     *
+     * @return 当前线程状态
+     */
+    public static Thread.State getState() {
+        return get().getState();
     }
 
 }
