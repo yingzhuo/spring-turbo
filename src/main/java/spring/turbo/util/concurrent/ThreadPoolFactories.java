@@ -1,13 +1,21 @@
 package spring.turbo.util.concurrent;
 
 import org.springframework.lang.Nullable;
+import org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean;
 
 import java.time.Duration;
-import java.util.Optional;
 import java.util.concurrent.*;
 
 /**
+ * 简单工具用于创建线程池
+ *
  * @author 应卓
+ * @see Thread
+ * @see Runnable
+ * @see Callable
+ * @see FutureTask
+ * @see CompletableFuture
+ * @see ThreadPoolExecutorFactoryBean
  * @since 3.4.0
  */
 public final class ThreadPoolFactories {
@@ -50,7 +58,9 @@ public final class ThreadPoolFactories {
                 new ArrayBlockingQueue<>(blockingQueueSize),
                 Executors.defaultThreadFactory()
         );
-        Optional.ofNullable(rejectedExecutionHandler).ifPresent(pool::setRejectedExecutionHandler);
+        if (rejectedExecutionHandler != null) {
+            pool.setRejectedExecutionHandler(rejectedExecutionHandler);
+        }
         return pool;
     }
 
