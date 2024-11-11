@@ -50,18 +50,15 @@ public final class ThreadPoolFactories {
      * @return 线程池实例
      */
     public static ExecutorService create(int corePoolSize, int maximumPoolSize, Duration keepAlive, int blockingQueueSize, @Nullable RejectedExecutionHandler rejectedExecutionHandler) {
-        var pool = new ThreadPoolExecutor(
+        return new ThreadPoolExecutor(
                 corePoolSize,
                 maximumPoolSize,
                 keepAlive.toMillis(),
                 TimeUnit.MILLISECONDS,
                 new ArrayBlockingQueue<>(blockingQueueSize),
-                Executors.defaultThreadFactory()
+                Executors.defaultThreadFactory(),
+                rejectedExecutionHandler != null ? rejectedExecutionHandler : new ThreadPoolExecutor.AbortPolicy()
         );
-        if (rejectedExecutionHandler != null) {
-            pool.setRejectedExecutionHandler(rejectedExecutionHandler);
-        }
-        return pool;
     }
 
 }

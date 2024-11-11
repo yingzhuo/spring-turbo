@@ -54,4 +54,13 @@ public final class CurrentThreads {
         return get().getState();
     }
 
+    /**
+     * 获取当前线程中断标志位
+     *
+     * @return 当前线程中断标志位
+     */
+    public static boolean isInterrupted() {
+        return get().isInterrupted();
+    }
+
 }

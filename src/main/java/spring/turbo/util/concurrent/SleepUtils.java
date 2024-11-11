@@ -1,4 +1,4 @@
-package spring.turbo.util;
+package spring.turbo.util.concurrent;
 
 import org.springframework.util.Assert;
 
@@ -43,7 +43,7 @@ public final class SleepUtils {
      * @throws UncheckedInterruptedException 线程暂停被打断时抛出此异常
      */
     public static void sleep(long time, TimeUnit timeUnit) {
-        if (time < 0) {
+        if (time <= 0) {
             return;
         }
 
@@ -64,19 +64,6 @@ public final class SleepUtils {
      */
     public static void sleepInSeconds(long seconds) {
         sleep(seconds, TimeUnit.SECONDS);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * 线程暂停被中断异常
-     *
-     * @author 应卓
-     */
-    public static class UncheckedInterruptedException extends RuntimeException {
-        public UncheckedInterruptedException(InterruptedException e) {
-            super(e.getMessage(), e);
-        }
     }
 
 }
