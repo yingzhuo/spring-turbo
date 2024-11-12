@@ -8,16 +8,13 @@ package spring.turbo.util.concurrent;
  */
 public final class UncheckedInterruptedException extends RuntimeException {
 
-    public UncheckedInterruptedException() {
-        super();
-    }
-
+    /**
+     * 构造方法
+     *
+     * @param cause 要检查线程被中断方法
+     */
     public UncheckedInterruptedException(Throwable cause) {
         super(cause);
-    }
-
-    public UncheckedInterruptedException(String message, Throwable cause) {
-        super(message, cause);
     }
 
 }
