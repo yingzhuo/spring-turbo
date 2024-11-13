@@ -3,7 +3,7 @@ package spring.turbo.databinding;
 import org.springframework.format.Formatter;
 import org.springframework.format.Parser;
 import spring.turbo.exception.DataBindingException;
-import spring.turbo.util.ThreadSharedObjects;
+import spring.turbo.util.concurrent.ThreadSharedObjects;
 
 import java.util.Locale;
 

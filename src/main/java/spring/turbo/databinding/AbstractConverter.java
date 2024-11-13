@@ -2,7 +2,7 @@ package spring.turbo.databinding;
 
 import org.springframework.core.convert.converter.Converter;
 import spring.turbo.exception.DataBindingException;
-import spring.turbo.util.ThreadSharedObjects;
+import spring.turbo.util.concurrent.ThreadSharedObjects;
 
 /**
  * {@link Converter} 辅助工具 <br>

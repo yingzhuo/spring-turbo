@@ -1,7 +1,7 @@
 package spring.turbo.databinding;
 
 import spring.turbo.exception.DataBindingException;
-import spring.turbo.util.ThreadSharedObjects;
+import spring.turbo.util.concurrent.ThreadSharedObjects;
 
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;

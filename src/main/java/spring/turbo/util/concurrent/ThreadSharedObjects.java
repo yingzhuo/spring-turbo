@@ -1,7 +1,7 @@
-package spring.turbo.util;
+package spring.turbo.util.concurrent;
 
-import org.springframework.core.NamedThreadLocal;
 import org.springframework.lang.Nullable;
+import spring.turbo.util.StringFormatter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,14 +18,12 @@ public final class ThreadSharedObjects {
     /**
      * 按类型保存对象
      */
-    private static final ThreadLocal<Map<Class<?>, Object>> TYPE_HOLDER =
-            NamedThreadLocal.withInitial(ThreadSharedObjects.class.getName(), HashMap::new);
+    private static final ThreadLocal<Map<Class<?>, Object>> TYPE_HOLDER = ThreadLocal.withInitial(HashMap::new);
+
     /**
      * 按名称保存对象
      */
-    private static final ThreadLocal<Map<String, Object>> NAME_HOLDER =
-            NamedThreadLocal.withInitial(ThreadSharedObjects.class.getName(), HashMap::new);
-
+    private static final ThreadLocal<Map<String, Object>> NAME_HOLDER = ThreadLocal.withInitial(HashMap::new);
 
     /**
      * 私有构造方法
@@ -79,7 +77,7 @@ public final class ThreadSharedObjects {
     }
 
     /**
-     * 按类型拿取数据，并断言数据一定不是控制
+     * 按类型拿取数据，并断言数据一定不是空值
      *
      * @param type 数据类型
      * @param <T>  数据类型泛型
@@ -95,7 +93,7 @@ public final class ThreadSharedObjects {
     }
 
     /**
-     * 按名称拿取数据，并断言数据一定不是控制
+     * 按名称拿取数据，并断言数据一定不是空值
      *
      * @param name 数据名称
      * @param <T>  数据类型泛型
@@ -113,9 +111,14 @@ public final class ThreadSharedObjects {
     /**
      * 清除所有已保存的数据
      */
-    public static void clear() {
-        TYPE_HOLDER.get().clear();
-        NAME_HOLDER.get().clear();
+    public static void clearAll() {
+        try {
+            TYPE_HOLDER.get().clear();
+            TYPE_HOLDER.remove();
+            NAME_HOLDER.get().clear();
+            NAME_HOLDER.remove();
+        } catch (Exception ignored) {
+        }
     }
 
 }

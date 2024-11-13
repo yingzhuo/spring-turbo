@@ -3,7 +3,7 @@ package spring.turbo.databinding;
 import org.springframework.util.ClassUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import spring.turbo.util.ThreadSharedObjects;
+import spring.turbo.util.concurrent.ThreadSharedObjects;
 
 /**
  * {@link Validator} 辅助工具
