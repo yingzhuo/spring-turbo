@@ -1,8 +1,11 @@
 package spring.turbo.util.concurrent;
 
 import org.springframework.util.Assert;
+import spring.turbo.util.RandomUtils;
 
 import java.time.Duration;
+
+import static spring.turbo.util.RandomUtils.nextLong;
 
 /**
  * 线程暂停工具
@@ -16,7 +19,6 @@ public final class ThreadUtils {
      * 私有构造方法
      */
     private ThreadUtils() {
-        super();
     }
 
     /**
@@ -90,13 +92,38 @@ public final class ThreadUtils {
      * 暂停当前线程，如果在暂停期间被中断，则重置现成暂停标记为true
      *
      * @param duration 暂停时间
-     * @since 3.4.0
      */
     public static void sleepAndResetInterruptFlagWhenInterrupted(Duration duration) {
         Assert.notNull(duration, "duration is required");
 
         try {
             Thread.sleep(duration.toMillis());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
+     * 暂停当前线程随机n秒
+     *
+     * @param startInclusive 最小休息秒数 (包含)
+     * @param endExclusive   最大休息秒数 (不包含)
+     * @see spring.turbo.util.RandomUtils
+     */
+    public static void sleepRandomSeconds(long startInclusive, long endExclusive) {
+        sleep(Duration.ofSeconds(nextLong(startInclusive, endExclusive)));
+    }
+
+    /**
+     * 暂停当前线程随机n秒, 如果在暂停期间被中断, 则重置现成暂停标记为true
+     *
+     * @param startInclusive 最小休息秒数 (包含)
+     * @param endExclusive   最大休息秒数 (不包含)
+     * @see RandomUtils
+     */
+    public static void sleepRandomSecondsAndResetInterruptFlagWhenInterrupted(long startInclusive, long endExclusive) {
+        try {
+            Thread.sleep(nextLong(startInclusive, endExclusive) * 1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

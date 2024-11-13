@@ -1,7 +1,6 @@
 package spring.turbo.util.concurrent;
 
 import org.springframework.lang.Nullable;
-import org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean;
 
 import java.time.Duration;
 import java.util.concurrent.*;
@@ -15,7 +14,8 @@ import java.util.concurrent.*;
  * @see Callable
  * @see FutureTask
  * @see CompletableFuture
- * @see ThreadPoolExecutorFactoryBean
+ * @see org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean
+ * @see org.springframework.scheduling.concurrent.ForkJoinPoolFactoryBean
  * @since 3.4.0
  */
 public final class ThreadPoolFactories {
