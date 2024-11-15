@@ -91,7 +91,7 @@ public final class PemUtils {
     public static PemContent load(Resource resource) {
         notNull(resource, "resource is null");
         try {
-            var content = PemContent.load(resource.getInputStream());
+            var content = PemContent.of(resource.getContentAsString(UTF_8));
             notNull(content, "content is null");
             return content;
         } catch (IOException e) {

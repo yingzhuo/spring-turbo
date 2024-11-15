@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>spring-turbo</artifactId>
-    <version>3.4.0-SNAPSHOT</version>
+    <version>3.3.5-1</version>
 
     <url>https://github.com/yingzhuo/spring-turbo</url>
     <description>Another enhancement library of SpringBoot/SpringFramework. Have fun.</description>
@@ -23,6 +23,9 @@
             <id>yingzhuo</id>
             <name>应卓</name>
             <email>yingzhor@gmail.com</email>
+            <roles>
+                <role>owner</role>
+            </roles>
         </developer>
     </developers>
 
@@ -71,11 +74,13 @@
                 <updatePolicy>daily</updatePolicy>
             </snapshots>
         </repository>
+        <!--
         <repository>
             <id>spring-ga</id>
             <name>Spring GA</name>
             <url>https://repo.spring.io/release</url>
         </repository>
+        -->
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
@@ -107,11 +112,13 @@
                 <updatePolicy>daily</updatePolicy>
             </snapshots>
         </pluginRepository>
+        <!--
         <pluginRepository>
             <id>spring-ga</id>
             <name>Spring GA</name>
             <url>https://repo.spring.io/release</url>
         </pluginRepository>
+        -->
         <pluginRepository>
             <id>spring-snapshots</id>
             <name>Spring Snapshots</name>
@@ -132,7 +139,7 @@
         <encoding>UTF-8</encoding>
         <java.version>17</java.version>
 
-        <spring.boot.version>3.4.0-SNAPSHOT</spring.boot.version>
+        <spring.boot.version>3.3.5</spring.boot.version>
         <lombok.version>1.18.34</lombok.version>
     </properties>
 

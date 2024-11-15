@@ -110,15 +110,12 @@ public final class ThreadSharedObjects {
 
     /**
      * 清除所有已保存的数据
+     *
+     * @see ThreadLocal#remove()
      */
-    public static void clearAll() {
-        try {
-            TYPE_HOLDER.get().clear();
-            TYPE_HOLDER.remove();
-            NAME_HOLDER.get().clear();
-            NAME_HOLDER.remove();
-        } catch (Exception ignored) {
-        }
+    public static void remove() {
+        TYPE_HOLDER.remove();
+        NAME_HOLDER.remove();
     }
 
 }
