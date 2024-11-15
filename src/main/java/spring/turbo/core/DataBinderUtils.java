@@ -11,7 +11,7 @@ import org.springframework.validation.DataBinder;
  *
  * @author 应卓
  * @see org.springframework.validation.DataBinder
- * @since 3.4.0
+ * @since 3.3.5
  */
 public final class DataBinderUtils {
 

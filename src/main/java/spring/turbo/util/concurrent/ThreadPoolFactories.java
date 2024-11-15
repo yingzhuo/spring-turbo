@@ -16,7 +16,7 @@ import java.util.concurrent.*;
  * @see CompletableFuture
  * @see org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean
  * @see org.springframework.scheduling.concurrent.ForkJoinPoolFactoryBean
- * @since 3.4.0
+ * @since 3.3.5
  */
 public final class ThreadPoolFactories {
 
@@ -24,6 +24,17 @@ public final class ThreadPoolFactories {
      * 私有构造方法
      */
     private ThreadPoolFactories() {
+    }
+
+    /**
+     * 创建线程数固定的线程池 <br>
+     * 本方法不适合用在严肃的生产环境
+     *
+     * @param n 　线程数
+     * @return 线程池实例
+     */
+    public static ExecutorService createFixed(int n) {
+        return Executors.newFixedThreadPool(n);
     }
 
     /**

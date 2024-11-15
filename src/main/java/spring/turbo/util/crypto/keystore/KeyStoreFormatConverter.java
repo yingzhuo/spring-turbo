@@ -8,7 +8,7 @@ import org.springframework.lang.Nullable;
  *
  * @author 应卓
  * @see KeyStoreFormat#of(String)
- * @since 3.4.0
+ * @since 3.3.5
  */
 public final class KeyStoreFormatConverter implements Converter<String, KeyStoreFormat> {
 

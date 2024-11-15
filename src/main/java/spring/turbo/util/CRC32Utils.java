@@ -6,7 +6,7 @@ import java.util.zip.CRC32;
  * CRC32相关工具
  *
  * @author 应卓
- * @since 3.4.0
+ * @since 3.3.5
  */
 public final class CRC32Utils {
 

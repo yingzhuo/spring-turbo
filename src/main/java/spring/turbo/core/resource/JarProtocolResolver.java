@@ -2,7 +2,7 @@ package spring.turbo.core.resource;
 
 /**
  * @author 应卓
- * @since 3.4.0
+ * @since 3.3.5
  */
 final class JarProtocolResolver extends AbstractZipProtocolResolver {
 

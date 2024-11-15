@@ -16,7 +16,7 @@ import java.util.zip.ZipFile;
  * @author 应卓
  * @see ZipProtocolResolver
  * @see JarProtocolResolver
- * @since 3.4.0
+ * @since 3.3.5
  */
 abstract class AbstractZipProtocolResolver implements ProtocolResolver {
 

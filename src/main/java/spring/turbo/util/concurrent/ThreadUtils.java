@@ -11,7 +11,7 @@ import static spring.turbo.util.RandomUtils.nextLong;
  * 线程暂停工具
  *
  * @author 应卓
- * @since 3.4.0
+ * @since 3.3.5
  */
 public final class ThreadUtils {
 
