@@ -662,11 +662,11 @@ public final class StringUtils {
         Assert.notNull(string, "string is required");
         Assert.isTrue(n >= 1, "n must greater than 0");
 
-        if (n == 1) {
+        if (n == 1 || string.equals("")) {
             return string;
         }
 
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder(string.length() * n);
         while (n-- != 0) {
             builder.append(string);
         }
