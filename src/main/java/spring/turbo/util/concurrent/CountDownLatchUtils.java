@@ -8,6 +8,7 @@ import java.util.concurrent.CountDownLatch;
  * {@link CountDownLatchUtils}
  *
  * @author 应卓
+ * @see SemaphoreUtils
  * @since 3.3.5
  */
 public final class CountDownLatchUtils {
