@@ -28,38 +28,71 @@ public final class ThreadUtils {
     private ThreadUtils() {
     }
 
+    /**
+     * 获取虚拟机实例中所有非守护线程
+     *
+     * @return 虚拟机实例中所有非守护线程
+     */
     public static Set<Thread> getNonDaemonThreads() {
         return getThreads(NON_DAEMON);
     }
 
+    /**
+     * 获取虚拟机实例中所有守护线程
+     *
+     * @return 虚拟机实例中所有守护线程
+     */
     public static Set<Thread> getDaemonThreads() {
         return getThreads(IS_DAEMON);
     }
 
+    /**
+     * 获取虚拟机实例中所有线程
+     *
+     * @return 虚拟机实例中所有守护线程
+     */
     public static Set<Thread> getAllThreads() {
-        return getThreads(null);
+        return getThreads(ANY);
     }
 
-    public static Set<Thread> getThreads(@Nullable Predicate<Thread> threadPredicate) {
-        var predicate = Objects.requireNonNullElse(threadPredicate, ANY);
+    /**
+     * 获取虚拟机实例中的线程
+     *
+     * @param filter 过滤器
+     * @return 虚拟机实例中的线程
+     */
+    public static Set<Thread> getThreads(@Nullable Predicate<Thread> filter) {
+        filter = Objects.requireNonNullElse(filter, ANY);
 
         return Thread.getAllStackTraces()
                 .keySet()
                 .stream()
-                .filter(predicate)
+                .filter(filter)
                 .collect(Collectors.toUnmodifiableSet());
     }
 
+    /**
+     * 通过ID获取线程 (不包含守护线程)
+     *
+     * @param id 线程ID
+     * @return 结果
+     */
     public static Optional<Thread> getById(long id) {
         return getById(id, false);
     }
 
+    /**
+     * 通过ID获取线程
+     *
+     * @param id                    线程ID
+     * @param includingDaemonThread 是否包含守护线程
+     * @return 结果
+     */
     public static Optional<Thread> getById(long id, boolean includingDaemonThread) {
         if (id < 0) {
             return Optional.empty();
         }
 
-        // @formatter:off
         var p = includingDaemonThread ? ANY : NON_DAEMON;
 
         return Thread.getAllStackTraces()
@@ -68,17 +101,28 @@ public final class ThreadUtils {
                 .filter(p)
                 .filter(t -> t.getId() == id)
                 .findFirst();
-        // @formatter:on
     }
 
+    /**
+     * 通过名称获取线程 (不包含守护线程)
+     *
+     * @param name 线程名称
+     * @return 结果
+     */
     public static Optional<Thread> getByName(String name) {
         return getByName(name, false);
     }
 
+    /**
+     * 通过名称获取线程
+     *
+     * @param name                  线程名称
+     * @param includingDaemonThread 是否包含守护线程
+     * @return 结果
+     */
     public static Optional<Thread> getByName(String name, boolean includingDaemonThread) {
         Assert.hasText(name, "name is null or blank");
 
-        // @formatter:off
         var p = includingDaemonThread ? ANY : NON_DAEMON;
 
         return Thread.getAllStackTraces()
@@ -87,7 +131,6 @@ public final class ThreadUtils {
                 .filter(p)
                 .filter(t -> t.getName().equals(name))
                 .findFirst();
-        // @formatter:on
     }
 
 }
