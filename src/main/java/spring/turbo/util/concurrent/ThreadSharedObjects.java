@@ -10,6 +10,7 @@ import java.util.Map;
  * 简易工具，在同一线程中存取对象
  *
  * @author 应卓
+ * @see SoftThreadSharedObjects
  * @since 3.3.1
  */
 @SuppressWarnings("unchecked")
@@ -115,7 +116,9 @@ public final class ThreadSharedObjects {
      */
     public static void remove() {
         TYPE_HOLDER.remove();
+        TYPE_HOLDER.set(new HashMap<>());   // 一个空集合也浪费不了多少内存，算了
         NAME_HOLDER.remove();
+        NAME_HOLDER.set(new HashMap<>());
     }
 
 }
