@@ -10,8 +10,6 @@ import java.util.Map;
  * 简易工具，在同一线程中存取对象
  *
  * @author 应卓
- * @see SoftThreadSharedObjects
- * @see WeakThreadSharedObjects
  * @since 3.3.1
  */
 @SuppressWarnings("unchecked")
