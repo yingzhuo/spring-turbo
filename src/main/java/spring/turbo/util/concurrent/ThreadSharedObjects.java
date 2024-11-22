@@ -11,6 +11,7 @@ import java.util.Map;
  *
  * @author 应卓
  * @see SoftThreadSharedObjects
+ * @see WeakThreadSharedObjects
  * @since 3.3.1
  */
 @SuppressWarnings("unchecked")

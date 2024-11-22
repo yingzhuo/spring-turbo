@@ -11,6 +11,7 @@ import java.util.Optional;
  *
  * @author 应卓
  * @see WeakReference
+ * @see SoftThreadSharedObjects
  * @see ThreadSharedObjects
  * @since 3.3.5
  */

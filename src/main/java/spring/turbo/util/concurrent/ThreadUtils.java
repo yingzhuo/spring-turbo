@@ -18,10 +18,6 @@ import java.util.stream.Collectors;
  */
 public final class ThreadUtils {
 
-    private static final Predicate<Thread> ANY = t -> true;
-    private static final Predicate<Thread> IS_DAEMON = Thread::isDaemon;
-    private static final Predicate<Thread> NON_DAEMON = Predicate.not(IS_DAEMON);
-
     /**
      * 私有构造方法
      */
@@ -34,7 +30,7 @@ public final class ThreadUtils {
      * @return 虚拟机实例中所有非守护线程
      */
     public static Set<Thread> getNonDaemonThreads() {
-        return getThreads(NON_DAEMON);
+        return getThreads(AsyncVoid.NON_DAEMON);
     }
 
     /**
@@ -43,7 +39,7 @@ public final class ThreadUtils {
      * @return 虚拟机实例中所有守护线程
      */
     public static Set<Thread> getDaemonThreads() {
-        return getThreads(IS_DAEMON);
+        return getThreads(AsyncVoid.IS_DAEMON);
     }
 
     /**
@@ -52,7 +48,7 @@ public final class ThreadUtils {
      * @return 虚拟机实例中所有守护线程
      */
     public static Set<Thread> getAllThreads() {
-        return getThreads(ANY);
+        return getThreads(AsyncVoid.ANY);
     }
 
     /**
@@ -62,7 +58,7 @@ public final class ThreadUtils {
      * @return 虚拟机实例中的线程
      */
     public static Set<Thread> getThreads(@Nullable Predicate<Thread> filter) {
-        filter = Objects.requireNonNullElse(filter, ANY);
+        filter = Objects.requireNonNullElse(filter, AsyncVoid.ANY);
 
         return Thread.getAllStackTraces()
                 .keySet()
@@ -93,7 +89,7 @@ public final class ThreadUtils {
             return Optional.empty();
         }
 
-        var p = includingDaemonThread ? ANY : NON_DAEMON;
+        var p = includingDaemonThread ? AsyncVoid.ANY : AsyncVoid.NON_DAEMON;
 
         return Thread.getAllStackTraces()
                 .keySet()
@@ -123,7 +119,7 @@ public final class ThreadUtils {
     public static Optional<Thread> getByName(String name, boolean includingDaemonThread) {
         Assert.hasText(name, "name is null or blank");
 
-        var p = includingDaemonThread ? ANY : NON_DAEMON;
+        var p = includingDaemonThread ? AsyncVoid.ANY : AsyncVoid.NON_DAEMON;
 
         return Thread.getAllStackTraces()
                 .keySet()
@@ -131,6 +127,13 @@ public final class ThreadUtils {
                 .filter(p)
                 .filter(t -> t.getName().equals(name))
                 .findFirst();
+    }
+
+    // 延迟加载
+    private static class AsyncVoid {
+        private static final Predicate<Thread> ANY = t -> true;
+        private static final Predicate<Thread> IS_DAEMON = Thread::isDaemon;
+        private static final Predicate<Thread> NON_DAEMON = Predicate.not(IS_DAEMON);
     }
 
 }
