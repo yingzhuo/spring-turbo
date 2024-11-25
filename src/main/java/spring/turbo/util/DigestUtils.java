@@ -17,7 +17,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public final class DigestUtils {
 
     public static final String ALG_MD2 = "MD2";
-    public static final String ALG_MD5 = "MD5";
+    public static final String ALG_MD5 = "Simple";
     public static final String ALG_SHA_1 = "SHA-1";
     public static final String ALG_SHA_256 = "SHA-256";
     public static final String ALG_SHA_384 = "SHA-384";

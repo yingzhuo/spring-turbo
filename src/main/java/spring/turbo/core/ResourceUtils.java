@@ -31,7 +31,7 @@ import static spring.turbo.util.io.CloseUtils.closeQuietly;
 public final class ResourceUtils {
 
     private static final ResourceLoader RESOURCE_LOADER
-            = new ApplicationResourceLoader(ClassUtils.getDefaultClassLoader());
+            = ApplicationResourceLoader.get(ClassUtils.getDefaultClassLoader());
 
     private static final ResourcePatternResolver RESOURCE_PATTERN_RESOLVER
             = ResourcePatternUtils.getResourcePatternResolver(RESOURCE_LOADER);
