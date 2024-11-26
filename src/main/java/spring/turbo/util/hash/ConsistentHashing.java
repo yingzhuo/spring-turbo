@@ -25,7 +25,7 @@ public class ConsistentHashing {
      * @param countOfReplicas 虚拟节点数量
      */
     public ConsistentHashing(int countOfReplicas) {
-        this(countOfReplicas, new HashFunction.Simple());
+        this(countOfReplicas, null);
     }
 
     /**
@@ -37,7 +37,7 @@ public class ConsistentHashing {
     public ConsistentHashing(int countOfReplicas, @Nullable HashFunction hashFunction) {
         Assert.isTrue(countOfReplicas >= 1, "countOfReplicas must be greater or equals 1");
         this.countOfReplicas = countOfReplicas;
-        this.hashFunction = Objects.requireNonNullElseGet(hashFunction, HashFunction::newDefaultInstance);
+        this.hashFunction = Objects.requireNonNullElseGet(hashFunction, HashFunction::defaultInstance);
     }
 
     /**
