@@ -15,6 +15,18 @@ public class DigestHashFunction implements HashFunction {
 
     private final Algorithm algorithm;
 
+    /**
+     * 默认构造方法
+     */
+    public DigestHashFunction() {
+        this.algorithm = Algorithm.MD5;
+    }
+
+    /**
+     * 构造方法
+     *
+     * @param algorithm 信息摘要算法
+     */
     public DigestHashFunction(Algorithm algorithm) {
         this.algorithm = algorithm;
     }
@@ -26,7 +38,7 @@ public class DigestHashFunction implements HashFunction {
     public Integer apply(String key) {
         try {
             var md5 = MessageDigest.getInstance(algorithm.getAlgorithmName());
-            byte[] digest = md5.digest(key.getBytes());
+            var digest = md5.digest(key.getBytes());
             return ((digest[0] & 0XFF) << 24) |
                     ((digest[1] & 0XFF) << 16) |
                     ((digest[2] & 0XFF) << 8) |
