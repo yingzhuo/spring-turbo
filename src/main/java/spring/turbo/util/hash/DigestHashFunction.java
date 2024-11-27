@@ -40,12 +40,13 @@ public class DigestHashFunction implements HashFunction {
     @Override
     public Integer apply(String key) {
         try {
-            var md5 = MessageDigest.getInstance(algorithm.name);
-            var digest = md5.digest(key.getBytes());
+            var digest = MessageDigest.getInstance(algorithm.name).digest(key.getBytes());
+            // @formatter:off
             return ((digest[0] & 0XFF) << 24) |
                     ((digest[1] & 0XFF) << 16) |
                     ((digest[2] & 0XFF) << 8) |
                     (digest[3] & 0XFF);
+            // @formatter:on
         } catch (NoSuchAlgorithmException e) {
             throw new AssertionError(); // 实际方法不可能运行到此处
         }
