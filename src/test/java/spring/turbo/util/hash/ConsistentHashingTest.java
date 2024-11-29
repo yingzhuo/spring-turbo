@@ -7,7 +7,7 @@ public class ConsistentHashingTest {
 
     @Test
     public void test() {
-        var hashing = new ConsistentHashing(8, new DigestHashFunction(DigestHashFunction.Algorithm.MD5))
+        var hashing = new ConsistentHashing(8, DigestHashFunctions.md5())
                 .addNode("10.211.55.3")
                 .addNode("10.211.55.4")
                 .addNode("10.211.55.5");

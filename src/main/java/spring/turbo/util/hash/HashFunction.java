@@ -18,7 +18,7 @@ public interface HashFunction extends Function<String, Integer> {
      * @return 默认实现
      */
     public static HashFunction defaultInstance() {
-        return new DigestHashFunction();
+        return DigestHashFunctions.md5();
     }
 
     /**

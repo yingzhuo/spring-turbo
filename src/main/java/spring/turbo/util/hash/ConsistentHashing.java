@@ -25,7 +25,7 @@ public class ConsistentHashing {
      * @param countOfReplicas 虚拟节点数量
      */
     public ConsistentHashing(int countOfReplicas) {
-        this(countOfReplicas, new DigestHashFunction());
+        this(countOfReplicas, DigestHashFunctions.md5());
     }
 
     /**
