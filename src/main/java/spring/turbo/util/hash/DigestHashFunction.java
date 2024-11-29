@@ -40,7 +40,7 @@ public class DigestHashFunction implements HashFunction {
     @Override
     public Integer apply(String key) {
         try {
-            var digest = MessageDigest.getInstance(algorithm.name).digest(key.getBytes());
+            var digest = MessageDigest.getInstance(algorithm.getName()).digest(key.getBytes());
             // @formatter:off
             return ((digest[0] & 0XFF) << 24) |
                     ((digest[1] & 0XFF) << 16) |
@@ -66,6 +66,15 @@ public class DigestHashFunction implements HashFunction {
 
         Algorithm(String name) {
             this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
         }
     }
 
