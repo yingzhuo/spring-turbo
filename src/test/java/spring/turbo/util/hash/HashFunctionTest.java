@@ -9,7 +9,7 @@ public class HashFunctionTest {
 
     @Test
     public void test1() {
-        var func = DigestHashFunctions.md5();
+        var func = DigestHashFunction.md5();
 
         IntStream.rangeClosed(1, 1000)
                 .forEach(__ -> {
@@ -19,7 +19,7 @@ public class HashFunctionTest {
 
     @Test
     public void test2() {
-        var func = DigestHashFunctions.sha1();
+        var func = DigestHashFunction.sha1();
 
         IntStream.rangeClosed(1, 1000)
                 .forEach(__ -> {
@@ -29,7 +29,7 @@ public class HashFunctionTest {
 
     @Test
     public void test3() {
-        var func = DigestHashFunctions.sha256();
+        var func = DigestHashFunction.sha256();
 
         IntStream.rangeClosed(1, 1000)
                 .forEach(__ -> {
@@ -39,7 +39,7 @@ public class HashFunctionTest {
 
     @Test
     public void test4() {
-        var func = DigestHashFunctions.sha384();
+        var func = DigestHashFunction.sha384();
 
         IntStream.rangeClosed(1, 1000)
                 .forEach(__ -> {
@@ -49,7 +49,7 @@ public class HashFunctionTest {
 
     @Test
     public void test5() {
-        var func = DigestHashFunctions.sha512();
+        var func = DigestHashFunction.sha512();
 
         IntStream.rangeClosed(1, 1000)
                 .forEach(__ -> {

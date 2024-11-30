@@ -13,15 +13,6 @@ import java.util.function.Function;
 public interface HashFunction extends Function<String, Integer> {
 
     /**
-     * 获取默认实现
-     *
-     * @return 默认实现
-     */
-    public static HashFunction defaultInstance() {
-        return DigestHashFunctions.md5();
-    }
-
-    /**
      * 计算哈希值
      *
      * @param key 键
