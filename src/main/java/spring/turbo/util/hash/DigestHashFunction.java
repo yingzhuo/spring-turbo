@@ -13,26 +13,6 @@ import java.security.NoSuchAlgorithmException;
  */
 public class DigestHashFunction implements HashFunction {
 
-    public static HashFunction md5() {
-        return SyncAvoid.MD5;
-    }
-
-    public static HashFunction sha1() {
-        return SyncAvoid.SHA1;
-    }
-
-    public static HashFunction sha256() {
-        return SyncAvoid.SHA256;
-    }
-
-    public static HashFunction sha384() {
-        return SyncAvoid.SHA384;
-    }
-
-    public static HashFunction sha512() {
-        return SyncAvoid.SHA512;
-    }
-
     /**
      * 算法名称
      */
@@ -46,6 +26,51 @@ public class DigestHashFunction implements HashFunction {
     public DigestHashFunction(String algName) {
         Assert.hasText(algName, "algName is null or null");
         this.algName = algName;
+    }
+
+    /**
+     * md5为基础的实例
+     *
+     * @return 哈希函数器
+     */
+    public static HashFunction md5() {
+        return SyncAvoid.MD5;
+    }
+
+    /**
+     * SHA-1为基础的实例
+     *
+     * @return 哈希函数器
+     */
+    public static HashFunction sha1() {
+        return SyncAvoid.SHA1;
+    }
+
+    /**
+     * SHA-256为基础的实例
+     *
+     * @return 哈希函数器
+     */
+    public static HashFunction sha256() {
+        return SyncAvoid.SHA256;
+    }
+
+    /**
+     * SHA-384为基础的实例
+     *
+     * @return 哈希函数器
+     */
+    public static HashFunction sha384() {
+        return SyncAvoid.SHA384;
+    }
+
+    /**
+     * SHA-512为基础的实例
+     *
+     * @return 哈希函数器
+     */
+    public static HashFunction sha512() {
+        return SyncAvoid.SHA512;
     }
 
     /**
@@ -65,7 +90,6 @@ public class DigestHashFunction implements HashFunction {
             throw new AssertionError(); // 实际方法不可能运行到此处
         }
     }
-
 
     // 延迟加载
     private static class SyncAvoid {

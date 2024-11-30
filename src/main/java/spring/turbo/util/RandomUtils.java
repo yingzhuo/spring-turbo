@@ -1,6 +1,6 @@
 package spring.turbo.util;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 随机数生成工具
@@ -10,8 +10,6 @@ import java.util.Random;
  * @since 1.0.0
  */
 public final class RandomUtils {
-
-    private static final Random RANDOM = new Random();
 
     /**
      * 私有构造方法
@@ -25,7 +23,7 @@ public final class RandomUtils {
      * @return 随机布尔值
      */
     public static boolean nextBoolean() {
-        return RANDOM.nextBoolean();
+        return ThreadLocalRandom.current().nextBoolean();
     }
 
     /**
@@ -36,7 +34,7 @@ public final class RandomUtils {
      */
     public static byte[] nextBytes(int count) {
         byte[] result = new byte[count];
-        RANDOM.nextBytes(result);
+        ThreadLocalRandom.current().nextBytes(result);
         return result;
     }
 
@@ -52,7 +50,7 @@ public final class RandomUtils {
             return startInclusive;
         }
 
-        return startInclusive + RANDOM.nextInt(endExclusive - startInclusive);
+        return startInclusive + ThreadLocalRandom.current().nextInt(endExclusive - startInclusive);
     }
 
     /**
@@ -92,7 +90,7 @@ public final class RandomUtils {
         long bits;
         long val;
         do {
-            bits = RANDOM.nextLong() >>> 1;
+            bits = ThreadLocalRandom.current().nextLong() >>> 1;
             val = bits % n;
         } while (bits - val + (n - 1) < 0);
 
@@ -111,7 +109,7 @@ public final class RandomUtils {
             return startInclusive;
         }
 
-        return startInclusive + ((endExclusive - startInclusive) * RANDOM.nextDouble());
+        return startInclusive + ((endExclusive - startInclusive) * ThreadLocalRandom.current().nextDouble());
     }
 
     /**
@@ -135,7 +133,7 @@ public final class RandomUtils {
             return startInclusive;
         }
 
-        return startInclusive + ((endExclusive - startInclusive) * RANDOM.nextFloat());
+        return startInclusive + ((endExclusive - startInclusive) * ThreadLocalRandom.current().nextFloat());
     }
 
     /**

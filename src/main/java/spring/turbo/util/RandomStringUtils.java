@@ -3,6 +3,7 @@ package spring.turbo.util;
 import org.springframework.lang.Nullable;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static spring.turbo.util.StringPool.EMPTY;
 
@@ -17,11 +18,6 @@ import static spring.turbo.util.StringPool.EMPTY;
  * @since 1.0.0
  */
 public final class RandomStringUtils {
-
-    /**
-     * 随机子
-     */
-    private static final Random RANDOM = new Random();
 
     /**
      * 私有构造方法
@@ -189,7 +185,7 @@ public final class RandomStringUtils {
      */
     public static String random(int count, int start, int end, boolean letters,
                                 boolean numbers) {
-        return random(count, start, end, letters, numbers, null, RANDOM);
+        return random(count, start, end, letters, numbers, null, ThreadLocalRandom.current());
     }
 
     private static String random(int count, int start, int end, boolean letters, boolean numbers,
@@ -276,7 +272,7 @@ public final class RandomStringUtils {
      */
     public static String random(int count, @Nullable String chars) {
         if (chars == null) {
-            return random(count, 0, 0, false, false, null, RANDOM);
+            return random(count, 0, 0, false, false, null, ThreadLocalRandom.current());
         }
         return random(count, chars.toCharArray());
     }
@@ -290,9 +286,9 @@ public final class RandomStringUtils {
      */
     public static String random(int count, @Nullable char... chars) {
         if (chars == null) {
-            return random(count, 0, 0, false, false, null, RANDOM);
+            return random(count, 0, 0, false, false, null, ThreadLocalRandom.current());
         }
-        return random(count, 0, chars.length, false, false, chars, RANDOM);
+        return random(count, 0, chars.length, false, false, chars, ThreadLocalRandom.current());
     }
 
 }
