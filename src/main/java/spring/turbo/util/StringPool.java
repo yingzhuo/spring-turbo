@@ -25,6 +25,9 @@ public final class StringPool {
     public static final String UNDERSCORE = "_";
     public static final String COMMA = ",";
 
+    public static final String OK = "OK";
+    public static final String NG = "NG";
+
     /**
      * 私有构造方法
      */
