@@ -23,8 +23,6 @@ public final class LocalDateTimeUtils {
     private LocalDateTimeUtils() {
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     /**
      * {@link Date} 转换成 {@link LocalDateTime}
      *
