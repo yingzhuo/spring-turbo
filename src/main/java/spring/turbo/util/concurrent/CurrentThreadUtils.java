@@ -1,5 +1,7 @@
 package spring.turbo.util.concurrent;
 
+import spring.turbo.util.UUIDUtils;
+
 /**
  * 当前线程相关小工具
  *
@@ -123,6 +125,24 @@ public final class CurrentThreadUtils {
      */
     public static boolean isInterrupted() {
         return getCurrent().isInterrupted();
+    }
+
+    /**
+     * 获取当前线程的一个特征字符串
+     *
+     * @return 当前线程的一个特征字符串
+     */
+    public static String getTrait() {
+        return String.format("%s:%06d", SyncAvoid.PSEUDO_VM_ID, getId());
+    }
+
+    // 延迟加载
+    private static class SyncAvoid {
+
+        /**
+         * 伪Java虚拟机ID
+         */
+        private static final String PSEUDO_VM_ID = UUIDUtils.randomUUID(true);
     }
 
 }
