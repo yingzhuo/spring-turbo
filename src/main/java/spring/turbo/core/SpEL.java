@@ -1,10 +1,10 @@
 package spring.turbo.core;
 
-import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Map;
@@ -15,22 +15,25 @@ import java.util.Map;
  * @author 应卓
  * @since 3.4.0
  */
+@SuppressWarnings("unchecked")
 public final class SpEL {
-
-    /**
-     * 表达式解析器
-     */
-    private static final ExpressionParser EXPRESSION_PARSER;
-
-    static {
-        var config = new SpelParserConfiguration(true, true);
-        EXPRESSION_PARSER = new SpelExpressionParser(config);
-    }
 
     /**
      * 私有构造方法
      */
     private SpEL() {
+    }
+
+    /**
+     * 解析SpEL并获得其值
+     *
+     * @param expression 表达式
+     * @param <T>        最终值的类型
+     * @return 最终值或空值
+     */
+    @Nullable
+    public static <T> T getValue(String expression) {
+        return getValue(expression, null, null);
     }
 
     /**
@@ -69,8 +72,9 @@ public final class SpEL {
      * @return 最终值或空值
      */
     @Nullable
-    @SuppressWarnings("unchecked")
     public static <T> T getValue(String expression, @Nullable Object rootObject, @Nullable Map<String, ?> variables) {
+        Assert.hasText(expression, "expression is required");
+
         var ctx = new StandardEvaluationContext(rootObject);
         if (!CollectionUtils.isEmpty(variables)) {
             for (var key : variables.keySet()) {
@@ -79,7 +83,7 @@ public final class SpEL {
             }
         }
 
-        return (T) EXPRESSION_PARSER
+        return (T) new SpelExpressionParser(new SpelParserConfiguration(true, true))
                 .parseExpression(expression)
                 .getValue(ctx);
     }
