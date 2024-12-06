@@ -8,6 +8,7 @@ import org.springframework.util.Assert;
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 /**
  * AOP相关工具
@@ -34,11 +35,16 @@ public final class AspectUtils {
     public static Method getMethod(JoinPoint joinPoint) {
         Assert.notNull(joinPoint, "joinPoint is required");
         var signature = joinPoint.getSignature();
-        if (signature instanceof MethodSignature methodSignature) {
-            return methodSignature.getMethod();
-        } else {
-            throw new IllegalArgumentException("Cannot get proxies method");
-        }
+
+        return Optional.ofNullable(signature)
+                .map(s -> {
+                    if (s instanceof MethodSignature ms) {
+                        return ms.getMethod();
+                    } else {
+                        return null;
+                    }
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Cannot get proxies method"));
     }
 
     /**
@@ -49,7 +55,10 @@ public final class AspectUtils {
      */
     public static Object getTarget(JoinPoint joinPoint) {
         Assert.notNull(joinPoint, "joinPoint is required");
-        return joinPoint.getTarget();
+
+        var target = joinPoint.getTarget();
+        return Optional.ofNullable(target)
+                .orElseThrow(() -> new IllegalArgumentException("Cannot get proxies target"));
     }
 
     /**
