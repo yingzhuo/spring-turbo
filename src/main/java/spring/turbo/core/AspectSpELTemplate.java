@@ -37,7 +37,9 @@ public final class AspectSpELTemplate<T> implements Serializable {
 
         var map = new HashMap<String, Object>();
         map.put("args", joinPoint.getArgs());
+        map.put("argsLength", joinPoint.getArgs().length);
         map.put("method", ((MethodSignature) joinPoint.getSignature()).getMethod());
+        map.put("methodName", ((MethodSignature) joinPoint.getSignature()).getMethod().getName());
         map.put("target", joinPoint.getTarget());
         map.put("targetType", joinPoint.getTarget().getClass().getName());
 
