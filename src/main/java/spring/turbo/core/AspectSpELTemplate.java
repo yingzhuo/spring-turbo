@@ -13,22 +13,24 @@ import java.util.Map;
  * Aspect环绕式切面相关小工具
  *
  * @author 应卓
+ * @see SpEL
  * @since 3.4.0
  */
-public final class SpELForAspectAround<T> implements Serializable {
+public final class AspectSpELTemplate<T> implements Serializable {
 
     private final String expression;
     private final Map<String, Object> expressionVariables;
 
-    public static SpELForAspectAround<String> newInstance(String expression, ProceedingJoinPoint joinPoint) {
+    public static AspectSpELTemplate<String> newInstance(String expression, ProceedingJoinPoint joinPoint) {
         return newInstance(expression, joinPoint, String.class);
     }
 
-    public static <R> SpELForAspectAround<R> newInstance(String expression, ProceedingJoinPoint joinPoint, Class<R> returnType) {
-        return new SpELForAspectAround<>(expression, joinPoint);
+    public static <R> AspectSpELTemplate<R> newInstance(String expression, ProceedingJoinPoint joinPoint, Class<R> returnType) {
+        Assert.notNull(returnType, "returnType is required");
+        return new AspectSpELTemplate<>(expression, joinPoint);
     }
 
-    private SpELForAspectAround(String expression, ProceedingJoinPoint joinPoint) {
+    private AspectSpELTemplate(String expression, ProceedingJoinPoint joinPoint) {
         Assert.hasText(expression, "expression is required");
         Assert.notNull(joinPoint, "joinPoint is required");
         this.expression = expression;
@@ -44,6 +46,10 @@ public final class SpELForAspectAround<T> implements Serializable {
 
     public T getValue() {
         return SpEL.getValue(expression, null, expressionVariables);
+    }
+
+    public Map<String, Object> getExpressionVariables() {
+        return expressionVariables;
     }
 
 }
