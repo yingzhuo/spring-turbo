@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>spring-turbo</artifactId>
-    <version>3.4.0-3</version>
+    <version>3.4.1-SNAPSHOT</version>
 
     <url>https://github.com/yingzhuo/spring-turbo</url>
     <description>Another enhancement library of SpringBoot/SpringFramework. Have fun.</description>
@@ -139,7 +139,7 @@
         <encoding>UTF-8</encoding>
         <java.version>17</java.version>
 
-        <spring.boot.version>3.4.0</spring.boot.version>
+        <spring.boot.version>3.4.1-SNAPSHOT</spring.boot.version>
         <lombok.version>1.18.36</lombok.version>
     </properties>
 
