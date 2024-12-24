@@ -33,15 +33,6 @@ public final class AspectSpELTemplate<T> implements Serializable {
     @Nullable
     private Object rootObject;
 
-    public static AspectSpELTemplate<String> newInstance(String expression, ProceedingJoinPoint joinPoint) {
-        return newInstance(expression, joinPoint, String.class);
-    }
-
-    public static <R> AspectSpELTemplate<R> newInstance(String expression, ProceedingJoinPoint joinPoint, Class<R> returnType) {
-        Assert.notNull(returnType, "returnType is required");
-        return new AspectSpELTemplate<>(expression, joinPoint);
-    }
-
     private AspectSpELTemplate(String expression, ProceedingJoinPoint joinPoint) {
         Assert.hasText(expression, "expression is required");
         Assert.notNull(joinPoint, "joinPoint is required");
@@ -56,6 +47,15 @@ public final class AspectSpELTemplate<T> implements Serializable {
         map.put("targetType", joinPoint.getTarget().getClass().getName());
 
         this.expressionVariables = Collections.unmodifiableMap(map);
+    }
+
+    public static AspectSpELTemplate<String> newInstance(String expression, ProceedingJoinPoint joinPoint) {
+        return newInstance(expression, joinPoint, String.class);
+    }
+
+    public static <R> AspectSpELTemplate<R> newInstance(String expression, ProceedingJoinPoint joinPoint, Class<R> returnType) {
+        Assert.notNull(returnType, "returnType is required");
+        return new AspectSpELTemplate<>(expression, joinPoint);
     }
 
     public AspectSpELTemplate<T> setRootObject(@Nullable Object rootObject) {

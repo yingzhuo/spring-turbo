@@ -2,7 +2,6 @@ package spring.turbo.util.hash;
 
 import org.junit.jupiter.api.Test;
 import spring.turbo.util.UUIDGenerators;
-import spring.turbo.util.UUIDUtils;
 
 import java.util.stream.IntStream;
 
@@ -14,7 +13,7 @@ public class HashFunctionTest {
 
         IntStream.rangeClosed(1, 1000)
                 .forEach(__ -> {
-                    System.out.println(func.apply(UUIDGenerators.randomV4(true)));
+                    System.out.println(func.apply(UUIDGenerators.v4(true)));
                 });
     }
 
@@ -24,7 +23,7 @@ public class HashFunctionTest {
 
         IntStream.rangeClosed(1, 1000)
                 .forEach(__ -> {
-                    System.out.println(func.apply(UUIDGenerators.randomV4(true)));
+                    System.out.println(func.apply(UUIDGenerators.v4(true)));
                 });
     }
 
@@ -34,7 +33,7 @@ public class HashFunctionTest {
 
         IntStream.rangeClosed(1, 1000)
                 .forEach(__ -> {
-                    System.out.println(func.apply(UUIDGenerators.randomV4(true)));
+                    System.out.println(func.apply(UUIDGenerators.v4(true)));
                 });
     }
 
@@ -44,7 +43,7 @@ public class HashFunctionTest {
 
         IntStream.rangeClosed(1, 1000)
                 .forEach(__ -> {
-                    System.out.println(func.apply(UUIDGenerators.randomV4(true)));
+                    System.out.println(func.apply(UUIDGenerators.v4(true)));
                 });
     }
 
@@ -54,7 +53,7 @@ public class HashFunctionTest {
 
         IntStream.rangeClosed(1, 1000)
                 .forEach(__ -> {
-                    System.out.println(func.apply(UUIDGenerators.randomV4(true)));
+                    System.out.println(func.apply(UUIDGenerators.v4(true)));
                 });
     }
 

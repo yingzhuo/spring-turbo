@@ -1,10 +1,9 @@
 package spring.turbo.util;
 
-import java.util.UUID;
-
+import static java.util.UUID.randomUUID;
 import static spring.turbo.util.StringPool.EMPTY;
 import static spring.turbo.util.StringPool.HYPHEN;
-import static spring.turbo.util.UUIDGeneratorHelper.*;
+import static spring.turbo.util.id.IDGeneratorHelper.*;
 
 /**
  * UUID生成工具
@@ -20,42 +19,54 @@ public final class UUIDGenerators {
     private UUIDGenerators() {
     }
 
-    public static String randomV4() {
-        return randomV4(true);
+    public static String v4(boolean removeHyphen) {
+        var uuid = randomUUID().toString();
+        return removeHyphen ? uuid.replaceAll(HYPHEN, EMPTY) : uuid;
     }
 
-    public static String randomV4(boolean removeHyphen) {
-        var uuid = UUID.randomUUID().toString();
-        return removeHyphen ? uuid.replaceAll(HYPHEN, EMPTY) : uuid;
+    public static String classic32() {
+        return v4(true);
+    }
+
+    public static String classic36() {
+        return v4(false);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static String timeBased() {
+    public static String timeBased32() {
         return timeBased(true);
     }
 
+    public static String timeBased36() {
+        return timeBased(false);
+    }
+
     public static String timeBased(boolean removeHyphen) {
-        var uuid = format(getHiTime()) + HYPHEN +
-                format(getLoTime()) + HYPHEN +
-                format(getIP()) + HYPHEN +
-                format(getJVM()) + HYPHEN +
-                format(getCount());
-        return removeHyphen ? uuid.replaceAll(HYPHEN, EMPTY) : uuid;
-    }
+        var builder = new StringBuilder(removeHyphen ? 32 : 36);
 
-    private static String format(int intValue) {
-        String formatted = Integer.toHexString(intValue);
-        StringBuilder buf = new StringBuilder("00000000");
-        buf.replace(8 - formatted.length(), 8, formatted);
-        return buf.toString();
-    }
+        builder.append(getFormattedHiTime());
+        if (!removeHyphen) {
+            builder.append(HYPHEN);
+        }
 
-    private static String format(short shortValue) {
-        String formatted = Integer.toHexString(shortValue);
-        StringBuilder buf = new StringBuilder("0000");
-        buf.replace(4 - formatted.length(), 4, formatted);
-        return buf.toString();
+        builder.append(getFormattedLoTime());
+        if (!removeHyphen) {
+            builder.append(HYPHEN);
+        }
+
+        builder.append(getFormattedIP());
+        if (!removeHyphen) {
+            builder.append(HYPHEN);
+        }
+
+        builder.append(getFormattedJVM());
+        if (!removeHyphen) {
+            builder.append(HYPHEN);
+        }
+
+        builder.append(getFormattedCount());
+        return builder.toString();
     }
 
 }

@@ -2,7 +2,6 @@ package spring.turbo.util.hash;
 
 import org.junit.jupiter.api.Test;
 import spring.turbo.util.UUIDGenerators;
-import spring.turbo.util.UUIDUtils;
 
 public class ConsistentHashingTest {
 
@@ -14,7 +13,7 @@ public class ConsistentHashingTest {
                 .addNode("10.211.55.5");
 
         for (int i = 0; i < 100; i++) {
-            System.out.println(hashing.getNode(UUIDGenerators.randomV4(true)));
+            System.out.println(hashing.getNode(UUIDGenerators.v4(true)));
         }
     }
 
