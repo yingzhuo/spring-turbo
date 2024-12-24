@@ -87,11 +87,11 @@ public class SnowflakeGenerator {
     public SnowflakeGenerator(long workerId, long dataCenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(
-                    String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+                    String.format("workerId can't be greater than %d or less than 0", maxWorkerId));
         }
         if (dataCenterId > maxDataCenterId || dataCenterId < 0) {
             throw new IllegalArgumentException(
-                    String.format("data center Id can't be greater than %d or less than 0", maxDataCenterId));
+                    String.format("data centerId can't be greater than %d or less than 0", maxDataCenterId));
         }
         this.workerId = workerId;
         this.dataCenterId = dataCenterId;
@@ -108,7 +108,7 @@ public class SnowflakeGenerator {
         // 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
         if (timestamp < lastTimestamp) {
             throw new RuntimeException(String.format(
-                    "Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+                    "Clock moved backwards. Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
         }
 
         // 如果是同一时间生成的，则进行毫秒内序列
