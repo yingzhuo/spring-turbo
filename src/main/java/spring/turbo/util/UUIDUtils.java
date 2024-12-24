@@ -13,6 +13,7 @@ import static spring.turbo.util.StringPool.HYPHEN;
  * @see RandomStringUtils
  * @since 3.3.1
  */
+@Deprecated(forRemoval = true, since = "3.4.1")
 public final class UUIDUtils {
 
     /**

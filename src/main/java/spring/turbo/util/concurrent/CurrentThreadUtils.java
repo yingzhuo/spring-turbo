@@ -1,5 +1,6 @@
 package spring.turbo.util.concurrent;
 
+import spring.turbo.util.UUIDGenerators;
 import spring.turbo.util.UUIDUtils;
 
 /**
@@ -142,7 +143,7 @@ public final class CurrentThreadUtils {
         /**
          * 伪Java虚拟机ID
          */
-        private static final String PSEUDO_VM_ID = UUIDUtils.randomUUID(true);
+        private static final String PSEUDO_VM_ID = UUIDGenerators.randomV4(true);
     }
 
 }
