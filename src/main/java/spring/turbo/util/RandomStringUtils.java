@@ -12,9 +12,9 @@ import static spring.turbo.util.StringPool.EMPTY;
  *
  * @author 应卓
  * @see RandomUtils
+ * @see UUIDGenerators
  * @see StringUtils
  * @see StringDefaults
- * @see UUIDUtils
  * @since 1.0.0
  */
 public final class RandomStringUtils {
