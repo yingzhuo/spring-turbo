@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>spring-turbo</artifactId>
-    <version>3.4.1-1</version>
+    <version>3.4.2-SNAPSHOT</version>
 
     <url>https://github.com/yingzhuo/spring-turbo</url>
     <description>Another enhancement library of SpringBoot/SpringFramework. Have fun.</description>
@@ -125,7 +125,7 @@
         <encoding>UTF-8</encoding>
         <java.version>17</java.version>
 
-        <spring.boot.version>3.4.1</spring.boot.version>
+        <spring.boot.version>3.4.2-SNAPSHOT</spring.boot.version>
         <lombok.version>1.18.36</lombok.version>
     </properties>
 
@@ -399,6 +399,27 @@
                                 </requireMavenVersion>
                                 <banDuplicatePomDependencyVersions/>
                             </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-license</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy todir="${project.build.directory}/classes/META-INF/">
+                                    <fileset dir="${project.basedir}" includes="LICENSE.txt NOTICE.txt"/>
+                                </copy>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
