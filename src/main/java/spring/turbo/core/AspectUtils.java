@@ -3,9 +3,9 @@ package spring.turbo.core;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
-import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Optional;

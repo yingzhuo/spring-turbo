@@ -1,9 +1,9 @@
 package spring.turbo.util.reflection;
 
+import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
 import spring.turbo.util.ClassUtils;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Supplier;
 
